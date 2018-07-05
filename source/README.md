@@ -4,7 +4,9 @@ Packagedate: 2018/04/07
 Author: Ulrike Fischer
 
 ## License
-LaTeX Project Public License
+The tagpdf package may be modified and distributed under the terms and conditions of the 
+[LaTeX Project Public License](https://www.latex-project.org/lppl/), version 1.3c or greater.
+
 
 ## Contents
 
@@ -19,7 +21,7 @@ LaTeX Project Public License
 - tagpdf-pdftex.def      (pdftex specific code)
 - tagpdf-luatex.def      (luatex specific code)
 - tagpdf.lua             (lua code for luatex)
-- tagpdf.tex, tagpdf.pdf (the docu)
+- tagpdf.tex, tagpdf.pdf, tagpdf.bib (the docu)
 - various examples       (part of the documentation)   
 
 ## Installation

@@ -1,6 +1,6 @@
 -- Build script for tagpdf
 packageversion="0.1"
-packagedate="2018/03/25"
+packagedate="2018/07/05"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -14,9 +14,9 @@ pdfext=""
 sourcefiledir = "./source"
 
 tagfiles = {"*.md",
-            "texmf/tex/latex/tagpdf/*.sty",
-            "texmf/tex/latex/tagpdf/*.def",
-            "texmf/tex/latex/tagpdf/*.lua"}
+            "**/*.sty",
+            "**/*.def",
+            "**/*.lua"}
 
 function update_tag (file,content,tagname,tagdate)
  tagdate = string.gsub (tagdate,"-", "/")
@@ -49,6 +49,24 @@ function update_tag (file,content,tagname,tagdate)
  end
  return content
  end
+
+-- ctan setup
+docfiles = {"source/tagpdf.bib", "source/examples/**/*.tex", "source/examples/**/*.pdf"}
+textfiles= {"*.md"}
+packtdszip   = false
+installfiles = {
+                "**/*.sty",
+                "**/*.def",
+                "**/*.lua"
+               }  
+               
+sourcefiles  = {
+                "**/*.sty",
+                "**/*.def",
+                "**/*.lua"
+               }
+                            
+typesetfiles = {"source/tagpdf.tex"}
 
 kpse.set_program_name ("kpsewhich")
 if not release_date then
