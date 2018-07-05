@@ -20,7 +20,7 @@ if ! command -v texlua > /dev/null; then
 fi
 
 # Needed for any use of texlua even if not testing LuaTeX
-tlmgr install fontspec graphics l3build latex latex-bin luaotfload luatex microtype koma-script fancyhdr babel babel-english
+tlmgr install fontspec graphics l3build latex latex-bin luaotfload luatex microtype koma-script fancyhdr babel babel-english amsfonts
 
 
 # Required to build plain and LaTeX formats:
