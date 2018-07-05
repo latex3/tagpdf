@@ -2,7 +2,7 @@
 
 \documentclass{scrartcl}
 \input{regression-test}
-\START
+
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 %\usepackage{graphicx}
@@ -21,7 +21,7 @@
 %
 %\tagpdfsetup{activate-all,log=all,uncompress}
 \begin{document}\showoutput
-
+\START
 blub
 
 \end{document}
