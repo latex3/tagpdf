@@ -2,26 +2,26 @@
 
 \documentclass{scrartcl}
 \input{regression-test}
-
+\START
 \usepackage[english]{babel}
 \usepackage{tagpdf}
-%\usepackage{graphicx}
-%\tagpdfifpdftexT
-% {
-%  \usepackage[utf8]{inputenc}
-%  \usepackage[T1]{fontenc}
-% }
-%
-%\tagpdfifluatexT
-% {
-%  \usepackage{fontspec}
-%  \usepackage{luacode}
-% }
+\usepackage{graphicx}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
 %
 %
 %\tagpdfsetup{activate-all,log=all,uncompress}
 \begin{document}\showoutput
-\START
+
 blub
 
 \end{document}
