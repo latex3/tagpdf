@@ -1,8 +1,8 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 
 \documentclass{scrartcl}
-\START
 \input{regression-test}
+\START
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 \usepackage{graphicx,lipsum}
@@ -21,9 +21,8 @@
 
 \tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
 \begin{document}
-\START
 some things untagged.
-
+%\START
 %\showoutput
 \ExplSyntaxOn
 %\msg_log:n { \c_sys_engine_str }
