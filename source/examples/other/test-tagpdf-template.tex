@@ -1,0 +1,27 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+ }
+
+\tagpdfsetup
+    {
+      activate-all,
+      uncompress
+    }
+\begin{document}
+
+blbl
+
+\end{document} 

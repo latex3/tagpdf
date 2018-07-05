@@ -1,0 +1,56 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\input{regression-test}
+\interactionmode=3
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+\usepackage{graphicx,lipsum}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
+\begin{document}
+\START
+some things untagged.
+
+\showoutput
+\ExplSyntaxOn
+%\msg_log:n { \c_sys_engine_str }
+
+\uftag_mc_begin:n{artifact=pagination}%
+Artifact%
+\uftag_mc_end:
+
+\uftag_mc_begin:n{artifact}%
+Artifact%
+\uftag_mc_end:
+
+\uftag_mc_begin:n{tag=Figure}
+\includegraphics{example-image-duck}
+\uftag_mc_end:
+
+some things untagged.
+
+\uftag_mc_begin:n{tag=P}marginpar \tagpdfifluatexT{\showtagpdfattributes} blblb  \uftag_mc_end:
+
+\uftag_mc_begin:n{tag=P}\lipsum[1]\uftag_mc_end:
+\uftag_mc_begin:n{tag=P}\lipsum[1]\uftag_mc_end:
+\uftag_mc_begin:n{tag=P}\lipsum[1]\uftag_mc_end:
+\uftag_mc_begin:n{tag=P}\lipsum[1]\uftag_mc_end:
+\uftag_mc_begin:n{tag=P}\lipsum[1]\uftag_mc_end:
+\uftag_mc_begin:n{tag=P}\lipsum[1]\uftag_mc_end:
+\ExplSyntaxOff
+\end{document}
+
+

@@ -1,0 +1,40 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+.................................................
+. luatex
+.................................................
+.................................................
+. tagpdf info: "role-new-tag"
+. 
+. adding new tag section mapped to role H1
+.................................................
+*************************************************
+* tagpdf warning: "role-missing"
+* 
+* tag mn has no role assigned
+*************************************************
+*************************************************
+* tagpdf warning: "role-unknown"
+* 
+* role HX is not known
+*************************************************
+.................................................
+. tagpdf info: "role-new-tag"
+. 
+. adding new tag wrongtag mapped to role HX
+.................................................
+The property list \g__uftag_role_rolemap_prop contains the pairs (without
+outer braces):
+>  {section}  =>  {H1}
+>  {wrongtag}  =>  {HX}.
+<recently read> }
+l. ......ftag_prop_show:N \g__uftag_role_rolemap_prop
+tagpdf: lua property table g__uftag_role_rolemap_prop
+tagpdf: [section] => H1
+tagpdf: [wrongtag] => HX
+> \testname=macro:
+->44.
+l. ...\show\testname
+> \testnum=macro:
+->mn.
+l. ...\show\testnum

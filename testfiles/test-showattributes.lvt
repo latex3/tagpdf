@@ -1,0 +1,52 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\input{regression-test}
+
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+\usepackage{graphicx}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+\tagpdfsetup{activate-all,log=vv,uncompress}
+\begin{document}
+
+\START \showoutput
+\ifluatex
+\tagmcbegin{tag=P}
+Cras egestas ipsum a nisl. Vivamus varius dolor
+Pellentesque scelerisque \showtagpdfattributes
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+\tagmcend
+
+\tagmcbegin{tag=P}
+Cras egestas ipsum a nisl. Vivamus varius dolor
+Pellentesque scelerisque \showtagpdfattributes
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+\tagmcend
+
+\tagmcbegin{tag=H1}
+Cras egestas ipsum a nisl. Vivamus varius dolor
+Pellentesque scelerisque \showtagpdfattributes
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+\tagmcend
+
+\tagmcbegin{tag=Blub}
+Cras egestas ipsum a nisl. Vivamus varius dolor
+Pellentesque scelerisque \showtagpdfattributes
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+\tagmcend
+
+\fi
+\end{document}
+

@@ -1,0 +1,44 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\input{regression-test}
+
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+\usepackage{graphicx}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{activate-all,log=all,uncompress}
+\START
+
+\ExplSyntaxOn
+\msg_log:n { \c_sys_engine_str }
+\__uftag_role_add_tag:nn {section}{H1}
+
+\__uftag_role_add_tag:nn {mn}{}
+
+\__uftag_role_add_tag:nn {wrongtag}{HX}
+
+\__uftag_prop_show:N \g__uftag_role_rolemap_prop
+
+\edef\testname{\__uftag_role_get_index_from_tag:nn{g__uftag_role_tags}{mn}}
+\show\testname
+
+\edef\testnum{\__uftag_role_get_tag_from_index:nn{g__uftag_role_tags}{\testname}}
+\show\testnum
+
+\ExplSyntaxOff
+
+\END
+

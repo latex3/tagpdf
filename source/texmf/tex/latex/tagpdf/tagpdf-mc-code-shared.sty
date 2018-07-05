@@ -1,0 +1,57 @@
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2018/07/04} {0.1}
+ {part of tagpdf - code related to marking chunks - code shared by generic and luamode }
+
+% I use a latex counter for the absolute count, so that it is added to
+% \cl@@ckpt and restored e.g. in tabulars and align
+% \int_new:N  \c@g__uftag_MCID_int and
+% \tl_put_right:Nn\cl@@ckpt{\@elt{g_uf_test_int}}
+% would work too, but as the name is not expl3 then too, why bother?
+% the absolute counter can be used to label and to check if the page
+% counter needs a reset.
+
+\newcounter { g__uftag_MCID_abs_int  }
+\cs_new:Nn  \__uftag_get_mc_abs_cnt: { \int_use:N \c@g__uftag_MCID_abs_int }
+
+% tagmcabs is the label name of the absolute count which is used to identify the chunk
+\zref@newprop {tagmcabs}  [0] { \int_use:N \c@g__uftag_MCID_abs_int }
+\zref@addprop {tagpdf}   {tagmcabs}
+\zref@addprop {LastPage} {tagmcabs}
+
+%stores labels of mcid.
+\cs_new:Nn \__uftag_mc_handle_mc_label:n
+ {
+  \zref@labelbylist{tagpdf-#1}{tagpdf}
+ }
+
+% will hold the structure numbers for the parenttree
+% key:   absolute number of the mc (tagmcabs)
+% value: the structure number the mc is in
+\__uftag_prop_new:N \g__uftag_mc_parenttree_prop
+
+%to test nesting mc:
+\bool_new:N \g__uftag_in_mc_bool
+
+\prg_new_conditional:Nnn  \_uftag_mc_if_in: {p,T,F,TF}
+ {
+  \bool_if:NTF \g__uftag_in_mc_bool
+   { \prg_return_true:  }
+   { \prg_return_false: }
+ }
+
+%shared keys
+%the rest are in the splitted code 
+\tl_new:N   \l__uftag_mc_artifact_type_tl
+
+\keys_define:nn { tagpdf / mc }
+ {
+  stash                  .bool_set:N    = \l__uftag_mc_key_stash_bool,
+  artifact-bool          .bool_set:N    = \l__uftag_mc_artifact_bool,
+  artifact-type              .choice:,
+  artifact-type / pagination .code:n    = {\tl_set:Nn \l__uftag_mc_artifact_type_tl { Pagination }},
+  artifact-type / layout     .code:n    = {\tl_set:Nn \l__uftag_mc_artifact_type_tl { Layout     }},
+  artifact-type / page       .code:n    = {\tl_set:Nn \l__uftag_mc_artifact_type_tl { Page }},
+  artifact-type / background .code:n    = {\tl_set:Nn \l__uftag_mc_artifact_type_tl { Background }},
+  artifact-type / notype     .code:n    = {\tl_set:Nn \l__uftag_mc_artifact_type_tl {}},
+ }
+
+\endinput

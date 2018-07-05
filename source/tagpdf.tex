@@ -1,0 +1,802 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+% $UFDate: 2017-12-03 18:32:01 +0100 -- Commit: 77304d9 (HEAD, tag: v1.4, master) -- master$
+\makeatletter
+\def\UlrikeFischer@package@version{0.1}
+\makeatother
+\documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[autostyle]{csquotes}
+\usepackage{microtype}
+\DisableLigatures{encoding = T1, family = tt* }
+\usepackage[style=numeric,hyperref=false]{biblatex}
+\addbibresource{tagpdf.bib}
+\usepackage{fourier}
+\renewcommand\ttdefault{lmtt}
+\usepackage{tcolorbox}
+\usepackage{ydoc-desc}
+\usepackage{tabularx, marginnote}
+\reversemarginpar
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\tikzset{arg/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=2mm and 2mm}}
+\tikzset{operator/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=4mm and 4mm}}
+\usepackage{enumitem,needspace}
+\makeatletter
+\enitkv@key{enumitem}{compactsep}[true]{%
+  \divide\partopsep by 2\relax
+  \divide\topsep by 2\relax
+  \divide\itemsep by 2\relax
+  \divide\parsep by 2\relax}
+\makeatother
+\title{The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname}
+\author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, columns=fullflexible,language=[LaTeX]TeX}
+\usepackage{tagpdf}
+
+
+\usepackage{hyperref}
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}[colframe=red]
+This package is not meant for normal document production.
+
+You need a current expl3 version to use it.
+
+This package is incomplete, experimental and quite probably contains bugs.
+
+You need some knowledge about \TeX, pdf and perhaps even lua to use it.
+
+\medskip
+
+Issues, comments, suggestions should be added as issues to the github tracker:
+
+\medskip
+\centering \textbf{https://github.com/u-fischer/tagpdf}
+
+\end{tcolorbox}
+
+\tableofcontents
+
+\section{Introduction}
+
+Since many year the creation of accessible pdf-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
+
+But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted. 
+
+This package tries to close this gap by offering \emph{core} commands to tag a pdf.\footnote{In case you don't know what this means: there will be some explanations later on.}
+
+My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
+
+The package does not patch commands from other packages. It is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged pdf files -- and the examples accompaigning the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
+
+So this package deliberately concentrates on the basics -- and this already quite a lot, there are much more details involved as I expected when I started.
+
+I'm sure that it has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}. 
+
+Please also check the github site for new examples and improvements. 
+
+
+\subsection{Tagging and accessibility}
+
+While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} pdf-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
+
+So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
+
+
+\subsection{Engines and modes}
+
+The package works currently with pdflatex and lualatex. 
+
+The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
+
+I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
+
+While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. pdf is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.
+
+
+
+\subsection{References}
+
+My main reference was the free reference for pdf 1.7. \parencite{pdfreference}. This document is from 2006.
+
+In the meantime pdf 2.0. has been released. I know that it contains also for accessibility relevant changes. But the specification is not available for free, also currently imho neither pdftex nor luatex actually target the creation of pdf 2.0. So I'm ignoring this for the moment.
+
+
+\subsection{Validation}
+
+pdf's created with the commands of this package must be validated:
+
+\begin{itemize}
+\item One must check that the pdf is \emph{syntactically} correct. It is rather easy to create broken pdf: e.g. if a chunk is opened on one page but closed on the next page. 
+\item One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
+\item One must check how good the accessibility is \emph{practically}.
+\end{itemize}
+
+Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
+It can also be done also with the free PDF Accessibility Checker (PAC~3) \parencite{pac3}.
+There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here. 
+
+Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a pdf has real accessibility problems.
+
+\minisec{Preflight woes}
+
+Sadly validators can not be always trusted. As an example for an reason that I don't understand the adobe preflight don't like the list structure \texttt{L}.
+It is also possible that validators contradict: that the one says everything is okay, while the other complains.
+
+\subsection{Examples wanted!}
+To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
+
+\begin{tcolorbox}
+Feedback, contribuations and corrections are welcome!
+\end{tcolorbox}
+
+All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed pdf are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.
+
+
+\section{Setup}
+
+\minisec{Activation needed!}
+When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below.
+
+\subsection{Modes and package options}
+
+The package has two different modes: The \textbf{generic mode} works (in theory, currently only with pdftex and luatex) probably with all engines, the \textbf{lua mode} only with luatex. The differences between both modes  will be described later. The mode can be set with package options:
+
+\DescribeKey{luamode}
+
+This is the default mode. It will use the generic mode if the document is processed with pdflatex and the lua mode with lualatex.
+
+\DescribeKey{genericmode}
+
+This will force the generic mode for all engines.
+
+\subsection{Setup and activation}\label{ssec:setup}
+
+The following command setups the general behaviour of the package.
+The command should be normally used only in the preamble (for a few keys it could also make sense to change them in the document).
+
+\DescribeMacro\tagpdfsetup{<key-val-list>}
+
+
+The key-val list understands the following keys:
+\begin{description}
+\item[\PrintKeyName{activate-mc} ] Boolean, initially false. Activates the code related to marked content.
+\item[\PrintKeyName{activate-struct}] Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
+\item[\PrintKeyName{activate-tree}] Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
+\item[\PrintKeyName{activate-all}] Boolean, initially false. Activates everything, that normally the sensible thing to do.
+\item[\PrintKeyName{add-new-tag}] See section \ref{sec:new-tag} for a description.
+\item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks.
+\item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel. 
+\item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
+\item[\PrintKeyName{tabsorder}] Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
+\item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc.
+\item[\PrintKeyName{uncompress}] Equivalent to using \texttt{compresslevel=0}.
+   
+\end{description}
+
+\section{Tagging}
+
+pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a pdf file}:
+
+\begin{lstlisting}[columns=fixed]
+stream
+   BT
+   /F27 14.3462 Tf                 %select font
+   89.291 746.742 Td               %move point
+   [(1)-574(Intro)-32(duction)]TJ  %print text
+   /F24 10.9091 Tf                 %select font
+    0 -24.35 Td                    %move point
+    [(Let's)-331(start)]TJ         %print text
+    205.635 -605.688 Td            %move point
+    [(1)]TJ                        %print text
+   ET
+endstream
+\end{lstlisting}
+
+From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no garanty that the stream contains the text in the order it should be read.
+
+Tagging means to enrich the pdf with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)
+
+
+
+\subsection{Three tasks}
+To tag a pdf three tasks must be  carried out:
+
+\begin{enumerate}
+\item \textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. At last some text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
+
+\item \textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the pdf structure right still means that additional mark up must be added.
+
+\item \textbf{The tree management}:\marginnote{tree-task} At last the structure must be written into the pdf. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
+\end{enumerate}
+
+\begin{figure}[t!]
+\begin{tcolorbox}
+
+\minisec{Page stream with marked content}
+
+\begin{tikzpicture}[baseline=(a.north),node distance=2pt,remember picture]
+\node(start){\ldots~\ldots~\ldots};
+\node[draw,base right = of start](a) {mc-chunk 1};
+\node[draw,base right = of a](b) {mc-chunk 2};
+\node[draw,base right = of b](c) {mc-chunk 3};
+\node[draw,base right = of c](d) {mc-chunk 3};
+\node[base right = of d] {\ldots~\ldots};
+\end{tikzpicture}
+
+
+
+\minisec{Structure}
+
+\newlength\ydistance\setlength\ydistance{-0.8cm}
+\begin{tikzpicture}[remember picture,baseline=(root.north)]
+
+\node[draw,anchor=base west] (root) at (0,0) {Sect (start section)};
+\node[draw,anchor=base west] at (0.3,\ydistance) {H (header section)};
+\node[draw,anchor=base west](aref) at (0.6,2\ydistance){mc-chunk 1};
+\node[draw,anchor=base west](bref) at (0.6,3\ydistance){mc-chunk 2};
+\node[draw,anchor=base west] at (0.3,4\ydistance){/H (end header)};
+\node[draw,anchor=base west] at (0.3,5\ydistance){P (start paragraph)};
+\node[draw,anchor=base west](cref) at (0.6,6\ydistance){mc-chunk 3};
+\node[draw,anchor=base west](dref) at (0.6,7\ydistance){mc-chunk 4};
+\node[draw,anchor=base west] at (0.3,8\ydistance){/P (end paragraph)};
+\node[draw,anchor=base west] at (0,9\ydistance){/Sect (end section)};
+\end{tikzpicture}
+
+\begin{tikzpicture}[remember picture, overlay]
+\draw[->,red](aref)-|(a);
+\draw[->,red](bref)-|(b);
+\draw[->,red](cref)-|(c);
+\draw[->,red](dref)-|(d);
+
+\end{tikzpicture}
+\end{tcolorbox}
+\caption{Schematical description of the relation between marked content in the page stream and the structure}
+\end{figure}
+
+
+\subsection{Task 1: Marking the chunks: the mark-content-step}
+
+To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the pdf reference they are called \enquote{marked content}. The three main variants needed here are:
+
+\begin{description}
+\item[Artifacts] They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.
+
+\begin{lstlisting}
+/Artifact BMC
+ text to be marked
+/EMC
+\end{lstlisting}
+
+\item[Artifacts with a type]  They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} has two arguments: again the tag name \texttt{/Artifact} and a following dictionary which allows to specify the suppressed info. Text in header and footer can e.g. be declared as pagination like this:
+
+\begin{lstlisting}
+/Artifact <</Type /Pagination>> BDC
+ text to be marked
+/EMC
+\end{lstlisting}
+
+\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text.\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}   Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
+
+
+    In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:
+
+\begin{lstlisting}
+/H <</MCID 3>> BDC
+ text to be marked
+/EMC
+\end{lstlisting}
+
+This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system\footnote{It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the pdf as one would need dummy objects.}.
+
+It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.
+\end{description}
+
+The needed markers can be added with low level code e.g. like this (in pdftex syntax):
+
+\begin{lstlisting}
+\pdfliteral page {/H <</MCID 3>> BDC}%
+ text to be marked
+\pdfliteral page {EMC}%
+\end{lstlisting}
+
+This sounds easy. But there are quite a number of traps.
+
+\begin{enumerate}[beginpenalty=10000]
+  \item Pdf is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
+  So marking e.g. a section title like in the following example won't always work as the literal before the section could end on the previous page:
+
+\begin{lstlisting}
+\pdfliteral page {/H <</MCID 3>> BDC} %problem: possible pagebreak here
+ \section{mysection}
+\pdfliteral page {EMC}%
+\end{lstlisting}
+  Using the literals \emph{inside} the section argument is better, but then one has to take care that they don't wander into the header and the toc.
+
+  \item Literals are \enquote{whatsits} nodes and can change spacing, page and line breaking. The literal \emph{behind} the section in the previous example could e.g. lead to a lonely section title at the end of the page.
+
+  \item The \texttt{/MCID} numbers must be unique on a page. So you can't use the literal in a saved box that you reuse in various places. This is e.\,g. a problem with \texttt{longtable} as it saves the table header and footer in a box.
+
+  \item The  \texttt{/MCID}-chunks are leaf nodes in the structure tree, so they shouldn't be nested.
+
+  \item Often text in a document is created automatically or moved around: entries in the table of contents, index, bibliography and more. To mark these text chunks correctly one has to analyze the code creating such content to find suitable places to inject the literals.
+
+  \item The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page (this package uses in generic mode a label-ref-system to get around this problem. This sadly means that three compilations are needed until everything has settled down).
+
+  \item There exist environments that process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
+       So one has to check for doublettes and holes in the counting system.
+
+  \item Pdf is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be handled in subsection~\ref{sec:splitpara}.
+\end{enumerate}
+
+\subsubsection{Generic mode versus lua mode in the mc-task}
+
+While in generic mode the commands insert the literals directly and so have all the problems described above the lua mode works quite differently: The tagging commands don't insert literals but set some \emph{attributes} which are attached to all the following nodes. When the page is shipped out some lua code is called which wanders through the shipout box and injects the literals at the places where the attributes changes.
+
+This means that quite a number of problems mentioned above are not relevant for the lua mode:
+
+\begin{enumerate}
+\item Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the pdf and so bloat up pdf a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).
+\item The commands don't insert literals directly and so affect line and page breaking much less.
+\item The numbering of the MCID are done at shipout, so no label/ref system is needed.
+\item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact. This can probably be extended and improved.
+\end{enumerate}
+
+\subsubsection{Commands to mark content and chunks}
+
+It\marginnote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
+For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.
+
+\ExplSyntaxOn
+\DescribeMacro\tagmcbegin{<key-val-list>}
+\DescribeMacro\uftag_mc_begin:n{<key-val-list>}
+\ExplSyntaxOff
+
+These commands insert the begin of the marked content code in the pdf. They don't start a paragraph. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
+Such markers should not be nested. The command will warn you if this happens.
+
+The key-val list understands the following keys:
+\begin{description}
+  \item[\PrintKeyName{tag}] This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags, see the same section.
+  \item[\PrintKeyName{artifact}] This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
+
+      It is not quite clear if rules and other decorative graphical objects needs to be marked up as artifacts. Acrobat seems not to mind if not, but PAC~3 complained.
+
+      The validators complain if some text is not marked up, but it is not quite clear if this is a serious problem.
+
+      The\marginnote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.
+
+  \item[\PrintKeyName{stash}] Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current  structure.
+
+  \item[\PrintKeyName{label}] This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
+
+  \item[\PrintKeyName{raw}] This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text. (I will probably add keys for \texttt{/Alt} and \texttt{/Actualtext} later, but I haven't made up my mind regarding the encoding yes).
+\end{description}
+
+\ExplSyntaxOn
+\DescribeMacro\tagmcend
+\DescribeMacro\uftag_mc_end:
+\ExplSyntaxOff
+
+These commands insert the end code of the marked content. The user command also issues at first an \verb+\unskip+. Both commands check if there has been a begin marker and issue a warning if not.
+
+\ExplSyntaxOn
+\DescribeMacro\tagmcuse{<label name>}
+\DescribeMacro\uftag_mc_use:n {<label name>}
+\ExplSyntaxOff
+
+These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.
+
+\ExplSyntaxOn
+\DescribeMacro\tagmcifinTF{<true code>}{<false>}
+\DescribeMacro\_uftag_mc_if_in:TF{<true code>}{<false>}
+\ExplSyntaxOff
+
+These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
+
+\subsubsection{Tips}
+
+\begin{itemize}
+\item Mark commands inside floats should work fine (but need perhaps some compilation rounds in generic mode).
+\item In case you want to use it inside a \verb+\savebox+ (or some command that saves the text internally in a box): If the box is used directly, there is probably no problem. If the use is later, stash the marked content and add the needed \verb+\tagmcuse+ directly  before oder after the box when you use it.
+\item Don't use a saved box with markers twice.
+\item If boxes are unboxed you will have to analyze the pdf to check if everything is ok.
+\item If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the pdf.
+ \end{itemize}
+
+\subsubsection{Math}
+
+Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
+The pdf then looked like this
+
+\begin{lstlisting}
+/mn <</MCID 6 /ActualText<FEFF0034>/Alt(  : open bracket: four )>>BDC
+...
+/mn <</MCID 7 /ActualText<FEFF0033>/Alt(  third s  )>>BDC
+...
+/mo <</MCID 8 /ActualText<FEFF2062>/Alt(  times  )>>BDC
+\end{lstlisting}
+
+
+If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.
+
+But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the pdf and the task how to read this aloud delegated to the screen reader. More investigations are needed here.
+
+\subsubsection{Split paragraphs}\label{sec:splitpara}
+
+A\marginnote{Generic mode only} problem are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
+
+So with pdflatex in generic mode one currently has to do the splitting manually.
+
+The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea is to use \verb+\vadjust+ in the right place:
+
+\begin{lstlisting}
+\tagmcbegin{tag=P}
+...
+fringilla, ligula wisi commodo felis, ut adipiscing felis dui in
+enim. Suspendisse malesuada ultrices ante.% page break
+\vadjust{\tagmcend\pagebreak\tagmcbegin{tag=P}}
+Pellentesque scelerisque
+...
+sit amet, lacus.\tagmcend
+\end{lstlisting}
+
+
+\subsection{Task 2: Marking the structure}
+The structure is represented in the pdf with a number of objects of type \texttt{StructElem} which build a tree: each of this objects points back to its parent and normally has a number of kid elements, which are either again structure elements or -- as leafs of the tree -- the marked contents chunks marked up with the \verb+tagmc+-commands. The root of the tree is the \texttt{StructTreeRoot}.
+
+\subsubsection{Structure types}
+The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and base them on \texttt{P}:
+
+\begin{lstlisting}
+\tagpdfsetup{
+  add-new-tag = TAB/P,
+  add-new-tag = FIG/P,
+            }
+\end{lstlisting}
+
+\subsubsection{Sectioning}
+The sectioning units can be structured in two ways: a flat, html-like and a more xml-like version.
+The flat version creates a structure like this:
+
+\begin{lstlisting}
+<H1>section header</H1>
+<P> text</P>
+<H2>subsection header</H2>
+...
+\end{lstlisting}
+
+So here the headers are marked according their level with \texttt{H1}, \texttt{H2}, etc.
+
+In the xml-like tree the complete text of a sectioning unit is surrounded with the \texttt{Sect} tag, and all headers
+with the tag \texttt{H}. Here the nesting defines the level of a sectioning header.
+
+\begin{lstlisting}
+<Sect>
+ <H>section header</H>
+ <P> text</p>
+ <Sect>
+   <H>subsection header</H>
+   ...
+ </Sect>
+</Sect>
+\end{lstlisting}
+
+The flat version is more \LaTeX-like and it is rather straightforward to patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates \texttt{H\ldots} start and end markers. The xml-like tree is more difficult to automate. If such a tree is wanted I would recommend to use -- like the context format -- explizit commands to start and end a sectioning unit.
+
+\subsubsection{Commands to define the structure}
+The following commands can be used to define the tree structure:
+
+\ExplSyntaxOn
+\DescribeMacro\tagstructbegin{key-val-list}
+\DescribeMacro\uftag_struct_begin:n {key-val-list}
+\ExplSyntaxOff
+
+These commands start a new structure.
+
+The key-val list understands the following keys:
+\begin{description}
+  \item[\PrintKeyName{tag}] This is required. The value of the key is normally one of the standard type listed in section \ref{sec:standard-types}. It is possible to setup new tags/types, see section \ref{sec:new-tags}.
+  \item[\PrintKeyName{stash}] Normally a new structure inserts itself as a kid into the currently active structure. This key prohibits this. The structure is nevertheless from now on \enquote{the current active structure} and parent for following  marked content and structures.
+  \item[\PrintKeyName{label}] This key sets a label by which you can use the structure later in another structure. Internally the label name will start with \texttt{tagpdfstruct-}.
+  \item[\PrintKeyName{title},\PrintKeyName{alttext},\PrintKeyName{actualtext}] These keys allow to set the dictionary entries \texttt{/Title}, \texttt{/Alt} and \texttt{/Actualtext}. But I haven't yet decided which is the suitable format for the values, so currently you must ensure yourself that the values lead to valid pdf content.
+ \end{description}
+
+
+\ExplSyntaxOn
+\DescribeMacro\tagstructend
+\DescribeMacro\uftag_struct_end:
+\ExplSyntaxOff
+
+This ends a structure.
+
+\ExplSyntaxOn
+\DescribeMacro\tagstructuse{<label>}
+\DescribeMacro\uftag_struct_use:n {<label>}
+\ExplSyntaxOff
+
+These commands insert a structure previously stashed away as kid into the currently active structure. A structure should be used only once, if the structure already has a parent you will get a warning.
+
+\subsubsection{Root structure}
+
+A document should have at least one structure which contains the whole document. A suitable tag is \texttt{Document} or \texttt{Article}. I'm considering to automatically inserting it.
+
+
+\subsection{Task 3: tree Management}
+When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the pdf. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:
+
+\ExplSyntaxOn
+\DescribeMacro\uftag_finish_structure:
+\ExplSyntaxOff
+
+This will hopefully write all the needed objects and values to the pdf. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap} and a few more values and dictionaries).
+
+I'm not quite sure if this shouldn't be a really internal command.
+
+
+\subsection{A fully marked up document body}
+The following shows the marking need for a section, a sentence and a list with two items. It is obvious that one wouldn't want to do like this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.
+
+\begin{lstlisting}
+\begin{document}
+
+\tagstructbegin{tag=Document}
+
+ \tagstructbegin{tag=Sect}
+  \tagstructbegin{tag=H}
+   \tagmcbegin{tag=H} %avoid page break!
+    \section{Section}
+   \tagmcend
+  \tagstructend
+  \tagstructbegin{tag=P}
+   \tagmcbegin{tag=P,raw=/Alt (x)}
+    a paragraph\par x
+   \tagmcend
+  \tagstructend
+
+ \tagstructbegin{tag=L} %List
+  \tagstructbegin{tag=LI}
+   \tagstructbegin{tag=Lbl}
+    \tagmcbegin{tag=Lbl}
+    1.
+    \tagmcend
+   \tagstructend
+   \tagstructbegin{tag=LBody}
+    \tagmcbegin{tag=P}
+    List item body
+    \tagmcend
+   \tagstructend %lbody
+  \tagstructend %Li
+
+  \tagstructbegin{tag=LI}
+   \tagstructbegin{tag=Lbl}
+    \tagmcbegin{tag=Lbl}
+    2.
+    \tagmcend
+   \tagstructend
+   \tagstructbegin{tag=LBody}
+    \tagmcbegin{tag=P}
+    another List item body
+    \tagmcend
+   \tagstructend %lbody
+  \tagstructend %Li
+  \tagstructend %L
+
+  \tagstructend  %Sect
+\tagstructend   %Document
+\tagfinish
+\end{document}
+\end{lstlisting}
+
+
+\section{Standard type and new tags}\label{sec:new-tag}
+
+The pdf reference mentions a number of standard types:
+\ExplSyntaxOn
+\clist_use:Nn \c__uftag_role_sttags_clist {,\c_space_tl}
+
+\ExplSyntaxOff
+
+Their meaning can be looked up in the pdf-reference\footnote{\url{https://wwwimages2.adobe.com/content/dam/acom/en/devnet/pdf/pdf_reference_archive/pdf_reference_1-7.pdf
+}}.
+
+New tags can be defined in the setup command with the key \texttt{add-new-tag}. It takes a value consisting of two names separated by a slash. The first is the new name, the second a known (e.g. a standard) tag it should be mapped too. Example:
+
+\Macro\tagpdfsetup{add-new-type = section/H1}
+
+
+
+\section{Accessibility is not only tagging}
+
+ A tagged pdf is needed for accessibility but this is not enough. As already mentioned there are more requirements:
+ \begin{itemize}
+ \item The language must be declared by adding a \texttt{/Lang xx-XX} to the pdf catalog or -- if the language changes for a part of the text to the structure or the marked content -- this can be rather easily done with existing packages. %%UF mention some code
+ \item All characters must have an unicode representation or a suitable alternative text.
+      With lualatex and open type (unicode) fonts this is normally not a problem. With pdflatex it could need
+      \begin{verbatim}
+      \input{glyphtounicode}
+      \pdfgentounicode=1
+      \end{verbatim}
+ and perhaps some\verb+\pdfglyphtounicode+ commands.
+ \item Hard and soft hyphen must be distinct.
+ \item Spaces between words should be space glyphs and not only a horizontal movement.
+ \item Various small infos must be present in the catalog dictionary, info dictionary and the page dictionaries.
+ \end{itemize}
+
+ If suitable I will add code for this tasks to this packages. But some of them can also be done already with existing packages like hyperref, hyperxmp, pdfx.
+
+
+
+\section{To-do}
+\begin{itemize}
+\item Add commands and keys to enable/disable the checks.
+\item Check/extend the code for language tags.
+\item Think about math.
+\item Think about Links/Annotations
+\item Keys for alternative and actualtext. How to define the input encoding? Like in Accsupp?
+\item Check twocolumn documents
+\item Examples
+\item Write more Tests
+\item Write more Tests
+\item \enquote{Fake spaces}
+\item Unicode
+\item Hyphenation char
+\item Think about included (tagged) pdf. Can one handle them?
+\item Improve the documentation
+\item Tag as proof of concept the documentation
+\item Document the code better
+\item Create dtx
+\item Find someone to check and improve the lua code
+\item Move more things to lua in the luamode
+\item Find someone to check and improve the rest of the code
+\item bidi?
+\end{itemize}
+
+\printbibliography
+
+\appendix
+
+\section{Some remarks about the pdf syntax}
+
+This is not meant as a full reference only as a background to make the examples and remarks easier to understand.
+
+\begin{description}
+\item[postfix notation] pdf uses in various places postfix notation. This means that the operator is behind its arguments:
+
+\begin{tikzpicture}[baseline=(c.base)]
+\node[arg](a1) {18};
+\node[arg,right=of a1.east](a2) {0};
+\node[operator,right= of a2.east](c) {obj};
+\draw[->] (c.south) --++(0,-2mm) -| (a1);
+\draw[->] (c.south) --++(0,-2mm) -| (a2);
+\end{tikzpicture}
+
+\begin{tikzpicture}[baseline=(c.base)]
+\node[arg](a1) {18};
+\node[arg,right=of a1.east](a2) {0};
+\node[operator,right= of a2.east](c) {R};
+\draw[->] (c.south) --++(0,-2mm) -| (a1);
+\draw[->] (c.south) --++(0,-2mm) -| (a2);
+\end{tikzpicture} (a reference (operator R) to an object
+
+
+\begin{tikzpicture}[baseline=(c.base)]
+\node[arg](a1) {1};
+\node[arg,right = of a1.east](a2) {0};
+\node[arg,right = of a2.east](a3) {0};
+\node[arg,right = of a3.east](a4) {1};
+\node[arg,right = of a4.east](a5) {100.2};
+\node[arg,right = of a5.east](a6) {742};
+\node[operator,right = of a6.east](c) {Tm};
+\draw[->] (c.south) --++(0,-2mm) -| (a6);
+\draw[->] (c.south) --++(0,-2mm) -| (a5);
+\draw[->] (c.south) --++(0,-2mm) -|(a4);
+\draw[->] (c.south) --++(0,-2mm) -|(a3);
+\draw[->] (c.south) --++(0,-2mm) -| (a2);
+\draw[->] (c.south) --++(0,-2mm) -|(a1);
+\end{tikzpicture}
+
+\begin{tikzpicture}[baseline=(c.base)]
+\node[arg](a1) {/P};
+\node[arg,right = of a1.east](a2) {<</MCID 0>>};
+\node[operator,right = of a2.east](c) {BDC};
+\draw[->] (c.south) --++(0,-2mm) -| (a1);
+\draw[->] (c.south) --++(0,-2mm) -| (a2);
+\end{tikzpicture}
+
+\item[Names] pdf knows a sort of variable called a \enquote{name}. Names start with a slash and may include any regular characters, but not delimiter or white-space characters. Uppercase and lowercase letters are considered distinct: \texttt{/A} and \texttt{/a} are different names. \verb+/.notdef+ and \verb+/Adobe#20Green+  are valid names.
+
+    Quite a number of the options of \texttt{tagpdf} actually define such a name which is later added to the pdf. I recommend \emph{strongly} not to use spaces and exotic chars in such names. While it is possible to escape such names it is rather a pain when moving them through the various lists and commands and quite probably I forgot some place where it is needed.
+
+\item[Strings] There are two types of strings: \emph{Literal strings} are enclosed in round parentheses. They normally contain a mix of ascii chars and octal numbers:
+
+    \verb+(gr\374\377ehello[]\050\051)+.
+
+    \emph{Hexadezimal strings} are enclosed in angle brackets. They allow for a representation of all characters the whole unicode ranges. This is the default output of lualatex.
+
+    \texttt{<003B00600243013D0032>}.
+
+\item[Arrays] Arrays are enclosed by square brackets. They can contain all sort of objects including more arrays. As an example here an array which contains five objects: a number, an object reference, a string, a dictionary and another array. Be aware that despite the spaces \texttt{15 0 R} is \emph{one} element of the array.
+
+    \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
+
+    \begin{tikzpicture}[baseline=(c.base)]
+    \node[arg](a1) {0};
+    \node[arg,right = of a1.east](a2) {15 0 R};
+    \node[arg,right = of a2.east](a3) {(hello)};
+    \node[arg,right = of a3.east](a4) {<</Type /X>>};
+    \node[arg,right = of a4.east](a5) {[1 2 3]};
+    \end{tikzpicture}
+
+
+\item[Dictionaries] Dictionaries are enclosed by double angle brackets. They contain key-value pairs. The key is always a name. The value can be all sort of objects including more dictionaries. It doesn't matter in which order the keys are given.
+
+    Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}
+    but at least for examples a layout with line breaks and indentation is more readable:
+
+    \begin{verbatim}
+    <<
+      /Type      /Page
+      /Contents  3 0 R
+      /Resources 1 0 R
+      /MediaBox  [0 0 595.276 841.89]
+      /Parent    5 0 R
+    >>
+    \end{verbatim}
+
+
+ \item[(indirect) objects] These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a pdf is edited objects with a larger generation number can be added. As with pdflatex/lualatex the pdf is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.
+
+ \item[streams] A stream is a sequence of bytes. It can be long and is used for the real content of pdf: text, fonts, content of graphics.
+ A stream starts with a dictionary which at least sets the \texttt{/Length} name to the length of the stream followed by the stream content enclosed by the keywords \texttt{stream} and \texttt{endstream}
+
+ Here an example of a stream, an object definition and reference. In the object 2 (a page object) the \texttt{/Contents} key references the object 3 and this then contains the text of the page in a stream. \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the first chooses the font with the name \texttt{/F15} at the size 10.9, the second displaces the reference point on the page and the third inserts the text.
+
+  \begin{verbatim}
+  % a page object (shortened)
+  2 0 obj
+    <<
+      /Type/Page
+      /Contents 3 0 R
+      /Resources 1 0 R
+      ...
+    >>
+  endobj
+
+  %the /Contents object (/Length value is wrong)
+  3 0 obj
+   <</Length 153 >>
+   stream
+    BT
+     /F15 10.9 Tf 1 0 0 1 100.2 746.742 Tm [(hello)]TJ
+    ET
+   endstream
+  endobj
+  \end{verbatim}
+
+  In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while drawing and graphics are outside of such pairs.
+
+\item[Number tree] This is a more complex data structure that is meant to index objects by numbers. In the core is an array with number-value pairs. A simple version of number tree which has the keys 0 and 3 is
+\begin{verbatim}
+6 0 obj
+<<
+  /Nums [
+          0 [ 20 0 R 22 0 R]
+          3   21 0 R
+        ]
+>>
+endobj
+\end{verbatim}
+
+This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.
+
+\end{description}
+
+\end{document}
+%http://msf.mathmlcloud.org/file_formats/8 %sample pdf for math
+

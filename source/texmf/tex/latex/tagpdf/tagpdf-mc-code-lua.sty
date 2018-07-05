@@ -1,0 +1,172 @@
+\ProvidesExplFile {tagpdf-mc-code-lua.sty} {2018/07/04} {0.1}
+  {tagpdf - mc code only for the luamode }
+
+%the two attibutes are defined in the driver file.
+%it also load the lua (as it can also contain functions needed by generic mode.
+%\newattribute \g__uftag_mc_type_attr     %the value represent the type
+%\newattribute \g__uftag_mc_cnt_attr      %will hold the \c@g__uftag_MCID_abs_int value
+
+%An attribute for the current structure probably doesn't make sense as mc chunks can be used later.
+%\newattribute \g__uftag_struct_type_attr %represent the current structure type. Not sure if needed
+%\newattribute \g__uftag_struct_cnt_attr  %will hold \c@g__uftag_struct_abs_int a cnt
+
+% handling attribute needs a different system to number the page wise mcid's:
+% a tagmcbegin ... tagmcend pair no longer surrounds exactly one mc chunk: it can be split
+% at page breaks. We know the included mcid(s) only after the ship out. So for the struct-> mcid mapping we
+% need to record struct -> mc-cnt (in \g__uftag_mc_parenttree_prop and/or a lua table
+% and at shipout mc-cnt-> {mcid, mcid, ...} (in a table?)
+% and when building the trees connect both
+
+% key definitions are overwritten for luatex to store that data in tables
+% the data for the mc are in uftag.mc[absnum]
+% the fields of the table are
+% tag : the type (a string)
+% raw : more properties (string)
+% label: a string. Do we need a way to retrieve the num from the label from lua??
+% artifact: the presence indicates an artifact, the value (string) is the type.
+% kids: a array of tables {1={kid=num2,page=pagenum1}, 2={kid=num2,page=pagenum2},...},
+% this describes the chunks the mc has been split to by the traversing code
+% parent: the number of the structure it is in. Needed to build the parent tree.
+
+% The main function which wanders through the shipout box to inject the literals.
+\AtBeginDocument
+{
+ \bool_if:NT\g_uftag_active_mc_bool
+ {
+ \AtBeginShipout
+  {
+   \directlua{uftag.func.mark_shipout ()}
+  }
+ }
+}
+
+% the keys
+\tl_new:N \l__uftag_mc_key_tag_tl
+\tl_new:N \l__uftag_mc_key_label_tl
+\tl_new:N \l__uftag_mc_key_properties_tl
+
+\keys_define:nn { tagpdf / mc }
+{
+ tag .code:n = %
+  {
+   \__uftag_pdf_escape_name:Nn \l__uftag_mc_key_tag_tl { #1 }
+   \directlua
+    {
+     uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"tag","#1")
+    }
+  },
+ raw .code:n =
+  {
+   \tl_set:Nn\l__uftag_mc_key_properties_tl { #1 }
+   \directlua
+    {
+     uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"raw","#1")
+    }
+  },
+ label .code:n =
+  {
+   \tl_set:Nn\l__uftag_mc_key_label_tl { #1 }
+   \directlua {uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"label","#1")}
+  },
+ __artifact-store .code:n =
+  {
+   \directlua {uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"artifact","#1")}
+  },
+ artifact .meta:n       = { artifact-bool, artifact-type=#1,__artifact-store=#1, tag=Artifact },
+ artifact .default:n    = { notype }
+}
+
+
+% attributes
+% set the mc from a tag name
+
+\cs_new:Nn \__uftag_mc_lua_gset_mc_type_attr:n % #1 is a tag name
+ {
+  \global\setattribute \g__uftag_mc_type_attr { \directlua {uftag.func.output_num_from ("#1") } }
+  \global\setattribute \g__uftag_mc_cnt_attr  { \__uftag_get_mc_abs_cnt: }
+ }
+
+\cs_generate_variant:Nn\__uftag_mc_lua_gset_mc_type_attr:n { o }
+
+\cs_new:Nn \__uftag_mc_lua_gunset_mc_type_attr:
+ {
+  \global\unsetattribute \g__uftag_mc_type_attr
+  \global\unsetattribute \g__uftag_mc_cnt_attr
+ }
+
+%This command will in the finish code replace the dummy for a mc by the real mcid kids
+\cs_new:Nn \__uftag_mc_insert_mcid_kids:n
+  {
+   \directlua {uftag.func.mc_insert_kids (#1) }
+  }
+
+
+% puts an mcid absolute number in the current structure
+\cs_new:Nn \__uftag_mc_handle_stash:n %1 mcidnum
+ {
+  \__uftag_check_mc_used:n { #1 }
+   \seq_gput_right:cn % Don't fill a lua table due to the command in the item, so the kernel command
+   { g__uftag_struct_kids_\g__uftag_struct_stack_current_tl _seq }
+   {
+    \__uftag_mc_insert_mcid_kids:n {#1}
+   }
+  \directlua
+   {
+    uftag.func.store_struct_mcabs(\g__uftag_struct_stack_current_tl,#1)
+   }
+  \prop_gput:Nxx
+   \g__uftag_mc_parenttree_prop
+   { #1 }
+   { \g__uftag_struct_stack_current_tl }
+ }
+
+\cs_generate_variant:Nn \__uftag_mc_handle_stash:n { o }
+
+\cs_new:Nn \uftag_mc_begin:n
+ {
+  \group_begin:
+   \__uftag_check_mc_if_nested:
+   \bool_gset_true:N \g__uftag_in_mc_bool
+   \int_gincr:N \c@g__uftag_MCID_abs_int
+   \keys_set:nn { tagpdf / mc }{ label={}, #1 }
+   %check that a tag or artifact has been used
+   \__uftag_check_mc_tag:N \l__uftag_mc_key_tag_tl
+   %set the attributes (is done globally!):
+   \__uftag_mc_lua_gset_mc_type_attr:o  { \l__uftag_mc_key_tag_tl }
+   \bool_if:NF \l__uftag_mc_artifact_bool
+    { % store the absolute num name in a label:
+      \tl_if_empty:NF {\l__uftag_mc_key_label_tl}
+       {
+        \__uftag_mc_handle_mc_label:n { \l__uftag_mc_key_label_tl }
+       }
+      % if not stashed record the absolute number
+      \bool_if:NF \l__uftag_mc_key_stash_bool
+      {
+        \exp_args:Nx \__uftag_mc_handle_stash:n { \__uftag_get_mc_abs_cnt: }
+      }
+    }
+  \group_end:
+ }
+
+\cs_new:Nn\uftag_mc_end:
+ {
+  \__uftag_check_mc_if_open:
+  \bool_gset_false:N \g__uftag_in_mc_bool
+  \__uftag_mc_lua_gunset_mc_type_attr:
+ }
+
+\cs_new:Nn\uftag_mc_use:n %#1: label name
+ {
+  \tl_set:Nx  \l_tmpa_tl { \zref@extractdefault{tagpdf-#1}{tagmcabs}{} }
+  \tl_if_empty:NTF\l_tmpa_tl
+   {
+    \msg_warning:nnn {tagpdf} {mc-label-unknown} { #1 }
+   }
+   {
+    \__uftag_mc_handle_stash:o { \l_tmpa_tl }
+   }
+ }
+
+
+
+\endinput

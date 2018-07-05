@@ -1,0 +1,126 @@
+\ProvidesExplPackage {tagpdf-roles-code} {2018/07/04} {0.1}
+ {part of tagpdf - code related to roles and structure names}
+
+\__uftag_seq_new:N     \g__uftag_role_tags_seq  %to get names from numbers
+\__uftag_prop_new:N    \g__uftag_role_tags_prop %to get numbers from names
+
+%The list of standard adobe tags.
+\clist_const:Nn \c__uftag_role_sttags_clist
+ {%possible root elements
+  Document,   %A complete document. This is the root element of any structure tree containing
+              %multiple parts or multiple articles.
+  Part,       %A large-scale division of a document.
+  Art,        %A relatively self-contained body of text constituting a single narrative or exposition
+  %subelements
+  Sect,       %A container for grouping related content elements.
+  Div,        %A generic block-level element or group of elements
+  BlockQuote, %A portion of text consisting of one or more paragraphs attributed to someone other
+              %than the author of the  surrounding text.
+  Caption,    %A brief portion of text describing a table or figure.
+  TOC,        %A list made up of table of contents item entries (structure tag TOCI; see below)
+              %and/or other nested table of contents entries
+  TOCI,       %An individual member of a table of contents. This entry's children can be any of
+              %the following structure  tags:
+              %Lbl,Reference,NonStruct,P,TOC
+  Index,
+  NonStruct,  %probably not needed
+  H,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  P,
+  L,           %list
+  LI,          %list item (around label and list item body)
+  Lbl,         %list label
+  Lbody,       %list item body
+  Table,
+  TR,          %table row
+  TH,          %table header cell
+  TD,          %table data cell
+  THead,       %table header (n rows)
+  TBody,       %table rows
+  TFoot,       %table footer
+  Span,        %generic inline marker
+  Quote,       %inline quote
+  Note,        % footnote, endnote. Lbl can be child
+  Reference,   % A citation to content elsewhere in the document.
+  BibEntry,    %bibentry
+  Code,        %
+  Link,        %
+  Annot,
+  Figure,
+  Formula,
+  Form,
+  Artifact
+ }
+
+% get tag name from number: \seq_item:Nn \g__uftag_role_tags_seq { n }
+%\seq_gset_from_clist:NN \g__uftag_role_tags_seq \c__uftag_role_tags_clist
+
+\clist_map_inline:Nn \c__uftag_role_sttags_clist
+ {
+  \__uftag_seq_gput_right:Nn \g__uftag_role_tags_seq { #1 }
+ }
+
+
+% get tag number from name: \prop_item:Nn \g__uftag_role_tags_prop { name }
+\int_step_inline:nnnn { 1 }{ 1 }{ \seq_count:N \g__uftag_role_tags_seq }
+ {
+  \__uftag_prop_gput:Nxn \g__uftag_role_tags_prop
+   {
+    \seq_item:Nn \g__uftag_role_tags_seq  { #1 }
+   }
+   { #1 }
+ }
+
+\cs_new:Nn \__uftag_role_get_tag_from_index:nn
+ {
+  \__uftag_seq_item:cn { #1_seq } { #2 }
+ }
+
+\cs_new:Nn \__uftag_role_get_index_from_tag:nn
+ {
+  \__uftag_prop_item:cn { #1_prop } { #2 }
+ }
+
+% new tags and the rolemap
+
+\__uftag_prop_new:N \g__uftag_role_rolemap_prop
+
+\cs_new:Nn \__uftag_role_add_tag:nn %new name, reference to old
+ {
+  \__uftag_seq_gput_right:Nn \g__uftag_role_tags_seq { #1 }
+  \__uftag_prop_gput:Nnx \g__uftag_role_tags_prop    { #1 }
+   {
+    \seq_count:N \g__uftag_role_tags_seq
+   }
+  \__uftag_check_add_tag_role:nn {#1}{#2}
+  \tl_if_empty:nF { #2 }
+   {
+    \__uftag_prop_gput:Nnn \g__uftag_role_rolemap_prop
+     { #1 } { #2 }
+   }
+ }
+
+\cs_generate_variant:Nn \__uftag_role_add_tag:nn {xx}
+
+\keys_define:nn { tagpdf-setup }
+ {
+  add-new-tag .code:n =
+   {
+    \seq_set_split:Nnn \l_tmpa_seq { / } {#1/}
+    \__uftag_role_add_tag:xx
+     {
+      \seq_item:Nn \l_tmpa_seq {1}
+     }
+     {
+      \seq_item:Nn \l_tmpa_seq {2}
+     }
+   }
+ }
+
+
+\endinput

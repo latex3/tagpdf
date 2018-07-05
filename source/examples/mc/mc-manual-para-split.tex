@@ -1,0 +1,56 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\documentclass{book}
+\usepackage[english,ngerman]{babel}
+\usepackage{tagpdf}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{tabsorder=structure,
+             activate-all,
+             uncompress
+            }
+\newsavebox\mybox
+
+\usepackage{lipsum}\textheight3cm
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+\cfoot{\tagmcbegin{artifact=pagination}\thepage\tagmcend}
+\begin{document}
+\tagmcbegin{tag=P}
+Cras egestas ipsum a nisl. Vivamus varius dolor
+ut dolor. Fusce vel enim. Pellentesque accumsan ligula et eros. Cras
+id lacus non tortor facilisis facilisis. Etiam nisl elit, cursus
+sed, fringilla in, congue nec, urna. Cum sociis natoque penatibus et
+magnis dis parturient montes, nascetur ridiculus mus. Integer at
+turpis. Cum sociis natoque penatibus et magnis dis parturient
+montes, nascetur ridiculus mus. Duis fringilla, ligula sed porta
+fringilla, ligula wisi commodo felis, ut adipiscing felis dui in
+enim. Suspendisse malesuada ultrices ante.%
+\vadjust{\tagmcend\pagebreak\tagmcbegin{tag=P}}
+Pellentesque scelerisque
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+tellus at aliquet pellentesque, justo sapien commodo leo, id rhoncus
+sapien quam at erat. Nulla commodo, wisi eget sollicitudin pretium,
+orci orci aliquam orci, ut cursus turpis justo et lacus. Nulla vel
+tortor. Quisque erat elit, viverra sit amet, sagittis eget, porta
+sit amet, lacus.\tagmcend
+
+\end{document}
+
+Comment:
+
+manual tagging at a pagebreak 

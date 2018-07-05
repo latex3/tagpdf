@@ -1,0 +1,44 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\input{regression-test}
+\documentclass{scrartcl}
+
+\usepackage[english]{babel}
+\usepackage[genericmode]{tagpdf}
+\usepackage{graphicx}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+\tagpdfsetup{activate-all,uncompress}
+
+\begin{document}
+\START
+
+\ExplSyntaxOn
+\msg_log:n { \c_sys_engine_str }
+\showoutput
+\int_step_inline:nnnn {1 }{1}{80}
+{\__uftag_mc_bdc_mcid:nn {P}{xxxxxxx}
+xxx\\
+\__uftag_mc_emc:
+}
+
+\newpage\pagenumbering{roman}
+\int_step_inline:nnnn {1 }{1}{80}
+{\__uftag_mc_bdc_mcid:nn {P}{xxxxxxx}
+xxx\\
+\__uftag_mc_emc:
+}
+
+\ExplSyntaxOff
+
+\end{document}
+

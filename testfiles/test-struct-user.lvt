@@ -1,0 +1,84 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\input{regression-test}
+
+\usepackage[english]{babel}
+\usepackage[genericmode]{tagpdf}
+\usepackage{graphicx}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{add-new-tag = TAB/P,
+             add-new-tag = FIG/P,
+             tabsorder=structure,
+             activate-all,
+             uncompress}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+\cfoot{\tagmcbegin{artifact=pagination}\thepage\tagmcend}
+\ifluatex\else
+\pdfcatalog{/Lang (en-UK)}
+\pdfinfo {/Title (Title)}
+\fi
+\begin{document}\showoutput
+\START
+\tagstructbegin{tag=Document}
+ \tagstructbegin{tag=Sect}
+  \tagstructbegin{tag=H}
+   \tagmcbegin{tag=H}
+    \section{Section}
+   \tagmcend
+  \tagstructend
+  \tagstructbegin{tag=P}
+   \tagmcbegin{tag=P}
+    a paragraph\par x
+   \tagmcend
+  \tagstructend
+
+  \tagstructbegin{tag=L} %List
+   \tagstructbegin{tag=LI}
+    \tagstructbegin{tag=Lbl}
+     \tagmcbegin{tag=Lbl}
+     1.
+     \tagmcend
+    \tagstructend
+    \tagstructbegin{tag=LBody}
+     \tagmcbegin{tag=P}
+      List item body
+     \tagmcend
+    \tagstructend %lbody
+   \tagstructend %Li
+
+   \tagstructbegin{tag=LI}
+    \tagstructbegin{tag=Lbl}
+     \tagmcbegin{tag=Lbl}
+     2.
+     \tagmcend
+    \tagstructend
+    \tagstructbegin{tag=LBody}
+     \tagmcbegin{tag=P}
+     another List item body
+     \tagmcend
+    \tagstructend %lbody
+   \tagstructend %Li
+  \tagstructend %L
+
+ \tagstructend  %Sect
+\tagstructend   %Document
+
+\end{document}
+

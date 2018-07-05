@@ -1,0 +1,59 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\input{regression-test}
+
+\usepackage[english]{babel}
+\usepackage[genericmode]{tagpdf}
+\usepackage{graphicx}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{add-new-tag = TAB/P,
+             add-new-tag = FIG/P,
+             tabsorder=structure,
+             activate-all,uncompress}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+\cfoot{\tagmcbegin{artifact=pagination}\thepage\tagmcend}
+\ifluatex\else
+\pdfcatalog{/Lang (en-UK)}
+\pdfinfo {/Title (Title)}
+\fi
+\cfoot{\tagmcbegin{artifact=pagination}\thepage\tagmcend}
+\textheight=3cm
+\begin{document}\showoutput
+\START
+\tagmcbegin{tag=P}
+Cras egestas ipsum a nisl. Vivamus varius dolor
+ut dolor. Fusce vel enim. Pellentesque accumsan ligula et eros. Cras
+id lacus non tortor facilisis facilisis. Etiam nisl elit, cursus
+sed, fringilla in, congue nec, urna. Cum sociis natoque penatibus et
+magnis dis parturient montes, nascetur ridiculus mus. Integer at
+turpis. Cum sociis natoque penatibus et magnis dis parturient
+montes, nascetur ridiculus mus. Duis fringilla, ligula sed porta
+fringilla, ligula wisi commodo felis, ut adipiscing felis dui in%
+\vadjust{\tagmcend\pagebreak\tagmcbegin{tag=P}}
+enim. Suspendisse malesuada ultrices ante.%
+Pellentesque scelerisque
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+tellus at aliquet pellentesque, justo sapien commodo leo, id rhoncus
+sapien quam at erat. Nulla commodo, wisi eget sollicitudin pretium,
+orci orci aliquam orci, ut cursus turpis justo et lacus. Nulla vel
+tortor. Quisque erat elit, viverra sit amet, sagittis eget, porta
+sit amet, lacus.\tagmcend
+\end{document}
+

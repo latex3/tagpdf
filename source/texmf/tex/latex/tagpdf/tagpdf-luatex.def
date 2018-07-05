@@ -1,0 +1,184 @@
+\ProvidesExplFile {tagpdf-luatex.def} {2018/07/04} {0.1}
+  {tagpdf driver for luatex}
+
+\newattribute \g__uftag_mc_type_attr     %the value represent the type
+\newattribute \g__uftag_mc_cnt_attr      %will hold the \c@g__uftag_MCID_abs_int value
+
+% The lua code
+\directlua { tagpdf=require('tagpdf.lua') }
+
+%%%% driver (lualatex) commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cs_new:Nn \__uftag_pdfliteral_page:n {\__uftag_tex_pdfextension:D literal~page {#1}}
+\cs_new:Nn \__uftag_pdfcatalog:n      {\__uftag_tex_pdfextension:D catalog {#1}}
+
+%reserve an object num
+\cs_new:Nn \__uftag_pdfreserveobjnum:N
+ {
+  % #1 = macro name to be populated with object number
+  \__uftag_tex_pdfextension:D~obj~reserveobjnum
+  \tl_set:Nx #1 { \__uftag_tex_pdffeedback:D lastobj }%
+ }
+
+% use an object num
+\cs_new:Nn \__uftag_pdfuseobjnum:Nn
+ {
+ % #1 = macro with object number to be populated
+ % #2 = object contents, as valid PDF
+ % should #2 be filtered through  \pdfstringdef  ???
+  \__uftag_tex_immediate:D \__uftag_tex_pdfextension:D~obj~useobjnum~#1~{ #2 }%
+ }
+
+\cs_new:Nn \__uftag_pdfuseobjnum:nn
+ {
+ % #1 = a number
+ % #2 = object contents, as valid PDF
+ % should #2 be filtered through  \pdfstringdef  ???
+  \__uftag_tex_immediate:D \__uftag_tex_pdfextension:D~obj~useobjnum~#1~{ #2 }%
+ }
+
+% obj num of the dictionary for a page:
+% the page count starts by 1
+% pages can referenced before they are actually created
+% no error if the page later doesn't exist
+
+\cs_new:Nn \__uftag_store_pdfpageref:Nn
+ {
+ % #1 = macro name to be populated with current page object number
+ % #2 = number or counter identifying the required page
+  \tl_set:Nx #1 { \__uftag_tex_pdffeedback:D pageref~#2 }%
+ }
+
+% a global version of the command
+\cs_new:Nn \__uftag_gstore_pdfpageref:Nn
+ {
+  \tl_gset:Nx #1 { \__uftag_tex_pdffeedback:D pageref~#2 }%
+ }
+
+\cs_new:Nn \__uftag_pdfobj:Nn
+ {
+ % #1 = macro name to refer to this object
+ % #2 = object contents, as valid PDF
+ % should #2 be filtered through  \pdfstringdef  ???
+  \__uftag_tex_immediate:D \__uftag_tex_pdfextension:D~obj~{ #2 }
+  \tl_set:Nx #1 { \__uftag_tex_pdffeedback:D~lastobj }%
+ }
+
+%  pdfpage**s**attr: for all pages
+%% is global needed? Yes. Without it the setting is lost if issued in a group
+%
+\cs_new:Nn \__uftag_gset_pdfpagesattr:n
+ {
+  \__uftag_tex_global:D \__uftag_tex_pdfvariable:D~pagesattr { #1 }
+ }
+
+\cs_new:Nn \__uftag_gadd_pdfpagesattr:n
+ {
+  \exp_args:No \__uftag_gset_pdfpagesattr:n { \__uftag_tex_the:D \__uftag_tex_pdfvariable:D~pagesattr #1}
+ }
+
+% pdfpageattr for one page
+% do we need an immediate version??
+\cs_new:Nn \__uftag_gset_pdfpageattr:n
+ {
+  \__uftag_tex_global:D \__uftag_tex_pdfvariable:D~pageattr  { #1 }
+ }
+
+\cs_new:Nn \__uftag_gadd_pdfpageattr:n
+ {
+  \exp_args:No \__uftag_gset_pdfpageattr:n { \__uftag_tex_the:D \__uftag_tex_pdfvariable:D~pageattr #1}
+ }
+
+\cs_new:Nn \__uftag_get_pdfpageattr:N
+ {
+  \tl_set:No #1 { \__uftag_tex_the:D \__uftag_tex_pdfvariable:D~pageattr }
+ }
+
+
+\cs_new:Nn \__uftag_pdfcompresslevel:n
+ {
+   \__uftag_tex_pdfvariable:D compresslevel #1
+ }
+
+\cs_new:Nn \__uftag_pdfobjcompresslevel:n
+ {
+   \__uftag_tex_pdfvariable:D objcompresslevel #1
+ }
+
+% I probably want also lua tables
+% I put them in the uftag.tables namespaces
+% The tables will be named like the variables but without backslash
+% To access such a table with a dynamical name create a string and then use
+% uftag.tables[string]
+% Old code, I'm not quite sure if this was a good idea. Now I have mix of table in
+% utftag.tables and uftag.mc/struct. And a lot is probably not needed.
+
+\cs_new:Nn \__uftag_luatex_get_table_name:Nn
+ {
+  \tl_set_rescan:Nnn #1  { \char_set_catcode_ignore:N \\ } { #2 }
+ }
+
+
+\cs_new:Nn \__uftag_prop_new:N
+ {
+  \prop_new:N #1
+  \__uftag_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
+  \directlua { uftag.tables.\l_tmpa_tl = {} }
+ }
+
+
+\cs_new:Nn \__uftag_seq_new:N
+ {
+  \seq_new:N #1
+  \__uftag_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
+  \directlua { uftag.tables.\l_tmpa_tl = {} }
+ }
+
+
+\cs_new:Nn \__uftag_prop_gput:Nnn
+ {
+  \prop_gput:Nnn #1 { #2 } { #3 }
+  \__uftag_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
+  \directlua { uftag.tables.\l_tmpa_tl["#2"] = "#3" }
+ }
+
+
+\cs_new:Nn \__uftag_seq_gput_right:Nn
+ {
+  \seq_gput_right:Nn #1 { #2 }
+  \__uftag_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
+  \directlua { table.insert(uftag.tables.\l_tmpa_tl, "#2") }
+ }
+
+%Hm not quite sure about the naming
+
+\cs_new:Npn \__uftag_seq_item:cn #1 #2
+ {
+  \directlua { tex.print(uftag.tables.#1[#2]) }
+ }
+
+\cs_new:Npn \__uftag_prop_item:cn #1 #2
+ {
+  \directlua { tex.print(uftag.tables.#1["#2"]) }
+ }
+
+%for debugging commands that show both the seq/prop and the lua tables
+\cs_new:Nn \__uftag_seq_show:N
+ {
+   \seq_show:N #1
+   \__uftag_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
+   \directlua { uftag.trace.log ("lua~sequence~array~\l_tmpa_tl",1) }
+   \directlua { uftag.trace.show_seq (uftag.tables.\l_tmpa_tl) }
+ }
+
+\cs_new:Nn \__uftag_prop_show:N
+ {
+   \prop_show:N #1
+   \__uftag_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
+   \directlua {uftag.trace.log  ("lua~property~table~\l_tmpa_tl",1) }
+   \directlua {uftag.trace.show_prop (uftag.tables.\l_tmpa_tl) }
+ }
+
+
+\endinput
