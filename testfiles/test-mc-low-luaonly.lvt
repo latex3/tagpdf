@@ -1,6 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 
 \documentclass{scrartcl}
+\START
 \input{regression-test}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
@@ -23,7 +24,7 @@
 \START
 some things untagged.
 
-\showoutput
+%\showoutput
 \ExplSyntaxOn
 %\msg_log:n { \c_sys_engine_str }
 
