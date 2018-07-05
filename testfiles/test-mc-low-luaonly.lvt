@@ -2,7 +2,7 @@
 
 \documentclass{scrartcl}
 \input{regression-test}
-\START
+
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 \usepackage{graphicx,lipsum}
@@ -22,8 +22,8 @@
 \tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
 \begin{document}
 some things untagged.
-%\START
-%\showoutput
+\START
+\showoutput
 \ExplSyntaxOn
 %\msg_log:n { \c_sys_engine_str }
 
