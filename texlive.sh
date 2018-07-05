@@ -22,7 +22,7 @@ fi
 # Needed for any use of texlua even if not testing LuaTeX
 tlmgr install fontspec graphics l3build latex latex-bin luaotfload luatex microtype koma-script fancyhdr babel babel-english amsfonts
 
-tlmgr install l3kernel l3packages oberdiek etoolbox unicode-data ifluatex
+tlmgr install l3kernel l3packages oberdiek etoolbox unicode-data ifluatex graphics-def
 
 # Required to build plain and LaTeX formats:
 # TeX90 plain for unpacking, pdfLaTeX, LuaLaTeX and XeTeX for tests
