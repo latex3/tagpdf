@@ -52,7 +52,7 @@ function update_tag (file,content,tagname,tagdate)
 
 -- ctan setup
 docfiles = {"source/tagpdf.bib", "source/examples/**/*.tex", "source/examples/**/*.pdf"}
-textfiles= {"*.md"}
+textfiles= {"source/README.md"}
 packtdszip   = false
 installfiles = {
                 "**/*.sty",
