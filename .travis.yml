@@ -11,7 +11,7 @@ install:
  - source texlive.sh
 
 env:
-- TEXMFHOME=${TRAVIS_BUILD_DIR}/source/texmf,${TRAVIS_BUILD_DIR}/lua-font-pond/texmf
+- TEXMFHOME=${TRAVIS_BUILD_DIR}/source/texmf;${TRAVIS_BUILD_DIR}/lua-font-pond/texmf
 
 cache:
   directories:
