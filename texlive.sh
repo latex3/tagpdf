@@ -42,3 +42,4 @@ tlmgr update --self --all --no-auto-install
 
 pwd
 echo texmfhome $TEXMFHOME
+echo texmflocal $TEXMFLOCAL
