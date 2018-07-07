@@ -435,7 +435,7 @@ end
 function uftag.func.fill_parent_tree_line (page)
      -- we need to get page-> i=kid -> mcnum -> structnum 
      -- pay attention: the kid numbers and the page number in the parent tree start with 0!
-    local numsentry 
+    local numsentry =""
     local pdfpage = page-1
     if uftag.page[page] and uftag.page[page][0] then
      mcchunks=#uftag.page[page] 
@@ -465,9 +465,9 @@ function uftag.func.fill_parent_tree_line (page)
       uftag.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
      end  
     else
-      uftag.trace.log ("PAGETREE: NO DATA FOR PAGE "..i,3)
+      uftag.trace.log ("PAGETREE: NO DATA FOR PAGE "..page,3)
     end
-    return numsentry
+    return numsentry 
 end
 
 function uftag.func.output_parenttree (abspage)
