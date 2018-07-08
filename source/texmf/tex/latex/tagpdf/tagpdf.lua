@@ -163,6 +163,10 @@ end
     One should also find ways to make the function shorter.
 --]]
 
+local space_node = node.new'glyph'
+space_node.char = (' '):byte(1)
+space_node.font = font.current()
+
 function uftag.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mctypeprev)
   local name = name or ("SOMEBOX")
   local mctypeprev = mctypeprev or -1
@@ -187,7 +191,13 @@ function uftag.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mcty
     elseif n.id == VLIST then -- enter the vlist     
      mcopen,mcpagecnt,mccntprev,mctypeprev= 
       uftag.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL VLIST",mctypeprev)
-    elseif n.id == GLUE then       -- glue is ignored
+    elseif n.id == GLUE then
+      if n.subtype == 13 then -- spaceskip
+        local space
+        head, space = node.insert_before(head, n, node.copy(space_node)) -- Set the right font
+        n.width = n.width - space.width
+        space.attr = n.attr
+      end
     elseif n.id == LOCAL_PAR then  -- local_par is ignored 
     elseif n.id == PENALTY then    -- penalty is ignored
     elseif n.id == KERN then       -- kern is ignored
