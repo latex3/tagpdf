@@ -1,0 +1,95 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+%This example shows how one can patch lists command
+%it is based on enumitem
+
+%It uses a command to end \item (\meti). It is perhaps possible to hide this command
+% inside \item/end{list}, but with nested list it is not so easy.
+
+% Pay attention to casing. Li/LI, Lbody/Lbody are different. 
+%no page break involved. So the example works in lua and generic mode
+
+\documentclass{scrbook}
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+
+\tagpdfifpdftexT
+ {
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{tabsorder=structure,
+             activate-all,
+             uncompress
+             }
+
+\usepackage{lipsum}%\textheight3cm
+
+\usepackage{enumitem,xpatch}
+
+\makeatletter
+
+\newcommand\uftag@enit@format@preset[1]{%
+  \tagstructbegin{tag=LI}%
+  \tagstructbegin{tag=Lbl}%
+  \tagmcbegin{tag=Lbl}%
+  #1%
+  \tagmcend
+  \tagstructend %end Lbl
+  \tagstructbegin{tag=Lbody}}
+
+\newcommand\meti{% end of \item
+ \tagstructend %end of LBody
+ \tagstructend %end of LI
+}  
+
+\xpatchcmd\enit@preset{\@firstofone}{\uftag@enit@format@preset}{}{\fail}
+
+\setlist{
+    before*=\tagstructbegin{tag=L},
+    after*={\tagstructend}}
+
+% keys that overwrite \enit@format must be patched, eg like the follow
+% the font key should be patched in a similar way
+\enitkv@key{enumitem}{format}{%
+  \def\enit@format{%
+   \tagstructbegin{tag=LI}%
+   \tagstructbegin{tag=Lbl}%
+   \tagmcbegin{tag=Lbl}%
+   #1\tagmcend}}
+\makeatother   
+% marking of the text inside the list can not be handled automatically -- one doesn't know the type
+% we use simple P here
+\newcommand\TAGP{\tagstructbegin{tag=P}\tagmcbegin{tag=P}}
+\newcommand\PGAT{\tagmcend\tagstructend}   
+   
+\begin{document}
+%I don't want to handle pagestyles, so set everything to empty:
+\pagestyle{empty}\renewcommand\chapterpagestyle{empty}
+
+\tagstructbegin{tag=Document}
+
+\begin{itemize}
+\item \TAGP Ducks say quack\PGAT\meti
+\item \TAGP Marmots say something Parmotlike\PGAT\meti
+\end{itemize}
+
+\begin{enumerate}
+\item \TAGP The highest pass is the Col de l'Iseran.\PGAT\meti
+\item \TAGP The second highest pass is the Passo dello Stelvio.\PGAT\meti
+\end{enumerate}
+
+\begin{description}
+\item[ducks] \TAGP yellow\PGAT\meti
+\item[marmots] \TAGP brown\PGAT\meti
+\end{description}
+
+\tagstructend   %Document
+\end{document} 
