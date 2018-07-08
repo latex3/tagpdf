@@ -66,7 +66,7 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 Since many year the creation of accessible pdf-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
 
-But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted. 
+But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
 This package tries to close this gap by offering \emph{core} commands to tag a pdf.\footnote{In case you don't know what this means: there will be some explanations later on.}
 
@@ -76,9 +76,9 @@ The package does not patch commands from other packages. It is also not an aim o
 
 So this package deliberately concentrates on the basics -- and this already quite a lot, there are much more details involved as I expected when I started.
 
-I'm sure that it has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}. 
+I'm sure that it has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
 
-Please also check the github site for new examples and improvements. 
+Please also check the github site for new examples and improvements.
 
 
 \subsection{Tagging and accessibility}
@@ -90,7 +90,7 @@ So the name of the package is a bit wrong. As excuse I can only say that it is s
 
 \subsection{Engines and modes}
 
-The package works currently with pdflatex and lualatex. 
+The package works currently with pdflatex and lualatex.
 
 The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
 
@@ -112,14 +112,14 @@ In the meantime pdf 2.0. has been released. I know that it contains also for acc
 pdf's created with the commands of this package must be validated:
 
 \begin{itemize}
-\item One must check that the pdf is \emph{syntactically} correct. It is rather easy to create broken pdf: e.g. if a chunk is opened on one page but closed on the next page. 
+\item One must check that the pdf is \emph{syntactically} correct. It is rather easy to create broken pdf: e.g. if a chunk is opened on one page but closed on the next page.
 \item One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
 \item One must check how good the accessibility is \emph{practically}.
 \end{itemize}
 
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free PDF Accessibility Checker (PAC~3) \parencite{pac3}.
-There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here. 
+There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here.
 
 Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a pdf has real accessibility problems.
 
@@ -170,13 +170,13 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{activate-tree}] Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
 \item[\PrintKeyName{activate-all}] Boolean, initially false. Activates everything, that normally the sensible thing to do.
 \item[\PrintKeyName{add-new-tag}] See section \ref{sec:new-tag} for a description.
-\item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks.
-\item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel. 
+\item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't very much currently. It will perhaps be merged with the log-level key).
+\item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.
 \item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
 \item[\PrintKeyName{tabsorder}] Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
 \item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc.
 \item[\PrintKeyName{uncompress}] Equivalent to using \texttt{compresslevel=0}.
-   
+
 \end{description}
 
 \section{Tagging}
@@ -357,7 +357,7 @@ For strategies how to handle paragraphs that split over pages see subsection~\re
 \DescribeMacro\uftag_mc_begin:n{<key-val-list>}
 \ExplSyntaxOff
 
-These commands insert the begin of the marked content code in the pdf. They don't start a paragraph. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
+These commands insert the begin of the marked content code in the pdf. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
 Such markers should not be nested. The command will warn you if this happens.
 
 The key-val list understands the following keys:
@@ -383,7 +383,7 @@ The key-val list understands the following keys:
 \DescribeMacro\uftag_mc_end:
 \ExplSyntaxOff
 
-These commands insert the end code of the marked content. The user command also issues at first an \verb+\unskip+. Both commands check if there has been a begin marker and issue a warning if not.
+These commands insert the end code of the marked content. They don't end a group and it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. Both commands check if there has been a begin marker and issue a warning if not.
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcuse{<label name>}
@@ -497,11 +497,11 @@ The following commands can be used to define the tree structure:
 \DescribeMacro\uftag_struct_begin:n {key-val-list}
 \ExplSyntaxOff
 
-These commands start a new structure.
+These commands start a new structure. They don't start a group. They set all their values globally.
 
 The key-val list understands the following keys:
 \begin{description}
-  \item[\PrintKeyName{tag}] This is required. The value of the key is normally one of the standard type listed in section \ref{sec:standard-types}. It is possible to setup new tags/types, see section \ref{sec:new-tags}.
+  \item[\PrintKeyName{tag}] This is required. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags/types, see the same section.
   \item[\PrintKeyName{stash}] Normally a new structure inserts itself as a kid into the currently active structure. This key prohibits this. The structure is nevertheless from now on \enquote{the current active structure} and parent for following  marked content and structures.
   \item[\PrintKeyName{label}] This key sets a label by which you can use the structure later in another structure. Internally the label name will start with \texttt{tagpdfstruct-}.
   \item[\PrintKeyName{title},\PrintKeyName{alttext},\PrintKeyName{actualtext}] These keys allow to set the dictionary entries \texttt{/Title}, \texttt{/Alt} and \texttt{/Actualtext}. But I haven't yet decided which is the suitable format for the values, so currently you must ensure yourself that the values lead to valid pdf content.
@@ -513,7 +513,7 @@ The key-val list understands the following keys:
 \DescribeMacro\uftag_struct_end:
 \ExplSyntaxOff
 
-This ends a structure.
+This ends a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.
 
 \ExplSyntaxOn
 \DescribeMacro\tagstructuse{<label>}
