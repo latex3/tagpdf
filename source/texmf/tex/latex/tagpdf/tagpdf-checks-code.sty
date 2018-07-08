@@ -46,6 +46,14 @@
    }
  }
 
+\cs_new:Nn \__uftag_check_structure_tag:N
+ {
+  \prop_if_in:NoF \g__uftag_role_tags_prop { #1 }
+   {
+    \msg_warning:nnx {tagpdf}{role-unknown-tag} { #1 }
+   }
+ }
+
 \cs_new:Nn \__uftag_check_info_closing_struct:n %#1 struct num
  {
   \msg_info:nnn {tagpdf}{struct-show-closing}{#1}

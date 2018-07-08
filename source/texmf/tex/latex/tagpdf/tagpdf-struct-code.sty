@@ -256,6 +256,10 @@
   tag   .code:n        = % S property
    {
     \__uftag_pdf_escape_name:Nn \l__uftag_tmpa_tl { #1 }
+    \bool_if:NT \g__uftag_check_tags_bool
+     {
+      \__uftag_check_structure_tag:N \l__uftag_tmpa_tl
+     }
     \__uftag_prop_gput:cnx
      { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
      { S }
