@@ -27,7 +27,7 @@ braces):
 >  {L}
 >  {LI}
 >  {Lbl}
->  {Lbody}
+>  {LBody}
 >  {Table}
 >  {TR}
 >  {TH}
@@ -72,7 +72,7 @@ tagpdf: [19] => P
 tagpdf: [20] => L
 tagpdf: [21] => LI
 tagpdf: [22] => Lbl
-tagpdf: [23] => Lbody
+tagpdf: [23] => LBody
 tagpdf: [24] => Table
 tagpdf: [25] => TR
 tagpdf: [26] => TH
@@ -116,7 +116,7 @@ braces):
 >  {L}  =>  {20}
 >  {LI}  =>  {21}
 >  {Lbl}  =>  {22}
->  {Lbody}  =>  {23}
+>  {LBody}  =>  {23}
 >  {Table}  =>  {24}
 >  {TR}  =>  {25}
 >  {TH}  =>  {26}
@@ -160,9 +160,9 @@ tagpdf: [H5] => 17
 tagpdf: [H6] => 18
 tagpdf: [Index] => 10
 tagpdf: [L] => 20
+tagpdf: [LBody] => 23
 tagpdf: [LI] => 21
 tagpdf: [Lbl] => 22
-tagpdf: [Lbody] => 23
 tagpdf: [Link] => 37
 tagpdf: [NonStruct] => 11
 tagpdf: [Note] => 33
