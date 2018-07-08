@@ -24,7 +24,7 @@ tlmgr install fontspec graphics l3build latex latex-bin luaotfload luatex microt
 
 tlmgr install l3kernel l3packages oberdiek etoolbox unicode-data ifluatex graphics-def ec luacode luatexbase ctablestack duckuments
 
-tlmgr install lipsum
+tlmgr install lipsum enumitem xpatch
 
 # Required to build plain and LaTeX formats:
 # TeX90 plain for unpacking, pdfLaTeX, LuaLaTeX and XeTeX for tests
