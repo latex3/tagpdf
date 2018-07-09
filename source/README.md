@@ -1,6 +1,6 @@
 #tagpdf — A package to create tagged pdf
-Packageversion: 0.1 
-Packagedate: 2018/04/07
+Packageversion: 0.2 
+Packagedate: 2018/07/09
 Author: Ulrike Fischer
 
 ## License
@@ -18,6 +18,7 @@ The tagpdf package may be modified and distributed under the terms and condition
 - tagpdf-mc-code-lua.sty  (internal code)
 - tagpdf-stuct-code.sty  (internal code)
 - tagpdf-tree-code.sty   (internal code)
+- tagpdf-user.sty        (user commands) 
 - tagpdf-pdftex.def      (pdftex specific code)
 - tagpdf-luatex.def      (luatex specific code)
 - tagpdf.lua             (lua code for luatex)
