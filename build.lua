@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.1"
-packagedate="2018/07/05"
+packageversion="0.2"
+packagedate="2018/07/09"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -19,21 +19,21 @@ tagfiles = {"*.md",
             "**/*.lua"}
 
 function update_tag (file,content,tagname,tagdate)
- tagdate = string.gsub (tagdate,"-", "/")
+ tagdate = string.gsub (packagedate,"-", "/")
  if string.match (file, "%.sty$" ) then
   content = string.gsub (content,  
                          "\\ProvidesExplPackage {(.-)} {.-} {.-}",
-                         "\\ProvidesExplPackage {%1} {" .. tagdate.."} {"..tagname .. "}")
+                         "\\ProvidesExplPackage {%1} {" .. tagdate.."} {"..packageversion .. "}")
   return content                         
  elseif string.match (file, "%.def$") then
   content = string.gsub (content,  
                          "\\ProvidesExplFile {(.-)} {.-} {.-}",
-                         "\\ProvidesExplFile {%1} {" .. tagdate.."} {"..tagname .. "}")                         
+                         "\\ProvidesExplFile {%1} {" .. tagdate.."} {"..packageversion .. "}")                         
   return content                         
  elseif string.match (file, "%.md$") then
    content = string.gsub (content,  
                          "Packageversion: %d%.%d",
-                         "Packageversion: " .. tagname )
+                         "Packageversion: " .. packageversion )
    content = string.gsub (content,  
                          "Packagedate: %d%d%d%d/%d%d/%d%d",
                          "Packagedate: " .. tagdate )                      
@@ -41,7 +41,7 @@ function update_tag (file,content,tagname,tagdate)
  elseif string.match (file, "%.lua$" ) then
    content = string.gsub (content,  
                          "Packageversion: %d%.%d",
-                         "Packageversion: " .. tagname )
+                         "Packageversion: " .. packageversion )
    content = string.gsub (content,  
                          "Packagedate: %d%d%d%d/%d%d/%d%d",
                          "Packagedate: " .. tagdate )                      
