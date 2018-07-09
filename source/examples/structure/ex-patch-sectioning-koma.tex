@@ -2,7 +2,7 @@
 
 %This example shows how one can patch sectioning command and toc entries
 %to add tags.
-%The patches are layout/option dependant 
+%The patches are layout/option dependant
 %With other document options (e.g. chapterprefix) or
 %if the sectioning commands are redefined more/different patches are perhaps needed
 
@@ -10,6 +10,10 @@
 
 \documentclass{scrbook}
 \usepackage[english]{babel}
+
+%set language / can also be done with hyperref
+\pdfcatalog{/Lang (en-US)}
+
 \usepackage{tagpdf}
 
 \tagpdfifpdftexT
@@ -48,7 +52,7 @@
    entryformat=\tagscrtocentry,
    pagenumberformat=\tagscrtocpagenumber]{tocline}{chapter}
 \DeclareTOCStyleEntry[
-   entryformat=\tagscrtocentry, 
+   entryformat=\tagscrtocentry,
    pagenumberformat=\tagscrtocpagenumber]{tocline}{section}
 \DeclareTOCStyleEntry[
    entryformat=\tagscrtocentry,
