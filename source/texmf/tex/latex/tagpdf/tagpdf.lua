@@ -222,7 +222,12 @@ function uftag.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mcty
         uftag.trace.log("THIS IS A TAG "..tostring(tag),3)  
         mcpagecnt = mcpagecnt +1
         uftag.trace.log ("INSERT BDC "..mcpagecnt,2)
-        box.list = __uftag_insert_bdc_node (box.list,n,tag, "/MCID "..mcpagecnt)
+        local dict= "/MCID "..mcpagecnt
+        if uftag.mc[mccnt]["raw"] then
+         uftag.trace.log("RAW CONTENT"..tostring(uftag.mc[mccnt]["raw"]),3)
+         dict= dict .. " " .. uftag.mc[mccnt]["raw"]
+        end 
+        box.list = __uftag_insert_bdc_node (box.list,n,tag, dict)
         uftag.func.store_mc_kid (mccnt,mcpagecnt,abspage)
         uftag.func.store_mc_in_page(mccnt,mcpagecnt,abspage)
         uftag.trace.show_mc_data (mccnt)
