@@ -11,18 +11,20 @@
 \documentclass{scrbook}
 \usepackage[english]{babel}
 
-%set language / can also be done with hyperref
-\pdfcatalog{/Lang (en-US)}
 
 \usepackage{tagpdf}
 
 \tagpdfifpdftexT
  {
+  %set language / can also be done with hyperref
+  \pdfcatalog{/Lang (en-US)}
   \usepackage[T1]{fontenc}
  }
 
 \tagpdfifluatexT
  {
+  %set language / can also be done with hyperref
+  \pdfextension catalog{/Lang (en-US)}
   \usepackage{fontspec}
   \usepackage{luacode}
  }
