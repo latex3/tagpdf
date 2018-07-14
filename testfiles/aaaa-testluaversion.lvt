@@ -1,8 +1,10 @@
 \documentclass{article}
 \input{regression-test}
+\usepackage{graphicx}
 \begin{document}
 \START
 \showoutput
+\includegraphics{duckchess-glyphs}
 abc
 \ifcsname directlua\endcsname
 \directlua{texio.write_nl(status.luatex_version)}
