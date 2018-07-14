@@ -213,7 +213,7 @@ function uftag.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mcty
       if uftag.mc[mccnt] then
        if uftag.mc[mccnt]["artifact"] then
         uftag.trace.log("THIS IS AN ARTIFACT of type "..tostring(uftag.mc[mccnt]["artifact"]),3)
-        if uftag.mc[mccnt]["artifact"] == "notype" then
+        if uftag.mc[mccnt]["artifact"] == "" then
          box.list = __uftag_insert_bmc_node (box.list,n,"Artifact")
         else
          box.list = __uftag_insert_bdc_node (box.list,n,"Artifact", "/Type /"..uftag.mc[mccnt]["artifact"])

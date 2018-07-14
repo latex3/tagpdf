@@ -72,7 +72,11 @@
   {
    \directlua {uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"artifact","#1")}
   },
- artifact .meta:n       = { artifact-bool, artifact-type=#1,__artifact-store=#1, tag=Artifact },
+ artifact .code:n       =
+   {
+    \exp_args:Nnx \keys_set:nn {tagpdf / mc} { artifact-bool, artifact-type=#1, tag=Artifact }
+    \exp_args:Nnx \keys_set:nn {tagpdf / mc }{ __artifact-store=\l__uftag_mc_artifact_type_tl }
+   },
  artifact .default:n    = { notype }
 }
 
