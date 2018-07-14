@@ -1,4 +1,11 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+
+% !!!!!!!!!!!!!!!!!
+% This test files shows how to add a manual page split.
+% It *only* handles the mc-step in the page stream.
+% Structure commands and all the related management are not 
+% involved. So it also only uses activate-mc.
+
 \documentclass{book}
 \usepackage[english,ngerman]{babel}
 \usepackage{tagpdf}
@@ -18,7 +25,7 @@
 
 
 \tagpdfsetup{tabsorder=structure,
-             activate-all,
+             activate-mc,
              uncompress
             }
 \newsavebox\mybox
