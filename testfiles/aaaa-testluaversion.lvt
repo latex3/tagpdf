@@ -2,6 +2,8 @@
 \input{regression-test}
 \begin{document}
 \START
+\showoutput
+abc
 
 \directlua{texio.write_nl(status.luatex_version)}
 \directlua{ if tonumber(status.luatex_version) >= 107 then texio.write_nl("YESSSSSSS") end}
