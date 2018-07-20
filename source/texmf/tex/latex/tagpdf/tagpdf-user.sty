@@ -24,7 +24,8 @@
 
 \NewDocumentCommand \tagmcend {  }
  {
-  \unskip\uftag_mc_end:
+  \unskip % this unskip appears to mess up some spacing; can we do this in another way?
+  \uftag_mc_end:
  }
 
 \NewDocumentCommand \tagmcuse { m }
@@ -54,34 +55,34 @@
 
 %%%% debug/show commands
 \NewDocumentCommand\showtagpdfmcdata { O {\__uftag_get_mc_abs_cnt:} }
-{
- \bool_if:NT \g__uftag_mode_lua_bool
  {
-  \sys_if_engine_luatex:T
-  {
-  \directlua{uftag.trace.show_all_mc_data(#1)}
-  }
+  \bool_if:NT \g__uftag_mode_lua_bool
+   {
+    \sys_if_engine_luatex:T
+     {
+      \directlua{uftag.trace.show_all_mc_data(#1)}
+     }
+   }
  }
-}
 
 \NewDocumentCommand\showtagpdfattributes { }
-{
- \bool_if:NT \g__uftag_mode_lua_bool
  {
-  \sys_if_engine_luatex:T
-  {
-   \directlua
+  \bool_if:NT \g__uftag_mode_lua_bool
    {
-    uftag.trace.log(
-    "showtagpdfattributes: MC=>abscnt=\__uftag_get_mc_abs_cnt:=>attr=\the\g__uftag_mc_cnt_attr=>tag=" ..
-    tostring(uftag.func.get_tag_from (\the\g__uftag_mc_type_attr)) ..
-    "=\the\g__uftag_mc_type_attr",0
-    )
+    \sys_if_engine_luatex:T
+     {
+      \directlua
+       {
+        uftag.trace.log(
+        "showtagpdfattributes: MC=>abscnt=\__uftag_get_mc_abs_cnt:=>attr=\the\g__uftag_mc_cnt_attr=>tag=" ..
+        tostring(uftag.func.get_tag_from (\the\g__uftag_mc_type_attr)) ..
+        "=\the\g__uftag_mc_type_attr",0
+        )
+       }
+      \ignorespaces
+     }
    }
-  \ignorespaces
-  }
  }
-}
 
 
 
