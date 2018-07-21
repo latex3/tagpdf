@@ -84,13 +84,13 @@
 % attributes
 % set the mc from a tag name
 
-\cs_set:Npn \__uftag_attribute_gset:Nn
+\cs_set_protected:Npn \__uftag_attribute_gset:Nn #1 #2
  {
-  \global \setattribute
+  \tex_global:D \setattribute #1 #2
  }
-\cs_set:Npn \__uftag_attribute_gunset:Nn
+\cs_set_protected:Npn \__uftag_attribute_gunset:Nn #1 #2
  {
-  \global \unsetattribute
+  \tex_global:D \unsetattribute #1 #2
  }
 
 \cs_new:Nn \__uftag_mc_lua_gset_mc_type_attr:n % #1 is a tag name
