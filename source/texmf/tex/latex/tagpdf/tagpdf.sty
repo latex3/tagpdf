@@ -38,9 +38,9 @@
 %%% absolute page numbers
 \int_new:N   \g__uftag_abspage_int
 \int_gset:Nn \g__uftag_abspage_int { 0 }
-\zref@newlist {tagpdf}
+\zref@newlist {uftagzrl} %zrl=zreflist
 \zref@newprop*{tagabspage}     [0] { \int_use:N \g__uftag_abspage_int }
-\zref@addprop {tagpdf} {tagabspage}
+\zref@addprop {uftagzrl} {tagabspage}
 
 
 %%% tagpdfsetup,
@@ -48,7 +48,7 @@
 \int_new:N  \l__uftag_loglevel_int
 \tl_new:N   \l__uftag_tree_tabs_order_tl
 
-\keys_define:nn { tagpdf-setup }
+\keys_define:nn { uftag / setup }
 {
  activate-mc     .bool_gset:N = \g_uftag_active_mc_bool,
  activate-tree   .bool_gset:N = \g_uftag_active_tree_bool,

@@ -5,33 +5,33 @@
 %messages
 
 % mc
-\msg_new:nnn {tagpdf} {mc-nested}        { nested~marked~content~found~-~mcid~#1 }
-\msg_new:nnn {tagpdf} {mc-tag-missing}   { required~tag~missing~-~mcid~#1 }
-\msg_new:nnn {tagpdf} {mc-label-unknown} { label~#1~unknown~-~rerun }
-\msg_new:nnn {tagpdf} {mc-used-twice}    { mc~#1~has~been~already~used }
-\msg_new:nnn {tagpdf} {mc-not-open}      { there~is~no~mc~to~end~at~#1 }
+\msg_new:nnn {uftag} {mc-nested}        { nested~marked~content~found~-~mcid~#1 }
+\msg_new:nnn {uftag} {mc-tag-missing}   { required~tag~missing~-~mcid~#1 }
+\msg_new:nnn {uftag} {mc-label-unknown} { label~#1~unknown~-~rerun }
+\msg_new:nnn {uftag} {mc-used-twice}    { mc~#1~has~been~already~used }
+\msg_new:nnn {uftag} {mc-not-open}      { there~is~no~mc~to~end~at~#1 }
 
 % structures
-\msg_new:nnn {tagpdf} {struct-no-objnum}      { objnum~missing~for~structure~#1 }
-\msg_new:nnn {tagpdf} {struct-faulty-nesting} { there~is~no~open~structure~on~the~stack }
-\msg_new:nnn {tagpdf} {struct-missing-tag}    { a~structure~must~have~a~tag! }
-\msg_new:nnn {tagpdf} {struct-show-closing}   { closing~structure~#1~tagged~\prop_item:cn{g__uftag_struct_#1_prop}{S} }
-\msg_new:nnn {tagpdf} {struct-used-twice}     { structure~with~label~#1~has~already~been~used}
-\msg_new:nnn {tagpdf} {struct-label-unknown}  { structure~with~label~#1~is~unknown~rerun}
+\msg_new:nnn {uftag} {struct-no-objnum}      { objnum~missing~for~structure~#1 }
+\msg_new:nnn {uftag} {struct-faulty-nesting} { there~is~no~open~structure~on~the~stack }
+\msg_new:nnn {uftag} {struct-missing-tag}    { a~structure~must~have~a~tag! }
+\msg_new:nnn {uftag} {struct-show-closing}   { closing~structure~#1~tagged~\prop_item:cn{g__uftag_struct_#1_prop}{S} }
+\msg_new:nnn {uftag} {struct-used-twice}     { structure~with~label~#1~has~already~been~used}
+\msg_new:nnn {uftag} {struct-label-unknown}  { structure~with~label~#1~is~unknown~rerun}
 
 
 %Roles
-\msg_new:nnn {tagpdf} {role-missing}     { tag~#1~has~no~role~assigned  }
-\msg_new:nnn {tagpdf} {role-unknown}     { role~#1~is~not~known  }
-\msg_new:nnn {tagpdf} {role-unknown-tag} { tag~#1~is~not~known  }
-\msg_new:nnn {tagpdf} {role-new-tag}     { adding~new~tag~#1~mapped~to~role~#2  }
+\msg_new:nnn {uftag} {role-missing}     { tag~#1~has~no~role~assigned  }
+\msg_new:nnn {uftag} {role-unknown}     { role~#1~is~not~known  }
+\msg_new:nnn {uftag} {role-unknown-tag} { tag~#1~is~not~known  }
+\msg_new:nnn {uftag} {role-new-tag}     { adding~new~tag~#1~mapped~to~role~#2  }
 
 
 % trees
-\msg_new:nnn {tagpdf} {tree-mcid-index-wrong} {something~is~wrong~with~the~mcid}
+\msg_new:nnn {uftag} {tree-mcid-index-wrong} {something~is~wrong~with~the~mcid}
 
 % obj
-\msg_new:nnn {tagpdf} {obj-write-num} {write~obj~#1~to~pdf}
+\msg_new:nnn {uftag} {obj-write-num} {write~obj~#1~to~pdf}
 
 
 %checks
@@ -42,7 +42,7 @@
   \prop_if_in:cnF { g__uftag_struct_#1_prop }
    {S}
    {
-    \msg_error:nn {tagpdf} {struct-missing-tag}
+    \msg_error:nn {uftag} {struct-missing-tag}
    }
  }
 
@@ -50,20 +50,20 @@
  {
   \prop_if_in:NoF \g__uftag_role_tags_prop {#1}
    {
-    \msg_warning:nnx {tagpdf} {role-unknown-tag} {#1}
+    \msg_warning:nnx {uftag} {role-unknown-tag} {#1}
    }
  }
 
 \cs_new:Nn \__uftag_check_info_closing_struct:n %#1 struct num
  {
-  \msg_info:nnn {tagpdf} {struct-show-closing} {#1}
+  \msg_info:nnn {uftag} {struct-show-closing} {#1}
  }
 
 \cs_generate_variant:Nn \__uftag_check_info_closing_struct:n {o,x}
 
 \cs_new:Nn \__uftag_check_no_open_struck:
  {
-  \msg_error:nn {tagpdf} {struct-faulty-nesting}
+  \msg_error:nn {uftag} {struct-faulty-nesting}
  }
 
 \cs_new:Nn \__uftag_check_struct_used:n %#1 label
@@ -72,7 +72,7 @@
    {g__uftag_struct_\zref@extractdefault{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
    {P}
    \l_tmpa_tl
-   { \msg_warning:nnn {tagpdf} {struct-used-twice} {#1} }
+   { \msg_warning:nnn {uftag} {struct-used-twice} {#1} }
  }
 
 %roles
@@ -81,15 +81,15 @@
  {
   \tl_if_empty:nTF {#2}
   {
-   \msg_warning:nnn {tagpdf} {role-missing} {#1}
+   \msg_warning:nnn {uftag} {role-missing} {#1}
   }
   {
    \prop_get:NnNF \g__uftag_role_tags_prop {#2} \l_tmpa_tl
     {
-     \msg_warning:nnn {tagpdf} {role-unknown} {#2}
+     \msg_warning:nnn {uftag} {role-unknown} {#2}
     }
     {
-     \msg_info:nnnn {tagpdf} {role-new-tag} {#1} {#2}
+     \msg_info:nnnn {uftag} {role-new-tag} {#1} {#2}
     }
   }
  }
@@ -99,7 +99,7 @@
  {
   \_uftag_mc_if_in:T
    {
-    \msg_warning:nnx {tagpdf} {mc-nested} { \__uftag_get_mc_abs_cnt: }
+    \msg_warning:nnx {uftag} {mc-nested} { \__uftag_get_mc_abs_cnt: }
    }
  }
 
@@ -107,7 +107,7 @@
  {
   \_uftag_mc_if_in:F
    {
-    \msg_warning:nnx {tagpdf} {mc-not-open} { \__uftag_get_mc_abs_cnt: }
+    \msg_warning:nnx {uftag} {mc-not-open} { \__uftag_get_mc_abs_cnt: }
    }
  }
 
@@ -115,11 +115,11 @@
  {
   \tl_if_empty:NT #1
    {
-    \msg_error:nnx {tagpdf} {mc-tag-missing} { \__uftag_get_mc_abs_cnt: }
+    \msg_error:nnx {uftag} {mc-tag-missing} { \__uftag_get_mc_abs_cnt: }
    }
    \prop_if_in:NoF \g__uftag_role_tags_prop {#1}
    {
-    \msg_warning:nnx {tagpdf} {role-unknown-tag} {#1}
+    \msg_warning:nnx {uftag} {role-unknown-tag} {#1}
    }
  }
 
@@ -128,7 +128,7 @@
  {
   \seq_if_in:NnTF \g__uftag_check_mc_used_seq {#1}
    {
-    \msg_warning:nnn {tagpdf} {mc-used-twice} {#1}
+    \msg_warning:nnn {uftag} {mc-used-twice} {#1}
    }
    {
     \seq_gput_right:Nx \g__uftag_check_mc_used_seq {#1}
@@ -178,7 +178,7 @@
  {
   \int_compare:nT { \l__uftag_loglevel_int >= 3 }
    {
-    \msg_info:nnx {tagpdf} {obj-write-num} {#1}
+    \msg_info:nnx {uftag} {obj-write-num} {#1}
    }
  }
 

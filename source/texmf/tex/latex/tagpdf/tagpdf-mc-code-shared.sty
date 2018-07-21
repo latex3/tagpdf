@@ -14,13 +14,13 @@
 
 % tagmcabs is the label name of the absolute count which is used to identify the chunk
 \zref@newprop {tagmcabs}  [0] { \int_use:N \c@g__uftag_MCID_abs_int }
-\zref@addprop {tagpdf}   {tagmcabs}
+\zref@addprop {uftagzrl}   {tagmcabs}
 \zref@addprop {LastPage} {tagmcabs}
 
 %stores labels of mcid.
 \cs_new:Nn \__uftag_mc_handle_mc_label:n
  {
-  \zref@labelbylist{tagpdf-#1}{tagpdf}
+  \zref@labelbylist{tagpdf-#1}{uftagzrl}
  }
 
 % will hold the structure numbers for the parenttree
@@ -42,7 +42,7 @@
 %the rest are in the splitted code
 \tl_new:N \l__uftag_mc_artifact_type_tl
 
-\keys_define:nn { tagpdf / mc }
+\keys_define:nn { uftag / mc }
  {
   stash                  .bool_set:N    = \l__uftag_mc_key_stash_bool,
   artifact-bool          .bool_set:N    = \l__uftag_mc_artifact_bool,
