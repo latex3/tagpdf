@@ -1,0 +1,14 @@
+\documentclass{article}
+\input{regression-test}
+\usepackage{graphicx}
+\begin{document}
+\START
+\showoutput
+\includegraphics{duckchess-glyphs}
+abc
+\ifcsname directlua\endcsname
+\directlua{texio.write_nl(status.luatex_version)}
+\directlua{ if tonumber(status.luatex_version) >= 107 then texio.write_nl("YESSSSSSS") end}
+%\input{tagpdftestinput}
+\fi
+\end{document}

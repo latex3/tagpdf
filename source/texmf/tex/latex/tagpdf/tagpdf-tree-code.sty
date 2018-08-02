@@ -3,12 +3,12 @@
 
 %this does the actual finishing:
 \AtBeginDocument
-{
- \bool_if:NT \g_uftag_active_tree_bool
-  {
-   \AfterEndDocument { \uftag_finish_structure: }
-  }
-}
+ {
+  \bool_if:NT \g_uftag_active_tree_bool
+   {
+    \AfterEndDocument { \uftag_finish_structure: }
+   }
+ }
 
 
 % the StructTreeRoot
@@ -18,10 +18,10 @@
 
 
 \cs_new:Nn \__uftag_tree_write_structtreeroot:
-{
- \__uftag_pdfcatalog:n { /StructTreeRoot~\c_uftag_tree_obj_structtreeroot_tl\c_space_tl0~R }
- \__uftag_struct_write_obj:n { 0 }
-}
+ {
+  \__uftag_pdfcatalog:n { /StructTreeRoot~\c_uftag_tree_obj_structtreeroot_tl\c_space_tl0~R }
+  \__uftag_struct_write_obj:n { 0 }
+ }
 
 \cs_new:Nn \__uftag_tree_write_structelements:
  {
@@ -39,43 +39,43 @@
 \tl_new:N \l__uftag_parenttree_content_tl
 
 \cs_new:Nn \__uftag_tree_fill_parenttree:
-{
- \int_step_inline:nnnn{1}{1}{\zref@extractdefault{LastPage}{abspage}{-1}} %not quite clear if labels are needed. See lua code
- { %page ##1\par
-  \prop_clear:N \l_tmpa_prop
-  \int_step_inline:nnnn{1}{1}{\zref@extractdefault{LastPage}{tagmcabs}{-1}}
-  {
-   %mcid####1
-   \int_compare:nT%F
-    {\zref@extractdefault{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
-    {% yes\par
-     \prop_put:Nxx \l_tmpa_prop
-     {\zref@extractdefault{mcid-####1}{tagmcid}{-1}}
-     {\prop_item:Nn \g__uftag_mc_parenttree_prop {####1}}
-    }
-  }
-  %\prop_show:N \l_tmpa_prop
-  \tl_put_right:Nx\l__uftag_parenttree_content_tl
-     {\int_eval:n {##1-1}\c_space_tl[\c_space_tl} %%brackt
-  \int_step_inline:nnnn {0}{1}{ \prop_map_function:NN \l_tmpa_prop\__uftag_prop_count:nn -1 }
+ {
+  \int_step_inline:nnnn{1}{1}{\zref@extractdefault{LastPage}{abspage}{-1}} %not quite clear if labels are needed. See lua code
+  { %page ##1\par
+   \prop_clear:N \l_tmpa_prop
+   \int_step_inline:nnnn{1}{1}{\zref@extractdefault{LastPage}{tagmcabs}{-1}}
    {
-    \prop_get:NnNTF \l_tmpa_prop {####1} \l_tmpb_tl
-    {% page#1:mcid##1:\l_tmpb_tl :content
-      \tl_put_right:Nx \l__uftag_parenttree_content_tl
-       {
-        \prop_item:cn { g__uftag_struct_\l_tmpb_tl _prop } {objnum}~0~R~
-       }
-    }
-    {\msg_warning:nn {tagpdf} {tree-mcid-index-wrong} }
+    %mcid####1
+    \int_compare:nT%F
+     {\zref@extractdefault{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
+     {% yes\par
+      \prop_put:Nxx \l_tmpa_prop
+      {\zref@extractdefault{mcid-####1}{tagmcid}{-1}}
+      {\prop_item:Nn \g__uftag_mc_parenttree_prop {####1}}
+     }
    }
-  \tl_put_right:Nn\l__uftag_parenttree_content_tl{]^^J} %
+   %\prop_show:N \l_tmpa_prop
+   \tl_put_right:Nx\l__uftag_parenttree_content_tl
+      {\int_eval:n {##1-1}\c_space_tl[\c_space_tl} %%brackt
+   \int_step_inline:nnnn {0}{1}{ \prop_map_function:NN \l_tmpa_prop\__uftag_prop_count:nn -1 }
+    {
+     \prop_get:NnNTF \l_tmpa_prop {####1} \l_tmpb_tl
+     {% page#1:mcid##1:\l_tmpb_tl :content
+       \tl_put_right:Nx \l__uftag_parenttree_content_tl
+        {
+         \prop_item:cn { g__uftag_struct_\l_tmpb_tl _prop } {objnum}~0~R~
+        }
+     }
+     {\msg_warning:nn {uftag} {tree-mcid-index-wrong} }
+    }
+   \tl_put_right:Nn \l__uftag_parenttree_content_tl {]^^J} %
+  }
  }
-}
 
 %lua mode must/can do it differently
 \cs_new:Nn \__uftag_tree_lua_fill_parenttree:
  {
-  \tl_set:Nn\l__uftag_parenttree_content_tl
+  \tl_set:Nn \l__uftag_parenttree_content_tl
    {
     \directlua{uftag.func.output_parenttree(\int_use:N\g__uftag_abspage_int)}
    }
@@ -136,12 +136,16 @@
 %StructParents + tabs order. Tabs order should be probably be changeable by page.
 
 \cs_new:Nn \__uftag_tree_write_pageattr:
-{
+ {
   \__uftag_get_pdfpageattr:N \l_tmpa_tl
   \regex_replace_once:nnN {/StructParents\s*\d+} {}\l_tmpa_tl
   \regex_replace_once:nnN {/Tabs\s*/[SCR]} {}\l_tmpa_tl
   \__uftag_gset_pdfpageattr:x
-  {\l_tmpa_tl/StructParents\c_space_tl \int_eval:n{\g__uftag_abspage_int }\l__uftag_tree_tabs_order_tl}
-}
+   {
+    \l_tmpa_tl / StructParents \c_space_tl
+    \int_eval:n { \g__uftag_abspage_int }
+    \l__uftag_tree_tabs_order_tl
+   }
+ }
 
 \endinput

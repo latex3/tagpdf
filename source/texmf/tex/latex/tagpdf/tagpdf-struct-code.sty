@@ -9,8 +9,8 @@
 
 
 \zref@newprop {tagstruct} [0] { \int_use:N \c@g__uftag_struct_abs_int }
-\zref@newlist {tagpdfstruct}
-\zref@addprop {tagpdfstruct}{tagstruct}
+\zref@newlist {uftagzrlstruct}
+\zref@addprop {uftagzrlstruct}{tagstruct}
 
 % a sequence stores structnum -> the obj numbers
 % to allow easy mapping over the structures
@@ -243,13 +243,13 @@
      }
    }
    {
-   \msg_error:nnn { tagpdf } { struct-no-objnum } { #1}
+   \msg_error:nnn {uftag} { struct-no-objnum } { #1}
    }
  }
 
 % keys for the user commands
 % why did I call the submodule elem instead of struct?
-\keys_define:nn { tagpdf / elem }
+\keys_define:nn { uftag / elem }
  {
   label .tl_set:N      = \l__uftag_struct_key_label_tl,
   stash .bool_set:N    = \l__uftag_struct_elem_stash_bool,
@@ -319,19 +319,19 @@
    { g__uftag_struct_\int_eval:n { \c@g__uftag_struct_abs_int }_prop }
    { entries }
    { StructElem }
-  \keys_set:nn {tagpdf / elem} { #1 }
+  \keys_set:nn {uftag / elem} { #1 }
   \__uftag_check_structure_has_tag:n { \int_eval:n {\c@g__uftag_struct_abs_int} }
   \tl_if_empty:NF
    {\l__uftag_struct_key_label_tl}
    {
-     \zref@labelbylist{tagpdfstruct-\l__uftag_struct_key_label_tl}{tagpdfstruct}
+     \zref@labelbylist{tagpdfstruct-\l__uftag_struct_key_label_tl}{uftagzrlstruct}
    }
    %get the potential parent from the stack:
    \seq_get:NNF
     \g__uftag_struct_stack_seq
     \l__uftag_struct_stack_parent_tmp_tl
     {
-     \msg_error:nn { tagpdf } { struct-faulty-nesting }
+     \msg_error:nn { uftag } { struct-faulty-nesting }
     }
    \seq_gpush:NV \g__uftag_struct_stack_seq        \c@g__uftag_struct_abs_int
    \tl_gset:NV   \g__uftag_struct_stack_current_tl \c@g__uftag_struct_abs_int
@@ -381,7 +381,7 @@
 \cs_new:Nn \uftag_struct_use:n %#1 is the label
  {
   \prop_if_exist:cTF
-   { g__uftag_struct_\zref@extractdefault{tagpdfstruct-#1}{tagstruct}{unknown}_prop }
+   { g__uftag_struct_\zref@extractdefault{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %??????????
    {
     \__uftag_check_struct_used:n {#1}
     %add the label structure as kid to the current structure (can be the root)
@@ -396,7 +396,7 @@
       \prop_item:cn { g__uftag_struct_\g__uftag_struct_stack_current_tl _prop} { objnum }~0~R
      }
    }
-   {\msg_warning:nnn{tagpdf}{struct-label-unknown}{#1}}
+   {\msg_warning:nnn{uftag}{struct-label-unknown}{#1}}
  }
 
 \endinput

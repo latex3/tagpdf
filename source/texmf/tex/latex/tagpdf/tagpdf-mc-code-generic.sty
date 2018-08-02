@@ -7,7 +7,7 @@
 
 \int_new:N \g__uftag_MCID_tmp_bypage_int
 \zref@newprop {tagmcid}   [0] { \int_use:N \g__uftag_MCID_tmp_bypage_int }
-\zref@addprop {tagpdf}   {tagmcid}
+\zref@addprop {uftagzrl}  {tagmcid}
 
 % will hold the current maximum on a page
 % it will contain key-value of type "abspagenum=max mcid on this page"
@@ -20,7 +20,7 @@
 % #1 is the type/tag
 \cs_new:Nn \__uftag_mc_bmc:n
  {
-  \__uftag_pdf_escape_name:Nn\l_uttag_tmpa_tl { #1 }
+  \__uftag_pdf_escape_name:Nn \l_uttag_tmpa_tl {#1}
   \__uftag_pdfliteral_page:n
    {
     /\l_uttag_tmpa_tl\c_space_tl BMC
@@ -40,7 +40,7 @@
 % must imho be done at a higher level
 \cs_new:Nn \__uftag_mc_bdc:nn
  {
-  \__uftag_pdf_escape_name:Nn\l_uttag_tmpa_tl { #1 }
+  \__uftag_pdf_escape_name:Nn \l_uttag_tmpa_tl {#1}
   \__uftag_pdfliteral_page:n
    {
     /\l_uttag_tmpa_tl\c_space_tl<<#2>>~BDC
@@ -92,16 +92,16 @@
    {
     mcid-\int_use:N \c@g__uftag_MCID_abs_int
    }
-   {tagpdf}
+   {uftagzrl}
   \__uftag_mc_bdc:nn
-   { #1 }
+   {#1}
    { /MCID~\int_eval:n { \g__uftag_MCID_tmp_bypage_int }~#2 }
  }
 
 % only /MCID
 \cs_new:Nn \__uftag_mc_bdc_mcid:n
  {
-  \__uftag_mc_bdc_mcid:nn { #1 } {}
+  \__uftag_mc_bdc_mcid:nn {#1} {}
  }
 
 %artifact without type
@@ -124,40 +124,40 @@
 \tl_new:N \l__uftag_mc_key_tag_tl
 
 %Attention! definitions are different in luamode.
-\keys_define:nn { tagpdf / mc }
-{
- tag .code:n = % the name (H,P,Span etc
-  {
-   \__uftag_pdf_escape_name:Nn \l__uftag_mc_key_tag_tl { #1 }
-  },
- raw   .tl_set:N        = \l__uftag_mc_key_properties_tl,
- label .tl_set:N        = \l__uftag_mc_key_label_tl,
- artifact .meta:n       = { artifact-bool, artifact-type=#1 },
- artifact .default:n    = {notype}
-}
+\keys_define:nn { uftag / mc }
+ {
+  tag .code:n = % the name (H,P,Span etc
+   {
+    \__uftag_pdf_escape_name:Nn \l__uftag_mc_key_tag_tl {#1}
+   },
+  raw   .tl_set:N        = \l__uftag_mc_key_properties_tl,
+  label .tl_set:N        = \l__uftag_mc_key_label_tl,
+  artifact .code:n       = { \exp_args:Nnx \keys_set:nn { uftag / mc } { artifact-bool, artifact-type=#1 } },
+  artifact .default:n    = {notype}
+ }
 
 \cs_new:Nn \__uftag_mc_handle_artifact:N %#1 contains the artifact type
  {
   \tl_if_empty:NTF #1
    { \__uftag_mc_bmc_artifact: }
-   { \exp_args:No\__uftag_mc_bmc_artifact:n { #1 } }
+   { \exp_args:No\__uftag_mc_bmc_artifact:n {#1} }
  }
 
 \cs_new:Nn \__uftag_mc_handle_mcid:nn %#1 tag, #2 properties
  {
-  \__uftag_mc_bdc_mcid:nn { #1 }{ #2 }
+  \__uftag_mc_bdc_mcid:nn {#1} {#2}
  }
 
 
 % puts the absolute number of an mcid in the current structure
 \cs_new:Nn \__uftag_mc_handle_stash:n %1 mcidnum
  {
-  \__uftag_check_mc_used:n { #1 }
+  \__uftag_check_mc_used:n {#1}
   \__uftag_struct_kid_mc_gput_right:nn
    { \g__uftag_struct_stack_current_tl }
-   { #1 }
+   {#1}
   \prop_gput:Nxx \g__uftag_mc_parenttree_prop
-   { #1 }
+   {#1}
    { \g__uftag_struct_stack_current_tl }
  }
 
@@ -166,7 +166,7 @@
   \group_begin:
    \__uftag_check_mc_if_nested:
    \bool_gset_true:N \g__uftag_in_mc_bool
-   \keys_set:nn { tagpdf / mc }{ #1 }
+   \keys_set:nn { uftag / mc } {#1}
    \bool_if:NTF \l__uftag_mc_artifact_bool
     { %handle artifact
      \__uftag_mc_handle_artifact:N \l__uftag_mc_artifact_type_tl
@@ -186,25 +186,25 @@
   \group_end:
  }
 
-\cs_new:Nn\uftag_mc_end:
+\cs_new:Nn \uftag_mc_end:
  {
   \__uftag_check_mc_if_open:
   \bool_gset_false:N \g__uftag_in_mc_bool
   \__uftag_mc_emc:
  }
 
-\cs_new:Nn\uftag_mc_use:n %#1: label name
+\cs_new:Nn \uftag_mc_use:n %#1: label name
  {
   \tl_set:Nx  \l_tmpa_tl { \zref@extractdefault{tagpdf-#1}{tagmcabs}{} }
   \tl_if_empty:NTF\l_tmpa_tl
    {
-    \msg_warning:nnn {tagpdf} {mc-label-unknown} { #1 }
+    \msg_warning:nnn {uftag} {mc-label-unknown} {#1}
    }
    {
     \prop_gput:Nxx
      \g__uftag_mc_parenttree_prop
      {
-      \zref@extractdefault{tagpdf-#1}{tagmcabs}{}
+      \zref@extractdefault {tagpdf-#1} {tagmcabs} {}
      }
      {
       \g__uftag_struct_stack_current_tl
@@ -214,7 +214,7 @@
       \g__uftag_struct_stack_current_tl
      }
      {
-      \zref@extractdefault{tagpdf-#1}{tagmcabs}{}
+      \zref@extractdefault {tagpdf-#1} {tagmcabs} {}
      }
    }
  }
