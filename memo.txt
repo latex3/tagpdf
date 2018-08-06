@@ -1,7 +1,5 @@
 %store results of tests
 
-
-
 additional runs: put in testfiles-3 and add -c config-3 to the save
 command
 
@@ -9,6 +7,14 @@ command
 %check:
 
 l3build check
+
+% upload to ctan:
+1. check with l3build check
+2. change tag and date in build lua
+3. tag with l3build tag something
+4. 
+
+%
 
 
 % links

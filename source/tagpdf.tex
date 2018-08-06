@@ -1,6 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.2}
+\def\UlrikeFischer@package@version{0.3}
+\def\UlrikeFischer@package@date{2018/08/06}
 \makeatother
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage[utf8]{inputenc}
@@ -32,6 +33,7 @@
   \divide\parsep by 2\relax}
 \makeatother
 \title{The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname}
+\date{\csname UlrikeFischer@package@date\endcsname}
 \author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, columns=fullflexible,language=[LaTeX]TeX}
@@ -559,7 +561,7 @@ The key-val list understands the following keys:
   \item[\PrintKeyName{title}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
       The value is handled as verbatim string and hex encoded. Commands are not expanded.
   \item[\PrintKeyName{title-o}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
-      The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.     
+      The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.
  \end{description}
 
 
