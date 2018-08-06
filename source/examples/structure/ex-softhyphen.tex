@@ -1,0 +1,38 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+% !! needs lualatex
+% this sets the hyphen used by automatic hyphenation to 00AD
+% this improves copy&pasting
+% the example gives aaaaaaa-aaaaaaaaaaaaa-aaaaaa Ministerpräsident
+% open problem: line ends are not copy&pasted as spaces.
+% see also pull request #1, branch fake-space
+
+\documentclass{book}
+
+\usepackage[ngerman]{babel} %to get some hyphenation
+\usepackage{tagpdf}
+\tagpdfsetup{tabsorder=structure,
+             activate-all, %deactivate to see the difference
+             uncompress
+             }
+\usepackage{lipsum}%
+\usepackage{fontspec}
+
+\prehyphenchar`\^^ad
+
+\pagestyle{empty}
+\textwidth=1cm
+\begin{document}
+\tagstructbegin{tag=Document}
+  \tagstructbegin{tag=P}
+   \tagmcbegin{tag=P}
+    aaaaaaa-aaaaaa aaaaaaa-aaaaaa
+   \tagmcend
+  \tagstructend
+
+  \tagstructbegin{tag=P}
+   \tagmcbegin{tag=P}
+    Ministerpräsident
+   \tagmcend
+  \tagstructend
+\tagstructend
+\end{document} 
