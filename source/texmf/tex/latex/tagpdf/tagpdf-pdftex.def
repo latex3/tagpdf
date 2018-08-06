@@ -5,6 +5,11 @@
 %%%% driver (pdflatex) commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% needed for \str_set_convert:Nnon
+\tl_new:N \g__uftag_inputencoding_tl
+\tl_gset:Nn \g__uftag_inputencoding_tl {utf8}
+
+
 %literal
 \cs_new:Nn  \__uftag_pdfliteral_page:n { \__uftag_tex_pdfliteral:D page { #1} }
 \cs_new:Nn  \__uftag_pdfcatalog:n      { \__uftag_tex_pdfcatalog:D { #1 } }

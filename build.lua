@@ -6,10 +6,8 @@ module   = "tagpdf"
 ctanpkg  = "tagpdf"
 
 checkengines = {"pdftex", "luatex"}
-checkconfigs = {"build"}
+checkconfigs = {"build","config-pdftex","config-luatex"}
 checkruns = 3
-
-pdfext=""
 
 sourcefiledir = "./source"
 

@@ -248,14 +248,14 @@
  }
 
 % keys for the user commands
-% why did I call the submodule elem instead of struct?
-\keys_define:nn { uftag / elem }
+% should I pass the values (e.g. the tag) through an escape command?
+\keys_define:nn { uftag / struct }
  {
   label .tl_set:N      = \l__uftag_struct_key_label_tl,
   stash .bool_set:N    = \l__uftag_struct_elem_stash_bool,
   tag   .code:n        = % S property
-   {
-    \__uftag_pdf_escape_name:Nn \l__uftag_tmpa_tl { #1 }
+   {%%????????? \pdfescapename??
+    \tl_set:Nx \l__uftag_tmpa_tl { #1 }
     \bool_if:NT \g__uftag_check_tags_bool
      {
       \__uftag_check_structure_tag:N \l__uftag_tmpa_tl
@@ -267,30 +267,75 @@
    },
   title .code:n        = % T property
    {
-    \__uftag_pdf_escape_string:Nn \l__uftag_tmpa_tl { #1 }
-    \tl_put_left:Nn \l__uftag_tmpa_tl {(^^fe^^ff}
-    \__uftag_prop_gput:cno
+    \str_set_convert:Nnon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \__uftag_prop_gput:cnx
      { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
      { T }
-     { \l__uftag_tmpa_tl) }
+     { <\l__uftag_tmpa_str> }
+   },
+  title-o .code:n        = % T property
+   {
+    \str_set_convert:Nnon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \__uftag_prop_gput:cnx
+     { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
+     { T }
+     { <\l__uftag_tmpa_str> }
    },
   alttext .code:n      = % Alt property
    {
-    \__uftag_pdf_escape_string:Nn \l__uftag_tmpa_tl { #1 }
-    \tl_put_left:Nn \l__uftag_tmpa_tl {(^^fe^^ff}
-    \__uftag_prop_gput:cno
+    \str_set_convert:Nnon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \__uftag_prop_gput:cnx
      { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
      { Alt }
-     { \l__uftag_tmpa_tl) }
+     { <\l__uftag_tmpa_str> }
+   },
+   alttext-o .code:n      = % Alt property
+   {
+    \str_set_convert:Noon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \__uftag_prop_gput:cnx
+     { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
+     { Alt }
+     { <\l__uftag_tmpa_str> }
    },
    actualtext .code:n  = % ActualText property
    {
-    \__uftag_pdf_escape_hex:Nn \l__uftag_tmpa_tl {#1 }
-    \tl_put_left:Nn \l__uftag_tmpa_tl {<FEFF }
-    \__uftag_prop_gput:cno
+    \str_set_convert:Nnon
+    \l__uftag_tmpa_str
+    { #1 }
+    { \g__uftag_inputencoding_tl }
+    { utf16/hex }
+    \__uftag_prop_gput:cnx
      { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
      { ActualText }
-     { \l__uftag_tmpa_tl>}
+     { <\l__uftag_tmpa_str>}
+   },
+   actualtext-o .code:n  = % ActualText property
+   {
+    \str_set_convert:Noon
+    \l__uftag_tmpa_str
+    { #1 }
+    { \g__uftag_inputencoding_tl }
+    { utf16/hex }
+    \__uftag_prop_gput:cnx
+     { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
+     { ActualText }
+     { <\l__uftag_tmpa_str>}
    },
 }
 
@@ -319,7 +364,7 @@
    { g__uftag_struct_\int_eval:n { \c@g__uftag_struct_abs_int }_prop }
    { entries }
    { StructElem }
-  \keys_set:nn {uftag / elem} { #1 }
+  \keys_set:nn {uftag / struct} { #1 }
   \__uftag_check_structure_has_tag:n { \int_eval:n {\c@g__uftag_struct_abs_int} }
   \tl_if_empty:NF
    {\l__uftag_struct_key_label_tl}

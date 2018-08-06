@@ -18,12 +18,13 @@
 % they insert literals and so a are specific to generic mode
 % checking if the type is defined will done somewhere else
 % #1 is the type/tag
+% change 04.08.2018: I don't try to escape the name, but assume that it is valid.
+% Checks/conversions should perhaps be done on a higher level
 \cs_new:Nn \__uftag_mc_bmc:n
  {
-  \__uftag_pdf_escape_name:Nn \l_uttag_tmpa_tl {#1}
   \__uftag_pdfliteral_page:n
    {
-    /\l_uttag_tmpa_tl\c_space_tl BMC
+    /#1\c_space_tl BMC
    }
  }
 
@@ -36,14 +37,13 @@
  }
 
 % #1 tag, #2 properties
-% I escape the name. But the dictionary content
+% change 04.08.2018: I don't escape the name. Also the dictionary content
 % must imho be done at a higher level
 \cs_new:Nn \__uftag_mc_bdc:nn
  {
-  \__uftag_pdf_escape_name:Nn \l_uttag_tmpa_tl {#1}
   \__uftag_pdfliteral_page:n
    {
-    /\l_uttag_tmpa_tl\c_space_tl<<#2>>~BDC
+    /#1\c_space_tl<<#2>>~BDC
    }
  }
 
@@ -122,15 +122,61 @@
 % keyval definitions for the user commands:
 
 \tl_new:N \l__uftag_mc_key_tag_tl
-
+\tl_new:N \l__uftag_mc_key_properties_tl
 %Attention! definitions are different in luamode.
+% tag and raw are expanded as \directlua in lua does it too.
 \keys_define:nn { uftag / mc }
  {
   tag .code:n = % the name (H,P,Span etc
    {
-    \__uftag_pdf_escape_name:Nn \l__uftag_mc_key_tag_tl {#1}
+    %%????????? \pdfescapename??
+    \tl_set:Nx  \l__uftag_mc_key_tag_tl { #1 }
    },
-  raw   .tl_set:N        = \l__uftag_mc_key_properties_tl,
+  raw  .code:n =
+   {
+    \tl_put_right:Nx \l__uftag_mc_key_properties_tl { #1 }
+   }
+    ,
+  alttext .code:n      = % Alt property
+   {
+    \str_set_convert:Nnon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \tl_put_right:Nn \l__uftag_mc_key_properties_tl { /Alt~< }
+    \tl_put_right:No \l__uftag_mc_key_properties_tl { \l__uftag_tmpa_str>~ }
+   },
+   alttext-o .code:n      = % Alt property
+   {
+    \str_set_convert:Noon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \tl_put_right:Nn \l__uftag_mc_key_properties_tl { /Alt~< }
+    \tl_put_right:No \l__uftag_mc_key_properties_tl { \l__uftag_tmpa_str>~ }
+   },
+   actualtext .code:n      = % ActualText property
+   {
+    \str_set_convert:Nnon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \tl_put_right:Nn \l__uftag_mc_key_properties_tl { /ActualText~< }
+    \tl_put_right:No \l__uftag_mc_key_properties_tl { \l__uftag_tmpa_str>~ }
+   },
+   actualtext-o .code:n      = % ActualText property
+   {
+    \str_set_convert:Noon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \tl_put_right:Nn \l__uftag_mc_key_properties_tl { /ActualText~< }
+    \tl_put_right:No \l__uftag_mc_key_properties_tl { \l__uftag_tmpa_str>~ }
+   },
   label .tl_set:N        = \l__uftag_mc_key_label_tl,
   artifact .code:n       = { \exp_args:Nnx \keys_set:nn { uftag / mc } { artifact-bool, artifact-type=#1 } },
   artifact .default:n    = {notype}

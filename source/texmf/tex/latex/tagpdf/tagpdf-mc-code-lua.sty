@@ -48,8 +48,8 @@
 \keys_define:nn { uftag / mc }
  {
   tag .code:n = %
-   {
-    \__uftag_pdf_escape_name:Nn \l__uftag_mc_key_tag_tl { #1 }
+   {%%????????? \pdfescapename??
+    \tl_set:Nx  \l__uftag_mc_key_tag_tl { #1 }
     \directlua
      {
       uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"tag","#1")
@@ -57,10 +57,66 @@
    },
   raw .code:n =
    {
-    \tl_set:Nn\l__uftag_mc_key_properties_tl { #1 }
+    \tl_put_right:Nx \l__uftag_mc_key_properties_tl { #1 }
     \directlua
      {
       uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"raw","#1")
+     }
+   },
+  alttext .code:n      = % Alt property
+   {
+    \str_set_convert:Nnon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \tl_put_right:Nn \l__uftag_mc_key_properties_tl { /Alt~< }
+    \tl_put_right:No \l__uftag_mc_key_properties_tl { \l__uftag_tmpa_str>~ }
+    \directlua
+     {
+      uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l__uftag_tmpa_str>")
+     }
+   },
+  alttext-o .code:n      = % Alt property
+   {
+    \str_set_convert:Noon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \tl_put_right:Nn \l__uftag_mc_key_properties_tl { /Alt~< }
+    \tl_put_right:No \l__uftag_mc_key_properties_tl { \l__uftag_tmpa_str>~ }
+    \directlua
+     {
+      uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l__uftag_tmpa_str>")
+     }
+   },
+  actualtext .code:n      = % Alt property
+   {
+    \str_set_convert:Nnon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \tl_put_right:Nn \l__uftag_mc_key_properties_tl { /Alt~< }
+    \tl_put_right:No \l__uftag_mc_key_properties_tl { \l__uftag_tmpa_str>~ }
+    \directlua
+     {
+      uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"actualtext","/ActualText~<\str_use:N \l__uftag_tmpa_str>")
+     }
+   },
+  actualtext-o .code:n      = % Alt property
+   {
+    \str_set_convert:Noon
+     \l__uftag_tmpa_str
+     { #1 }
+     { \g__uftag_inputencoding_tl }
+     { utf16/hex }
+    \tl_put_right:Nn \l__uftag_mc_key_properties_tl { /Alt~< }
+    \tl_put_right:No \l__uftag_mc_key_properties_tl { \l__uftag_tmpa_str>~ }
+    \directlua
+     {
+      uftag.func.store_mc_data(\__uftag_get_mc_abs_cnt:,"actualtext","/ActualText~<\str_use:N \l__uftag_tmpa_str>")
      }
    },
   label .code:n =

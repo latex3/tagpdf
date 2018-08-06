@@ -1,27 +1,37 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 
+%this is more or less minimal template that can be used as starting point
+%it doesn't set everything that would be needed! 
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 
 \tagpdfifpdftexT
  {
+  \pdfcatalog{/Lang (en-UK)}
   \usepackage[utf8]{inputenc}
   \usepackage[T1]{fontenc}
  }
 
 \tagpdfifluatexT
  {
+  \pdfextension catalog{/Lang (en-UK)}
   \usepackage{fontspec}
  }
 
 \tagpdfsetup
     {
+      tabsorder=structure,
       activate-all,
       uncompress
     }
 \begin{document}
+\pagestyle{empty} % 
+\tagstructbegin{tag=Document}
 
-blbl
+\tagmcbegin{tag=P}
+    a paragraph
+\tagmcend
 
+\tagstructend
 \end{document} 

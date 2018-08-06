@@ -34,6 +34,11 @@
 \RequirePackage{zref-base,zref-lastpage}
 \RequirePackage{etoolbox}
 \RequirePackage{pdfescape}
+\RequirePackage{pdftexcmds}
+
+\RequirePackage{l3str-convert}
+\cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
+
 
 %%% absolute page numbers
 \int_new:N   \g__uftag_abspage_int
@@ -77,16 +82,31 @@
                                  },
  compresslevel  .value_required:n = true,
  uncompress     .meta:n = { compresslevel = 0 },
+ inputencoding  .code:n =
+  {
+   \sys_if_engine_pdftex:T
+    { \tl_gset:Nn \g__uftag_inputencoding_tl { #1 } }
+  },
 }
 
-
+% escape commands are a bit engine specific so have been moved to the driver files.
 % commands to escape strings so that they can be safely used in pdf
 % currently not much used. But will be needed later, when alt and actualtext are added.
 % we probably need the equivalent \pdfescapestring, \pdfescapename \pdfescapehex
 % the commands of pdfescape adds an additional layout to allow for babel shorthands
-\cs_set_eq:NN \__uftag_pdf_escape_string:Nn \EdefEscapeString
-\cs_set_eq:NN \__uftag_pdf_escape_name:Nn   \EdefEscapeName
-\cs_set_eq:NN \__uftag_pdf_escape_hex:Nn    \EdefEscapeHex
+%\cs_set_eq:NN \__uftag_pdf_escape_string:Nn \EdefEscapeString
+%\cs_set_eq:NN \__uftag_pdf_escape_name:Nn   \EdefEscapeName
+%\cs_set_eq:NN \__uftag_pdf_escape_hex:Nn    \EdefEscapeHex
+
+%\cs_set_eq:NN \__uftag_pdf_escape_string:n \EdefEscapeString
+%\cs_set_eq:NN \__uftag_pdf_escape_name:Nn   \EdefEscapeName
+
+%escape command. They are driver specific as \pdf@escapehex would ignore most chars
+%outside the "pdflatex" range
+
+
+
+
 
 % a hook for later code and an absolute page counter
 % should be executed before counters are resetted.
@@ -145,6 +165,7 @@
 \tl_new:N \l__uftag_tmpc_tl
 \tl_new:N \l__uftag_tmpd_tl
 \tl_new:N \l__uftag_tmpe_tl
+\str_new:N \l__uftag_tmpa_str
 
 % helper function to get the propcount.
 % use as \prop_map_function:NN PROP { \__uftag_prop_count:nn -1 }
