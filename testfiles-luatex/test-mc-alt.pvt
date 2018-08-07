@@ -18,10 +18,10 @@
   \pdfextension catalog{/Lang (de-DE)}
   \usepackage{fontspec}
   \usepackage{luacode}
-  \newfontface\zerowidthfont{freeserif}
+  %\newfontface\zerowidthfont{freeserif}
  }
 
-\usepackage{graphicx}
+%\usepackage{graphicx}
 
 \begin{document}
 \pagestyle{empty}
@@ -53,11 +53,12 @@ Etwas unmarkierter Text. %isn't read by voice software
  actualtext=Ente,
  alttext=Dies ist eine Ente}
  %% a char is needed so that actualtext works,
- \tagpdfifluatexTF
-  {{\zerowidthfont^^^^200c}}%
-  {\makebox[0pt][l]{.}}%
- %it seems not to be needed for alttext and voice software ....
- \includegraphics[width=1cm]{example-image-duck}
+% \tagpdfifluatexTF
+%  {{\zerowidthfont^^^^200c}}%
+%  {\makebox[0pt][l]{.}}%
+% %it seems not to be needed for alttext and voice software ....
+% \includegraphics[width=1cm]{example-image-duck}
+ image
 \tagmcend
 
 \tagstructend
