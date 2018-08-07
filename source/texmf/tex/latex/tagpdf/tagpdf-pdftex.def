@@ -1,9 +1,14 @@
-\ProvidesExplFile {tagpdf-pdftex.def} {2018/07/09} {0.2}
+\ProvidesExplFile {tagpdf-pdftex.def} {2018/08/06} {0.3}
   {tagpdf driver for pdftex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% driver (pdflatex) commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% needed for \str_set_convert:Nnon
+\tl_new:N \g__uftag_inputencoding_tl
+\tl_gset:Nn \g__uftag_inputencoding_tl {utf8}
+
 
 %literal
 \cs_new:Nn  \__uftag_pdfliteral_page:n { \__uftag_tex_pdfliteral:D page { #1} }

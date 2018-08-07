@@ -1,6 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.2}
+\def\UlrikeFischer@package@version{0.3}
+\def\UlrikeFischer@package@date{2018/08/06}
 \makeatother
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage[utf8]{inputenc}
@@ -15,7 +16,8 @@
 \renewcommand\ttdefault{lmtt}
 \usepackage{tcolorbox}
 \usepackage{ydoc-desc}
-\usepackage{tabularx, marginnote}
+\usepackage{tabularx}
+\usepackage[noparboxrestore]{marginnote}
 \reversemarginpar
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -31,6 +33,7 @@
   \divide\parsep by 2\relax}
 \makeatother
 \title{The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname}
+\date{\csname UlrikeFischer@package@date\endcsname}
 \author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, columns=fullflexible,language=[LaTeX]TeX}
@@ -44,7 +47,7 @@
 \begin{tcolorbox}[colframe=red]
 This package is not meant for normal document production.
 
-You need a current expl3 version to use it.
+You need a current expl3 version to use it, you even need the (experimental) \texttt{l3str-convert}.
 
 This package is incomplete, experimental and quite probably contains bugs.
 
@@ -136,6 +139,11 @@ Feedback, contribuations and corrections are welcome!
 
 All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed pdf are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.
 
+\subsection{Changes in 0.3}
+
+In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change means that the package now relies on the experimental expl3 package \texttt{l3str-convert}.
+
+I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
 \section{Setup}
 
@@ -171,6 +179,7 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{add-new-tag}] See section \ref{sec:new-tag} for a description.
 \item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't very much currently. It will perhaps be merged with the log-level key).
 \item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.
+\item[\PrintKeyName{inputencoding}]  Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
 \item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
 \item[\PrintKeyName{tabsorder}] Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
 \item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc.
@@ -361,7 +370,8 @@ Such markers should not be nested. The command will warn you if this happens.
 
 The key-val list understands the following keys:
 \begin{description}
-  \item[\PrintKeyName{tag}] This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags, see the same section.
+  \item[\PrintKeyName{tag}] This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the pdf, so it should with a starting slash give a valid pdf name  (some ascii with numbers like \texttt{H4} is fine).
+
   \item[\PrintKeyName{artifact}] This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
 
       It is not quite clear if rules and other decorative graphical objects needs to be marked up as artifacts. Acrobat seems not to mind if not, but PAC~3 complained.
@@ -373,6 +383,28 @@ The key-val list understands the following keys:
   \item[\PrintKeyName{stash}] Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current  structure.
 
   \item[\PrintKeyName{label}] This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
+
+  \item[\PrintKeyName]{alttext}] This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
+
+  \item[\PrintKeyName]{alttext-o} This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName]{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+
+      \begin{lstlisting}
+      \newcommand\myalttext{\frac{a}{b}}
+      \tagmcbegin{tag=P,alttext-o=\myalttext}
+      \end{lstlisting}
+
+      and it will insert \verb+\frac{a}{b}+  (hex encoded) in the pdf.
+
+  \item[\PrintKeyName]{actualtext}] This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
+
+  \item[\PrintKeyName]{actualtext-o} This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName]{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+
+      \begin{lstlisting}
+      \newcommand\myactualtext{X}
+      \tagmcbegin{tag=P,alttext-o=\myactualtext}
+      \end{lstlisting}
+
+      and it will insert \verb+X+ (hex encoded)  in the pdf.
 
   \item[\PrintKeyName{raw}] This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text. (I will probably add keys for \texttt{/Alt} and \texttt{/Actualtext} later, but I haven't made up my mind regarding the encoding yes).
 \end{description}
@@ -425,6 +457,8 @@ The pdf then looked like this
 If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.
 
 But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the pdf and the task how to read this aloud delegated to the screen reader. More investigations are needed here.
+
+See also section~\ref{sec:alttext} for some more remarks and tests.
 
 \subsubsection{Split paragraphs}\label{sec:splitpara}
 
@@ -503,7 +537,31 @@ The key-val list understands the following keys:
   \item[\PrintKeyName{tag}] This is required. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags/types, see the same section.
   \item[\PrintKeyName{stash}] Normally a new structure inserts itself as a kid into the currently active structure. This key prohibits this. The structure is nevertheless from now on \enquote{the current active structure} and parent for following  marked content and structures.
   \item[\PrintKeyName{label}] This key sets a label by which you can use the structure later in another structure. Internally the label name will start with \texttt{tagpdfstruct-}.
-  \item[\PrintKeyName{title},\PrintKeyName{alttext},\PrintKeyName{actualtext}] These keys allow to set the dictionary entries \texttt{/Title}, \texttt{/Alt} and \texttt{/Actualtext}. But I haven't yet decided which is the suitable format for the values, so currently you must ensure yourself that the values lead to valid pdf content.
+  \item[\PrintKeyName{alttext}] This key inserts an \texttt{/Alt} value in the dictionary of structure object. See section~\ref{sec:alttext}. The value is handled as verbatim string and hex encoded.
+
+  \item[\PrintKeyName{alttext-o}] This key inserts an \texttt{/Alt} value in the dictionary of structure object. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName]{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+
+      \begin{lstlisting}
+      \newcommand\myalttext{\frac{a}{b}}
+      \tagstructbegin{tag=P,alttext-o=\myalttext}
+      \end{lstlisting}
+
+      and it will insert \verb+\frac{a}{b}+  (hex encoded) in the pdf.
+
+  \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} value in the dictionary of structure object. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
+
+  \item[\PrintKeyName{actualtext-o}] This key inserts an \texttt{/ActualText} value in the dictionary of structure object. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName]{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+
+      \begin{lstlisting}
+      \newcommand\myactualtext{X}
+      \tagstructbegin{tag=P,alttext-o=\myactualtext}
+      \end{lstlisting}
+
+      and it will insert \verb+X+ (hex encoded)  in the pdf.
+  \item[\PrintKeyName{title}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
+      The value is handled as verbatim string and hex encoded. Commands are not expanded.
+  \item[\PrintKeyName{title-o}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
+      The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.
  \end{description}
 
 
@@ -590,6 +648,28 @@ The following shows the marking need for a section, a sentence and a list with t
 \tagstructend   %Document
 \end{document}
 \end{lstlisting}
+
+\section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
+
+The pdf format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key\footnote{There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now}. Both can be added either to the marked content in the page stream or to the object describing the structure.
+
+The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the pdf reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.
+
+\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with \PrintKeyName{alttext}) is a key to improve accessibility: with it one can add to a picture or something else an alternative text.
+
+The file \texttt{ex-alt-actualtext.tex} shows some experiments I made with with both keys and text-to-speech software (the in-built of adobe and nvda).
+To sum them up:
+
+\begin{itemize}
+\item The keys have an impact on text-to-speech software only if the document is fully tagged.
+\item \PrintKeyName{/ActualText} should be at best used around short pieces of marked content.
+\item \PrintKeyName{/Alt} is used at best with a structure -- this avoids problems with luatex where marked contents blocks can be split over pages.
+\item To some extend one can get a not so bad reading of math with the alternative text.
+\end{itemize}
+
+
+
+
 
 
 \section{Standard type and new tags}\label{sec:new-tag}

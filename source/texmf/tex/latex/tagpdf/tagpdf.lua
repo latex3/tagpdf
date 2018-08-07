@@ -1,5 +1,5 @@
--- Packageversion: 0.2 
--- Packagedate: 2018/07/09
+-- Packageversion: 0.3 
+-- Packagedate: 2018/08/06
 -- tagpdf.lua
 -- Ulrike Fischer
 
@@ -227,6 +227,14 @@ function uftag.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mcty
          uftag.trace.log("RAW CONTENT"..tostring(uftag.mc[mccnt]["raw"]),3)
          dict= dict .. " " .. uftag.mc[mccnt]["raw"]
         end 
+        if uftag.mc[mccnt]["alt"] then
+         uftag.trace.log("RAW CONTENT"..tostring(uftag.mc[mccnt]["alt"]),3)
+         dict= dict .. " " .. uftag.mc[mccnt]["alt"]
+        end 
+        if uftag.mc[mccnt]["actualtext"] then
+         uftag.trace.log("RAW CONTENT"..tostring(uftag.mc[mccnt]["actualtext"]),3)
+         dict= dict .. " " .. uftag.mc[mccnt]["actualtext"]
+        end    
         box.list = __uftag_insert_bdc_node (box.list,n,tag, dict)
         uftag.func.store_mc_kid (mccnt,mcpagecnt,abspage)
         uftag.func.store_mc_in_page(mccnt,mcpagecnt,abspage)

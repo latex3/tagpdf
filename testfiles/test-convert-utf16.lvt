@@ -1,0 +1,156 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+%\input{regression-test}
+\documentclass{article}
+\usepackage{tagpdf}
+\tagpdfsetup{uncompress}
+
+\begin{document}
+
+
+\section{some testing with conversion to utf16}
+
+Goal: I need utf16 (so chars/numbers  for every char) 
+
+
+%\START
+\ExplSyntaxOn
+\cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
+\tl_new:N \l_uf_content_tl
+
+\tagpdfifpdftexT
+ {
+  \iow_log:n {ASCII GLYPHS}
+  \tl_set:Nn \l_uf_content_tl { abc! }
+  \str_set_convert:Nnon 
+   \l_tmpa_str 
+   {  abc! } 
+   { \g__uftag_inputencoding_tl } 
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+  \str_set_convert:Noon 
+   \l_tmpa_str
+   { \l_uf_content_tl }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+
+
+  \iow_log:n {NON-ASCII GLYPHS}
+  \tl_set:Nn \l_uf_content_tl { öäüß }
+  \str_set_convert:Nnon
+   \l_tmpa_str
+   {  öäüß }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+  \str_set_convert:Noon
+   \l_tmpa_str
+   { \l_uf_content_tl }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+
+  \iow_log:n {MATH}
+  \tl_set:Nn \l_uf_content_tl { \frac{a}{b} }
+  \str_set_convert:Nnon
+   \l_tmpa_str
+   { \frac{a}{b} }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+  \str_set_convert:Noon
+   \l_tmpa_str
+   { \l_uf_content_tl }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+
+  \iow_log:n {UNKNOWN COMMAND}
+  \tl_set:Nn \l_uf_content_tl {\blub}
+  \str_set_convert:Nnon
+   \l_tmpa_str
+   { \blub }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N  \l_tmpa_str
+  \str_set_convert:Noon
+   \l_tmpa_str
+   { \l_uf_content_tl }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N   \l_tmpa_str
+ }
+
+
+\tagpdfifluatexT
+ {
+  \iow_log:n {ASCII GLYPHS}
+  \tl_set:Nn \l_uf_content_tl {abc!}
+  \str_set_convert:Nnon
+   \l_tmpa_str
+   { abc! }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+  \str_set_convert:Noon
+   \l_tmpa_str
+   { \l_uf_content_tl }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+
+
+  \iow_log:n {NON-ASCII GLYPHS}
+  \tl_set:Nn \l_uf_content_tl {öäüß}
+  \str_set_convert:Nnon
+   \l_tmpa_str
+   { öäüß }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+  \str_set_convert:Noon
+   \l_tmpa_str
+   { \l_uf_content_tl }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+
+
+  \iow_log:n {MATH}
+  \tl_set:Nn \l_uf_content_tl { \frac{a}{b} }
+  \str_set_convert:Nnon
+   \l_tmpa_str
+   { \frac{a}{b} }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+  \str_set_convert:Noon
+   \l_tmpa_str
+   { \l_uf_content_tl }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+
+  \iow_log:n {UNKNOWN COMMAND}
+  \tl_set:Nn \l_uf_content_tl {\blub}
+  \str_set_convert:Nnon
+   \l_tmpa_str
+   { \blub }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+  \str_set_convert:Noon
+   \l_tmpa_str
+   { \l_uf_content_tl }
+   { \g__uftag_inputencoding_tl }
+   { utf16/hex }
+  \str_show:N \l_tmpa_str
+ }
+
+
+\ExplSyntaxOff
+
+
+
+
+\end{document}
