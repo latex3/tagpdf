@@ -1,5 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-%\input{regression-test}
+\input{regression-test}
+\pdfsuppressptexinfo=3
 \documentclass{article}
 \usepackage{tagpdf}
 \tagpdfsetup{uncompress,activate-all}
@@ -20,8 +21,9 @@
  }
 
 \usepackage{graphicx}
-
+\showthe\pdfsuppressptexinfo
 \begin{document}
+\showthe\pdfsuppressptexinfo
 \pagestyle{empty}
 
 \tagstructbegin{tag=Document}
