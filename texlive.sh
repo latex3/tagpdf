@@ -20,11 +20,29 @@ if ! command -v texlua > /dev/null; then
 fi
 
 # Needed for any use of texlua even if not testing LuaTeX
-tlmgr install fontspec graphics l3build latex latex-bin luaotfload luatex microtype koma-script fancyhdr babel babel-english amsfonts
+# kernel
+tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experimental 
 
-tlmgr install l3kernel l3packages oberdiek etoolbox unicode-data ifluatex graphics-def ec luacode luatexbase ctablestack duckuments
+# luatex
+tlmgr install luacode luatex luatexbase luaotfload ifluatex
 
-tlmgr install lipsum enumitem xpatch gnu-free­font l3experimental cm-super
+# language
+babel babel-english 
+
+# class / content
+tlmgr install koma-script fancyhdr enumitem lipsum
+
+# other tools
+
+tlmgr install oberdiek etoolbox unicode-data  xpatch 
+
+# fonts
+tlmgr install fontspec  microtype amsfonts gnu-free­font ec cm-super
+
+# graphics
+tlmgr install   graphics-def     duckuments
+
+   
 
 # Required to build plain and LaTeX formats:
 # TeX90 plain for unpacking, pdfLaTeX, LuaLaTeX and XeTeX for tests
