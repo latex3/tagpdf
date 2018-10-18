@@ -1,0 +1,92 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+
+\tagpdfifpdftexT
+ {
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{activate-mc,log=vv,uncompress} %
+%to better see the mc in the pdf:
+\tagpdfsetup{add-new-tag = BOXA/P, add-new-tag = BOXB/P, add-new-tag = BOXC/P,}
+
+\newsavebox\testboxa
+\newsavebox\testboxb
+\pagestyle{empty}
+\begin{document}
+
+% Some tests with mc + boxes
+
+%%%%%%%%%%%%
+% Direct use
+%%%%%%%%%%%%
+
+% pdftex: ok
+% luatex: ok 
+
+
+\tagmcbegin{tag=P}xxx\tagmcend 
+\savebox\testboxa{\tagmcbegin{tag=BOXA}box\tagmcend}
+\usebox\testboxa
+\tagmcbegin{tag=P}yyy\tagmcend
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% reusing the box a second time
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% pdftex: NOK, /BOX <</MCID 1 >> BDC twice in the pdf
+% luatex: OK
+
+\tagmcbegin{tag=P}xxx\tagmcend
+\usebox\testboxa
+\tagmcbegin{tag=P}yyy\tagmcend
+
+
+%%%%%%%%%%%%%%%
+% delayed use
+%%%%%%%%%%%%%%%
+% pdftex OK, numbering 5,7,6 
+% luatex OK, numbering 5,6,7
+
+\tagmcbegin{tag=P}xxx\tagmcend
+\savebox\testboxb{\tagmcbegin{tag=BOXB}box\tagmcend}
+\tagmcbegin{tag=P}yyy\tagmcend
+\usebox\testboxb
+
+
+%%%%%%%%%%%%%%%
+% delayed use one other page
+%%%%%%%%%%%%%%%
+% pdftex OK, numbering 8,9,0
+% luatex OK, numbering 6,7,8
+
+\tagmcbegin{tag=P}xxx\tagmcend
+\savebox\testboxb{\tagmcbegin{tag=BOXC}box\tagmcend}
+\tagmcbegin{tag=P}yyy\tagmcend
+\newpage 
+
+\usebox\testboxb
+
+
+%%%%%%%%%%%%%%%
+% Is there a way to delay/reset the numbers in the saved box???
+% this here does (naturally) not work, but demonstrates what is needed
+\newcommand\testnum{1}
+\savebox\testboxb{\pdfliteral{/BOXB<</MCID \testnum>> BDC EMC}}
+\usebox\testboxb
+\renewcommand\testnum{2}
+\usebox\testboxb
+
+\end{document}
+
+
