@@ -3,6 +3,12 @@
 \ProvidesExplPackage {tagpdf} {2018/08/06} {0.3}
  {A package to experiment with pdf tagging}
 
+%map internal tag to package name
+\prop_if_exist:NT \g_msg_module_name_prop
+ {
+  \prop_gput:Nnn \g_msg_module_name_prop { uftag }{ tagpdf }
+ }
+
 % storing internal names to my name space:
 \cs_set_eq:NN \__uftag_tex_pdffeedback:D         \tex_pdffeedback:D
 \cs_set_eq:NN \__uftag_tex_pdfextension:D        \tex_pdfextension:D
