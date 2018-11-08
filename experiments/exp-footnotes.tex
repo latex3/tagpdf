@@ -1,0 +1,77 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+
+\tagpdfifpdftexT
+ {
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{activate-all,log=vv,uncompress} %
+%to better see the mc in the pdf:
+\tagpdfsetup{add-new-tag = FOOTNOTE/Note}
+
+
+\pagestyle{empty}
+
+\makeatletter
+\long\def\@footnotetext#1{\insert\footins{%
+    \reset@font\footnotesize
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+    \protected@edef\@currentlabel{%
+       \csname p@footnote\endcsname\@thefnmark
+    }%
+    \color@begingroup
+    \tagstructbegin{tag=FOOTNOTE}%
+      \@makefntext{%
+        \rule\z@\footnotesep\tagstructbegin{tag=P}\tagmcbegin{tag=FOOTNOTE}\ignorespaces #1\@finalstrut\strutbox
+        \tagmcend\tagstructend}%
+     \tagstructend   
+    \color@endgroup}}%
+    
+  
+\deffootnote[1em]{1.5em}{1em}{%
+\textsuperscript{\tagstructbegin{tag=Lbl}\tagmcbegin{tag=Lbl}\thefootnotemark\tagmcend}\tagstructend}
+\deffootnotemark{\textsuperscript{\tagmcbegin{artifact}\thefootnotemark\tagmcend}}
+ \makeatletter
+ 
+\begin{document}
+% Some tests with mc + footnotes
+\tagstructbegin{tag=Document}
+\tagstructbegin{tag=P}
+\tagmcbegin{tag=P}Hallo\tagmcend
+\footnote{Dies ist ein Test}
+\tagmcbegin{tag=P}Welt\tagmcend
+\tagstructend
+\tagstructend
+
+\end{document}
+
+Remarks: this looks more or less okay, but the mix between kernel and KOMA-patches is not so good. 
+The xml structure looks like this
+
+
+<Document>
+ <P>yyy
+  <FOOTNOTE>
+   <Lbl>1</Lbl>
+   <P>note</P>
+  </FOOTNOTE>
+xxx</P>
+</Document>
+
+Not quite clear yes if this the wanted result (test with screen reader not really successful).
+
+
