@@ -28,7 +28,7 @@ tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experim
 tlmgr install luacode luatex luatexbase luaotfload ifluatex
 
 # language
-babel babel-english 
+tlmgr install babel babel-english 
 
 # class / content
 tlmgr install koma-script fancyhdr enumitem lipsum
