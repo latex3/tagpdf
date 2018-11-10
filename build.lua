@@ -8,6 +8,7 @@ ctanpkg  = "tagpdf"
 checkengines = {"pdftex", "luatex"}
 checkconfigs = {"build","config-pdftex","config-luatex"}
 checkruns = 3
+checksuppfiles = {"texmf.cnf"}
 
 sourcefiledir = "./source"
 
