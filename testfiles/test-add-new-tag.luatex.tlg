@@ -3,26 +3,10 @@ Don't change this file in any respect.
 .................................................
 . luatex
 .................................................
-.................................................
-. uftag info: "role-new-tag"
-. 
-. adding new tag section mapped to role H1
-.................................................
-*************************************************
-* uftag warning: "role-missing"
-* 
-* tag mn has no role assigned
-*************************************************
-*************************************************
-* uftag warning: "role-unknown"
-* 
-* role HX is not known
-*************************************************
-.................................................
-. uftag info: "role-new-tag"
-. 
-. adding new tag wrongtag mapped to role HX
-.................................................
+Package tagpdf Info: adding new tag section mapped to role H1
+Package tagpdf Warning: tag mn has no role assigned
+Package tagpdf Warning: role HX is not known
+Package tagpdf Info: adding new tag wrongtag mapped to role HX
 The property list \g__uftag_role_rolemap_prop contains the pairs (without
 outer braces):
 >  {section}  =>  {H1}
