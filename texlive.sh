@@ -23,6 +23,7 @@ fi
 # kernel
 tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experimental 
 
+
 # luatex
 tlmgr install luacode luatex luatexbase luaotfload ifluatex
 
@@ -40,7 +41,7 @@ tlmgr install oberdiek etoolbox unicode-data  xpatch
 tlmgr install fontspec  microtype amsfonts gnu-free­font ec cm-super
 
 # graphics
-tlmgr install   graphics-def     duckuments
+tlmgr install  graphics graphics-def     duckuments
 
    
 
