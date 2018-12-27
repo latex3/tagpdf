@@ -41,8 +41,7 @@
 % when the entries are created (title,lange,alt,E,actualtext)
 
 
-\seq_new:N             \c__uftag_struct_StructTreeRoot_entries_seq
-\seq_set_from_clist:Nn \c__uftag_struct_StructTreeRoot_entries_seq
+\seq_const_from_clist:Nn \c__uftag_struct_StructTreeRoot_entries_seq
  {%p. 857/858
   Type,              % always /StructTreeRoot
   K,                 % kid, dictionary or array of dictionaries
@@ -53,8 +52,7 @@
   ClassMap
  }
 
-\seq_new:N             \c__uftag_struct_StructElem_entries_seq
-\seq_set_from_clist:Nn \c__uftag_struct_StructElem_entries_seq
+\seq_const_from_clist:Nn \c__uftag_struct_StructElem_entries_seq
  {%p 858 f
   Type,              %always /StructElem
   S,                 %tag/type

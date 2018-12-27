@@ -39,8 +39,8 @@
 \RequirePackage{atbegshi}
 \RequirePackage{zref-base,zref-lastpage}
 \RequirePackage{etoolbox}
-%\RequirePackage{pdfescape}
-%\RequirePackage{pdftexcmds}
+%\RequirePackage{pdfescape} %check if needed
+%\RequirePackage{pdftexcmds}%check if needed (expandable commands!)
 
 \RequirePackage{l3str-convert}
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
@@ -65,7 +65,7 @@
  activate-tree   .bool_gset:N = \g_uftag_active_tree_bool,
  activate-struct .bool_gset:N = \g_uftag_active_struct_bool,
  activate-all    .meta:n ={activate-mc,activate-tree,activate-struct},
- check-tags      .bool_set:N = \g__uftag_check_tags_bool,
+ check-tags      .bool_gset:N = \g__uftag_check_tags_bool,
  check-tags      .initial:n  = true,
  log             .choice:,
  log / none      .code:n = {\int_set:Nn \l__uftag_loglevel_int { 0 }},
