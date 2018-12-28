@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.3"
-packagedate="2018/08/06"
+packageversion="0.4"
+packagedate="2018/12/28"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
