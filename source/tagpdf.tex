@@ -385,7 +385,7 @@ The key-val list understands the following keys:
 
   \item[\PrintKeyName{alttext}] This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
 
-  \item[\PrintKeyName{alttext-o} This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+  \item[\PrintKeyName{alttext-o}] This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
 
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
@@ -396,7 +396,7 @@ The key-val list understands the following keys:
 
   \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
 
-  \item[\PrintKeyName{actualtext-o} This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+  \item[\PrintKeyName{actualtext-o}] This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
 
       \begin{lstlisting}
       \newcommand\myactualtext{X}
@@ -561,7 +561,13 @@ The key-val list understands the following keys:
       The value is handled as verbatim string and hex encoded. Commands are not expanded.
   \item[\PrintKeyName{title-o}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
       The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.
- \end{description}
+  \item[\PrintKeyName{attribute}] This key allows to add an the attribute dictionary entry in the structure object. As an example 
+      \begin{lstlisting}
+      \tagstructbegin{tag=TH,attribute= /O/Table /Scope/Row}
+      \end{lstlisting}
+      
+      will add \verb+/A <</O/Table /Scope/Row>>+. Attribute objects \emph{must} have an /O entry!.
+       \end{description}
 
 
 \ExplSyntaxOn
