@@ -1,9 +1,10 @@
+\input{regression-test}
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,uncompress}
 
-\begin{document}
+\begin{document}\START
 \pagestyle{empty} %
 \tagstructbegin{tag=Document}
 
@@ -47,4 +48,4 @@
 \tagstructend
 
 \tagstructend
-\end{document}
+\end{document} 
