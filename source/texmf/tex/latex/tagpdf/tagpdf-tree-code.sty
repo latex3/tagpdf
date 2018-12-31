@@ -128,7 +128,7 @@
 \cs_new_protected:Nn \__uftag_tree_class_write_map:
  {
   \tl_gclear:N \g__uftag_attr_class_content_tl
-  \seq_remove_duplicates:N \g__uftag_attr_class_used_seq
+  \seq_gremove_duplicates:N \g__uftag_attr_class_used_seq
   \seq_set_map:NNn \l_tmpa_seq \g__uftag_attr_class_used_seq
    {
      /##1\c_space_tl
@@ -142,7 +142,8 @@
    }
   \tl_if_empty:NF \g__uftag_attr_class_content_tl
   {
-   \__uftag_pdfreserveobjnum:N \c__uftag_tree_obj_classmap_tl
+   \__uftag_pdfreserveobjnum:N \l_tmpa_tl
+   \tl_const:Nx \c__uftag_tree_obj_classmap_tl { \l_tmpa_tl }
    \__uftag_pdfuseobjnum:Nx \c__uftag_tree_obj_classmap_tl
    { \g__uftag_attr_class_content_tl }
 

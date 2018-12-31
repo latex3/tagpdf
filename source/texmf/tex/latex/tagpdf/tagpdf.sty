@@ -1,7 +1,9 @@
 \RequirePackage{expl3}[2018/06/14]
+%\RequirePackage[enable-debug]{expl3}[2018/06/14]
 
 \ProvidesExplPackage {tagpdf} {2019/01/01} {0.41}
  {A package to experiment with pdf tagging}
+%\debug_on:n{check-declarations,check-expressions,deprecation}
 
 %map internal tag to package name
 \prop_if_exist:NT \g_msg_module_name_prop

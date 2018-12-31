@@ -144,6 +144,9 @@ In this version I improved the handling of alternative and actual text. See sect
 
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
+\subsection{Changes in 0.4}
+I added code to handle attributes and attribute classes and corrected a small number of code errors. 
+
 \section{Setup}
 
 \minisec{Activation needed!}
@@ -175,16 +178,16 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{activate-struct}] Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
 \item[\PrintKeyName{activate-tree}] Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
 \item[\PrintKeyName{activate-all}] Boolean, initially false. Activates everything, that normally the sensible thing to do.
-\item[\PrintKeyName{add-new-tag}] See section \ref{sec:new-tag} for a description.    
+\item[\PrintKeyName{add-new-tag}] See section \ref{sec:new-tag} for a description.
 \item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't very much currently. It will perhaps be merged with the log-level key).
 \item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.
 \item[\PrintKeyName{inputencoding}]  Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
 \item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
-\item[\PrintKeyName{newattribute}] This key takes two arguments and declares an attribute. See \ref{sec:attributes}. 
+\item[\PrintKeyName{newattribute}] This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
 \item[\PrintKeyName{tabsorder}] Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
 \item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc.
 \item[\PrintKeyName{uncompress}] Equivalent to using \texttt{compresslevel=0}.
-    
+
 
 \end{description}
 
@@ -567,7 +570,7 @@ The key-val list understands the following keys:
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute-class= TH-row}
       \end{lstlisting}. See also section~\ref{sec:attributes}.
-    
+
   \item[\PrintKeyName{title}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
       The value is handled as verbatim string and hex encoded. Commands are not expanded.
   \item[\PrintKeyName{title-o}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
