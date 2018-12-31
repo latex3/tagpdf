@@ -175,14 +175,16 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{activate-struct}] Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
 \item[\PrintKeyName{activate-tree}] Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
 \item[\PrintKeyName{activate-all}] Boolean, initially false. Activates everything, that normally the sensible thing to do.
-\item[\PrintKeyName{add-new-tag}] See section \ref{sec:new-tag} for a description.
+\item[\PrintKeyName{add-new-tag}] See section \ref{sec:new-tag} for a description.    
 \item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't very much currently. It will perhaps be merged with the log-level key).
 \item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.
 \item[\PrintKeyName{inputencoding}]  Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
 \item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
+\item[\PrintKeyName{newattribute}] This key takes two arguments and declares an attribute. See \ref{sec:attributes}. 
 \item[\PrintKeyName{tabsorder}] Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
 \item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc.
 \item[\PrintKeyName{uncompress}] Equivalent to using \texttt{compresslevel=0}.
+    
 
 \end{description}
 
@@ -557,17 +559,20 @@ The key-val list understands the following keys:
       \end{lstlisting}
 
       and it will insert \verb+X+ (hex encoded)  in the pdf.
+    \item[\PrintKeyName{attribute}] This key takes as argument a comma list of attribute names and allows to add one or more attribute dictionary entries in the structure object. As an example
+      \begin{lstlisting}
+      \tagstructbegin{tag=TH,attribute= TH-row}
+      \end{lstlisting}. See also section~\ref{sec:attributes}.
+  \item[\PrintKeyName{attribute-class}] This key takes as argument a comma list of attribute names and allows to add one or more attribute classes to the structure object. As an example
+      \begin{lstlisting}
+      \tagstructbegin{tag=TH,attribute-class= TH-row}
+      \end{lstlisting}. See also section~\ref{sec:attributes}.
+    
   \item[\PrintKeyName{title}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
       The value is handled as verbatim string and hex encoded. Commands are not expanded.
   \item[\PrintKeyName{title-o}] This key allows to set the dictionary entry \texttt{/Title} in the structure object.
       The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.
-  \item[\PrintKeyName{attribute}] This key allows to add an the attribute dictionary entry in the structure object. As an example 
-      \begin{lstlisting}
-      \tagstructbegin{tag=TH,attribute= /O/Table /Scope/Row}
-      \end{lstlisting}
-      
-      will add \verb+/A <</O/Table /Scope/Row>>+. Attribute objects \emph{must} have an /O entry!.
-       \end{description}
+\end{description}
 
 
 \ExplSyntaxOn
@@ -587,6 +592,40 @@ These commands insert a structure previously stashed away as kid into the curren
 \subsubsection{Root structure}
 
 A document should have at least one structure which contains the whole document. A suitable tag is \texttt{Document} or \texttt{Article}. I'm considering to automatically inserting it.
+
+\subsubsection{Attributes and attribute classes}\label{sec:attributes}
+
+Structure Element can have so call attributes. A single attribute is a dictionary\footnote{or a stream but this is currently not supported by the package as I don't know an use-case} with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
+As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:
+\begin{lstlisting}
+<</Owner /Table /Scope /Column>>
+\end{lstlisting}
+
+One or more such attributes can be attached to a structure element. It is also possible to store such an attribute under a symbolic name in a so-called \enquote{ClassedMap} and then to attached references to such classes to a structure.
+
+To use such attributes you must at first declare it in \verb+\tagpdfsetup+ with the key \texttt{newattribute}. This key takes two argument, a name and the content of the attribute.
+The name should be a sensible key name, the content a dictionary.
+\begin{lstlisting}
+\tagpdfsetup
+ {
+  newattribute =
+   {TH-col}{<</Owner /Table /Scope /Column>>},
+  newattribute =
+   {TH-row}{<</Owner /Table /Scope /Row>>},
+  }
+\end{lstlisting}
+
+Attributes are only written to the pdf when used, so it is not a problem to predeclare a number of standard attributes.
+
+It is your responsability that the content of the dictionary is valid pdf and that the values are sensible!
+
+Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyName{attribute-class} which both take a comma list of attribute names as argument\footnote{That's not really a sensible example}:
+\begin{lstlisting}
+\tagstructbegin{tag=TH,
+ attribute-class= {TH-row,TH-col},
+ attribute      = {TH-row,TH-col},
+ }
+\end{lstlisting}
 
 
 \subsection{Task 3: tree Management}

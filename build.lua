@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.4"
-packagedate="2018/12/28"
+packageversion="0.41"
+packagedate="2019/01/01"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -32,7 +32,7 @@ function update_tag (file,content,tagname,tagdate)
   return content                         
  elseif string.match (file, "%.md$") then
    content = string.gsub (content,  
-                         "Packageversion: %d%.%d",
+                         "Packageversion: %d%.%d+",
                          "Packageversion: " .. packageversion )
    content = string.gsub (content,  
                          "Packagedate: %d%d%d%d/%d%d/%d%d",
@@ -40,7 +40,7 @@ function update_tag (file,content,tagname,tagdate)
    return content
  elseif string.match (file, "%.lua$" ) then
    content = string.gsub (content,  
-                         "Packageversion: %d%.%d",
+                         "Packageversion: %d%.%d+",
                          "Packageversion: " .. packageversion )
    content = string.gsub (content,  
                          "Packagedate: %d%d%d%d/%d%d/%d%d",
@@ -48,7 +48,7 @@ function update_tag (file,content,tagname,tagdate)
    return content
  elseif string.match (file, "%.tex$" ) then
    content = string.gsub (content,  
-                         "package@version{%d%.%d}",
+                         "package@version{%d%.%d+}",
                          "package@version{" .. packageversion .."}" )
    content = string.gsub (content,  
                          "package@date{%d%d%d%d/%d%d/%d%d}",
