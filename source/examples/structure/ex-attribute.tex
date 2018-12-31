@@ -1,8 +1,21 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,uncompress}
 
+\ifluatex\else
+\pdfcatalog{/Lang (en-UK)}
+\pdfinfo {/Title (Title)}
+\fi
+
+\tagpdfsetup
+{
+ newattribute = {TH-col} { <</Owner /Table /Scope /Column>> },
+ newattribute = {TH-row} { <</Owner /Table /Scope /Row>>    },
+ newattribute = {TH-both}{ <</Owner /Table /Scope /Both>>   },
+ newattribute = {Lay-borderdotted}{ <</Owner /Layout /Borderstyle /Dotted >>   },
+}
 \begin{document}
 \pagestyle{empty} %
 \tagstructbegin{tag=Document}
@@ -13,12 +26,12 @@
 \hline
 \tagstructbegin{tag=THead}
  \tagstructbegin{tag=TR}
-  \tagstructbegin{tag=TH,attribute= /O/Table /Scope/Row}
+  \tagstructbegin{tag=TH,attribute= {TH-both,Lay-borderdotted}}
    \tagmcbegin{tag=TH}
    h1
    \tagmcend
    \tagstructend &
-  \tagstructbegin{tag=TH,attribute= /O/Table /Scope/Row}
+  \tagstructbegin{tag=TH,attribute-class= {TH-col,Lay-borderdotted}}
     \tagmcbegin{tag=TH}
     h2
     \tagmcend
@@ -47,4 +60,4 @@
 \tagstructend
 
 \tagstructend
-\end{document}
+\end{document} 

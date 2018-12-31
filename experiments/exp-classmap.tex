@@ -35,15 +35,20 @@
 \pdfinfo {/Title (Title)}
 \fi
 
-\tagpdfsetup{
- newattribute = {TH-col}{ <</Owner /Table /Scope /Column>> },
- newattribute = {TH-row}{ <</Owner /Table /Scope /Column>> }
-} 
+\tagpdfsetup
+{
+ newattribute = {TH-col} { <</Owner /Table /Scope /Column>> },
+ newattribute = {TH-row} { <</Owner /Table /Scope /Row>>    },
+ newattribute = {TH-both}{ <</Owner /Table /Scope /Both>>   },
+ newattribute = {Lay-borderdotted}{ <</Owner /Layout /Borderstyle /Dotted >>   },
+}
+
+ 
 \begin{document}\showoutput
 
 \tagstructbegin{tag=Document}
  \tagstructbegin{tag=Sect}
-  \tagstructbegin{tag=H,attribute-class={TH-col,TH-row}}
+  \tagstructbegin{tag=H,attribute=Lay-borderdotted,attribute-class={TH-col,TH-row}}
    \tagmcbegin{tag=H}
     \section{Section}
    \tagmcend
@@ -54,7 +59,7 @@
    \tagmcend
   \tagstructend
 
-  \tagstructbegin{tag=L} %List
+  \tagstructbegin{tag=L,attribute={TH-col,TH-row}} %List
    \tagstructbegin{tag=LI}
     \tagstructbegin{tag=Lbl}
      \tagmcbegin{tag=Lbl}
