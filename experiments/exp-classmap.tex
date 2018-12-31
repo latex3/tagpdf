@@ -34,86 +34,21 @@
 \pdfcatalog{/Lang (en-UK)}
 \pdfinfo {/Title (Title)}
 \fi
+
+\tagpdfsetup{
+ newattribute = {TH-col}{ <</Owner /Table /Scope /Column>> },
+ newattribute = {TH-row}{ <</Owner /Table /Scope /Column>> }
+} 
 \begin{document}\showoutput
-
-\ExplSyntaxOn
-\__uftag_pdfreserveobjnum:N \c__uftag_tree_obj_classmap_tl
-
-\seq_new:N  \g__uftag_class_used_seq
-\prop_new:N \g__uftag_class_entries_prop
-\tl_new:N   \g__uftag_class_content_tl
-
-\cs_new_protected:Nn \__uftag_new_class_entry:nn %#1:name, #2: content
- {
-  \prop_gput:Nnn \g__uftag_class_entries_prop
-   {#1}{#2}
- }
-
-\__uftag_new_class_entry:nn {TH-col}{ /Owner /Table /Scope /Column }
-\__uftag_new_class_entry:nn {TH-row}{ /Owner /Table /Scope /Column }
-
-\cs_new_protected:Nn \__uftag_class_write_map:
- {
-  \tl_gclear:N \g__uftag_class_content_tl
-  \seq_map_inline:Nn \g__uftag_class_used_seq
-    {
-     \tl_gput_right:Nx \g__uftag_class_content_tl
-     {
-      /##1\c_space_tl
-      <<
-       \prop_item:Nn \g__uftag_class_entries_prop
-       {##1}
-      >>\iow_newline:
-     }
-    }
-  \int_case:nnF { \seq_count:N \g__uftag_class_used_seq }
-   {
-    { 0 } {} %do nothing
-    { 1 }
-     {
-      \tl_gset:No \g__uftag_class_content_tl { \l_tmpa_tl }
-     }
-   }
-   {
-    \tl_gput_left:Nn \g__uftag_class_content_tl
-     { [ }
-
-    \tl_gput_right:Nn \g__uftag_class_content_tl
-     { ] }
-   } %>1
-  \tl_show:N \g__uftag_class_content_tl
-  \tl_if_empty:NF \g__uftag_class_content_tl
-  {
-   \__uftag_pdfuseobjnum:Nx \c__uftag_tree_obj_classmap_tl 
-   { \g__uftag_class_content_tl }
-  
-   \__uftag_prop_gput:cnx
-    { g__uftag_struct_0_prop }
-    { ClassMap }
-    { \c__uftag_tree_obj_classmap_tl\c_space_tl0\c_space_tl R  }
-  } 
- }
-
-\__uftag_class_write_map:
-\seq_gput_left:Nn\g__uftag_class_used_seq {TH-col}
-%\__uftag_class_write_map:
-\seq_gput_left:Nn\g__uftag_class_used_seq {TH-row}
-%\__uftag_class_write_map:
-
-%\__uftag_pdfuseobjnum:Nn \c__uftag_tree_obj_classmap_tl
-% { /blub \c_space_tl <<>> }
-
-
-\ExplSyntaxOff
 
 \tagstructbegin{tag=Document}
  \tagstructbegin{tag=Sect}
-  \tagstructbegin{tag=H}
+  \tagstructbegin{tag=H,attribute-class={TH-col,TH-row}}
    \tagmcbegin{tag=H}
     \section{Section}
    \tagmcend
   \tagstructend
-  \tagstructbegin{tag=P}
+  \tagstructbegin{tag=P,attribute-class={TH-col}}
    \tagmcbegin{tag=P}
     a paragraph\par x
    \tagmcend

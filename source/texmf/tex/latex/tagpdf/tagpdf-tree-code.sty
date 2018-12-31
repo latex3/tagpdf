@@ -123,11 +123,42 @@
    }
  }
 
+%classmap, should only be written, if values has been used
+
+\cs_new_protected:Nn \__uftag_tree_class_write_map:
+ {
+  \tl_gclear:N \g__uftag_attr_class_content_tl
+  \seq_remove_duplicates:N \g__uftag_attr_class_used_seq
+  \seq_set_map:NNn \l_tmpa_seq \g__uftag_attr_class_used_seq
+   {
+     /##1\c_space_tl
+     \prop_item:Nn \g__uftag_attr_entries_prop
+       {##1}
+   }
+  \tl_gset:Nx \g__uftag_attr_class_content_tl
+   {
+    \seq_use:Nn \l_tmpa_seq
+     { \iow_newline: }
+   }
+  \tl_if_empty:NF \g__uftag_attr_class_content_tl
+  {
+   \__uftag_pdfuseobjnum:Nx \c__uftag_tree_obj_classmap_tl
+   { \g__uftag_attr_class_content_tl }
+
+   \__uftag_prop_gput:cnx
+    { g__uftag_struct_0_prop }
+    { ClassMap }
+    { \c__uftag_tree_obj_classmap_tl\c_space_tl0\c_space_tl R  }
+  }
+ }
+
+
 \cs_new:Nn \uftag_finish_structure:
  {
   \__uftag_pdfcatalog:n {^^J/MarkInfo\c_space_tl<</Marked\c_space_tl true>> }
   \__uftag_tree_write_parenttree:
   \__uftag_tree_write_rolemap:
+  \__uftag_tree_class_write_map:
   \__uftag_tree_write_structelements:
   \__uftag_tree_write_structtreeroot:
  }

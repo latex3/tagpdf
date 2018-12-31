@@ -1,0 +1,59 @@
+\ProvidesExplPackage {tagpdf-attr-code} {2018/12/28} {0.4}
+ {part of tagpdf - code related to attributes and attribute classes}
+
+% the obj is written in tagpdf-tree-code.
+\__uftag_pdfreserveobjnum:N \c__uftag_tree_obj_classmap_tl
+
+\seq_new:N  \g__uftag_attr_class_used_seq
+\prop_new:N \g__uftag_attr_entries_prop
+\tl_new:N   \g__uftag_attr_class_content_tl
+
+\cs_new_protected:Nn \__uftag_attr_new_entry:nn %#1:name, #2: content
+ {
+  \prop_gput:Nnn \g__uftag_attr_entries_prop
+   {#1}{#2}
+ }
+
+\keys_define:nn { uftag / setup }
+ {
+  newattribute .code:n =
+   {
+    \__uftag_attr_new_entry:nn #1
+   }
+ }
+
+
+% the key for the structure:
+\keys_define:nn { uftag / struct }
+{
+ attribute-class .code:n =
+ {
+   \clist_set:No \l_tmpa_clist { #1 }
+   \seq_set_from_clist:NN \l_tmpa_seq \l_tmpa_clist
+   \seq_map_inline:Nn \l_tmpa_seq
+    {
+     \seq_gput_left:Nn\g__uftag_attr_class_used_seq { ##1}
+    }
+   \seq_set_map:NNn \l_tmpb_seq \l_tmpa_seq
+   {
+     /##1
+   }
+  \tl_gset:Nx \l_tmpa_tl
+   {
+    \int_compare:nT { \seq_count:N \l_tmpa_seq > 1 }{[}
+    \seq_use:Nn \l_tmpb_seq  { \c_space_tl  }
+    \int_compare:nT { \seq_count:N \l_tmpa_seq > 1 }{]}
+   }
+   \int_compare:nT { \seq_count:N \l_tmpa_seq > 0 }
+    {
+      \__uftag_prop_gput:cnx
+       { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
+       { C }
+       { \l_tmpa_tl }
+      %\prop_show:c  { g__uftag_struct_\int_eval:n {\c@g__uftag_struct_abs_int}_prop }
+
+    }
+   }
+}
+
+\endinput
