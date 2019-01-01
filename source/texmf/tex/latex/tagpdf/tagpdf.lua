@@ -1,4 +1,4 @@
--- Packageversion: 0.41 
+-- Packageversion: 0.42 
 -- Packagedate: 2019/01/01
 -- tagpdf.lua
 -- Ulrike Fischer

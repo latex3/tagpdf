@@ -1,5 +1,5 @@
 -- Build script for tagpdf
-packageversion="0.41"
+packageversion="0.42"
 packagedate="2019/01/01"
 
 module   = "tagpdf"
