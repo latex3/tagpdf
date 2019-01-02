@@ -48,10 +48,13 @@ functions
  uftag.trace.show_struct_data (num): shows data of structure num
  uftag.trace.show_prop: shows a prop 
  uftag.trace.log
+ uftag.trace.showspaces : boolean
 --]]
 
-local mctypeattributeid   = luatexbase.registernumber ("g__uftag_mc_type_attr")
-local mccntattributeid    = luatexbase.registernumber ("g__uftag_mc_cnt_attr")
+local mctypeattributeid       = luatexbase.registernumber ("g__uftag_mc_type_attr")
+local mccntattributeid        = luatexbase.registernumber ("g__uftag_mc_cnt_attr")
+local interwordspaceattribute = luatexbase.registernumber ("g__uftag_interwordspace_attr")
+
 
 local catlatex       = luatexbase.registernumber("catcodetable@latex")
 local tagunmarkedbool= token.create("g__uftag_tagunmarked_bool")
@@ -68,6 +71,7 @@ local nodetail         = node.tail
 local nodeslide        = node.slide
 local noderemove       = node.remove
 local nodetraverseid   = node.traverse_id
+local nodetraverse     = node.traverse
 local nodeinsertafter  = node.insert_after
 local nodeinsertbefore = node.insert_before
 local pdfpageref       = pdf.pageref 
@@ -77,6 +81,7 @@ local VLIST          = node.id("vlist")
 local RULE           = node.id("rule")
 local DISC           = node.id("disc")
 local GLUE           = node.id("glue")
+local GLYPH          = node.id("glyph")
 local KERN           = node.id("kern")
 local PENALTY        = node.id("penalty")
 local LOCAL_PAR      = node.id("local_par")
@@ -146,6 +151,54 @@ local function __uftag_insert_bdc_node (head,current,tag,dict)
  return head
 end
 
+-- this is for debugging the space chars
+local function __uftag_show_spacemark (head,current)
+ local pdfstring = node.new("whatsit","pdf_literal")
+       pdfstring.data =
+       string.format("q 1 0 0 RG 1 0 0 rg 0.4 w 0 %g m 0 %g l S Q",-3,10)
+       head = node.insert_after(head,current,pdfstring)
+ return head
+end
+
+--[[ a function to mark up places where real space chars should be inserted
+     it only sets an attribute.
+--]]    
+
+local function __uftag_mark_spaces (head)
+  local inside_math = false
+  for n in nodetraverse(head) do
+    local id = n.id
+    if id == GLYPH then
+      local glyph = n
+      if glyph.next and (glyph.next.id == GLUE)
+        and not inside_math  and (glyph.next.width >0)
+      then
+        node.set_attribute(glyph.next,interwordspaceattr,1)
+      -- for debugging  
+       if uftag.trace.showspaces then 
+        __uftag_show_spacemark (head,glyph)
+       end 
+      end
+    elseif id == MATH then
+      inside_math = (n.subtype == 0)
+    end
+  end
+  return head
+end
+
+local function __uftag_activate_mark_space ()
+ luatexbase.add_to_callback("pre_linebreak_filter",__uftag_mark_spaces,"markspaces")
+ luatexbase.add_to_callback("hpack_filter",__uftag_mark_spaces,"markspaces")
+end
+
+uftag.func.markspaceon=__uftag_activate_mark_space
+
+local function __uftag_deactivate_mark_space ()
+ luatexbase.remove_from_callback("pre_linebreak_filter","markspaces")
+ luatexbase.remove_from_callback("hpack_filter","markspaces")
+end
+--
+uftag.func.markspaceoff=__uftag_deactivate_mark_space
 
 --[[
     Now follows the core function

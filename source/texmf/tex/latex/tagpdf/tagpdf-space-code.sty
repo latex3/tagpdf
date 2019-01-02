@@ -1,0 +1,32 @@
+\ProvidesExplPackage {tagpdf-space-code} {2019/01/01} {0.42}
+ {part of tagpdf - code related to real space chars}
+% luatex uses an attribute (declared in the driver file) and some luacode in tagpdf.lua
+% perhaps I will split the code by engine in the future
+
+\sys_if_engine_pdftex:T
+{
+ \keys_define:nn { uftag / setup }
+  {
+    interwordspaceon .code:n {\pdfinterwordspaceon },
+    interwordspaceon .code:n {\pdfinterwordspaceoff },
+    show-spaces .bool_set:N = \l__uftag_showspaces_bool
+  }
+
+}
+
+
+\sys_if_engine_luatex:T
+{
+ \keys_define:nn { uftag / setup }
+  {
+    interwordspaceon .code:n {\directlua{uftag.func.markspaceon()} },
+    interwordspaceon .code:n {\directlua{uftag.func.markspaceoff()} },
+    show-spaces      .choice:,
+    show-spaces  /true  .code:n = {\directlua{uftag.trace.showspaces=true}},
+    show-spaces  /false .code:n = {\directlua{uftag.trace.showspaces=nil}},
+  }
+}
+
+
+
+\endinput

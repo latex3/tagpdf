@@ -1,0 +1,83 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\documentclass{article}
+\usepackage{luacode,amsmath}
+\newattribute\interwordspaceattr
+
+\usepackage[ngerman]{babel}
+
+\begin{luacode}
+local interwordspaceattr = luatexbase.registernumber ("interwordspaceattr")
+local nodetraverseid   = node.traverse_id
+local nodetraverse     = node.traverse
+local nodegetattribute = node.get_attribute
+local GLUE             = node.id("glue")
+local GLYPH            = node.id("glyph")
+local MATH             = node.id("math")
+local HLIST            = node.id("hlist")
+local VLIST            = node.id("vlist")
+
+
+local function insertmark (head,current)
+ local pdfstring = node.new("whatsit","pdf_literal")
+       pdfstring.data =
+       string.format("q 1 0 0 RG 1 0 0 rg 0.4 w 0 %g m 0 %g l S Q",-3,10)
+       head = node.insert_after(head,current,pdfstring)
+ return head
+end
+
+local function markwords(head)
+  local inside_math = false
+  for n in nodetraverse(head) do
+    local id = n.id
+    --print("ID: ",id, "Glue ", GLUE, "Glyph ", GLYPH)
+    if id == GLYPH then
+      local glyph = n
+      if glyph.next and (glyph.next.id == GLUE)
+        and not inside_math  and (glyph.next.width >0)
+      then
+        node.set_attribute(glyph.next,interwordspaceattr,1)
+        insertmark(head,glyph)
+      end
+    elseif id == MATH then
+      inside_math = (n.subtype == 0)
+    end
+  end
+  return head
+end
+
+
+luatexbase.add_to_callback("pre_linebreak_filter",markwords,"markwords")
+luatexbase.add_to_callback("hpack_filter",markwords,"markwords")
+
+\end{luacode}
+\usepackage{lipsum,listings}
+\begin{document}
+
+\begin{lstlisting}[columns=flexible]
+ xxx     xxx
+\end{lstlisting}
+%\end{document}
+\begin{tabular}{l}
+xxx xxx
+\end{tabular}
+
+$a=b \int f(x) =0\quad  \text{abc abc abc abc} $
+
+
+\begin{tabular}{l}
+xxx xxx
+\end{tabular}
+
+$a=b \int f(x) =0\quad \text{abc abc abc abc} $
+
+\begin{align}
+a &=b \\
+c &=d
+\end{align}
+
+\bigskip
+
+VA VA abc\hspace{0pt}abc abc""abc
+\lipsum[1]
+
+\end{document} 
