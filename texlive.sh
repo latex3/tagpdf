@@ -23,6 +23,7 @@ fi
 # kernel
 tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experimental 
 
+tlmgr install collection-german
 
 # luatex
 tlmgr install luacode luatex luatexbase luaotfload ifluatex
