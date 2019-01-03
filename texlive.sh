@@ -28,14 +28,14 @@ tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experim
 tlmgr install luacode luatex luatexbase luaotfload ifluatex
 
 # language
-tlmgr install babel babel-english 
+tlmgr install babel babel-english babel-german
 
 # class / content
 tlmgr install koma-script fancyhdr enumitem lipsum
 
 # other tools
 
-tlmgr install oberdiek etoolbox unicode-data  xpatch 
+tlmgr install oberdiek etoolbox unicode-data  xpatch  amsmath
 
 # fonts
 tlmgr install fontspec  microtype amsfonts gnu-free­font ec cm-super
