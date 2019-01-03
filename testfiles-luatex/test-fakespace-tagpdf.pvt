@@ -1,14 +1,14 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\input{regression-test}\START
+\input{regression-test}
 \documentclass[a4paper]{article}
 \usepackage{graphicx}
 \usepackage{amsmath}
-\usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,uncompress,interwordspace=on,show-spaces}
 
 \usepackage{lipsum}
-\begin{document}
+\begin{document}\START\showoutput
 
 \tagstructbegin{tag=Document}
 ab
