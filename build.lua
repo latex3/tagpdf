@@ -5,6 +5,30 @@ packagedate="2019/01/03"
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
 
+uploadconfig = {
+  pkg     = ctanpkg,
+  version = "v"..packageversion.." "..string.gsub (packagedate,"-", "/"),
+  author  = "Ulrike Fischer",
+  license = "lppl1.3c",
+  summary = "Tools for experimenting with tagging using pdfLATEX and LuaLATEX",
+  ctanPath = "/macros/latex/contrib/tagpdf",
+  repository = "https://github.com/u-fischer/tagpdf",
+  bugtracker = "https://github.com/u-fischer/tagpdf/issues",
+  uploader = "Ulrike Fischer",
+  email    = "chess@nililand.de",
+  update   = true ,
+  note     = [[Uploaded automatically by l3build...]],
+  description=[[The package offers tools to experiment with tagging and 
+                accessibility using pdfLATEX and LuaTEX. 
+                It isn’t meant for production but allows the user to try out 
+                how difficult it is to tag some structures; to try out how much 
+                tagging is really needed; to test what else is needed so that a pdf 
+                works e.g. with a screen reader.
+                Its goal is to get a feeling for what has to be done, which kernel 
+                changes are needed, how packages should be adapted.]],
+  announcement="This version adds code for attributes, attribute classes and interword space glyphs."              
+}
+
 checkengines = {"pdftex", "luatex"}
 checkconfigs = {"build","config-pdftex","config-luatex"}
 checkruns = 3
@@ -59,8 +83,11 @@ function update_tag (file,content,tagname,tagdate)
  end
 
 -- ctan setup
-docfiles = {"source/tagpdf.bib", "source/examples/**/*.tex", "source/examples/**/*.pdf"}
-textfiles= {"source/README.md"}
+docfiles = {"source/tagpdf.tex","source/tagpdf.bib", "source/examples/**/*.tex", "source/examples/**/*.pdf"}
+textfiles= {"source/CTANREADME.md"}
+
+ctanreadme= "CTANREADME.md"
+
 packtdszip   = false
 installfiles = {
                 "**/*.sty",
@@ -74,7 +101,7 @@ sourcefiles  = {
                 "**/*.lua"
                }
                             
-typesetfiles = {"source/tagpdf.tex"}
+typesetfiles = {"tagpdf.tex"}
 
 kpse.set_program_name ("kpsewhich")
 if not release_date then

@@ -144,9 +144,9 @@ In this version I improved the handling of alternative and actual text. See sect
 
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
-\subsection{Changes in 0.4}
+\subsection{Changes in 0.40-0.43}
 I added code to handle attributes and attribute classes and corrected a small number of code errors.
-I added code to add \enquote{real} space chars. See section \ref{sec:spacechar}. 
+I added code to add \enquote{real} space chars. See section \ref{sec:spacechars}.
 
 \section{Setup}
 
@@ -186,7 +186,7 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{interwordspace}] Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}.
 \item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
 \item[\PrintKeyName{newattribute}] This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
-\item[\PrintKeyName{show-spaces}] Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated. 
+\item[\PrintKeyName{show-spaces}] Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
 \item[\PrintKeyName{tabsorder}] Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
 \item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc.
 \item[\PrintKeyName{uncompress}] Equivalent to using \texttt{compresslevel=0}.
@@ -701,7 +701,7 @@ The following shows the marking need for a section, a sentence and a list with t
 
 \subsection{Lazy tagging}
 
-A number of features of pdf readers need a fully tagged pdf. As an example screen readers tend to ignore alternative text (see section~\label{sec:alttext}) if the pdf is not fully tagged. Also reflowing a pdf only works for me (even if real space chars are in the pdf) if the pdf is fully tagged. 
+A number of features of pdf readers need a fully tagged pdf. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alttext}) if the pdf is not fully tagged. Also reflowing a pdf only works for me (even if real space chars are in the pdf) if the pdf is fully tagged.
 
 This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside rather large mc-chunks. This minimizes the needed work.
 
@@ -768,16 +768,16 @@ New tags can be defined in the setup command with the key \texttt{add-new-tag}. 
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
-TeX uses only spaces to separate words. That means that a pdf reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or a kerning. 
+TeX uses only spaces to separate words. That means that a pdf reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or a kerning.
 
-Accessible document should use real space glyphs (U+0032) from a font in such places. 
+Accessible document should use real space glyphs (U+0032) from a font in such places.
 
-With the key \PrintKeyName{interwordspace} you can activate such space glyphs. 
+With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
 
 With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there is a font switch in the pdf, this can enlarge the pdf. As this is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyp with \verb+\pdffakespace+.
 
 With luatex (in luamode) interwordspace is implemented with a  lua-function which is inserted in two callbacks and marks up the places where a space glyph looks sensible. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text. But if needed it can be finetuned (listings seems a bit problematic currently). The code defines also for luatex a \verb+\pdffakespace+.
-  
+
 
 
 \section{To-do}
