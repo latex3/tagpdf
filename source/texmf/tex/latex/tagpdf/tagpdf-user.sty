@@ -84,6 +84,13 @@
    }
  }
 
+\sys_if_engine_luatex:T
+{
+  \NewDocumentCommand\pdffakespace { }
+  {
+   \__uftag_fakespace:
+  }
+}
 
 
 \endinput

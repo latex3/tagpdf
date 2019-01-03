@@ -42,6 +42,7 @@ functions
  uftag.func.mark_shipout (): a wrapper around the core function which inserts the last EMC
  uftag.func.fill_parent_tree_line (page): outputs the entries of the parenttree for this page
  uftag.func.output_parenttree(): outputs the content of the parenttree
+ uftag.func.markspaceon(), uftag.func.markspaceoff(): (de)activates the marking of positions for space chars
  uftag.trace.show_mc_data (num): shows uftag.mc[num] 
  uftag.trace.show_all_mc_data (max): shows a maximum about mc's
  uftag.trace.show_seq: shows a sequence (array)
@@ -53,7 +54,8 @@ functions
 
 local mctypeattributeid       = luatexbase.registernumber ("g__uftag_mc_type_attr")
 local mccntattributeid        = luatexbase.registernumber ("g__uftag_mc_cnt_attr")
-local interwordspaceattribute = luatexbase.registernumber ("g__uftag_interwordspace_attr")
+local iwspaceattributeid = luatexbase.registernumber ("g__uftag_interwordspace_attr")
+local iwfontattributeid = luatexbase.registernumber ("g__uftag_interwordfont_attr")
 
 
 local catlatex       = luatexbase.registernumber("catcodetable@latex")
@@ -66,6 +68,7 @@ local tableinsert    = table.insert
 local nodeid           = node.id
 local nodecopy         = node.copy
 local nodegetattribute = node.get_attribute
+local nodesetattribute = node.set_attribute
 local nodenew          = node.new
 local nodetail         = node.tail
 local nodeslide        = node.slide
@@ -152,10 +155,12 @@ local function __uftag_insert_bdc_node (head,current,tag,dict)
 end
 
 -- this is for debugging the space chars
-local function __uftag_show_spacemark (head,current)
+local function __uftag_show_spacemark (head,current,color,height)
+ local markcolor = color or "1 0 0"
+ local markheight = height or 10 
  local pdfstring = node.new("whatsit","pdf_literal")
        pdfstring.data =
-       string.format("q 1 0 0 RG 1 0 0 rg 0.4 w 0 %g m 0 %g l S Q",-3,10)
+       string.format("q "..markcolor.." RG "..markcolor.." rg 0.4 w 0 %g m 0 %g l S Q",-3,markheight)
        head = node.insert_after(head,current,pdfstring)
  return head
 end
@@ -173,7 +178,8 @@ local function __uftag_mark_spaces (head)
       if glyph.next and (glyph.next.id == GLUE)
         and not inside_math  and (glyph.next.width >0)
       then
-        node.set_attribute(glyph.next,interwordspaceattr,1)
+        nodesetattribute(glyph.next,iwspaceattributeid,1)
+        nodesetattribute(glyph.next,iwfontattributeid,glyph.font)
       -- for debugging  
        if uftag.trace.showspaces then 
         __uftag_show_spacemark (head,glyph)
@@ -187,18 +193,36 @@ local function __uftag_mark_spaces (head)
 end
 
 local function __uftag_activate_mark_space ()
- luatexbase.add_to_callback("pre_linebreak_filter",__uftag_mark_spaces,"markspaces")
- luatexbase.add_to_callback("hpack_filter",__uftag_mark_spaces,"markspaces")
+ if not luatexbase.in_callback ("pre_linebreak_filter","markspaces") then
+  luatexbase.add_to_callback("pre_linebreak_filter",__uftag_mark_spaces,"markspaces")
+  luatexbase.add_to_callback("hpack_filter",__uftag_mark_spaces,"markspaces")
+ end 
 end
 
 uftag.func.markspaceon=__uftag_activate_mark_space
 
 local function __uftag_deactivate_mark_space ()
+ if luatexbase.in_callback ("pre_linebreak_filter","markspaces") then
  luatexbase.remove_from_callback("pre_linebreak_filter","markspaces")
  luatexbase.remove_from_callback("hpack_filter","markspaces")
+ end
 end
 --
 uftag.func.markspaceoff=__uftag_deactivate_mark_space
+
+local default_space_char = node.new(GLYPH)
+local default_fontid     = font.id("TU/lmr/m/n/10")
+default_space_char.char  = 32
+default_space_char.font  = default_fontid
+
+local function __uftag_insert_space_char (head,n,fontid)
+ if luaotfload.aux.slot_of_name(fontid,"space") then
+  local space
+  -- head, space = node.insert_before(head, n, ) -- Set the right font
+  -- n.width = n.width - space.width
+  -- space.attr = n.attr
+ end
+end
 
 --[[
     Now follows the core function
@@ -232,6 +256,7 @@ function uftag.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mcty
   end  
   for n in node.traverse(head) do
     local mccnt, mctype, tag = __uftag_get_mc_cnt_type_tag (n)
+    local spaceattr = nodegetattribute(n,iwspaceattributeid)  or -1
     uftag.trace.log ("NODE ".. node.type(node.getid(n)).." MC"..tostring(mccnt).." => TAG "..tostring(mctype).." => " .. tostring(tag),3)
     if n.id == HLIST
     then -- enter the hlist
@@ -240,10 +265,26 @@ function uftag.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mcty
     elseif n.id == VLIST then -- enter the vlist     
      mcopen,mcpagecnt,mccntprev,mctypeprev= 
       uftag.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL VLIST",mctypeprev)
-    elseif n.id == GLUE then       -- glue is ignored
+    elseif n.id == GLUE then       -- at glue real space chars are inserted, for the rest it is ignored 
+     -- for debugging       
+     if uftag.trace.showspaces and spaceattr==1  then 
+        __uftag_show_spacemark (head,n,"0 1 0")
+     end
+     if spaceattr==1  then 
+        local space
+        local space_char = node.copy(default_space_char)
+        local curfont    = nodegetattribute(n,iwfontattributeid)  
+        uftag.trace.log ("FONT ".. tostring(curfont),3)
+        if curfont and luaotfload.aux.slot_of_name(curfont,"space") then
+          space_char.font=curfont
+        end
+        head, space = node.insert_before(head, n, space_char) -- 
+        n.width     = n.width - space.width
+        space.attr  = n.attr
+     end
     elseif n.id == LOCAL_PAR then  -- local_par is ignored 
     elseif n.id == PENALTY then    -- penalty is ignored
-    elseif n.id == KERN then       -- kern is ignored
+    elseif n.id == KERN then       -- kern is ignored     
     else
      -- math is currently only logged. 
      -- we could mark the whole as math

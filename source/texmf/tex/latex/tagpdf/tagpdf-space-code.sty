@@ -5,10 +5,11 @@
 
 \sys_if_engine_pdftex:T
 {
+ \pdfglyphtounicode{space}{0020}
  \keys_define:nn { uftag / setup }
   {
-    interwordspaceon .code:n {\pdfinterwordspaceon },
-    interwordspaceon .code:n {\pdfinterwordspaceoff },
+    interwordspace .choices:nn = { true, on }  { \pdfinterwordspaceon },
+    interwordspace .choices:nn = { false, off }{ \pdfinterwordspaceon },
     show-spaces .bool_set:N = \l__uftag_showspaces_bool
   }
 
@@ -19,11 +20,23 @@
 {
  \keys_define:nn { uftag / setup }
   {
-    interwordspaceon .code:n {\directlua{uftag.func.markspaceon()} },
-    interwordspaceon .code:n {\directlua{uftag.func.markspaceoff()} },
+    interwordspace .choices:nn = { true, on }
+                                 { \directlua{uftag.func.markspaceon()} },
+
+    interwordspace .choices:nn = { false, off }
+                                 {\directlua{uftag.func.markspaceoff()} },
     show-spaces      .choice:,
-    show-spaces  /true  .code:n = {\directlua{uftag.trace.showspaces=true}},
-    show-spaces  /false .code:n = {\directlua{uftag.trace.showspaces=nil}},
+    show-spaces  / true  .code:n = {\directlua{uftag.trace.showspaces=true}},
+    show-spaces  / false .code:n = {\directlua{uftag.trace.showspaces=nil}},
+    show-spaces .default:n = true
+  }
+ \cs_new_protected:Nn \__uftag_fakespace:
+  {
+   \group_begin:
+    \setattribute\g__uftag_interwordspace_attr{1}
+    \setattribute\g__uftag_interwordfont_attr{\directlua{tex.print(font.current())}}
+    \skip_horizontal:n{\c_zero_skip}
+   \group_end:
   }
 }
 

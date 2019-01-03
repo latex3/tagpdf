@@ -3,7 +3,8 @@
 
 \newattribute \g__uftag_mc_type_attr     %the value represent the type
 \newattribute \g__uftag_mc_cnt_attr      %will hold the \c@g__uftag_MCID_abs_int value
-\newattribute \g__uftag_interwordspace_attr 
+\newattribute \g__uftag_interwordspace_attr
+\newattribute \g__uftag_interwordfont_attr
 
 % The lua code
 \directlua { tagpdf=require('tagpdf.lua') }
