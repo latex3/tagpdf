@@ -1,6 +1,6 @@
 # tagpdf
 
-![Version: 0.43](https://img.shields.io/badge/current_version-0.43-blue.svg?style=flat-square)
+![Version: 0.50](https://img.shields.io/badge/current_version-0.50-blue.svg?style=flat-square)
 ![Date: 2019/01/03](https://img.shields.io/badge/date-2019/01/03-blue.svg?style=flat-square)
 [![License: LPPL1.3c ](https://img.shields.io/badge/license-LPPL1.3c-blue.svg?style=flat-square)](https://ctan.org/license/lppl1.3c)
 
@@ -30,7 +30,7 @@ The tagpdf package may be modified and distributed under the terms and condition
  
 ## Current development version
 
-[![Version: 0.43](https://img.shields.io/badge/version-0.43-blue.svg?style=flat-square)](https://travis-ci.com/u-fischer/tagpdf/)
-![Travis CI for 0.43](https://img.shields.io/travis/com/u-fischer/tagpdf/master.svg?style=flat-square)
+[![Version: 0.50](https://img.shields.io/badge/version-0.50-blue.svg?style=flat-square)](https://travis-ci.com/u-fischer/tagpdf/)
+![Travis CI for 0.50](https://img.shields.io/travis/com/u-fischer/tagpdf/master.svg?style=flat-square)
 
 

@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.44}
-\def\UlrikeFischer@package@date{2019/01/03}
+\def\UlrikeFischer@package@version{0.50}
+\def\UlrikeFischer@package@date{2019/01/04}
 \makeatother
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage[T1]{fontenc}
@@ -144,7 +144,7 @@ In this version I improved the handling of alternative and actual text. See sect
 
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
-\subsection{Changes in 0.40-0.44}
+\subsection{Changes in 0.5}
 I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
 
 I added code to add \enquote{real} space glyphs to the pdf, see section \ref{sec:spacechars}.
@@ -762,7 +762,7 @@ With luatex (in luamode) interwordspace is implemented with a lua-function which
 
 The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.
 
-\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The pdf viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro. 
+\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The pdf viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro.
 
 \DescribeMacro\pdffakespace
 
