@@ -185,6 +185,19 @@ local function __uftag_mark_spaces (head)
         __uftag_show_spacemark (head,glyph)
        end 
       end
+    elseif id == PENALTY then
+      local glyph = n
+      uftag.trace.log ("PENALTY ".. n.subtype.."VALUE"..n.penalty,1) 
+      if glyph.next and (glyph.next.id == GLUE)
+        and not inside_math  and (glyph.next.width >0) and n.subtype==0
+      then
+        nodesetattribute(glyph.next,iwspaceattributeid,1)
+      --  nodesetattribute(glyph.next,iwfontattributeid,glyph.font)
+      -- for debugging  
+       if uftag.trace.showspaces then 
+        __uftag_show_spacemark (head,glyph)
+       end 
+      end 
     elseif id == MATH then
       inside_math = (n.subtype == 0)
     end

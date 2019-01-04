@@ -34,7 +34,7 @@
   {
    \group_begin:
     \setattribute\g__uftag_interwordspace_attr{1}
-    \setattribute\g__uftag_interwordfont_attr{\directlua{tex.print(font.current())}}
+    \setattribute\g__uftag_interwordfont_attr{\directlua{tex.print(\the\catcodetable@latex, font.current())}}
     \skip_horizontal:n{\c_zero_skip}
    \group_end:
   }

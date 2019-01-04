@@ -3,19 +3,26 @@
 \usepackage{amsmath}
 \usepackage[ngerman]{babel}
 \usepackage{tagpdf}
+\usepackage{listings}
 \tagpdfsetup{activate-all,uncompress,interwordspace=on,show-spaces}
-
+\makeatletter
 \usepackage{lipsum}
 \begin{document}
 
 \tagstructbegin{tag=Document}
 ab
 
+a~b
+
 a\pdffakespace b
 
 \begin{verbatim}
 xxx xxx   xxxx
 \end{verbatim}
+
+\begin{lstlisting}
+xxx xxx   xxx
+\end{lstlisting}
 
 \begin{tabular}{l}
 xxx xxx

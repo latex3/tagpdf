@@ -40,7 +40,8 @@ tagfiles = {"source/*.md",
             "source/**/*.sty",
             "source/**/*.def",
             "source/**/*.lua",
-            "source/*.tex"}
+            "source/*.tex",
+            "README.md"}
 
 function update_tag (file,content,tagname,tagdate)
  tagdate = string.gsub (packagedate,"-", "/")
@@ -53,7 +54,25 @@ function update_tag (file,content,tagname,tagdate)
   content = string.gsub (content,  
                          "\\ProvidesExplFile {(.-)} {.-} {.-}",
                          "\\ProvidesExplFile {%1} {" .. tagdate.."} {"..packageversion .. "}")                         
-  return content                         
+  return content 
+ elseif string.match (file, "^README.md$") then
+   content = string.gsub (content,  
+                         "Version: %d%.%d+",
+                         "Version: " .. packageversion )
+   content = string.gsub (content,  
+                         "version%-%d%.%d+",
+                         "version-" .. packageversion ) 
+   content = string.gsub (content,  
+                         "for %d%.%d+",
+                         "for " .. packageversion ) 
+   content = string.gsub (content,  
+                         "%d%d%d%d%-%d%d%-%d%d",
+                         packagedate )
+   local imgpackagedate = string.gsub (packagedate,"%-","--")                          
+   content = string.gsub (content,  
+                         "%d%d%d%d%-%-%d%d%-%-%d%d",
+                         imgpackagedate)                                                                                                     
+   return content                            
  elseif string.match (file, "%.md$") then
    content = string.gsub (content,  
                          "Packageversion: %d%.%d+",
@@ -77,7 +96,7 @@ function update_tag (file,content,tagname,tagdate)
    content = string.gsub (content,  
                          "package@date{%d%d%d%d/%d%d/%d%d}",
                          "package@date{" .. packagedate .."}" )                      
-   return content  
+   return content   
  end
  return content
  end

@@ -145,8 +145,9 @@ In this version I improved the handling of alternative and actual text. See sect
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
 \subsection{Changes in 0.40-0.43}
-I added code to handle attributes and attribute classes and corrected a small number of code errors.
-I added code to add \enquote{real} space chars. See section \ref{sec:spacechars}.
+I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
+
+I added code to add \enquote{real} space glyphs to the pdf, see section \ref{sec:spacechars}.
 
 \section{Setup}
 
@@ -175,12 +176,12 @@ The command should be normally used only in the preamble (for a few keys it coul
 
 The key-val list understands the following keys:
 \begin{description}
-\item[\PrintKeyName{activate-mc} ] Boolean, initially false. Activates the code related to marked content.
+\item[\PrintKeyName{activate-all}] Boolean, initially false. Activates everything, that's normally the sensible thing to do.
+\item[\PrintKeyName{activate-mc}] Boolean, initially false. Activates the code related to marked content.
 \item[\PrintKeyName{activate-struct}] Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
 \item[\PrintKeyName{activate-tree}] Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
-\item[\PrintKeyName{activate-all}] Boolean, initially false. Activates everything, that normally the sensible thing to do.
-\item[\PrintKeyName{add-new-tag}] See section \ref{sec:new-tag} for a description.
-\item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't very much currently. It will perhaps be merged with the log-level key).
+\item[\PrintKeyName{add-new-tag}] Allows to define new tag names, see section \ref{sec:new-tag} for a description.
+\item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).
 \item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.
 \item[\PrintKeyName{inputencoding}]  Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
 \item[\PrintKeyName{interwordspace}] Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}.
@@ -188,7 +189,7 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{newattribute}] This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
 \item[\PrintKeyName{show-spaces}] Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
 \item[\PrintKeyName{tabsorder}] Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
-\item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc.
+\item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.
 \item[\PrintKeyName{uncompress}] Equivalent to using \texttt{compresslevel=0}.
 
 
@@ -213,7 +214,7 @@ stream
 endstream
 \end{lstlisting}
 
-From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no garanty that the stream contains the text in the order it should be read.
+From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no guaranty that the stream contains the text in the order it should be read.
 
 Tagging means to enrich the pdf with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)
 
@@ -223,7 +224,7 @@ Tagging means to enrich the pdf with information about the \emph{semantic} meani
 To tag a pdf three tasks must be  carried out:
 
 \begin{enumerate}
-\item \textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. At last some text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
+\item \textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
 
 \item \textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the pdf structure right still means that additional mark up must be added.
 
@@ -343,10 +344,10 @@ This sounds easy. But there are quite a number of traps.
 
   \item The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page (this package uses in generic mode a label-ref-system to get around this problem. This sadly means that three compilations are needed until everything has settled down).
 
-  \item There exist environments that process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
+  \item There exist environments which process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
        So one has to check for doublettes and holes in the counting system.
 
-  \item Pdf is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be handled in subsection~\ref{sec:splitpara}.
+  \item Pdf is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.
 \end{enumerate}
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
@@ -359,7 +360,7 @@ This means that quite a number of problems mentioned above are not relevant for 
 \item Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the pdf and so bloat up pdf a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).
 \item The commands don't insert literals directly and so affect line and page breaking much less.
 \item The numbering of the MCID are done at shipout, so no label/ref system is needed.
-\item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact. This can probably be extended and improved.
+\item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact. 
 \end{enumerate}
 
 \subsubsection{Commands to mark content and chunks}
@@ -377,7 +378,7 @@ Such markers should not be nested. The command will warn you if this happens.
 
 The key-val list understands the following keys:
 \begin{description}
-  \item[\PrintKeyName{tag}] This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the pdf, so it should with a starting slash give a valid pdf name  (some ascii with numbers like \texttt{H4} is fine).
+  \item[\PrintKeyName{tag}] This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the pdf, so it should with a starting slash give a valid pdf name  (some ascii with numbers like \texttt{H4} is fine).
 
   \item[\PrintKeyName{artifact}] This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
 
@@ -387,13 +388,13 @@ The key-val list understands the following keys:
 
       The\marginnote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.
 
-  \item[\PrintKeyName{stash}] Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current  structure.
+  \item[\PrintKeyName{stash}] Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current structure.
 
   \item[\PrintKeyName{label}] This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
 
   \item[\PrintKeyName{alttext}] This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
 
-  \item[\PrintKeyName{alttext-o}] This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+  \item[\PrintKeyName{alttext-o}] This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:
 
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
@@ -404,7 +405,7 @@ The key-val list understands the following keys:
 
   \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
 
-  \item[\PrintKeyName{actualtext-o}] This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+  \item[\PrintKeyName{actualtext-o}] This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:
 
       \begin{lstlisting}
       \newcommand\myactualtext{X}
@@ -413,7 +414,7 @@ The key-val list understands the following keys:
 
       and it will insert \verb+X+ (hex encoded)  in the pdf.
 
-  \item[\PrintKeyName{raw}] This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text. (I will probably add keys for \texttt{/Alt} and \texttt{/Actualtext} later, but I haven't made up my mind regarding the encoding yes).
+  \item[\PrintKeyName{raw}] This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text. 
 \end{description}
 
 \ExplSyntaxOn
@@ -544,9 +545,9 @@ The key-val list understands the following keys:
   \item[\PrintKeyName{tag}] This is required. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags/types, see the same section.
   \item[\PrintKeyName{stash}] Normally a new structure inserts itself as a kid into the currently active structure. This key prohibits this. The structure is nevertheless from now on \enquote{the current active structure} and parent for following  marked content and structures.
   \item[\PrintKeyName{label}] This key sets a label by which you can use the structure later in another structure. Internally the label name will start with \texttt{tagpdfstruct-}.
-  \item[\PrintKeyName{alttext}] This key inserts an \texttt{/Alt} value in the dictionary of structure object. See section~\ref{sec:alttext}. The value is handled as verbatim string and hex encoded.
+  \item[\PrintKeyName{alttext}] This key inserts an \texttt{/Alt} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string and hex encoded.
 
-  \item[\PrintKeyName{alttext-o}] This key inserts an \texttt{/Alt} value in the dictionary of structure object. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+  \item[\PrintKeyName{alttext-o}] This key inserts an \texttt{/Alt} value in the dictionary of a structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:
 
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
@@ -555,9 +556,9 @@ The key-val list understands the following keys:
 
       and it will insert \verb+\frac{a}{b}+  (hex encoded) in the pdf.
 
-  \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} value in the dictionary of structure object. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
+  \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} value in the dictionary of structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
 
-  \item[\PrintKeyName{actualtext-o}] This key inserts an \texttt{/ActualText} value in the dictionary of structure object. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you do something like this:
+  \item[\PrintKeyName{actualtext-o}] This key inserts an \texttt{/ActualText} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:
 
       \begin{lstlisting}
       \newcommand\myactualtext{X}
@@ -565,11 +566,11 @@ The key-val list understands the following keys:
       \end{lstlisting}
 
       and it will insert \verb+X+ (hex encoded)  in the pdf.
-    \item[\PrintKeyName{attribute}] This key takes as argument a comma list of attribute names and allows to add one or more attribute dictionary entries in the structure object. As an example
+    \item[\PrintKeyName{attribute}] This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute dictionary entries in the structure object. As an example
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute= TH-row}
       \end{lstlisting}. See also section~\ref{sec:attributes}.
-  \item[\PrintKeyName{attribute-class}] This key takes as argument a comma list of attribute names and allows to add one or more attribute classes to the structure object. As an example
+  \item[\PrintKeyName{attribute-class}] This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute classes to the structure object. As an example
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute-class= TH-row}
       \end{lstlisting}. See also section~\ref{sec:attributes}.
@@ -586,7 +587,7 @@ The key-val list understands the following keys:
 \DescribeMacro\uftag_struct_end:
 \ExplSyntaxOff
 
-This ends a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.
+These commands end a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.
 
 \ExplSyntaxOn
 \DescribeMacro\tagstructuse{<label>}
@@ -601,7 +602,7 @@ A document should have at least one structure which contains the whole document.
 
 \subsubsection{Attributes and attribute classes}\label{sec:attributes}
 
-Structure Element can have so call attributes. A single attribute is a dictionary\footnote{or a stream but this is currently not supported by the package as I don't know an use-case} with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
+Structure Element can have so-called attributes. A single attribute is a dictionary\footnote{or a stream but this is currently not supported by the package as I don't know an use-case} with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
 As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:
 \begin{lstlisting}
 <</Owner /Table /Scope /Column>>
@@ -641,13 +642,13 @@ When all the document content has been correctly marked and the data for the tre
 \DescribeMacro\uftag_finish_structure:
 \ExplSyntaxOff
 
-This will hopefully write all the needed objects and values to the pdf. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap} and a few more values and dictionaries).
+This will hopefully write all the needed objects and values to the pdf. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).
 
 I'm not quite sure if this shouldn't be a really internal command.
 
 
 \subsection{A fully marked up document body}
-The following shows the marking need for a section, a sentence and a list with two items. It is obvious that one wouldn't want to do like this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.
+The following shows the marking needed for a section, a sentence and a list with two items. It is obvious that one wouldn't like to have to do this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.
 
 \begin{lstlisting}
 \begin{document}
@@ -699,12 +700,13 @@ The following shows the marking need for a section, a sentence and a list with t
 \end{document}
 \end{lstlisting}
 
-\subsection{Lazy tagging}
+\subsection{Lazy and automatic tagging}\label{sec:lazy}
 
 A number of features of pdf readers need a fully tagged pdf. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alttext}) if the pdf is not fully tagged. Also reflowing a pdf only works for me (even if real space chars are in the pdf) if the pdf is fully tagged.
 
-This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside rather large mc-chunks. This minimizes the needed work.
+This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside it rather large mc-chunks. This minimizes the needed work.
 
+One could ask if in lua mode the code couldn't try to mark up unmarked parts e.g. as P-type chunks, like it marks them up as artifacts currently. Sadly this is not so easy, as it is quite difficult to reliably identify the structure and the place in the kids array where such chunks belongs too. I also don't think that it is really needed. It is not so difficult to define user macros which e.g. opens a structure and start an mc-chunk or which close an open mc-chunk before issuing the next \verb+\tagmcbegin+. 
 
 
 
@@ -748,6 +750,24 @@ New tags can be defined in the setup command with the key \texttt{add-new-tag}. 
 
 
 
+\section{\enquote{Real} space glyphs}\label{sec:spacechars}
+
+TeX uses only spaces (horizontal movements) to separate words. That means that a pdf reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or e.g. as a kerning. Accessible document should use real space glyphs (U+0032) from a font in such places.
+
+With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
+
+With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the pdf: from the current font to the dummy-space font and back again. This will make the pdf larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.
+
+With luatex (in luamode) interwordspace is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text. 
+
+The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}. 
+
+\DescribeMacro\pdffakespace
+
+This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.
+
+
+
 \section{Accessibility is not only tagging}
 
  A tagged pdf is needed for accessibility but this is not enough. As already mentioned there are more requirements:
@@ -765,20 +785,6 @@ New tags can be defined in the setup command with the key \texttt{add-new-tag}. 
  \item Various small infos must be present in the catalog dictionary, info dictionary and the page dictionaries, e.g. metadata like title.
 \end{itemize}
  If suitable I will add code for this tasks to this packages. But some of them can also be done already with existing packages like hyperref, hyperxmp, pdfx.
-
-\section{\enquote{Real} space glyphs}\label{sec:spacechars}
-
-TeX uses only spaces to separate words. That means that a pdf reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or a kerning.
-
-Accessible document should use real space glyphs (U+0032) from a font in such places.
-
-With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
-
-With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there is a font switch in the pdf, this can enlarge the pdf. As this is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyp with \verb+\pdffakespace+.
-
-With luatex (in luamode) interwordspace is implemented with a  lua-function which is inserted in two callbacks and marks up the places where a space glyph looks sensible. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text. But if needed it can be finetuned (listings seems a bit problematic currently). The code defines also for luatex a \verb+\pdffakespace+.
-
-
 
 \section{To-do}
 \begin{itemize}
