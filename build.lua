@@ -4,7 +4,7 @@ packagedate="2019/01/04"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
-
+curlexe= "c:/windows/system32/curl.exe"
 uploadconfig = {
   pkg     = ctanpkg,
   version = "v"..packageversion.." "..string.gsub (packagedate,"-", "/"),
@@ -20,14 +20,7 @@ uploadconfig = {
   update   = true ,
   topic=    "tagged-pdf",
   note     = [[Uploaded automatically by l3build...]],
-  description=[[The package offers tools to experiment with tagging and 
-                accessibility using pdfLATEX and LuaTEX. 
-                It isn’t meant for production but allows the user to try out 
-                how difficult it is to tag some structures; to try out how much 
-                tagging is really needed; to test what else is needed so that a pdf 
-                works e.g. with a screen reader.
-                Its goal is to get a feeling for what has to be done, which kernel 
-                changes are needed, how packages should be adapted.]],
+  description=[[The package offers tools to experiment with tagging and accessibility using pdfLATEX and LuaTEX. It isn't meant for production but allows the user to try out how difficult it is to tag some structures; to try out how much tagging is really needed; to test what else is needed so that a pdf works e.g. with a screen reader. Its goal is to get a feeling for what has to be done, which kernel changes are needed, how packages should be adapted.]],
   announcement="This version adds code for attributes, attribute classes and interword space glyphs."              
 }
 
