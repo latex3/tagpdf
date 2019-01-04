@@ -1,6 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.43}
+\def\UlrikeFischer@package@version{0.44}
 \def\UlrikeFischer@package@date{2019/01/03}
 \makeatother
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
@@ -144,7 +144,7 @@ In this version I improved the handling of alternative and actual text. See sect
 
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
-\subsection{Changes in 0.40-0.43}
+\subsection{Changes in 0.40-0.44}
 I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
 
 I added code to add \enquote{real} space glyphs to the pdf, see section \ref{sec:spacechars}.
@@ -360,7 +360,7 @@ This means that quite a number of problems mentioned above are not relevant for 
 \item Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the pdf and so bloat up pdf a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).
 \item The commands don't insert literals directly and so affect line and page breaking much less.
 \item The numbering of the MCID are done at shipout, so no label/ref system is needed.
-\item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact. 
+\item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.
 \end{enumerate}
 
 \subsubsection{Commands to mark content and chunks}
@@ -414,7 +414,7 @@ The key-val list understands the following keys:
 
       and it will insert \verb+X+ (hex encoded)  in the pdf.
 
-  \item[\PrintKeyName{raw}] This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text. 
+  \item[\PrintKeyName{raw}] This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.
 \end{description}
 
 \ExplSyntaxOn
@@ -706,7 +706,7 @@ A number of features of pdf readers need a fully tagged pdf. As an example scree
 
 This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside it rather large mc-chunks. This minimizes the needed work.
 
-One could ask if in lua mode the code couldn't try to mark up unmarked parts e.g. as P-type chunks, like it marks them up as artifacts currently. Sadly this is not so easy, as it is quite difficult to reliably identify the structure and the place in the kids array where such chunks belongs too. I also don't think that it is really needed. It is not so difficult to define user macros which e.g. opens a structure and start an mc-chunk or which close an open mc-chunk before issuing the next \verb+\tagmcbegin+. 
+One could ask if in lua mode the code couldn't try to mark up unmarked parts e.g. as P-type chunks, like it marks them up as artifacts currently. Sadly this is not so easy, as it is quite difficult to reliably identify the structure and the place in the kids array where such chunks belongs too. I also don't think that it is really needed. It is not so difficult to define user macros which e.g. opens a structure and start an mc-chunk or which close an open mc-chunk before issuing the next \verb+\tagmcbegin+.
 
 
 
@@ -758,9 +758,11 @@ With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
 
 With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the pdf: from the current font to the dummy-space font and back again. This will make the pdf larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.
 
-With luatex (in luamode) interwordspace is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text. 
+With luatex (in luamode) interwordspace is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.
 
-The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}. 
+The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.
+
+\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The pdf viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro. 
 
 \DescribeMacro\pdffakespace
 

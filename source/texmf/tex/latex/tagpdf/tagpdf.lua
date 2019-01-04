@@ -187,7 +187,7 @@ local function __uftag_mark_spaces (head)
       end
     elseif id == PENALTY then
       local glyph = n
-      uftag.trace.log ("PENALTY ".. n.subtype.."VALUE"..n.penalty,1) 
+      -- uftag.trace.log ("PENALTY ".. n.subtype.."VALUE"..n.penalty,3) 
       if glyph.next and (glyph.next.id == GLUE)
         and not inside_math  and (glyph.next.width >0) and n.subtype==0
       then
