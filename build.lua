@@ -14,9 +14,11 @@ uploadconfig = {
   ctanPath = "/macros/latex/contrib/tagpdf",
   repository = "https://github.com/u-fischer/tagpdf",
   bugtracker = "https://github.com/u-fischer/tagpdf/issues",
+  support    = "https://github.com/u-fischer/tagpdf/issues",
   uploader = "Ulrike Fischer",
   email    = "chess@nililand.de",
   update   = true ,
+  topic=    "tagged-pdf",
   note     = [[Uploaded automatically by l3build...]],
   description=[[The package offers tools to experiment with tagging and 
                 accessibility using pdfLATEX and LuaTEX. 
