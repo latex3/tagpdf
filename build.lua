@@ -4,7 +4,7 @@ packagedate="2019/01/04"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
-curlexe= "c:/windows/system32/curl.exe"
+
 uploadconfig = {
   pkg     = ctanpkg,
   version = "v"..packageversion.." "..string.gsub (packagedate,"-", "/"),
