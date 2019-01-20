@@ -184,6 +184,13 @@ local function __uftag_mark_spaces (head)
        if uftag.trace.showspaces then 
         __uftag_show_spacemark (head,glyph)
        end 
+      elseif glyph.next and (glyph.next.id==KERN) and not inside_math then
+       local kern = glyph.next
+       if kern.next and (kern.next.id== GLUE)  and (kern.next.width >0) 
+       then
+        nodesetattribute(kern.next,iwspaceattributeid,1)
+        nodesetattribute(kern.next,iwfontattributeid,glyph.font)
+       end 
       end
     elseif id == PENALTY then
       local glyph = n
@@ -297,7 +304,8 @@ function uftag.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mcty
      end
     elseif n.id == LOCAL_PAR then  -- local_par is ignored 
     elseif n.id == PENALTY then    -- penalty is ignored
-    elseif n.id == KERN then       -- kern is ignored     
+    elseif n.id == KERN then       -- kern is ignored   
+     uftag.trace.log ("SUBTYPE KERN ".. n.subtype,3)  
     else
      -- math is currently only logged. 
      -- we could mark the whole as math
