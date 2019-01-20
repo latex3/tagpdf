@@ -100,7 +100,7 @@
 %mc
 \cs_new:Nn \__uftag_check_mc_if_nested:
  {
-  \_uftag_mc_if_in:T
+  \__uftag_mc_if_in:T
    {
     \msg_warning:nnx {uftag} {mc-nested} { \__uftag_get_mc_abs_cnt: }
    }
@@ -108,7 +108,7 @@
 
 \cs_new:Nn \__uftag_check_mc_if_open:
  {
-  \_uftag_mc_if_in:F
+  \__uftag_mc_if_in:F
    {
     \msg_warning:nnx {uftag} {mc-not-open} { \__uftag_get_mc_abs_cnt: }
    }
