@@ -4,15 +4,15 @@
 \def\UlrikeFischer@package@date{2019/01/04}
 \makeatother
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
-\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\setmainfont{Heuristica}
 \usepackage[english]{babel}
 \usepackage[autostyle]{csquotes}
 \usepackage{microtype}
-\DisableLigatures{encoding = T1, family = tt* }
+%\DisableLigatures{encoding = TU, family = tt* }
 \usepackage[style=numeric,hyperref=false]{biblatex}
 \addbibresource{tagpdf.bib}
-\usepackage{fourier}
-\renewcommand\ttdefault{lmtt}
+
 \usepackage{tcolorbox}
 \usepackage{ydoc-desc}
 \usepackage{tabularx}
@@ -36,31 +36,62 @@
 \author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, columns=fullflexible,language=[LaTeX]TeX}
-\usepackage{tagpdf}
 
+\usepackage{tagpdf}
+\tagpdfsetup{
+ activate-all,
+ uncompress,
+ tabsorder=structure,
+ interwordspace=true,
+ add-new-tag=Title/H1,
+ %show-spaces
+ }
+%metadata
+\pdfextension catalog{/Lang (en-UK)}
 
 \usepackage{hyperref}
+\ExplSyntaxOn
+\NewDocumentCommand\TagP{ }
+ {
+  \uftag_mc_if_in:T { \uftag_mc_end: \uftag_struct_end: }
+  \uftag_struct_begin:n{tag=P}
+  \uftag_mc_begin:n{tag=P}
+ }
+\ExplSyntaxOff
+
+
+
 \begin{document}
-\maketitle
+\tagstructbegin{tag=Document}
+
+\tagstructbegin{tag=Title}
+ \tagmcbegin{tag=P}
+ \maketitle
+ \tagmcend
+\tagstructend
+
 
 \begin{tcolorbox}[colframe=red]
-This package is not meant for normal document production.
+\tagstructbegin{tag=Div}
+\TagP This package is not meant for normal document production.
 
-You need a current expl3 version to use it, you even need the (experimental) \texttt{l3str-convert}.
+\TagP You need a current expl3 version to use it, you even need the (experimental) \texttt{l3str-convert}.
 
-This package is incomplete, experimental and quite probably contains bugs.
+\TagP This package is incomplete, experimental and quite probably contains bugs.
 
-You need some knowledge about \TeX, pdf and perhaps even lua to use it.
+\TagP You need some knowledge about \TeX, pdf and perhaps even lua to use it.
 
 \medskip
 
-Issues, comments, suggestions should be added as issues to the github tracker:
+\TagP Issues, comments, suggestions should be added as issues to the github tracker:
 
 \medskip
 \centering \textbf{https://github.com/u-fischer/tagpdf}
-
+\tagmcend\tagstructend
 \end{tcolorbox}
 
+\tagstructend %document
+\end{document}
 \tableofcontents
 
 \section{Introduction}
@@ -184,7 +215,7 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).
 \item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.
 \item[\PrintKeyName{inputencoding}]  Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
-\item[\PrintKeyName{interwordspace}] Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}.
+\item[\PrintKeyName{interwordspace}] Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used. 
 \item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
 \item[\PrintKeyName{newattribute}] This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
 \item[\PrintKeyName{show-spaces}] Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
@@ -433,7 +464,7 @@ These commands allow you to record a marked content that you stashed away into t
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcifinTF{<true code>}{<false>}
-\DescribeMacro\_uftag_mc_if_in:TF{<true code>}{<false>}
+\DescribeMacro\uftag_mc_if_in:TF{<true code>}{<false>}
 \ExplSyntaxOff
 
 These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
@@ -951,7 +982,7 @@ endobj
 This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.
 
 \end{description}
-
+\tagstructend %document
 \end{document}
 %http://msf.mathmlcloud.org/file_formats/8 %sample pdf for math
 
