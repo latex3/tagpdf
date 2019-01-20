@@ -1,22 +1,27 @@
 -- Build script for tagpdf
 packageversion="0.50"
-packagedate="2019/01/04"
+packagedate="2019-01-04"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
 
+local ok, mydata = pcall(require, "ulrikefischerdata.lua")
+if not ok then
+  mydata= {email="XXX",github="XXX",name="XXX"}
+end
+
 uploadconfig = {
   pkg     = ctanpkg,
-  version = "v"..packageversion.." "..string.gsub (packagedate,"-", "/"),
-  author  = "Ulrike Fischer",
+  version = "v"..packageversion.." "..packagedate,
+  author  = mydata.name,
   license = "lppl1.3c",
-  summary = "Tools for experimenting with tagging using pdfLATEX and LuaLATEX",
+  summary = "Tools for experimenting with tagging using pdfLaTeX and LuaLaTeX",
   ctanPath = "/macros/latex/contrib/tagpdf",
-  repository = "https://github.com/u-fischer/tagpdf",
-  bugtracker = "https://github.com/u-fischer/tagpdf/issues",
-  support    = "https://github.com/u-fischer/tagpdf/issues",
-  uploader = "Ulrike Fischer",
-  email    = "chess@nililand.de",
+  repository = mydata.github .. "tagpdf",
+  bugtracker = mydata.github .. "tagpdf/issues",
+  support    = mydata.github .. "tagpdf/issues",
+  uploader = mydata.name,
+  email    = mydata.email,
   update   = true ,
   topic=    "tagged-pdf",
   note     = [[Uploaded automatically by l3build...]],
