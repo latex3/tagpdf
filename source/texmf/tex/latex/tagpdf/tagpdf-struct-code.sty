@@ -338,7 +338,7 @@
 }
 
 
-\cs_new:Nn \uftag_struct_begin:n
+\cs_new_protected:Nn \uftag_struct_begin:n
  {
   \group_begin:
   \int_gincr:N \c@g__uftag_struct_abs_int
@@ -402,7 +402,7 @@
   \group_end:
  }
 
-\cs_new:Nn \uftag_struct_end:
+\cs_new_protected:Nn \uftag_struct_end:
  {%take the current structure num from the stack:
   %the objects are written later, lua mode hasn't all needed info yet
   %\seq_show:N \g__uftag_struct_stack_seq
@@ -421,7 +421,7 @@
    }
  }
 
-\cs_new:Nn \uftag_struct_use:n %#1 is the label
+\cs_new_protected:Nn \uftag_struct_use:n %#1 is the label
  {
   \prop_if_exist:cTF
    { g__uftag_struct_\zref@extractdefault{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %??????????

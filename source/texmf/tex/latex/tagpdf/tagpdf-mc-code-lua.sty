@@ -192,7 +192,7 @@
 
 \cs_generate_variant:Nn \__uftag_mc_handle_stash:n { o }
 
-\cs_new:Nn \uftag_mc_begin:n
+\cs_new_protected:Nn \uftag_mc_begin:n
  {
   \group_begin:
    \__uftag_check_mc_if_nested:
@@ -218,14 +218,14 @@
   \group_end:
  }
 
-\cs_new:Nn \uftag_mc_end:
+\cs_new_protected:Nn \uftag_mc_end:
  {
   \__uftag_check_mc_if_open:
   \bool_gset_false:N \g__uftag_in_mc_bool
   \__uftag_mc_lua_gunset_mc_type_attr:
  }
 
-\cs_new:Nn \uftag_mc_use:n %#1: label name
+\cs_new_protected:Nn \uftag_mc_use:n %#1: label name
  {
   \tl_set:Nx  \l_tmpa_tl { \zref@extractdefault{tagpdf-#1}{tagmcabs}{} }
   \tl_if_empty:NTF\l_tmpa_tl
