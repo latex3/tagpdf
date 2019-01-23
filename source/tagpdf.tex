@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.50}
-\def\UlrikeFischer@package@date{2019/01/04}
+\def\UlrikeFischer@package@version{0.51}
+\def\UlrikeFischer@package@date{2019/01/XX}
 \makeatother
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage{fontspec}
@@ -43,21 +43,12 @@
  uncompress,
  tabsorder=structure,
  interwordspace=true,
- add-new-tag=Title/H1,
  %show-spaces
  }
 %metadata
 \pdfextension catalog{/Lang (en-UK)}
-
+\usepackage{tagpdfdocu-patches}
 \usepackage{hyperref}
-\ExplSyntaxOn
-\NewDocumentCommand\TagP{ }
- {
-  \uftag_mc_if_in:T { \uftag_mc_end: \uftag_struct_end: }
-  \uftag_struct_begin:n{tag=P}
-  \uftag_mc_begin:n{tag=P}
- }
-\ExplSyntaxOff
 
 
 
@@ -73,7 +64,7 @@
 
 \begin{tcolorbox}[colframe=red]
 \tagstructbegin{tag=Div}
-\TagP This package is not meant for normal document production.
+\TagP^ This package is not meant for normal document production.
 
 \TagP You need a current expl3 version to use it, you even need the (experimental) \texttt{l3str-convert}.
 
@@ -87,38 +78,43 @@
 
 \medskip
 \centering \textbf{https://github.com/u-fischer/tagpdf}
-\tagmcend\tagstructend
+
+\TagPend
+
+\tagstructend %div
 \end{tcolorbox}
 
-\tagstructend %document
-\end{document}
 \tableofcontents
 
 \section{Introduction}
+\tagstructend %document
+\end{document}
 
-Since many year the creation of accessible pdf-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
+\TagP^ Since many year the creation of accessible pdf-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
 
-But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
+\TagP But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
-This package tries to close this gap by offering \emph{core} commands to tag a pdf.\footnote{In case you don't know what this means: there will be some explanations later on.}
+\TagP This package tries to close this gap by offering \emph{core} commands to tag a pdf.\footnote{In case you don't know what this means: there will be some explanations later on.}
 
-My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
+\TagP My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
-The package does not patch commands from other packages. It is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged pdf files -- and the examples accompaigning the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
+\TagP The package does not patch commands from other packages. It is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged pdf files -- and the examples accompaigning the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
 
-So this package deliberately concentrates on the basics -- and this already quite a lot, there are much more details involved as I expected when I started.
+\TagP So this package deliberately concentrates on the basics -- and this already quite a lot, there are much more details involved as I expected when I started.
 
-I'm sure that it has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
+\TagP I'm sure that it has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
 
-Please also check the github site for new examples and improvements.
-
+\TagP Please also check the github site for new examples and improvements.
+\TagPend
 
 \subsection{Tagging and accessibility}
 
-While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} pdf-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
+\TagP^ While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} pdf-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
 
 So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
 
+\tagstructend %document
+\end{document}
 
 \subsection{Engines and modes}
 
@@ -215,7 +211,7 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).
 \item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.
 \item[\PrintKeyName{inputencoding}]  Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
-\item[\PrintKeyName{interwordspace}] Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used. 
+\item[\PrintKeyName{interwordspace}] Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.
 \item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
 \item[\PrintKeyName{newattribute}] This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
 \item[\PrintKeyName{show-spaces}] Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.

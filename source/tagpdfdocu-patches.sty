@@ -1,0 +1,136 @@
+\RequirePackage{expl3}[2018/06/14]
+%\RequirePackage[enable-debug]{expl3}[2018/06/14]
+
+\ProvidesExplPackage {tagpdfdocu-patches} {2019/01/23} {0.10}
+ {patches/commands for the tagpdf documentation}
+
+
+
+%%%%%
+% Paragraphs
+%%%%%
+
+% we need a command which simply starts a paragraph \TagP^,
+% a "continuation" variant which closes the previous paragraph (\TagP),
+% and a final end.
+
+\NewDocumentCommand\TagP{t{^}}
+ {
+  \uftag_mc_if_in:T { \uftag_mc_end: }
+  \IfBooleanF{#1}
+  {
+    \uftag_struct_end:
+  }
+  \uftag_struct_begin:n{tag=P}
+  \uftag_mc_begin:n{tag=P}
+ }
+% close a mc and one structure
+
+\NewDocumentCommand\TagPend{}
+ {
+  \uftag_mc_if_in:T { \uftag_mc_end: }
+  \uftag_struct_end:
+ }
+
+
+%%%%%
+% maketitle
+%%%%%
+\tagpdfsetup{ add-new-tag=Title/H1 }
+
+%%%%%
+% tableofcontents
+%%%%%
+
+%Marking the toc entries
+%around the whole entry so only structure:
+\newcommand\tagscrtocentry[1]{\uftag_struct_begin:n{tag=TOCI}#1\uftag_struct_end:}
+
+%leaf so structure and mc:
+\newcommand\tagscrtocpagenumber[1]{%
+ \uftag_struct_begin:n{tag=Reference}%
+ \uftag_mc_begin:n{tag=Reference}%
+ #1%
+ \uftag_struct_end:
+ \uftag_struct_end:}
+
+
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{section}
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{subsection}
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{subsubsection}
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{paragraph}
+
+
+
+\renewcommand{\addtocentrydefault}[3]{
+ \ifstr{#3}{}{}
+   {
+   \ifstr{#2}{}
+    {
+     \addcontentsline{toc}{#1}
+      {
+       \protect\nonumberline
+       \uftag_struct_begin:n{tag=P}
+       \uftag_mc_begin:n{tag=P}
+        #3
+       \uftag_struct_end:
+       \uftag_struct_end:
+      }%
+    }
+    {
+    \addcontentsline{toc}{#1}{
+     \uftag_struct_begin:n{tag=Lbl}
+     \uftag_mc_begin:n{tag=Lbl}
+     \protect\numberline{#2}
+     \uftag_struct_end:\uftag_struct_end:
+     \uftag_struct_begin:n{tag=P}
+     \uftag_mc_begin:n{tag=P}
+      #3
+     \uftag_struct_end:
+     \uftag_struct_end:
+     }
+    }
+   }}
+
+% the dots must be marked too
+
+\renewcommand*{\TOCLineLeaderFill}[1][.]{
+  \leaders\hbox{$\m@th
+    \mkern \@dotsep mu\hbox{\uftag_mc_begin:n{artifact}#1\uftag_struct_end:}\mkern \@dotsep
+    mu$}\hfill
+}
+
+%%%%%%%%%
+% Sectioning commands
+%%%%%%%%
+
+\prop_new:N    \g_tag_section_level_prop
+\prop_gput:Nnn \g_tag_section_level_prop {section}{H1}
+\prop_gput:Nnn \g_tag_section_level_prop {subsection}{H2}
+\prop_gput:Nnn \g_tag_section_level_prop {subsubsection}{H3}
+\prop_gput:Nnn \g_tag_section_level_prop {paragraph}{H4}
+
+
+
+%\renewcommand{\sectionlinesformat}[4]
+% {
+%  \@hangfrom
+%   {\hskip #2
+%    \uftag_struct_begin:n{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+%    \uftag_mc_begin:n    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+%    #3
+%   }
+%   {#4\uftag_struct_end:\uftag_struct_end:}%
+% }
+
+
+\AfterTOCHead{\uftag_struct_begin:n{tag=TOC}}
+\AfterStartingTOC{\uftag_struct_end:} %end TOC
