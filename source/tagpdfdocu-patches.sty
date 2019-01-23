@@ -5,13 +5,13 @@
  {patches/commands for the tagpdf documentation}
 
 % hyperref
-
+\@ifpackageloaded{hyperref}{%
 \pdfstringdefDisableCommands{
  \let\tagstructbegin\@gobble
  \let\tagmcbegin\@gobble
  \let\tagmcend\relax
  \let\tagstructend\relax
-}
+}}{}
 
 %%%%%
 % Paragraphs

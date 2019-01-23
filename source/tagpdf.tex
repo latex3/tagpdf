@@ -3,6 +3,7 @@
 \def\UlrikeFischer@package@version{0.51}
 \def\UlrikeFischer@package@date{2019/01/XX}
 \makeatother
+\pdfvariable minorversion = 7
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage{fontspec}
 \setmainfont{Heuristica}
@@ -14,7 +15,7 @@
 \addbibresource{tagpdf.bib}
 
 \usepackage{tcolorbox}
-\usepackage{ydoc-desc}
+
 \usepackage{tabularx}
 \usepackage[noparboxrestore]{marginnote}
 \reversemarginpar
@@ -48,8 +49,8 @@
 %metadata
 \pdfextension catalog{/Lang (en-UK)}
 \usepackage{tagpdfdocu-patches}
-\usepackage{hyperref}
-
+%\usepackage{hyperref}
+\usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
 
 
 \begin{document}
