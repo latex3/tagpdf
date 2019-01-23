@@ -4,7 +4,14 @@
 \ProvidesExplPackage {tagpdfdocu-patches} {2019/01/23} {0.10}
  {patches/commands for the tagpdf documentation}
 
+% hyperref
 
+\pdfstringdefDisableCommands{
+ \let\tagstructbegin\@gobble
+ \let\tagmcbegin\@gobble
+ \let\tagmcend\relax
+ \let\tagstructend\relax
+}
 
 %%%%%
 % Paragraphs
@@ -51,7 +58,7 @@
  \uftag_struct_begin:n{tag=Reference}%
  \uftag_mc_begin:n{tag=Reference}%
  #1%
- \uftag_struct_end:
+ \uftag_mc_end:
  \uftag_struct_end:}
 
 
@@ -70,41 +77,41 @@
 
 
 
-\renewcommand{\addtocentrydefault}[3]{
+\renewcommand{\addtocentrydefault}[3]{%
  \ifstr{#3}{}{}
-   {
+   {%\
    \ifstr{#2}{}
-    {
+    {%
      \addcontentsline{toc}{#1}
-      {
+      {%
        \protect\nonumberline
-       \uftag_struct_begin:n{tag=P}
-       \uftag_mc_begin:n{tag=P}
-        #3
-       \uftag_struct_end:
-       \uftag_struct_end:
+       \tagstructbegin{tag=P}%
+       \tagmcbegin{tag=P}%
+        #3%
+       \tagmcend
+       \tagstructend
       }%
-    }
-    {
-    \addcontentsline{toc}{#1}{
-     \uftag_struct_begin:n{tag=Lbl}
-     \uftag_mc_begin:n{tag=Lbl}
-     \protect\numberline{#2}
-     \uftag_struct_end:\uftag_struct_end:
-     \uftag_struct_begin:n{tag=P}
-     \uftag_mc_begin:n{tag=P}
-      #3
-     \uftag_struct_end:
-     \uftag_struct_end:
-     }
-    }
-   }}
+    }%
+    {%
+    \addcontentsline{toc}{#1}{%
+     \tagstructbegin{tag=Lbl}%
+     \tagmcbegin{tag=Lbl}%
+     \protect\numberline{#2}%
+     \tagmcend\tagstructend
+     \tagstructbegin{tag=P}%
+     \tagmcbegin{tag=P}%
+      #3%
+     \tagmcend
+     \tagstructend
+     }%
+    }%
+   }}%
 
 % the dots must be marked too
 
 \renewcommand*{\TOCLineLeaderFill}[1][.]{
   \leaders\hbox{$\m@th
-    \mkern \@dotsep mu\hbox{\uftag_mc_begin:n{artifact}#1\uftag_struct_end:}\mkern \@dotsep
+    \mkern \@dotsep mu\hbox{\uftag_mc_begin:n{artifact}#1\uftag_mc_end:}\mkern \@dotsep
     mu$}\hfill
 }
 
@@ -120,16 +127,16 @@
 
 
 
-%\renewcommand{\sectionlinesformat}[4]
-% {
-%  \@hangfrom
-%   {\hskip #2
-%    \uftag_struct_begin:n{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
-%    \uftag_mc_begin:n    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
-%    #3
-%   }
-%   {#4\uftag_struct_end:\uftag_struct_end:}%
-% }
+\renewcommand{\sectionlinesformat}[4]
+ {
+  \@hangfrom
+   {\hskip #2
+    \uftag_struct_begin:n{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+    \uftag_mc_begin:n    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+    #3
+   }
+   {#4\uftag_mc_end:\uftag_struct_end:}%
+ }
 
 
 \AfterTOCHead{\uftag_struct_begin:n{tag=TOC}}

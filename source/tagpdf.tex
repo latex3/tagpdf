@@ -61,7 +61,6 @@
  \tagmcend
 \tagstructend
 
-
 \begin{tcolorbox}[colframe=red]
 \tagstructbegin{tag=Div}
 \TagP^ This package is not meant for normal document production.
@@ -87,8 +86,7 @@
 \tableofcontents
 
 \section{Introduction}
-\tagstructend %document
-\end{document}
+
 
 \TagP^ Since many year the creation of accessible pdf-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
 
@@ -111,15 +109,18 @@
 
 \TagP^ While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} pdf-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
 
-So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
+\TagP So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
+\TagPend
 
 \tagstructend %document
 \end{document}
 
 \subsection{Engines and modes}
 
-The package works currently with pdflatex and lualatex.
+\TagP^ The package works currently with pdflatex and lualatex.\TagPend
 
+\tagstructend %document
+\end{document}
 The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
 
 I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
