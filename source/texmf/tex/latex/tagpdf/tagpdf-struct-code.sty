@@ -159,6 +159,18 @@
   }
  }
 
+\cs_new:Nn\__uftag_struct_kid_link_gput_right:nn %#1 num of parent struct, #2 obj number of link
+ {
+  \__uftag_seq_gput_right:cx
+  { g__uftag_struct_kids_#1_seq }
+  {
+   <<
+    /Type \c_space_tl /OBJR \c_space_tl
+    /Obj  \c_space_tl #2 \c_space_tl 0 \c_space_tl R
+   >>
+  }
+ }
+
 \cs_new:Nn \__uftag_struct_fill_kid_key:n %#1 is the struct num
  {
   \int_case:nnF
