@@ -30,18 +30,21 @@ abc
 \tagmcend
 \tagstructbegin{tag=Link}
 \tagmcbegin{tag=Link}
+\ExplSyntaxOn
+\int_gincr:N\g__uftag_abspage_int
 \pdfextension startlink
-    attr {/Border[0 0 1]}
+    attr {/Border[0~0~1]}
     user{
         /Subtype/Link%
         /A<<%
          /Type/Action%
          /S/URI%
          /URI(http://www.dante.de)%
+         /StructParent \int_use:n{\g__uftag_abspage_int}
          >>}
     This is a link.
 \pdfextension endlink%
-\ExplSyntaxOn
+
 \seq_get:NNF
     \g__uftag_struct_stack_seq
     \l__uftag_struct_stack_parent_tmp_tl
