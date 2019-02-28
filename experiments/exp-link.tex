@@ -1,4 +1,10 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+
+% GRRRRRR. Why do the validators report that the link is not tagged????
+% Damn I forgot that objects must go in the parent tree too ...
+
+\pdfvariable minorversion 7
+\pdfvariable majorversion 1
 \documentclass{article}
 
 \usepackage{tagpdf}
@@ -10,11 +16,8 @@
  %show-spaces
  }
 %metadata
+\tagpdfsetup{add-new-tag = Link/Link}
 \pdfextension catalog{/Lang (en-UK)}
-
-\ExplSyntaxOn
-
-\ExplSyntaxOff
 \begin{document}
 \tagstructbegin{tag=Document}
 \leavevmode
@@ -34,9 +37,10 @@ abc
         /A<<%
          /Type/Action%
          /S/URI%
-         /URI(blkub)%
-         >>}This is a link.
-\pdfextension endlink
+         /URI(http://www.dante.de)%
+         >>}
+    This is a link.
+\pdfextension endlink%
 \ExplSyntaxOn
 \seq_get:NNF
     \g__uftag_struct_stack_seq
@@ -44,7 +48,14 @@ abc
     {
      \msg_error:nn { uftag } { struct-faulty-nesting }
     }
-\__uftag_struct_kid_link_gput_right:nn { \l__uftag_struct_stack_parent_tmp_tl } {\pdffeedback lastlink}
+%doesn't work either    
+%\__uftag_seq_gput_right:cx
+%  { g__uftag_struct_kids_\l__uftag_struct_stack_parent_tmp_tl _seq }
+%  {\pdffeedback lastlink \c_space_tl 0 \c_space_tl R}
+      
+\__uftag_struct_kid_link_gput_right:nn { \l__uftag_struct_stack_parent_tmp_tl }
+ {\pdffeedback lastlink}
+
 \ExplSyntaxOff
 \tagmcend
 \tagstructend
