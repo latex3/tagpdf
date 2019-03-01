@@ -3,8 +3,14 @@
 % GRRRRRR. Why do the validators report that the link is not tagged????
 % Damn I forgot that objects must go in the parent tree too ...
 
+\RequirePackage{ifluatex}
+\ifluatex
 \pdfvariable minorversion 7
 \pdfvariable majorversion 1
+\else
+\pdfminorversion 7
+\fi
+
 \documentclass{article}
 
 \usepackage{tagpdf}
@@ -16,8 +22,13 @@
  %show-spaces
  }
 %metadata
-\tagpdfsetup{add-new-tag = Link/Link}
+%\tagpdfsetup{add-new-tag = Link/Link}
+\ifluatex
 \pdfextension catalog{/Lang (en-UK)}
+\else
+\pdfcatalog {/Lang (en-UK)}
+\fi
+
 \begin{document}
 \tagstructbegin{tag=Document}
 \leavevmode
@@ -29,10 +40,11 @@ abc
 abc
 \tagmcend
 \tagstructbegin{tag=Link}
-\tagmcbegin{tag=Link}
-\ExplSyntaxOn
-\int_gincr:N\g__uftag_abspage_int
-\pdfextension startlink
+\tagmcbegin{tag=Span}
+\ExplSyntaxOn\makeatletter
+\stepcounter{ g__uftag_parenttree_obj_int }
+%\int_gincr:N\g__uftag_abspage_int
+\__uftag_pdf_startlink:
     attr {/Border[0~0~1]}
     user{
         /Subtype/Link%
@@ -40,24 +52,39 @@ abc
          /Type/Action%
          /S/URI%
          /URI(http://www.dante.de)%
-         /StructParent \int_use:n{\g__uftag_abspage_int}
-         >>}
+         
+         >>
+         \c_space_tl
+         /StructParent \c_space_tl \int_use:N\c@g__uftag_parenttree_obj_int
+         }
     This is a link.
-\pdfextension endlink%
+\__uftag_pdf_endlink:
 
+%get the number of the parent link structure:
 \seq_get:NNF
     \g__uftag_struct_stack_seq
     \l__uftag_struct_stack_parent_tmp_tl
     {
      \msg_error:nn { uftag } { struct-faulty-nesting }
     }
-%doesn't work either    
-%\__uftag_seq_gput_right:cx
-%  { g__uftag_struct_kids_\l__uftag_struct_stack_parent_tmp_tl _seq }
-%  {\pdffeedback lastlink \c_space_tl 0 \c_space_tl R}
-      
-\__uftag_struct_kid_link_gput_right:nn { \l__uftag_struct_stack_parent_tmp_tl }
- {\pdffeedback lastlink}
+% put the obj number of link annot in the kid entry:    
+\__uftag_struct_kid_link_gput_right:nx 
+ { 
+  \l__uftag_struct_stack_parent_tmp_tl 
+ }
+ {
+  \int_use:N\__uftag_pdf_lastlink:
+ }
+ 
+% add the parent obj number to the parent tree: 
+ \__uftag_parenttree_add_objr:nn 
+ {
+  \int_use:N\c@g__uftag_parenttree_obj_int
+ }
+ { 
+  \prop_item:cn{ g__uftag_struct_\l__uftag_struct_stack_parent_tmp_tl _prop } 
+  { objnum }
+ }
 
 \ExplSyntaxOff
 \tagmcend

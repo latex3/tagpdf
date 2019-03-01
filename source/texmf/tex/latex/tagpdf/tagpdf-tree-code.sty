@@ -36,6 +36,31 @@
 %the ParentTree
 \__uftag_pdfreserveobjnum:N \l_tmpa_tl
 \tl_const:Nx \c__uftag_tree_obj_parenttree_tl    { \l_tmpa_tl }
+
+% we have two sets of entries in the parent tree:
+% page streams and real objects.
+% The numbers must be distinct and ordered
+% So we rely on abspage and put the real objects at the end
+% I use a counter to have a chance to get the correct number
+% if code is process twice.
+\newcounter  { g__uftag_parenttree_obj_int }
+\AtBeginDocument
+ { \int_gset:Nn \c@g__uftag_parenttree_obj_int
+   { \zref@extractdefault{LastPage}{abspage}{100} -1 }
+ }
+
+% we need to record the obj references:
+
+\tl_new:N \g__uftag_parenttree_objr_tl
+
+\cs_new:Nn \__uftag_parenttree_add_objr:nn %#1 Structparent number, #2 obj number
+{
+ \tl_gput_right:Nx \g__uftag_parenttree_objr_tl
+  {
+   #1 \c_space_tl #2\c_space_tl 0 \c_space_tl R\c_space_tl ^^J
+  }
+}
+
 \tl_new:N \l__uftag_parenttree_content_tl
 
 \cs_new:Nn \__uftag_tree_fill_parenttree:
@@ -92,6 +117,7 @@
    {
     \__uftag_tree_fill_parenttree:
    }
+  \tl_put_right:NV \l__uftag_parenttree_content_tl\g__uftag_parenttree_objr_tl
   \__uftag_pdfuseobjnum:xx  { \c__uftag_tree_obj_parenttree_tl }
    {
     <<\c_space_tl/Nums\c_space_tl [\l__uftag_parenttree_content_tl] \c_space_tl >>

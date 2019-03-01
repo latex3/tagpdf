@@ -5,6 +5,13 @@
 %%%% driver (pdflatex) commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% these should be in expl3!!!
+\cs_new:Nn \__uftag_pdf_startlink:{ \pdfstartlink }
+\cs_new:Nn \__uftag_pdf_endlink:  { \pdfendlink }
+\cs_new:Nn \__uftag_pdf_lastlink:  { \pdflastlink }
+\cs_new:Nn \__uftag_pdf_catalog:  { \pdfcatalog }
+
+
 % needed for \str_set_convert:Nnon
 \tl_new:N \g__uftag_inputencoding_tl
 \tl_gset:Nn \g__uftag_inputencoding_tl {utf8}

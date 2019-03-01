@@ -12,6 +12,12 @@
 %%%% driver (lualatex) commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% these should be in expl3!!!
+\cs_new:Nn \__uftag_pdf_startlink:{ \pdfextension startlink }
+\cs_new:Nn \__uftag_pdf_endlink:  { \pdfextension endlink }
+\cs_new_protected:Nn \__uftag_pdf_lastlink: { \numexpr\pdffeedback lastlink\relax }
+\cs_new:Nn \__uftag_pdf_catalog:  { \pdfextension catalog }
+
 % needed for \str_set_convert:Nnon
 \tl_new:N   \g__uftag_inputencoding_tl
 \tl_gset:Nn \g__uftag_inputencoding_tl {}
