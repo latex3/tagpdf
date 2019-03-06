@@ -28,7 +28,7 @@
 \else
 \pdfcatalog {/Lang (en-UK)}
 \fi
-
+\textwidth=5cm
 \begin{document}
 \tagstructbegin{tag=Document}
 \leavevmode
@@ -42,22 +42,23 @@ abc
 \tagstructbegin{tag=Link}
 \tagmcbegin{tag=Span}
 \ExplSyntaxOn\makeatletter
-\stepcounter{ g__uftag_parenttree_obj_int }
+
+blb
 %\int_gincr:N\g__uftag_abspage_int
 \__uftag_pdf_startlink:
     attr {/Border[0~0~1]}
-    user{
-        /Subtype/Link%
-        /A<<%
-         /Type/Action%
-         /S/URI%
-         /URI(http://www.dante.de)%
-         
-         >>
+    user {
+          /Subtype/Link%
+          /A
+           <<
+            /Type/Action
+            /S/URI
+            /URI(http://www.dante.de)
+           >>
          \c_space_tl
          /StructParent \c_space_tl \int_use:N\c@g__uftag_parenttree_obj_int
          }
-    This is a link.
+    This is a link. a long link a long link a long link a long line
 \__uftag_pdf_endlink:
 
 %get the number of the parent link structure:
@@ -67,24 +68,77 @@ abc
     {
      \msg_error:nn { uftag } { struct-faulty-nesting }
     }
-% put the obj number of link annot in the kid entry:    
-\__uftag_struct_kid_link_gput_right:nx 
- { 
-  \l__uftag_struct_stack_parent_tmp_tl 
+% put the obj number of link annot in the kid entry:
+\__uftag_struct_kid_link_gput_right:nx
+ {
+  \l__uftag_struct_stack_parent_tmp_tl
  }
  {
   \int_use:N\__uftag_pdf_lastlink:
  }
- 
-% add the parent obj number to the parent tree: 
- \__uftag_parenttree_add_objr:nn 
+% add the parent obj number to the parent tree:
+ \__uftag_parenttree_add_objr:nn
  {
   \int_use:N\c@g__uftag_parenttree_obj_int
  }
- { 
-  \prop_item:cn{ g__uftag_struct_\l__uftag_struct_stack_parent_tmp_tl _prop } 
+ {
+  \prop_item:cn{ g__uftag_struct_\l__uftag_struct_stack_parent_tmp_tl _prop }
   { objnum }
  }
+% increase the int:
+\stepcounter{ g__uftag_parenttree_obj_int } 
+
+\ExplSyntaxOff
+\tagmcend
+\tagstructend
+
+\tagstructbegin{tag=Link}
+\tagmcbegin{tag=Span}
+\ExplSyntaxOn\makeatletter
+blb
+%\int_gincr:N\g__uftag_abspage_int
+\__uftag_pdf_startlink:
+    attr {/Border[0~0~1]}
+    user {
+          /Subtype/Link%
+          /A
+           <<
+            /Type/Action
+            /S/URI
+            /URI(http://www.dante.de)
+           >>
+         \c_space_tl
+         /StructParent \c_space_tl \int_use:N\c@g__uftag_parenttree_obj_int
+         }
+    This is a another link. 
+\__uftag_pdf_endlink:
+
+%get the number of the parent link structure:
+\seq_get:NNF
+    \g__uftag_struct_stack_seq
+    \l__uftag_struct_stack_parent_tmp_tl
+    {
+     \msg_error:nn { uftag } { struct-faulty-nesting }
+    }
+% put the obj number of link annot in the kid entry:
+\__uftag_struct_kid_link_gput_right:nx
+ {
+  \l__uftag_struct_stack_parent_tmp_tl
+ }
+ {
+  \int_use:N\__uftag_pdf_lastlink:
+ }
+% add the parent obj number to the parent tree:
+ \__uftag_parenttree_add_objr:nn
+ {
+  \int_use:N\c@g__uftag_parenttree_obj_int
+ }
+ {
+  \prop_item:cn{ g__uftag_struct_\l__uftag_struct_stack_parent_tmp_tl _prop }
+  { objnum }
+ }
+% increase the int:
+\stepcounter{ g__uftag_parenttree_obj_int }
 
 \ExplSyntaxOff
 \tagmcend

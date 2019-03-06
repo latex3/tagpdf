@@ -164,24 +164,15 @@
   \__uftag_pdfobj:Nn \l__uftag_tmpa_tl
   {
     <<
-    /Type \c_space_tl /OBJR \c_space_tl
-    /Obj  \c_space_tl #2 \c_space_tl 0 \c_space_tl R
+     /Type \c_space_tl /OBJR \c_space_tl
+     /Obj  \c_space_tl #2 \c_space_tl 0 \c_space_tl R
    >>
-
   }
-  \seq_gpop_right:cN { g__uftag_struct_kids_#1_seq }\g__uftag_tmpa_tl
   \__uftag_seq_gput_right:cx
-  { g__uftag_struct_kids_#1_seq }
-  {
-   \l__uftag_tmpa_tl \c_space_tl 0 \c_space_tl R
-   %<<
-%    /Type \c_space_tl /OBJR \c_space_tl
-%    /Obj  \c_space_tl #2 \c_space_tl 0 \c_space_tl R
-%   >>
-
-  }
-  \seq_gput_right:cV { g__uftag_struct_kids_#1_seq }\g__uftag_tmpa_tl
-  \seq_show:c { g__uftag_struct_kids_#1_seq }
+   { g__uftag_struct_kids_#1_seq }
+   {
+    \l__uftag_tmpa_tl \c_space_tl 0 \c_space_tl R
+   }
  }
 
 \cs_generate_variant:Nn\__uftag_struct_kid_link_gput_right:nn { nx}
