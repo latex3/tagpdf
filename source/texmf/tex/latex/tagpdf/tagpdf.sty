@@ -83,11 +83,16 @@
  tabsorder / structure .code:n = {\tl_set:Nn \l__uftag_tree_tabs_order_tl {/Tabs/S}},
  tabsorder / none      .code:n = {\tl_set:Nn \l__uftag_tree_tabs_order_tl {}},
  tabsorder       .initial:n = structure,
- compresslevel   .choices:nn   = {0,1,2,3,4,5,6,7,8,9}
+ compresslevel   .choices:nn   = {1,2,3,4,5,6,7,8,9}
                                  {
-                                  \__uftag_pdfcompresslevel:n    {#1}
-                                  \__uftag_pdfobjcompresslevel:n {#1}
+                                  \driver_pdf_compresslevel:n    {#1}
+                                  \driver_pdf_objects_enable:
                                  },
+ compresslevel / 0 .code:n =
+                       {
+                        \driver_pdf_compresslevel:n { 0 }
+                        \driver_pdf_objects_disable:
+                       }, 
  compresslevel  .value_required:n = true,
  uncompress     .meta:n = { compresslevel = 0 },
  inputencoding  .code:n =

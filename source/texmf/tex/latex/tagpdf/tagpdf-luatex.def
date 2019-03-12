@@ -110,16 +110,6 @@
  }
 
 
-\cs_new:Nn \__uftag_pdfcompresslevel:n
- {
-   \__uftag_tex_pdfvariable:D compresslevel #1
- }
-
-\cs_new:Nn \__uftag_pdfobjcompresslevel:n
- {
-   \__uftag_tex_pdfvariable:D objcompresslevel #1
- }
-
 % I probably want also lua tables
 % I put them in the uftag.tables namespaces
 % The tables will be named like the variables but without backslash
