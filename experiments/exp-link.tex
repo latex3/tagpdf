@@ -60,34 +60,35 @@ blb
          }
     This is a link. a long link a long link a long link a long line
 \__uftag_pdf_endlink:
+\__uftag_struct_finish_link:
 
-%get the number of the parent link structure:
-\seq_get:NNF
-    \g__uftag_struct_stack_seq
-    \l__uftag_struct_stack_parent_tmp_tl
-    {
-     \msg_error:nn { uftag } { struct-faulty-nesting }
-    }
-% put the obj number of link annot in the kid entry:
-\__uftag_struct_kid_link_gput_right:nx
- {
-  \l__uftag_struct_stack_parent_tmp_tl
- }
- {
-  \int_use:N\__uftag_pdf_lastlink:
- }
-% add the parent obj number to the parent tree:
- \__uftag_parenttree_add_objr:nn
- {
-  \int_use:N\c@g__uftag_parenttree_obj_int
- }
- {
-  \prop_item:cn{ g__uftag_struct_\l__uftag_struct_stack_parent_tmp_tl _prop }
-  { objnum }
- }
-% increase the int:
-\stepcounter{ g__uftag_parenttree_obj_int } 
-
+%%get the number of the parent link structure:
+%\seq_get:NNF
+%    \g__uftag_struct_stack_seq
+%    \l__uftag_struct_stack_parent_tmp_tl
+%    {
+%     \msg_error:nn { uftag } { struct-faulty-nesting }
+%    }
+%% put the obj number of link annot in the kid entry:
+%\__uftag_struct_kid_link_gput_right:nx
+% {
+%  \l__uftag_struct_stack_parent_tmp_tl
+% }
+% {
+%  \int_use:N\__uftag_pdf_lastlink:
+% }
+%% add the parent obj number to the parent tree:
+% \__uftag_parenttree_add_objr:nn
+% {
+%  \int_use:N\c@g__uftag_parenttree_obj_int
+% }
+% {
+%  \prop_item:cn{ g__uftag_struct_\l__uftag_struct_stack_parent_tmp_tl _prop }
+%  { objnum }
+% }
+%% increase the int:
+%\stepcounter{ g__uftag_parenttree_obj_int }
+%
 \ExplSyntaxOff
 \tagmcend
 \tagstructend
@@ -110,7 +111,7 @@ blb
          \c_space_tl
          /StructParent \c_space_tl \int_use:N\c@g__uftag_parenttree_obj_int
          }
-    This is a another link. 
+    This is a another link.
 \__uftag_pdf_endlink:
 
 %get the number of the parent link structure:
