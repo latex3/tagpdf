@@ -28,12 +28,11 @@
 \pagestyle{fancy}
 \fancyhf{}
 
-\cfoot{\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \ifluatex\else
 \pdfcatalog{/Lang (en-UK)}
 \pdfinfo {/Title (Title)}
 \fi
-\cfoot{\tagmcbegin{artifact=pagination}\thepage\tagmcend}
+\cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \textheight=3cm
 \begin{document}\showoutput
 \START
