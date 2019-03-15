@@ -6,6 +6,9 @@
 % \newattribute \g__uftag_mc_type_attr     %the value represent the type
 % \newattribute \g__uftag_mc_cnt_attr      %will hold the \c@g__uftag_MCID_abs_int value
 
+%this will hold the parent attr, so that tagmc can be nested (which can happens e.g. in footer/header)
+\int_new:N \g__uftag_parent_mc_type_attr_int
+
 % An attribute for the current structure probably doesn't make sense as mc chunks can be used later.
 % \newattribute \g__uftag_struct_type_attr %represent the current structure type. Not sure if needed
 % \newattribute \g__uftag_struct_cnt_attr  %will hold \c@g__uftag_struct_abs_int a cnt
@@ -145,10 +148,21 @@
   \tex_global:D \setattribute #1 #2
  }
 
+\cs_set_protected:Npn \__uftag_attribute_set:Nn #1 #2
+ {
+  \setattribute #1 #2
+ }
+
 \cs_set_protected:Npn \__uftag_attribute_gunset:N #1
  {
   \tex_global:D \unsetattribute #1
  }
+
+\cs_set_protected:Npn \__uftag_attribute_unset:N #1
+ {
+   \unsetattribute #1
+ }
+
 
 \cs_new:Nn \__uftag_mc_lua_gset_mc_type_attr:n % #1 is a tag name
  {
@@ -165,10 +179,20 @@
  }
 
 %This command will in the finish code replace the dummy for a mc by the real mcid kids
+%we need a variant for the case that it is the only kid, to get the array right
 \cs_new:Nn \__uftag_mc_insert_mcid_kids:n
  {
-  \directlua {uftag.func.mc_insert_kids (#1) }
+  \directlua {uftag.func.mc_insert_kids (#1,0) }
  }
+
+\cs_new:Nn \__uftag_mc_insert_mcid_single_kids:n
+ {
+  \directlua {uftag.func.mc_insert_kids (#1,1) }
+ }
+
+
+% we need to pass the info if the kids are alone or already in an array
+% so we add a second argument, which should == 1 if the kids are single
 
 
 % puts an mcid absolute number in the current structure
@@ -178,7 +202,7 @@
   \seq_gput_right:cn % Don't fill a lua table due to the command in the item, so the kernel command
    { g__uftag_struct_kids_\g__uftag_struct_stack_current_tl _seq }
    {
-    \__uftag_mc_insert_mcid_kids:n {#1}
+    \__uftag_mc_insert_mcid_kids:n {#1}%
    }
   \directlua
    {
@@ -196,6 +220,7 @@
  {
   \group_begin:
    \__uftag_check_mc_if_nested:
+   \int_gset:Nn\g__uftag_parent_mc_type_attr_int { \g__uftag_mc_type_attr }
    \bool_gset_true:N \g__uftag_in_mc_bool
    \int_gincr:N \c@g__uftag_MCID_abs_int
    \keys_set:nn { uftag / mc }{ label={}, #1 }
@@ -222,7 +247,8 @@
  {
   \__uftag_check_mc_if_open:
   \bool_gset_false:N \g__uftag_in_mc_bool
-  \__uftag_mc_lua_gunset_mc_type_attr:
+  %\__uftag_mc_lua_gunset_mc_type_attr:
+  \__uftag_attribute_gset:Nn \g__uftag_mc_type_attr { \g__uftag_parent_mc_type_attr_int }
  }
 
 \cs_new_protected:Nn \uftag_mc_use:n %#1: label name

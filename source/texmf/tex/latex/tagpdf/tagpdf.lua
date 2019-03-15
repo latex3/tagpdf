@@ -512,10 +512,24 @@ function uftag.func.store_mc_kid (mcnum,kid,page)
  tableinsert(uftag.mc[mcnum]["kids"], kidtable )
 end
 
-function uftag.func.mc_insert_kids (mcnum)
+function uftag.func.mc_num_of_kids (mcnum)
+ local num = 0
+ if uftag.mc[mcnum] and uftag.mc[mcnum]["kids"] then
+   texio.write_nl("XXXXXXXXXXXXXXXXX")
+   texio.write_nl(table.serialize(uftag.mc[mcnum]["kids"]))  
+   num = #uftag.mc[mcnum]["kids"]
+ end
+ uftag.trace.log ("MC" .. mcnum .. "has " .. num .. "KIDS",4)
+ return num
+end
+  
+function uftag.func.mc_insert_kids (mcnum,single)
   if uftag.mc[mcnum] then
   uftag.trace.log("MC-KIDS test " .. mcnum,4)
    if uftag.mc[mcnum]["kids"] then
+    if #uftag.mc[mcnum]["kids"] > 1 and single==1 then
+     tex.sprint("[")
+    end 
     for i,kidstable in ipairs( uftag.mc[mcnum]["kids"] ) do
      local kidnum  = kidstable["kid"]
      local kidpage = kidstable["page"]
@@ -523,6 +537,9 @@ function uftag.func.mc_insert_kids (mcnum)
      uftag.trace.log("MC" .. mcnum .. " insert KID " ..i.. " with num " .. kidnum .. " on page " .. kidpage.."/"..kidpageobjnum,3)
      tex.sprint(catlatex,"<</Type /MCR /Pg "..kidpageobjnum .. " 0 R /MCID "..kidnum.. ">> " )
     end 
+    if #uftag.mc[mcnum]["kids"] > 1 and single==1 then
+     tex.sprint("]")
+    end  
    else
     uftag.trace.log("WARN! MC"..mcnum.." has no kids",0)
    end

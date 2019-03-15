@@ -177,6 +177,17 @@
 
 \cs_generate_variant:Nn\__uftag_struct_kid_link_gput_right:nn { nx}
 
+\cs_new:Nn\__uftag_struct_exchange_kid_command:N %N= seq
+ {
+  \seq_gpop_left:NN #1 \g_tmpa_tl
+  \regex_replace_once:nnN
+   {\c{\__uftag_mc_insert_mcid_kids:n}}
+   {\c{\__uftag_mc_insert_mcid_single_kids:n}}
+   \g_tmpa_tl
+  \seq_gput_left:NV #1 \g_tmpa_tl
+ }
+\cs_generate_variant:Nn\__uftag_struct_exchange_kid_command:N { c }
+
 \cs_new:Nn \__uftag_struct_fill_kid_key:n %#1 is the struct num
  {
   \int_case:nnF
@@ -191,6 +202,12 @@
     { } %no kids, do nothing
    { 1 } % 1 kid, insert
     {
+     % in this case we in luamode need a special command in luamode to get the array right. See issue #13
+     \bool_if:NT\g__uftag_mode_lua_bool
+      {
+       \__uftag_struct_exchange_kid_command:c
+        {g__uftag_struct_kids_\prop_item:cn{ g__uftag_struct_#1_prop }{num}_seq}
+      }
      \__uftag_prop_gput:cnx { g__uftag_struct_#1_prop } {K}
       {
        \seq_item:cn
@@ -208,7 +225,9 @@
        {
         g__uftag_struct_kids_\prop_item:cn{ g__uftag_struct_#1_prop }{num}_seq
        }
-       {\c_space_tl}
+       {
+        \c_space_tl
+       }
      ]
     }
   }
