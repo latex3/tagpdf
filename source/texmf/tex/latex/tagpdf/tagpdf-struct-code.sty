@@ -179,12 +179,12 @@
 
 \cs_new:Nn\__uftag_struct_exchange_kid_command:N %N= seq
  {
-  \seq_gpop_left:NN #1 \g_tmpa_tl
+  \seq_gpop_left:NN #1 \l_tmpa_tl
   \regex_replace_once:nnN
    {\c{\__uftag_mc_insert_mcid_kids:n}}
    {\c{\__uftag_mc_insert_mcid_single_kids:n}}
-   \g_tmpa_tl
-  \seq_gput_left:NV #1 \g_tmpa_tl
+   \l_tmpa_tl
+  \seq_gput_left:NV #1 \l_tmpa_tl
  }
 \cs_generate_variant:Nn\__uftag_struct_exchange_kid_command:N { c }
 

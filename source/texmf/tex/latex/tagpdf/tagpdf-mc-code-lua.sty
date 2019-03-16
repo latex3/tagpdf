@@ -5,9 +5,10 @@
 % it also load the lua (as it can also contain functions needed by generic mode.
 % \newattribute \g__uftag_mc_type_attr     %the value represent the type
 % \newattribute \g__uftag_mc_cnt_attr      %will hold the \c@g__uftag_MCID_abs_int value
+% new attributes are local:
+% \newattribute \l__uftag_mc_type_attr     %the value represent the type
+% \newattribute \l__uftag_mc_cnt_attr      %will hold the \c@g__uftag_MCID_abs_int value
 
-%this will hold the parent attr, so that tagmc can be nested (which can happens e.g. in footer/header)
-\int_new:N \g__uftag_parent_mc_type_attr_int
 
 % An attribute for the current structure probably doesn't make sense as mc chunks can be used later.
 % \newattribute \g__uftag_struct_type_attr %represent the current structure type. Not sure if needed
@@ -164,19 +165,21 @@
  }
 
 
-\cs_new:Nn \__uftag_mc_lua_gset_mc_type_attr:n % #1 is a tag name
+\cs_new:Nn \__uftag_mc_lua_set_mc_type_attr:n % #1 is a tag name
  {
-  \__uftag_attribute_gset:Nn \g__uftag_mc_type_attr { \directlua {uftag.func.output_num_from ("#1") } }
-  \__uftag_attribute_gset:Nn \g__uftag_mc_cnt_attr  { \__uftag_get_mc_abs_cnt: }
+  \__uftag_attribute_set:Nn \l__uftag_mc_type_attr { \directlua {uftag.func.output_num_from ("#1") } }
+  \__uftag_attribute_set:Nn \l__uftag_mc_cnt_attr  { \__uftag_get_mc_abs_cnt: }
  }
 
-\cs_generate_variant:Nn\__uftag_mc_lua_gset_mc_type_attr:n { o }
+\cs_generate_variant:Nn\__uftag_mc_lua_set_mc_type_attr:n { o }
 
-\cs_new:Nn \__uftag_mc_lua_gunset_mc_type_attr:
+\cs_new:Nn \__uftag_mc_lua_unset_mc_type_attr:
  {
-  \__uftag_attribute_gunset:N \g__uftag_mc_type_attr
-  \__uftag_attribute_gunset:N \g__uftag_mc_cnt_attr
+  \__uftag_attribute_unset:N \l__uftag_mc_type_attr
+  \__uftag_attribute_unset:N \l__uftag_mc_cnt_attr
  }
+
+
 
 %This command will in the finish code replace the dummy for a mc by the real mcid kids
 %we need a variant for the case that it is the only kid, to get the array right
@@ -218,16 +221,15 @@
 
 \cs_new_protected:Nn \uftag_mc_begin:n
  {
-  \group_begin:
-   \__uftag_check_mc_if_nested:
-   \int_gset:Nn\g__uftag_parent_mc_type_attr_int { \g__uftag_mc_type_attr }
-   \bool_gset_true:N \g__uftag_in_mc_bool
+   %\group_begin:
+   %\__uftag_check_mc_if_nested:
+   %\bool_gset_true:N \g__uftag_in_mc_bool
    \int_gincr:N \c@g__uftag_MCID_abs_int
    \keys_set:nn { uftag / mc }{ label={}, #1 }
    %check that a tag or artifact has been used
    \__uftag_check_mc_tag:N \l__uftag_mc_key_tag_tl
-   %set the attributes (is done globally!):
-   \__uftag_mc_lua_gset_mc_type_attr:o  { \l__uftag_mc_key_tag_tl }
+   %set the attributes:
+   \__uftag_mc_lua_set_mc_type_attr:o  { \l__uftag_mc_key_tag_tl }
    \bool_if:NF \l__uftag_mc_artifact_bool
     { % store the absolute num name in a label:
       \tl_if_empty:NF {\l__uftag_mc_key_label_tl}
@@ -240,15 +242,14 @@
         \exp_args:Nx \__uftag_mc_handle_stash:n { \__uftag_get_mc_abs_cnt: }
       }
     }
-  \group_end:
+  %\group_end:
  }
 
 \cs_new_protected:Nn \uftag_mc_end:
  {
-  \__uftag_check_mc_if_open:
-  \bool_gset_false:N \g__uftag_in_mc_bool
-  %\__uftag_mc_lua_gunset_mc_type_attr:
-  \__uftag_attribute_gset:Nn \g__uftag_mc_type_attr { \g__uftag_parent_mc_type_attr_int }
+  %\__uftag_check_mc_if_open:
+  %\bool_gset_false:N \g__uftag_in_mc_bool
+  \__uftag_mc_lua_unset_mc_type_attr:
  }
 
 \cs_new_protected:Nn \uftag_mc_use:n %#1: label name

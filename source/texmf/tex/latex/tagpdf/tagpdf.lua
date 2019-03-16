@@ -52,8 +52,8 @@ functions
  uftag.trace.showspaces : boolean
 --]]
 
-local mctypeattributeid       = luatexbase.registernumber ("g__uftag_mc_type_attr")
-local mccntattributeid        = luatexbase.registernumber ("g__uftag_mc_cnt_attr")
+local mctypeattributeid       = luatexbase.registernumber ("l__uftag_mc_type_attr")
+local mccntattributeid        = luatexbase.registernumber ("l__uftag_mc_cnt_attr")
 local iwspaceattributeid = luatexbase.registernumber ("g__uftag_interwordspace_attr")
 local iwfontattributeid = luatexbase.registernumber ("g__uftag_interwordfont_attr")
 

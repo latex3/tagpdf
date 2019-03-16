@@ -117,29 +117,41 @@
 \prop_gput:Nnn \g_tag_section_level_prop {subsubsection}{H4}
 \prop_gput:Nnn \g_tag_section_level_prop {paragraph}{H5}
 
+%new 0.6, as attributes are local we have to put \tagmcbegin everywhere.
 \renewcommand{\chapterlinesformat}[3]
  {
   \@hangfrom
    {
     \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
-    \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
-    #2
+    \tl_if_empty:nF{#2}
+     {
+      \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
+      #2
+      \tagmcend
+     }
    }
-   {#3\tagmcend\tagstructend}%
+   {\tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
+    #3\tagmcend\tagstructend}%
  }
 
-
+%unnumbered sections level give an empty mc, need to think about it.
 \renewcommand{\sectionlinesformat}[4]
  {
   \@hangfrom
    {\hskip #2
     \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
-    \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
-    #3
+    \tl_if_empty:nF{#3}
+    {
+     \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+     #3
+     \tagmcend
+    }
    }
-   {#4\tagmcend\tagstructend}%
+   {\tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+    #4
+    \tagmcend\tagstructend}%
  }
-
+ 
 \ExplSyntaxOff
 \AfterTOCHead{\tagstructbegin{tag=TOC}}
 \AfterStartingTOC{\tagstructend} %end TOC

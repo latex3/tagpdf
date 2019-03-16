@@ -178,6 +178,12 @@ I added code to handle attributes and attribute classes, see section~\ref{sec:at
 
 I added code to add \enquote{real} space glyphs to the pdf, see section \ref{sec:spacechars}.
 
+
+\subsection{Changes in 0.6}
+
+\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.
+
+
 \section{Setup}
 
 \minisec{Activation needed!}
@@ -451,7 +457,7 @@ The key-val list understands the following keys:
 \DescribeMacro\uftag_mc_end:
 \ExplSyntaxOff
 
-These commands insert the end code of the marked content. They don't end a group and it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. Both commands check if there has been a begin marker and issue a warning if not.
+These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway. 
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcuse{<label name>}
