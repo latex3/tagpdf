@@ -24,7 +24,7 @@
 
 \tikzset{arg/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=2mm and 2mm}}
 \tikzset{operator/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=4mm and 4mm}}
-\usepackage{enumitem,needspace}
+\usepackage{enumitem,needspace,xpatch}
 \makeatletter
 \enitkv@key{enumitem}{compactsep}[true]{%
   \divide\partopsep by 2\relax
@@ -48,9 +48,13 @@
  }
 %metadata
 \pdfextension catalog{/Lang (en-UK)}
-\usepackage{tagpdfdocu-patches}
 %\usepackage{hyperref}
+
+\usepackage{pdfresources}
+\usepackage[customdriver=hluatex-experimental]{hyperref}
+
 \usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
+\usepackage{tagpdfdocu-patches}
 
 
 \begin{document}
@@ -113,45 +117,59 @@
 \TagP So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
 \TagPend
 
-\tagstructend %document
-\end{document}
-
 \subsection{Engines and modes}
 
-\TagP^ The package works currently with pdflatex and lualatex.\TagPend
+\TagP^ The package works currently with pdflatex and lualatex.
 
-\tagstructend %document
-\end{document}
-The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
+\TagP The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
 
-I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
 
-While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. pdf is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.
+\TagP I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
+
+\TagP While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. pdf is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.%
+\TagPend
 
 
 
 \subsection{References}
 
-My main reference was the free reference for pdf 1.7. \parencite{pdfreference}. This document is from 2006.
+\TagP^ My main reference was the free reference for pdf 1.7. \parencite{pdfreference}. This document is from 2006.
 
-In the meantime pdf 2.0. has been released. I know that it contains also for accessibility relevant changes. But the specification is not available for free, also currently imho neither pdftex nor luatex actually target the creation of pdf 2.0. So I'm ignoring this for the moment.
-
+\TagP In the meantime pdf 2.0. has been released. I know that it contains also for accessibility relevant changes. As I got now the specification and luatex can set with \verb+\pdfmajorversion+ the version to 2.0 I will start to check to look into it too.% 
+\TagPend
 
 \subsection{Validation}
 
-pdf's created with the commands of this package must be validated:
+\TagP^ pdf's created with the commands of this package must be validated:\TagPend
+
 
 \begin{itemize}
-\item One must check that the pdf is \emph{syntactically} correct. It is rather easy to create broken pdf: e.g. if a chunk is opened on one page but closed on the next page.
-\item One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
-\item One must check how good the accessibility is \emph{practically}.
+\item \TagP^ One must check that the pdf is \emph{syntactically} correct. It is rather easy to create broken pdf: e.g. if a chunk is opened on one page but closed on the next page.
+    \Pmeti
+\item \TagP^ One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
+    \Pmeti
+\item \TagP^ One must check how good the accessibility is \emph{practically}.\Pmeti
 \end{itemize}
 
+\TagP^
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free PDF Accessibility Checker (PAC~3) \parencite{pac3}.
-There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here.
 
-Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a pdf has real accessibility problems.
+abc \parencite{pac3} \TagPend
+
+\tagstructend %document
+\end{document}
+
+
+\TagP^
+Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
+It can also be done also with the free PDF Accessibility Checker (PAC~3) \parencite{pac3}.
+There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here.\TagPend
+
+
+
+\TagP Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a pdf has real accessibility problems.\TagPend
+
 
 \minisec{Preflight woes}
 
@@ -457,7 +475,18 @@ The key-val list understands the following keys:
 \DescribeMacro\uftag_mc_end:
 \ExplSyntaxOff
 
-These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway. 
+These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
+
+\subsubsection{About nesting mc-commands}
+\textbf{Attention!}\marginnote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
+
+Consider a code like this:
+
+\begin{lstlisting}
+\tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P Block 2}} Block 3 \tagmcend
+\end{lstlisting} 
+
+Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The pdf will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}. 
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcuse{<label name>}

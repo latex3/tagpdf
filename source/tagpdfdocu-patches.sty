@@ -1,6 +1,6 @@
 \RequirePackage{expl3}[2018/06/14]
 %\RequirePackage[enable-debug]{expl3}[2018/06/14]
-
+\RequirePackage{xpatch}
 \ProvidesExplPackage {tagpdfdocu-patches} {2019/01/23} {0.10}
  {patches/commands for the tagpdf documentation}
 
@@ -127,17 +127,62 @@
 
 
 
+%unnumbered sections level give an empty mc, need to think about it.
 \renewcommand{\sectionlinesformat}[4]
  {
   \@hangfrom
    {\hskip #2
-    \uftag_struct_begin:n{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
-    \uftag_mc_begin:n    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
-    #3
+    \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+    \tl_if_empty:nF{#3}
+    {
+     \uftag_mc_begin:n    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+     #3
+     \uftag_mc_end:
+    }
    }
-   {#4\uftag_mc_end:\uftag_struct_end:}%
+   {\uftag_mc_begin:n    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+    #4
+    \uftag_mc_end:\tagstructend}%
  }
 
 
 \AfterTOCHead{\uftag_struct_begin:n{tag=TOC}}
 \AfterStartingTOC{\uftag_struct_end:} %end TOC
+
+%% list
+
+\newcommand\uftag@enit@format@preset[1]{%
+  \tagstructbegin{tag=LI}%
+  \tagstructbegin{tag=Lbl}%
+  \tagmcbegin{tag=Lbl}%
+  #1%
+  \tagmcend
+  \tagstructend %end Lbl
+  \tagstructbegin{tag=LBody}}
+
+\newcommand\meti{% end of \item
+ \tagstructend %end of LBody
+ \tagstructend %end of LI
+}
+
+\newcommand\Pmeti{% end of \item
+ \TagPend      %end of P
+ \tagstructend %end of LBody
+ \tagstructend %end of LI
+}
+
+\ExplSyntaxOff
+\xpatchcmd\enit@preset{\@firstofone}{\uftag@enit@format@preset}{}{\fail}
+\ExplSyntaxOn
+\setlist{
+    before*=\tagstructbegin{tag=L},
+    after*={\tagstructend}}
+
+% keys that overwrite \enit@format must be patched, eg like the follow
+% the font key should be patched in a similar way
+\enitkv@key{enumitem}{format}{%
+  \def\enit@format{%
+   \tagstructbegin{tag=LI}%
+   \tagstructbegin{tag=Lbl}%
+   \tagmcbegin{tag=Lbl}%
+   #1\tagmcend}}
