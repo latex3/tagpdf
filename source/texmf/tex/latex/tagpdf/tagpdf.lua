@@ -601,7 +601,7 @@ function uftag.func.fill_parent_tree_line (page)
       numsentry = pdfpage .. " ["
        for i=0,mcchunks do
         local mcnum  = uftag.page[page][i]
-        local structnum = uftag.mc[mcnum]["parent"]
+        local structnum = uftag.mc[mcnum]["parent"] or 0
         local propname  = "g__uftag_struct_"..structnum.."_prop"
         local objnum   =  uftag.tables[propname]["objnum"] or "XXXX"
         numsentry = numsentry .. " ".. objnum .. " 0 R"
