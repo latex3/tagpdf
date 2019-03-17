@@ -1,0 +1,58 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+
+\tagpdfifpdftexT
+ {
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{activate-all,log=vv,uncompress} %
+%to better see the mc in the pdf:
+\tagpdfsetup{add-new-tag = BOX/P}
+
+\newsavebox\testboxa
+
+\pagestyle{empty}
+\begin{document}
+\tagstructbegin{tag=Document}
+
+% Some tests with mc/structs + boxes
+% How must a box be marked up that is used in some other place?
+
+
+%% this is wrong, the BOX structure has no kid and the MCID is in the P-structure
+% \tagstructbegin{tag=P}
+% \tagmcbegin{tag=P}xxx\tagmcend
+%  \savebox\testboxa{\tagmcbegin{tag=BOX}box\tagmcend}
+% \tagmcbegin{tag=P}yyy\tagmcend
+% \tagstructend
+% \tagstructbegin{tag=BOX}
+% \usebox\testboxa
+% \tagstructend
+
+%% instead the box must be stashed and then reused:
+
+ \tagstructbegin{tag=P}
+ \tagmcbegin{tag=P}xxx\tagmcend
+  \savebox\testboxa{\tagmcbegin{tag=BOX,stash,label=BOX}box\tagmcend}
+ \tagmcbegin{tag=P}yyy\tagmcend
+ \tagstructend
+ \tagstructbegin{tag=BOX}
+ \tagmcuse{BOX}\usebox\testboxa
+ \tagstructend
+
+
+\tagstructend
+\end{document}
+
+
