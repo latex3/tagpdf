@@ -586,7 +586,7 @@ function uftag.func.fill_parent_tree_line (page)
      mcchunks=#uftag.page[page] 
      uftag.trace.log("PAGETREE PAGE "..page.." has "..mcchunks.."+1 Elements ",3)  
      for i=0,mcchunks do
-      uftag.trace.log("PAGETREE CHUNKS "..uftag.page[page][i],0)        
+      uftag.trace.log("PAGETREE CHUNKS "..uftag.page[page][i],3)        
      end
      if mcchunks == 0 then 
       -- only one chunk so no need for an array
