@@ -44,7 +44,7 @@
 
 \prg_new_conditional:Nnn \__uftag_mc_if_in: {p,T,F,TF}
  {
-  \int_compare:nNn {−2147483647}={\l__uftag_mc_type_attr}
+  \int_compare:nNnTF {-2147483647}={\l__uftag_mc_type_attr}
    { \prg_return_true:  }
    { \prg_return_false: }
  }
@@ -273,7 +273,7 @@
    }
  }
 
-\cs_new:Nn \uftag_mc_get_tag: { \l__uftag_mc_key_tag_tl }
+\cs_new:Nn \__uftag_get_data_mc_tag: { \l__uftag_mc_key_tag_tl }
 
 
 \endinput

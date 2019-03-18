@@ -1,0 +1,15 @@
+%\input{regression-test}
+\documentclass{article}
+\usepackage{tagpdf}
+\tagpdfsetup{activate-mc,uncompress}
+\begin{document}
+\START \showoutput
+x\tagpdfget{mc_tag}x
+
+{\tagmcbegin{tag=P}
+ \tagpdfget{mc_tag}%
+ abc}y\tagpdfget{mc_tag}y %with pdflatex P, with luatex empty
+\tagmcend
+
+x\tagpdfget{mc_tag}x
+\end{document}

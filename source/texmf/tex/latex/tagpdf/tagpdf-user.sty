@@ -10,6 +10,12 @@
 \cs_set_eq:NN\tagpdfifluatexT  \sys_if_engine_luatex:T
 \cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
 
+%%% a generic command to retrieve data
+
+\cs_new:Npn \tagpdfget #1 { \uftag_get:n { #1} }
+\cs_new:Npn \uftag_get:n #1 { \use:c {__uftag_get_data_#1: } }
+
+
 %%%% mc related user commands
 \NewDocumentCommand \tagmcifinTF { m m }
  {
@@ -33,7 +39,6 @@
   \uftag_mc_use:n {#1}
  }
 
-\newcommand\tagmcgettag { \uftag_mc_get_tag: }
 
 %%%% structure related commands
 
