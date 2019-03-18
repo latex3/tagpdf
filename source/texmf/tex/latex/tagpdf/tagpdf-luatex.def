@@ -11,6 +11,10 @@
 \newattribute \g__uftag_interwordfont_attr
 
 % The lua code
+% ensure that 10pt font has been loaded:
+{
+ \fontencoding{TU}\fontfamily{lmr}\fontseries{m}\fontshape{n}\fontsize{10pt}{10pt}\selectfont
+}
 \directlua { tagpdf=require('tagpdf.lua') }
 
 %%%% driver (lualatex) commands
