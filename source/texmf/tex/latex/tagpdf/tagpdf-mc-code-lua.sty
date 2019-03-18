@@ -3,9 +3,7 @@
 
 % the two attibutes are defined in the driver file.
 % it also load the lua (as it can also contain functions needed by generic mode.
-% \newattribute \g__uftag_mc_type_attr     %the value represent the type
-% \newattribute \g__uftag_mc_cnt_attr      %will hold the \c@g__uftag_MCID_abs_int value
-% new attributes are local:
+% (new) attributes for mc are local:
 % \newattribute \l__uftag_mc_type_attr     %the value represent the type
 % \newattribute \l__uftag_mc_cnt_attr      %will hold the \c@g__uftag_MCID_abs_int value
 
@@ -43,6 +41,15 @@
      }
    }
  }
+
+\prg_new_conditional:Nnn \__uftag_mc_if_in: {p,T,F,TF}
+ {
+  \int_compare:nNn {−2147483647}={\l__uftag_mc_type_attr}
+   { \prg_return_true:  }
+   { \prg_return_false: }
+ }
+
+\prg_new_eq_conditional:NNn \uftag_mc_if_in: \__uftag_mc_if_in: {p,T,F,TF}
 
 % the keys
 \tl_new:N \l__uftag_mc_key_tag_tl
@@ -225,6 +232,7 @@
    %\__uftag_check_mc_if_nested:
    %\bool_gset_true:N \g__uftag_in_mc_bool
    \int_gincr:N \c@g__uftag_MCID_abs_int
+   \tl_clear:N\l__uftag_mc_key_properties_tl
    \keys_set:nn { uftag / mc }{ label={}, #1 }
    %check that a tag or artifact has been used
    \__uftag_check_mc_tag:N \l__uftag_mc_key_tag_tl
@@ -250,6 +258,7 @@
   %\__uftag_check_mc_if_open:
   %\bool_gset_false:N \g__uftag_in_mc_bool
   \__uftag_mc_lua_unset_mc_type_attr:
+  \tl_set:Nn  \l__uftag_mc_key_tag_tl { }
  }
 
 \cs_new_protected:Nn \uftag_mc_use:n %#1: label name
@@ -264,6 +273,7 @@
    }
  }
 
+\cs_new:Nn \uftag_mc_get_tag: { \l__uftag_mc_key_tag_tl }
 
 
 \endinput

@@ -13,6 +13,18 @@
 % it will contain key-value of type "abspagenum=max mcid on this page"
 \__uftag_prop_new:N \g__uftag_MCID_byabspage_prop
 
+%to test nesting mc:
+\bool_new:N \g__uftag_in_mc_bool
+
+\prg_new_conditional:Nnn \__uftag_mc_if_in: {p,T,F,TF}
+ {
+  \bool_if:NTF \g__uftag_in_mc_bool
+   { \prg_return_true:  }
+   { \prg_return_false: }
+ }
+
+\prg_new_eq_conditional:NNn \uftag_mc_if_in: \__uftag_mc_if_in: {p,T,F,TF}
+
 
 % this are the low level mc command.
 % they insert literals and so a are specific to generic mode
@@ -122,6 +134,7 @@
 % keyval definitions for the user commands:
 
 \tl_new:N \l__uftag_mc_key_tag_tl
+\tl_new:N \g__uftag_mc_key_tag_tl %for "outside" queries
 \tl_new:N \l__uftag_mc_key_properties_tl
 %Attention! definitions are different in luamode.
 % tag and raw are expanded as \directlua in lua does it too.
@@ -131,6 +144,7 @@
    {
     %%????????? \pdfescapename??
     \tl_set:Nx  \l__uftag_mc_key_tag_tl { #1 }
+    \tl_gset:Nx  \g__uftag_mc_key_tag_tl { #1 }
    },
   raw  .code:n =
    {
@@ -236,6 +250,7 @@
  {
   \__uftag_check_mc_if_open:
   \bool_gset_false:N \g__uftag_in_mc_bool
+  \tl_gset:Nn  \g__uftag_mc_key_tag_tl { }
   \__uftag_mc_emc:
  }
 
@@ -265,5 +280,6 @@
    }
  }
 
+\cs_new:Nn \uftag_mc_get_tag: { \g__uftag_mc_key_tag_tl }
 
 \endinput

@@ -135,7 +135,7 @@
 
 \TagP^ My main reference was the free reference for pdf 1.7. \parencite{pdfreference}. This document is from 2006.
 
-\TagP In the meantime pdf 2.0. has been released. I know that it contains also for accessibility relevant changes. As I got now the specification and luatex can set with \verb+\pdfmajorversion+ the version to 2.0 I will start to check to look into it too.% 
+\TagP In the meantime pdf 2.0. has been released. I know that it contains also for accessibility relevant changes. As I got now the specification and luatex can set with \verb+\pdfmajorversion+ the version to 2.0 I will start to check to look into it too.%
 \TagPend
 
 \subsection{Validation}
@@ -155,35 +155,34 @@
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free PDF Accessibility Checker (PAC~3) \parencite{pac3}.
 
-abc \parencite{pac3} \TagPend
-
-\tagstructend %document
-\end{document}
-
-
-\TagP^
+\TagP
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free PDF Accessibility Checker (PAC~3) \parencite{pac3}.
-There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here.\TagPend
-
-
+There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here.
 
 \TagP Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a pdf has real accessibility problems.\TagPend
 
 
+
 \minisec{Preflight woes}
 
-Sadly validators can not be always trusted. As an example for an reason that I don't understand the adobe preflight don't like the list structure \texttt{L}.
-It is also possible that validators contradict: that the one says everything is okay, while the other complains.
+\TagP^Sadly validators can not be always trusted. As an example for an reason that I don't understand the adobe preflight don't like the list structure \texttt{L}.
+It is also possible that validators contradict: that the one says everything is okay, while the other complains.\TagPend
+
 
 \subsection{Examples wanted!}
-To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
+\TagP^ To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
 
 \begin{tcolorbox}
-Feedback, contribuations and corrections are welcome!
+\TagP Feedback, contribuations and corrections are welcome!
 \end{tcolorbox}
 
-All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed pdf are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.
+\TagP All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed pdf are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
+\TagPend
+
+\tagstructend %document
+\end{document}
+
 
 \subsection{Changes in 0.3}
 
@@ -477,16 +476,18 @@ The key-val list understands the following keys:
 
 These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
 
-\subsubsection{About nesting mc-commands}
+\begin{tcolorbox}
+\minisec{About nesting mc-commands}
 \textbf{Attention!}\marginnote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
 
 Consider a code like this:
 
 \begin{lstlisting}
 \tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P Block 2}} Block 3 \tagmcend
-\end{lstlisting} 
+\end{lstlisting}
 
-Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The pdf will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}. 
+Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The pdf will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
+\end{tcolorbox}
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcuse{<label name>}
@@ -501,6 +502,16 @@ These commands allow you to record a marked content that you stashed away into t
 \ExplSyntaxOff
 
 These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
+
+In \emph{generic mode}, where marked content command shouldn't be nested, it works with a global boolean.
+
+In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it! 
+
+\ExplSyntaxOn
+\DescribeMacro\tagmcgettag
+\DescribeMacro\uftag_mc_if_in:TF{<true code>}{<false>}
+\ExplSyntaxOff
+ 
 
 \subsubsection{Tips}
 

@@ -28,17 +28,6 @@
 % value: the structure number the mc is in
 \__uftag_prop_new:N \g__uftag_mc_parenttree_prop
 
-%to test nesting mc:
-\bool_new:N \g__uftag_in_mc_bool
-
-\prg_new_conditional:Nnn \__uftag_mc_if_in: {p,T,F,TF}
- {
-  \bool_if:NTF \g__uftag_in_mc_bool
-   { \prg_return_true:  }
-   { \prg_return_false: }
- }
-
-\prg_new_eq_conditional:NNn \uftag_mc_if_in: \__uftag_mc_if_in: {p,T,F,TF}
 %shared keys
 %the rest are in the splitted code
 \tl_new:N \l__uftag_mc_artifact_type_tl
