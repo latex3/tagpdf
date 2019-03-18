@@ -33,7 +33,8 @@
 
 \tagpdfsetup{tabsorder=structure,
              activate-all,
-             uncompress
+             uncompress,
+             log=v
              }
 
 \usepackage{lipsum}%\textheight3cm
@@ -129,7 +130,7 @@
       \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
       #2
       \tagmcend
-     } 
+     }
    }
    {\tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
     #3\tagmcend\tagstructend}%
@@ -146,7 +147,7 @@
      \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
      #3
      \tagmcend
-    } 
+    }
    }
    {\tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
     #4

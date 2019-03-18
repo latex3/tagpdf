@@ -46,6 +46,7 @@
  uncompress,
  tabsorder=structure,
  interwordspace=true,
+ %log=v
  %show-spaces
  }
 %metadata
@@ -318,13 +319,14 @@ endstream
  \Pmeti
 \end{enumerate}
 
-\tagstructend %document
-\end{document}
+
 \begin{figure}[t!]
 \begin{tcolorbox}
 
 \minisec{Page stream with marked content}
 
+\tagstructbegin{tag=Figure,alttext={Illustration of page stream with marked content}}%
+\tagmcbegin{tag=Figure}%
 \begin{tikzpicture}[baseline=(a.north),node distance=2pt,remember picture]
 \node(start){\ldots~\ldots~\ldots};
 \node[draw,base right = of start](a) {mc-chunk 1};
@@ -333,12 +335,14 @@ endstream
 \node[draw,base right = of c](d) {mc-chunk 3};
 \node[base right = of d] {\ldots~\ldots};
 \end{tikzpicture}
-
+\tagmcend\tagstructend
 
 
 \minisec{Structure}
 
 \newlength\ydistance\setlength\ydistance{-0.8cm}
+\tagstructbegin{tag=Figure,alttext={Illustration of structure}}%
+\tagmcbegin{tag=Figure}%
 \begin{tikzpicture}[remember picture,baseline=(root.north)]
 
 \node[draw,anchor=base west] (root) at (0,0) {Sect (start section)};
@@ -360,170 +364,217 @@ endstream
 \draw[->,red](dref)-|(d);
 
 \end{tikzpicture}
+\tagmcend\tagstructend
 \end{tcolorbox}
+\tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption}
 \caption{Schematical description of the relation between marked content in the page stream and the structure}
-\end{figure}
+\tagmcend\tagstructend
 
+\end{figure}
 
 \subsection{Task 1: Marking the chunks: the mark-content-step}
 
-To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the pdf reference they are called \enquote{marked content}. The three main variants needed here are:
+\TagP^To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the pdf reference they are called \enquote{marked content}. The three main variants needed here are:\TagPend
 
 \begin{description}
-\item[Artifacts] They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.
+\item[Artifacts] \TagP^They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 /Artifact BMC
  text to be marked
 /EMC
 \end{lstlisting}
+\tagmcend\tagstructend\meti
 
-\item[Artifacts with a type]  They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} has two arguments: again the tag name \texttt{/Artifact} and a following dictionary which allows to specify the suppressed info. Text in header and footer can e.g. be declared as pagination like this:
 
+
+\item[Artifacts with a type] \TagP^They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} has two arguments: again the tag name \texttt{/Artifact} and a following dictionary which allows to specify the suppressed info. Text in header and footer can e.g. be declared as pagination like this:\TagPend
+
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 /Artifact <</Type /Pagination>> BDC
  text to be marked
 /EMC
 \end{lstlisting}
+\tagmcend\tagstructend\meti
 
-\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text.\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}   Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
+
+\item[Content]  \TagP^Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text.
+    %\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}   
+    Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
 
 
-    In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:
+    \TagP In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 /H <</MCID 3>> BDC
  text to be marked
 /EMC
 \end{lstlisting}
+\tagmcend\tagstructend
 
-This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system\footnote{It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the pdf as one would need dummy objects.}.
+\TagP^This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system
+%\footnote{It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the pdf as one would need dummy objects.}.
 
-It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.
+\TagP It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.\Pmeti
 \end{description}
 
-The needed markers can be added with low level code e.g. like this (in pdftex syntax):
 
+\TagP^The needed markers can be added with low level code e.g. like this (in pdftex syntax):\TagPend
+
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 \pdfliteral page {/H <</MCID 3>> BDC}%
  text to be marked
 \pdfliteral page {EMC}%
 \end{lstlisting}
+\tagmcend\tagstructend
 
-This sounds easy. But there are quite a number of traps.
+\TagP^This sounds easy. But there are quite a number of traps.\TagPend
 
 \begin{enumerate}[beginpenalty=10000]
-  \item Pdf is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
-  So marking e.g. a section title like in the following example won't always work as the literal before the section could end on the previous page:
+  \item \TagP^Pdf is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
+  So marking e.g. a section title like in the following example won't always work as the literal before the section could end on the previous page:\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 \pdfliteral page {/H <</MCID 3>> BDC} %problem: possible pagebreak here
  \section{mysection}
 \pdfliteral page {EMC}%
 \end{lstlisting}
-  Using the literals \emph{inside} the section argument is better, but then one has to take care that they don't wander into the header and the toc.
+\tagmcend\tagstructend
 
-  \item Literals are \enquote{whatsits} nodes and can change spacing, page and line breaking. The literal \emph{behind} the section in the previous example could e.g. lead to a lonely section title at the end of the page.
+  \TagP^Using the literals \emph{inside} the section argument is better, but then one has to take care that they don't wander into the header and the toc.\Pmeti
 
-  \item The \texttt{/MCID} numbers must be unique on a page. So you can't use the literal in a saved box that you reuse in various places. This is e.\,g. a problem with \texttt{longtable} as it saves the table header and footer in a box.
+  \item 
+  \TagP^Literals are \enquote{whatsits} nodes and can change spacing, page and line breaking. The literal \emph{behind} the section in the previous example could e.g. lead to a lonely section title at the end of the page.\Pmeti
 
-  \item The  \texttt{/MCID}-chunks are leaf nodes in the structure tree, so they shouldn't be nested.
+  \item
+   \TagP^The \texttt{/MCID} numbers must be unique on a page. So you can't use the literal in a saved box that you reuse in various places. This is e.\,g. a problem with \texttt{longtable} as it saves the table header and footer in a box.\Pmeti
 
-  \item Often text in a document is created automatically or moved around: entries in the table of contents, index, bibliography and more. To mark these text chunks correctly one has to analyze the code creating such content to find suitable places to inject the literals.
+  \item 
+  \TagP^The  \texttt{/MCID}-chunks are leaf nodes in the structure tree, so they shouldn't be nested.\Pmeti
 
-  \item The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page (this package uses in generic mode a label-ref-system to get around this problem. This sadly means that three compilations are needed until everything has settled down).
+  \item 
+  \TagP^Often text in a document is created automatically or moved around: entries in the table of contents, index, bibliography and more. To mark these text chunks correctly one has to analyze the code creating such content to find suitable places to inject the literals.\Pmeti
 
-  \item There exist environments which process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
-       So one has to check for doublettes and holes in the counting system.
+  \item 
+  \TagP^The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page (this package uses in generic mode a label-ref-system to get around this problem. This sadly means that three compilations are needed until everything has settled down).\Pmeti
 
-  \item Pdf is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.
+  \item 
+  \TagP^There exist environments which process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
+       So one has to check for doublettes and holes in the counting system.\Pmeti
+       
+
+  \item 
+  \TagP^Pdf is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.\Pmeti
 \end{enumerate}
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
 
-While in generic mode the commands insert the literals directly and so have all the problems described above the lua mode works quite differently: The tagging commands don't insert literals but set some \emph{attributes} which are attached to all the following nodes. When the page is shipped out some lua code is called which wanders through the shipout box and injects the literals at the places where the attributes changes.
+\TagP^While in generic mode the commands insert the literals directly and so have all the problems described above the lua mode works quite differently: The tagging commands don't insert literals but set some \emph{attributes} which are attached to all the following nodes. When the page is shipped out some lua code is called which wanders through the shipout box and injects the literals at the places where the attributes changes.
 
-This means that quite a number of problems mentioned above are not relevant for the lua mode:
+\TagP This means that quite a number of problems mentioned above are not relevant for the lua mode:\TagPend
 
 \begin{enumerate}
-\item Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the pdf and so bloat up pdf a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).
-\item The commands don't insert literals directly and so affect line and page breaking much less.
-\item The numbering of the MCID are done at shipout, so no label/ref system is needed.
-\item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.
+\item \TagP^Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the pdf and so bloat up pdf a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).\Pmeti
+\item \TagP^The commands don't insert literals directly and so affect line and page breaking much less.\Pmeti
+\item \TagP^The numbering of the MCID are done at shipout, so no label/ref system is needed.\Pmeti
+\item \TagP^The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.\Pmeti
 \end{enumerate}
 
 \subsubsection{Commands to mark content and chunks}
 
-It\marginnote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
-For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.
+\TagP^It\marginnote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
+For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.\TagPend
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcbegin{<key-val-list>}
 \DescribeMacro\uftag_mc_begin:n{<key-val-list>}
 \ExplSyntaxOff
 
-These commands insert the begin of the marked content code in the pdf. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
+\TagP^These commands insert the begin of the marked content code in the pdf. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
 Such markers should not be nested. The command will warn you if this happens.
 
-The key-val list understands the following keys:
+\TagP The key-val list understands the following keys:\TagPend
 \begin{description}
-  \item[\PrintKeyName{tag}] This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the pdf, so it should with a starting slash give a valid pdf name  (some ascii with numbers like \texttt{H4} is fine).
+  \item[\PrintKeyName{tag}] 
+  \TagP^This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the pdf, so it should with a starting slash give a valid pdf name  (some ascii with numbers like \texttt{H4} is fine).\Pmeti
 
-  \item[\PrintKeyName{artifact}] This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
+  \item[\PrintKeyName{artifact}] 
+  \TagP^This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
 
-      It is not quite clear if rules and other decorative graphical objects needs to be marked up as artifacts. Acrobat seems not to mind if not, but PAC~3 complained.
+  \TagP    It is not quite clear if rules and other decorative graphical objects needs to be marked up as artifacts. Acrobat seems not to mind if not, but PAC~3 complained.
 
-      The validators complain if some text is not marked up, but it is not quite clear if this is a serious problem.
+  \TagP    The validators complain if some text is not marked up, but it is not quite clear if this is a serious problem.
 
-      The\marginnote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.
+  \TagP    The\marginnote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.\Pmeti
 
-  \item[\PrintKeyName{stash}] Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current structure.
+  \item[\PrintKeyName{stash}] 
+   \TagP^Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current structure.\Pmeti
 
-  \item[\PrintKeyName{label}] This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
+  \item[\PrintKeyName{label}] 
+  \TagP^This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.\Pmeti
 
-  \item[\PrintKeyName{alttext}] This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
+  \item[\PrintKeyName{alttext}] 
+   \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
 
-  \item[\PrintKeyName{alttext-o}] This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:
+  \item[\PrintKeyName{alttext-o}] 
+  \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
 
+  \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
       \tagmcbegin{tag=P,alttext-o=\myalttext}
       \end{lstlisting}
+  \tagmcend\tagstructend
 
-      and it will insert \verb+\frac{a}{b}+  (hex encoded) in the pdf.
+  \TagP^    and it will insert \verb+\frac{a}{b}+  (hex encoded) in the pdf.\Pmeti
 
-  \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
+  \item[\PrintKeyName{actualtext}] 
+  \TagP^This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
 
-  \item[\PrintKeyName{actualtext-o}] This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:
+  \item[\PrintKeyName{actualtext-o}] 
+  \TagP^This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
 
+ \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
       \begin{lstlisting}
       \newcommand\myactualtext{X}
       \tagmcbegin{tag=P,alttext-o=\myactualtext}
       \end{lstlisting}
+ \tagmcend\tagstructend
+     
 
-      and it will insert \verb+X+ (hex encoded)  in the pdf.
+ \TagP^and it will insert \verb+X+ (hex encoded)  in the pdf.\Pmeti
 
-  \item[\PrintKeyName{raw}] This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.
+  \item[\PrintKeyName{raw}] 
+  \TagP^This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.\Pmeti
 \end{description}
+
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcend
 \DescribeMacro\uftag_mc_end:
 \ExplSyntaxOff
 
-These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
+\TagP^These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.\TagPend
 
 \begin{tcolorbox}
 \minisec{About nesting mc-commands}
-\textbf{Attention!}\marginnote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
+\TagP^\textbf{Attention!}\marginnote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
 
-Consider a code like this:
+\TagP Consider a code like this:\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 \tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P Block 2}} Block 3 \tagmcend
 \end{lstlisting}
+\tagmcend\tagstructend
 
-Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The pdf will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
+\TagP^Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The pdf will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
+\TagPend
 \end{tcolorbox}
 
 \ExplSyntaxOn
@@ -531,18 +582,18 @@ Block 3 will here get the same id number as Block 1 and be stored in the structu
 \DescribeMacro\uftag_mc_use:n {<label name>}
 \ExplSyntaxOff
 
-These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.
+\TagP^These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.\TagPend
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcifinTF{<true code>}{<false>}
 \DescribeMacro\uftag_mc_if_in:TF{<true code>}{<false>}
 \ExplSyntaxOff
 
-These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
+\TagP^These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
 
-In \emph{generic mode}, where marked content command shouldn't be nested, it works with a global boolean.
+\TagP In \emph{generic mode}, where marked content command shouldn't be nested, it works with a global boolean.
 
-In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it! 
+\TagP In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!\TagPend
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcgettag
@@ -553,18 +604,19 @@ In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't te
 \subsubsection{Tips}
 
 \begin{itemize}
-\item Mark commands inside floats should work fine (but need perhaps some compilation rounds in generic mode).
-\item In case you want to use it inside a \verb+\savebox+ (or some command that saves the text internally in a box): If the box is used directly, there is probably no problem. If the use is later, stash the marked content and add the needed \verb+\tagmcuse+ directly  before oder after the box when you use it.
-\item Don't use a saved box with markers twice.
-\item If boxes are unboxed you will have to analyze the pdf to check if everything is ok.
-\item If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the pdf.
+\item \TagP^Mark commands inside floats should work fine (but need perhaps some compilation rounds in generic mode).\Pmeti
+\item \TagP^In case you want to use it inside a \verb+\savebox+ (or some command that saves the text internally in a box): If the box is used directly, there is probably no problem. If the use is later, stash the marked content and add the needed \verb+\tagmcuse+ directly  before oder after the box when you use it.\Pmeti
+\item \TagP^Don't use a saved box with markers twice.\Pmeti
+\item \TagP^If boxes are unboxed you will have to analyze the pdf to check if everything is ok.\Pmeti
+\item \TagP^If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the pdf.\Pmeti
  \end{itemize}
 
 \subsubsection{Math}
 
-Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
-The pdf then looked like this
+\TagP^Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
+The pdf then looked like this\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 /mn <</MCID 6 /ActualText<FEFF0034>/Alt(  : open bracket: four )>>BDC
 ...
@@ -572,22 +624,24 @@ The pdf then looked like this
 ...
 /mo <</MCID 8 /ActualText<FEFF2062>/Alt(  times  )>>BDC
 \end{lstlisting}
+\tagmcend\tagstructend
 
 
-If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.
+\TagP^If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.\TagPend
 
-But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the pdf and the task how to read this aloud delegated to the screen reader. More investigations are needed here.
+\TagP^But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the pdf and the task how to read this aloud delegated to the screen reader. More investigations are needed here.\TagPend
 
-See also section~\ref{sec:alttext} for some more remarks and tests.
+\TagP^See also section~\ref{sec:alttext} for some more remarks and tests.\TagPend
 
 \subsubsection{Split paragraphs}\label{sec:splitpara}
 
-A\marginnote{Generic mode only} problem are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
+\TagP^A\marginnote{Generic mode only} problem are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
 
-So with pdflatex in generic mode one currently has to do the splitting manually.
+\TagP So with pdflatex in generic mode one currently has to do the splitting manually.
 
-The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea is to use \verb+\vadjust+ in the right place:
+\TagP The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea is to use \verb+\vadjust+ in the right place:\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 \tagmcbegin{tag=P}
 ...
@@ -598,6 +652,10 @@ Pellentesque scelerisque
 ...
 sit amet, lacus.\tagmcend
 \end{lstlisting}
+\tagmcend\tagstructend
+
+\tagstructend %document
+\end{document}
 
 
 \subsection{Task 2: Marking the structure}
