@@ -445,7 +445,10 @@
   %\seq_show:N \g__uftag_struct_stack_seq
   \seq_gpop:NNTF \g__uftag_struct_stack_seq \l_tmpa_tl
    {
-    \__uftag_check_info_closing_struct:o { \g__uftag_struct_stack_current_tl }
+    \int_compare:nNnT {\l__uftag_loglevel_int} > { 0 }
+     {
+      \__uftag_check_info_closing_struct:o { \g__uftag_struct_stack_current_tl }
+     }
    }
    { \__uftag_check_no_open_struck: }
   % get the previous one, shouldn't be empty as the root should be there
