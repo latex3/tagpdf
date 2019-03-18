@@ -145,6 +145,17 @@
     \uftag_mc_end:\tagstructend}%
  }
 
+%minisec is simply P, H6 doesn't work ....
+\cs_new:Nn \__uftag_docu_tag_minisec:n
+{
+  \uftag_struct_begin:n {tag=P}
+  \uftag_mc_begin:n{tag=P}
+  #1
+  \uftag_mc_end:
+  \uftag_struct_end:
+}
+
+\addtokomafont{minisec}{\__uftag_docu_tag_minisec:n}
 
 \AfterTOCHead{\uftag_struct_begin:n{tag=TOC}}
 \AfterStartingTOC{\uftag_struct_end:} %end TOC

@@ -5,8 +5,10 @@
 \makeatother
 \pdfvariable minorversion = 7
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
+\usepackage{scrlayer-scrpage}
 \usepackage{fontspec}
 \setmainfont{Heuristica}
+\usepackage{unicode-math}
 \usepackage[english]{babel}
 \usepackage[autostyle]{csquotes}
 \usepackage{microtype}
@@ -52,11 +54,11 @@
 
 \usepackage{pdfresources}
 \usepackage[customdriver=hluatex-experimental]{hyperref}
-
+\hypersetup{colorlinks}
 \usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
 \usepackage{tagpdfdocu-patches}
 
-
+\cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
 \begin{document}
 \tagstructbegin{tag=Document}
 
@@ -78,17 +80,20 @@
 
 \medskip
 
-\TagP Issues, comments, suggestions should be added as issues to the github tracker:
+\TagP Issues, comments, suggestions should be added as issues to the github tracker:\TagPend
 
 \medskip
-\centering \textbf{https://github.com/u-fischer/tagpdf}
+\centering \url{https://github.com/u-fischer/tagpdf}
 
-\TagPend
 
-\tagstructend %div
+\tagstructend
 \end{tcolorbox}
 
+
+
+\begin{NoHyper} %combination of link and other struct is to complicated for now ...
 \tableofcontents
+\end{NoHyper}
 
 \section{Introduction}
 
@@ -97,7 +102,8 @@
 
 \TagP But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
-\TagP This package tries to close this gap by offering \emph{core} commands to tag a pdf.\footnote{In case you don't know what this means: there will be some explanations later on.}
+\TagP This package tries to close this gap by offering \emph{core} commands to tag a pdf.
+%\footnote{In case you don't know what this means: there will be some explanations later on.}
 
 \TagP My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
@@ -171,86 +177,108 @@ It is also possible that validators contradict: that the one says everything is 
 
 
 \subsection{Examples wanted!}
-\TagP^ To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
+\TagP^ To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.\TagPend
 
-\begin{tcolorbox}
-\TagP Feedback, contribuations and corrections are welcome!
+\begin{tcolorbox}[]
+\TagP^ Feedback, contribuations and corrections are welcome!\TagPend
 \end{tcolorbox}
 
-\TagP All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed pdf are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
+\TagP^ All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed pdf are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
 \TagPend
-
-\tagstructend %document
-\end{document}
 
 
 \subsection{Changes in 0.3}
 
-In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change means that the package now relies on the experimental expl3 package \texttt{l3str-convert}.
+\TagP^In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change means that the package now relies on the experimental expl3 package \texttt{l3str-convert}.
 
-I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
+\TagP I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.\TagPend
 
 \subsection{Changes in 0.5}
-I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
+\TagP^I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
 
-I added code to add \enquote{real} space glyphs to the pdf, see section \ref{sec:spacechars}.
+\TagP I added code to add \enquote{real} space glyphs to the pdf, see section \ref{sec:spacechars}.\TagPend
 
 
 \subsection{Changes in 0.6}
 
-\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.
+\TagP^\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.\TagPend
 
 
 \section{Setup}
 
 \minisec{Activation needed!}
-When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below.
+\TagP^ When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.) 
+\TagPend
+
 
 \subsection{Modes and package options}
 
-The package has two different modes: The \textbf{generic mode} works (in theory, currently only with pdftex and luatex) probably with all engines, the \textbf{lua mode} only with luatex. The differences between both modes  will be described later. The mode can be set with package options:
+\TagP^The package has two different modes: The \textbf{generic mode} works (in theory, currently only with pdftex and luatex) probably with all engines, the \textbf{lua mode} only with luatex. The differences between both modes  will be described later. The mode can be set with package options:
 
 \DescribeKey{luamode}
 
-This is the default mode. It will use the generic mode if the document is processed with pdflatex and the lua mode with lualatex.
+\TagP This is the default mode. It will use the generic mode if the document is processed with pdflatex and the lua mode with lualatex.
 
 \DescribeKey{genericmode}
 
-This will force the generic mode for all engines.
+\TagP This will force the generic mode for all engines. \TagPend
+
+
+
 
 \subsection{Setup and activation}\label{ssec:setup}
 
-The following command setups the general behaviour of the package.
+\TagP^The following command setups the general behaviour of the package.
 The command should be normally used only in the preamble (for a few keys it could also make sense to change them in the document).
 
 \DescribeMacro\tagpdfsetup{<key-val-list>}
 
 
-The key-val list understands the following keys:
+\TagP The key-val list understands the following keys:\TagPend
 \begin{description}
-\item[\PrintKeyName{activate-all}] Boolean, initially false. Activates everything, that's normally the sensible thing to do.
-\item[\PrintKeyName{activate-mc}] Boolean, initially false. Activates the code related to marked content.
-\item[\PrintKeyName{activate-struct}] Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
-\item[\PrintKeyName{activate-tree}] Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
-\item[\PrintKeyName{add-new-tag}] Allows to define new tag names, see section \ref{sec:new-tag} for a description.
-\item[\PrintKeyName{check-tags}] Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).
-\item[\PrintKeyName{compresslevel}] Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.
-\item[\PrintKeyName{inputencoding}]  Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
-\item[\PrintKeyName{interwordspace}] Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.
-\item[\PrintKeyName{log}] Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
-\item[\PrintKeyName{newattribute}] This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
-\item[\PrintKeyName{show-spaces}] Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
-\item[\PrintKeyName{tabsorder}] Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
-\item[\PrintKeyName{tagunmarked}] Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.
-\item[\PrintKeyName{uncompress}] Equivalent to using \texttt{compresslevel=0}.
+\item[\PrintKeyName{activate-all}] 
+ \TagP^Boolean, initially false. Activates everything, that's normally the sensible thing to do.\Pmeti
+\item[\PrintKeyName{activate-mc}] 
+ \TagP^Boolean, initially false. Activates the code related to marked content.\Pmeti
+\item[\PrintKeyName{activate-struct}] 
+ \TagP^Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.\Pmeti
+\item[\PrintKeyName{activate-tree}] 
+\TagP^ Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.\Pmeti
+\item[\PrintKeyName{add-new-tag}] 
+ \TagP^Allows to define new tag names, see section \ref{sec:new-tag} for a description.\Pmeti
+\item[\PrintKeyName{check-tags}] 
+ \TagP^Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).\Pmeti
+\item[\PrintKeyName{compresslevel}] 
+ \TagP^Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.\Pmeti
+\item[\PrintKeyName{inputencoding}]  
+ \TagP^Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
+ \Pmeti
+\item[\PrintKeyName{interwordspace}] 
+ \TagP^Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.\Pmeti
+\item[\PrintKeyName{log}] 
+ \TagP^Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.\Pmeti
+\item[\PrintKeyName{newattribute}] 
+ \TagP^This key takes two arguments and declares an attribute. See \ref{sec:attributes}.\Pmeti
+\item[\PrintKeyName{show-spaces}] 
+\TagP^Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.\Pmeti
+\item[\PrintKeyName{tabsorder}] 
+ \TagP^Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.\Pmeti
+\item[\PrintKeyName{tagunmarked}] 
+ \TagP^Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.\Pmeti
+\item[\PrintKeyName{uncompress}] 
+ \TagP^Equivalent to using \texttt{compresslevel=0}.\Pmeti
 
 
 \end{description}
 
+
 \section{Tagging}
 
-pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a pdf file}:
+\TagP^pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this
+%\footnote{The appendix contains some remarks about the syntax of a pdf file}:
+\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}[columns=fixed]
 stream
    BT
@@ -265,24 +293,33 @@ stream
    ET
 endstream
 \end{lstlisting}
+\tagmcend\tagstructend
 
-From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no guaranty that the stream contains the text in the order it should be read.
+\TagP^From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no guaranty that the stream contains the text in the order it should be read.
 
-Tagging means to enrich the pdf with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)
+\TagP Tagging means to enrich the pdf with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)\TagPend
+
 
 
 
 \subsection{Three tasks}
-To tag a pdf three tasks must be  carried out:
+\TagP^To tag a pdf three tasks must be  carried out:\TagPend
 
 \begin{enumerate}
-\item \textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
+\item 
+  \TagP^\textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.\Pmeti
 
-\item \textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the pdf structure right still means that additional mark up must be added.
+\item 
+  \TagP^\textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the pdf structure right still means that additional mark up must be added.
+  \Pmeti
 
-\item \textbf{The tree management}:\marginnote{tree-task} At last the structure must be written into the pdf. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
+\item 
+ \TagP^\textbf{The tree management}:\marginnote{tree-task} At last the structure must be written into the pdf. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
+ \Pmeti
 \end{enumerate}
 
+\tagstructend %document
+\end{document}
 \begin{figure}[t!]
 \begin{tcolorbox}
 
