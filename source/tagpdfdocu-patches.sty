@@ -206,7 +206,8 @@
  %%% attention, to get the order right, it is necessary currently to start a new
  %%% mc after a link! I'm not sure if this can/group be included in the hooks
  %%% grouping is a bit tricky ...
-
+\cs_if_exist:NT\hook_put_left:nnn
+{
  \hook_put_left:nnn
  { pdf }
  { startlink_url }
@@ -248,5 +249,5 @@
   \uftag_mc_end:
   \uftag_struct_end:
  }
-
+}
 \endinput

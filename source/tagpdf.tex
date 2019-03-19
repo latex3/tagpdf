@@ -3,7 +3,9 @@
 \def\UlrikeFischer@package@version{0.51}
 \def\UlrikeFischer@package@date{2019/01/XX}
 \makeatother
-\pdfvariable minorversion = 7
+%\pdfvariable minorversion = 7
+\pdfvariable majorversion = 2
+\pdfvariable minorversion = 0
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage{scrlayer-scrpage}
 \usepackage{fontspec}
@@ -748,9 +750,6 @@ The flat version creates a structure like this:\TagPend
 
    \TagP^   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the pdf.\Pmeti
 
-\end{description}
-\tagstructend %document
-\end{document}
 
   \item[\PrintKeyName{actualtext}]
    \TagP^This key inserts an \texttt{/ActualText} value in the dictionary of structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
