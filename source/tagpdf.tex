@@ -215,6 +215,12 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 \TagP^\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.\TagPend
 
+\subsection{Proof of concept: Tagging the documentation itself}
+\TagP^With version 0.6 the documentation itself has been tagged. The tagging is in now way perfect. The validator from Adobe doesn't complain, but PAX3 wants alternative Text for all links. And as mentioned above: passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.\TagPend
+
+\begin{tcolorbox}
+\TagP^Be aware that to tag the links a very experimental package and a experimental hyperref driver was needed. This files are not in the package!\TagPend
+\end{tcolorbox}
 
 \section{Setup}
 
@@ -621,6 +627,14 @@ Such markers should not be nested. The command will warn you if this happens.
 \item \TagP^If boxes are unboxed you will have to analyze the pdf to check if everything is ok.\Pmeti
 \item \TagP^If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the pdf.\Pmeti
  \end{itemize}
+ 
+\subsubsection{Links}
+
+\TagP^Link annotations (like all PDF annotations) are associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between the link and the content is based solely on visual appearance rather than on an explicitly specified association.\TagPend
+
+\TagP^To connect such a link with the text TODO... \TagPend
+
+
 
 \subsubsection{Math}
 
