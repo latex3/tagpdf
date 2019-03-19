@@ -3,9 +3,8 @@
 \def\UlrikeFischer@package@version{0.51}
 \def\UlrikeFischer@package@date{2019/01/XX}
 \makeatother
-%\pdfvariable minorversion = 7
-\pdfvariable majorversion = 2
-\pdfvariable minorversion = 0
+\pdfvariable majorversion = 1
+\pdfvariable minorversion = 7
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage{scrlayer-scrpage}
 \usepackage{fontspec}
@@ -158,11 +157,14 @@
 
 
 \begin{itemize}
-\item \TagP^ One must check that the pdf is \emph{syntactically} correct. It is rather easy to create broken pdf: e.g. if a chunk is opened on one page but closed on the next page.
+\item
+\TagP^ One must check that the pdf is \emph{syntactically} correct. It is rather easy to create broken pdf: e.g. if a chunk is opened on one page but closed on the next page.
     \Pmeti
-\item \TagP^ One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
+\item
+\TagP^ One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
     \Pmeti
-\item \TagP^ One must check how good the accessibility is \emph{practically}.\Pmeti
+\item
+\TagP^ One must check how good the accessibility is \emph{practically}.\Pmeti
 \end{itemize}
 
 \TagP^
@@ -197,9 +199,11 @@ It is also possible that validators contradict: that the one says everything is 
 
 \subsection{Changes in 0.3}
 
-\TagP^In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change means that the package now relies on the experimental expl3 package \texttt{l3str-convert}.
+\TagP^
+In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change means that the package now relies on the experimental expl3 package \texttt{l3str-convert}.
 
-\TagP I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.\TagPend
+\TagP
+I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.\TagPend
 
 \subsection{Changes in 0.5}
 \TagP^I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
@@ -215,7 +219,7 @@ It is also possible that validators contradict: that the one says everything is 
 \section{Setup}
 
 \minisec{Activation needed!}
-\TagP^ When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
+\TagP^When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
 \TagPend
 
 
@@ -236,8 +240,8 @@ It is also possible that validators contradict: that the one says everything is 
 
 \subsection{Setup and activation}\label{ssec:setup}
 
-\TagP^The following command setups the general behaviour of the package.
-The command should be normally used only in the preamble (for a few keys it could also make sense to change them in the document).
+\TagP^The following command setups the general behaviour of the package. The command should be normally used only in the preamble (for a few keys it could also make sense to change them in the document).
+
 
 \DescribeMacro\tagpdfsetup{<key-val-list>}
 
@@ -411,8 +415,7 @@ endstream
     %\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
     Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
 
-
-    \TagP In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:\TagPend
+\TagP In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:\TagPend
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
@@ -603,10 +606,11 @@ Such markers should not be nested. The command will warn you if this happens.
 \TagP In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!\TagPend
 
 \ExplSyntaxOn
-\DescribeMacro\tagmcgettag
-\DescribeMacro\uftag_mc_if_in:TF{<true code>}{<false>}
+\DescribeMacro\tagpdfget{<key word>}
+\DescribeMacro\uftag_get:n{<key word>}
 \ExplSyntaxOff
 
+\TagP^These commands give back some variables. Currently the only working key word is \verb+mc\_tag+.\TagPend.
 
 \subsubsection{Tips}
 
@@ -772,8 +776,7 @@ The flat version creates a structure like this:\TagPend
     \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute= TH-row}
-      \end{lstlisting}.
-    \tagmcend\tagstructend
+      \end{lstlisting}\tagmcend\tagstructend
 
     \TagP^See also section~\ref{sec:attributes}.\Pmeti
 
@@ -783,10 +786,9 @@ The flat version creates a structure like this:\TagPend
    \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute-class= TH-row}
-      \end{lstlisting}.
-  \tagmcend\tagstructend
+      \end{lstlisting}\tagmcend\tagstructend
 
-  \TagP^See also section~\ref{sec:attributes}.\TagPend
+  \TagP^See also section~\ref{sec:attributes}.\Pmeti
 
   \item[\PrintKeyName{title}]
   \TagP^This key allows to set the dictionary entry \texttt{/Title} in the structure object. The value is handled as verbatim string and hex encoded. Commands are not expanded.\Pmeti
@@ -817,7 +819,8 @@ The flat version creates a structure like this:\TagPend
 
 \subsubsection{Attributes and attribute classes}\label{sec:attributes}
 
-\TagP^Structure Element can have so-called attributes. A single attribute is a dictionary\footnote{or a stream but this is currently not supported by the package as I don't know an use-case} with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
+\TagP^Structure Element can have so-called attributes. A single attribute is a dictionary%\footnote{or a stream but this is currently not supported by the package as I don't know an use-case}
+with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
 As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:\TagPend
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
@@ -1022,7 +1025,7 @@ To sum them up:\TagPend
       \end{verbatim}
       \tagmcend\tagstructend
 
- \TagP^and perhaps some\verb+\pdfglyphtounicode+ commands.\TagPend
+ \TagP^and perhaps some\verb+\pdfglyphtounicode+ commands.\Pmeti
  \item \TagP^Hard and soft hyphen must be distinct.\Pmeti
  \item \TagP^Spaces between words should be space glyphs and not only a horizontal movement. See section~\ref{sec:spacechars}.\Pmeti
  \item \TagP^Various small infos must be present in the catalog dictionary, info dictionary and the page dictionaries, e.g. metadata like title.\Pmeti
@@ -1066,7 +1069,7 @@ To sum them up:\TagPend
 \begin{description}
 \item[postfix notation] \TagP^pdf uses in various places postfix notation. This means that the operator is behind its arguments:\TagPend
 
-\tagstructbegin{tag=Figure}\tagmcbegin{tag=Figure}
+\tagstructbegin{tag=Figure,alttext={Illustration of postfix notation}}\tagmcbegin{tag=Figure}
 \begin{tikzpicture}[baseline=(c.base)]
 \node[arg](a1) {18};
 \node[arg,right=of a1.east](a2) {0};
@@ -1129,8 +1132,11 @@ To sum them up:\TagPend
 
 \item[Arrays] \TagP^Arrays are enclosed by square brackets. They can contain all sort of objects including more arrays. As an example here an array which contains five objects: a number, an object reference, a string, a dictionary and another array. Be aware that despite the spaces \texttt{15 0 R} is \emph{one} element of the array.\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
     \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
+\tagmcend\tagstructend
 
+    \tagstructbegin{tag=Figure,alttext={Illustration of array}}\tagmcbegin{tag=Figure}
     \begin{tikzpicture}[baseline=(c.base)]
     \node[arg](a1) {0};
     \node[arg,right = of a1.east](a2) {15 0 R};
@@ -1138,13 +1144,16 @@ To sum them up:\TagPend
     \node[arg,right = of a3.east](a4) {<</Type /X>>};
     \node[arg,right = of a4.east](a5) {[1 2 3]};
     \end{tikzpicture}
+\tagmcend\tagstructend\meti
 
 
-\item[Dictionaries] Dictionaries are enclosed by double angle brackets. They contain key-value pairs. The key is always a name. The value can be all sort of objects including more dictionaries. It doesn't matter in which order the keys are given.
+\item[Dictionaries]
+\TagP^Dictionaries are enclosed by double angle brackets. They contain key-value pairs. The key is always a name. The value can be all sort of objects including more dictionaries. It doesn't matter in which order the keys are given.
 
-    Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}
-    but at least for examples a layout with line breaks and indentation is more readable:
+\TagP Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}
+    but at least for examples a layout with line breaks and indentation is more readable:\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
     \begin{verbatim}
     <<
       /Type      /Page
@@ -1154,15 +1163,17 @@ To sum them up:\TagPend
       /Parent    5 0 R
     >>
     \end{verbatim}
+\tagmcend\tagstructend \meti
 
 
- \item[(indirect) objects] These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a pdf is edited objects with a larger generation number can be added. As with pdflatex/lualatex the pdf is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.
+ \item[(indirect) objects] \TagP^These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a pdf is edited objects with a larger generation number can be added. As with pdflatex/lualatex the pdf is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.\Pmeti
 
- \item[streams] A stream is a sequence of bytes. It can be long and is used for the real content of pdf: text, fonts, content of graphics.
- A stream starts with a dictionary which at least sets the \texttt{/Length} name to the length of the stream followed by the stream content enclosed by the keywords \texttt{stream} and \texttt{endstream}
+ \item[streams] \TagP^A stream is a sequence of bytes. It can be long and is used for the real content of pdf: text, fonts, content of graphics.
+ A stream starts with a dictionary which at least sets the \texttt{/Length} name to the length of the stream followed by the stream content enclosed by the keywords \texttt{stream} and \texttt{endstream}.
 
- Here an example of a stream, an object definition and reference. In the object 2 (a page object) the \texttt{/Contents} key references the object 3 and this then contains the text of the page in a stream. \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the first chooses the font with the name \texttt{/F15} at the size 10.9, the second displaces the reference point on the page and the third inserts the text.
+ \TagP Here an example of a stream, an object definition and reference. In the object 2 (a page object) the \texttt{/Contents} key references the object 3 and this then contains the text of the page in a stream. \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the first chooses the font with the name \texttt{/F15} at the size 10.9, the second displaces the reference point on the page and the third inserts the text.\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
   \begin{verbatim}
   % a page object (shortened)
   2 0 obj
@@ -1184,10 +1195,13 @@ To sum them up:\TagPend
    endstream
   endobj
   \end{verbatim}
+\tagmcend\tagstructend
 
-  In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while drawing and graphics are outside of such pairs.
+ \TagP^In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while drawing and graphics are outside of such pairs.\Pmeti
 
-\item[Number tree] This is a more complex data structure that is meant to index objects by numbers. In the core is an array with number-value pairs. A simple version of number tree which has the keys 0 and 3 is
+\item[Number tree] \TagP^This is a more complex data structure that is meant to index objects by numbers. In the core is an array with number-value pairs. A simple version of number tree which has the keys 0 and 3 is\TagPend
+
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{verbatim}
 6 0 obj
 <<
@@ -1198,8 +1212,9 @@ To sum them up:\TagPend
 >>
 endobj
 \end{verbatim}
+\tagmcend\tagstructend
 
-This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.
+\TagP^This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.\Pmeti
 
 \end{description}
 \tagstructend %document
