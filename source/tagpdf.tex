@@ -24,6 +24,9 @@
 \reversemarginpar
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\usetikzlibrary{fit,tikzmark}
+\usetikzlibrary{arrows.meta}
+
 
 \tikzset{arg/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=2mm and 2mm}}
 \tikzset{operator/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=4mm and 4mm}}
@@ -39,7 +42,10 @@
 \date{\csname UlrikeFischer@package@date\endcsname}
 \author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
 \usepackage{listings}
-\lstset{basicstyle=\ttfamily, columns=fullflexible,language=[LaTeX]TeX}
+\lstset{basicstyle=\ttfamily, columns=fullflexible,language=[LaTeX]TeX,
+        escapechar=*,
+        commentstyle=\color{green!50!black}\bfseries}
+
 
 \usepackage{tagpdf}
 \tagpdfsetup{
@@ -57,7 +63,7 @@
 {
  \usepackage{pdfresources}
  \usepackage[customdriver=hluatex-experimental,
-             pdfdisplaydoctitle=true,pdfusetitle
+             pdfdisplaydoctitle=true,pdfusetitle,hyperfootnotes=false,
             ]{hyperref}
 }{}
 
@@ -110,7 +116,7 @@
 \TagP But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
 \TagP This package tries to close this gap by offering \emph{core} commands to tag a pdf.
-%\footnote{In case you don't know what this means: there will be some explanations later on.}
+\footnote{In case you don't know what this means: there will be some explanations later on.}
 
 \TagP My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
@@ -215,8 +221,8 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 \TagP^\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.\TagPend
 
-\subsection{Proof of concept: Tagging the documentation itself}
-\TagP^With version 0.6 the documentation itself has been tagged. The tagging is in now way perfect. The validator from Adobe doesn't complain, but PAX3 wants alternative Text for all links. And as mentioned above: passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.\TagPend
+\subsection{Proof of concept: the tagging of the documentation itself}
+\TagP^With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wants alternative text for all links (no idea why). And as mentioned above: passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.\TagPend
 
 \begin{tcolorbox}
 \TagP^Be aware that to tag the links a very experimental package and a experimental hyperref driver was needed. This files are not in the package!\TagPend
@@ -293,7 +299,8 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \section{Tagging}
 
 \TagP^pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this
-%\footnote{The appendix contains some remarks about the syntax of a pdf file}:
+%\footnote{}
+(The appendix contains some remarks about the syntax of a pdf file):
 \TagPend
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
@@ -432,7 +439,8 @@ endstream
 \tagmcend\tagstructend
 
 \TagP^This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system
-%\footnote{It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the pdf as one would need dummy objects.}.
+%\footnote{
+(It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the pdf as one would need dummy objects.).
 
 \TagP It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.\Pmeti
 \end{description}
@@ -628,15 +636,45 @@ Such markers should not be nested. The command will warn you if this happens.
 \item \TagP^If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the pdf.\Pmeti
  \end{itemize}
 
+
+\begin{figure}
+\tagstructbegin{tag=Figure,alttext={Illustration of link annotation structure}}\tagmcbegin{tag=Figure}
+\input{link-figure-input}
+\tagmcend\tagstructend
+\tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption}
+\caption{Structure needed for a link annotation}\label{fig:linkannot}
+\tagmcend\tagstructend
+\end{figure}
+
 \subsubsection{Links}
 
 \TagP^Link annotations (like all PDF annotations) are associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between the link and the content is based solely on visual appearance rather than on an explicitly specified association.\TagPend
 
-\TagP^To connect such a link with the text a specific structure has to be added \TagPend
+\TagP^To connect such a link with the underlying text a specific structure has to be added, see \ref{fig:linkannot}. When using the low-level commands to create a link, this structure can be created by adding an entry to the attr argument of the startlink command, and by by adding a command of the tagpdf package after the endlink command, as show in the following listing:\TagPend
 
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+\begin{lstlisting}
+\pdfextension startlink
+    attr
+     {
+     /StructParent \int_use:N\c@g__uftag_parenttree_obj_int %<----
+     }
+    user {
+          /Subtype/Link
+          /A
+           <<
+            /Type/Action
+            /S/URI
+            /URI(http://www.dante.de)
+           >>
+         }
+    This is a link.
+\pdfextension endlink
+\__uftag_struct_finish_link: %<----
+\end{lstlisting}
+\tagmcend\tagstructend
 
-
-
+\TagP^The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project which tries to move some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time.\TagPend
 
 \subsubsection{Math}
 
@@ -835,7 +873,8 @@ The flat version creates a structure like this:\TagPend
 
 \subsubsection{Attributes and attribute classes}\label{sec:attributes}
 
-\TagP^Structure Element can have so-called attributes. A single attribute is a dictionary%\footnote{or a stream but this is currently not supported by the package as I don't know an use-case}
+\TagP^Structure Element can have so-called attributes. A single attribute is a dictionary%\footnote{
+(or a stream but this is currently not supported by the package as I don't know an use-case)
 with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
 As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:\TagPend
 
@@ -870,7 +909,7 @@ The name should be a sensible key name, the content a dictionary.
 \TagP^It is your responsability that the content of the dictionary is valid pdf and that the values are sensible!
 \TagPend
 
-\TagP^Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyName{attribute-class} which both take a comma list of attribute names as argument
+\TagP^Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyName{attribute-class} which both take a comma list of attribute names as argument:
 %\footnote{That's not really a sensible example}:
 \TagPend
 
@@ -964,7 +1003,10 @@ The name should be a sensible key name, the content a dictionary.
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
 
-\TagP^The pdf format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key\footnote{There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now}. Both can be added either to the marked content in the page stream or to the object describing the structure.\TagPend
+\TagP^The pdf format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
+%\footnote{
+There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now. 
+Both can be added either to the marked content in the page stream or to the object describing the structure.\TagPend
 
 \TagP^The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the pdf reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.\TagPend
 
@@ -993,10 +1035,7 @@ To sum them up:\TagPend
 
 \ExplSyntaxOff\TagPend
 
-\TagP^Their meaning can be looked up in the pdf-reference
-%\footnote{\url{https://wwwimages2.adobe.com/content/dam/acom/en/devnet/pdf/pdf_reference_archive/pdf_reference_1-7.pdf
-%}}
-.\TagPend
+\TagP^Their meaning can be looked up in the pdf-reference \parencite{pdfreference}.\TagPend
 
 \TagP^New tags can be defined in the setup command with the key \texttt{add-new-tag}. It takes a value consisting of two names separated by a slash. The first is the new name, the second a known (e.g. a standard) tag it should be mapped too. Example:\TagPend
 

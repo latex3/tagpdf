@@ -1,69 +1,12 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\documentclass{scrartcl}
+\documentclass{beamer}
 \usepackage{listings}
 \usepackage{tikz}
-\lstset{basicstyle=\ttfamily,columns=flexible,escapechar=*}
 \usetikzlibrary{fit,tikzmark}
-\usetikzmarklibrary{listings}
-\tikzset{
-  balloon/.style={
-    draw,
-    fill=blue!20,
-    opacity=0.4,
-    inner xsep=4pt,inner ysep=2pt,
-    rounded corners=2pt,
-    %minimum height=15pt
-  },
-}
-
-
-
+\usetikzlibrary{arrows.meta}
 
 \begin{document}
-
-\begin{lstlisting}[name=OBJR]
-*\tikzmark{b-link-first}*18 0 obj*\tikzmark{b-link-end}* %Link Object
-<< /Type /Annot
-*\tikzmark{b-structparent-first}*/StructParent 16 *\tikzmark{b-structparent-end}*
- /Rect [ 196.109 494.573 399.167 506.831 ]
- /Subtype/Link/
- A<</Type/Action /S/URI /URI(https://github.com/u-fischer/tagpdf) >>
- >>
-endobj
-
-*\tikzmark{b-OBJR-first}*19 0 obj*\tikzmark{b-OBJR-end}* %Object reference (OBJR)
-<</Type /OBJR /Obj *\tikzmark{b-OBJRlink-first}*18 0 R*\tikzmark{b-OBJRlink-end}* >>
-endobj
-
-*\tikzmark{b-structelem-first}*17 0 obj*\tikzmark{b-structelem-end}* %Structure Element
-<< /Type /StructElem /S /Link /P 11 0 R
-/K [<</Type /MCR /Pg 8 0 R /MCID 6>>
-    *\tikzmark{b-kid-first}*19 0 R*\tikzmark{b-kid-end}* ]>>
-endobj};
-
-5 0 obj %Parenttree
-<< /Nums [...
-*\tikzmark{b-pnum-first}*16*\tikzmark{b-pnum-end}*    *\tikzmark{b-pref-first}*17 0 R*\tikzmark{b-pref-end}*
-...] >>
-endobj
-\end{lstlisting}
-\NewDocumentCommand\balloon{m}{%
-\node[fit={(pic cs:b-#1-first) (pic cs:b-#1-end)
-([yshift=7pt]pic cs:b-#1-end)},balloon](#1){};}
-
-\begin{tikzpicture}[overlay,remember picture]
-\balloon{link}
-\balloon{structparent}
-\balloon{OBJR}
-\balloon{OBJRlink}
-\balloon{structelem}
-\balloon{kid}
-\balloon{pnum}
-\balloon{pref}
-\draw[red,->] (OBJRlink)--(link);
-%\draw[red,->] (OBJR)--(kid);
-\draw[red,->] ([xshift=3mm]structparent.south west)--(pnum);
-\draw[red,->] (pref)--(structelem);
-\draw[red,->] (kid)--(OBJR);
-\end{tikzpicture}
+\begin{frame}[fragile]\footnotesize
+\input{link-figure-input}
+\end{frame}
 \end{document} 
