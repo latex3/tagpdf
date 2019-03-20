@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.50"
-packagedate="2019-01-04"
+packageversion="0.60"
+packagedate="2019-03-20"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -26,13 +26,14 @@ uploadconfig = {
   topic=    "tagged-pdf",
   note     = [[Uploaded automatically by l3build...]],
   description=[[The package offers tools to experiment with tagging and accessibility using pdfLATEX and LuaTEX. It isn't meant for production but allows the user to try out how difficult it is to tag some structures; to try out how much tagging is really needed; to test what else is needed so that a pdf works e.g. with a screen reader. Its goal is to get a feeling for what has to be done, which kernel changes are needed, how packages should be adapted.]],
-  announcement="This version adds code for attributes, attribute classes and interword space glyphs."              
+  announcement_file="ctan.ann"              
 }
 
 checkengines = {"pdftex", "luatex"}
 checkconfigs = {"build","config-pdftex","config-luatex"}
 checkruns = 3
 checksuppfiles = {"texmf.cnf"}
+
 
 sourcefiledir = "./source"
 
@@ -102,11 +103,12 @@ function update_tag (file,content,tagname,tagdate)
  end
 
 -- ctan setup
-docfiles = {"source/tagpdf.tex","source/tagpdf.bib", "source/examples/**/*.tex", "source/examples/**/*.pdf"}
+docfiles = {"source/tagpdf.tex","source/tagpdf.bib","source/link-figure-input.tex","source/pac3.PNG","source/examples/**/*.tex", "source/examples/**/*.pdf"}
 textfiles= {"source/CTANREADME.md"}
-
+excludefiles ={"*/pdfresources.sty","*/hluatex-experimental.def"}
 ctanreadme= "CTANREADME.md"
 
+typesetexe = "lualatex"
 packtdszip   = false
 installfiles = {
                 "**/*.sty",
@@ -121,6 +123,8 @@ sourcefiles  = {
                }
                             
 typesetfiles = {"tagpdf.tex"}
+
+typesetruns = 4
 
 kpse.set_program_name ("kpsewhich")
 if not release_date then

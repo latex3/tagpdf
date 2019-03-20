@@ -1,6 +1,6 @@
 #tagpdf — A package to create tagged pdf
-Packageversion: 0.50 
-Packagedate: 2019/01/04
+Packageversion: 0.60 
+Packagedate: 2019/03/20
 Author: Ulrike Fischer
 
 ## License
@@ -25,7 +25,7 @@ The tagpdf package may be modified and distributed under the terms and condition
 - tagpdf-pdftex.def      (pdftex specific code)
 - tagpdf-luatex.def      (luatex specific code)
 - tagpdf.lua             (lua code for luatex)
-- tagpdf.tex, tagpdf.pdf, tagpdf.bib (the docu)
+- tagpdf.tex, tagpdf.pdf, tagpdf.bib, link-figure-input.tex, pac3.png (the docu)
 - various examples       (part of the documentation)   
 
 ## Installation

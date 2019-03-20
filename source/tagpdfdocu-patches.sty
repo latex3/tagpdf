@@ -1,7 +1,7 @@
 \RequirePackage{expl3}[2018/06/14]
 %\RequirePackage[enable-debug]{expl3}[2018/06/14]
 \RequirePackage{xpatch}
-\ProvidesExplPackage {tagpdfdocu-patches} {2019/01/23} {0.10}
+\ProvidesExplPackage {tagpdfdocu-patches} {2019/03/20} {0.60}
  {patches/commands for the tagpdf documentation}
 
 % to do : marginnote, perhaps the description macros ...
@@ -253,7 +253,7 @@
   \uftag_mc_end:
   \uftag_struct_end:
  }
-}
+
 % "alternative descriptions " for PAX3. How to get better text here??
 \hook_put:nnnn
  { pdf }
@@ -266,4 +266,5 @@
  { startlink_link_attr }
  { /Contents }
  { (ref) }
+ }
 \endinput
