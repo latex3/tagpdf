@@ -8,6 +8,9 @@
 % to do: footnotes!
 % printbibliography?
 
+\newbibmacro*{begentry}{\tagstructbegin{tag=BibEntry}\tagmcbegin{tag=BibEntry}}
+\newbibmacro*{finentry}{\finentry\tagmcend\tagstructend}
+
 % hyperref
 \@ifpackageloaded{hyperref}{%
 \pdfstringdefDisableCommands{
@@ -220,6 +223,7 @@
  { startlink_url_attr }
  { /StructParent }
  { \int_use:N\c@g__uftag_parenttree_obj_int }
+
 \hook_put_right:nnn
  { pdf }
  { endlink_url }
@@ -250,4 +254,16 @@
   \uftag_struct_end:
  }
 }
+% "alternative descriptions " for PAX3. How to get better text here??
+\hook_put:nnnn
+ { pdf }
+ { startlink_url_attr }
+ { /Contents }
+ { (url) }
+
+\hook_put:nnnn
+ { pdf }
+ { startlink_link_attr }
+ { /Contents }
+ { (ref) }
 \endinput

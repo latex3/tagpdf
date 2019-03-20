@@ -115,8 +115,7 @@
 
 \TagP But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
-\TagP This package tries to close this gap by offering \emph{core} commands to tag a pdf.
-\footnote{In case you don't know what this means: there will be some explanations later on.}
+\TagP This package tries to close this gap by offering \emph{core} commands to tag a pdf.\footnote{In case you don't know what this means: there will be some explanations later on.}
 
 \TagP My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
@@ -222,11 +221,19 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \TagP^\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.\TagPend
 
 \subsection{Proof of concept: the tagging of the documentation itself}
-\TagP^With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wants alternative text for all links (no idea why). And as mentioned above: passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.\TagPend
+\TagP^With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnote gave warnings, so I disabled them. I used types from the pdf version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes are probably simply wrong \ldots\TagPend
+
+\TagP^But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.\TagPend
 
 \begin{tcolorbox}
-\TagP^Be aware that to tag the links a very experimental package and a experimental hyperref driver was needed. This files are not in the package!\TagPend
+\TagP^Be aware that to create the tagged version a very experimental package and a experimental hyperref driver was needed for the links. This files are not in the package!\TagPend
 \end{tcolorbox}
+
+\tagstructbegin{tag=Figure,alttext=PAC3 report}\tagmcbegin{tag=Figure}
+\includegraphics{pac3}
+\tagmcend\tagstructend
+
+
 
 \section{Setup}
 
@@ -298,9 +305,7 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 \section{Tagging}
 
-\TagP^pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this
-%\footnote{}
-(The appendix contains some remarks about the syntax of a pdf file):
+\TagP^pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a pdf file}:
 \TagPend
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
@@ -424,8 +429,7 @@ endstream
 \tagmcend\tagstructend\meti
 
 
-\item[Content]  \TagP^Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text.
-    %\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
+\item[Content]  \TagP^Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
     Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
 
 \TagP In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:\TagPend
@@ -1005,7 +1009,7 @@ The name should be a sensible key name, the content a dictionary.
 
 \TagP^The pdf format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
 %\footnote{
-There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now. 
+There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now.
 Both can be added either to the marked content in the page stream or to the object describing the structure.\TagPend
 
 \TagP^The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the pdf reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.\TagPend
@@ -1110,6 +1114,7 @@ To sum them up:\TagPend
 \item \TagP^Find someone to check and improve the lua code\Pmeti
 \item \TagP^Move more things to lua in the luamode\Pmeti
 \item \TagP^Find someone to check and improve the rest of the code\Pmeti
+\item \TagP^Check differences between pdf versions 1.7 and 2.0.\Pmeti
 \item \TagP^bidi?\Pmeti
 \end{itemize}
 
