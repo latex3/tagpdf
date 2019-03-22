@@ -1,7 +1,17 @@
--- Packageversion: 0.60 
--- Packagedate: 2019/03/20
 -- tagpdf.lua
 -- Ulrike Fischer
+
+local ProvidesLuaModule = { 
+    name          = "tagpdf",
+    version       = "0.61",       --TAGVERSION
+    date          = "0000-00-00", --TAGDATE
+    description   = "tagpdf lua code",
+    license       = "The LATEX Project Public License 1.3c"
+}
+
+if luatexbase and luatexbase.provides_module then
+  luatexbase.provides_module (ProvidesLuaModule)
+end  
 
 --[[
 The code has quite probably a number of problems
