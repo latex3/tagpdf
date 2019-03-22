@@ -25,12 +25,14 @@ The tagpdf package may be modified and distributed under the terms and condition
 - tagpdf-pdftex.def      (pdftex specific code)
 - tagpdf-luatex.def      (luatex specific code)
 - tagpdf.lua             (lua code for luatex)
-- tagpdf.tex, tagpdf.pdf, tagpdf.bib, link-figure-input.tex, pac3.png (the docu)
+- tagpdf.tex, tagpdf.pdf, tagpdf.bib, tagpdfdocu-patches.sty,
+  link-figure-input.tex, pac3.png (the docu)
 - various examples       (part of the documentation)   
 
 ## Installation
 
-Put the styles, the .def and the lua-files where it can be found.
+Put the styles (with the exception of the tagpdfdocu-patches.sty), 
+the .def and the lua-files where it can be found.
 
 
 ## Issues, comments, etc
