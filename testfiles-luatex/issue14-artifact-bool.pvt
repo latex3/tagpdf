@@ -1,0 +1,22 @@
+\input{regression-test}
+\documentclass{article}
+
+\usepackage{tagpdf}
+\tagpdfsetup{activate-all,interwordspace=on,
+ uncompress}
+
+\begin{document}
+\tagstructbegin{tag=Document}
+\tagstructbegin{tag=P}
+\tagmcbegin{tag=P}
+Some text
+\tagmcend
+\tagmcbegin{artifact}
+with artifact
+\tagmcend
+\tagmcbegin{tag=P}
+and more content
+\tagmcend
+\tagstructend
+\tagstructend
+\end{document}
