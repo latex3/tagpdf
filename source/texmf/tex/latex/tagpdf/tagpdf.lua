@@ -522,11 +522,10 @@ function uftag.func.store_mc_kid (mcnum,kid,page)
  tableinsert(uftag.mc[mcnum]["kids"], kidtable )
 end
 
+
 function uftag.func.mc_num_of_kids (mcnum)
  local num = 0
  if uftag.mc[mcnum] and uftag.mc[mcnum]["kids"] then
-   texio.write_nl("XXXXXXXXXXXXXXXXX")
-   texio.write_nl(table.serialize(uftag.mc[mcnum]["kids"]))  
    num = #uftag.mc[mcnum]["kids"]
  end
  uftag.trace.log ("MC" .. mcnum .. "has " .. num .. "KIDS",4)
@@ -564,6 +563,7 @@ function uftag.func.store_struct_mcabs (structnum,mcnum)
  uftag.struct[structnum]["mc"]=uftag.struct[structnum]["mc"] or { }
  -- a structure can contain more than on mc chunk, the content should be ordered
  tableinsert(uftag.struct[structnum]["mc"],mcnum)
+ uftag.trace.log("MCNUM "..mcnum.." insert in struct "..structnum,3)
  -- but every mc can only be in one structure
  uftag.mc[mcnum]= uftag.mc[mcnum] or { }
  uftag.mc[mcnum]["parent"] = structnum 

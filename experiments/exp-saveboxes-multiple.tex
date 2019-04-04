@@ -1,0 +1,49 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\documentclass{scrartcl}
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+
+\tagpdfifpdftexT
+ {
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{luacode}
+ }
+
+
+\tagpdfsetup{activate-all,log=vv,uncompress} %
+%to better see the mc in the pdf:
+\tagpdfsetup{add-new-tag = BOX/P}
+\tagpdfsetup{add-new-tag = P2/P}
+
+\newsavebox\testboxa
+
+\pagestyle{empty}
+\begin{document}
+%that's not okay yet. The box ends as kid in two structures ...
+\tagstructbegin{tag=Document}
+\tagmcbegin{tag=BOX,stash,label=BOX}
+\savebox\testboxa{some text}
+\tagmcend
+
+
+ \tagstructbegin{tag=P}
+  \tagmcbegin{tag=P}
+  text
+  \tagmcuse{BOX}\usebox\testboxa
+ \tagstructend
+ \tagstructbegin{tag=BOX}
+  \tagmcbegin{tag=P2}
+  text
+  \tagmcuse{BOX}\usebox\testboxa
+ \tagstructend
+
+\tagstructend
+\end{document}
+
+
