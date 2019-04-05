@@ -1,74 +1,59 @@
-\RequirePackage{expl3}[2018/06/14]
-%\RequirePackage[enable-debug]{expl3}[2018/06/14]
-\RequirePackage{xpatch}
-\ProvidesExplPackage {tagpdfdocu-patches} {0000/00/00} {0.61}
- {patches/commands for the tagpdf documentation}
+% !Mode:: "TeX:DE:UTF-8:Main"
 
-% to do : marginnote, perhaps the description macros ...
-% to do: footnotes!
-% printbibliography?
+%This example shows how one can patch sectioning command and toc entries
+%to add tags.
+%The patches are layout/option dependant
+%With other document options (e.g. chapterprefix) or
+%if the sectioning commands are redefined more/different patches are perhaps needed
 
-\newbibmacro*{begentry}{\tagstructbegin{tag=BibEntry}\tagmcbegin{tag=BibEntry}}
-\newbibmacro*{finentry}{\finentry\tagmcend\tagstructend}
+%no page break involved. So the example works in lua and generic mode
 
-% hyperref
-\@ifpackageloaded{hyperref}{%
-\pdfstringdefDisableCommands{
- \let\tagstructbegin\@gobble
- \let\tagmcbegin\@gobble
- \let\tagmcend\relax
- \let\tagstructend\relax
-}}{}
+\documentclass{scrartcl}
+\usepackage[english]{babel}
 
-%%%%%
-% Paragraphs
-%%%%%
+\usepackage{tagpdf}
 
-% we need a command which simply starts a paragraph \TagP^,
-% a "continuation" variant which closes the previous paragraph (\TagP),
-% and a final end.
-
-\NewDocumentCommand\TagP{t{^}}
+\tagpdfifpdftexT
  {
-  \uftag_mc_if_in:T { \uftag_mc_end: }
-  \IfBooleanF{#1}
-  {
-    \uftag_struct_end:
-  }
-  \uftag_struct_begin:n{tag=P}
-  \uftag_mc_begin:n{tag=P}
+  %set language / can also be done with hyperref
+  \pdfcatalog{/Lang (en-US)}
+  \usepackage[T1]{fontenc}
  }
-% close a mc and one structure
 
-\NewDocumentCommand\TagPend{}
+\tagpdfifluatexT
  {
-  \uftag_mc_if_in:T { \uftag_mc_end: }
-  \uftag_struct_end:
+  %set language / can also be done with hyperref
+  \pdfextension catalog{/Lang (en-US)}
+  \usepackage{fontspec}
+  \usepackage{luacode}
  }
 
 
-%%%%%
-% maketitle
-%%%%%
-\tagpdfsetup{ add-new-tag=Title/H1 }
+\tagpdfsetup{tabsorder=structure,
+             activate-all,
+             uncompress,log=vvv
+             }
 
-%%%%%
-% tableofcontents
-%%%%%
+\usepackage{lipsum}%\textheight3cm
+ \usepackage{pdfresources}
 
+
+%%%%%%%%%%%%%%%
 %Marking the toc entries
 %around the whole entry so only structure:
-\newcommand\tagscrtocentry[1]{\uftag_struct_begin:n{tag=TOCI}#1\uftag_struct_end:}
+\newcommand\tagscrtocentry[1]{\tagstructbegin{tag=TOCI}#1\tagstructend}
 
 %leaf so structure and mc:
 \newcommand\tagscrtocpagenumber[1]{%
- \uftag_struct_begin:n{tag=Reference}%
- \uftag_mc_begin:n{tag=Reference}%
+ \tagstructbegin{tag=Reference}%
+ \tagmcbegin{tag=Reference}%
  #1%
- \uftag_mc_end:
- \uftag_struct_end:}
+ \tagmcend
+ \tagstructend}
 
-
+%\DeclareTOCStyleEntry[
+%   entryformat=\tagscrtocentry,
+%   pagenumberformat=\tagscrtocpagenumber]{tocline}{chapter}
 \DeclareTOCStyleEntry[
    entryformat=\tagscrtocentry,
    pagenumberformat=\tagscrtocpagenumber]{tocline}{section}
@@ -115,24 +100,23 @@
    }}%
 
 % the dots must be marked too
-
-\renewcommand*{\TOCLineLeaderFill}[1][.]{
+\makeatletter
+\renewcommand*{\TOCLineLeaderFill}[1][.]{%
   \leaders\hbox{$\m@th
-    \mkern \@dotsep mu\hbox{\uftag_mc_begin:n{artifact}#1\uftag_mc_end:}\mkern \@dotsep
+    \mkern \@dotsep mu\hbox{\tagmcbegin{artifact}#1\tagmcend}\mkern \@dotsep
     mu$}\hfill
 }
 
 %%%%%%%%%
 % Sectioning commands
 %%%%%%%%
+\ExplSyntaxOn
 
 \prop_new:N    \g_tag_section_level_prop
 \prop_gput:Nnn \g_tag_section_level_prop {section}{H1}
 \prop_gput:Nnn \g_tag_section_level_prop {subsection}{H2}
 \prop_gput:Nnn \g_tag_section_level_prop {subsubsection}{H3}
 \prop_gput:Nnn \g_tag_section_level_prop {paragraph}{H4}
-
-
 
 %unnumbered sections level give an empty mc, need to think about it.
 \renewcommand{\sectionlinesformat}[4]
@@ -167,50 +151,7 @@
 \AfterTOCHead{\uftag_struct_begin:n{tag=TOC}}
 \AfterStartingTOC{\uftag_struct_end:} %end TOC
 
-%% list
 
-\newcommand\uftag@enit@format@preset[1]{%
-  \tagstructbegin{tag=LI}%
-  \tagstructbegin{tag=Lbl}%
-  \tagmcbegin{tag=Lbl}%
-  #1%
-  \tagmcend
-  \tagstructend %end Lbl
-  \tagstructbegin{tag=LBody}}
-
-\newcommand\meti{% end of \item
- \tagstructend %end of LBody
- \tagstructend %end of LI
-}
-
-\newcommand\Pmeti{% end of \item
- \TagPend      %end of P
- \tagstructend %end of LBody
- \tagstructend %end of LI
-}
-
-\ExplSyntaxOff
-\xpatchcmd\enit@preset{\@firstofone}{\uftag@enit@format@preset}{}{\fail}
-\ExplSyntaxOn
-\setlist{
-    before*=\tagstructbegin{tag=L},
-    after*={\tagstructend}}
-
-% keys that overwrite \enit@format must be patched, eg like the follow
-% the font key should be patched in a similar way
-\enitkv@key{}{format}{% new enumitem don't use first argument
-  \def\enit@format{%
-   \tagstructbegin{tag=LI}%
-   \tagstructbegin{tag=Lbl}%
-   \tagmcbegin{tag=Lbl}%
-   #1\tagmcend}}
-
- %%% hooks for links
- %%% attention, to get the order right, it is necessary currently to start a new
- %%% mc after a link! I'm not sure if this can/group be included in the hooks
- %%% grouping is a bit tricky ...
-\cs_if_exist:NT\hook_put_left:nnn
-{
  \hook_put_left:nnn
  { pdf }
  { startlink_url }
@@ -254,17 +195,42 @@
   \uftag_struct_end:
  }
 
-% "alternative descriptions " for PAX3. How to get better text here??
-\hook_put:nnnn
- { pdf }
- { startlink_url_attr }
- { /Contents }
- { (url) }
+\ExplSyntaxOff
 
-\hook_put:nnnn
- { pdf }
- { startlink_link_attr }
- { /Contents }
- { (ref) }
+\usepackage[customdriver=hluatex-experimental,
+             pdfdisplaydoctitle=true,pdfusetitle,hyperfootnotes=false,
+            ]{hyperref}
+
+\makeatletter
+\pdfstringdefDisableCommands{
+ \let\tagstructbegin\@gobble
+ \let\tagmcbegin\@gobble
+ \let\tagmcend\relax
+ \let\tagstructend\relax
  }
-\endinput
+ \makeatother
+\begin{document}
+%I don't want to handle pagestyles, so set everything to empty:
+\pagestyle{empty}%\renewcommand\chapterpagestyle{empty}
+
+\tagstructbegin{tag=Document}
+
+%\tableofcontents
+\tagmcbegin{tag=P}blub
+%\section{section}
+\makeatletter
+xx\hyper@anchor{mydest}
+ \hyper@linkstart{link}{mydest}{some text}\hyper@linkend
+%\addchap{chapter}
+%\section{section}
+%\subsection{subsection}
+%\subsubsection{subsubsection}
+
+ %\tagstructbegin{tag=P,actualtext=abc!}
+%   \tagmcbegin{tag=P}
+%    a paragraph\par x
+%   \tagmcend
+% \tagstructend
+
+\tagstructend   %Document
+\end{document} 
