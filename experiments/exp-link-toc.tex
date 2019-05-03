@@ -31,7 +31,7 @@
 
 \tagpdfsetup{tabsorder=structure,
              activate-all,
-             uncompress,log=vvv
+             uncompress,%log=vvv
              }
 
 \usepackage{lipsum}%\textheight3cm
@@ -201,6 +201,7 @@
 \usepackage[customdriver=hluatex-experimental,
              pdfdisplaydoctitle=true,pdfusetitle,hyperfootnotes=false,
             ]{hyperref}
+\usepackage{bookmark} %not really need, bookmark is also loaded by the class
 
 \makeatletter
 \pdfstringdefDisableCommands{
@@ -217,8 +218,18 @@
 \tagstructbegin{tag=Document}
 
 \tableofcontents
-\section{section}
+\section{first section }
+\subsection{first subsection}
+\tagstructbegin{tag=P}\tagmcbegin{tag=P}some text\tagmcend\tagstructend
+\newpage
+\section{second section}
+\subsection{second subsection}
+\tagstructbegin{tag=P}\tagmcbegin{tag=P}some text\tagmcend\tagstructend
 
+\ExplSyntaxOn
+x\driver_pdf_startlink_goto:nn { xxx }{ yyy}
+x\driver_pdf_startlink_user:nn { zzz }{ mmm}
+\ExplSyntaxOff
 %\makeatletter
 %xx\hyper@anchor{mydest}
 % \hyper@linkstart{link}{mydest}{some text}\hyper@linkend
