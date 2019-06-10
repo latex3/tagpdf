@@ -44,7 +44,7 @@
 %\RequirePackage{pdfescape} %check if needed
 %\RequirePackage{pdftexcmds}%check if needed (expandable commands!)
 
-\RequirePackage{l3str-convert}
+%\RequirePackage{l3str-convert}
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
 
 
@@ -92,7 +92,7 @@
                        {
                         \driver_pdf_compresslevel:n { 0 }
                         \driver_pdf_objects_disable:
-                       }, 
+                       },
  compresslevel  .value_required:n = true,
  uncompress     .meta:n = { compresslevel = 0 },
  inputencoding  .code:n =
