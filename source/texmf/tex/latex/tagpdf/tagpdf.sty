@@ -84,7 +84,7 @@
  tabsorder / structure .code:n = {\tl_set:Nn \l__uftag_tree_tabs_order_tl {/Tabs/S}},
  tabsorder / none      .code:n = {\tl_set:Nn \l__uftag_tree_tabs_order_tl {}},
  tabsorder       .initial:n = structure,
- uncompress     .meta:n = { compresslevel = 0 },
+ uncompress     .code:n = {\pdf_uncompress:  },
  inputencoding  .code:n =
   {
    \sys_if_engine_pdftex:T
