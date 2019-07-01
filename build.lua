@@ -126,7 +126,9 @@ typesetfiles = {"tagpdf.tex"}
 
 typesetruns = 4
 
-kpse.set_program_name ("kpsewhich")
-if not release_date then
- dofile ( kpse.lookup ("l3build.lua"))
-end
+
+
+-- kpse.set_program_name ("kpsewhich")
+-- if not release_date then
+-- dofile ( kpse.lookup ("l3build.lua"))
+-- end
