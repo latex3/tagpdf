@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.61}
-\def\UlrikeFischer@package@date{2019-03-20}
+\def\UlrikeFischer@package@version{0.62}
+\def\UlrikeFischer@package@date{2019-07-01}
 \makeatother
 \pdfvariable majorversion = 1
 \pdfvariable minorversion = 7
@@ -232,7 +232,11 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \includegraphics{pac3}
 \tagmcend\tagstructend
 
-
+\subsection{Changes in version 0.7}
+\begin{itemize}
+\item \TagP^internal code adaptions to expl3 changes.\Pmeti
+\item \TagP^dropped the compresslevel key  -- probably not needed\Pmeti
+\end{itemize}
 
 \section{Setup}
 
@@ -278,8 +282,6 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
  \TagP^Allows to define new tag names, see section \ref{sec:new-tag} for a description.\Pmeti
 \item[\PrintKeyName{check-tags}]
  \TagP^Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).\Pmeti
-\item[\PrintKeyName{compresslevel}]
- \TagP^Value is an integer between 0 and 9. It sets both the pdfcompresslevel and the pdfobjcompresslevel.\Pmeti
 \item[\PrintKeyName{inputencoding}]
  \TagP^Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
  \Pmeti
@@ -296,7 +298,7 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \item[\PrintKeyName{tagunmarked}]
  \TagP^Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.\Pmeti
 \item[\PrintKeyName{uncompress}]
- \TagP^Equivalent to using \texttt{compresslevel=0}.\Pmeti
+ \TagP^Sets both the pdf compresslevel and the pdf objcompresslevel to 0 and so allows to inspect the pdf.\Pmeti
 
 
 \end{description}
