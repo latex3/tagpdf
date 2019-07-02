@@ -95,7 +95,7 @@ function update_tag (file,content,tagname,tagdate)
                          "package@version{%d%.%d+}",
                          "package@version{" .. packageversion .."}" )
    content = string.gsub (content,  
-                         "package@date{%d%d%d%d/%d%d/%d%d}",
+                         "package@date{%d%d%d%d%-%d%d%-%d%d}",
                          "package@date{" .. packagedate .."}" )                      
    return content   
  end
