@@ -1,6 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.62}
+\def\UlrikeFischer@package@version{0.61}
 \def\UlrikeFischer@package@date{2019-07-01}
 \makeatother
 \pdfvariable majorversion = 1
@@ -232,7 +232,7 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \includegraphics{pac3}
 \tagmcend\tagstructend
 
-\subsection{Changes in version 0.7}
+\subsection{Changes in version 0.61}
 \begin{itemize}
 \item \TagP^internal code adaptions to expl3 changes.\Pmeti
 \item \TagP^dropped the compresslevel key  -- probably not needed\Pmeti
@@ -500,7 +500,6 @@ endstream
   \item
   \TagP^Pdf is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.\Pmeti
 \end{enumerate}
-\tagstructend\end{document}
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
 
@@ -528,6 +527,7 @@ For strategies how to handle paragraphs that split over pages see subsection~\re
 \TagP^These commands insert the begin of the marked content code in the pdf. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
 Such markers should not be nested. The command will warn you if this happens.
 
+
 \TagP The key-val list understands the following keys:\TagPend
 \begin{description}
   \item[\PrintKeyName{tag}]
@@ -550,10 +550,9 @@ Such markers should not be nested. The command will warn you if this happens.
 
   \item[\PrintKeyName{alttext}]
    \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
-
   \item[\PrintKeyName{alttext-o}]
-  \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
-
+  \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3).
+  That means that you can do something like this: \TagPend
   \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
@@ -566,10 +565,11 @@ Such markers should not be nested. The command will warn you if this happens.
   \item[\PrintKeyName{actualtext}]
   \TagP^This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
 
+
   \item[\PrintKeyName{actualtext-o}]
   \TagP^This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
 
- \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
       \begin{lstlisting}
       \newcommand\myactualtext{X}
       \tagmcbegin{tag=P,alttext-o=\myactualtext}
