@@ -1,6 +1,3 @@
-- In version 0.60 a number of bugs have been corrected.
-- Code to correctly tag links has been added.
-- The documentation has been roughly tagged as first proof of context.
-- A breaking change is that the mc-command in luamode now set the attributes
-locally and not globally.
+- version 0.61 adapts the code to some internal expl3 changes. 
+- In this course the compresslevel key has been removed as unneeded, (the uncompress key is still there).
 
