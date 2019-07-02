@@ -1,5 +1,5 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-
+%chapter not correct!!
 \documentclass[a4paper,oneside]{memoir}
 \settocdepth{subsubsection}
 \setsecnumdepth{subsubsection}
@@ -65,7 +65,7 @@
 \appto\cftsectionaftersnum{%
  \tagmcend
  \tagstructend}
- 
+
 \appto\cftsubsectionpresnum{%
     \tagstructbegin{tag=TOCI}% is there a better place? what about unnumbered entries?
     \tagstructbegin{tag=Lbl}%
@@ -169,7 +169,7 @@
 \ExplSyntaxOff
 \patchcmd\M@sect{#9\@@par}{%
  %this place could be used for something between number and text
-  #9% 
+  #9%
      \tagmcend
      \tagstructend
   \@@par%
