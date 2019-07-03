@@ -34,6 +34,9 @@ checkconfigs = {"build","config-pdftex","config-luatex"}
 checkruns = 3
 checksuppfiles = {"texmf.cnf"}
 
+if os.getenv('TRAVIS')  then 
+   excludetests = {"test-pdfresources-exist"}
+end 
 
 sourcefiledir = "./source"
 
