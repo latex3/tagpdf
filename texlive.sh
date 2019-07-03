@@ -21,7 +21,7 @@ fi
 
 # Needed for any use of texlua even if not testing LuaTeX
 # kernel
-tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experimental 
+tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experimental l3backend
 
 tlmgr install collection-langgerman
 

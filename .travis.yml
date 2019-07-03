@@ -18,4 +18,4 @@ cache:
 
 
 script: 
- - l3build check -q -H
+ - l3build check -H || ( cat build/*/`ls -t  build/*/*.log | head -n1 | xargs basename | cut -f 1 -d . `.log && false )
