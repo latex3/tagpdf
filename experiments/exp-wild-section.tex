@@ -1,0 +1,77 @@
+\documentclass[12pt]{article}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+\usepackage{tikz,tcolorbox}
+\usepackage{tagpdf}
+\tagpdfsetup{uncompress,activate-all}
+
+%most text is marked as artifact ...
+\begin{document}\pagestyle{empty} %don't care about footer here ...
+\tagstructbegin{tag=Document}
+
+\tagmcbegin{artifact} %for pdflatex ...
+\section{Some remarks about tagging of sections}
+
+Let's assume a document or class has a rather wild definition of a section: The section title in a box and the number in some balloon (the implementation is not meant to be sensible -- there is no counter, no try to avoid a page break).
+\tagmcend %for pdflatex
+
+\newcommand\mysection[2]{%
+\par\bigskip\leavevmode % to avoid problems with the whatsits!
+ \tagstructbegin{tag=H1}
+ \tagmcbegin{artifact}% pdflatex
+  \tcbox[nobeforeafter,coltext=blue!50!black,
+         flushright title,
+         fontupper=\bfseries\sffamily,
+         fonttitle=\bfseries\sffamily\footnotesize,
+         title=Section]
+  %stash the mc, to change reading order
+  {\tagmcend %pdflatex
+   \tagmcbegin{tag=H1,stash,label=sec#1}#2\tagmcend
+   \tagmcbegin{artifact}%pdflatex
+  }%
+  \hspace{-0.43cm}%
+  % a bit deco ...
+  \begin{tikzpicture}[baseline={(baseline)},scale=0.2]
+    \tikzstyle{balloon}=[ball color=red!50!white];
+    \shade[balloon] ellipse (1.75 and 2);
+    \shade[balloon] (-.1,-2) -- (-.3,-2.2) -- (.3,-2.2) -- (.1,-2) -- cycle;
+    \node[circle,font={\scriptsize\bfseries},text=blue!50!black] at (0,0)
+    {\tagmcend%pdflatex
+     \tagmcbegin{tag=H1}#1\tagmcend
+     \tagmcbegin{artifact}%pdflatex
+     };%the number
+    \draw (0,-2.2) -- (0,-5);
+    \path(0,-5)--(0,-11)node(baseline){};
+  \end{tikzpicture}%
+  \tagmcend%pdflatex
+  \tagmcuse{sec#1}% get the text
+  \tagstructend
+  \par\medskip}
+
+\mysection{1.1}{Some section}
+
+\mysection{1.2}{Some other section}
+
+\tagmcbegin{artifact} %for pdflatex ...
+How should such a section be tagged in a sensible manner? The problematic points are
+
+\begin{itemize}
+  \item there are  irrelevant decorations graphic elements (the box, the balloon) but it is difficulty to disentangle them from the text. pac3 complains about unmarked rules, so they must be marked up as artifacts.
+  \item The number is in the code (and the pdf) after the text.
+  \item The text \enquote{Section} is probably irrelevant.
+\end{itemize}
+
+The goal is
+\begin{itemize}
+\item mark all lines as artifact (straightforward with lualatex, needs a number of tagmc-commands with pdflatex)
+\item change the order of number and text (can be done with stashing)
+\item suppress the \enquote{Section} as artifact (straightforward with lualatex, needs a tagmc-command with pdflatex)
+\end{itemize}
+
+While the document here shows that it can be done, it also shows that there is no hope
+to do it through some kernel commands automatically. This type of tagging needs knowledgable support from the people writing classes and packages.
+\tagmcend%pdflatex
+
+\tagstructend
+\end{document}
