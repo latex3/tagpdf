@@ -30,11 +30,12 @@ uploadconfig = {
 }
 
 checkengines = {"pdftex", "luatex"}
-checkconfigs = {"build","config-pdftex","config-luatex"}
+checkconfigs = {"build","config-pdftex","config-luatex","config-luatexdev","config-pdftexdev","config-dev"}
 checkruns = 3
 checksuppfiles = {"texmf.cnf"}
 
 if os.getenv('TRAVIS')  then 
+   checkconfigs = {"build","config-pdftex","config-luatex"}
    excludetests = {"test-pdfresources-exist"}
 end 
 
