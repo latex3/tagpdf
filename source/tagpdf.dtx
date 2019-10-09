@@ -30,14 +30,14 @@
 %\RequirePackage{expl3}[2019/07/01]
 \RequirePackage{pdfresources} %!!experimental/temporary
 \ProvidesExplPackage {tagpdf} {2019/07/02} {0.61}
- {A package to experiment with pdf tagging}
+  { A package to experiment with pdf tagging }
 %\debug_on:n{check-declarations,check-expressions,deprecation}
 
 %map internal tag to package name
 \prop_if_exist:NT \g_msg_module_name_prop
- {
-  \prop_gput:Nnn \g_msg_module_name_prop { tag }{ tagpdf }
- }
+  {
+    \prop_gput:Nnn \g_msg_module_name_prop { tag }{ tagpdf }
+  }
 
 % storing internal names to my name space:
 \cs_set_eq:NN \@@_tex_pdffeedback:D         \tex_pdffeedback:D
@@ -91,34 +91,34 @@
 \tl_new:N   \l_@@_tree_tabs_order_tl
 
 \keys_define:nn { tag / setup }
-{
- activate-mc     .bool_gset:N = \g_uftag_active_mc_bool,
- activate-tree   .bool_gset:N = \g_uftag_active_tree_bool,
- activate-struct .bool_gset:N = \g_uftag_active_struct_bool,
- activate-all    .meta:n ={activate-mc,activate-tree,activate-struct},
- check-tags      .bool_gset:N = \g_@@_check_tags_bool,
- check-tags      .initial:n  = true,
- log             .choice:,
- log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
- log / v         .code:n = {\int_set:Nn \l_@@_loglevel_int { 1 }},
- log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
- log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
- log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
- tagunmarked     .bool_gset:N = \g_@@_tagunmarked_bool,
- tagunmarked     .initial:n  = true,
- tabsorder       .choice:,
- tabsorder / row       .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/R}},
- tabsorder / column    .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/C}},
- tabsorder / structure .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/S}},
- tabsorder / none      .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {}},
- tabsorder       .initial:n = structure,
- uncompress      .code:n = {\pdf_uncompress:  },
- inputencoding   .code:n =
   {
-   \sys_if_engine_pdftex:T
-    { \tl_gset:Nn \g_@@_inputencoding_tl { #1 } }
-  },
-}
+    activate-mc     .bool_gset:N = \g_uftag_active_mc_bool,
+    activate-tree   .bool_gset:N = \g_uftag_active_tree_bool,
+    activate-struct .bool_gset:N = \g_uftag_active_struct_bool,
+    activate-all    .meta:n ={activate-mc,activate-tree,activate-struct},
+    check-tags      .bool_gset:N = \g_@@_check_tags_bool,
+    check-tags      .initial:n  = true,
+    log             .choice:,
+    log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
+    log / v         .code:n = {\int_set:Nn \l_@@_loglevel_int { 1 }},
+    log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
+    log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
+    log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
+    tagunmarked     .bool_gset:N = \g_@@_tagunmarked_bool,
+    tagunmarked     .initial:n  = true,
+    tabsorder       .choice:,
+    tabsorder / row       .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/R}},
+    tabsorder / column    .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/C}},
+    tabsorder / structure .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/S}},
+    tabsorder / none      .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {}},
+    tabsorder       .initial:n = structure,
+    uncompress      .code:n = {\pdf_uncompress:  },
+    inputencoding   .code:n =
+     {
+       \sys_if_engine_pdftex:T
+         { \tl_gset:Nn \g_@@_inputencoding_tl { #1 } }
+     },
+  }
 
 % escape commands are a bit engine specific so have been moved to the backend files.
 % commands to escape strings so that they can be safely used in pdf
@@ -145,38 +145,38 @@
 \cs_new:Nn   \@@_finish_page_hook: { }
 
 \AtBeginShipout
- {
-  \@@_finish_page_hook:
-  \bool_if:NT\g_uftag_active_tree_bool
-   {
-     \@@_tree_write_pageattr:
-   }
-  \int_gincr:N \g_@@_abspage_int
- }
+  {
+    \@@_finish_page_hook:
+    \bool_if:NT\g_uftag_active_tree_bool
+      {
+        \@@_tree_write_pageattr:
+      }
+   \int_gincr:N \g_@@_abspage_int
+  }
 
 
 %testing the engines and loading the backend files
 \sys_if_engine_xetex:T
- {
-  \PackageError { tagpdf } { xelatex~is~not~supported~-~aborting } {}
-  \tex_endinput:D
- }
+  {
+    \PackageError { tagpdf } { xelatex~is~not~supported~-~aborting } {}
+    \tex_endinput:D
+  }
 
 \sys_if_engine_luatex:T
- {
-  \file_input:n {tagpdf-luatex.def}
- }
+  {
+    \file_input:n {tagpdf-luatex.def}
+  }
 
 \sys_if_engine_pdftex:T
- {
-  \file_input:n {tagpdf-pdftex.def}
- }
+  {
+    \file_input:n {tagpdf-pdftex.def}
+  }
 
 \sys_if_output_dvi:T
- {
-  \PackageError { tagpdf } { dvi~output~is~not~supported~-~aborting }{}
-  \tex_endinput:D
- }
+  {
+    \PackageError { tagpdf } { dvi~output~is~not~supported~-~aborting }{}
+    \tex_endinput:D
+  }
 
 \cs_generate_variant:Nn \@@_prop_gput:Nnn      { Nxn , Nxx, Nnx , cnn, cxn, cnx, cno}
 \cs_generate_variant:Nn \@@_seq_gput_right:Nn  { Nx  , No, cn, cx }
@@ -212,14 +212,132 @@
 % mc-code is split:
 \RequirePackage { tagpdf-mc-code-shared }
 \bool_if:NTF \g_@@_mode_lua_bool
- {
-  \RequirePackage {tagpdf-mc-code-lua}
- }
- {
-  \RequirePackage { tagpdf-mc-code-generic } %
- }
+  {
+   \RequirePackage {tagpdf-mc-code-lua}
+  }
+  {
+   \RequirePackage { tagpdf-mc-code-generic } %
+  }
 
 \RequirePackage { tagpdf-struct-code }
 \RequirePackage { tagpdf-space-code }
 %</package>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<user>
+\ProvidesExplPackage {tagpdf-user} {2019/07/02} {0.61}
+  {tagpdf - user commands}
+
+\NewDocumentCommand \tagpdfsetup { m }
+  {
+    \keys_set:nn { tag / setup } { #1 }
+  }
+
+\cs_set_eq:NN\tagpdfifluatexTF \sys_if_engine_luatex:TF
+\cs_set_eq:NN\tagpdfifluatexT  \sys_if_engine_luatex:T
+\cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
+
+%%% a generic command to retrieve data
+
+\cs_new:Npn \tagpdfget #1   { \use:c {@@_get_data_#1: } }
+\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
+%deprecated:
+\cs_new:Npn \uftag_get:n #1 { \use:c {@@_get_data_#1: } }
+
+
+%%%% mc related user commands
+\NewDocumentCommand \tagmcifinTF { m m }
+  {
+    \@@_mc_if_in:TF { #1 } { #2 }
+  }
+
+\NewDocumentCommand \tagmcbegin { m }
+  {
+    \tag_mc_begin:n {#1}\ignorespaces
+  }
+
+
+\NewDocumentCommand \tagmcend {  }
+  {
+    \unskip % this unskip appears to mess up some spacing; can we do this in another way?
+    \tag_mc_end:
+  }
+
+\NewDocumentCommand \tagmcuse { m }
+  {
+    \tag_mc_use:n {#1}
+  }
+
+
+%%%% structure related commands
+
+\NewDocumentCommand \tagstructbegin { m }
+  {
+    \tag_struct_begin:n {#1}
+  }
+
+\NewDocumentCommand \tagstructend {  }
+  {
+   \tag_struct_end:
+  }
+
+\NewDocumentCommand \tagstructuse { m }
+  {
+    \tag_struct_use:n {#1}
+  }
+
+
+
+%%%% debug/show commands
+\NewDocumentCommand\showtagpdfmcdata { O {\@@_tag_get_mc_abs_cnt:} }
+  {
+    \bool_if:NT \g_@@_mode_lua_bool
+      {
+        \sys_if_engine_luatex:T
+          {
+            \directlua{tag.trace.show_all_mc_data(#1)}
+          }
+      }
+  }
+
+\NewDocumentCommand\showtagpdfattributes { }
+  {
+    \bool_if:NT \g_@@_tag_mode_lua_bool
+      {
+        \sys_if_engine_luatex:T
+          {
+            \directlua
+              {
+                tag.trace.log
+                 (
+                   "showtagpdfattributes:
+                    MC=>abscnt=\@@_get_mc_abs_cnt:
+                    =>attr=\the\l_@@_mc_cnt_attr=>tag="
+                    ..
+                    tostring(tag.func.get_tag_from (\the\l_@@_mc_type_attr))
+                    ..
+                    "=\the\l_@@_mc_type_attr",0
+                 )
+             }
+            \ignorespaces
+          }
+      }
+   }
+
+\sys_if_engine_luatex:T
+  {
+    \NewDocumentCommand\pdffakespace { }
+      {
+        \@@_fakespace:
+      }
+  }
+
+%</user>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<deprecated>
+% \uftag_get:n
+%</deprecated>
 %    \end{macrocode}
