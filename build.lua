@@ -30,14 +30,29 @@ uploadconfig = {
 }
 
 checkengines = {"pdftex", "luatex"}
-checkconfigs = {"build","config-pdftex","config-luatex","config-luatexdev","config-pdftexdev","config-dev"}
+checkconfigs = {"build","config-pdftex","config-luatex","config-luatex-dev","config-pdftexdev","config-dev"}
 checkruns = 3
 checksuppfiles = {"texmf.cnf"}
+excludetests = {"test-saveboxes-structure-dev"}
+
 
 if os.getenv('TRAVIS')  then 
    checkconfigs = {"build","config-pdftex","config-luatex"}
-   excludetests = {"test-pdfresources-exist"}
+   excludetests = {"test-pdfresources-exist","test-saveboxes-structure-dev"}
 end 
+
+local extratexmf=os.getenv('TEXDEVDIR')
+
+
+local file = io.open ("support/texmf.cnf","w")
+io.output(file)
+if extratexmf then
+io.write("TEXMFAUXTREES= ../../source/texmf,"..extratexmf..",")
+else
+io.write("TEXMFAUXTREES= ../../source/texmf,")
+end
+io.close(file)
+
 
 sourcefiledir = "./source"
 

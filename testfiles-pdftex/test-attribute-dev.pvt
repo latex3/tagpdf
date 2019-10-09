@@ -1,0 +1,53 @@
+\input{regression-test}
+\documentclass{scrartcl}
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+\tagpdfsetup{activate-all,uncompress}
+\tagpdfsetup{
+ newattribute= {TH-row}{<</O/Table /Scope/Row>>}
+ }
+\begin{document}\START
+\pagestyle{empty} %
+\tagstructbegin{tag=Document}
+
+\tagstructbegin{tag=Table}
+\begin{center}
+\begin{tabular}{ l | c | }
+\hline
+\tagstructbegin{tag=THead}
+ \tagstructbegin{tag=TR}
+  \tagstructbegin{tag=TH,attribute= TH-row}
+   \tagmcbegin{tag=TH}
+   h1
+   \tagmcend
+   \tagstructend &
+  \tagstructbegin{tag=TH,attribute-class= TH-row}
+    \tagmcbegin{tag=TH}
+    h2
+    \tagmcend
+  \tagstructend
+ \tagstructend %TR
+ \tagstructend %Thead
+  \\ \hline
+ \tagstructbegin{tag=TBody}
+   \tagstructbegin{tag=TR}
+    \tagstructbegin{tag=TD}
+    \tagmcbegin{tag=TD}
+    r1
+    \tagmcend
+    \tagstructend %TD
+&
+    \tagstructbegin{tag=TD}
+    \tagmcbegin{tag=TD}
+    h2
+    \tagmcend
+    \tagstructend
+  \tagstructend %TR
+ \tagstructend %TBody
+    \\ \hline
+  \end{tabular}
+\end{center}
+\tagstructend
+
+\tagstructend
+\end{document} 

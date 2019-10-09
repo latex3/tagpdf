@@ -1,0 +1,18 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\input{regression-test}
+
+%This example shows how one can patch sectioning command and toc entries
+%to add tags.
+%The patches are layout/option dependant
+%With other document options (e.g. chapterprefix) or
+%if the sectioning commands are redefined more/different patches are perhaps needed
+
+%no page break involved. So the example works in lua and generic mode
+
+\documentclass{scrbook}
+\usepackage{fontspec}
+\begin{document}
+\START\showoutput
+blub
+\end{document}

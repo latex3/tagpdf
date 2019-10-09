@@ -1,4 +1,5 @@
 testfiledir  = "testfiles-pdftex"
+excludetests={"test-attribute"}
 checkengines = {"pdftex"}
 stdengine    = "pdftex"
 checkruns    = 5
