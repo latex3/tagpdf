@@ -1,0 +1,729 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf.dtx
+%
+% Copyright (C) 2019 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%
+% \fi
+%
+%    \begin{macrocode}
+%<@@=tag>
+%<*shared>
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2019/07/02} {0.61}
+  {part of tagpdf - code related to marking chunks -
+   code shared by generic and luamode }
+% I use a latex counter for the absolute count, so that it is added to
+% \cl@@ckpt and restored e.g. in tabulars and align
+% \int_new:N  \c@g_@@_MCID_int and
+% \tl_put_right:Nn\cl@@ckpt{\@elt{g_uf_test_int}}
+% would work too, but as the name is not expl3 then too, why bother?
+% the absolute counter can be used to label and to check if the page
+% counter needs a reset.
+
+\newcounter { g_@@_MCID_abs_int }
+\cs_new:Nn \_@@_get_mc_abs_cnt: { \int_use:N \c@g_@@_MCID_abs_int }
+
+% tagmcabs is the label name of the absolute count which is used
+% to identify the chunk
+\zref@newprop {tagmcabs}  [0] { \int_use:N \c@g_@@_MCID_abs_int }
+\zref@addprop {@@zrl}   {tagmcabs}
+\zref@addprop {LastPage} {tagmcabs}
+
+%stores labels of mcid.
+\cs_new:Nn \_@@_mc_handle_mc_label:n
+  {
+    \zref@labelbylist{tagpdf-#1}{@@zrl}
+  }
+
+% will hold the structure numbers for the parenttree
+% key:   absolute number of the mc (tagmcabs)
+% value: the structure number the mc is in
+\_@@_prop_new:N \g_@@_mc_parenttree_prop
+
+% shared keys
+% the rest are in the splitted code
+\tl_new:N \l_@@_mc_artifact_type_tl
+
+\keys_define:nn { @@ / mc }
+  {
+    stash                  .bool_set:N    = \l_@@_mc_key_stash_bool,
+    artifact-bool          .bool_set:N    = \l_@@_mc_artifact_bool,
+    artifact-type          .choice:,
+    artifact-type / pagination .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Pagination }
+      },
+    artifact-type / layout     .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Layout }
+      },
+    artifact-type / page       .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Page }
+      },
+    artifact-type / background .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Background }
+      },
+    artifact-type / notype     .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl {}
+      },
+  }
+%</shared>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*generic>
+\ProvidesExplPackage {tagpdf-mc-code-generic} {2019/07/02} {0.61}
+ {part of tagpdf - code related to marking chunks - generic mode}
+
+% for the label system
+% tagmcid is the id which should be also in the pdf
+% it will be (hopefully) reset by page
+
+\int_new:N \g_@@_MCID_tmp_bypage_int
+\zref@newprop {tagmcid}   [0] { \int_use:N \g_@@_MCID_tmp_bypage_int }
+\zref@addprop {@@zrl}  {tagmcid}
+
+% will hold the current maximum on a page
+% it will contain key-value of type "abspagenum=max mcid on this page"
+\@@_prop_new:N \g_@@_MCID_byabspage_prop
+
+%to test nesting mc:
+\bool_new:N \g_@@_in_mc_bool
+
+\prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
+  {
+    \bool_if:NTF \g_@@_in_mc_bool
+      { \prg_return_true:  }
+      { \prg_return_false: }
+  }
+
+\prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
+
+%deprecated
+\prg_new_eq_conditional:NNn \uftag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
+
+
+% this are the low level mc command.
+% they insert literals and so a are specific to generic mode
+% checking if the type is defined will done somewhere else
+% #1 is the type/tag
+% change 04.08.2018: I don't try to escape the name, but assume that it is valid.
+% Checks/conversions should perhaps be done on a higher level
+\cs_new:Nn \@@_mc_bmc:n
+  {
+    \@@_pdfliteral_page:n
+      {
+        /#1\c_space_tl BMC
+      }
+  }
+
+\cs_new:Nn \@@_mc_emc:
+  {
+    \@@_pdfliteral_page:n
+      {
+        EMC
+      }
+  }
+
+% #1 tag, #2 properties
+% change 04.08.2018: I don't escape the name. Also the dictionary content
+% must imho be done at a higher level
+\cs_new:Nn \@@_mc_bdc:nn
+  {
+    \@@_pdfliteral_page:n
+      {
+        /#1\c_space_tl<<#2>>~BDC
+      }
+  }
+
+
+% bdc with /MCID + more properties
+% we need a ref-label system to ensure that the cnt restarts at 0 on a new page
+
+\tl_new:N \l_@@_mc_ref_abspage_tl %will store the abspage value of label
+\tl_new:N \l_@@_mc_tmp_tl
+
+\cs_new:Nn \@@_mc_bdc_mcid:nn
+  {
+    \int_gincr:N \c@g_@@_MCID_abs_int
+    \tl_set:Nx \l_@@_mc_ref_abspage_tl
+      {
+        \zref@extractdefault %3 args
+          {
+            mcid-\int_use:N \c@g_@@_MCID_abs_int
+          }
+          { tagabspage }
+          {-1}
+      }
+    \prop_get:NoNTF
+      \g_@@_MCID_byabspage_prop
+      {
+        \l_@@_mc_ref_abspage_tl
+      }
+      \l_@@_mc_tmp_tl
+      {
+        %key already present, use value for MCID and add 1 for the next
+        \int_gset:Nn \g_@@_MCID_tmp_bypage_int { \l_@@_mc_tmp_tl }
+        \@@_prop_gput:Nxx
+          \g_@@_MCID_byabspage_prop
+          { \l_@@_mc_ref_abspage_tl }
+          { \int_eval:n {\l_@@_mc_tmp_tl +1} }
+      }
+      {
+        %key not present, set MCID to 0 and insert 1
+        \int_gzero:N \g_@@_MCID_tmp_bypage_int
+        \@@_prop_gput:Nxx
+          \g_@@_MCID_byabspage_prop
+          { \l_@@_mc_ref_abspage_tl }
+          {1}
+      }
+    \zref@labelbylist
+      {
+        mcid-\int_use:N \c@g_@@_MCID_abs_int
+      }
+      { @@zrl }
+    \@@_mc_bdc:nn
+      {#1}
+      { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~#2 }
+ }
+
+% only /MCID
+\cs_new:Nn \@@_mc_bdc_mcid:n
+  {
+    \@@_mc_bdc_mcid:nn {#1} {}
+  }
+
+%artifact without type
+\cs_new:Nn  \@@_mc_bmc_artifact:
+  {
+    \@@_mc_bmc:n {Artifact}
+  }
+
+%artifact with a type:
+\cs_new:Nn \@@_mc_bmc_artifact:n
+  {
+    \@@_mc_bdc:nn {Artifact}{/Type\c_space_tl/#1}
+  }
+
+% perhaps later: more properties for artifacts
+
+
+% keyval definitions for the user commands:
+
+\tl_new:N \l_@@_mc_key_tag_tl
+\tl_new:N \g_@@_mc_key_tag_tl %for "outside" queries
+\tl_new:N \l_@@_mc_key_properties_tl
+
+% Attention! definitions are different in luamode.
+% tag and raw are expanded as \directlua in lua does it too.
+\keys_define:nn { @@ / mc }
+  {
+    tag .code:n = % the name (H,P,Spa) etc
+      {
+         %%????????? \pdfescapename??
+        \tl_set:Nx   \l_@@_mc_key_tag_tl { #1 }
+        \tl_gset:Nx  \g_@@_mc_key_tag_tl { #1 }
+      },
+    raw  .code:n =
+      {
+        \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
+      },
+    alttext .code:n = % Alt property
+      {
+        \str_set_convert:Nnon
+          \l_@@_tmpa_str
+          { #1 }
+          { \g_@@_inputencoding_tl }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+      },
+    alttext-o .code:n      = % Alt property
+      {
+        \str_set_convert:Noon
+          \l_@@_tmpa_str
+          { #1 }
+          { \g_@@_inputencoding_tl }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+      },
+    actualtext .code:n      = % ActualText property
+      {
+        \str_set_convert:Nnon
+          \l_@@_tmpa_str
+          { #1 }
+          { \g_@@_inputencoding_tl }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /ActualText~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+      },
+    actualtext-o .code:n      = % ActualText property
+      {
+        \str_set_convert:Noon
+          \l_@@_tmpa_str
+          { #1 }
+          { \g_@@_inputencoding_tl }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /ActualText~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+      },
+    label .tl_set:N        = \l_@@_mc_key_label_tl,
+    artifact .code:n       =
+      {
+        \exp_args:Nnx
+          \keys_set:nn
+            { @@ / mc }
+            { artifact-bool, artifact-type=#1 }
+      },
+    artifact .default:n    = {notype}
+  }
+
+\cs_new:Nn \@@_mc_handle_artifact:N %#1 contains the artifact type
+  {
+    \tl_if_empty:NTF #1
+      { \@@_mc_bmc_artifact: }
+      { \exp_args:No\@@_mc_bmc_artifact:n {#1} }
+  }
+
+\cs_new:Nn \@@_mc_handle_mcid:nn %#1 tag, #2 properties
+  {
+    \@@_mc_bdc_mcid:nn {#1} {#2}
+  }
+
+
+% puts the absolute number of an mcid in the current structure
+\cs_new:Nn \@@_mc_handle_stash:n %1 mcidnum
+  {
+    \@@_check_mc_used:n {#1}
+    \@@_struct_kid_mc_gput_right:nn
+      { \g_@@_struct_stack_current_tl }
+      {#1}
+   \prop_gput:Nxx \g_@@_mc_parenttree_prop
+     {#1}
+     { \g_@@_struct_stack_current_tl }
+  }
+
+\cs_new_protected:Nn \tag_mc_begin:n
+  {
+    \group_begin:
+    \@@_check_mc_if_nested:
+    \bool_gset_true:N \g_@@_in_mc_bool
+    \keys_set:nn { @@ / mc } {#1}
+    \bool_if:NTF \l_@@_mc_artifact_bool
+      { %handle artifact
+        \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
+      }
+      { %handle mcid type
+        \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
+        \@@_mc_handle_mcid:nn
+          { \l_@@_mc_key_tag_tl }
+          { \l_@@_mc_key_properties_tl }
+        \tl_if_empty:NF {\l_@@_mc_key_label_tl}
+          {
+            \@@_mc_handle_mc_label:n { \l_@@_mc_key_label_tl }
+          }
+        \bool_if:NF \l_@@_mc_key_stash_bool
+          {
+            \@@_mc_handle_stash:n { \int_use:N \c@g_@@_MCID_abs_int }
+          }
+      }
+    \group_end:
+  }
+
+%deprecated
+\cs_set_eq:NN \uftag_mc_begin:n \tag_mc_begin:n
+
+\cs_new_protected:Nn \tag_mc_end:
+  {
+    \@@_check_mc_if_open:
+    \bool_gset_false:N \g_@@_in_mc_bool
+    \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
+    \@@_mc_emc:
+  }
+
+\cs_set_eq:NN \uftag_mc_end: \tag_mc_end:
+
+\cs_new_protected:Nn \tag_mc_use:n %#1: label name
+  {
+    \tl_set:Nx  \l_tmpa_tl { \zref@extractdefault{tagpdf-#1}{tagmcabs}{} }
+    \tl_if_empty:NTF\l_tmpa_tl
+      {
+        \msg_warning:nnn {tag} {mc-label-unknown} {#1}
+      }
+      {
+        \prop_gput:Nxx
+          \g_@@_mc_parenttree_prop
+          {
+            \zref@extractdefault {tagpdf-#1} {tagmcabs} {}
+          }
+          {
+            \g_@@_struct_stack_current_tl
+          }
+        \@@_struct_kid_mc_gput_right:nn
+          {
+            \g_@@_struct_stack_current_tl
+          }
+          {
+            \zref@extractdefault {tagpdf-#1} {tagmcabs} {}
+          }
+       }
+  }
+
+%deprecated
+\cs_set_eq:NN \uftag_mc_use:n \tag_mc_use:n
+
+\cs_new:Nn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
+
+%</generic>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*luamode>
+\ProvidesExplPackage {tagpdf-mc-code-lua} {2019/07/02} {0.61}
+  {tagpdf - mc code only for the luamode }
+
+% the two attibutes are defined in the driver file.
+% it also load the lua (as it can also contain functions needed by generic mode.
+% (new) attributes for mc are local:
+% \newattribute \l_@@_mc_type_attr     %the value represent the type
+% \newattribute \l_@@_mc_cnt_attr      %will hold the \c@g_@@_MCID_abs_int value
+
+
+% An attribute for the current structure probably doesn't make sense as mc chunks can be used later.
+% \newattribute \g_@@_struct_type_attr %represent the current structure type. Not sure if needed
+% \newattribute \g_@@_struct_cnt_attr  %will hold \c@g_@@_struct_abs_int a cnt
+
+% handling attribute needs a different system to number the page wise mcid's:
+% a tagmcbegin ... tagmcend pair no longer surrounds exactly one mc chunk: it can be split
+% at page breaks. We know the included mcid(s) only after the ship out. So for the struct-> mcid mapping we
+% need to record struct -> mc-cnt (in \g_@@_mc_parenttree_prop and/or a lua table
+% and at shipout mc-cnt-> {mcid, mcid, ...} (in a table?)
+% and when building the trees connect both
+
+% key definitions are overwritten for luatex to store that data in tables
+% the data for the mc are in l3kernel.@@.mc[absnum]
+% the fields of the table are
+% tag : the type (a string)
+% raw : more properties (string)
+% label: a string. Do we need a way to retrieve the num from the label from lua??
+% artifact: the presence indicates an artifact, the value (string) is the type.
+% kids: a array of tables {1={kid=num2,page=pagenum1}, 2={kid=num2,page=pagenum2},...},
+% this describes the chunks the mc has been split to by the traversing code
+% parent: the number of the structure it is in. Needed to build the parent tree.
+
+% The main function which wanders through the shipout box to inject the literals.
+\AtBeginDocument
+  {
+    \bool_if:NT\g_uftag_active_mc_bool
+      {
+        \AtBeginShipout
+          {
+            \directlua{l3kernel.@@.func.mark_shipout ()}
+          }
+      }
+  }
+
+\prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
+  {
+    \int_compare:nNnTF { -2147483647 }={ \l_@@_mc_type_attr }
+      { \prg_return_true:  }
+      { \prg_return_false: }
+  }
+
+\prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
+
+%deprecated
+\prg_new_eq_conditional:NNn \uftag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
+
+% the keys
+\tl_new:N \l_@@_mc_key_tag_tl
+\tl_new:N \l_@@_mc_key_label_tl
+\tl_new:N \l_@@_mc_key_properties_tl
+
+\keys_define:nn { @@ / mc }
+  {
+    tag .code:n = %
+      {%%????????? \pdfescapename??
+        \tl_set:Nx  \l_@@_mc_key_tag_tl { #1 }
+        \directlua
+          {
+            l3kernel.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","#1")
+          }
+      },
+    raw .code:n =
+      {
+        \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
+        \directlua
+          {
+            l3kernel.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","#1")
+          }
+      },
+    alttext .code:n      = % Alt property
+      {
+        \str_set_convert:Nnon
+          \l_@@_tmpa_str
+          { #1 }
+          { \g_@@_inputencoding_tl }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \directlua
+          {
+            l3kernel.@@.func.store_mc_data
+              (
+                 \@@_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l_@@_tmpa_str>"
+              )
+          }
+      },
+    alttext-o .code:n      = % Alt property
+      {
+        \str_set_convert:Noon
+          \l_@@_tmpa_str
+          { #1 }
+          { \g_@@_inputencoding_tl }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \directlua
+          {
+            l3kernel.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l_@@_tmpa_str>"
+              )
+          }
+      },
+    actualtext .code:n      = % Alt property
+      {
+        \str_set_convert:Nnon
+          \l_@@_tmpa_str
+          { #1 }
+          { \g_@@_inputencoding_tl }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \directlua
+          {
+            l3kernel.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,"actualtext","/ActualText~<\str_use:N \l_@@_tmpa_str>"
+              )
+         }
+      },
+    actualtext-o .code:n      = % Alt property
+      {
+        \str_set_convert:Noon
+          \l_@@_tmpa_str
+          { #1 }
+          { \g_@@_inputencoding_tl }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \directlua
+          {
+            l3kernel.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,
+                "actualtext",
+                "/ActualText~<\str_use:N \l_@@_tmpa_str>"
+              )
+          }
+      },
+    label .code:n =
+      {
+        \tl_set:Nn\l_@@_mc_key_label_tl { #1 }
+        \directlua
+          {
+            l3kernel.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,"label","#1"
+              )
+          }
+      },
+    __artifact-store .code:n =
+      {
+        \directlua
+          {
+            l3kernel.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,"artifact","#1"
+              )
+          }
+      },
+    artifact .code:n       =
+      {
+        \exp_args:Nnx
+          \keys_set:nn
+            { @@ / mc}
+            { artifact-bool, artifact-type=#1, tag=Artifact }
+        \exp_args:Nnx
+          \keys_set:nn
+            { @@ / mc }
+            { __artifact-store=\l_@@_mc_artifact_type_tl }
+      },
+    artifact .default:n    = { notype }
+  }
+
+
+% attributes
+% set the mc from a tag name
+
+\cs_set_protected:Npn \@@_attribute_gset:Nn #1 #2
+  {
+    \tex_global:D \setattribute #1 #2
+  }
+
+\cs_set_protected:Npn \@@_attribute_set:Nn #1 #2
+  {
+    \setattribute #1 #2
+  }
+
+\cs_set_protected:Npn \@@_attribute_gunset:N #1
+  {
+    \tex_global:D \unsetattribute #1
+  }
+
+\cs_set_protected:Npn \@@_attribute_unset:N #1
+  {
+    \unsetattribute #1
+  }
+
+
+\cs_new:Nn \@@_mc_lua_set_mc_type_attr:n % #1 is a tag name
+  {
+    \@@_attribute_set:Nn \l_@@_mc_type_attr
+      {
+        \directlua { l3kernel.@@.func.output_num_from ("#1") }
+      }
+    \@@_attribute_set:Nn \l_@@_mc_cnt_attr  { \@@_get_mc_abs_cnt: }
+  }
+
+\cs_generate_variant:Nn\@@_mc_lua_set_mc_type_attr:n { o }
+
+\cs_new:Nn \@@_mc_lua_unset_mc_type_attr:
+  {
+    \@@_attribute_unset:N \l_@@_mc_type_attr
+    \@@_attribute_unset:N \l_@@_mc_cnt_attr
+  }
+
+
+
+%This command will in the finish code replace the dummy for a mc by the real mcid kids
+%we need a variant for the case that it is the only kid, to get the array right
+\cs_new:Nn \@@_mc_insert_mcid_kids:n
+  {
+    \directlua { l3kernel.@@.func.mc_insert_kids (#1,0) }
+  }
+
+\cs_new:Nn \@@_mc_insert_mcid_single_kids:n
+  {
+    \directlua {l3kernel.@@.func.mc_insert_kids (#1,1) }
+  }
+
+
+% we need to pass the info if the kids are alone or already in an array
+% so we add a second argument, which should == 1 if the kids are single
+
+
+% puts an mcid absolute number in the current structure
+\cs_new:Nn \@@_mc_handle_stash:n %1 mcidnum
+  {
+    \@@_check_mc_used:n { #1 }
+    \seq_gput_right:cn % Don't fill a lua table due to the command in the item,
+                       % so use the kernel command
+      { g_@@_struct_kids_\g_@@_struct_stack_current_tl _seq }
+      {
+        \@@_mc_insert_mcid_kids:n {#1}%
+      }
+    \directlua
+      {
+        l3kernel.@@.func.store_struct_mcabs
+          (
+            \g_@@_struct_stack_current_tl,#1
+          )
+      }
+    \prop_gput:Nxx
+      \g_@@_mc_parenttree_prop
+      { #1 }
+      { \g_@@_struct_stack_current_tl }
+  }
+
+\cs_generate_variant:Nn \@@_mc_handle_stash:n { o }
+
+\cs_new_protected:Nn \tag_mc_begin:n
+  {
+    %\group_begin:
+    %\@@_check_mc_if_nested:
+    %\bool_gset_true:N \g_@@_in_mc_bool
+    \int_gincr:N \c@g_@@_MCID_abs_int
+    \tl_clear:N \l_@@_mc_key_properties_tl
+    \keys_set:nn { @@ / mc }{ label={}, #1 }
+    %check that a tag or artifact has been used
+    \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
+    %set the attributes:
+    \@@_mc_lua_set_mc_type_attr:o  { \l_@@_mc_key_tag_tl }
+    \bool_if:NF \l_@@_mc_artifact_bool
+      { % store the absolute num name in a label:
+        \tl_if_empty:NF {\l_@@_mc_key_label_tl}
+          {
+            \@@_mc_handle_mc_label:n { \l_@@_mc_key_label_tl }
+          }
+       % if not stashed record the absolute number
+        \bool_if:NF \l_@@_mc_key_stash_bool
+          {
+            \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
+          }
+      }
+    \bool_set_false:N\l_@@_mc_artifact_bool
+    %\group_end:
+  }
+
+%deprecated
+\cs_set_eq:NN \uftag_mc_begin:n \tag_mc_begin:n
+
+\cs_new_protected:Nn \tag_mc_end:
+  {
+    %\@@_check_mc_if_open:
+    %\bool_gset_false:N \g_@@_in_mc_bool
+    \@@_mc_lua_unset_mc_type_attr:
+    \tl_set:Nn  \l_@@_mc_key_tag_tl { }
+  }
+
+\cs_set_eq:NN \uftag_mc_end: \tag_mc_end:
+
+\cs_new_protected:Nn \tag_mc_use:n %#1: label name
+  {
+    \tl_set:Nx  \l_tmpa_tl { \zref@extractdefault{tagpdf-#1}{tagmcabs}{} }
+    \tl_if_empty:NTF\l_tmpa_tl
+      {
+        \msg_warning:nnn {tag} {mc-label-unknown} { #1 }
+      }
+      {
+        \@@_mc_handle_stash:o { \l_tmpa_tl }
+      }
+  }
+
+\cs_set_eq:NN \uftag_mc_use:n \tag_mc_use:n
+
+\cs_new:Nn \@@_get_data_mc_tag: { \l_@@_mc_key_tag_tl }
+%</luamode>
+%    \end{macrocode}

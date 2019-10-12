@@ -55,44 +55,25 @@ and all files in that bundle must be distributed together.
 \keepsilent
 
 \generate
-  {%
-    \file{tagpdf.sty}
-      {%
-        \from{tagpdf.dtx}{package}
-      }%
-  }
+  {\file{tagpdf.sty}           {\from{tagpdf.dtx}{package}}}
+\generate
+  {\file{tagpdf-user.sty}      {\from{tagpdf.dtx}{user}}}
+\generate
+  {\file{tagpdf-deprecated.def}{\from{tagpdf.dtx}{deprecated}}}
 
 \generate
-  {%
-    \file{tagpdf-user.sty}
-      {%
-        \from{tagpdf.dtx}{user}
-      }%
-  }
+  {\file{tagpdf-luatex.def}{\from{tagpdf-backend.dtx}{luatex}}}
+\generate
+  {\file{tagpdf-pdftex.def}{\from{tagpdf-backend.dtx}{pdftex}}}
 
 \generate
-  {%
-    \file{tagpdf-deprecated.def}
-      {%
-        \from{tagpdf.dtx}{deprecated}
-      }%
-  }
-
+  {\file{tagpdf-mc-code-shared.sty}{\from{tagpdf-mc.dtx}{shared}}}
 \generate
-  {%
-    \file{tagpdf-luatex.def}
-      {%
-        \from{tagpdf-backend.dtx}{luatex}
-      }%
-  }
-
+  {\file{tagpdf-mc-code-generic.sty}{\from{tagpdf-mc.dtx}{generic}}}
 \generate
-  {%
-    \file{tagpdf-pdftex.def}
-      {%
-        \from{tagpdf-backend.dtx}{pdftex}
-      }%
-  }
+  {\file{tagpdf-mc-code-lua.sty}{\from{tagpdf-mc.dtx}{luamode}}}
+
+
 
 \def\MetaPrefix{-- }
 \def\defaultpostamble{%

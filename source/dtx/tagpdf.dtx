@@ -80,9 +80,9 @@
 %%% absolute page numbers
 \int_new:N   \g_@@_abspage_int
 \int_gset:Nn \g_@@_abspage_int { 0 }
-\zref@newlist {uftagzrl} %zrl=zreflist
+\zref@newlist {@@zrl} %zrl=zreflist
 \zref@newprop*{tagabspage}     [0] { \int_use:N \g_@@_abspage_int }
-\zref@addprop {uftagzrl} {tagabspage}
+\zref@addprop {@@zrl} {tagabspage}
 
 
 %%% tagpdfsetup,
@@ -339,5 +339,9 @@
 %    \begin{macrocode}
 %<*deprecated>
 % \uftag_get:n
+% \uftag_mc_if_in:
+% \uftag_mc_begin:n
+% \uftag_mc_end:
+% \uftag_mc_use:n
 %</deprecated>
 %    \end{macrocode}
