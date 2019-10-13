@@ -1,0 +1,232 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf-checks.dtx
+%
+% Copyright (C) 2019 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%
+% \fi
+%
+%    \begin{macrocode}
+%<@@=tag>
+%<*checks>
+\ProvidesExplPackage {tagpdf-checks-code} {2019/07/02} {0.61}
+ {part of tagpdf - code related to checks and messages}
+
+
+%messages
+
+% mc
+\msg_new:nnn { tag } {mc-nested}        { nested~marked~content~found~-~mcid~#1 }
+\msg_new:nnn { tag } {mc-tag-missing}   { required~tag~missing~-~mcid~#1 }
+\msg_new:nnn { tag } {mc-label-unknown} { label~#1~unknown~-~rerun }
+\msg_new:nnn { tag } {mc-used-twice}    { mc~#1~has~been~already~used }
+\msg_new:nnn { tag } {mc-not-open}      { there~is~no~mc~to~end~at~#1 }
+
+% structures
+\msg_new:nnn { tag } {struct-no-objnum}      { objnum~missing~for~structure~#1 }
+\msg_new:nnn { tag } {struct-faulty-nesting} { there~is~no~open~structure~on~the~stack }
+\msg_new:nnn { tag } {struct-missing-tag}    { a~structure~must~have~a~tag! }
+\msg_new:nnn { tag } {struct-show-closing}   { closing~structure~#1~tagged~\prop_item:cn{g_@@_struct_#1_prop}{S} }
+\msg_new:nnn { tag } {struct-used-twice}     { structure~with~label~#1~has~already~been~used}
+\msg_new:nnn { tag } {struct-label-unknown}  { structure~with~label~#1~is~unknown~rerun}
+
+% attributes
+\msg_new:nnn { tag } {attr-unknown}  { attribute~#1~is~unknown}
+
+
+%Roles
+\msg_new:nnn { tag } {role-missing}     { tag~#1~has~no~role~assigned  }
+\msg_new:nnn { tag } {role-unknown}     { role~#1~is~not~known  }
+\msg_new:nnn { tag } {role-unknown-tag} { tag~#1~is~not~known  }
+\msg_new:nnn { tag } {role-new-tag}     { adding~new~tag~#1~mapped~to~role~#2  }
+
+
+% trees
+\msg_new:nnn { tag } {tree-mcid-index-wrong} {something~is~wrong~with~the~mcid}
+
+% obj
+\msg_new:nnn { tag } {obj-write-num} {write~obj~#1~to~pdf}
+
+
+%checks
+%structures
+
+\cs_new:Nn \@@_check_structure_has_tag:n %#1 struct num %_protected?
+  {
+    \prop_if_in:cnF { g_@@_struct_#1_prop }
+      {S}
+      {
+        \msg_error:nn { tag } {struct-missing-tag}
+      }
+  }
+
+\cs_new:Nn \@@_check_structure_tag:N            %_protected?
+  {
+    \prop_if_in:NoF \g_@@_role_tags_prop {#1}
+      {
+        \msg_warning:nnx { tag } {role-unknown-tag} {#1}
+      }
+  }
+
+\cs_new_protected:Nn \@@_check_info_closing_struct:n %#1 struct num
+  {
+    \msg_info:nnn { tag } {struct-show-closing} {#1}
+  }
+
+\cs_generate_variant:Nn \@@_check_info_closing_struct:n {o,x}
+
+\cs_new_protected:Nn \@@_check_no_open_struck:
+  {
+    \msg_error:nn { tag } {struct-faulty-nesting}
+  }
+
+\cs_new_protected:Nn \@@_check_struct_used:n %#1 label
+  {
+    \prop_get:cnNT
+      {g_@@_struct_\zref@extractdefault{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
+      {P}
+      \l_tmpa_tl
+      {
+        \msg_warning:nnn { tag } {struct-used-twice} {#1}
+      }
+  }
+
+%roles
+
+\cs_new_protected:Nn \@@_check_add_tag_role:nn %#1 tag, #2 role
+  {
+    \tl_if_empty:nTF {#2}
+      {
+        \msg_warning:nnn { tag } {role-missing} {#1}
+      }
+      {
+        \prop_get:NnNTF \g_@@_role_tags_prop {#2} \l_tmpa_tl
+          {
+            \msg_info:nnnn { tag } {role-new-tag} {#1} {#2}
+          }
+          {
+            \msg_warning:nnn { tag } {role-unknown} {#2}
+          }
+      }
+  }
+
+%mc
+\cs_new_protected:Nn \@@_check_mc_if_nested:
+  {
+    \@@_mc_if_in:T
+      {
+        \msg_warning:nnx { tag } {mc-nested} { \@@_get_mc_abs_cnt: }
+      }
+  }
+
+\cs_new_protected:Nn \@@_check_mc_if_open:
+  {
+    \@@_mc_if_in:F
+      {
+        \msg_warning:nnx { tag } {mc-not-open} { \@@_get_mc_abs_cnt: }
+      }
+  }
+
+\cs_new:Nn \@@_check_mc_tag:N %protected??
+  {
+    \tl_if_empty:NT #1
+      {
+        \msg_error:nnx { tag } {mc-tag-missing} { \@@_get_mc_abs_cnt: }
+      }
+   \prop_if_in:NoF \g_@@_role_tags_prop {#1}
+     {
+       \msg_warning:nnx { tag } {role-unknown-tag} {#1}
+     }
+  }
+
+\seq_new:N \g_@@_check_mc_used_seq
+\cs_new_protected:Nn \@@_check_mc_used:n
+  {
+    \seq_if_in:NnTF \g_@@_check_mc_used_seq {#1}
+      {
+        \msg_warning:nnn { tag } {mc-used-twice} {#1}
+      }
+      {
+        \seq_gput_right:Nx \g_@@_check_mc_used_seq {#1}
+      }
+  }
+
+
+
+\cs_new_protected:Nn \@@_check_show_MCID_by_page:
+  {
+    \tl_set:Nx \l_@@_tmpa_tl
+      {
+        \zref@extractdefault
+          {LastPage}
+          {abspage}
+          {-1}
+      }
+    \int_step_inline:nnnn {1}{1}
+      {
+        \l_@@_tmpa_tl
+      }
+      {
+        \seq_clear:N \l_tmpa_seq
+        \int_step_inline:nnnn
+          {1}
+          {1}
+          {
+            \zref@extractdefault
+              {LastPage}
+              {tagmcabs}
+              {-1}
+          }
+          {
+            \int_compare:nT
+              {
+                \zref@extractdefault
+                  {mcid-####1}
+                  {tagabspage}
+                  {-1}
+                =
+                ##1
+             }
+             {
+               \seq_gput_right:Nx \l_tmpa_seq
+                 {
+                   Page##1-####1-
+                   \zref@extractdefault
+                     {mcid-####1}
+                     {tagmcid}
+                     {-1}
+                 }
+             }
+          }
+          \seq_show:N \l_tmpa_seq
+      }
+  }
+
+\cs_new:Nn \@@_check_record_pdfobj_num:n %protected?
+  {
+    \int_compare:nT { \l_@@_loglevel_int >= 3 }
+      {
+        \msg_info:nnx { tag } {obj-write-num} {#1}
+      }
+  }
+
+%</checks>
+%    \end{macrocode}

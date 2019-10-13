@@ -1,0 +1,79 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf-space.dtx
+%
+% Copyright (C) 2019 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%
+% \fi
+%
+%    \begin{macrocode}
+%<@@=tag>
+%<*space>
+\ProvidesExplPackage {tagpdf-space-code} {2019/07/02} {0.61}
+ {part of tagpdf - code related to real space chars}
+% luatex uses an attribute (declared in the driver file) and some luacode in tagpdf.lua
+% perhaps I will split the code by engine in the future
+
+\sys_if_engine_pdftex:T
+  {
+    \pdfglyphtounicode{space}{0020}
+    \keys_define:nn { @@ / setup }
+      {
+        interwordspace .choices:nn = { true, on }  { \pdfinterwordspaceon },
+        interwordspace .choices:nn = { false, off }{ \pdfinterwordspaceon },
+        show-spaces .bool_set:N = \l_@@_showspaces_bool
+      }
+  }
+
+
+\sys_if_engine_luatex:T
+  {
+    \keys_define:nn { @@ / setup }
+      {
+        interwordspace .choices:nn =
+                                 { true, on }
+                                 { \directlua{l3kernel.@@.func.markspaceon()} },
+        interwordspace .choices:nn =
+                                 { false, off }
+                                 {\directlua{l3kernel.@@.func.markspaceoff()} },
+        show-spaces      .choice:,
+        show-spaces  / true  .code:n =
+                                 {\directlua{l3kernel.@@.trace.showspaces=true}},
+        show-spaces  / false .code:n =
+                                 {\directlua{l3kernel.@@.trace.showspaces=nil}},
+        show-spaces .default:n = true
+      }
+
+    \cs_new_protected:Nn \@@_fakespace:
+      {
+        \group_begin:
+        \setattribute\g_@@_interwordspace_attr{1}
+        \setattribute\g_@@_interwordfont_attr
+          {
+            \directlua{tex.print(\the\catcodetable@latex, font.current())}
+          }
+        \skip_horizontal:n{\c_zero_skip}
+        \group_end:
+      }
+  }
+
+%</space>
+%    \end{macrocode}
