@@ -27,7 +27,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*struct>
-\ProvidesExplPackage {tagpdf-struct-code} {2019/07/02} {0.61}
+\ProvidesExplPackage {tagpdf-struct-code} {2019/10/15} {0.70}
  {part of tagpdf - code related to storing structure}
 
 % I will use a latex counter for the structure count
@@ -459,7 +459,7 @@
             \prop_item:cn
               { g_@@_struct_\l_@@_struct_stack_parent_tmp_tl _prop}
               { objnum }
-            ~0~R
+            \c_space_tl 0~R
           }
         %record this structure as kid:
         %\tl_show:N \g_@@_struct_stack_current_tl
@@ -575,7 +575,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*attr>
-\ProvidesExplPackage {tagpdf-attr-code} {2019/07/02} {0.61}
+\ProvidesExplPackage {tagpdf-attr-code} {2019/10/15} {0.70}
   {part of tagpdf - code related to attributes and attribute classes}
 
 % the obj is written in tagpdf-tree-code.

@@ -47,9 +47,9 @@ local extratexmf=os.getenv('TEXDEVDIR')
 local file = io.open ("support/texmf.cnf","w")
 io.output(file)
 if extratexmf then
-io.write("TEXMFAUXTREES= ../../source/texmf,"..extratexmf..",")
+io.write("TEXMFAUXTREES= "..extratexmf..",")
 else
-io.write("TEXMFAUXTREES= ../../source/texmf,")
+io.write("")
 end
 io.close(file)
 
@@ -132,10 +132,11 @@ installfiles = {
                 "**/*.lua"
                }  
                
-sourcefiles  = {
-                "**/*.sty",
-                "**/*.def",
-                "**/*.lua"
+sourcefiles  = {"**/*.dtx",
+                "**/*.ins",
+                --"**/*.sty",
+                --"**/*.def",
+                --"**/*.lua"
                }
                             
 typesetfiles = {"tagpdf.tex"}

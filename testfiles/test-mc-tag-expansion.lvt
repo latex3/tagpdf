@@ -25,17 +25,17 @@
 \showoutput
 \ExplSyntaxOn
 %\msg_log:n { \c_sys_engine_str }
-\tl_new:N\l_uftag_test_artifact_type_tl
-\tl_set:Nn \l_uftag_test_artifact_type_tl {pagination}
+\tl_new:N\l_tag_test_artifact_type_tl
+\tl_set:Nn \l_tag_test_artifact_type_tl {pagination}
 
-\tl_new:N\l_uftag_test_tag_type_tl
-\tl_set:Nn \l_uftag_test_tag_type_tl {P}
+\tl_new:N\l_tag_test_tag_type_tl
+\tl_set:Nn \l_tag_test_tag_type_tl {P}
 
-\uftag_mc_begin:n{artifact=\l_uftag_test_artifact_type_tl}%
+\tag_mc_begin:n{artifact=\l_tag_test_artifact_type_tl}%
 Artifact%
-\uftag_mc_end:
+\tag_mc_end:
 
-\uftag_mc_begin:n{tag=\l_uftag_test_tag_type_tl}blblb\uftag_mc_end:
+\tag_mc_begin:n{tag=\l_tag_test_tag_type_tl}blblb\tag_mc_end:
 \ExplSyntaxOff
 \end{document}
 

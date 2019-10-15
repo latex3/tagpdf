@@ -25,27 +25,27 @@
 \ExplSyntaxOn
 \msg_log:n { \c_sys_engine_str }
 
-\__uftag_mc_bmc:n {Artifact}
+\__tag_mc_bmc:n {Artifact}
 some~text
-\__uftag_mc_emc:
+\__tag_mc_emc:
 
-\__uftag_mc_bdc:nn {Artifact} {/Type~Pagination}
+\__tag_mc_bdc:nn {Artifact} {/Type~Pagination}
 some~text
-\__uftag_mc_emc:
+\__tag_mc_emc:
 
 
-\__uftag_mc_bdc_mcid:n {P X}
+\__tag_mc_bdc_mcid:n {P X}
 some~para
-\__uftag_mc_emc:
+\__tag_mc_emc:
 
-\__uftag_mc_bdc_mcid:n {P}
+\__tag_mc_bdc_mcid:n {P}
 some~para
-\__uftag_mc_emc:
+\__tag_mc_emc:
 
 \newpage
-\__uftag_mc_bdc_mcid:n {P}
+\__tag_mc_bdc_mcid:n {P}
 some~para
-\__uftag_mc_emc:
+\__tag_mc_emc:
 \ExplSyntaxOff
 \end{document}
 
