@@ -43,17 +43,19 @@
 
 % the StructTreeRoot
 % we better get the object number in any case:
-\@@_pdfreserveobjnum:N \l_tmpa_tl
-\tl_const:Nx \c_@@_tree_obj_structtreeroot_tl { \l_tmpa_tl }
+% deprecated
+%\@@_pdfreserveobjnum:N \l_tmpa_tl
+%\tl_const:Nx \c_@@_tree_obj_structtreeroot_tl { \l_tmpa_tl }
 
-\pdf_object_new:nn { c_@@_tree_obj_structtreeroot }{ dict }
+%new
+\pdf_object_new:nn { c_@@_struct_0_obj }{ dict }
 
 \cs_new_protected:Nn \@@_tree_write_structtreeroot:
   {
     %\@@_pdfcatalog:n { /StructTreeRoot~\c_@@_tree_obj_structtreeroot_tl\c_space_tl0~R }
     \pdf_catalog_gput:nx
       { StructTreeRoot }
-      { \pdf_object_ref:n { c_@@_tree_obj_structtreeroot } }
+      { \pdf_object_ref:n { c_@@_struct_0_obj } }
     \@@_struct_write_obj:n { 0 }
   }
 
@@ -68,8 +70,12 @@
 
 
 %the ParentTree
-\@@_pdfreserveobjnum:N \l_tmpa_tl
-\tl_const:Nx \c_@@_tree_obj_parenttree_tl    { \l_tmpa_tl }
+% deprecated
+%\@@_pdfreserveobjnum:N \l_tmpa_tl
+%\tl_const:Nx \c_@@_tree_obj_parenttree_tl    { \l_tmpa_tl }
+
+%new
+\pdf_object_new:nn { c_@@_tree_parenttree_obj }{ dict }
 
 % we have two sets of entries in the parent tree:
 % page streams and real objects.
@@ -89,11 +95,11 @@
 
 \tl_new:N \g_@@_parenttree_objr_tl
 
-\cs_new_protected:Nn \@@_parenttree_add_objr:nn %#1 Structparent number, #2 obj number
+\cs_new_protected:Nn \@@_parenttree_add_objr:nn %#1 Structparent number, #2 objref
   {
     \tl_gput_right:Nx \g_@@_parenttree_objr_tl
       {
-        #1 \c_space_tl #2\c_space_tl 0 \c_space_tl R\c_space_tl ^^J
+        #1 \c_space_tl #2 ^^J
       }
   }
 
@@ -131,8 +137,10 @@
               {% page#1:mcid##1:\l_tmpb_tl :content
                 \tl_put_right:Nx \l_@@_parenttree_content_tl
                   {
-                    \prop_item:cn { g_@@_struct_\l_tmpb_tl _prop } {objnum}~0~R~
+                    \prop_item:cn { g_@@_struct_\l_tmpb_tl _prop } {objref}
+                    \c_space_tl
                   }
+                %\tl_show:N \l_@@_parenttree_content_tl
               }
               {
                 \msg_warning:nn { tag } {tree-mcid-index-wrong}
@@ -173,15 +181,20 @@
         \@@_tree_fill_parenttree:
       }
     \tl_put_right:NV \l_@@_parenttree_content_tl\g_@@_parenttree_objr_tl
-    \@@_pdfuseobjnum:xx  { \c_@@_tree_obj_parenttree_tl }
+    \pdf_object_write:nx  { c_@@_tree_parenttree_obj }
       {
-        <<\c_space_tl/Nums\c_space_tl [\l_@@_parenttree_content_tl] \c_space_tl >>
+        /Nums\c_space_tl [\l_@@_parenttree_content_tl]
       }
   }
 
 %the Rolemap tree
-\@@_pdfreserveobjnum:N \l_tmpa_tl
-\tl_const:Nx \c_@@_tree_obj_rolemap_tl { \l_tmpa_tl }
+%deprecated
+%\@@_pdfreserveobjnum:N \l_tmpa_tl
+%\tl_const:Nx \c_@@_tree_obj_rolemap_tl { \l_tmpa_tl }
+
+%new
+\pdf_object_new:nn { c_@@_tree_rolemap_obj }{ dict }
+
 \tl_new:N \l_@@_rolemap_content_tl
 
 \cs_new_protected:Nn \@@_tree_fill_rolemap:
@@ -198,9 +211,9 @@
 \cs_new_protected:Nn \@@_tree_write_rolemap:
   {
     \@@_tree_fill_rolemap:
-    \@@_pdfuseobjnum:xx  { \c_@@_tree_obj_rolemap_tl }
+    \pdf_object_write:nx  { c_@@_tree_rolemap_obj }
       {
-        <<\l_@@_rolemap_content_tl >>
+        \l_@@_rolemap_content_tl
       }
   }
 
@@ -226,22 +239,24 @@
     \tl_if_empty:NF
       \g_@@_attr_class_content_tl
       {
-        \@@_pdfreserveobjnum:N \l_tmpa_tl
-        \tl_const:Nx \c_@@_tree_obj_classmap_tl { \l_tmpa_tl }
-        \@@_pdfuseobjnum:Nx
-          \c_@@_tree_obj_classmap_tl
-          { <<\g_@@_attr_class_content_tl>> }
+        \pdf_object_new:nn { c_@@_tree_classmap_obj }{ dict }
+     %   \@@_pdfreserveobjnum:N \l_tmpa_tl
+     %   \tl_const:Nx \c_@@_tree_obj_classmap_tl { \l_tmpa_tl }
+        \pdf_object_write:nx
+          { c_@@_tree_classmap_obj }
+          { \g_@@_attr_class_content_tl }
         \@@_prop_gput:cnx
           { g_@@_struct_0_prop }
           { ClassMap }
-          { \c_@@_tree_obj_classmap_tl\c_space_tl0\c_space_tl R  }
+          { \pdf_object_ref:n { c_@@_tree_classmap_obj }  }
       }
   }
 
 
 \cs_new_protected:Nn \tag_finish_structure:
   {
-    \@@_pdfcatalog:n {^^J/MarkInfo\c_space_tl<</Marked\c_space_tl true>> }
+    \pdf_catalog_gput:nn { MarkInfo }{ {Marked}{true} }
+    %\@@_pdfcatalog:n {^^J/MarkInfo\c_space_tl<</Marked\c_space_tl true>> }
     \@@_tree_write_parenttree:
     \@@_tree_write_rolemap:
     \@@_tree_class_write_map:
@@ -253,7 +268,7 @@
 \cs_set_eq:NN \uftag_finish_structure: \tag_finish_structure:
 
 %StructParents + tabs order. Tabs order should be probably be changeable by page.
-
+%!! need to check how to do with pdfresources
 \cs_new_protected:Nn \@@_tree_write_pageattr:
   {
     \@@_get_pdfpageattr:N \l_tmpa_tl
