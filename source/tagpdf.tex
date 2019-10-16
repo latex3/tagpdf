@@ -107,6 +107,7 @@
 \tableofcontents
 \end{NoHyper}
 
+
 \section{Introduction}
 
 
@@ -237,6 +238,11 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \item \TagP^internal code adaptions to expl3 changes.\Pmeti
 \item \TagP^dropped the compresslevel key  -- probably not needed\Pmeti
 \end{itemize}
+
+\subsection{Changes in version 0.7}
+
+As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with \verb|\uftag| will stay valid for some time but then be deprecated. 
+
 
 \section{Setup}
 
@@ -521,7 +527,7 @@ For strategies how to handle paragraphs that split over pages see subsection~\re
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcbegin{<key-val-list>}
-\DescribeMacro\uftag_mc_begin:n{<key-val-list>}
+\DescribeMacro\tag_mc_begin:n{<key-val-list>}
 \ExplSyntaxOff
 
 \TagP^These commands insert the begin of the marked content code in the pdf. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
@@ -586,7 +592,7 @@ Such markers should not be nested. The command will warn you if this happens.
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcend
-\DescribeMacro\uftag_mc_end:
+\DescribeMacro\tag_mc_end:
 \ExplSyntaxOff
 
 \TagP^These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.\TagPend
@@ -609,14 +615,14 @@ Such markers should not be nested. The command will warn you if this happens.
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcuse{<label name>}
-\DescribeMacro\uftag_mc_use:n {<label name>}
+\DescribeMacro\tag_mc_use:n {<label name>}
 \ExplSyntaxOff
 
 \TagP^These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.\TagPend
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcifinTF{<true code>}{<false>}
-\DescribeMacro\uftag_mc_if_in:TF{<true code>}{<false>}
+\DescribeMacro\tag_mc_if_in:TF{<true code>}{<false>}
 \ExplSyntaxOff
 
 \TagP^These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
@@ -627,7 +633,7 @@ Such markers should not be nested. The command will warn you if this happens.
 
 \ExplSyntaxOn
 \DescribeMacro\tagpdfget{<key word>}
-\DescribeMacro\uftag_get:n{<key word>}
+\DescribeMacro\tag_get:n{<key word>}
 \ExplSyntaxOff
 
 \TagP^These commands give back some variables. Currently the only working key word is \verb+mc\_tag+.\TagPend.
@@ -663,7 +669,7 @@ Such markers should not be nested. The command will warn you if this happens.
 \pdfextension startlink
     attr
      {
-     /StructParent \int_use:N\c@g__uftag_parenttree_obj_int %<----
+     /StructParent \int_use:N\c@g__tag_parenttree_obj_int %<----
      }
     user {
           /Subtype/Link
@@ -676,7 +682,7 @@ Such markers should not be nested. The command will warn you if this happens.
          }
     This is a link.
 \pdfextension endlink
-\__uftag_struct_finish_link: %<----
+\__tag_struct_finish_link: %<----
 \end{lstlisting}
 \tagmcend\tagstructend
 
@@ -780,7 +786,7 @@ The flat version creates a structure like this:\TagPend
 
 \ExplSyntaxOn
 \DescribeMacro\tagstructbegin{key-val-list}
-\DescribeMacro\uftag_struct_begin:n {key-val-list}
+\DescribeMacro\tag_struct_begin:n {key-val-list}
 \ExplSyntaxOff
 
 \TagP These commands start a new structure. They don't start a group. They set all their values globally.
@@ -861,14 +867,14 @@ The flat version creates a structure like this:\TagPend
 
 \ExplSyntaxOn
 \DescribeMacro\tagstructend
-\DescribeMacro\uftag_struct_end:
+\DescribeMacro\tag_struct_end:
 \ExplSyntaxOff
 
 \TagP^These commands end a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.\TagPend
 
 \ExplSyntaxOn
 \DescribeMacro\tagstructuse{<label>}
-\DescribeMacro\uftag_struct_use:n {<label>}
+\DescribeMacro\tag_struct_use:n {<label>}
 \ExplSyntaxOff
 
 \TagP^These commands insert a structure previously stashed away as kid into the currently active structure. A structure should be used only once, if the structure already has a parent you will get a warning.\TagPend
@@ -933,7 +939,7 @@ The name should be a sensible key name, the content a dictionary.
 \TagP^When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the pdf. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:\TagPend
 
 \ExplSyntaxOn
-\DescribeMacro\uftag_finish_structure:
+\DescribeMacro\tag_finish_structure:
 \ExplSyntaxOff
 
 \TagP^This will hopefully write all the needed objects and values to the pdf. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).\TagPend
@@ -1037,7 +1043,7 @@ To sum them up:\TagPend
 
 \TagP^The pdf reference mentions a number of standard types:
 \ExplSyntaxOn
-\clist_use:Nn \c__uftag_role_sttags_clist {,\c_space_tl}
+\clist_use:Nn \c__tag_role_sttags_clist {,\c_space_tl}
 
 \ExplSyntaxOff\TagPend
 

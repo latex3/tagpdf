@@ -726,8 +726,8 @@ function l3kernel.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,nam
      -- perhaps code that tag a artifact can be added ...
        if tagunmarkedbool.mode == truebool.mode then
         box.list = @@_insert_bmc_node (box.list,n,"Artifact")
+        mcopen = mcopen + 1 
        end
-       mcopen = mcopen + 1
       end
       mccntprev = mccnt
      end

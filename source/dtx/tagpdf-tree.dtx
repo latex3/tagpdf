@@ -46,10 +46,14 @@
 \@@_pdfreserveobjnum:N \l_tmpa_tl
 \tl_const:Nx \c_@@_tree_obj_structtreeroot_tl { \l_tmpa_tl }
 
+\pdf_object_new:nn { c_@@_tree_obj_structtreeroot }{ dict }
 
 \cs_new_protected:Nn \@@_tree_write_structtreeroot:
   {
-    \@@_pdfcatalog:n { /StructTreeRoot~\c_@@_tree_obj_structtreeroot_tl\c_space_tl0~R }
+    %\@@_pdfcatalog:n { /StructTreeRoot~\c_@@_tree_obj_structtreeroot_tl\c_space_tl0~R }
+    \pdf_catalog_gput:nx
+      { StructTreeRoot }
+      { \pdf_object_ref:n { c_@@_tree_obj_structtreeroot } }
     \@@_struct_write_obj:n { 0 }
   }
 

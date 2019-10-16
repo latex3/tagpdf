@@ -6,7 +6,7 @@
 %It uses a command to end \item (\meti). It is perhaps possible to hide this command
 % inside \item/end{list}, but with nested list it is not so easy.
 
-% Pay attention to casing. Li/LI, Lbody/Lbody are different. 
+% Pay attention to casing. Li/LI, Lbody/Lbody are different.
 %no page break involved. So the example works in lua and generic mode
 
 \documentclass{scrbook}
@@ -36,7 +36,7 @@
 
 \makeatletter
 
-\newcommand\uftag@enit@format@preset[1]{%
+\newcommand\tag@enit@format@preset[1]{%
   \tagstructbegin{tag=LI}%
   \tagstructbegin{tag=Lbl}%
   \tagmcbegin{tag=Lbl}%
@@ -48,9 +48,9 @@
 \newcommand\meti{% end of \item
  \tagstructend %end of LBody
  \tagstructend %end of LI
-}  
+}
 
-\xpatchcmd\enit@preset{\@firstofone}{\uftag@enit@format@preset}{}{\fail}
+\xpatchcmd\enit@preset{\@firstofone}{\tag@enit@format@preset}{}{\fail}
 
 \setlist{
     before*=\tagstructbegin{tag=L},
@@ -64,12 +64,12 @@
    \tagstructbegin{tag=Lbl}%
    \tagmcbegin{tag=Lbl}%
    #1\tagmcend}}
-\makeatother   
+\makeatother
 % marking of the text inside the list can not be handled automatically -- one doesn't know the type
 % we use simple P here
 \newcommand\TAGP{\tagstructbegin{tag=P}\tagmcbegin{tag=P}}
-\newcommand\PGAT{\tagmcend\tagstructend}   
-   
+\newcommand\PGAT{\tagmcend\tagstructend}
+
 \begin{document}
 %I don't want to handle pagestyles, so set everything to empty:
 \pagestyle{empty}\renewcommand\chapterpagestyle{empty}
