@@ -241,9 +241,9 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 \subsection{Changes in version 0.7}
 
-As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with \verb|\uftag| will stay valid for some time but then be deprecated. 
+\TagP^As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with \verb|\uftag| will stay valid for some time but then be deprecated.\TagPend
 
-
+\TagP^\textbf{Breaking change!} The argument of \texttt{newattribute} option should no longer add the dictionary bracket \verb+<<..>>+, they are added by the code.
 \section{Setup}
 
 \minisec{Activation needed!}
@@ -907,9 +907,9 @@ The name should be a sensible key name, the content a dictionary.
 \tagpdfsetup
  {
   newattribute =
-   {TH-col}{<</Owner /Table /Scope /Column>>},
+   {TH-col}{/Owner /Table /Scope /Column},
   newattribute =
-   {TH-row}{<</Owner /Table /Scope /Row>>},
+   {TH-row}{/Owner /Table /Scope /Row},
   }
 \end{lstlisting}
 \tagmcend\tagstructend

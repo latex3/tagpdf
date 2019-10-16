@@ -226,9 +226,11 @@
     \seq_set_map:NNn \l_tmpa_seq \g_@@_attr_class_used_seq
       {
         /##1\c_space_tl
-        \prop_item:Nn
-          \g_@@_attr_entries_prop
-          {##1}
+        <<
+          \prop_item:Nn
+            \g_@@_attr_entries_prop
+            {##1}
+        >>
       }
     \tl_gset:Nx \g_@@_attr_class_content_tl
       {

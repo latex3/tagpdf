@@ -959,9 +959,9 @@ function l3kernel.@@.func.fill_parent_tree_line (page)
       local mcnum  = l3kernel.@@.page[page][0]
       local structnum = l3kernel.@@.mc[mcnum]["parent"]
       local propname  = "g_@@_struct_"..structnum.."_prop"
-      local objnum   =  l3kernel.@@.tables[propname]["objnum"] or "XXXX"
-       texio.write_nl("=====>"..tostring(objnum))
-      numsentry = pdfpage .. " ".. objnum .. " 0 R"
+      local objref   =  l3kernel.@@.tables[propname]["objref"] or "XXXX"
+       texio.write_nl("=====>"..tostring(objref))
+      numsentry = pdfpage .. " ".. objref
       l3kernel.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
      else
       numsentry = pdfpage .. " ["
@@ -969,8 +969,8 @@ function l3kernel.@@.func.fill_parent_tree_line (page)
         local mcnum  = l3kernel.@@.page[page][i]
         local structnum = l3kernel.@@.mc[mcnum]["parent"] or 0
         local propname  = "g_@@_struct_"..structnum.."_prop"
-        local objnum   =  l3kernel.@@.tables[propname]["objnum"] or "XXXX"
-        numsentry = numsentry .. " ".. objnum .. " 0 R"
+        local objref   =  l3kernel.@@.tables[propname]["objref"] or "XXXX"
+        numsentry = numsentry .. " ".. objref
        end
       numsentry = numsentry .. "] "
       l3kernel.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
