@@ -50,7 +50,7 @@
 \cs_new:Nn \@@_pdf_startlink:{ \pdfextension startlink }
 \cs_new:Nn \@@_pdf_endlink:  { \pdfextension endlink }
 \cs_new_protected:Nn \@@_pdf_lastlink: { \numexpr\pdffeedback lastlink\relax }
-\cs_new:Nn \@@_pdf_catalog:  { \pdfextension catalog }
+%\cs_new:Nn \@@_pdf_catalog:  { \pdfextension catalog }
 
 % needed for \str_set_convert:Nnon
 \tl_new:N   \g_@@_inputencoding_tl
@@ -59,7 +59,7 @@
 
 % literals
 \cs_new:Nn \@@_pdfliteral_page:n {\@@_tex_pdfextension:D literal~page {#1}}
-\cs_new:Nn \@@_pdfcatalog:n      {\@@_tex_pdfextension:D catalog {#1}}
+%\cs_new:Nn \@@_pdfcatalog:n      {\@@_tex_pdfextension:D catalog {#1}}
 
 %reserve an object num
 \cs_new:Nn \@@_pdfreserveobjnum:N
@@ -234,7 +234,7 @@
 \cs_new:Nn \@@_pdf_startlink:{ \pdfstartlink }
 \cs_new:Nn \@@_pdf_endlink:  { \pdfendlink }
 \cs_new:Nn \@@_pdf_lastlink:  { \pdflastlink }
-\cs_new:Nn \@@_pdf_catalog:  { \pdfcatalog }
+%\cs_new:Nn \@@_pdf_catalog:  { \pdfcatalog }
 
 
 % needed for \str_set_convert:Nnon
@@ -244,7 +244,7 @@
 
 %literal
 \cs_new:Nn  \@@_pdfliteral_page:n { \@@_tex_pdfliteral:D page { #1} }
-\cs_new:Nn  \@@_pdfcatalog:n      { \@@_tex_pdfcatalog:D { #1 } }
+%\cs_new:Nn  \@@_pdfcatalog:n      { \@@_tex_pdfcatalog:D { #1 } }
 
 % reserve an object num and store the number
 \cs_new:Nn \@@_pdfreserveobjnum:N % #1 = macro name to be populated with object number

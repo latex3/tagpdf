@@ -50,12 +50,17 @@
 %new
 \pdf_object_new:nn { c_@@_struct_0_obj }{ dict }
 
+\AtBeginDocument %need to think about the best place ...
+  {
+    \bool_if:NT \g_@@_active_struct_bool
+      {
+        \pdf_catalog_gput:nx
+          { StructTreeRoot }
+          { \pdf_object_ref:n { c_@@_struct_0_obj } }
+      }
+  }
 \cs_new_protected:Nn \@@_tree_write_structtreeroot:
   {
-    %\@@_pdfcatalog:n { /StructTreeRoot~\c_@@_tree_obj_structtreeroot_tl\c_space_tl0~R }
-    \pdf_catalog_gput:nx
-      { StructTreeRoot }
-      { \pdf_object_ref:n { c_@@_struct_0_obj } }
     \@@_struct_write_obj:n { 0 }
   }
 
@@ -257,8 +262,6 @@
 
 \cs_new_protected:Nn \tag_finish_structure:
   {
-    \pdf_catalog_gput:nn { MarkInfo }{ {Marked}{true} }
-    %\@@_pdfcatalog:n {^^J/MarkInfo\c_space_tl<</Marked\c_space_tl true>> }
     \@@_tree_write_parenttree:
     \@@_tree_write_rolemap:
     \@@_tree_class_write_map:

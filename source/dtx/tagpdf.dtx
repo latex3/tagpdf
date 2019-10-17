@@ -47,7 +47,7 @@
 \cs_set_eq:NN \@@_tex_global:D              \tex_global:D
 \cs_set_eq:NN \@@_tex_the:D                 \tex_the:D
 \cs_set_eq:NN \@@_tex_pdfliteral:D          \tex_pdfliteral:D
-\cs_set_eq:NN \@@_tex_pdfcatalog:D          \tex_pdfcatalog:D
+%\cs_set_eq:NN \@@_tex_pdfcatalog:D          \tex_pdfcatalog:D
 \cs_set_eq:NN \@@_tex_pdflastobj:D          \tex_pdflastobj:D
 \cs_set_eq:NN \@@_tex_pdfobj:D              \tex_pdfobj:D
 \cs_set_eq:NN \@@_tex_pdfpageattr:D         \tex_pdfpageattr:D
@@ -119,7 +119,14 @@
          { \tl_gset:Nn \g_@@_inputencoding_tl { #1 } }
      },
   }
-
+%need to think about the right place ...
+\AtBeginDocument
+  {
+    \bool_if:NT \g_@@_active_struct_bool
+      {
+          \pdf_catalog_gput:nn { MarkInfo }{ {Marked}{true} }
+      }
+  }
 % escape commands are a bit engine specific so have been moved to the backend files.
 % commands to escape strings so that they can be safely used in pdf
 % currently not much used. But will be needed later, when alt and actualtext are added.
