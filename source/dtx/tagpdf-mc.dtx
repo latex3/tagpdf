@@ -129,31 +129,35 @@
 % #1 is the type/tag
 % change 04.08.2018: I don't try to escape the name, but assume that it is valid.
 % Checks/conversions should perhaps be done on a higher level
-\cs_new:Nn \@@_mc_bmc:n
+\cs_new_protected:Nn \@@_mc_bmc:n
   {
-    \@@_pdfliteral_page:n
-      {
-        /#1\c_space_tl BMC
-      }
+    \pdf_bmc:n {#1}
+%    \@@_pdfliteral_page:n
+%      {
+%        /#1\c_space_tl BMC
+%      }
   }
 
-\cs_new:Nn \@@_mc_emc:
+\cs_new_protected:Nn \@@_mc_emc:
   {
-    \@@_pdfliteral_page:n
-      {
-        EMC
-      }
+    \pdf_emc:
+    %\@@_pdfliteral_page:n
+%      {
+%        EMC
+%      }
   }
 
 % #1 tag, #2 properties
 % change 04.08.2018: I don't escape the name. Also the dictionary content
 % must imho be done at a higher level
-\cs_new:Nn \@@_mc_bdc:nn
+\cs_new_protected:Nn \@@_mc_bdc:nn
   {
-    \@@_pdfliteral_page:n
-      {
-        /#1\c_space_tl<<#2>>~BDC
-      }
+    \pdf_object_now:nx { dict } { #2 }
+    \pdf_bdc:n { #1 }
+%    \@@_pdfliteral_page:n
+%      {
+%        /#1\c_space_tl<<#2>>~BDC
+%      }
   }
 
 

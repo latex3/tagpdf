@@ -62,30 +62,30 @@
 %\cs_new:Nn \@@_pdfcatalog:n      {\@@_tex_pdfextension:D catalog {#1}}
 
 %reserve an object num
-\cs_new:Nn \@@_pdfreserveobjnum:N
-  {
-    % #1 = macro name to be populated with object number
-    \@@_tex_pdfextension:D~obj~reserveobjnum
-    \tl_set:Nx #1 { \@@_tex_pdffeedback:D lastobj }%
-  }
+%\cs_new:Nn \@@_pdfreserveobjnum:N
+%  {
+%    % #1 = macro name to be populated with object number
+%    \@@_tex_pdfextension:D~obj~reserveobjnum
+%    \tl_set:Nx #1 { \@@_tex_pdffeedback:D lastobj }%
+%  }
 
 % use an object num
 % replace by \pdf_object_write:nn #1 a name, #2 the content
-\cs_new:Nn \@@_pdfuseobjnum:Nn
-  {
-    % #1 = macro with object number to be populated
-    % #2 = object contents, as valid PDF
-    % should #2 be filtered through  \pdfstringdef  ???
-    \@@_tex_immediate:D \@@_tex_pdfextension:D~obj~useobjnum~#1~{ #2 }%
-  }
+%\cs_new:Nn \@@_pdfuseobjnum:Nn
+%  {
+%    % #1 = macro with object number to be populated
+%    % #2 = object contents, as valid PDF
+%    % should #2 be filtered through  \pdfstringdef  ???
+%    \@@_tex_immediate:D \@@_tex_pdfextension:D~obj~useobjnum~#1~{ #2 }%
+%  }
 
-\cs_new:Nn \@@_pdfuseobjnum:nn
-  {
-    % #1 = a number
-    % #2 = object contents, as valid PDF
-    % should #2 be filtered through  \pdfstringdef  ???
-    \@@_tex_immediate:D \@@_tex_pdfextension:D~obj~useobjnum~#1~{ #2 }%
-  }
+%\cs_new:Nn \@@_pdfuseobjnum:nn
+%  {
+%    % #1 = a number
+%    % #2 = object contents, as valid PDF
+%    % should #2 be filtered through  \pdfstringdef  ???
+%    \@@_tex_immediate:D \@@_tex_pdfextension:D~obj~useobjnum~#1~{ #2 }%
+%  }
 
 % obj num of the dictionary for a page:
 % the page count starts by 1
@@ -247,29 +247,30 @@
 %\cs_new:Nn  \@@_pdfcatalog:n      { \@@_tex_pdfcatalog:D { #1 } }
 
 % reserve an object num and store the number
-\cs_new:Nn \@@_pdfreserveobjnum:N % #1 = macro name to be populated with object number
-  {
-    \@@_tex_pdfobj:D reserveobjnum
-    \tl_set:Nx #1 { \int_use:N \@@_tex_pdflastobj:D }%
-  }
+% no longer needed
+%\cs_new:Nn \@@_pdfreserveobjnum:N % #1 = macro name to be populated with object number
+%  {
+%    \@@_tex_pdfobj:D reserveobjnum
+%    \tl_set:Nx #1 { \int_use:N \@@_tex_pdflastobj:D }%
+%  }
 
 % add content to an object num stored in a macro
-\cs_new:Nn \@@_pdfuseobjnum:Nn
-  {
-    % #1 = macro containing the object number
-    % #2 = object contents, as valid PDF
-    % should #2 be filtered through  \pdfstringdef  ???
-    \@@_tex_immediate:D \@@_tex_pdfobj:D useobjnum~#1~{#2}%
-  }
+%\cs_new:Nn \@@_pdfuseobjnum:Nn
+%  {
+%    % #1 = macro containing the object number
+%    % #2 = object contents, as valid PDF
+%    % should #2 be filtered through  \pdfstringdef  ???
+%    \@@_tex_immediate:D \@@_tex_pdfobj:D useobjnum~#1~{#2}%
+%  }
 
-\cs_new:Nn \@@_pdfuseobjnum:nn
-  {
-    % #1 = a number the object number
-    % #2 = object contents, as valid PDF
-    % should #2 be filtered through  \pdfstringdef  ???
-    \@@_check_record_pdfobj_num:n {#1}
-    \@@_tex_immediate:D \@@_tex_pdfobj:D useobjnum~#1~{#2}%
-  }
+%\cs_new:Nn \@@_pdfuseobjnum:nn
+%  {
+%    % #1 = a number the object number
+%    % #2 = object contents, as valid PDF
+%    % should #2 be filtered through  \pdfstringdef  ???
+%    \@@_check_record_pdfobj_num:n {#1}
+%    \@@_tex_immediate:D \@@_tex_pdfobj:D useobjnum~#1~{#2}%
+%  }
 
 % obj num of the dictionary for a page:
 % the page count starts by 1
