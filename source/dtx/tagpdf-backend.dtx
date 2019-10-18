@@ -92,18 +92,18 @@
 % pages can referenced before they are actually created
 % no error if the page later doesn't exist
 
-\cs_new:Nn \@@_store_pdfpageref:Nn
-  {
-    % #1 = macro name to be populated with current page object number
-    % #2 = number or counter identifying the required page
-    \tl_set:Nx #1 { \@@_tex_pdffeedback:D pageref~#2 }%
-  }
+%\cs_new:Nn \@@_store_pdfpageref:Nn
+%  {
+%    % #1 = macro name to be populated with current page object number
+%    % #2 = number or counter identifying the required page
+%    \tl_set:Nx #1 { \@@_tex_pdffeedback:D pageref~#2 }%
+%  }
 
 % a global version of the command
-\cs_new:Nn \@@_gstore_pdfpageref:Nn
-  {
-    \tl_gset:Nx #1 { \@@_tex_pdffeedback:D pageref~#2 }%
-  }
+%\cs_new:Nn \@@_gstore_pdfpageref:Nn
+%  {
+%    \tl_gset:Nx #1 { \@@_tex_pdffeedback:D pageref~#2 }%
+%  }
 
 \cs_new:Nn \@@_pdfobj:Nn
   {
@@ -276,18 +276,18 @@
 % the page count starts by 1
 % pages can referenced before they are actually created
 % no error if the page later doesn't exist
-\cs_new:Nn \@@_store_pdfpageref:Nn
-  {
-    % #1 = macro name to be populated with current page object number
-    % #2 = number or counter identifying the required page
-    \tl_set:Nx #1 { \@@_tex_pdfpageref:D #2}%
-  }
+%\cs_new:Nn \@@_store_pdfpageref:Nn
+%  {
+%    % #1 = macro name to be populated with current page object number
+%    % #2 = number or counter identifying the required page
+%    \tl_set:Nx #1 { \@@_tex_pdfpageref:D #2}%
+%  }
 
 % a global version of the command
-\cs_new:Nn \@@_gstore_pdfpageref:Nn
-  {
-    \tl_gset:Nx #1 { \@@_tex_pdfpageref:D #2}%
-  }
+%\cs_new:Nn \@@_gstore_pdfpageref:Nn
+%  {
+%    \tl_gset:Nx #1 { \@@_tex_pdfpageref:D #2}%
+%  }
 
 \cs_new:Nn \@@_pdfobj:Nn
   {

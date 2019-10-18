@@ -177,13 +177,15 @@
 
 \cs_new:Nn \@@_struct_kid_mc_gput_right:nn %#1 structure num, #2 MCID absnum%
   {
-    \@@_store_pdfpageref:Nn \l_tmpa_tl { \zref@extractdefault{mcid-#2}{tagabspage}{1} }
+    %\@@_store_pdfpageref:Nn \l_tmpa_tl { \zref@extractdefault{mcid-#2}{tagabspage}{1} }
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
       {
         <<
         /Type \c_space_tl /MCR \c_space_tl
-        /Pg \c_space_tl \l_tmpa_tl \c_space_tl 0 \c_space_tl R \c_space_tl
+        /Pg %\c_space_tl \l_tmpa_tl \c_space_tl 0 \c_space_tl R \c_space_tl
+          \c_space_tl
+          \pdf_pageobject_ref:n { \zref@extractdefault{mcid-#2}{tagabspage}{1} }
         /MCID \c_space_tl \zref@extractdefault{mcid-#2}{tagmcid}{1}
         >>
       }
