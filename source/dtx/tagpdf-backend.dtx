@@ -105,14 +105,14 @@
 %    \tl_gset:Nx #1 { \@@_tex_pdffeedback:D pageref~#2 }%
 %  }
 
-\cs_new:Nn \@@_pdfobj:Nn
-  {
-    % #1 = macro name to refer to this object
-    % #2 = object contents, as valid PDF
-    % should #2 be filtered through  \pdfstringdef  ???
-    \@@_tex_immediate:D \@@_tex_pdfextension:D~obj~{ #2 }
-    \tl_set:Nx #1 { \@@_tex_pdffeedback:D~lastobj }%
-  }
+%\cs_new:Nn \@@_pdfobj:Nn
+%  {
+%    % #1 = macro name to refer to this object
+%    % #2 = object contents, as valid PDF
+%    % should #2 be filtered through  \pdfstringdef  ???
+%    \@@_tex_immediate:D \@@_tex_pdfextension:D~obj~{ #2 }
+%    \tl_set:Nx #1 { \@@_tex_pdffeedback:D~lastobj }%
+%  }
 
 %  pdfpage**s**attr: for all pages
 %% is global needed? Yes. Without it the setting is lost if issued in a group
@@ -289,14 +289,14 @@
 %    \tl_gset:Nx #1 { \@@_tex_pdfpageref:D #2}%
 %  }
 
-\cs_new:Nn \@@_pdfobj:Nn
-  {
-    % #1 = macro name to refer to this object
-    % #2 = object contents, as valid PDF
-    % should #2 be filtered through  \pdfstringdef  ???
-    \@@_tex_immediate:D \@@_tex_pdfobj:D { #2 }
-    \tl_set:Nx #1 {\int_use:N \@@_tex_pdflastobj:D }%
-  }
+%\cs_new:Nn \@@_pdfobj:Nn
+%  {
+%    % #1 = macro name to refer to this object
+%    % #2 = object contents, as valid PDF
+%    % should #2 be filtered through  \pdfstringdef  ???
+%    \@@_tex_immediate:D \@@_tex_pdfobj:D { #2 }
+%    \tl_set:Nx #1 {\int_use:N \@@_tex_pdflastobj:D }%
+%  }
 
 %  pdfpage**s**attr: for all pages
 %% is global needed? Yes. Without it the setting is lost if issued in a group

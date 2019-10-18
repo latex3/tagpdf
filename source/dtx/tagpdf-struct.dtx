@@ -204,17 +204,16 @@
 
 \cs_new:Nn\@@_struct_kid_link_gput_right:nn %#1 num of parent struct, #2 obj number of link
   {
-    \@@_pdfobj:Nn \l_@@_tmpa_tl
+    \pdf_object_now:nx
+      { dict }
       {
-        <<
         /Type \c_space_tl /OBJR \c_space_tl
         /Obj  \c_space_tl #2 \c_space_tl 0 \c_space_tl R
-        >>
       }
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
       {
-        \l_@@_tmpa_tl \c_space_tl 0 \c_space_tl R
+        \pdf_object_last:
       }
   }
 
