@@ -285,7 +285,8 @@
 
 \cs_new:Nn \@@_struct_get_dict_content:n
   {
-    \tl_set:Nn \l_@@_struct_dict_content_tl {<<}
+    %\tl_set:Nn \l_@@_struct_dict_content_tl {<<}
+    \tl_clear:N \l_@@_struct_dict_content_tl
     \seq_map_inline:cn
       {
         c_@@_struct_\prop_item:cn{ g_@@_struct_#1_prop }{entries}_entries_seq
@@ -302,7 +303,7 @@
                }
           }
       }
-    \tl_put_right:Nn \l_@@_struct_dict_content_tl { >> }
+    %\tl_put_right:Nn \l_@@_struct_dict_content_tl { >> }
   }
 
 
