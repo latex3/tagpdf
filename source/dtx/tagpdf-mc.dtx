@@ -206,9 +206,10 @@
         mcid-\int_use:N \c@g_@@_MCID_abs_int
       }
       { @@zrl }
-    \@@_mc_bdc:nn
-      {#1}
-      { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~#2 }
+   %\exp_args:Nnx
+     \@@_mc_bdc:nn
+       {#1}
+       { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~#2 }
  }
 
 % only /MCID
