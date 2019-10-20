@@ -48,6 +48,10 @@ tagpdf: THIS HAS NOT BEEN TAGGED
 tagpdf: THIS HAS NOT BEEN TAGGED
 Completed box being shipped out [5]
 \vbox(655.63496+0.0)x405.73636, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\pdfliteral page <lua data reference 820>
+..\latelua0{l3kernel.__pdf.backend_PageN_gpush(tex.count["g__pdf_abspage_int"])
+}
 .\glue -25.16531
 .\vbox(680.80028+0.0)x418.25555, shifted -12.5192, direction TLT
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil, direction TLT
@@ -56,7 +60,6 @@ Completed box being shipped out [5]
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 407.24701fil, direction TLT
-...\pdfliteral page <lua data reference 820>
 ...\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \nonumber
 line \ETC.}
 ...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives ch\
@@ -271,6 +274,7 @@ numberline \ETC.}
 ...\glue 0.0
 ..\glue(\baselineskip) 47.6
 ..\hbox(0.0+0.0)x418.25555, direction TLT
+.\kern0.0
 .\pdfliteral page <lua data reference 801>
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 Package atveryend Info: Executing hook `AfterLastShipout' on input line ....

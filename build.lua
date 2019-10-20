@@ -35,7 +35,7 @@ checkconfigs = {"build",
                 "config-nosyntax", -- tests with invalid pdf as result
                 "config-luatex",
                 "config-luatex-dev",
-                "config-pdftexdev",
+                "config-pdftex-dev",
                 "config-dev"}
 checkruns = 3
 checksuppfiles = {"texmf.cnf","pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}
