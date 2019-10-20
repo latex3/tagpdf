@@ -30,9 +30,15 @@ uploadconfig = {
 }
 
 checkengines = {"pdftex", "luatex"}
-checkconfigs = {"build","config-pdftex","config-luatex","config-luatex-dev","config-pdftexdev","config-dev"}
+checkconfigs = {"build",
+                "config-pdftex",
+                "config-nosyntax", -- tests with invalid pdf as result
+                "config-luatex",
+                "config-luatex-dev",
+                "config-pdftexdev",
+                "config-dev"}
 checkruns = 3
-checksuppfiles = {"texmf.cnf"}
+checksuppfiles = {"texmf.cnf","pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}
 excludetests = {"test-saveboxes-structure-dev"}
 
 

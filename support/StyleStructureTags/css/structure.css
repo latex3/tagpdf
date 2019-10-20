@@ -1,0 +1,726 @@
+@import url(all.css);
+@import url(predefined.css);
+
+.structure,
+.structure:hover
+{
+    border-bottom: 2px #960 solid;
+    opacity: 1;
+    -webkit-animation-duration: 0s;
+    animation-duration: 0s;
+}
+
+
+/* improved pdfGoHTML / structure.css styling 2018-06-07 ODr */
+* {
+    font-family: sans-serif;
+    background-position: left top;
+    background-repeat: repeat-y;
+    margin: 0;
+    padding: 0; /* all margins and paddings are reset in the beginning */
+    color: #333;
+}
+
+body {
+    background-color: #113; 
+    color: #f80;		/* warning color for anything not inside a reasonable tag: */
+    padding: 25px;
+    padding-right: 10px;
+}
+
+._h1, ._h2, ._h3, ._h4, ._h5, ._h6,
+ul,
+ol,
+._p,
+.alt_from_image, 
+label
+{
+    color:                              #000;
+}
+
+
+._art,
+._sect,
+._blockquote,
+._caption,
+._document,
+._part
+{
+    padding-right: 10px;
+}
+
+/* 
+	visual nesting of all group and block level elements 
+	- excluding table elements
+	- positioning only!
+*/
+
+ul,
+li,
+img,
+._art,
+._sect,
+._blockquote,
+._caption,
+._document,
+._part,
+._lbl,
+._lbody,
+.article,
+.story,
+.toc,
+.toci,
+._h1, ._h2, ._h3, ._h4, ._h5, ._h6,
+._p
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: -25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 55px;
+    padding-right: 5px;
+}
+
+
+/* headings */
+._h1, ._h2, ._h3, ._h4, ._h5, ._h6 {
+	font-weight: 	bold;
+  margin-top:   30px;
+}
+
+._h1  {	font-size: 220%;	}
+._h2  {	font-size: 170%;	}
+._h3  {	font-size: 140%;	}
+._h4  {	font-size: 120%;	}
+._h5  {	font-size: 110%;	}
+._h6  {	font-size: 100%;	}
+
+
+
+
+/* note / footnotes / endnotes */
+._note
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 55px;
+}
+
+
+
+
+
+/* grouping tags */
+
+._art,
+._sect,
+._document,
+._part
+{
+	background-color: rgba(255, 255, 185, 0.15);
+}
+
+
+
+
+
+
+
+/* tables */
+
+table, 
+tr,
+tbody,
+tfoot,
+thead
+{
+    margin-top:                         25px;
+    margin-bottom:                      25px;
+    margin-left: -25px;
+
+    padding-top:                        25px;
+    padding-bottom:                     25px;
+    padding-left:                       25px;
+}
+
+
+
+td,
+th
+{
+    margin:                             10px;
+
+    padding-top:                        4px;
+    padding-bottom:                     4px;
+    padding-left:                       55px;
+    padding-right:                       25px;
+
+}
+
+/* Styles for Table Cell Highlighting */
+
+td,
+th
+{
+    border-width:                   3px;
+}
+
+.header_while_child_selected_1
+{
+    background-color:               #eddb82;
+    background-image:               none;
+}  
+
+.header_while_child_selected_2
+{
+    background-color:               #ffd500;
+    background-image:               none;
+}
+
+.header_while_child_selected_3
+{
+    background-color:               #d9a121;
+    background-image:               none;
+}
+
+.header_while_child_selected_4
+{
+    background-color:               #b8840b;
+    background-image:               none;
+}  
+
+.header_while_child_selected_5
+{
+    background-color:               #aaa;
+    background-image:               none;
+}    
+
+.child_while_header_selected_1
+{
+    background-color:               #00bfff;
+    background-image:               none;
+}
+
+.child_while_header_selected_2
+{
+    background-color:               #1f93ff;
+    background-image:               none;
+}
+
+.child_while_header_selected_3
+{
+    background-color: #0000ff;
+    background-image: none;
+}
+
+.child_while_header_selected_4
+{
+    background-color: #000080;
+    background-image: none;
+}
+
+.child_while_header_selected_5
+{
+    background-color: #aaa;
+    background-image: none;
+}
+
+
+
+/* lists */
+
+._lbl
+{
+    padding-left: 55px;
+    padding-right: 5px;
+}
+
+
+/* generated content (alt, label) */
+
+.alt_from_image, label
+{
+    display:                            block;
+
+		margin-left: -25px;
+		margin-top:-13px;
+		margin-right: 											25px;
+    padding:                            4px;    
+    padding-left:                       60px;
+
+    width:                              auto;
+    border:                             4px solid #554;
+
+    background-color:                   #fff;
+    background-image:                   url(../img/alt.png);
+}
+
+
+.alt_from_image
+{
+    visibility:                         visible;
+    font-style:                         italic;
+    font-size:                          80%;
+    display:                            block;
+}
+
+
+.alt_from_image:before,
+.alt_from_image:after
+{
+    content:                            ' ';
+}
+
+
+
+.alt_from_image, 
+label, 
+.attribs_from_field {
+		margin-right: 35%;
+}
+
+
+.alt_from_image
+{
+	margin-left: -25px;
+	margin-top:-13px;
+}
+
+label
+{
+	margin-left: -5px;
+	margin-top:-4px;
+}
+
+.attribs_from_field
+{
+    display:                            block;
+
+    margin-top:                         0px;
+    margin-left:                        -5px;
+
+    padding:                            4px;    
+    padding-left:                       60px;
+
+
+    border:                             4px solid #554;
+
+    font-size:                          75%;
+    font-style: italic;
+
+    background-color:                   #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* links */
+
+
+a {
+  outline: none;
+  text-decoration: underline;
+  padding: 2px 2px 0;
+  border: 1px solid;
+  border-color: transparent;
+}
+a:link {
+  color: #00f;
+}
+a:visited {
+  color: #808;
+}
+a:focus {
+  border: 1px solid;
+  background: #bfb;
+}
+a:hover {
+  border-bottom: 1px solid;     
+  background: #ff0;
+}
+a:active {
+  background: #265301;
+  color: #CDFEAA;
+}
+
+
+
+
+
+._code,
+._annot,
+._bibentry,
+._link,
+._note,
+._quote,
+._reference
+{    
+	display: inline-block;	
+	padding-left: 55px;
+	padding-right: 10px;
+}
+
+
+._code,
+._annot,
+._bibentry,
+._link,
+._note,
+._quote,
+._reference,
+._rb,
+._rt,
+._rp,
+._ruby,
+._warichu,
+._wp,
+._wt
+
+{    
+	background-color: rgba(64, 64, 64, 0.125);
+}
+
+img,
+li,
+ul li,
+tbody,
+tfoot,
+thead,
+tr,
+._h1, ._h2, ._h3, ._h4, ._h5, ._h6,
+._p,
+.alt_from_image,
+._form,
+._formula,
+._index,
+._nonstruct,
+._private
+{    
+		background-color: 								#f0f0e0;		
+}
+
+
+/* blockquote stuff */
+
+._blockquote
+{
+    padding-top: 35px;
+    padding-bottom: 35px;
+    font-style: italic;
+    font-family: serif !important;
+    background-color: #946003;
+	margin-right: 0px;
+	padding-right: 25px;
+}
+
+._blockquote * {
+    font-family: 											serif;
+}
+
+._blockquote ._note
+{
+    font-style: 											normal;
+    font-size: 												77%;
+    font-family: 											sans-serif !important;
+}
+
+
+/* caption stuff */
+
+._caption
+{
+		/* CaBT #14717 - following line removed (ODr 2018-10-14): 
+    	display: block;
+		*/
+    padding-right: 25px;
+}
+
+
+._caption
+{
+    background-color:  								#bee;   
+}
+
+/* CaBT #14717 - following rule added (ODr 2018-10-14): */
+table ._caption {
+    margin-left: 25px;
+    margin-top: 0px;
+    margin-bottom: -25px;
+}
+
+table+.caption,
+img+.caption,
+.caption+table,
+.caption+img
+{
+    margin-top: -5px;
+}
+
+.toci, 
+.toc .toci
+{
+    background-color: 									rgba(255, 208, 136, 0.75);
+    list-style-position: 								inside;
+}
+
+img {
+    display: run-in;
+    padding-right: 6px;
+    margin-right: 20px;
+    border: 4px solid #554;
+}
+
+li,
+ul li
+{
+    list-style-position:                inside; 
+		list-style-type: none;
+}
+
+._lbl
+{
+    display:                            inline-block;
+    background-color:                   #cff;
+}
+
+._lbody
+{
+		background-color: 									#eeffee;
+		margin-right: 10px;
+}
+
+._lbl + ._lbody {
+	margin-top: -10px;
+}
+
+.quote
+{
+    margin-right:                       25px;
+    border-right:                       15px #a0c2e7 solid;
+}
+
+._reference
+{
+    margin-left:                        5px;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+table
+{
+    border-spacing:                     0px;
+}
+
+
+td, th
+{
+    border:                             1px #555 solid;
+    color:                              #333;
+		text-align: left;
+}
+
+td
+{
+    background-color:                   #ffcfee;
+}
+
+th
+{
+    background-color:                   #ff66ff;
+}
+
+
+/* visual labels per tag */
+		/* 
+				label is generated on the fly and represents the tool tip / Alt 
+				text for form fields, and thus gets the same img as "alt" 
+		*/
+.alt_from_image, 
+label 							{ background-image:	url(../img/alt.png);			}
+._annot             {background-image:  url(../img/annot.png);		}
+._art, .article			{background-image:  url(../img/art.png);			}
+.attribs_from_field	{background-image: 	url(../img/attributes.png);}
+._bibentry          {background-image:  url(../img/bibentry.png);	}
+._blockquote    		{background-image:	url(../img/blockquote.png);}
+._caption    				{background-image:	url(../img/caption.png);	}
+._code              {background-image:  url(../img/code.png);			}
+._document          {background-image:  url(../img/document.png);	}
+.form               {background-image:  url(../img/form.png);			}
+.formula            {background-image:  url(../img/formula.png);	}
+._h1                {background-image:  url(../img/h1.png);				}
+._h2                {background-image:  url(../img/h2.png);				}
+._h3                {background-image:  url(../img/h3.png);				}
+._h4                {background-image:  url(../img/h4.png);				}
+._h5                {background-image:  url(../img/h5.png);				}
+._h6                {background-image:  url(../img/h6.png);				}
+img    							{background-image:	url(../img/img.png);			}
+.index              {background-image:  url(../img/index.png);		}
+._lbl    						{background-image:	url(../img/lbl.png);			}
+._lbody    					{background-image:	url(../img/lbody.png);		}
+li, ul li    				{background-image:	url(../img/ul-li.png);    }
+.link               {background-image:  url(../img/link.png);			}
+.nonstruct          {background-image:  url(../img/nonstruct.png);}
+._note    					{background-image:  url(../img/note.png);			}
+.quote              {background-image:  url(../img/quote.png);		}
+._p    							{background-image:	url(../img/p.png);				}
+._part              {background-image:  url(../img/part.png);			}
+.private            {background-image:  url(../img/private.png);	}
+.rb                 {background-image:  url(../img/rb.png);				}
+._reference	    		{background-image:	url(../img/reference.png);}
+.rt                 {background-image:  url(../img/rt.png);				}
+.rp                 {background-image:  url(../img/rp.png);				}
+.ruby               {background-image:  url(../img/ruby.png);			}
+._sect, .story      {background-image:  url(../img/sect.png);			}
+.toci    						{background-image:	url(../img/toci.png);			}
+.toc                {background-image:  url(../img/toc.png);			}
+table    						{background-image:	url(../img/table.png);		}
+tbody               {background-image:  url(../img/tbody.png);		}
+tfoot               {background-image:  url(../img/tfoot.png);		}
+thead               {background-image:  url(../img/thead.png);		}
+tr                  {background-image:  url(../img/tr.png);				}
+td    							{background-image: 	url(../img/td-narrow.png);}
+th    							{background-image:  url(../img/th-narrow.png);}
+ul                  {background-image:  url(../img/ul.png);				}
+.warichu            {background-image:  url(../img/warichu.png);	}
+.wp                 {background-image:  url(../img/wp.png);				}
+.wt                 {background-image:  url(../img/wt.png);				}
+
+.buttonfield {      background-image: url(../img/buttonfield.png);    }
+.checkboxfield {    background-image: url(../img/checkboxfield.png);  }
+.radiobuttonfield { background-image: url(../img/radiobuttonfield.png);}
+.comboboxfield {    background-image: url(../img/comboboxfield.png);  }
+.listboxfield {     background-image: url(../img/listboxfield.png);   }
+.signaturefield {   background-image: url(../img/signaturefield.png); }
+.textfield {        background-image: url(../img/textfield.png);      }
+.barcodefield {     background-image: url(../img/barcode.png);        }
+
+.artifact           {display:           none !important;}
+
+
+
+/* Copied from all.css to work in MTT Preview  - DO WE REALLY NEED THIS?*/
+
+.pgh_exception
+{
+    display:                            inline;
+
+    color:                              #000;
+    background-color:                   #ff0;
+
+}
+
+.pgh_exception:before
+{
+    content:                            'STOP';
+
+    margin-right:                       0.4em;
+
+    padding:                            0.1em;
+
+    color:                              #fff;
+    background-color:                   #f00;
+}
+
+
+.pgh_content
+{
+    margin:                             1em;
+/* Make all text thats not embedded in a special tag #f00 */
+    color:                              #f00;
+}
+
+
+/* END Copied from all.css to work in MTT Preview */
+
+
+
+
+
+
+/* suppress display of real text, where ActualText provides the text intended to appear to the reader */
+/* NOTE: this will have to be refined for the MadeToTag / Structure tags view, 
+   as we want to have a visual indication for all instances where ActualText is used 
+*/
+
+.realText
+{
+    display:         none;
+}
+
+div, span, p {
+	margin: 0px;
+	padding: 0px;
+}
+
+._span,
+._span._plain,
+div._span._plain {
+	display: inline;
+	background-image: none;
+	margin-right:-8px;
+}
+
+
+
+
+
+
+/* BEGIN added ODr 2015-10-21 */
+
+
+/* forms */
+
+input {
+    height: 2em;
+}
+
+.form, select {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: -25px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 55px;
+}
+
+input, select {
+    display:none;
+}
+.form {
+    display: block;
+}
+
+.buttonfield,
+.checkboxfield,
+.radiobuttonfield,
+.comboboxfield,
+.listboxfield,
+.signaturefield,
+.textfield,
+.barcodefield {
+    display: block; 
+    width: 48px; 
+    height: 48px; 
+		margin-left: -5px;
+    background-size: 48px 48px;
+    border: 1px solid #bbb;
+}
+
+/* END improved pdfGoHTML / structure.css styling 2018-06-07 ODr */
