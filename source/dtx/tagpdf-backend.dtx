@@ -117,15 +117,15 @@
 %  pdfpage**s**attr: for all pages
 %% is global needed? Yes. Without it the setting is lost if issued in a group
 %
-\cs_new:Nn \@@_gset_pdfpagesattr:n
-  {
-    \@@_tex_global:D \@@_tex_pdfvariable:D~pagesattr { #1 }
-  }
-
-\cs_new:Nn \@@_gadd_pdfpagesattr:n
-  {
-    \exp_args:No \@@_gset_pdfpagesattr:n { \@@_tex_the:D \@@_tex_pdfvariable:D~pagesattr #1}
-  }
+%\cs_new:Nn \@@_gset_pdfpagesattr:n
+%  {
+%    \@@_tex_global:D \@@_tex_pdfvariable:D~pagesattr { #1 }
+%  }
+%
+%\cs_new:Nn \@@_gadd_pdfpagesattr:n
+%  {
+%    \exp_args:No \@@_gset_pdfpagesattr:n { \@@_tex_the:D \@@_tex_pdfvariable:D~pagesattr #1}
+%  }
 
 % pdfpageattr for one page
 % do we need an immediate version??
@@ -301,15 +301,15 @@
 %  pdfpage**s**attr: for all pages
 %% is global needed? Yes. Without it the setting is lost if issued in a group
 %
-\cs_new:Nn \@@_gset_pdfpagesattr:n
-  {
-    \@@_tex_global:D \@@_tex_pdfpagesattr:D { #1 }
-  }
-
-\cs_new:Nn \@@_gadd_pdfpagesattr:n
-  {
-    \exp_args:No \@@_gset_pdfpagesattr:n { \@@_tex_the:D \@@_tex_pdfpagesattr:D #1 }
-  }
+%\cs_new:Nn \@@_gset_pdfpagesattr:n
+%  {
+%    \@@_tex_global:D \@@_tex_pdfpagesattr:D { #1 }
+%  }
+%
+%\cs_new:Nn \@@_gadd_pdfpagesattr:n
+%  {
+%    \exp_args:No \@@_gset_pdfpagesattr:n { \@@_tex_the:D \@@_tex_pdfpagesattr:D #1 }
+%  }
 
 % pdfpageattr for one page
 % I must avoid to overwrite other entries,
