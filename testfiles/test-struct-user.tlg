@@ -12,9 +12,9 @@ Package tagpdf Info: closing structure 9 tagged /LI
 Package tagpdf Info: closing structure 5 tagged /L
 Package tagpdf Info: closing structure 2 tagged /Sect
 Package tagpdf Info: closing structure 1 tagged /Document
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 Completed box being shipped out [1]
 \vbox(655.63496+4.08003)x435.61176
+.\hbox(0.0+0.0)x0.0
 .\glue -25.16531
 .\vbox(680.80028+4.08003)x418.25555, shifted 17.3562
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil
@@ -58,7 +58,8 @@ Completed box being shipped out [1]
 ...\write-{}
 ...\write1{\babel@aux{english}{}}
 ...\write1{\zref@newlabel{mcid-1}{\tagabspage{\Z@C@tagabspage }\tagmcabs{1}\tagm\ETC.}
-...\pdfliteral page{/H <</MCID 0 >> BDC}
+...\pdfliteral page{/H /l3pdf1 BDC}
+...\write1{\zref@newlabel{l3pdf1}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ...\glue(\topskip) 0.79422
 ...\hbox(10.20578+0.0)x418.25555, glue set 175.48102fil
 ....\hbox(9.87387+0.0)x16.5421
@@ -82,7 +83,10 @@ Completed box being shipped out [1]
 ...\write1{\zref@newlabel{mcid-2}{\tagabspage{\Z@C@tagabspage }\tagmcabs{2}\tagm\ETC.}
 ...\penalty 10000
 ...\penalty 10000
-...\pdfliteral page{/P <</MCID 1 >> BDC}
+...\pdfliteral page{/P /l3pdf2 BDC}
+...\write1{\zref@newlabel{l3pdf2}{\pdf@abspage{\Z@C@pdf@abspage }}}
+...\penalty 10000
+...\penalty 10000
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\baselineskip) 6.05852
 ...\hbox(7.54149+2.12863)x418.25555, glue set 360.79013fil
@@ -110,7 +114,8 @@ Completed box being shipped out [1]
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\write1{\zref@newlabel{mcid-3}{\tagabspage{\Z@C@tagabspage }\tagmcabs{3}\tagm\ETC.}
-...\pdfliteral page{/Lbl <</MCID 2 >> BDC}
+...\pdfliteral page{/Lbl /l3pdf3 BDC}
+...\write1{\zref@newlabel{l3pdf3}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\baselineskip) 6.05852
 ...\hbox(7.54149+2.12863)x418.25555, glue set 323.37543fil
@@ -122,7 +127,8 @@ Completed box being shipped out [1]
 ....\write1{\zref@newlabel{mcid-4}{\tagabspage{\Z@C@tagabspage }\tagmcabs{4}\tagm\ETC.}
 ....\penalty 10000
 ....\glue 0.0
-....\pdfliteral page{/P <</MCID 3 >> BDC}
+....\pdfliteral page{/P /l3pdf4 BDC}
+....\write1{\zref@newlabel{l3pdf4}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ....\T1/cmr/m/n/10.95 L
 ....\T1/cmr/m/n/10.95 i
 ....\T1/cmr/m/n/10.95 s
@@ -144,7 +150,8 @@ Completed box being shipped out [1]
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\write1{\zref@newlabel{mcid-5}{\tagabspage{\Z@C@tagabspage }\tagmcabs{5}\tagm\ETC.}
-...\pdfliteral page{/Lbl <</MCID 4 >> BDC}
+...\pdfliteral page{/Lbl /l3pdf5 BDC}
+...\write1{\zref@newlabel{l3pdf5}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\baselineskip) 3.92989
 ...\hbox(7.54149+2.12863)x418.25555, glue set 283.45071fil
@@ -156,7 +163,8 @@ Completed box being shipped out [1]
 ....\write1{\zref@newlabel{mcid-6}{\tagabspage{\Z@C@tagabspage }\tagmcabs{6}\tagm\ETC.}
 ....\penalty 10000
 ....\glue 0.0
-....\pdfliteral page{/P <</MCID 5 >> BDC}
+....\pdfliteral page{/P /l3pdf6 BDC}
+....\write1{\zref@newlabel{l3pdf6}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ....\T1/cmr/m/n/10.95 a
 ....\T1/cmr/m/n/10.95 n
 ....\T1/cmr/m/n/10.95 o
@@ -209,7 +217,8 @@ Completed box being shipped out [1]
 .......\hbox(9.51996+4.08003)x418.25555, glue set 206.4058fil
 ........\glue(\leftskip) 0.0 plus 1.0fil
 ........\hbox(0.0+0.0)x0.0
-........\pdfliteral page{/Artifact <</Type /Pagination>> BDC}
+........\pdfliteral page{/Artifact /l3pdf7 BDC}
+........\write1{\zref@newlabel{l3pdf7}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ........\T1/cmr/m/n/10.95 1
 ........\pdfliteral page{EMC}
 ........\rule(9.51996+4.08003)x0.0
@@ -227,6 +236,8 @@ Completed box being shipped out [1]
 .........\glue(\parfillskip) 0.0
 .........\glue(\rightskip) 0.0
 ...\glue 0.0 plus 1.0fil minus 1.0fil
+.\kern 0.0
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 Package atveryend Info: Executing hook `AfterLastShipout' on input line ....
 (test-struct-user.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line ....

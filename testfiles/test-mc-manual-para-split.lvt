@@ -28,14 +28,14 @@
 \pagestyle{fancy}
 \fancyhf{}
 
-\ifluatex\else
-\pdfcatalog{/Lang (en-UK)}
-\pdfinfo {/Title (Title)}
-\fi
+\ExplSyntaxOn
+\pdf_catalog_gput:nn {Lang}{(en-UK)}
+\pdf_info_gput:nn {Title}{(Title)}
+\ExplSyntaxOff
 \cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \textheight=3cm
 \begin{document}\showoutput
-\START
+\START\tagstructbegin{tag=Document}
 \tagmcbegin{tag=P}
 Cras egestas ipsum a nisl. Vivamus varius dolor
 ut dolor. Fusce vel enim. Pellentesque accumsan ligula et eros. Cras
@@ -53,6 +53,6 @@ tellus at aliquet pellentesque, justo sapien commodo leo, id rhoncus
 sapien quam at erat. Nulla commodo, wisi eget sollicitudin pretium,
 orci orci aliquam orci, ut cursus turpis justo et lacus. Nulla vel
 tortor. Quisque erat elit, viverra sit amet, sagittis eget, porta
-sit amet, lacus.\tagmcend
+sit amet, lacus.\tagmcend\tagstructend
 \end{document}
 
