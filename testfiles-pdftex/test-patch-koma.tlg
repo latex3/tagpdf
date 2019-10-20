@@ -43,6 +43,7 @@ Package tagpdf Info: closing structure 24 tagged /P
 Package tagpdf Info: closing structure 1 tagged /Document
 Completed box being shipped out [5]
 \vbox(655.63496+0.0)x405.73636
+.\hbox(0.0+0.0)x0.0
 .\glue -25.16531
 .\vbox(680.80028+0.0)x418.25555, shifted -12.5192
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil
@@ -71,7 +72,8 @@ Completed box being shipped out [5]
 ...\hbox(14.76189+3.99005)x418.25555, glue set 171.38478fil
 ....\hbox(0.0+0.0)x0.0
 .....\write1{\zref@newlabel{mcid-14}{\tagabspage{\Z@C@tagabspage }\tagmcabs{14}\ta\ETC.}
-.....\pdfliteral page{/H1 <</MCID 0 >> BDC}
+.....\pdfliteral page{/H1 /l3pdf14 BDC}
+.....\write1{\zref@newlabel{l3pdf14}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ....\T1/cmss/bx/n/20.74 c
 ....\T1/cmss/bx/n/20.74 h
 ....\T1/cmss/bx/n/20.74 a
@@ -94,7 +96,8 @@ Completed box being shipped out [5]
 ....\hbox(9.87387+0.0)x29.40816
 .....\glue 0.0
 .....\write1{\zref@newlabel{mcid-15}{\tagabspage{\Z@C@tagabspage }\tagmcabs{15}\ta\ETC.}
-.....\pdfliteral page{/H2 <</MCID 1 >> BDC}
+.....\pdfliteral page{/H2 /l3pdf15 BDC}
+.....\write1{\zref@newlabel{l3pdf15}{\pdf@abspage{\Z@C@pdf@abspage }}}
 .....\T1/cmss/bx/n/14.4 1
 .....\T1/cmss/bx/n/14.4 .
 .....\T1/cmss/bx/n/14.4 1
@@ -124,7 +127,8 @@ Completed box being shipped out [5]
 ....\hbox(7.9286+0.0)x34.49158
 .....\glue 0.0
 .....\write1{\zref@newlabel{mcid-16}{\tagabspage{\Z@C@tagabspage }\tagmcabs{16}\ta\ETC.}
-.....\pdfliteral page{/H3 <</MCID 2 >> BDC}
+.....\pdfliteral page{/H3 /l3pdf16 BDC}
+.....\write1{\zref@newlabel{l3pdf16}{\pdf@abspage{\Z@C@pdf@abspage }}}
 .....\T1/cmss/bx/n/12 1
 .....\T1/cmss/bx/n/12 .
 .....\T1/cmss/bx/n/12 1
@@ -157,7 +161,8 @@ Completed box being shipped out [5]
 ....\hbox(0.0+0.0)x0.0
 .....\glue 0.0
 .....\write1{\zref@newlabel{mcid-17}{\tagabspage{\Z@C@tagabspage }\tagmcabs{17}\ta\ETC.}
-.....\pdfliteral page{/H4 <</MCID 3 >> BDC}
+.....\pdfliteral page{/H4 /l3pdf17 BDC}
+.....\write1{\zref@newlabel{l3pdf17}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ....\T1/cmss/bx/n/10.95 s
 ....\T1/cmss/bx/n/10.95 u
 ....\T1/cmss/bx/n/10.95 b
@@ -182,7 +187,10 @@ Completed box being shipped out [5]
 ...\write1{\zref@newlabel{mcid-18}{\tagabspage{\Z@C@tagabspage }\tagmcabs{18}\ta\ETC.}
 ...\penalty 10000
 ...\penalty 10000
-...\pdfliteral page{/P <</MCID 4 >> BDC}
+...\pdfliteral page{/P /l3pdf18 BDC}
+...\write1{\zref@newlabel{l3pdf18}{\pdf@abspage{\Z@C@pdf@abspage }}}
+...\penalty 10000
+...\penalty 10000
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\baselineskip) 6.05852
 ...\hbox(7.54149+2.12863)x418.25555, glue set 360.79013fil
@@ -213,6 +221,7 @@ Completed box being shipped out [5]
 ...\glue 0.0
 ..\glue(\baselineskip) 47.6
 ..\hbox(0.0+0.0)x418.25555
+.\kern 0.0
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 Package atveryend Info: Executing hook `AfterLastShipout' on input line ....
 (test-patch-koma.aux)

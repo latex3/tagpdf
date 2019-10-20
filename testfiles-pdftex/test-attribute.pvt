@@ -4,7 +4,7 @@
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,uncompress}
 \tagpdfsetup{
- newattribute= {TH-row}{<</O/Table /Scope/Row>>}
+ newattribute= {TH-row}{/O/Table /Scope/Row}
  }
 \begin{document}\START
 \pagestyle{empty} %
