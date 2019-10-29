@@ -98,7 +98,7 @@
     Alt,               % value in () or <>
     E,                 %abreviation
     ActualText,
-    AF,                 %pdf 2.0, array of dict, associated files
+    AF,afmime,afrel                 %pdf 2.0, array of dict, associated files
     NS,                 %pdf 2.0, dict, namespace
     PhoneticAlphabet,   %pdf 2.0
     Phoneme             %pdf 2.0
@@ -287,6 +287,24 @@
   {
     %\tl_set:Nn \l_@@_struct_dict_content_tl {<<}
     \tl_clear:N \l_@@_struct_dict_content_tl
+%code for associated files
+       \prop_if_in:cnT
+     { g__tag_struct_#1_prop }{AF}{
+%why stream not require args expanding?
+\pdf_object_new:nn {mystream\int_eval:n {#1}}{stream}
+%Exists problem,when we want to insert latex commands
+\pdf_object_write:nx {mystream\int_eval:n {#1}}
+  {{/Type\c_space_tl /EmbeddedFile\c_space_tl /Subtype\c_space_tl /\prop_item:cn{g__tag_struct_#1_prop}{afmime}}{\prop_item:cn{g__tag_struct_#1_prop}{AF}}}
+\exp_args:Ne
+\pdf_object_new:nn {mydict\int_eval:n {#1}}{dict}
+%it would be better,if each associated file have unique name,so for this we use argument #1
+  \exp_args:Nx
+  \pdf_object_write:nx {mydict\int_eval:n {#1}}
+  {/Type\c_space_tl /Filespec\c_space_tl /F\c_space_tl (Formula#1.tex)\c_space_tl /UF \c_space_tl(Formula#1.tex)\c_space_tl /AFRelationship\c_space_tl /\prop_item:cn{ g__tag_struct_#1_prop }{afrel}\c_space_tl /EF\c_space_tl <</F\c_space_tl \pdf_object_ref:n{mystream\int_eval:n {#1}}>>}
+\__tag_prop_gput:cnx{g__tag_struct_#1_prop }{AF}{\exp_args:Ne\pdf_object_ref:n {mydict\int_eval:n {#1}}}
+    %remove afmime and afrel,because we not need in this entries anymore
+    \prop_remove:cn{g__tag_struct_#1_prop }{afmime}
+    \prop_remove:cn{g__tag_struct_#1_prop }{afrel}}
     \seq_map_inline:cn
       {
         c_@@_struct_\prop_item:cn{ g_@@_struct_#1_prop }{entries}_entries_seq
@@ -419,6 +437,27 @@
           { ActualText }
           { <\l_@@_tmpa_str>}
       },
+  af .code:n  =
+   {
+    \__tag_prop_gput:cnx
+     { g__tag_struct_\int_eval:n {\c@g__tag_struct_abs_int}_prop }
+     { AF }
+     {#1}
+   },
+     afmime .code:n        =
+   {
+    \__tag_prop_gput:cnx
+     { g__tag_struct_\int_eval:n {\c@g__tag_struct_abs_int}_prop }
+     {afmime}
+     {#1}
+   },
+        afrel .code:n        =
+   {
+    \__tag_prop_gput:cnx
+     { g__tag_struct_\int_eval:n {\c@g__tag_struct_abs_int}_prop }
+     {afrel}
+     {#1}
+   },
   }
 
 

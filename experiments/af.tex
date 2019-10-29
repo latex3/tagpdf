@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{pdftexcmds,tagpdf,amsmath}
+\tagpdfsetup{tabsorder=structure,uncompress,activate-all,interwordspace=true}
+
+\tagpdfifpdftexT
+{
+	\pdfcompresslevel=0
+	%set language / can also be done with hyperref
+	\pdfcatalog{/Lang (en-US)}
+	\usepackage[T1]{fontenc}
+	\input glyphtounicode
+	\pdfgentounicode=1
+}
+\tagpdfifluatexT
+{
+	%set language / can also be done with hyperref
+	\pdfextension catalog{/Lang (en-US)}
+\usepackage{fontspec}
+	\newfontface\zerowidthfont{freeserif}
+	\setmainfont{Times New Roman}  
+}
+\ExplSyntaxOn
+\pdf_version_gset:n{2.0}
+\ExplSyntaxOff
+\begin{document}
+\tagstructbegin{tag=Document}
+\makeatletter
+\tagstructbegin{tag=Formula,af={1+1=2},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
+\tagmcbegin{tag=Formula}
+\begin{equation*}
+1+1=2
+\end{equation*}
+\tagmcend
+\tagstructend
+\tagstructbegin{tag=P,alttext={test}}
+\tagmcbegin{tag=P}
+New formula
+\tagmcend
+\tagstructend
+\tagstructbegin{tag=Formula,af={(a+b)*(a-b)=a^2-b^2},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
+\tagmcbegin{tag=Formula}
+\[(a+b)*(a-b)=a^2-b^2\]
+\tagmcend
+\tagstructend
+\tagstructbegin{tag=Formula,af={1/x=2},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
+\tagmcbegin{tag=Formula}
+\[1/x=2\]
+\tagmcend
+\tagstructend
+%this test give an error in lualatex. In associated files for latex we must insert latex commands.
+\tagstructbegin{tag=Formula,af=\detokenize\expandafter{\frac{a}{b}=a*b},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
+\tagmcbegin{tag=Formula}
+$\frac{a}{b}=a*b$
+\tagmcend
+\tagstructend
+%this tests give an errors in pdflatex and in lualatex
+%\tagstructbegin{tag=Formula,af={\begin\{equation\}a/x=1\\a^2+x^2=0\end\{equation\}},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
+%\tagmcbegin{tag=Formula}
+%\begin{equation}
+%a/x=1\\a^2+b^2=0
+%\end{equation}
+%\tagmcend
+%\tagstructend
+%\tagstructbegin{tag=Formula,af={\begin\{align\}x+y=2*x*y\\x^2+y^2=\textbackslashfrac\{x/y\}\end\{align\}},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
+%\tagmcbegin{tag=Formula}
+%\begin{align}
+%x+y=2*x*y
+%x^2+y^2=\frac{x}
+%\end{align}
+%\tagmcend
+%\tagstructend
+\makeatother
+\tagstructend
+\end{document} 
