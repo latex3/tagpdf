@@ -179,7 +179,7 @@
   {
     \prop_gput:Nnn #1 { #2 } { #3 }
     \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { l3kernel.@@.tables.\l_tmpa_tl["#2"] = "#3" }
+    \directlua { l3kernel.@@.tables.\l_tmpa_tl["#2"] = "\luaescapestring{#3}" }
   }
 
 
