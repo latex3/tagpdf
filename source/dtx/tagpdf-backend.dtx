@@ -962,7 +962,7 @@ function l3kernel.@@.func.fill_parent_tree_line (page)
       local propname  = "g_@@_struct_"..structnum.."_prop"
       local objref   =  l3kernel.@@.tables[propname]["objref"] or "XXXX"
        texio.write_nl("=====>"..tostring(objref))
-      numsentry = pdfpage .. " ".. objref
+      numsentry = pdfpage .. " [".. objref .. "]"
       l3kernel.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
      else
       numsentry = pdfpage .. " ["
