@@ -59,7 +59,6 @@ io.write("")
 end
 io.close(file)
 
-
 sourcefiledir = "./source"
 
 tagfiles = {"source/*.md",
