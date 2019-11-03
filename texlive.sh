@@ -26,7 +26,7 @@ tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experim
 tlmgr install collection-langgerman
 
 # luatex
-tlmgr install luacode luatex luatexbase luaotfload ifluatex
+tlmgr install luacode luatex luatexbase luaotfload iftex
 
 # language
 tlmgr install babel babel-english babel-german hyph-utf8
