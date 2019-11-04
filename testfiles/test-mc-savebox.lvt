@@ -23,7 +23,7 @@
 
 \newsavebox\mybox
 \begin{document}
-\START
+\START\tagstructbegin{tag=Document}
 \ExplSyntaxOn
 \makeatletter
 \tagmcbegin {tag=BEFORESAVEBOX,label=bs}
@@ -47,5 +47,6 @@ text
 
 \seq_show:c {g__tag_struct_kids_0_seq}
 \ExplSyntaxOff
+\tagstructend
 \end{document}
 

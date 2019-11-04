@@ -20,7 +20,10 @@
 
 \tagpdfsetup{activate-all,log=vv,uncompress}
 \begin{document}
-
+\tagstructbegin{tag=Document}
+\tagmcbegin{tag=P}
+abc
+\tagmcend
 \START \showoutput
 \ifluatex
 \tagmcbegin{tag=P}
@@ -48,5 +51,6 @@ augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
 \tagmcend
 
 \fi
+\tagstructend
 \end{document}
 

@@ -5,6 +5,9 @@ Don't change this file in any respect.
 .................................................
 Completed box being shipped out [1]
 \vbox(655.63496+0.0)x435.61176, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\latelua0{l3kernel.__pdf.backend_PageN_gpush(tex.count["g__pdf_abspage_int"])
+}
 .\glue -25.16531
 .\vbox(680.80028+0.0)x418.25555, shifted 17.3562, direction TLT
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil, direction TLT
@@ -34,7 +37,9 @@ Completed box being shipped out [1]
 ....\TU/lmr/m/n/10.95 x
 ....\TU/lmr/m/n/10.95 t
 ....\pdfliteral page{EMC}
-....\pdfliteral page{/Artifact <</Type Pagination>> BDC}
+....\pdfliteral page{/Artifact /l3pdf1 BDC}
+....\latelua0{l3kernel.pdf.Page_Resources_Properties_gput(tex.count["g__pdf_abs
+page\ETC.}
 ....\TU/lmr/m/n/10.95 s
 ....\TU/lmr/m/n/10.95 o
 ....\TU/lmr/m/n/10.95 m
@@ -47,7 +52,9 @@ Completed box being shipped out [1]
 ....\pdfliteral page{EMC}
 ....\write1{\zref@newlabel{mcid-1}{\tagabspage{\Z@C@tagabspage }\tagmcabs{1}\ta
 gm\ETC.}
-....\pdfliteral page{/PX <</MCID 0 >> BDC}
+....\pdfliteral page{/PX /l3pdf2 BDC}
+....\latelua0{l3kernel.pdf.Page_Resources_Properties_gput(tex.count["g__pdf_abs
+page\ETC.}
 ....\TU/lmr/m/n/10.95 s
 ....\TU/lmr/m/n/10.95 o
 ....\TU/lmr/m/n/10.95 m
@@ -60,7 +67,9 @@ gm\ETC.}
 ....\pdfliteral page{EMC}
 ....\write1{\zref@newlabel{mcid-2}{\tagabspage{\Z@C@tagabspage }\tagmcabs{2}\ta
 gm\ETC.}
-....\pdfliteral page{/P <</MCID 1 >> BDC}
+....\pdfliteral page{/P /l3pdf3 BDC}
+....\latelua0{l3kernel.pdf.Page_Resources_Properties_gput(tex.count["g__pdf_abs
+page\ETC.}
 ....\TU/lmr/m/n/10.95 s
 ....\TU/lmr/m/n/10.95 o
 ....\TU/lmr/m/n/10.95 m
@@ -87,9 +96,12 @@ gm\ETC.}
 ......\TU/lmr/m/n/10.95 1
 ......\glue 0.0 plus 1.0fil
 ...\glue 0.0 plus 1.0fil minus 1.0fil
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
+.\kern0.0
 Completed box being shipped out [2]
 \vbox(655.63496+0.0)x435.61176, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\latelua0{l3kernel.__pdf.backend_PageN_gpush(tex.count["g__pdf_abspage_int"])
+}
 .\glue -25.16531
 .\vbox(680.80028+0.0)x418.25555, shifted 17.3562, direction TLT
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil, direction TLT
@@ -100,7 +112,9 @@ Completed box being shipped out [2]
 ..\vbox(595.80026+0.0)x418.25555, glue set 584.7378fil, direction TLT
 ...\write1{\zref@newlabel{mcid-3}{\tagabspage{\Z@C@tagabspage }\tagmcabs{3}\tag
 m\ETC.}
-...\pdfliteral page{/P <</MCID 0 >> BDC}
+...\pdfliteral page{/P /l3pdf4 BDC}
+...\latelua0{l3kernel.pdf.Page_Resources_Properties_gput(tex.count["g__pdf_absp
+age\ETC.}
 ...\glue(\topskip) 6.0944
 ...\hbox(4.9056+2.1243)x418.25555, glue set 358.55615fil, direction TLT
 ....\localpar
@@ -135,6 +149,8 @@ m\ETC.}
 ......\TU/lmr/m/n/10.95 2
 ......\glue 0.0 plus 1.0fil
 ...\glue 0.0 plus 1.0fil minus 1.0fil
+.\kern0.0
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 Package atveryend Info: Executing hook `AfterLastShipout' on input line ....
 (test-mc-low-bdc-emc.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line ....

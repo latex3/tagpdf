@@ -27,7 +27,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*shared>
-\ProvidesExplPackage {tagpdf-mc-code-shared} {2019/10/15} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2019/11/04} {0.70}
   {part of tagpdf - code related to marking chunks -
    code shared by generic and luamode }
 % I use a latex counter for the absolute count, so that it is added to
@@ -92,7 +92,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*generic>
-\ProvidesExplPackage {tagpdf-mc-code-generic} {2019/10/15} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-generic} {2019/11/04} {0.70}
  {part of tagpdf - code related to marking chunks - generic mode}
 
 % for the label system
@@ -206,9 +206,10 @@
         mcid-\int_use:N \c@g_@@_MCID_abs_int
       }
       { @@zrl }
-    \@@_mc_bdc:nn
-      {#1}
-      { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~#2 }
+   %\exp_args:Nnx
+     \@@_mc_bdc:nn
+       {#1}
+       { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~#2 }
  }
 
 % only /MCID
@@ -403,7 +404,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*luamode>
-\ProvidesExplPackage {tagpdf-mc-code-lua} {2019/10/15} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-lua} {2019/11/04} {0.70}
   {tagpdf - mc code only for the luamode }
 
 % the two attibutes are defined in the driver file.

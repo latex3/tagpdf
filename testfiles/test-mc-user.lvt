@@ -23,7 +23,7 @@
 
 
 \begin{document}
-\START
+\START\tagstructbegin{tag=Document}
 \marginpar{%
  \tagmcbegin{tag=P}marginpar\tagmcend}
 
@@ -123,5 +123,6 @@ lots~of~lines\tagmcend\\
 \clearpage
 \seq_show:c {g__tag_struct_kids_0_seq}
 \ExplSyntaxOff
+\tagstructend
 \end{document}
 

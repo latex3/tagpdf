@@ -1,11 +1,11 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-tagpdf: showtagpdfattributes:MC=>abscnt=1=>attr=1=>tag=P=19
 tagpdf: showtagpdfattributes:MC=>abscnt=2=>attr=2=>tag=P=19
-tagpdf: showtagpdfattributes:MC=>abscnt=3=>attr=3=>tag=H1=13
+tagpdf: showtagpdfattributes:MC=>abscnt=3=>attr=3=>tag=P=19
+tagpdf: showtagpdfattributes:MC=>abscnt=4=>attr=4=>tag=H1=13
 Package tagpdf Warning: tag Blub is not known
-tagpdf: showtagpdfattributes:MC=>abscnt=4=>attr=4=>tag=UNKNOWN=-1
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
+tagpdf: showtagpdfattributes:MC=>abscnt=5=>attr=5=>tag=UNKNOWN=-1
+Package tagpdf Info: closing structure 1 tagged /Document
 tagpdf: THIS HAS NOT BEEN TAGGED
 tagpdf: INSERT EMC -1 MCOPEN = 0
 tagpdf: INSERT BDC 0
@@ -16,10 +16,16 @@ tagpdf: INSERT BDC 2
 tagpdf: INSERT EMC 2 MCOPEN = 0
 tagpdf: INSERT BDC 3
 tagpdf: INSERT EMC 3 MCOPEN = 0
+tagpdf: INSERT BDC 4
+tagpdf: INSERT EMC 4 MCOPEN = 0
 tagpdf: THIS HAS NOT BEEN TAGGED
 tagpdf: INSERT LAST EMC, MCOPEN = 0
 Completed box being shipped out [1]
 \vbox(655.63496+0.0)x435.61176, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\pdfliteral page <lua data reference 790>
+..\latelua0{l3kernel.__pdf.backend_PageN_gpush(tex.count["g__pdf_abspage_int"])
+}
 .\glue -25.16531
 .\vbox(680.80028+0.0)x418.25555, shifted 17.3562, direction TLT
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil, direction TLT
@@ -28,11 +34,10 @@ Completed box being shipped out [1]
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 489.54794fil, direction TLT
-...\pdfliteral page <lua data reference 790>
 ...\write-{}
 ...\write1{\babel@aux{english}{}}
 ...\glue(\topskip) 3.28026
-...\hbox(7.71974+2.2557)x418.25555, glue set 0.59268, direction TLT
+...\hbox(7.71974+2.2557)x418.25555, glue set - 0.21373, direction TLT
 ....\localpar
 .....\localinterlinepenalty=0
 .....\localbrokenpenalty=0
@@ -41,193 +46,12 @@ Completed box being shipped out [1]
 ....\hbox(0.0+0.0)x10.95, direction TLT
 ....\pdfliteral page <lua data reference 795>
 ....\pdfliteral page <lua data reference 796>
-....\TU/lmr/m/n/10.95 C
-....\TU/lmr/m/n/10.95 r
 ....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 s
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 g
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 s
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 t
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 s
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 i
-....\TU/lmr/m/n/10.95 p
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 s
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 m
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 a
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 n
-....\TU/lmr/m/n/10.95 i
-....\TU/lmr/m/n/10.95 s
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 .
-....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
-....\TU/lmr/m/n/10.95 V
-....\TU/lmr/m/n/10.95 i
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 v
-....\kern-0.6132 (font)
-....\TU/lmr/m/n/10.95 a
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 m
-....\kern-0.3066 (font)
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 s
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 v
-....\kern-0.6132 (font)
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 r
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 i
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 s
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 d
-....\TU/lmr/m/n/10.95 o
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 o
-....\TU/lmr/m/n/10.95 r
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 P
-....\kern-0.3066 (font)
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 l
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 n
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-.....= \kern-0.3066 (font)
-....\TU/lmr/m/n/10.95 t
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 s
-....\TU/lmr/m/n/10.95 q
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 e
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 b
+....\kern0.3066 (font)
 ....\TU/lmr/m/n/10.95 c
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 r
-....\TU/lmr/m/n/10.95 i
-....\TU/lmr/m/n/10.95 s
-....\TU/lmr/m/n/10.95 q
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 e
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 u
 ....\discretionary (penalty 50)
 .....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 g
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 e
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 s
-....\TU/lmr/m/n/10.95 i
-....\TU/lmr/m/n/10.95 t
-....\glue(\rightskip) 0.0
-...\penalty 300
-...\glue(\baselineskip) 3.62456
-...\hbox(7.71974+2.1243)x418.25555, glue set 148.85266fil, direction TLT
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 m
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 t
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 r
-....\TU/lmr/m/n/10.95 n
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 .
-....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
-....\TU/lmr/m/n/10.95 N
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 a
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 v
-....\kern-0.3066 (font)
-....\TU/lmr/m/n/10.95 o
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 t
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 p
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 t
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 i
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 q
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 e
-....\TU/lmr/m/n/10.95 t
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 t
-....\TU/lmr/m/n/10.95 o
-....\TU/lmr/m/n/10.95 r
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 t
-....\TU/lmr/m/n/10.95 o
-....\TU/lmr/m/n/10.95 r
-....\TU/lmr/m/n/10.95 .
-....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
-....\TU/lmr/m/n/10.95 C
-....\TU/lmr/m/n/10.95 r
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 s
-....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 l
-....\TU/lmr/m/n/10.95 i
-....\discretionary (penalty 50)
-.....< \TU/lmr/m/n/10.95 -
-....\TU/lmr/m/n/10.95 q
-....\TU/lmr/m/n/10.95 u
-....\TU/lmr/m/n/10.95 a
-....\TU/lmr/m/n/10.95 m
-....\TU/lmr/m/n/10.95 ,
-....\penalty 10000
-....\glue(\parfillskip) 0.0 plus 1.0fil
-....\glue(\rightskip) 0.0
-...\glue(\parskip) 0.0 plus 1.0
-...\glue(\baselineskip) 3.75597
-...\hbox(7.71974+2.2557)x418.25555, glue set 0.59268, direction TLT
-....\localpar
-.....\localinterlinepenalty=0
-.....\localbrokenpenalty=0
-.....\localleftbox=null
-.....\localrightbox=null
-....\hbox(0.0+0.0)x10.95, direction TLT
 ....\pdfliteral page <lua data reference 797>
 ....\pdfliteral page <lua data reference 798>
 ....\TU/lmr/m/n/10.95 C
@@ -786,6 +610,195 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\baselineskip) 3.75597
+...\hbox(7.71974+2.2557)x418.25555, glue set 0.59268, direction TLT
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x10.95, direction TLT
+....\pdfliteral page <lua data reference 803>
+....\pdfliteral page <lua data reference 804>
+....\TU/lmr/m/n/10.95 C
+....\TU/lmr/m/n/10.95 r
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 s
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 g
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 s
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 t
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 s
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 p
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 m
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 a
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 n
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 .
+....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
+....\TU/lmr/m/n/10.95 V
+....\TU/lmr/m/n/10.95 i
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 v
+....\kern-0.6132 (font)
+....\TU/lmr/m/n/10.95 a
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 m
+....\kern-0.3066 (font)
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 s
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 v
+....\kern-0.6132 (font)
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 r
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 s
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 d
+....\TU/lmr/m/n/10.95 o
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 o
+....\TU/lmr/m/n/10.95 r
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 P
+....\kern-0.3066 (font)
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 l
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 n
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+.....= \kern-0.3066 (font)
+....\TU/lmr/m/n/10.95 t
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 q
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 e
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 c
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 r
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 q
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 e
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 u
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 g
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 e
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 t
+....\glue(\rightskip) 0.0
+...\penalty 300
+...\glue(\baselineskip) 3.62456
+...\hbox(7.71974+2.1243)x418.25555, glue set 148.85266fil, direction TLT
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 m
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 t
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 r
+....\TU/lmr/m/n/10.95 n
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 .
+....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
+....\TU/lmr/m/n/10.95 N
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 a
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 v
+....\kern-0.3066 (font)
+....\TU/lmr/m/n/10.95 o
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 t
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 p
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 t
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 i
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 q
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 t
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 t
+....\TU/lmr/m/n/10.95 o
+....\TU/lmr/m/n/10.95 r
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 t
+....\TU/lmr/m/n/10.95 o
+....\TU/lmr/m/n/10.95 r
+....\TU/lmr/m/n/10.95 .
+....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
+....\TU/lmr/m/n/10.95 C
+....\TU/lmr/m/n/10.95 r
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 s
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 l
+....\TU/lmr/m/n/10.95 i
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 q
+....\TU/lmr/m/n/10.95 u
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 m
+....\TU/lmr/m/n/10.95 ,
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
 ...\glue -2.1243
 ...\glue 0.0 plus 1.0fil
 ...\glue 0.0
@@ -796,12 +809,14 @@ Completed box being shipped out [1]
 ....\vbox(7.2927+0.0)x418.25555, direction TLT
 .....\hbox(7.2927+0.0)x418.25555, glue set 206.39027fil, direction TLT
 ......\glue 0.0 plus 1.0fil
-......\pdfliteral page <lua data reference 803>
-......\pdfliteral page <lua data reference 804>
+......\pdfliteral page <lua data reference 805>
+......\pdfliteral page <lua data reference 806>
 ......\TU/lmr/m/n/10.95 1
 ......\glue 0.0 plus 1.0fil
 ...\glue 0.0 plus 1.0fil minus 1.0fil
-.\pdfliteral page <lua data reference 805>
+.\kern0.0
+.\pdfliteral page <lua data reference 807>
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 Package atveryend Info: Executing hook `AfterLastShipout' on input line ....
 (test-showattributes.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line ....

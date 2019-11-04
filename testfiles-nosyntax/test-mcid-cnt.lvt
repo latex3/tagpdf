@@ -21,7 +21,7 @@
 
 \begin{document}
 \START
-
+\tagstructbegin{tag=Document}
 \ExplSyntaxOn
 \msg_log:n { \c_sys_engine_str }
 \showoutput
@@ -39,6 +39,6 @@ xxx\\
 }
 
 \ExplSyntaxOff
-
+\tagstructend
 \end{document}
 

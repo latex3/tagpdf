@@ -5,6 +5,7 @@ Don't change this file in any respect.
 .................................................
 Completed box being shipped out [1]
 \vbox(655.63496+0.0)x435.61176
+.\hbox(0.0+0.0)x0.0
 .\glue -25.16531
 .\vbox(680.80028+0.0)x418.25555, shifted 17.3562
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil
@@ -29,7 +30,8 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 x
 ....\T1/cmr/m/n/10.95 t
 ....\pdfliteral page{EMC}
-....\pdfliteral page{/Artifact <</Type Pagination>> BDC}
+....\pdfliteral page{/Artifact /l3pdf1 BDC}
+....\write1{\zref@newlabel{l3pdf1}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ....\T1/cmr/m/n/10.95 s
 ....\T1/cmr/m/n/10.95 o
 ....\T1/cmr/m/n/10.95 m
@@ -41,7 +43,8 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 t
 ....\pdfliteral page{EMC}
 ....\write1{\zref@newlabel{mcid-1}{\tagabspage{\Z@C@tagabspage }\tagmcabs{1}\tagm\ETC.}
-....\pdfliteral page{/PX <</MCID 0 >> BDC}
+....\pdfliteral page{/PX /l3pdf2 BDC}
+....\write1{\zref@newlabel{l3pdf2}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ....\T1/cmr/m/n/10.95 s
 ....\T1/cmr/m/n/10.95 o
 ....\T1/cmr/m/n/10.95 m
@@ -53,7 +56,8 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 a
 ....\pdfliteral page{EMC}
 ....\write1{\zref@newlabel{mcid-2}{\tagabspage{\Z@C@tagabspage }\tagmcabs{2}\tagm\ETC.}
-....\pdfliteral page{/P <</MCID 1 >> BDC}
+....\pdfliteral page{/P /l3pdf3 BDC}
+....\write1{\zref@newlabel{l3pdf3}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ....\T1/cmr/m/n/10.95 s
 ....\T1/cmr/m/n/10.95 o
 ....\T1/cmr/m/n/10.95 m
@@ -80,9 +84,10 @@ Completed box being shipped out [1]
 ......\T1/cmr/m/n/10.95 1
 ......\glue 0.0 plus 1.0fil
 ...\glue 0.0 plus 1.0fil minus 1.0fil
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
+.\kern 0.0
 Completed box being shipped out [2]
 \vbox(655.63496+0.0)x435.61176
+.\hbox(0.0+0.0)x0.0
 .\glue -25.16531
 .\vbox(680.80028+0.0)x418.25555, shifted 17.3562
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil
@@ -92,7 +97,8 @@ Completed box being shipped out [2]
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 584.73781fil
 ...\write1{\zref@newlabel{mcid-3}{\tagabspage{\Z@C@tagabspage }\tagmcabs{3}\tagm\ETC.}
-...\pdfliteral page{/P <</MCID 0 >> BDC}
+...\pdfliteral page{/P /l3pdf4 BDC}
+...\write1{\zref@newlabel{l3pdf4}{\pdf@abspage{\Z@C@pdf@abspage }}}
 ...\glue(\topskip) 6.28659
 ...\hbox(4.71341+2.12863)x418.25555, glue set 358.91626fil
 ....\hbox(0.0+0.0)x10.88788
@@ -122,6 +128,8 @@ Completed box being shipped out [2]
 ......\T1/cmr/m/n/10.95 2
 ......\glue 0.0 plus 1.0fil
 ...\glue 0.0 plus 1.0fil minus 1.0fil
+.\kern 0.0
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 Package atveryend Info: Executing hook `AfterLastShipout' on input line ....
 (test-mc-low-bdc-emc.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line ....

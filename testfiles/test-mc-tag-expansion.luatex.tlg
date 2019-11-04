@@ -1,6 +1,5 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 tagpdf: THIS HAS NOT BEEN TAGGED
 tagpdf: INSERT EMC -1 MCOPEN = 0
 tagpdf: INSERT EMC -1 MCOPEN = 0
@@ -10,6 +9,10 @@ tagpdf: THIS HAS NOT BEEN TAGGED
 tagpdf: INSERT LAST EMC, MCOPEN = 0
 Completed box being shipped out [1]
 \vbox(655.63496+0.0)x435.61176, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\pdfliteral page <lua data reference 790>
+..\latelua0{l3kernel.__pdf.backend_PageN_gpush(tex.count["g__pdf_abspage_int"])
+}
 .\glue -25.16531
 .\vbox(680.80028+0.0)x418.25555, shifted 17.3562, direction TLT
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil, direction TLT
@@ -18,7 +21,6 @@ Completed box being shipped out [1]
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 584.7378fil, direction TLT
-...\pdfliteral page <lua data reference 790>
 ...\write-{}
 ...\write1{\babel@aux{english}{}}
 ...\glue(\topskip) 3.1598
@@ -70,7 +72,9 @@ Completed box being shipped out [1]
 ......\TU/lmr/m/n/10.95 1
 ......\glue 0.0 plus 1.0fil
 ...\glue 0.0 plus 1.0fil minus 1.0fil
+.\kern0.0
 .\pdfliteral page <lua data reference 801>
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line ....
 Package atveryend Info: Executing hook `AfterLastShipout' on input line ....
 (test-mc-tag-expansion.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line ....

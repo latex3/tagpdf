@@ -29,7 +29,7 @@
 %<*package>
 %\RequirePackage{expl3}[2019/07/01]
 \RequirePackage{pdfresources} %!!experimental/temporary
-\ProvidesExplPackage {tagpdf} {2019/10/15} {0.70}
+\ProvidesExplPackage {tagpdf} {2019/11/04} {0.70}
   { A package to experiment with pdf tagging }
 %\debug_on:n{check-declarations,check-expressions,deprecation}
 
@@ -42,7 +42,7 @@
 % storing internal names to my name space:
 \cs_set_eq:NN \@@_tex_pdffeedback:D         \tex_pdffeedback:D
 \cs_set_eq:NN \@@_tex_pdfextension:D        \tex_pdfextension:D
-\cs_set_eq:NN \@@_tex_immediate:D           \tex_immediate:D
+%\cs_set_eq:NN \@@_tex_immediate:D           \tex_immediate:D
 \cs_set_eq:NN \@@_tex_pdfvariable:D         \tex_pdfvariable:D
 \cs_set_eq:NN \@@_tex_global:D              \tex_global:D
 \cs_set_eq:NN \@@_tex_the:D                 \tex_the:D
@@ -51,8 +51,8 @@
 %\cs_set_eq:NN \@@_tex_pdflastobj:D          \tex_pdflastobj:D
 %\cs_set_eq:NN \@@_tex_pdfobj:D              \tex_pdfobj:D
 \cs_set_eq:NN \@@_tex_pdfpageattr:D         \tex_pdfpageattr:D
-\cs_set_eq:NN \@@_tex_pdfpagesattr:D        \tex_pdfpagesattr:D
-\cs_set_eq:NN \@@_tex_pdfpageref:D          \tex_pdfpageref:D
+%\cs_set_eq:NN \@@_tex_pdfpagesattr:D        \tex_pdfpagesattr:D
+%\cs_set_eq:NN \@@_tex_pdfpageref:D          \tex_pdfpageref:D
 %\cs_set_eq:NN \@@_tex_pdfcompresslevel:D    \tex_pdfcompresslevel:D
 %\cs_set_eq:NN \@@_tex_pdfobjcompresslevel:D \tex_pdfobjcompresslevel:D
 
@@ -107,10 +107,14 @@
     tagunmarked     .bool_gset:N = \g_@@_tagunmarked_bool,
     tagunmarked     .initial:n  = true,
     tabsorder       .choice:,
-    tabsorder / row       .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/R}},
-    tabsorder / column    .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/C}},
-    tabsorder / structure .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/S}},
-    tabsorder / none      .code:n = {\tl_set:Nn \l_@@_tree_tabs_order_tl {}},
+    tabsorder / row       .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/R}},
+      \pdf_pageattr_gput:nn {Tabs}{/R},
+    tabsorder / column    .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/C}},
+      \pdf_pageattr_gput:nn {Tabs}{/C},
+    tabsorder / structure .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/S}},
+      \pdf_pageattr_gput:nn {Tabs}{/S},
+    tabsorder / none      .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {}},
+      \pdf_pageattr_gremove:n {Tabs},
     tabsorder       .initial:n = structure,
     uncompress      .code:n = {\pdf_uncompress:  },
     inputencoding   .code:n =
@@ -233,7 +237,7 @@
 %
 %    \begin{macrocode}
 %<*user>
-\ProvidesExplPackage {tagpdf-user} {2019/10/15} {0.70}
+\ProvidesExplPackage {tagpdf-user} {2019/11/04} {0.70}
   {tagpdf - user commands}
 
 \NewDocumentCommand \tagpdfsetup { m }

@@ -27,7 +27,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*tree>
-\ProvidesExplPackage {tagpdf-tree-code} {2019/10/15} {0.70}
+\ProvidesExplPackage {tagpdf-tree-code} {2019/11/04} {0.70}
  {part of tagpdf - code related to writing trees and dictionaries to the pdf}
 
 %this does the actual finishing:
@@ -272,19 +272,33 @@
 %deprecated
 \cs_set_eq:NN \uftag_finish_structure: \tag_finish_structure:
 
-%StructParents + tabs order. Tabs order should be probably be changeable by page.
-%!! need to check how to do with pdfresources
+%StructParents !!! we need a better hook for \g__pdf_BACKEND_thispage_shipout_tl!!
+% No actually
+\AtBeginDocument
+  {
+    \bool_if:NT\g_@@_active_tree_bool
+      {
+       \tl_gput_left:Nn \g__pdf_BACKEND_thispage_shipout_tl
+         {
+           \exp_args:Nnx
+             \pdf_pageattr_gput:nn
+               {StructParents}
+               {\int_eval:n { \g_@@_abspage_int }}
+         }
+      }
+  }
 \cs_new_protected:Nn \@@_tree_write_pageattr:
   {
-    \@@_get_pdfpageattr:N \l_tmpa_tl
-    \regex_replace_once:nnN {/StructParents\s*\d+} {}\l_tmpa_tl
-    \regex_replace_once:nnN {/Tabs\s*/[SCR]} {}\l_tmpa_tl
-    \@@_gset_pdfpageattr:x
-      {
-        \l_tmpa_tl / StructParents \c_space_tl
-        \int_eval:n { \g_@@_abspage_int }
-        \l_@@_tree_tabs_order_tl
-      }
+%    \@@_get_pdfpageattr:N \l_tmpa_tl
+%    \regex_replace_once:nnN {/StructParents\s*\d+} {}\l_tmpa_tl
+%    \regex_replace_once:nnN {/Tabs\s*/[SCR]} {}\l_tmpa_tl
+   % \pdf_thispageattr_gput:nn {XXXX}{\int_eval:n { \g_@@_abspage_int }}
+  %  \@@_gset_pdfpageattr:x
+%      {
+%        \l_tmpa_tl / StructParents \c_space_tl
+%        \int_eval:n { \g_@@_abspage_int }
+%        \l_@@_tree_tabs_order_tl
+%      }
   }
 
 %</tree>
