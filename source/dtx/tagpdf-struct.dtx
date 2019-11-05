@@ -35,7 +35,9 @@
 
 \newcounter  { g_@@_struct_abs_int }
 \int_gzero:N \c@g_@@_struct_abs_int
-
+%associated file name counter,which allows to have file names,such as formula0.tex,formula1.tex etc for structure and mc.
+\newcounter  { g_@@_associated_file_id_abs_int }
+\int_gzero:N \c@g_@@_associated_file_id_abs_int
 
 \zref@newprop {tagstruct} [0] { \int_use:N \c@g_@@_struct_abs_int }
 \zref@newlist {@@zrlstruct}
@@ -289,21 +291,24 @@
     \tl_clear:N \l_@@_struct_dict_content_tl
 %code for associated files
        \prop_if_in:cnT
-     { g__tag_struct_#1_prop }{AF}{
-%why stream not require args expanding?
-\pdf_object_new:nn {l_@@_associated_file_stream_\int_eval:n {#1}_obj}{stream}
-\pdf_object_write:nx {l_@@_associated_file_stream_\int_eval:n {#1}_obj}
-  {{/Type\c_space_tl /EmbeddedFile\c_space_tl /Subtype\c_space_tl /\prop_item:cn{g__tag_struct_#1_prop}{Subtype}}{\prop_item:cn{g__tag_struct_#1_prop}{AF}}}
+     { g_@@_struct_#1_prop }{AF}{
 \exp_args:Ne
-\pdf_object_new:nn {l_@@_associated_files_dict_\int_eval:n {#1}_obj}{dict}
+\pdf_object_new:nn {l_@@_associated_file_stream_\int_eval:n{\c@g_@@_associated_file_id_abs_int}_obj}{stream}
+\exp_args:Ne
+\pdf_object_write:nx {l_@@_associated_file_stream_\int_eval:n {\c@g_@@_associated_file_id_abs_int}_obj}
+  {{/Type\c_space_tl /EmbeddedFile\c_space_tl /Subtype\c_space_tl /\prop_item:cn{g_@@_struct_#1_prop}{Subtype}}{\prop_item:cn{g_@@_struct_#1_prop}{AF}}}
+\exp_args:Ne
+\pdf_object_new:nn {l_@@_associated_files_dict_\int_eval:n {\c@g_@@_associated_file_id_abs_int}_obj}{dict}
 %it would be better,if each associated file have unique name,so for this we use argument #1
   \exp_args:Nx
-  \pdf_object_write:nx {l_@@_associated_files_dict_\int_eval:n {#1}_obj}
-  {/Type\c_space_tl /Filespec\c_space_tl /F\c_space_tl (Formula#1.tex)\c_space_tl /UF \c_space_tl(Formula#1.tex)\c_space_tl /AFRelationshipationship\c_space_tl /\prop_item:cn{ g__tag_struct_#1_prop }{AFRelationship}\c_space_tl /EF\c_space_tl <</F\c_space_tl \pdf_object_ref:n{l_@@_associated_file_stream_\int_eval:n {#1}_obj}>>}
-\__tag_prop_gput:cnx{g__tag_struct_#1_prop }{AF}{\exp_args:Ne\pdf_object_ref:n {l_@@_associated_files_dict_\int_eval:n {#1}_obj}}
+  \pdf_object_write:nx {l_@@_associated_files_dict_\int_eval:n {\c@g_@@_associated_file_id_abs_int}_obj}
+  {/Type\c_space_tl /Filespec\c_space_tl /F\c_space_tl (Formula\int_eval:n{\c@g_@@_associated_file_id_abs_int}.tex)\c_space_tl /UF \c_space_tl(Formula\int_eval:n{\c@g_@@_associated_file_id_abs_int}.tex)\c_space_tl /AFRelationship\c_space_tl /\prop_item:cn{ g_@@_struct_#1_prop }{AFRelationship}\c_space_tl /EF\c_space_tl <</F\c_space_tl \exp_args:Ne\pdf_object_ref:n{l_@@_associated_file_stream_\int_eval:n {\c@g_@@_associated_file_id_abs_int}_obj}>>}
+\@@_prop_gput:cnx{g_@@_struct_#1_prop }{AF}{\exp_args:Ne\pdf_object_ref:n {l_@@_associated_files_dict_\int_eval:n {\c@g_@@_associated_file_id_abs_int}_obj}}
     %remove Subtype and AFRelationship,because we not need in this entries anymore
-    \prop_remove:cn{g__tag_struct_#1_prop }{Subtype}
-    \prop_remove:cn{g__tag_struct_#1_prop }{AFRelationship}}
+    \prop_remove:cn{g_@@_struct_#1_prop }{Subtype}
+    \prop_remove:cn{g_@@_struct_#1_prop }{AFRelationship}
+\int_gincr:N \c@g_@@_associated_file_id_abs_int
+}
     \seq_map_inline:cn
       {
         c_@@_struct_\prop_item:cn{ g_@@_struct_#1_prop }{entries}_entries_seq
@@ -438,22 +443,21 @@
       },
   af .code:n  =
    {
-    \__tag_prop_gput:cnx
-     { g__tag_struct_\int_eval:n {\c@g__tag_struct_abs_int}_prop }
+            \@@_prop_gput:cnx
+          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
      { AF }
      {#1}
    },
       afmime.code:n        =
-   {
-    \__tag_prop_gput:cnx
-     { g__tag_struct_\int_eval:n {\c@g__tag_struct_abs_int}_prop }
+   {        \@@_prop_gput:cnx
+          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
      {Subtype}
      {#1}
    },
         afrel .code:n        =
    {
-    \__tag_prop_gput:cnx
-     { g__tag_struct_\int_eval:n {\c@g__tag_struct_abs_int}_prop }
+        \@@_prop_gput:cnx
+          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
      {AFRelationship}
      {#1}
    },

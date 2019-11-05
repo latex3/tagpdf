@@ -40,14 +40,14 @@ New formula
 $(a+b)*(a-b)=a^2-b^2$
 \tagmcend
 \tagstructend
-\tagstructbegin{tag=Formula,af={1/x=2},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
+\tagstructbegin{tag=Formula,af={$$1/x=2$$},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
 \tagmcbegin{tag=Formula}
-\[1/x=2\]
+$$1/x=2$$
 \tagmcend
 \tagstructend
-\tagstructbegin{tag=Formula,af={\detokenize{\frac{a}{b}=a*b}},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
+\tagstructbegin{tag=Formula,af={\expandafter\detokenize{\(\frac{a}{b}=a*b\)}},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
 \tagmcbegin{tag=Formula}
-$\frac{a}{b}=a*b$
+\(\frac{a}{b}=a*b\)
 \tagmcend
 \tagstructend
 \tagstructbegin{tag=Formula,af={\detokenize{\begin{equation}a/x=1\\a^2+x^2=0\end{equation}}},afmime={\pdf@escapename{application/x-tex}},afrel=Source}
@@ -57,7 +57,7 @@ a/x=1\\a^2+b^2=0
 \end{equation}
 \tagmcend
 \tagstructend
-\tagstructbegin{tag=Formula,af={\detokenize{\begin{multline}x+y=2*x*y&\\&=x^2+y^2=\frac{x}{y}&=&\\a+b&\\&=0\end{multline}}},afmime={\pdf@escapename{application/x-tex}},afrel=Source,alttext={test#1}}
+\tagstructbegin{tag=Formula,af={\detokenize{\begin{multline}x+y=2*x*y\\=x^2+y^2=\\\frac{x}{y}=\\a+b\\=0\end{multline}}},afmime={\pdf@escapename{application/x-tex}},afrel=Source,alttext={test#1}}
 \tagmcbegin{tag=Formula}
 \begin{multline}
 x+y=2*x*y\\
