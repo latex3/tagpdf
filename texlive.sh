@@ -19,6 +19,7 @@ if ! command -v texlua > /dev/null; then
   cd ..
 fi
 
+tlmgr update --self
 # Needed for any use of texlua even if not testing LuaTeX
 # kernel
 tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experimental l3backend
@@ -26,7 +27,7 @@ tlmgr install l3kernel l3packages l3build latex latex-bin ctablestack  l3experim
 tlmgr install collection-langgerman
 
 # luatex
-tlmgr install luacode luatex luatexbase luaotfload ifluatex
+tlmgr install luacode luatex luatexbase luaotfload iftex
 
 # language
 tlmgr install babel babel-english babel-german hyph-utf8
