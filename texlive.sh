@@ -34,14 +34,15 @@ tlmgr install luacode luatex luatexbase luaotfload iftex
 tlmgr install babel babel-english babel-german hyph-utf8
 
 # class / content
-tlmgr install koma-script fancyhdr enumitem lipsum
+tlmgr install koma-script fancyhdr enumitem lipsum biblatex tcolorbox pgf tabularx marginnote
+tlmgr install enumitem listings
 
 # other tools
 
-tlmgr install oberdiek etoolbox unicode-data  xpatch  amsmath
+tlmgr install oberdiek etoolbox unicode-data  xpatch  amsmath filehook
 
 # fonts
-tlmgr install fontspec  microtype amsfonts gnu-free­font ec cm-super
+tlmgr install fontspec  microtype amsfonts gnu-free­font ec cm-super heuristica
 
 # graphics
 tlmgr install  graphics graphics-def     duckuments
