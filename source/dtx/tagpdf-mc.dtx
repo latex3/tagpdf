@@ -27,7 +27,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*shared>
-\ProvidesExplPackage {tagpdf-mc-code-shared} {2019/11/04} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2019/11/18} {0.70}
   {part of tagpdf - code related to marking chunks -
    code shared by generic and luamode }
 % I use a latex counter for the absolute count, so that it is added to
@@ -66,7 +66,9 @@
   {
     stash                  .bool_set:N    = \l_@@_mc_key_stash_bool,
     artifact-bool          .bool_set:N    = \l_@@_mc_artifact_bool,
+    artifact-bool          .groups:n = { init },
     artifact-type          .choice:,
+    artifact-type          .groups:n = { init },
     artifact-type / pagination .code:n    =
       {
         \tl_set:Nn \l_@@_mc_artifact_type_tl { Pagination }
@@ -88,11 +90,21 @@
         \tl_set:Nn \l_@@_mc_artifact_type_tl {}
       },
   }
+
+\prg_new_conditional:Nnn \@@_mc_if_in_artifact: {p,T,F,TF}
+  {
+    \bool_if:NTF \l_@@_mc_artifact_bool
+      { \prg_return_true:  }
+      { \prg_return_false: }
+  }
+
+\prg_new_eq_conditional:NNn \tag_mc_if_in_artifact: \@@_mc_if_in_artifact: {p,T,F,TF}
+
 %</shared>
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*generic>
-\ProvidesExplPackage {tagpdf-mc-code-generic} {2019/11/04} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-generic} {2019/11/18} {0.70}
  {part of tagpdf - code related to marking chunks - generic mode}
 
 % for the label system
@@ -249,6 +261,7 @@
         \tl_set:Nx   \l_@@_mc_key_tag_tl { #1 }
         \tl_gset:Nx  \g_@@_mc_key_tag_tl { #1 }
       },
+    tag .groups:n = { init },
     raw  .code:n =
       {
         \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
@@ -301,6 +314,7 @@
             { @@ / mc }
             { artifact-bool, artifact-type=#1 }
       },
+    artifact .groups:n = { init },
     artifact .default:n    = {notype}
   }
 
@@ -331,7 +345,16 @@
 
 \cs_new_protected:Nn \tag_mc_begin:n
   {
-    \group_begin:
+    \keys_set_groups:nnn
+      { @@ / mc }
+      { init }
+      {
+        artifact-bool=false,
+        artifact-type=notype,
+        tag=,
+        #1
+      }
+    \group_begin: %hm
     \@@_check_mc_if_nested:
     \bool_gset_true:N \g_@@_in_mc_bool
     \keys_set:nn { @@ / mc } {#1}
@@ -364,6 +387,7 @@
     \@@_check_mc_if_open:
     \bool_gset_false:N \g_@@_in_mc_bool
     \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
+    \bool_set_false:N \l_@@_mc_artifact_bool
     \@@_mc_emc:
   }
 
@@ -404,7 +428,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*luamode>
-\ProvidesExplPackage {tagpdf-mc-code-lua} {2019/11/04} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-lua} {2019/11/18} {0.70}
   {tagpdf - mc code only for the luamode }
 
 % the two attibutes are defined in the driver file.
@@ -475,6 +499,7 @@
             l3kernel.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","#1")
           }
       },
+    tag .groups:n = { init },
     raw .code:n =
       {
         \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
