@@ -263,11 +263,19 @@
     \@@_mc_if_in:TF { #1 } { #2 }
   }
 
-\NewDocumentCommand \tagmcifinartifactTF { m m }
+\NewDocumentCommand \tagmcifinartifactgroupTF { m m }
   {
-    \__tag_mc_if_in_artifact:TF { #1 } { #2 }
+    \__tag_mc_if_in_artifact_group:TF { #1 } { #2 }
   }
-  
+
+\NewDocumentEnvironment{tagmcartifact}{m}
+ {
+  \tag_mc_artifact_group_begin:n { #1}\ignorespaces
+ }
+ {
+  \tag_mc_artifact_group_end:
+ }
+ 
 \NewDocumentCommand \tagmcbegin { m }
   {
     \tag_mc_begin:n {#1}\ignorespaces
