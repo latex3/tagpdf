@@ -92,29 +92,30 @@
         \tl_set:Nn \l_@@_mc_artifact_type_tl {}
       },
   }
+%    \end{macrocode}
+%  \begin{function}[added = 2019-11-20]
+%   {
+%     \tag_mc_artifact_group_begin:n, \tag_mc_artifact_group_end:
+%   }
+%   \begin{syntax}
+%     \cs{tag_mc_artifact_group_begin:n} \Arg{name}
+%   \end{syntax}
+%   This command pair create a group with an artifact marker at the begin
+%   and the end. Inside the group the tagging commands are disabled.
+%   \end{function}
+%    \begin{macrocode}
 
-\bool_new:N \l_@@_mc_artifact_group_bool
-
-\prg_new_conditional:Nnn \@@_mc_if_in_artifact_group: {p,T,F,TF}
-  {
-    \bool_if:NTF \l_@@_mc_artifact_group_bool
-      { \prg_return_true:  }
-      { \prg_return_false: }
-  }
-
-\prg_new_eq_conditional:NNn \tag_mc_if_in_artifact_group: \@@_mc_if_in_artifact_group: {p,T,F,TF}
 
 \cs_new_protected:Npn \tag_mc_artifact_group_begin:n #1
  {
-  \group_begin:
-  \bool_set_true:N \l_@@_mc_artifact_group_bool
   \tag_mc_begin:n {artifact=#1}
+  \tag_stop_group_begin:
  }
 
 \cs_new_protected:Npn \tag_mc_artifact_group_end:
  {
+  \tag_stop_group_end:
   \tag_mc_end:
-  \group_end:
  }
 
 

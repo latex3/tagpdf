@@ -1,18 +1,12 @@
-%\input{regression-test}
+\input{regression-test}
 \documentclass[a4paper, 12pt]{article}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-mc,uncompress}
 
 
 \begin{document}\START \showoutput
-\tagmcifinartifactgroupTF{yes}{no}
 
-\begin{tagmcartifact}{} in artifact: \tagmcifinartifactgroupTF{yes}{no}\end{tagmcartifact}
+xxx\begin{tagmcartifact}{} in artifact: \tagmcbegin{tag=P}xxx \tagmcend artifact \end{tagmcartifact}xxx
 
-\tagmcifinartifactgroupTF{yes}{no}
-
-\tagmcbegin{tag=P,alttext=AA} in P \tagmcifinartifactgroupTF{yes}{no}\tagmcend
-
-\tagmcbegin{artifact=pagination} in artifact \tagmcifinartifactgroupTF{yes}{no} \tagmcend
-
-\end{document}
+\tagmcbegin{tag=P,alttext=AA} in P\tagmcend
+\end{document} 

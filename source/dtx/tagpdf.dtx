@@ -249,6 +249,45 @@
 \cs_set_eq:NN\tagpdfifluatexT  \sys_if_engine_luatex:T
 \cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
 
+%%% stop tagging
+\bool_new:N \l_@@_stop_bool
+
+\prg_new_conditional:Nnn \@@_if_stop: {p,T,F,TF}
+  {
+    \bool_if:NTF \l_@@_stop_bool
+      { \prg_return_true:  }
+      { \prg_return_false: }
+  }
+
+\prg_new_eq_conditional:NNn \tag_if_stop: \@@_if_stop: {p,T,F,TF}
+
+\cs_new_protected:Npn \@@_stop:
+  {
+    \bool_set_true:N \l_@@_stop_bool
+    \cs_set_eq:NN \tag_mc_begin:n     \use_none:n
+    \cs_set_eq:NN \tag_mc_end:        \prg_do_nothing:
+    \cs_set_eq:NN \tag_mc_use:n       \use_none:n
+    \cs_set_eq:NN \tag_struct_begin:n \use_none:n
+    \cs_set_eq:NN \tag_struct_end:    \prg_do_nothing:
+    \cs_set_eq:NN \tag_struct_use:n   \use_none:n
+    %deprecated
+    \cs_set_eq:NN \uftag_mc_begin:n \tag_mc_begin:n
+    \cs_set_eq:NN \uftag_mc_end:    \tag_mc_end:
+    \cs_set_eq:NN \uftag_mc_use:n \tag_mc_use:n
+    \cs_set_eq:NN \uftag_struct_begin:n \tag_struct_begin:n
+    \cs_set_eq:NN \uftag_struct_end: \tag_struct_end:
+    \cs_set_eq:NN  \uftag_struct_use:n \tag_struct_use:n
+  }
+
+\cs_new_protected:Npn \tag_stop_group_begin:
+  {
+    \group_begin:
+    \@@_stop:
+  }
+
+\cs_set_eq:NN \tag_stop_group_end: \group_end:
+
+
 %%% a generic command to retrieve data
 
 \cs_new:Npn \tagpdfget #1   { \use:c {@@_get_data_#1: } }
@@ -263,10 +302,6 @@
     \@@_mc_if_in:TF { #1 } { #2 }
   }
 
-\NewDocumentCommand \tagmcifinartifactgroupTF { m m }
-  {
-    \__tag_mc_if_in_artifact_group:TF { #1 } { #2 }
-  }
 
 \NewDocumentEnvironment{tagmcartifact}{m}
  {
@@ -275,7 +310,7 @@
  {
   \tag_mc_artifact_group_end:
  }
- 
+
 \NewDocumentCommand \tagmcbegin { m }
   {
     \tag_mc_begin:n {#1}\ignorespaces
