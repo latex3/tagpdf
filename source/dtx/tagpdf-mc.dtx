@@ -482,8 +482,8 @@
 \prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
   {
     \int_compare:nNnTF { -2147483647 }={ \l_@@_mc_type_attr }
-      { \prg_return_true:  }
-      { \prg_return_false: }
+      { \prg_return_false:  }
+      { \prg_return_true: }
   }
 
 \prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
