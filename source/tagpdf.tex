@@ -638,6 +638,8 @@ Such markers should not be nested. The command will warn you if this happens.
 
 \TagP^These commands give back some variables. Currently the only working key word is \verb+mc\_tag+.\TagPend.
 
+
+
 \subsubsection{Tips}
 
 \begin{itemize}
@@ -1011,6 +1013,26 @@ The name should be a sensible key name, the content a dictionary.
 
 \TagP^One could ask if in lua mode the code couldn't try to mark up unmarked parts e.g. as P-type chunks, like it marks them up as artifacts currently. Sadly this is not so easy, as it is quite difficult to reliably identify the structure and the place in the kids array where such chunks belongs too. I also don't think that it is really needed. It is not so difficult to define user macros which e.g. opens a structure and start an mc-chunk or which close an open mc-chunk before issuing the next \verb+\tagmcbegin+.
 \TagPend
+
+
+\subsection{Adding tagging to commands}
+
+\TagP^As mentioned above the mc-markers should not be nested. Basically you write:\TagPend
+
+\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+\begin{lstlisting}
+\tagmcbegin{..}some text ...\tagmcend 
+<optional structure commands> 
+\tagmcbegin{..}some other text\tagmcend
+\end{lstlisting}
+\tagmcend\tagstructend
+
+\TagP^This is quite workable as long as you mark everything manually. But how to write commands, e.g for a tabular or a graphic, that do tagging automatically without breaking the flow and the structure?\TagPend
+
+
+
+
+  
 
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
