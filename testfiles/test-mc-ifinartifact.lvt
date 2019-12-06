@@ -1,0 +1,12 @@
+\input{regression-test}
+\documentclass[a4paper, 12pt]{article}
+\usepackage{tagpdf}
+\tagpdfsetup{activate-mc,uncompress}
+
+
+\begin{document}\START \showoutput
+
+xxx\begin{tagmcartifact}{} in artifact: \tagmcbegin{tag=P}xxx \tagmcend artifact \end{tagmcartifact}xxx
+
+\tagmcbegin{tag=P,alttext=AA} in P\tagmcend
+\end{document} 

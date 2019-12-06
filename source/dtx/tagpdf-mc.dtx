@@ -27,7 +27,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*shared>
-\ProvidesExplPackage {tagpdf-mc-code-shared} {2019/11/04} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2019/11/18} {0.70}
   {part of tagpdf - code related to marking chunks -
    code shared by generic and luamode }
 % I use a latex counter for the absolute count, so that it is added to
@@ -87,12 +87,43 @@
       {
         \tl_set:Nn \l_@@_mc_artifact_type_tl {}
       },
+     artifact-type /      .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl {}
+      },
   }
+%    \end{macrocode}
+%  \begin{function}[added = 2019-11-20]
+%   {
+%     \tag_mc_artifact_group_begin:n, \tag_mc_artifact_group_end:
+%   }
+%   \begin{syntax}
+%     \cs{tag_mc_artifact_group_begin:n} \Arg{name}
+%   \end{syntax}
+%   This command pair create a group with an artifact marker at the begin
+%   and the end. Inside the group the tagging commands are disabled.
+%   \end{function}
+%    \begin{macrocode}
+
+
+\cs_new_protected:Npn \tag_mc_artifact_group_begin:n #1
+ {
+  \tag_mc_begin:n {artifact=#1}
+  \tag_stop_group_begin:
+ }
+
+\cs_new_protected:Npn \tag_mc_artifact_group_end:
+ {
+  \tag_stop_group_end:
+  \tag_mc_end:
+ }
+
+
 %</shared>
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*generic>
-\ProvidesExplPackage {tagpdf-mc-code-generic} {2019/11/04} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-generic} {2019/11/18} {0.70}
  {part of tagpdf - code related to marking chunks - generic mode}
 
 % for the label system
@@ -331,7 +362,7 @@
 
 \cs_new_protected:Nn \tag_mc_begin:n
   {
-    \group_begin:
+    \group_begin: %hm
     \@@_check_mc_if_nested:
     \bool_gset_true:N \g_@@_in_mc_bool
     \keys_set:nn { @@ / mc } {#1}
@@ -404,7 +435,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*luamode>
-\ProvidesExplPackage {tagpdf-mc-code-lua} {2019/11/04} {0.70}
+\ProvidesExplPackage {tagpdf-mc-code-lua} {2019/11/18} {0.70}
   {tagpdf - mc code only for the luamode }
 
 % the two attibutes are defined in the driver file.
@@ -451,8 +482,8 @@
 \prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
   {
     \int_compare:nNnTF { -2147483647 }={ \l_@@_mc_type_attr }
-      { \prg_return_true:  }
-      { \prg_return_false: }
+      { \prg_return_false:  }
+      { \prg_return_true: }
   }
 
 \prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
@@ -679,6 +710,7 @@
     %\group_begin:
     %\@@_check_mc_if_nested:
     %\bool_gset_true:N \g_@@_in_mc_bool
+    \bool_set_false:N\l_@@_mc_artifact_bool
     \int_gincr:N \c@g_@@_MCID_abs_int
     \tl_clear:N \l_@@_mc_key_properties_tl
     \keys_set:nn { @@ / mc }{ label={}, #1 }
@@ -698,7 +730,7 @@
             \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
           }
       }
-    \bool_set_false:N\l_@@_mc_artifact_bool
+    %\bool_set_false:N\l_@@_mc_artifact_bool
     %\group_end:
   }
 
@@ -709,6 +741,7 @@
   {
     %\@@_check_mc_if_open:
     %\bool_gset_false:N \g_@@_in_mc_bool
+    \bool_set_false:N\l_@@_mc_artifact_bool
     \@@_mc_lua_unset_mc_type_attr:
     \tl_set:Nn  \l_@@_mc_key_tag_tl { }
   }

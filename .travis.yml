@@ -19,3 +19,29 @@ cache:
 
 script: 
  - l3build check -H || ( cat build/*/`ls -t  build/*/*.log | head -n1 | xargs basename | cut -f 1 -d . `.log && false )
+ 
+ - l3build install && l3build ctan -H --show-log-on-error
+
+deploy:
+  - provider: releases
+    api_key:
+      secure: "YpHdoHXs8QjhZhD6kyQKRI0UG7mUD/w91Bsvz+e+72Ss4YH8aZIV27PIA5wPjT8WfGvhnfZx3LufhrZxV1lxLpRzUZOqk0ThUbK+yMXSwfMrL5jwdKReHUQTlWUECdc5OkArI2AfB/RJ1UATYJ7akB6aHT1cMtkjMWdl394MyprSd4jecZMoe9zlOyzLztMgSIl7v1aecGkX3gG/zzRxBVqM3bpn6zRpMQQwOppU0reH66UmqybywhY0SA5LNIdjsgwhBEfPadO78r1zq/zF5DFm8KkJUahmSP4lM3p9kn66lkrPUEmDsOMInSZUZ4DkwQwAi+VC9h/E4aTGROl0IwheqhS8fbX3PuzkKrTsoqBBm/TaT7EaPrOyeJKhLvkEnatnNLwJbk5VeU09D86s05MGfidqmmXsXtDXJqbEqEdnCuKbYbeDBmNjbe590yQNzIe68nhdPaKuq9oJfdVmFPcDdQc8kii0eT93ipqDJEfY5b4/i0eZc9M3k99gnDmpaYKyO4kljE0C1TtzFOw5jssdhqkLtv8NYB7mATeBygYXch/Aw7wwaacNd+fPnjbJJv1iNecKIldlQcKZ/MDest/Oc40zkHXGdtwgAjd1yGJJZILZpcczoZQ1GF9YkelMN5B1FzibkuJCkOm2fZZqnHUZmR3tzBX/mkv1PNTXPl0="
+    file_glob: true
+    file:
+      - build/distrib/ctan/*.zip
+    skip_cleanup: true
+    on:
+      tags: true
+      condition: $TRAVIS_TAG == *-dev
+    prerelease: true
+  - provider: releases
+    api_key:
+      secure: "YpHdoHXs8QjhZhD6kyQKRI0UG7mUD/w91Bsvz+e+72Ss4YH8aZIV27PIA5wPjT8WfGvhnfZx3LufhrZxV1lxLpRzUZOqk0ThUbK+yMXSwfMrL5jwdKReHUQTlWUECdc5OkArI2AfB/RJ1UATYJ7akB6aHT1cMtkjMWdl394MyprSd4jecZMoe9zlOyzLztMgSIl7v1aecGkX3gG/zzRxBVqM3bpn6zRpMQQwOppU0reH66UmqybywhY0SA5LNIdjsgwhBEfPadO78r1zq/zF5DFm8KkJUahmSP4lM3p9kn66lkrPUEmDsOMInSZUZ4DkwQwAi+VC9h/E4aTGROl0IwheqhS8fbX3PuzkKrTsoqBBm/TaT7EaPrOyeJKhLvkEnatnNLwJbk5VeU09D86s05MGfidqmmXsXtDXJqbEqEdnCuKbYbeDBmNjbe590yQNzIe68nhdPaKuq9oJfdVmFPcDdQc8kii0eT93ipqDJEfY5b4/i0eZc9M3k99gnDmpaYKyO4kljE0C1TtzFOw5jssdhqkLtv8NYB7mATeBygYXch/Aw7wwaacNd+fPnjbJJv1iNecKIldlQcKZ/MDest/Oc40zkHXGdtwgAjd1yGJJZILZpcczoZQ1GF9YkelMN5B1FzibkuJCkOm2fZZqnHUZmR3tzBX/mkv1PNTXPl0="
+    file_glob: true
+    file:
+      - build/distrib/ctan/*.zip
+    skip_cleanup: true
+    on:
+      tags: true
+      condition: $TRAVIS_TAG != *-dev
+    prerelease: false

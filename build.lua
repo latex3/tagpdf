@@ -1,6 +1,6 @@
 -- Build script for tagpdf
 packageversion="0.70"
-packagedate="2019-11-04"
+packagedate="2019-11-18"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -34,8 +34,8 @@ checkconfigs = {"build",
                 "config-pdftex",
                 "config-nosyntax", -- tests with invalid pdf as result
                 "config-luatex",
-                "config-luatex-dev",
-                "config-pdftex-dev",
+               -- "config-luatex-dev",
+               -- "config-pdftex-dev",
                 "config-dev"}
 checkruns = 3
 checksuppfiles = {"texmf.cnf","pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}

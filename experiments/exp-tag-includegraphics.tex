@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{tagpdf}
+
+\tagpdfsetup{
+             tabsorder=structure,
+             activate-all,
+             log=v,
+             uncompress}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+\cfoot{\leavevmode\begin{tagmcartifact}{pagination}\thepage~\mylogo\end{tagmcartifact}}
+
+\newcommand\mylogo
+  {%
+   %optional closing/saving. Needs some interface
+  \tagmcifinTF
+   {%
+     \edef\mylogorestorecode{\noexpand\tagmcbegin{tag=\tagpdfget{mc_tag}}}%
+     \tagmcend
+   }
+   {
+     \edef\mylogorestorecode{}%
+   }%
+   \tagstructbegin{tag=Figure,alttext=A logo}%
+   \tagmcbegin{tag=Figure}%
+    \includegraphics[width=3cm,page=10]{example-image-duck}%
+   \tagmcend\tagstructend
+   \mylogorestorecode
+   }
+
+\begin{document}
+\tagstructbegin{tag=Document}
+\mylogo
+
+ \tagstructbegin{tag=P}
+   \tagmcbegin{tag=P}
+    a paragraph\par x with a \mylogo logo in it
+   \tagmcend
+ \tagstructend
+\tagstructend   %Document
+
+\end{document}
