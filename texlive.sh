@@ -80,6 +80,7 @@ pdflscape \
 pdftexcmds \
 refcount \
 rerunfilecheck \
+epstopdf-pkg \
 stringenc \
 transparent \
 uniquecounter \
