@@ -235,19 +235,30 @@
          {
            % in this case we need a special command in
            %luamode to get the array right. See issue #13
-           \bool_if:NT\g_@@_mode_lua_bool
+           \bool_if:NTF\g_@@_mode_lua_bool
              {
                \@@_struct_exchange_kid_command:c
                  {g_@@_struct_kids_\prop_item:cn{ g_@@_struct_#1_prop }{num}_seq}
-             }
-           \@@_prop_gput:cnx { g_@@_struct_#1_prop } {K}
+\prop_if_in:cnTF{g_@@_struct_#1_prop}{mcid}{
+\directlua{if~l3kernel.@@.mc[\prop_item:cn{ g_@@_struct_#1_prop }{mcid}]["kids"]~then~tex.sprint(\int_use:N \c_code_cctab,"\luaescapestring{\@@_prop_gput:cnx { g_@@_struct_#1_prop } {K}{\seq_item:cn{g_@@_struct_kids_\prop_item:cn{g_@@_struct_#1_prop}{num}_seq}{1}}}")~end}
+}
+{\@@_prop_gput:cnx { g_@@_struct_#1_prop } {K}
              {
                \seq_item:cn
                  {
                    g_@@_struct_kids_\prop_item:cn{ g_@@_struct_#1_prop }{num}_seq
                  }
                  {1}
-             }
+             }}
+}
+{           \@@_prop_gput:cnx { g_@@_struct_#1_prop } {K}
+             {
+               \seq_item:cn
+                 {
+                   g_@@_struct_kids_\prop_item:cn{ g_@@_struct_#1_prop }{num}_seq
+                 }
+                 {1}
+             }}
          } %
       }
       { %many kids, use an array

@@ -420,7 +420,7 @@
 % and at shipout mc-cnt-> {mcid, mcid, ...} (in a table?)
 % and when building the trees connect both
 
-% key definitions are overwritten for luatex to store that data in tables
+% key definitions are overwritten for luatex to store that data itables
 % the data for the mc are in l3kernel.@@.mc[absnum]
 % the fields of the table are
 % tag : the type (a string)
@@ -665,6 +665,8 @@
       \g_@@_mc_parenttree_prop
       { #1 }
       { \g_@@_struct_stack_current_tl }
+  %this need for lua mode,when we have only one kid. See issue #25.
+  \prop_gput:cnx {g_@@_struct_\int_eval:n{\g_@@_struct_stack_current_tl}_prop}{mcid}{#1}
   }
 
 \cs_generate_variant:Nn \@@_mc_handle_stash:n { o }
