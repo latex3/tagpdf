@@ -1,0 +1,25 @@
+﻿%testing fixing of issue #25
+\documentclass{book}
+\usepackage{tagpdf}
+\pagestyle{empty}
+\tagpdfsetup{tabsorder=structure,uncompress,activate-all,interwordspace=true}
+
+\begin{document}
+\tagstructbegin{tag={Document}}
+\tagstructbegin{tag=H1}
+\tagmcbegin{tag=P}\tagmcend
+\tagstructend
+\tagstructbegin{tag=P}
+\tagmcbegin{tag=P}abc\tagmcend
+\tagstructend
+\tagstructbegin{tag=P}
+\tagstructend
+%what about attached structures?
+\tagstructbegin{tag=P}
+\tagstructbegin{tag=Span}
+\tagmcbegin{tag=Span}
+\tagmcend
+\tagstructend
+\tagstructend
+\tagstructend
+\end{document}
