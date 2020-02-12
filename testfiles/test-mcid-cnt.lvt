@@ -23,7 +23,7 @@
 \START
 
 \ExplSyntaxOn
-\msg_log:n { \c_sys_engine_str }
+\iow_log:x { \c_sys_engine_str }
 \showoutput
 \int_step_inline:nnnn {1 }{1}{80}
 {\__tag_mc_bdc_mcid:nn {P}{xxxxxxx}

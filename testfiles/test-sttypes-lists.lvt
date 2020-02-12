@@ -23,7 +23,7 @@
 \START
 
 \ExplSyntaxOn
-\msg_log:n { \c_sys_engine_str }
+\iow_log:x { \c_sys_engine_str }
 \__tag_seq_show:N \g__tag_role_tags_seq
 
 \__tag_prop_show:N \g__tag_role_tags_prop
