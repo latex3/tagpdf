@@ -1,6 +1,6 @@
 testfiledir  = "testfiles-luatex-dev"
-checkengines = {"luatex"}
-stdengine    = "luatex"
+checkengines = {"luahbtex"}
+stdengine    = "luahbtex"
 checkruns    = 3
 checkformat  ="latex-dev"
 checksearch=true

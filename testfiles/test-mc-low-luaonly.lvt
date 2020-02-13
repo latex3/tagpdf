@@ -25,7 +25,7 @@ some things untagged.
 \START
 \showoutput
 \ExplSyntaxOn
-%\msg_log:n { \c_sys_engine_str }
+%\iow_log:x { \c_sys_engine_str }
 
 \tag_mc_begin:n{artifact=pagination}%
 Artifact%

@@ -29,6 +29,10 @@ uploadconfig = {
   announcement_file="ctan.ann"              
 }
 
+specialformats = specialformats or {}
+specialformats["latex-dev"] = specialformats["latex-dev"] or {
+    luahbtex = {format = "lualatex-dev"}
+  }
 checkengines = {"pdftex", "luatex"}
 checkconfigs = {"build",
                 "config-pdftex",

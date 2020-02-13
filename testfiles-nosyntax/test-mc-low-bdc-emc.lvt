@@ -23,7 +23,7 @@
 \START
 \showoutput
 \ExplSyntaxOn
-\msg_log:n { \c_sys_engine_str }
+\iow_log:x { \c_sys_engine_str }
 
 \__tag_mc_bmc:n {Artifact}
 some~text

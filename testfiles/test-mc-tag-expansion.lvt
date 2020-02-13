@@ -24,7 +24,7 @@
 \START
 \showoutput
 \ExplSyntaxOn
-%\msg_log:n { \c_sys_engine_str }
+%\iow_log:x { \c_sys_engine_str }
 \tl_new:N\l_tag_test_artifact_type_tl
 \tl_set:Nn \l_tag_test_artifact_type_tl {pagination}
 
