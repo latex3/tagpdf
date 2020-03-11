@@ -221,7 +221,7 @@
 \hook_put:nnnn
  { pdf }
  { link_begin_url_attr }
- { /StructParent }
+ { StructParent }
  { \int_use:N\c@g__tag_parenttree_obj_int }
 
 \hook_put_right:nnn
@@ -243,7 +243,7 @@
 \hook_put:nnnn
  { pdf }
  { link_begin_link_attr }
- { /StructParent }
+ { StructParent }
  { \int_use:N\c@g__tag_parenttree_obj_int }
 \hook_put_right:nnn
  { pdf }
@@ -258,13 +258,13 @@
 \hook_put:nnnn
  { pdf }
  { link_begin_url_attr }
- { /Contents }
+ { Contents }
  { (url) }
 
 \hook_put:nnnn
  { pdf }
  { link_begin_link_attr }
- { /Contents }
+ { Contents }
  { (ref) }
  }
 \endinput
