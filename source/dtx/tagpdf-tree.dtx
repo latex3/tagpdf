@@ -287,19 +287,6 @@
          }
       }
   }
-\cs_new_protected:Nn \@@_tree_write_pageattr:
-  {
-%    \@@_get_pdfpageattr:N \l_tmpa_tl
-%    \regex_replace_once:nnN {/StructParents\s*\d+} {}\l_tmpa_tl
-%    \regex_replace_once:nnN {/Tabs\s*/[SCR]} {}\l_tmpa_tl
-   % \pdf_thispageattr_gput:nn {XXXX}{\int_eval:n { \g_@@_abspage_int }}
-  %  \@@_gset_pdfpageattr:x
-%      {
-%        \l_tmpa_tl / StructParents \c_space_tl
-%        \int_eval:n { \g_@@_abspage_int }
-%        \l_@@_tree_tabs_order_tl
-%      }
-  }
 
 %</tree>
 %    \end{macrocode}

@@ -158,11 +158,7 @@
 \AtBeginShipout
   {
     \@@_finish_page_hook:
-    \bool_if:NT\g_@@_active_tree_bool
-      {
-        \@@_tree_write_pageattr:
-      }
-   \int_gincr:N \g_@@_abspage_int
+    \int_gincr:N \g_@@_abspage_int
   }
 
 

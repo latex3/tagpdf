@@ -124,21 +124,21 @@
 
 % pdfpageattr for one page
 % do we need an immediate version??
-\cs_new:Nn \@@_gset_pdfpageattr:n
-  {
-    \@@_tex_global:D \@@_tex_pdfvariable:D~pageattr  { #1 }
-  }
-
-\cs_new:Nn \@@_gadd_pdfpageattr:n
-  {
-    \exp_args:No \@@_gset_pdfpageattr:n { \@@_tex_the:D \@@_tex_pdfvariable:D~pageattr #1}
-  }
-
-\cs_new:Nn \@@_get_pdfpageattr:N
-  {
-    \tl_set:No #1 { \@@_tex_the:D \@@_tex_pdfvariable:D~pageattr }
-  }
-
+%\cs_new:Nn \@@_gset_pdfpageattr:n
+%  {
+%    \@@_tex_global:D \@@_tex_pdfvariable:D~pageattr  { #1 }
+%  }
+%
+%\cs_new:Nn \@@_gadd_pdfpageattr:n
+%  {
+%    \exp_args:No \@@_gset_pdfpageattr:n { \@@_tex_the:D \@@_tex_pdfvariable:D~pageattr #1}
+%  }
+%
+%\cs_new:Nn \@@_get_pdfpageattr:N
+%  {
+%    \tl_set:No #1 { \@@_tex_the:D \@@_tex_pdfvariable:D~pageattr }
+%  }
+%
 
 % I probably want also lua tables
 % I put them in the l3kernel.@@.tables namespaces
@@ -303,21 +303,21 @@
 % I must avoid to overwrite other entries,
 % And I must avoid to add more and more /StructParens
 % do we need an immediate version??
-\cs_new:Nn \@@_gset_pdfpageattr:n
-  {
-    \@@_tex_global:D \@@_tex_pdfpageattr:D  { #1 }
-  }
-
-\cs_new:Nn \@@_gadd_pdfpageattr:n
-  {
-    \exp_args:No \@@_gset_pdfpageattr:n { \@@_tex_the:D \@@_tex_pdfpageattr:D #1}
-  }
-
-\cs_new:Nn \@@_get_pdfpageattr:N
-  {
-    \tl_set:No #1 { \@@_tex_the:D \@@_tex_pdfpageattr:D }
-  }
-
+%\cs_new:Nn \@@_gset_pdfpageattr:n
+%  {
+%    \@@_tex_global:D \@@_tex_pdfpageattr:D  { #1 }
+%  }
+%
+%\cs_new:Nn \@@_gadd_pdfpageattr:n
+%  {
+%    \exp_args:No \@@_gset_pdfpageattr:n { \@@_tex_the:D \@@_tex_pdfpageattr:D #1}
+%  }
+%
+%\cs_new:Nn \@@_get_pdfpageattr:N
+%  {
+%    \tl_set:No #1 { \@@_tex_the:D \@@_tex_pdfpageattr:D }
+%  }
+%
 
 % These commands are only aliases for pdflatex but are defined differently with luatex
 % to get also lua tables.
