@@ -85,9 +85,9 @@
 
 
 \renewcommand{\addtocentrydefault}[3]{%
- \ifstr{#3}{}{}
+ \Ifstr{#3}{}{}
    {%\
-   \ifstr{#2}{}
+   \Ifstr{#2}{}
     {%
      \addcontentsline{toc}{#1}
       {%
