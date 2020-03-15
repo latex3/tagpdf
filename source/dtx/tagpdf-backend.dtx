@@ -46,11 +46,6 @@
 %%%% driver (lualatex) commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% these should be in expl3!!!
-\cs_new:Nn \@@_pdf_startlink:{ \pdfextension startlink }
-\cs_new:Nn \@@_pdf_endlink:  { \pdfextension endlink }
-\cs_new_protected:Nn \@@_pdf_lastlink: { \numexpr\pdffeedback lastlink\relax }
-%\cs_new:Nn \@@_pdf_catalog:  { \pdfextension catalog }
 
 % needed for \str_set_convert:Nnon
 \tl_new:N   \g_@@_inputencoding_tl
@@ -229,13 +224,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% driver (pdflatex) commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% these should be in expl3!!!
-\cs_new:Nn \@@_pdf_startlink:{ \pdfstartlink }
-\cs_new:Nn \@@_pdf_endlink:  { \pdfendlink }
-\cs_new:Nn \@@_pdf_lastlink:  { \pdflastlink }
-%\cs_new:Nn \@@_pdf_catalog:  { \pdfcatalog }
-
 
 % needed for \str_set_convert:Nnon
 \tl_new:N \g_@@_inputencoding_tl
