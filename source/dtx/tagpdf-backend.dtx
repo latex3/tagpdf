@@ -719,6 +719,9 @@ function l3kernel.@@.func.mc_insert_kids (mcnum,single)
     end
    else
     l3kernel.@@.trace.log("WARN! MC"..mcnum.." has no kids",0)
+    if single==1 then
+      tex.sprint("null")
+    end
    end
   else
    l3kernel.@@.trace.log("WARN! MC"..mcnum.." doesn't exist",0)
