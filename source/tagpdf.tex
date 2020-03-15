@@ -3,8 +3,8 @@
 \def\UlrikeFischer@package@version{0.70}
 \def\UlrikeFischer@package@date{2019-11-18}
 \makeatother
-\pdfvariable majorversion = 1
-\pdfvariable minorversion = 7
+\RequirePackage[patches]{pdfresources}
+\DeclareDocumentMetaData{pdfversion=1.7,lang=en-UK}
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage{scrlayer-scrpage}
 \usepackage{fontspec}
@@ -56,16 +56,11 @@
  %log=v
  %show-spaces
  }
-%metadata
-\pdfextension catalog{/Lang (en-UK)}
 
-\IfFileExists{pdfresources.sty}
-{
- \usepackage{pdfresources}
  \usepackage[customdriver=hluatex-experimental,
              pdfdisplaydoctitle=true,pdfusetitle,hyperfootnotes=false,
             ]{hyperref}
-}{}
+
 %\usepackage[ocgcolorlinks]{ocgx2}
 \usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
 \usepackage{tagpdfdocu-patches}
@@ -1021,8 +1016,8 @@ The name should be a sensible key name, the content a dictionary.
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
-\tagmcbegin{..}some text ...\tagmcend 
-<optional structure commands> 
+\tagmcbegin{..}some text ...\tagmcend
+<optional structure commands>
 \tagmcbegin{..}some other text\tagmcend
 \end{lstlisting}
 \tagmcend\tagstructend
@@ -1032,7 +1027,7 @@ The name should be a sensible key name, the content a dictionary.
 
 
 
-  
+
 
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
