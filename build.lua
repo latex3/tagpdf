@@ -151,7 +151,7 @@ docfiles = {"source/tagpdf.tex",
             "source/examples/**/*.tex", 
             "source/examples/**/*.pdf"}
 textfiles= {"source/CTANREADME.md"}
-excludefiles ={"*/pdfresources.sty","*/hluatex-experimental.def"}
+excludefiles ={"*/pdfresources.sty","*/hgeneric-experimental.def"}
 ctanreadme= "CTANREADME.md"
 
 typesetexe = "lualatex"
