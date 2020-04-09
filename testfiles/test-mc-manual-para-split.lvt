@@ -30,7 +30,7 @@
 
 \ExplSyntaxOn
 \pdf_catalog_gput:nn {Lang}{(en-UK)}
-\pdf_info_gput:nn {Title}{(Title)}
+\pdfdict_put:nnn {Info} {Title}{(Title)}
 \ExplSyntaxOff
 \cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \textheight=3cm
