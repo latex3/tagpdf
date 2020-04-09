@@ -54,7 +54,8 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-        \pdf_catalog_gput:nx
+        \pdfdict_put:nnx
+          { Catalog }
           { StructTreeRoot }
           { \pdf_object_ref:n { c_@@_struct_0_obj } }
       }

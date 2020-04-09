@@ -127,7 +127,7 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-          \pdf_catalog_gput:nn { MarkInfo }{ {Marked}{true} }
+         \pdfdict_put:nnn { Catalog / MarkInfo } { Marked } { true }
       }
   }
 % escape commands are a bit engine specific so have been moved to the backend files.

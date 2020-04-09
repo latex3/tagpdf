@@ -29,7 +29,7 @@
 \fancyhf{}
 
 \ExplSyntaxOn
-\pdf_catalog_gput:nn {Lang}{(en-UK)}
+\pdfdict_put:nnn {Catalog} {Lang}{(en-UK)}
 \pdfdict_put:nnn {Info} {Title}{(Title)}
 \ExplSyntaxOff
 \cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
