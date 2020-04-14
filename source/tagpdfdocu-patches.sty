@@ -213,20 +213,19 @@
 {
  \hook_put_left:nnn
  { pdf }
- { link_begin_url }
+ { annot/Link/URI_begin }
  {
    \tag_struct_begin:n{tag=Link}
    \tag_mc_begin:n{tag=Link}
  }
-\hook_put:nnnn
- { pdf }
- { link_begin_url_attr }
+\pdfdict_put:nnx
+ {annot/Link/URI}
  { StructParent }
  { \int_use:N\c@g__tag_parenttree_obj_int }
 
 \hook_put_right:nnn
  { pdf }
- { link_end_url }
+ { annot/Link/URI_end }
  {
   \__tag_struct_finish_link:
    \tag_mc_end:
@@ -235,19 +234,18 @@
 
 \hook_put_left:nnn
  { pdf }
- { link_begin_link }
+ { annot/Link/GoTo_begin }
  {
    \tag_struct_begin:n{tag=Link}
    \tag_mc_begin:n{tag=Link}
  }
-\hook_put:nnnn
- { pdf }
- { link_begin_link_attr }
+\pdfdict_put:nnx
+ {annot/Link/GoTo}
  { StructParent }
  { \int_use:N\c@g__tag_parenttree_obj_int }
 \hook_put_right:nnn
  { pdf }
- { link_end_link }
+ { annot/link/GoTo_end }
  {
   \__tag_struct_finish_link:
   \tag_mc_end:
@@ -255,15 +253,13 @@
  }
 
 % "alternative descriptions " for PAX3. How to get better text here??
-\hook_put:nnnn
- { pdf }
- { link_begin_url_attr }
+\pdfdict_put:nnx
+ {annot/Link/URI}
  { Contents }
  { (url) }
 
-\hook_put:nnnn
- { pdf }
- { link_begin_link_attr }
+\pdfdict_put:nnx
+ {annot/Link/GoTo}
  { Contents }
  { (ref) }
  }
