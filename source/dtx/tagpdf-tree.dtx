@@ -281,8 +281,8 @@
       {
        \tl_gput_left:Nn \g__pdf_BACKEND_thispage_shipout_tl
          {
-           \exp_args:Nnx
-             \pdf_pageattr_gput:nn
+             \pdfdict_put:nnx
+               { Page }
                {StructParents}
                {\int_eval:n { \g_@@_abspage_int }}
          }
