@@ -54,7 +54,7 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-        \pdfdict_put:nnx
+        \pdfdict_gput:nnx
           { Catalog }
           { StructTreeRoot }
           { \pdf_object_ref:n { c_@@_struct_0_obj } }
@@ -281,7 +281,7 @@
       {
        \tl_gput_left:Nn \g__pdf_BACKEND_thispage_shipout_tl
          {
-             \pdfdict_put:nnx
+             \pdfdict_gput:nnx
                { Page }
                {StructParents}
                {\int_eval:n { \g_@@_abspage_int }}

@@ -29,8 +29,8 @@
 \fancyhf{}
 
 \ExplSyntaxOn
-\pdfdict_put:nnn {Catalog} {Lang}{(en-UK)}
-\pdfdict_put:nnn {Info} {Title}{(Title)}
+\pdfdict_gput:nnn {Catalog} {Lang}{(en-UK)}
+\pdfdict_gput:nnn {Info} {Title}{(Title)}
 \ExplSyntaxOff
 \cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \textheight=3cm
