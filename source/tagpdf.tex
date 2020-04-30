@@ -84,7 +84,7 @@
 
 \TagP This package is incomplete, experimental and quite probably contains bugs.
 
-\TagP You need some knowledge about \TeX, pdf and perhaps even lua to use it.
+\TagP You need some knowledge about \TeX, \PDF{} and perhaps even lua to use it.
 
 \medskip
 
@@ -106,15 +106,15 @@
 \section{Introduction}
 
 
-\TagP^ Since many year the creation of accessible pdf-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
+\TagP^ Since many year the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
 
-\TagP But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a pdf works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
+\TagP But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
-\TagP This package tries to close this gap by offering \emph{core} commands to tag a pdf.\footnote{In case you don't know what this means: there will be some explanations later on.}
+\TagP This package tries to close this gap by offering \emph{core} commands to tag a \PDF{}.\footnote{In case you don't know what this means: there will be some explanations later on.}
 
 \TagP My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
-\TagP The package does not patch commands from other packages. It is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged pdf files -- and the examples accompaigning the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
+\TagP The package does not patch commands from other packages. It is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged \PDF{} files -- and the examples accompanying the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
 
 \TagP So this package deliberately concentrates on the basics -- and this already quite a lot, there are much more details involved as I expected when I started.
 
@@ -125,40 +125,40 @@
 
 \subsection{Tagging and accessibility}
 
-\TagP^ While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} pdf-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
+\TagP^ While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} \PDF{}-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
 
 \TagP So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
 \TagPend
 
 \subsection{Engines and modes}
 
-\TagP^ The package works currently with pdflatex and lualatex.
+\TagP^ The package works currently with pdflatex and lualatex. First steps have been done to also enable support for xelatex and the latex-dvips-route; but this isn't yet much tested. 
 
 \TagP The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
 
 
 \TagP I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
 
-\TagP While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. pdf is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.%
+\TagP While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.%
 \TagPend
 
 
 
 \subsection{References}
 
-\TagP^ My main reference was the free reference for pdf 1.7. \parencite{pdfreference}. This document is from 2006.
+\TagP^ My main reference was the free reference for \PDF{} 1.7. \parencite{pdfreference}. This document is from 2006.
 
-\TagP In the meantime pdf 2.0. has been released. I know that it contains also for accessibility relevant changes. As I got now the specification and luatex can set with \verb+\pdfmajorversion+ the version to 2.0 I will start to check to look into it too.%
+\TagP In the meantime \PDF{} 2.0. has been released. I know that it contains also for accessibility relevant changes. As I got now the specification and luatex can set with \verb+\pdfmajorversion+ the version to 2.0 I will start to check to look into it too.%
 \TagPend
 
 \subsection{Validation}
 
-\TagP^ pdf's created with the commands of this package must be validated:\TagPend
+\TagP^ \PDF{}'s created with the commands of this package must be validated:\TagPend
 
 
 \begin{itemize}
 \item
-\TagP^ One must check that the pdf is \emph{syntactically} correct. It is rather easy to create broken pdf: e.g. if a chunk is opened on one page but closed on the next page.
+\TagP^ One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}: e.g. if a chunk is opened on one page but closed on the next page.
     \Pmeti
 \item
 \TagP^ One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
@@ -169,14 +169,14 @@
 
 \TagP^
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
-It can also be done also with the free PDF Accessibility Checker (PAC~3) \parencite{pac3}.
+It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
 
 \TagP
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
-It can also be done also with the free PDF Accessibility Checker (PAC~3) \parencite{pac3}.
+It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
 There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here.
 
-\TagP Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a pdf has real accessibility problems.\TagPend
+\TagP Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a \PDF{} has real accessibility problems.\TagPend
 
 
 
@@ -193,7 +193,7 @@ It is also possible that validators contradict: that the one says everything is 
 \TagP^ Feedback, contribuations and corrections are welcome!\TagPend
 \end{tcolorbox}
 
-\TagP^ All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed pdf are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
+\TagP^ All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
 \TagPend
 
 
@@ -208,7 +208,7 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \subsection{Changes in 0.5}
 \TagP^I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
 
-\TagP I added code to add \enquote{real} space glyphs to the pdf, see section \ref{sec:spacechars}.\TagPend
+\TagP I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{sec:spacechars}.\TagPend
 
 
 \subsection{Changes in 0.6}
@@ -216,7 +216,7 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \TagP^\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.\TagPend
 
 \subsection{Proof of concept: the tagging of the documentation itself}
-\TagP^With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnote gave warnings, so I disabled them. I used types from the pdf version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes are probably simply wrong \ldots\TagPend
+\TagP^With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnote gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes are probably simply wrong \ldots\TagPend
 
 \TagP^But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.\TagPend
 
@@ -299,7 +299,7 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \item[\PrintKeyName{tagunmarked}]
  \TagP^Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.\Pmeti
 \item[\PrintKeyName{uncompress}]
- \TagP^Sets both the pdf compresslevel and the pdf objcompresslevel to 0 and so allows to inspect the pdf.\Pmeti
+ \TagP^Sets both the \PDF{} compresslevel and the \PDF{} objcompresslevel to 0 and so allows to inspect the \PDF{}.\Pmeti
 
 
 \end{description}
@@ -307,7 +307,7 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 \section{Tagging}
 
-\TagP^pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a pdf file}:
+\TagP^pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}:
 \TagPend
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
@@ -329,24 +329,24 @@ endstream
 
 \TagP^From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no guaranty that the stream contains the text in the order it should be read.
 
-\TagP Tagging means to enrich the pdf with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)\TagPend
+\TagP Tagging means to enrich the \PDF{} with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)\TagPend
 
 
 
 
 \subsection{Three tasks}
-\TagP^To tag a pdf three tasks must be  carried out:\TagPend
+\TagP^To tag a \PDF{} three tasks must be  carried out:\TagPend
 
 \begin{enumerate}
 \item
   \TagP^\textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.\Pmeti
 
 \item
-  \TagP^\textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the pdf structure right still means that additional mark up must be added.
+  \TagP^\textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the \PDF{} structure right still means that additional mark up must be added.
   \Pmeti
 
 \item
- \TagP^\textbf{The tree management}:\marginnote{tree-task} At last the structure must be written into the pdf. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
+ \TagP^\textbf{The tree management}:\marginnote{tree-task} At last the structure must be written into the \PDF{}. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
  \Pmeti
 \end{enumerate}
 
@@ -405,7 +405,7 @@ endstream
 
 \subsection{Task 1: Marking the chunks: the mark-content-step}
 
-\TagP^To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the pdf reference they are called \enquote{marked content}. The three main variants needed here are:\TagPend
+\TagP^To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the \PDF{} reference they are called \enquote{marked content}. The three main variants needed here are:\TagPend
 
 \begin{description}
 \item[Artifacts] \TagP^They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.\TagPend
@@ -446,7 +446,7 @@ endstream
 
 \TagP^This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system
 %\footnote{
-(It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the pdf as one would need dummy objects.).
+(It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the \PDF{} as one would need dummy objects.).
 
 \TagP It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.\Pmeti
 \end{description}
@@ -465,7 +465,7 @@ endstream
 \TagP^This sounds easy. But there are quite a number of traps.\TagPend
 
 \begin{enumerate}[beginpenalty=10000]
-  \item \TagP^Pdf is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
+  \item \TagP^\PDF{} is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
   So marking e.g. a section title like in the following example won't always work as the literal before the section could end on the previous page:\TagPend
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
@@ -499,7 +499,7 @@ endstream
 
 
   \item
-  \TagP^Pdf is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.\Pmeti
+  \TagP^\PDF{} is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.\Pmeti
 \end{enumerate}
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
@@ -509,7 +509,7 @@ endstream
 \TagP This means that quite a number of problems mentioned above are not relevant for the lua mode:\TagPend
 
 \begin{enumerate}
-\item \TagP^Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the pdf and so bloat up pdf a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).\Pmeti
+\item \TagP^Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the \PDF{} and so bloat up \PDF{} a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).\Pmeti
 \item \TagP^The commands don't insert literals directly and so affect line and page breaking much less.\Pmeti
 \item \TagP^The numbering of the MCID are done at shipout, so no label/ref system is needed.\Pmeti
 \item \TagP^The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.\Pmeti
@@ -525,14 +525,14 @@ For strategies how to handle paragraphs that split over pages see subsection~\re
 \DescribeMacro\tag_mc_begin:n{<key-val-list>}
 \ExplSyntaxOff
 
-\TagP^These commands insert the begin of the marked content code in the pdf. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
+\TagP^These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
 Such markers should not be nested. The command will warn you if this happens.
 
 
 \TagP The key-val list understands the following keys:\TagPend
 \begin{description}
   \item[\PrintKeyName{tag}]
-  \TagP^This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the pdf, so it should with a starting slash give a valid pdf name  (some ascii with numbers like \texttt{H4} is fine).\Pmeti
+  \TagP^This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the \PDF{}, so it should with a starting slash give a valid \PDF{} name  (some ascii with numbers like \texttt{H4} is fine).\Pmeti
 
   \item[\PrintKeyName{artifact}]
   \TagP^This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
@@ -561,7 +561,7 @@ Such markers should not be nested. The command will warn you if this happens.
       \end{lstlisting}
   \tagmcend\tagstructend
 
-  \TagP^    and it will insert \verb+\frac{a}{b}+  (hex encoded) in the pdf.\Pmeti
+  \TagP^    and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.\Pmeti
 
   \item[\PrintKeyName{actualtext}]
   \TagP^This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
@@ -578,10 +578,10 @@ Such markers should not be nested. The command will warn you if this happens.
  \tagmcend\tagstructend
 
 
- \TagP^and it will insert \verb+X+ (hex encoded)  in the pdf.\Pmeti
+ \TagP^and it will insert \verb+X+ (hex encoded)  in the \PDF{}.\Pmeti
 
   \item[\PrintKeyName{raw}]
-  \TagP^This key allows you to add more entries to the properties dictionary. The value must be correct, low-level pdf. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.\Pmeti
+  \TagP^This key allows you to add more entries to the properties dictionary. The value must be correct, low-level \PDF{}. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.\Pmeti
 \end{description}
 
 
@@ -604,7 +604,7 @@ Such markers should not be nested. The command will warn you if this happens.
 \end{lstlisting}
 \tagmcend\tagstructend
 
-\TagP^Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The pdf will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
+\TagP^Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
 \TagPend
 \end{tcolorbox}
 
@@ -641,8 +641,8 @@ Such markers should not be nested. The command will warn you if this happens.
 \item \TagP^Mark commands inside floats should work fine (but need perhaps some compilation rounds in generic mode).\Pmeti
 \item \TagP^In case you want to use it inside a \verb+\savebox+ (or some command that saves the text internally in a box): If the box is used directly, there is probably no problem. If the use is later, stash the marked content and add the needed \verb+\tagmcuse+ directly  before oder after the box when you use it.\Pmeti
 \item \TagP^Don't use a saved box with markers twice.\Pmeti
-\item \TagP^If boxes are unboxed you will have to analyze the pdf to check if everything is ok.\Pmeti
-\item \TagP^If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the pdf.\Pmeti
+\item \TagP^If boxes are unboxed you will have to analyze the \PDF{} to check if everything is ok.\Pmeti
+\item \TagP^If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the \PDF{}.\Pmeti
  \end{itemize}
 
 
@@ -657,7 +657,7 @@ Such markers should not be nested. The command will warn you if this happens.
 
 \subsubsection{Links}
 
-\TagP^Link annotations (like all PDF annotations) are associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between the link and the content is based solely on visual appearance rather than on an explicitly specified association.\TagPend
+\TagP^Link annotations (like all \PDF{} annotations) are associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between the link and the content is based solely on visual appearance rather than on an explicitly specified association.\TagPend
 
 \TagP^To connect such a link with the underlying text a specific structure has to be added, see \ref{fig:linkannot}. When using the low-level commands to create a link, this structure can be created by adding an entry to the attr argument of the startlink command, and by by adding a command of the tagpdf package after the endlink command, as show in the following listing:\TagPend
 
@@ -688,7 +688,7 @@ Such markers should not be nested. The command will warn you if this happens.
 \subsubsection{Math}
 
 \TagP^Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
-The pdf then looked like this\TagPend
+The \PDF{} then looked like this\TagPend
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
@@ -703,7 +703,7 @@ The pdf then looked like this\TagPend
 
 \TagP^If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.\TagPend
 
-\TagP^But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the pdf and the task how to read this aloud delegated to the screen reader. More investigations are needed here.\TagPend
+\TagP^But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the \PDF{} and the task how to read this aloud delegated to the screen reader. More investigations are needed here.\TagPend
 
 \TagP^See also section~\ref{sec:alttext} for some more remarks and tests.\TagPend
 
@@ -731,7 +731,7 @@ sit amet, lacus.\tagmcend
 
 
 \subsection{Task 2: Marking the structure}
-\TagP^The structure is represented in the pdf with a number of objects of type \texttt{StructElem} which build a tree: each of this objects points back to its parent and normally has a number of kid elements, which are either again structure elements or -- as leafs of the tree -- the marked contents chunks marked up with the \verb+tagmc+-commands. The root of the tree is the \texttt{StructTreeRoot}.\TagPend
+\TagP^The structure is represented in the \PDF{} with a number of objects of type \texttt{StructElem} which build a tree: each of this objects points back to its parent and normally has a number of kid elements, which are either again structure elements or -- as leafs of the tree -- the marked contents chunks marked up with the \verb+tagmc+-commands. The root of the tree is the \texttt{StructTreeRoot}.\TagPend
 
 \subsubsection{Structure types}
 \TagP^The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and base them on \texttt{P}:\TagPend
@@ -815,7 +815,7 @@ The flat version creates a structure like this:\TagPend
    \tagmcend\tagstructend
 
 
-   \TagP^   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the pdf.\Pmeti
+   \TagP^   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.\Pmeti
 
 
   \item[\PrintKeyName{actualtext}]
@@ -832,7 +832,7 @@ The flat version creates a structure like this:\TagPend
    \tagmcend\tagstructend
 
 
-   \TagP^and it will insert \verb+X+ (hex encoded)  in the pdf.\Pmeti
+   \TagP^and it will insert \verb+X+ (hex encoded)  in the \PDF{}.\Pmeti
 
    \item[\PrintKeyName{attribute}]
     \TagP^This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute dictionary entries in the structure object. As an example\TagPend
@@ -912,10 +912,10 @@ The name should be a sensible key name, the content a dictionary.
 \tagmcend\tagstructend
 
 
-\TagP^Attributes are only written to the pdf when used, so it is not a problem to predeclare a number of standard attributes.
+\TagP^Attributes are only written to the \PDF{} when used, so it is not a problem to predeclare a number of standard attributes.
 \TagPend
 
-\TagP^It is your responsability that the content of the dictionary is valid pdf and that the values are sensible!
+\TagP^It is your responsability that the content of the dictionary is valid \PDF{} and that the values are sensible!
 \TagPend
 
 \TagP^Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyName{attribute-class} which both take a comma list of attribute names as argument:
@@ -933,13 +933,13 @@ The name should be a sensible key name, the content a dictionary.
 
 
 \subsection{Task 3: tree Management}
-\TagP^When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the pdf. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:\TagPend
+\TagP^When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:\TagPend
 
 \ExplSyntaxOn
 \DescribeMacro\tag_finish_structure:
 \ExplSyntaxOff
 
-\TagP^This will hopefully write all the needed objects and values to the pdf. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).\TagPend
+\TagP^This will hopefully write all the needed objects and values to the \PDF{}. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).\TagPend
 
 \TagP^I'm not quite sure if this shouldn't be a really internal command.\TagPend
 
@@ -1002,7 +1002,7 @@ The name should be a sensible key name, the content a dictionary.
 
 \subsection{Lazy and automatic tagging}\label{sec:lazy}
 
-\TagP^A number of features of pdf readers need a fully tagged pdf. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alttext}) if the pdf is not fully tagged. Also reflowing a pdf only works for me (even if real space chars are in the pdf) if the pdf is fully tagged.\TagPend
+\TagP^A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alttext}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged.\TagPend
 
 \TagP^This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside it rather large mc-chunks. This minimizes the needed work.\TagPend
 
@@ -1032,12 +1032,12 @@ The name should be a sensible key name, the content a dictionary.
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
 
-\TagP^The pdf format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
+\TagP^The \PDF{} format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
 %\footnote{
 There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now.
 Both can be added either to the marked content in the page stream or to the object describing the structure.\TagPend
 
-\TagP^The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the pdf reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.\TagPend
+\TagP^The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the \PDF{} reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.\TagPend
 
 \TagP^\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with \PrintKeyName{alttext}) is a key to improve accessibility: with it one can add to a picture or something else an alternative text.\TagPend
 
@@ -1058,13 +1058,13 @@ To sum them up:\TagPend
 
 \section{Standard type and new tags}\label{sec:new-tag}
 
-\TagP^The pdf reference mentions a number of standard types:
+\TagP^The \PDF{} reference mentions a number of standard types:
 \ExplSyntaxOn
 \clist_use:Nn \c__tag_role_sttags_clist {,\c_space_tl}
 
 \ExplSyntaxOff\TagPend
 
-\TagP^Their meaning can be looked up in the pdf-reference \parencite{pdfreference}.\TagPend
+\TagP^Their meaning can be looked up in the \PDF{}-reference \parencite{pdfreference}.\TagPend
 
 \TagP^New tags can be defined in the setup command with the key \texttt{add-new-tag}. It takes a value consisting of two names separated by a slash. The first is the new name, the second a known (e.g. a standard) tag it should be mapped too. Example:\TagPend
 
@@ -1076,17 +1076,17 @@ To sum them up:\TagPend
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
-\TagP^TeX uses only spaces (horizontal movements) to separate words. That means that a pdf reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or e.g. as a kerning. Accessible document should use real space glyphs (U+0032) from a font in such places.\TagPend
+\TagP^TeX uses only spaces (horizontal movements) to separate words. That means that a \PDF{} reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or e.g. as a kerning. Accessible document should use real space glyphs (U+0032) from a font in such places.\TagPend
 
 \TagP^With the key \PrintKeyName{interwordspace} you can activate such space glyphs.\TagPend
 
-\TagP^With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the pdf: from the current font to the dummy-space font and back again. This will make the pdf larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.\TagPend
+\TagP^With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the \PDF{}: from the current font to the dummy-space font and back again. This will make the \PDF{} larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.\TagPend
 
 \TagP^With luatex (in luamode) interwordspace is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.\TagPend
 
 \TagP^The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.\TagPend
 
-\TagP^\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The pdf viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro.\TagPend
+\TagP^\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The \PDF{} viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro.\TagPend
 
 \DescribeMacro\pdffakespace
 
@@ -1096,10 +1096,10 @@ To sum them up:\TagPend
 
 \section{Accessibility is not only tagging}
 
-\TagP^A tagged pdf is needed for accessibility but this is not enough. As already mentioned there are more requirements:\TagPend
+\TagP^A tagged \PDF{} is needed for accessibility but this is not enough. As already mentioned there are more requirements:\TagPend
 
  \begin{itemize}
- \item \TagP^The language must be declared by adding a \texttt{/Lang xx-XX} to the pdf catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages or even directly with \verb+\pdfcatalog{/Lang (en-US)}+. For settings in marked content and structure I will have to add keys.\Pmeti
+ \item \TagP^The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfdict_gput:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.\Pmeti
  \item \TagP^All characters must have an unicode representation or a suitable alternative text.
       With lualatex and open type (unicode) fonts this is normally not a problem. With pdflatex it could need\TagPend
       \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
@@ -1131,7 +1131,7 @@ To sum them up:\TagPend
 \item \TagP^Write more Tests\Pmeti
 \item \TagP^Unicode\Pmeti
 \item \TagP^Hyphenation char\Pmeti
-\item \TagP^Think about included (tagged) pdf. Can one handle them?\Pmeti
+\item \TagP^Think about included (tagged) \PDF{}. Can one handle them?\Pmeti
 \item \TagP^Improve the documentation\Pmeti
 \item \TagP^Tag as proof of concept the documentation (nearly done)\Pmeti
 \item \TagP^Document the code better\Pmeti
@@ -1139,7 +1139,7 @@ To sum them up:\TagPend
 \item \TagP^Find someone to check and improve the lua code\Pmeti
 \item \TagP^Move more things to lua in the luamode\Pmeti
 \item \TagP^Find someone to check and improve the rest of the code\Pmeti
-\item \TagP^Check differences between pdf versions 1.7 and 2.0.\Pmeti
+\item \TagP^Check differences between \PDF{} versions 1.7 and 2.0.\Pmeti
 \item \TagP^bidi?\Pmeti
 \end{itemize}
 
@@ -1147,12 +1147,12 @@ To sum them up:\TagPend
 
 \appendix
 
-\section{Some remarks about the pdf syntax}
+\section{Some remarks about the \PDF{} syntax}
 
 \TagP^This is not meant as a full reference only as a background to make the examples and remarks easier to understand.\TagPend
 
 \begin{description}
-\item[postfix notation] \TagP^pdf uses in various places postfix notation. This means that the operator is behind its arguments:\TagPend
+\item[postfix notation] \TagP^\PDF{} uses in various places postfix notation. This means that the operator is behind its arguments:\TagPend
 
 \tagstructbegin{tag=Figure,alttext={Illustration of postfix notation}}\tagmcbegin{tag=Figure}
 \begin{tikzpicture}[baseline=(c.base)]
@@ -1198,9 +1198,9 @@ To sum them up:\TagPend
 \tagmcend\tagstructend
 \meti
 
-\item[Names] \TagP^pdf knows a sort of variable called a \enquote{name}. Names start with a slash and may include any regular characters, but not delimiter or white-space characters. Uppercase and lowercase letters are considered distinct: \texttt{/A} and \texttt{/a} are different names. \verb+/.notdef+ and \verb+/Adobe#20Green+  are valid names.\TagPend
+\item[Names] \TagP^\PDF{} knows a sort of variable called a \enquote{name}. Names start with a slash and may include any regular characters, but not delimiter or white-space characters. Uppercase and lowercase letters are considered distinct: \texttt{/A} and \texttt{/a} are different names. \verb+/.notdef+ and \verb+/Adobe#20Green+  are valid names.\TagPend
 
-    \TagP^Quite a number of the options of \texttt{tagpdf} actually define such a name which is  later added to the pdf. I recommend \emph{strongly} not to use spaces and exotic chars in such names. While it is possible to escape such names it is rather a pain when moving them through the various lists and commands and quite probably I forgot some place where it is needed.\Pmeti
+    \TagP^Quite a number of the options of \texttt{tagpdf} actually define such a name which is  later added to the \PDF{}. I recommend \emph{strongly} not to use spaces and exotic chars in such names. While it is possible to escape such names it is rather a pain when moving them through the various lists and commands and quite probably I forgot some place where it is needed.\Pmeti
 
 \item[Strings]\TagP^There are two types of strings: \emph{Literal strings} are enclosed in round parentheses. They normally contain a mix of ascii chars and octal numbers:\TagPend
 
@@ -1251,9 +1251,9 @@ To sum them up:\TagPend
 \tagmcend\tagstructend \meti
 
 
- \item[(indirect) objects] \TagP^These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a pdf is edited objects with a larger generation number can be added. As with pdflatex/lualatex the pdf is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.\Pmeti
+ \item[(indirect) objects] \TagP^These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a \PDF{} is edited objects with a larger generation number can be added. As with pdflatex/lualatex the \PDF{} is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.\Pmeti
 
- \item[streams] \TagP^A stream is a sequence of bytes. It can be long and is used for the real content of pdf: text, fonts, content of graphics.
+ \item[streams] \TagP^A stream is a sequence of bytes. It can be long and is used for the real content of \PDF{}: text, fonts, content of graphics.
  A stream starts with a dictionary which at least sets the \texttt{/Length} name to the length of the stream followed by the stream content enclosed by the keywords \texttt{stream} and \texttt{endstream}.
 
  \TagP Here an example of a stream, an object definition and reference. In the object 2 (a page object) the \texttt{/Contents} key references the object 3 and this then contains the text of the page in a stream. \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the first chooses the font with the name \texttt{/F15} at the size 10.9, the second displaces the reference point on the page and the third inserts the text.\TagPend
@@ -1304,5 +1304,5 @@ endobj
 \end{description}
 \tagstructend %document
 \end{document}
-%http://msf.mathmlcloud.org/file_formats/8 %sample pdf for math
+%http://msf.mathmlcloud.org/file_formats/8 %sample \PDF{} for math
 
