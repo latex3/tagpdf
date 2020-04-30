@@ -163,9 +163,10 @@
 
 %testing the engines and loading the backend files
 \sys_if_engine_xetex:T
-  {
-    \PackageError { tagpdf } { xelatex~is~not~supported~-~aborting } {}
-    \tex_endinput:D
+  { %lets try with xelatex ...
+    %\PackageError { tagpdf } { xelatex~is~not~supported~-~aborting } {}
+    %\tex_endinput:D
+    \file_input:n {tagpdf-pdftex.def}
   }
 
 \sys_if_engine_luatex:T
@@ -180,8 +181,8 @@
 
 \sys_if_output_dvi:T
   {
-    \PackageError { tagpdf } { dvi~output~is~not~supported~-~aborting }{}
-    \tex_endinput:D
+    %\PackageError { tagpdf } { dvi~output~is~not~supported~-~aborting }{}
+    %\tex_endinput:D
   }
 
 \cs_generate_variant:Nn \@@_prop_gput:Nnn      { Nxn , Nxx, Nnx , cnn, cxn, cnx, cno}
