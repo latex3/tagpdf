@@ -225,7 +225,7 @@
 
 %classmap, should only be written, if values has been used
 
-\cs_new_protected:Nn \@@_tree_class_write_map:
+\cs_new_protected:Nn \@@_tree_write_classmap:
   {
     \tl_gclear:N \g_@@_attr_class_content_tl
     \seq_gremove_duplicates:N \g_@@_attr_class_used_seq
@@ -265,7 +265,7 @@
   {
     \@@_tree_write_parenttree:
     \@@_tree_write_rolemap:
-    \@@_tree_class_write_map:
+    \@@_tree_write_classmap:
     \@@_tree_write_structelements: %this is rather slow!!
     \@@_tree_write_structtreeroot:
   }
