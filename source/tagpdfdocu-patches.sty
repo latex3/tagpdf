@@ -224,11 +224,11 @@
   {
     \tag_struct_begin:n{tag=Link}
     \tag_mc_begin:n{tag=Link}
+    \pdfdict_put:nnx
+    {annot/Link/URI}
+    { StructParent }
+    { \int_use:N\c@g__tag_parenttree_obj_int }
   }
-\pdfdict_put:nnx
- {annot/Link/URI}
- { StructParent }
- { \int_use:N\c@g__tag_parenttree_obj_int }
 
 %\hook_put_right:nnn
 % { pdf }
@@ -261,12 +261,13 @@
   {
     \tag_struct_begin:n{tag=Link}
     \tag_mc_begin:n{tag=Link}
+    \pdfdict_put:nnx
+    {annot/Link/GoTo}
+    { StructParent }
+    { \int_use:N\c@g__tag_parenttree_obj_int }
   }
 
-\pdfdict_put:nnx
- {annot/Link/GoTo}
- { StructParent }
- { \int_use:N\c@g__tag_parenttree_obj_int }
+
 
 
 %\hook_put_right:nnn
