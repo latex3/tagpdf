@@ -209,49 +209,83 @@
  %%% attention, to get the order right, it is necessary currently to start a new
  %%% mc after a link! I'm not sure if this can/group be included in the hooks
  %%% grouping is a bit tricky ...
-\cs_if_exist:NT\hook_put_left:nnn
-{
- \hook_put_left:nnn
- { pdf }
- { annot/Link/URI_begin }
- {
-   \tag_struct_begin:n{tag=Link}
-   \tag_mc_begin:n{tag=Link}
- }
+%\cs_if_exist:NT\hook_put_left:nnn
+%{
+% \hook_put_left:nnn
+% { pdf }
+% { annot/Link/URI_begin }
+% {
+%   \tag_struct_begin:n{tag=Link}
+%   \tag_mc_begin:n{tag=Link}
+% }
+\hook_gput_code:nnn
+  {pdf/annot/Link/URI/before}
+  {tagpdf}
+  {
+    \tag_struct_begin:n{tag=Link}
+    \tag_mc_begin:n{tag=Link}
+  }
 \pdfdict_put:nnx
  {annot/Link/URI}
  { StructParent }
  { \int_use:N\c@g__tag_parenttree_obj_int }
 
-\hook_put_right:nnn
- { pdf }
- { annot/Link/URI_end }
- {
-  \__tag_struct_finish_link:
-   \tag_mc_end:
-   \tag_struct_end:
- }
+%\hook_put_right:nnn
+% { pdf }
+% { annot/Link/URI_end }
+% {
+%  \__tag_struct_finish_link:
+%   \tag_mc_end:
+%   \tag_struct_end:
+% }
+\hook_gput_code:nnn
+  {pdf/annot/Link/URI/after}
+  {tagpdf}
+  {
+    \__tag_struct_finish_link:
+    \tag_mc_end:
+    \tag_struct_end:
+  }
 
-\hook_put_left:nnn
- { pdf }
- { annot/Link/GoTo_begin }
- {
-   \tag_struct_begin:n{tag=Link}
-   \tag_mc_begin:n{tag=Link}
- }
+%\hook_put_left:nnn
+% { pdf }
+% { annot/Link/GoTo_begin }
+% {
+%   \tag_struct_begin:n{tag=Link}
+%   \tag_mc_begin:n{tag=Link}
+% }
+
+\hook_gput_code:nnn
+  {pdf/annot/Link/GoTo/before}
+  {tagpdf}
+  {
+    \tag_struct_begin:n{tag=Link}
+    \tag_mc_begin:n{tag=Link}
+  }
+
 \pdfdict_put:nnx
  {annot/Link/GoTo}
  { StructParent }
  { \int_use:N\c@g__tag_parenttree_obj_int }
-\hook_put_right:nnn
- { pdf }
- { annot/link/GoTo_end }
- {
-  \__tag_struct_finish_link:
-  \tag_mc_end:
-  \tag_struct_end:
- }
 
+
+%\hook_put_right:nnn
+% { pdf }
+% { annot/link/GoTo_end }
+% {
+%  \__tag_struct_finish_link:
+%  \tag_mc_end:
+%  \tag_struct_end:
+% }
+
+\hook_gput_code:nnn
+  {pdf/annot/Link/GoTo/after}
+  {tagpdf}
+  {
+    \__tag_struct_finish_link:
+    \tag_mc_end:
+    \tag_struct_end:
+  }
 % "alternative descriptions " for PAX3. How to get better text here??
 \pdfdict_put:nnx
  {annot/Link/URI}
@@ -262,5 +296,5 @@
  {annot/Link/GoTo}
  { Contents }
  { (ref) }
- }
+
 \endinput

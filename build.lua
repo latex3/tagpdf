@@ -145,6 +145,7 @@ function update_tag (file,content,tagname,tagdate)
 
 -- ctan setup
 docfiles = {"source/tagpdf.tex",
+            "source/tagpdfdocu-patches.sty",
             "source/tagpdf.bib",
             "source/link-figure-input.tex",
             "source/pac3.PNG",
