@@ -55,7 +55,8 @@ checkconfigs = {"build",
                 "config-luatex",
                -- "config-luatex-dev",
                -- "config-pdftex-dev",
-                "config-dev"}
+               -- "config-dev"
+                }
 checkruns = 3
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}
 excludetests = {"test-saveboxes-structure-dev"}

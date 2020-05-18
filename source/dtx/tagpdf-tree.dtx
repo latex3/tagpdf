@@ -32,7 +32,7 @@
 
 %this does the actual finishing:
 %Is \AfterEndDocument the best places??
-\AtBeginDocument
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_tree_bool
       {
@@ -50,7 +50,8 @@
 %new
 \pdf_object_new:nn { c_@@_struct_0_obj }{ dict }
 
-\AtBeginDocument %need to think about the best place ...
+ %need to think about the best place ...
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
@@ -90,7 +91,7 @@
 % I use a counter to have a chance to get the correct number
 % if code is process twice.
 \newcounter  { g_@@_parenttree_obj_int }
-\AtBeginDocument
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \int_gset:Nn
       \c@g_@@_parenttree_obj_int
@@ -275,16 +276,16 @@
 
 %StructParents !!! we need a better hook for \g__pdf_BACKEND_thispage_shipout_tl!!
 % No actually
-\AtBeginDocument
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT\g_@@_active_tree_bool
       {
-       \tl_gput_left:Nn \g__pdf_BACKEND_thispage_shipout_tl
+       \hook_gput_code:nnn{shipout/before} { tagpdf/structparents }
          {
              \pdfdict_gput:nnx
                { Page }
                {StructParents}
-               {\int_eval:n { \g_@@_abspage_int }}
+               {\int_eval:n { \g_@@_abspage_int -1}}
          }
       }
   }

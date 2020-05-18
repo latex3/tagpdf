@@ -445,7 +445,7 @@ function l3kernel.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,nam
   l3kernel.@@.trace.log ("PAGE " .. abspage,3)
   l3kernel.@@.trace.log ("FUNC ARGS: pagecnt".. mcpagecnt.." prev "..mccntprev .. " type prev "..mctypeprev,4)
   l3kernel.@@.trace.log ("TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
-  local head = box.head -- AtBeginShipoutBox is a vlist?
+  local head = box.head -- ShipoutBox is a vlist?
   if head then
     mccnthead, mctypehead,taghead = @@_get_mc_cnt_type_tag (head)
     l3kernel.@@.trace.log ("HEAD " .. node.type(node.getid(head)).. " MC"..tostring(mccnthead).." => TAG "..tostring(mctypehead).." => "..tostring(taghead),3)
@@ -557,10 +557,10 @@ function l3kernel.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,nam
 end
 
 function l3kernel.@@.func.mark_shipout ()
- mcopen = l3kernel.@@.func.mark_page_elements (tex.box["AtBeginShipoutBox"],-1,-100,0,"Shipout",-1)
+ mcopen = l3kernel.@@.func.mark_page_elements (tex.box["ShipoutBox"],-1,-100,0,"Shipout",-1)
  if mcopen~=0 then -- there is a chunk open, close it (hope there is only one ...
   local emcnode = nodenew("whatsit","pdf_literal")
-  local box = tex.box["AtBeginShipoutBox"].list
+  local box = tex.box["ShipoutBox"].list
   emcnode.data = "EMC"
   emcnode.mode=1
   if box then

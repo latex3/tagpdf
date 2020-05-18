@@ -123,7 +123,8 @@
      },
   }
 %need to think about the right place ...
-\AtBeginDocument
+%\AtBeginDocument
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
@@ -154,7 +155,11 @@
 % is it used?
 \cs_new:Nn   \@@_finish_page_hook: { }
 
-\AtBeginShipout
+%\AtBeginShipout
+
+\hook_gput_code:nnn
+  { shipout/before }
+  { tagpdf/cnt }
   {
     \@@_finish_page_hook:
     \int_gincr:N \g_@@_abspage_int
