@@ -170,7 +170,7 @@
           {
             l3kernel.@@.func.output_parenttree
               (
-                \int_use:N\g_@@_abspage_int
+                \int_use:N\g_shipout_readonly_int
               )
           }
       }
@@ -285,7 +285,7 @@
              \pdfdict_gput:nnx
                { Page }
                {StructParents}
-               {\int_eval:n { \g_@@_abspage_int -1}}
+               {\int_eval:n { \g_shipout_readonly_int}}
          }
       }
   }

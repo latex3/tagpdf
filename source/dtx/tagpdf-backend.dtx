@@ -441,7 +441,7 @@ end
 function l3kernel.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mctypeprev)
   local name = name or ("SOMEBOX")
   local mctypeprev = mctypeprev or -1
-  local abspage = tex.count["g_@@_abspage_int"]  --["c@abspage"]
+  local abspage = tex.count["g_shipout_readonly_int"]  --["c@abspage"]
   l3kernel.@@.trace.log ("PAGE " .. abspage,3)
   l3kernel.@@.trace.log ("FUNC ARGS: pagecnt".. mcpagecnt.." prev "..mccntprev .. " type prev "..mctypeprev,4)
   l3kernel.@@.trace.log ("TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
