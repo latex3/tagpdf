@@ -107,11 +107,11 @@
     tagunmarked     .initial:n  = true,
     tabsorder       .choice:,
     tabsorder / row       .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/R}},
-      \pdfdict_gput:nnn { Page } {Tabs}{/R},
+      \pdfgdict_gput:nnn { Page } {Tabs}{/R},
     tabsorder / column    .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/C}},
-      \pdfdict_gput:nnn { Page } {Tabs}{/C},
+      \pdfgdict_gput:nnn { Page } {Tabs}{/C},
     tabsorder / structure .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/S}},
-      \pdfdict_gput:nnn { Page } {Tabs}{/S},
+      \pdfgdict_gput:nnn { Page } {Tabs}{/S},
     tabsorder / none      .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {}},
       \pdfdict_remove:nn {Page} {Tabs},
     tabsorder       .initial:n = structure,
@@ -128,7 +128,7 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-         \pdfdict_gput:nnn { Catalog / MarkInfo } { Marked } { true }
+         \pdfgdict_gput:nnn { Catalog / MarkInfo } { Marked } { true }
       }
   }
 % escape commands are a bit engine specific so have been moved to the backend files.
