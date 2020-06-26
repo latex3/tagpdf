@@ -55,7 +55,7 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-        \pdfgdict_gput:nnx
+        \pdfcoredict_gput:nnx
           { Catalog }
           { StructTreeRoot }
           { \pdf_object_ref:n { c_@@_struct_0_obj } }
@@ -282,7 +282,11 @@
       {
        \hook_gput_code:nnn{shipout/before} { tagpdf/structparents }
          {
+<<<<<<< HEAD
              \pdfgdict_gput:nnx
+=======
+             \pdfcoredict_gput:nnx
+>>>>>>> 884d0e9cfe2ad587e369cba012a05886101a705b
                { Page }
                {StructParents}
                {\int_eval:n { \g_shipout_readonly_int}}
