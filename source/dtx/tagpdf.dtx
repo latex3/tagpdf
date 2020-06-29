@@ -77,10 +77,10 @@
 
 
 %%% absolute page numbers
-\int_new:N   \g_@@_abspage_int
-\int_gset:Nn \g_@@_abspage_int { 0 }
+%\int_new:N   \g_@@_abspage_int
+%\int_gset:Nn \g_@@_abspage_int { 0 }
 \zref@newlist {@@zrl} %zrl=zreflist
-\zref@newprop*{tagabspage}     [0] { \int_use:N \g_@@_abspage_int }
+\zref@newprop*{tagabspage}     [0] { \int_use:N \g_shipout_readonly_int }
 \zref@addprop {@@zrl} {tagabspage}
 
 
@@ -162,7 +162,7 @@
   { tagpdf/cnt }
   {
     \@@_finish_page_hook:
-    \int_gincr:N \g_@@_abspage_int
+    %\int_gincr:N \g_@@_abspage_int
   }
 
 
