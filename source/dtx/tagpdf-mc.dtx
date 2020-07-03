@@ -183,15 +183,10 @@
 % must imho be done at a higher level
 \cs_new_protected:Nn \@@_mc_bdc:nn
   {
-    \pdf_object_now:nx { dict } { #2 }
-    \pdf_bdc:n { #1 }
-%    \@@_pdfliteral_page:n
-%      {
-%        /#1\c_space_tl<<#2>>~BDC
-%      }
+    \pdf_bdc:nn { #1 } { #2 }
   }
 
-
+\cs_generate_variant:Nn \@@_mc_bdc:nn {nx}
 % bdc with /MCID + more properties
 % we need a ref-label system to ensure that the cnt restarts at 0 on a new page
 
@@ -238,9 +233,9 @@
       }
       { @@zrl }
    %\exp_args:Nnx
-     \@@_mc_bdc:nn
+     \@@_mc_bdc:nx
        {#1}
-       { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~#2 }
+       { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~ \exp_not:n { #2 } }
  }
 
 % only /MCID
@@ -347,6 +342,7 @@
     \@@_mc_bdc_mcid:nn {#1} {#2}
   }
 
+\cs_generate_variant:Nn \@@_mc_handle_mcid:nn {VV}
 
 % puts the absolute number of an mcid in the current structure
 \cs_new:Nn \@@_mc_handle_stash:n %1 mcidnum
@@ -372,9 +368,9 @@
       }
       { %handle mcid type
         \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
-        \@@_mc_handle_mcid:nn
-          { \l_@@_mc_key_tag_tl }
-          { \l_@@_mc_key_properties_tl }
+        \@@_mc_handle_mcid:VV
+           \l_@@_mc_key_tag_tl
+           \l_@@_mc_key_properties_tl
         \tl_if_empty:NF {\l_@@_mc_key_label_tl}
           {
             \@@_mc_handle_mc_label:n { \l_@@_mc_key_label_tl }
