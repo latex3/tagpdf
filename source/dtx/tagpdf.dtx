@@ -31,6 +31,11 @@
 \RequirePackage{pdfresources} %!!experimental/temporary
 \ProvidesExplPackage {tagpdf} {2019/11/18} {0.70}
   { A package to experiment with pdf tagging }
+%% force activation for now, this should sorted ....
+\bool_if:NF \g__pdf_Core_active_bool
+  {
+    \bool_gset_true:N \g__pdf_Core_active_bool
+  }
 %\debug_on:n{check-declarations,check-expressions,deprecation}
 
 %map internal tag to package name
