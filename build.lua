@@ -37,15 +37,18 @@ if string.find(status.banner,"2019") then
 else 
   -- tl2020
   print("TL2020 or later")
-
+    specialformats = specialformats or {}
+--  specialformats["latex-dev"] = specialformats["latex-dev"] or 
+--   {
+--    luatex = {binary="luahbtex",format = "lualatex-dev"}
+--   }
   specialformats["latex"] = specialformats["latex"] or 
    {
-    luatex     = {binary="luahbtex",format = "lualatex"},
-   }
-  specialformats["latex-dev"] = specialformats["latex-dev"] or 
-   {
-    luatex = {binary="luahbtex",format = "lualatex-dev"}
-   }
+    luatex     = {binary="luahbtex",format = "lualatex-dev"},
+    pdftex     = {format = "pdflatex-dev"},
+    xetex      = {format = "xelatex-dev"},
+    latexdvips = {binary="latex.exe",format = "latex-dev"}
+    }   
 end
 
 checkengines = {"pdftex","luatex"}
