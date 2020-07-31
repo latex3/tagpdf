@@ -2,6 +2,8 @@
 
 % GRRRRRR. Why do the validators report that the link is not tagged????
 % Damn I forgot that objects must go in the parent tree too ...
+\RequirePackage{pdfresources}
+\DeclareDocumentMetaData{}
 \input{regression-test}
 \RequirePackage{pdfresources}
 \DeclareDocumentMetaData

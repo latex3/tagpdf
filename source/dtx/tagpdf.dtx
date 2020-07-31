@@ -27,15 +27,29 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*package>
-%\RequirePackage{expl3}[2019/07/01]
-\RequirePackage{pdfresources} %!!experimental/temporary
-\ProvidesExplPackage {tagpdf} {2019/11/18} {0.70}
+\ProvidesExplPackage {tagpdf} {2020/07/31} {0.71}
   { A package to experiment with pdf tagging }
-%% force activation for now, this should sorted ....
-\bool_if:NF \g__pdf_Core_active_bool
+
+\bool_if:nF
   {
-    \bool_gset_true:N \g__pdf_Core_active_bool
+    \bool_lazy_and_p:nn
+      {\bool_if_exist_p:N \g__pdf_Core_active_bool}
+      {\bool_if_p:N \g__pdf_Core_active_bool }
   }
+  {  %error for now, perhaps warning later.
+    \PackageError{tagpdf}
+     {
+       Pdfresource~management~is~no~active!\MessageBreak
+       tagpdf~will~no~work.
+     }
+     {
+       Activate~it~with \MessageBreak
+       \string\RequirePackage{pdfresources}\MessageBreak
+       \string\DeclareDocumentMetaData{<options>}\MessageBreak
+       before~loading~the~class
+     }
+  }
+
 %\debug_on:n{check-declarations,check-expressions,deprecation}
 
 %map internal tag to package name

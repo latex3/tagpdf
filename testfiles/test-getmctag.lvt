@@ -1,3 +1,5 @@
+\RequirePackage{pdfresources}
+\DeclareDocumentMetaData{}
 \input{regression-test}
 \documentclass{article}
 \usepackage{tagpdf}
@@ -12,4 +14,4 @@ x\tagpdfget{mc_tag}x
 \tagmcend
 
 x\tagpdfget{mc_tag}x
-\end{document}
+\end{document} 

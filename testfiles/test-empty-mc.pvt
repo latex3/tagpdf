@@ -1,3 +1,5 @@
+\RequirePackage{pdfresources}
+\DeclareDocumentMetaData{}
 \input{regression-test}
 \documentclass{book}
 \usepackage{tagpdf}
@@ -13,4 +15,4 @@
 \tagmcbegin{tag=P}abc\tagmcend
 \tagstructend
 \tagstructend
-\end{document}
+\end{document} 

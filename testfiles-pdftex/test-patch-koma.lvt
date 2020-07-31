@@ -7,6 +7,8 @@
 %if the sectioning commands are redefined more/different patches are perhaps needed
 
 %no page break involved. So the example works in lua and generic mode
+\RequirePackage{pdfresources}
+\DeclareDocumentMetaData{}
 \input{regression-test}
 \documentclass{scrbook}
 \usepackage{graphicx}
