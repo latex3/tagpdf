@@ -159,7 +159,7 @@ textfiles= {"source/CTANREADME.md"}
 excludefiles ={"*/pdfresources.sty","*/hgeneric-experimental.def"}
 ctanreadme= "CTANREADME.md"
 
-typesetexe = "lualatex"
+typesetexe = "lualatex-dev"
 packtdszip   = false
 installfiles = {
                 "**/*.sty",
