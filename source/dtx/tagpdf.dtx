@@ -375,7 +375,7 @@
       {
         \sys_if_engine_luatex:T
           {
-            \directlua{l3kernel.@@.trace.show_all_mc_data(#1)}
+            \directlua{ltx.@@.trace.show_all_mc_data(#1)}
           }
       }
   }
@@ -388,13 +388,13 @@
           {
             \directlua
               {
-                l3kernel.@@.trace.log
+                ltx.@@.trace.log
                  (
                    "showtagpdfattributes:
                     MC=>abscnt=\@@_get_mc_abs_cnt:
                     =>attr=\the\l_@@_mc_cnt_attr=>tag="
                     ..
-                    tostring(l3kernel.@@.func.get_tag_from (\the\l_@@_mc_type_attr))
+                    tostring(ltx.@@.func.get_tag_from (\the\l_@@_mc_type_attr))
                     ..
                     "=\the\l_@@_mc_type_attr",0
                  )

@@ -50,15 +50,15 @@
       {
         interwordspace .choices:nn =
                                  { true, on }
-                                 { \directlua{l3kernel.@@.func.markspaceon()} },
+                                 { \directlua{ltx.@@.func.markspaceon()} },
         interwordspace .choices:nn =
                                  { false, off }
-                                 {\directlua{l3kernel.@@.func.markspaceoff()} },
+                                 {\directlua{ltx.@@.func.markspaceoff()} },
         show-spaces      .choice:,
         show-spaces  / true  .code:n =
-                                 {\directlua{l3kernel.@@.trace.showspaces=true}},
+                                 {\directlua{ltx.@@.trace.showspaces=true}},
         show-spaces  / false .code:n =
-                                 {\directlua{l3kernel.@@.trace.showspaces=nil}},
+                                 {\directlua{ltx.@@.trace.showspaces=nil}},
         show-spaces .default:n = true
       }
 

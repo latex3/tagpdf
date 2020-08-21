@@ -53,12 +53,12 @@
 
 
 % I probably want also lua tables
-% I put them in the l3kernel.@@.tables namespaces
+% I put them in the ltx.@@.tables namespaces
 % The tables will be named like the variables but without backslash
 % To access such a table with a dynamical name create a string and then use
-% l3kernel.@@.tables[string]
+% ltx.@@.tables[string]
 % Old code, I'm not quite sure if this was a good idea. Now I have mix of table in
-% l3kernel.@@.tables and l3kernel.@@.mc/struct. And a lot is probably not needed.
+% ltx.@@.tables and ltx.@@.mc/struct. And a lot is probably not needed.
 
 \cs_new:Nn \@@_luatex_get_table_name:Nn
   {
@@ -70,7 +70,7 @@
   {
     \prop_new:N #1
     \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { l3kernel.@@.tables.\l_tmpa_tl = {} }
+    \directlua { ltx.@@.tables.\l_tmpa_tl = {} }
   }
 
 
@@ -78,7 +78,7 @@
   {
     \seq_new:N #1
     \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { l3kernel.@@.tables.\l_tmpa_tl = {} }
+    \directlua { ltx.@@.tables.\l_tmpa_tl = {} }
   }
 
 
@@ -86,7 +86,7 @@
   {
     \prop_gput:Nnn #1 { #2 } { #3 }
     \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { l3kernel.@@.tables.\l_tmpa_tl["#2"] = "#3" }
+    \directlua { ltx.@@.tables.\l_tmpa_tl["#2"] = "#3" }
   }
 
 
@@ -94,19 +94,19 @@
   {
     \seq_gput_right:Nn #1 { #2 }
     \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { table.insert(l3kernel.@@.tables.\l_tmpa_tl, "#2") }
+    \directlua { table.insert(ltx.@@.tables.\l_tmpa_tl, "#2") }
   }
 
 %Hm not quite sure about the naming
 
 \cs_new:Npn \@@_seq_item:cn #1 #2
   {
-    \directlua { tex.print(l3kernel.@@.tables.#1[#2]) }
+    \directlua { tex.print(ltx.@@.tables.#1[#2]) }
   }
 
 \cs_new:Npn \@@_prop_item:cn #1 #2
   {
-    \directlua { tex.print(l3kernel.@@.tables.#1["#2"]) }
+    \directlua { tex.print(ltx.@@.tables.#1["#2"]) }
   }
 
 %for debugging commands that show both the seq/prop and the lua tables
@@ -114,16 +114,16 @@
   {
     \seq_show:N #1
     \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { l3kernel.@@.trace.log ("lua~sequence~array~\l_tmpa_tl",1) }
-    \directlua { l3kernel.@@.trace.show_seq (l3kernel.@@.tables.\l_tmpa_tl) }
+    \directlua { ltx.@@.trace.log ("lua~sequence~array~\l_tmpa_tl",1) }
+    \directlua { ltx.@@.trace.show_seq (ltx.@@.tables.\l_tmpa_tl) }
   }
 
 \cs_new:Nn \@@_prop_show:N
   {
     \prop_show:N #1
     \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua {l3kernel.@@.trace.log  ("lua~property~table~\l_tmpa_tl",1) }
-    \directlua {l3kernel.@@.trace.show_prop (l3kernel.@@.tables.\l_tmpa_tl) }
+    \directlua {ltx.@@.trace.log  ("lua~property~table~\l_tmpa_tl",1) }
+    \directlua {ltx.@@.trace.show_prop (ltx.@@.tables.\l_tmpa_tl) }
  }
 %</luatex>
 %    \end{macrocode}
@@ -191,42 +191,42 @@ The code has quite probably a number of problems
 
 
 --[[
-the main table is named l3kernel.@@. It contains the functions and also the data
+the main table is named ltx.@@. It contains the functions and also the data
 collected during the compilation.
 
-l3kernel.@@.mc     will contain mc connected data.
-l3kernel.@@.struct will contain structure related data.
-l3kernel.@@.page   will contain page data
-l3kernel.@@.tables contains also data from mc and struct (from older code). This needs cleaning up.
+ltx.@@.mc     will contain mc connected data.
+ltx.@@.struct will contain structure related data.
+ltx.@@.page   will contain page data
+ltx.@@.tables contains also data from mc and struct (from older code). This needs cleaning up.
              There are certainly dublettes, but I don't dare yet ...
-l3kernel.@@.func   will contain (public) functions.
-l3kernel.@@.trace  will contain tracing/loging functions.
+ltx.@@.func   will contain (public) functions.
+ltx.@@.trace  will contain tracing/loging functions.
 local funktions starts with __
-functions meant for users will be in l3kernel.tag
+functions meant for users will be in ltx.tag
 
 functions
- l3kernel.@@.func.get_num_from (tag):    takes a tag (string) and returns the id number
- l3kernel.@@.func.output_num_from (tag): takes a tag (string) and prints (to tex) the id number
- l3kernel.@@.func.get_tag_from (num):    takes a num and returns the tag
- l3kernel.@@.func.output_tag_from (num): takes a num and prints (to tex) the tag
- l3kernel.@@.func.store_mc_data (num,key,data): stores key=data in l3kernel.@@.mc[num]
- l3kernel.@@.func.store_mc_label (label,num): stores label=num in l3kernel.@@.mc.labels
- l3kernel.@@.func.store_mc_kid (mcnum,kid,page): stores the mc-kids of mcnum on page page
- l3kernel.@@.func.store_mc_in_page(mcnum,mcpagecnt,page): stores in the page table the number of mcnum on this page
- l3kernel.@@.func.store_struct_mcabs (structnum,mcnum): stores relations structnum<->mcnum (abs)
- l3kernel.@@.func.mc_insert_kids (mcnum): inserts the /K entries for mcnum by wandering throught the [kids] table
- l3kernel.@@.func.mark_page_elements(box,mcpagecnt,mccntprev,mcopen,name,mctypeprev) : the main function
- l3kernel.@@.func.mark_shipout (): a wrapper around the core function which inserts the last EMC
- l3kernel.@@.func.fill_parent_tree_line (page): outputs the entries of the parenttree for this page
- l3kernel.@@.func.output_parenttree(): outputs the content of the parenttree
- l3kernel.@@.func.markspaceon(), l3kernel.@@.func.markspaceoff(): (de)activates the marking of positions for space chars
- l3kernel.@@.trace.show_mc_data (num): shows l3kernel.@@.mc[num]
- l3kernel.@@.trace.show_all_mc_data (max): shows a maximum about mc's
- l3kernel.@@.trace.show_seq: shows a sequence (array)
- l3kernel.@@.trace.show_struct_data (num): shows data of structure num
- l3kernel.@@.trace.show_prop: shows a prop
- l3kernel.@@.trace.log
- l3kernel.@@.trace.showspaces : boolean
+ ltx.@@.func.get_num_from (tag):    takes a tag (string) and returns the id number
+ ltx.@@.func.output_num_from (tag): takes a tag (string) and prints (to tex) the id number
+ ltx.@@.func.get_tag_from (num):    takes a num and returns the tag
+ ltx.@@.func.output_tag_from (num): takes a num and prints (to tex) the tag
+ ltx.@@.func.store_mc_data (num,key,data): stores key=data in ltx.@@.mc[num]
+ ltx.@@.func.store_mc_label (label,num): stores label=num in ltx.@@.mc.labels
+ ltx.@@.func.store_mc_kid (mcnum,kid,page): stores the mc-kids of mcnum on page page
+ ltx.@@.func.store_mc_in_page(mcnum,mcpagecnt,page): stores in the page table the number of mcnum on this page
+ ltx.@@.func.store_struct_mcabs (structnum,mcnum): stores relations structnum<->mcnum (abs)
+ ltx.@@.func.mc_insert_kids (mcnum): inserts the /K entries for mcnum by wandering throught the [kids] table
+ ltx.@@.func.mark_page_elements(box,mcpagecnt,mccntprev,mcopen,name,mctypeprev) : the main function
+ ltx.@@.func.mark_shipout (): a wrapper around the core function which inserts the last EMC
+ ltx.@@.func.fill_parent_tree_line (page): outputs the entries of the parenttree for this page
+ ltx.@@.func.output_parenttree(): outputs the content of the parenttree
+ ltx.@@.func.markspaceon(), ltx.@@.func.markspaceoff(): (de)activates the marking of positions for space chars
+ ltx.@@.trace.show_mc_data (num): shows ltx.@@.mc[num]
+ ltx.@@.trace.show_all_mc_data (max): shows a maximum about mc's
+ ltx.@@.trace.show_seq: shows a sequence (array)
+ ltx.@@.trace.show_struct_data (num): shows data of structure num
+ ltx.@@.trace.show_prop: shows a prop
+ ltx.@@.trace.log
+ ltx.@@.trace.showspaces : boolean
 --]]
 
 local mctypeattributeid       = luatexbase.registernumber ("l_@@_mc_type_attr")
@@ -278,16 +278,16 @@ end
 
 
 
-l3kernel             = l3kernel        or { }
-l3kernel.@@          = l3kernel.@@        or { }
-l3kernel.@@.mc             = l3kernel.@@.mc     or  { } -- mc data
-l3kernel.@@.struct         = l3kernel.@@.struct or  { } -- struct data
-l3kernel.@@.tables         = l3kernel.@@.tables or  { } -- tables created with new prop and new seq.
+ltx             = ltx        or { }
+ltx.@@          = ltx.@@        or { }
+ltx.@@.mc             = ltx.@@.mc     or  { } -- mc data
+ltx.@@.struct         = ltx.@@.struct or  { } -- struct data
+ltx.@@.tables         = ltx.@@.tables or  { } -- tables created with new prop and new seq.
                                             -- wasn't a so great idea ...
-l3kernel.@@.page           = l3kernel.@@.page   or  { } -- page data, currently only i->{0->mcnum,1->mcnum,...}
-l3kernel.@@.trace          = l3kernel.@@.trace  or  { } -- show commands
-l3kernel.@@.func           = l3kernel.@@.func   or  { } -- functions
-l3kernel.@@.conf           = l3kernel.@@.conf   or  { } -- configuration variables
+ltx.@@.page           = ltx.@@.page   or  { } -- page data, currently only i->{0->mcnum,1->mcnum,...}
+ltx.@@.trace          = ltx.@@.trace  or  { } -- show commands
+ltx.@@.func           = ltx.@@.func   or  { } -- functions
+ltx.@@.conf           = ltx.@@.conf   or  { } -- configuration variables
 
 local @@_log =
  function (message,loglevel)
@@ -296,13 +296,13 @@ local @@_log =
   end
  end
 
-l3kernel.@@.trace.log = @@_log
+ltx.@@.trace.log = @@_log
 
 
 local @@_get_mc_cnt_type_tag = function (n)
   local mccnt      =  nodegetattribute(n,mccntattributeid)  or -1
   local mctype     =  nodegetattribute(n,mctypeattributeid)  or -1
-  local tag        =  l3kernel.@@.func.get_tag_from(mctype)
+  local tag        =  ltx.@@.func.get_tag_from(mctype)
   return mccnt,mctype,tag
 end
 
@@ -359,7 +359,7 @@ local function @@_mark_spaces (head)
         nodesetattribute(glyph.next,iwspaceattributeid,1)
         nodesetattribute(glyph.next,iwfontattributeid,glyph.font)
       -- for debugging
-       if l3kernel.@@.trace.showspaces then
+       if ltx.@@.trace.showspaces then
         @@_show_spacemark (head,glyph)
        end
       elseif glyph.next and (glyph.next.id==KERN) and not inside_math then
@@ -372,14 +372,14 @@ local function @@_mark_spaces (head)
       end
     elseif id == PENALTY then
       local glyph = n
-      -- l3kernel.@@.trace.log ("PENALTY ".. n.subtype.."VALUE"..n.penalty,3)
+      -- ltx.@@.trace.log ("PENALTY ".. n.subtype.."VALUE"..n.penalty,3)
       if glyph.next and (glyph.next.id == GLUE)
         and not inside_math  and (glyph.next.width >0) and n.subtype==0
       then
         nodesetattribute(glyph.next,iwspaceattributeid,1)
       --  nodesetattribute(glyph.next,iwfontattributeid,glyph.font)
       -- for debugging
-       if l3kernel.@@.trace.showspaces then
+       if ltx.@@.trace.showspaces then
         @@_show_spacemark (head,glyph)
        end
       end
@@ -397,7 +397,7 @@ local function @@_activate_mark_space ()
  end
 end
 
-l3kernel.@@.func.markspaceon=@@_activate_mark_space
+ltx.@@.func.markspaceon=@@_activate_mark_space
 
 local function @@_deactivate_mark_space ()
  if luatexbase.in_callback ("pre_linebreak_filter","markspaces") then
@@ -406,7 +406,7 @@ local function @@_deactivate_mark_space ()
  end
 end
 --
-l3kernel.@@.func.markspaceoff=@@_deactivate_mark_space
+ltx.@@.func.markspaceoff=@@_deactivate_mark_space
 
 local default_space_char = node.new(GLYPH)
 local default_fontid     = font.id("TU/lmr/m/n/10")
@@ -438,41 +438,41 @@ end
     One should also find ways to make the function shorter.
 --]]
 
-function l3kernel.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mctypeprev)
+function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mctypeprev)
   local name = name or ("SOMEBOX")
   local mctypeprev = mctypeprev or -1
   local abspage = tex.count["g_shipout_readonly_int"] + 1  -- the real counter is increased inside the box so one off
-  l3kernel.@@.trace.log ("PAGE " .. abspage,3)
-  l3kernel.@@.trace.log ("FUNC ARGS: pagecnt".. mcpagecnt.." prev "..mccntprev .. " type prev "..mctypeprev,4)
-  l3kernel.@@.trace.log ("TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
+  ltx.@@.trace.log ("PAGE " .. abspage,3)
+  ltx.@@.trace.log ("FUNC ARGS: pagecnt".. mcpagecnt.." prev "..mccntprev .. " type prev "..mctypeprev,4)
+  ltx.@@.trace.log ("TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
   local head = box.head -- ShipoutBox is a vlist?
   if head then
     mccnthead, mctypehead,taghead = @@_get_mc_cnt_type_tag (head)
-    l3kernel.@@.trace.log ("HEAD " .. node.type(node.getid(head)).. " MC"..tostring(mccnthead).." => TAG "..tostring(mctypehead).." => "..tostring(taghead),3)
+    ltx.@@.trace.log ("HEAD " .. node.type(node.getid(head)).. " MC"..tostring(mccnthead).." => TAG "..tostring(mctypehead).." => "..tostring(taghead),3)
   else
-    l3kernel.@@.trace.log ("HEAD is ".. tostring(head),3)
+    ltx.@@.trace.log ("HEAD is ".. tostring(head),3)
   end
   for n in node.traverse(head) do
     local mccnt, mctype, tag = @@_get_mc_cnt_type_tag (n)
     local spaceattr = nodegetattribute(n,iwspaceattributeid)  or -1
-    l3kernel.@@.trace.log ("NODE ".. node.type(node.getid(n)).." MC"..tostring(mccnt).." => TAG "..tostring(mctype).." => " .. tostring(tag),3)
+    ltx.@@.trace.log ("NODE ".. node.type(node.getid(n)).." MC"..tostring(mccnt).." => TAG "..tostring(mctype).." => " .. tostring(tag),3)
     if n.id == HLIST
     then -- enter the hlist
      mcopen,mcpagecnt,mccntprev,mctypeprev=
-      l3kernel.@@.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL HLIST",mctypeprev)
+      ltx.@@.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL HLIST",mctypeprev)
     elseif n.id == VLIST then -- enter the vlist
      mcopen,mcpagecnt,mccntprev,mctypeprev=
-      l3kernel.@@.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL VLIST",mctypeprev)
+      ltx.@@.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL VLIST",mctypeprev)
     elseif n.id == GLUE then       -- at glue real space chars are inserted, for the rest it is ignored
      -- for debugging
-     if l3kernel.@@.trace.showspaces and spaceattr==1  then
+     if ltx.@@.trace.showspaces and spaceattr==1  then
         @@_show_spacemark (head,n,"0 1 0")
      end
      if spaceattr==1  then
         local space
         local space_char = node.copy(default_space_char)
         local curfont    = nodegetattribute(n,iwfontattributeid)
-        l3kernel.@@.trace.log ("FONT ".. tostring(curfont),3)
+        ltx.@@.trace.log ("FONT ".. tostring(curfont),3)
         if curfont and luaotfload.aux.slot_of_name(curfont,"space") then
           space_char.font=curfont
         end
@@ -483,59 +483,59 @@ function l3kernel.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,nam
     elseif n.id == LOCAL_PAR then  -- local_par is ignored
     elseif n.id == PENALTY then    -- penalty is ignored
     elseif n.id == KERN then       -- kern is ignored
-     l3kernel.@@.trace.log ("SUBTYPE KERN ".. n.subtype,3)
+     ltx.@@.trace.log ("SUBTYPE KERN ".. n.subtype,3)
     else
      -- math is currently only logged.
      -- we could mark the whole as math
      -- for inner processing the mlist_to_hlist callback is probably needed.
      if n.id == MATH then
-      l3kernel.@@.trace.log("NODE "..node.type(node.getid(n)).." "..@@_get_mathsubtype(n),3)
+      ltx.@@.trace.log("NODE "..node.type(node.getid(n)).." "..@@_get_mathsubtype(n),3)
      end
      -- endmath
-     l3kernel.@@.trace.log("CURRENT "..mccnt.." PREV "..mccntprev,3)
+     ltx.@@.trace.log("CURRENT "..mccnt.." PREV "..mccntprev,3)
      if mccnt~=mccntprev then -- a new mc chunk
-      l3kernel.@@.trace.log ("NODE ".. node.type(node.getid(n)).." MC"..tostring(mccnt).." <=> PREVIOUS "..tostring(mccntprev),3)
+      ltx.@@.trace.log ("NODE ".. node.type(node.getid(n)).." MC"..tostring(mccnt).." <=> PREVIOUS "..tostring(mccntprev),3)
       if mcopen~=0 then -- there is a chunk open, close it (hope there is only one ...
        box.list=@@_insert_emc_node (box.list,n)
        mcopen = mcopen - 1
-       l3kernel.@@.trace.log ("INSERT EMC " .. mcpagecnt .. " MCOPEN = " .. mcopen,2)
+       ltx.@@.trace.log ("INSERT EMC " .. mcpagecnt .. " MCOPEN = " .. mcopen,2)
        if mcopen ~=0 then
-        l3kernel.@@.trace.log ("!WARNING! open mc" .. " MCOPEN = " .. mcopen,1)
+        ltx.@@.trace.log ("!WARNING! open mc" .. " MCOPEN = " .. mcopen,1)
        end
       end
-      if l3kernel.@@.mc[mccnt] then
-       if l3kernel.@@.mc[mccnt]["artifact"] then
-        l3kernel.@@.trace.log("THIS IS AN ARTIFACT of type "..tostring(l3kernel.@@.mc[mccnt]["artifact"]),3)
-        if l3kernel.@@.mc[mccnt]["artifact"] == "" then
+      if ltx.@@.mc[mccnt] then
+       if ltx.@@.mc[mccnt]["artifact"] then
+        ltx.@@.trace.log("THIS IS AN ARTIFACT of type "..tostring(ltx.@@.mc[mccnt]["artifact"]),3)
+        if ltx.@@.mc[mccnt]["artifact"] == "" then
          box.list = @@_insert_bmc_node (box.list,n,"Artifact")
         else
-         box.list = @@_insert_bdc_node (box.list,n,"Artifact", "/Type /"..l3kernel.@@.mc[mccnt]["artifact"])
+         box.list = @@_insert_bdc_node (box.list,n,"Artifact", "/Type /"..ltx.@@.mc[mccnt]["artifact"])
         end
        else
-        l3kernel.@@.trace.log("THIS IS A TAG "..tostring(tag),3)
+        ltx.@@.trace.log("THIS IS A TAG "..tostring(tag),3)
         mcpagecnt = mcpagecnt +1
-        l3kernel.@@.trace.log ("INSERT BDC "..mcpagecnt,2)
+        ltx.@@.trace.log ("INSERT BDC "..mcpagecnt,2)
         local dict= "/MCID "..mcpagecnt
-        if l3kernel.@@.mc[mccnt]["raw"] then
-         l3kernel.@@.trace.log("RAW CONTENT"..tostring(l3kernel.@@.mc[mccnt]["raw"]),3)
-         dict= dict .. " " .. l3kernel.@@.mc[mccnt]["raw"]
+        if ltx.@@.mc[mccnt]["raw"] then
+         ltx.@@.trace.log("RAW CONTENT"..tostring(ltx.@@.mc[mccnt]["raw"]),3)
+         dict= dict .. " " .. ltx.@@.mc[mccnt]["raw"]
         end
-        if l3kernel.@@.mc[mccnt]["alt"] then
-         l3kernel.@@.trace.log("RAW CONTENT"..tostring(l3kernel.@@.mc[mccnt]["alt"]),3)
-         dict= dict .. " " .. l3kernel.@@.mc[mccnt]["alt"]
+        if ltx.@@.mc[mccnt]["alt"] then
+         ltx.@@.trace.log("RAW CONTENT"..tostring(ltx.@@.mc[mccnt]["alt"]),3)
+         dict= dict .. " " .. ltx.@@.mc[mccnt]["alt"]
         end
-        if l3kernel.@@.mc[mccnt]["actualtext"] then
-         l3kernel.@@.trace.log("RAW CONTENT"..tostring(l3kernel.@@.mc[mccnt]["actualtext"]),3)
-         dict= dict .. " " .. l3kernel.@@.mc[mccnt]["actualtext"]
+        if ltx.@@.mc[mccnt]["actualtext"] then
+         ltx.@@.trace.log("RAW CONTENT"..tostring(ltx.@@.mc[mccnt]["actualtext"]),3)
+         dict= dict .. " " .. ltx.@@.mc[mccnt]["actualtext"]
         end
         box.list = @@_insert_bdc_node (box.list,n,tag, dict)
-        l3kernel.@@.func.store_mc_kid (mccnt,mcpagecnt,abspage)
-        l3kernel.@@.func.store_mc_in_page(mccnt,mcpagecnt,abspage)
-        l3kernel.@@.trace.show_mc_data (mccnt)
+        ltx.@@.func.store_mc_kid (mccnt,mcpagecnt,abspage)
+        ltx.@@.func.store_mc_in_page(mccnt,mcpagecnt,abspage)
+        ltx.@@.trace.show_mc_data (mccnt)
        end
        mcopen = mcopen + 1
       else
-       l3kernel.@@.trace.log("THIS HAS NOT BEEN TAGGED",1)
+       ltx.@@.trace.log("THIS HAS NOT BEEN TAGGED",1)
      -- perhaps code that tag a artifact can be added ...
        if tagunmarkedbool.mode == truebool.mode then
         box.list = @@_insert_bmc_node (box.list,n,"Artifact")
@@ -548,16 +548,16 @@ function l3kernel.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,nam
   end -- end for
   if head then
     mccnthead, mctypehead,taghead = @@_get_mc_cnt_type_tag (head)
-    l3kernel.@@.trace.log ("ENDHEAD " .. node.type(node.getid(head)).. " MC"..tostring(mccnthead).." => TAG "..tostring(mctypehead).." => "..tostring(taghead),3)
+    ltx.@@.trace.log ("ENDHEAD " .. node.type(node.getid(head)).. " MC"..tostring(mccnthead).." => TAG "..tostring(mctypehead).." => "..tostring(taghead),3)
   else
-    l3kernel.@@.trace.log ("ENDHEAD is ".. tostring(head),3)
+    ltx.@@.trace.log ("ENDHEAD is ".. tostring(head),3)
   end
-  l3kernel.@@.trace.log ("QUITTING TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
+  ltx.@@.trace.log ("QUITTING TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
  return mcopen,mcpagecnt,mccntprev,mctypeprev
 end
 
-function l3kernel.@@.func.mark_shipout ()
- mcopen = l3kernel.@@.func.mark_page_elements (tex.box["ShipoutBox"],-1,-100,0,"Shipout",-1)
+function ltx.@@.func.mark_shipout ()
+ mcopen = ltx.@@.func.mark_page_elements (tex.box["ShipoutBox"],-1,-100,0,"Shipout",-1)
  if mcopen~=0 then -- there is a chunk open, close it (hope there is only one ...
   local emcnode = nodenew("whatsit","pdf_literal")
   local box = tex.box["ShipoutBox"].list
@@ -566,17 +566,17 @@ function l3kernel.@@.func.mark_shipout ()
   if box then
      box = node.insert_after (box,node.tail(box),emcnode)
      mcopen = mcopen - 1
-     l3kernel.@@.trace.log ("INSERT LAST EMC, MCOPEN = " .. mcopen,2)
+     ltx.@@.trace.log ("INSERT LAST EMC, MCOPEN = " .. mcopen,2)
   else
-     l3kernel.@@.trace.log ("UPS ",1)
+     ltx.@@.trace.log ("UPS ",1)
   end
   if mcopen ~=0 then
-     l3kernel.@@.trace.log ("!WARNING! open mc" .. " MCOPEN = " .. mcopen,1)
+     ltx.@@.trace.log ("!WARNING! open mc" .. " MCOPEN = " .. mcopen,1)
   end
  end
 end
 
-function l3kernel.@@.trace.show_seq (seq)
+function ltx.@@.trace.show_seq (seq)
  if (type(seq) == "table") then
   for i,v in ipairs(seq) do
    @@_log ("[" .. i .. "] => " .. tostring(v),1)
@@ -602,7 +602,7 @@ local @@_pairs_prop =
   end
 
 
-function l3kernel.@@.trace.show_prop (prop)
+function ltx.@@.trace.show_prop (prop)
  if (type(prop) == "table") then
   for i,v in @@_pairs_prop (prop) do
     @@_log ("[" .. i .. "] => " .. tostring(v),1)
@@ -615,17 +615,17 @@ function l3kernel.@@.trace.show_prop (prop)
 
 local @@_get_num_from =
  function (tag)
-  if l3kernel.@@.tables["g_@@_role_tags_prop"][tag] then
-    a= l3kernel.@@.tables["g_@@_role_tags_prop"][tag]
+  if ltx.@@.tables["g_@@_role_tags_prop"][tag] then
+    a= ltx.@@.tables["g_@@_role_tags_prop"][tag]
   else
     a= -1
   end
   return a
  end
 
-l3kernel.@@.func.get_num_from = @@_get_num_from
+ltx.@@.func.get_num_from = @@_get_num_from
 
-function l3kernel.@@.func.output_num_from (tag)
+function ltx.@@.func.output_num_from (tag)
   local num = @@_get_num_from (tag)
   tex.sprint(catlatex,num)
   if num == -1 then
@@ -635,34 +635,34 @@ end
 
 local @@_get_tag_from =
  function  (num)
-  if l3kernel.@@.tables["g_@@_role_tags_seq"][num] then
-   a = l3kernel.@@.tables["g_@@_role_tags_seq"][num]
+  if ltx.@@.tables["g_@@_role_tags_seq"][num] then
+   a = ltx.@@.tables["g_@@_role_tags_seq"][num]
   else
    a= "UNKNOWN"
   end
  return a
 end
 
-l3kernel.@@.func.get_tag_from = @@_get_tag_from
+ltx.@@.func.get_tag_from = @@_get_tag_from
 
-function l3kernel.@@.func.output_tag_from (num)
+function ltx.@@.func.output_tag_from (num)
   tex.sprint(catlatex,@@_get_tag_from (num))
 end
 
-function l3kernel.@@.func.store_mc_data (num,key,data)
- l3kernel.@@.mc[num] = l3kernel.@@.mc[num] or { }
- l3kernel.@@.mc[num][key] = data
+function ltx.@@.func.store_mc_data (num,key,data)
+ ltx.@@.mc[num] = ltx.@@.mc[num] or { }
+ ltx.@@.mc[num][key] = data
  @@_log  ("storing mc"..num..": "..tostring(key).."=>"..tostring(data))
 end
 
-function l3kernel.@@.trace.show_mc_data (num)
- if l3kernel.@@ and l3kernel.@@.mc and l3kernel.@@.mc[num] then
-  for k,v in pairs(l3kernel.@@.mc[num]) do
+function ltx.@@.trace.show_mc_data (num)
+ if ltx.@@ and ltx.@@.mc and ltx.@@.mc[num] then
+  for k,v in pairs(ltx.@@.mc[num]) do
    @@_log  ("mc"..num..": "..tostring(k).."=>"..tostring(v),3)
   end
-  if l3kernel.@@.mc[num]["kids"] then
-  @@_log ("mc" .. num .. " has " .. #l3kernel.@@.mc[num]["kids"] .. " kids",3)
-   for k,v in ipairs(l3kernel.@@.mc[num]["kids"]) do
+  if ltx.@@.mc[num]["kids"] then
+  @@_log ("mc" .. num .. " has " .. #ltx.@@.mc[num]["kids"] .. " kids",3)
+   for k,v in ipairs(ltx.@@.mc[num]["kids"]) do
     @@_log ("mc ".. num .. " kid "..k.." =>" .. v.kid.." on page " ..v.page,3)
    end
   end
@@ -671,78 +671,78 @@ function l3kernel.@@.trace.show_mc_data (num)
  end
 end
 
-function l3kernel.@@.trace.show_all_mc_data (max)
+function ltx.@@.trace.show_all_mc_data (max)
  for i = 1, max do
-  l3kernel.@@.trace.show_mc_data (i)
+  ltx.@@.trace.show_mc_data (i)
  end
 end
 
 
-function l3kernel.@@.func.store_mc_label (label,num)
- l3kernel.@@.mc["labels"] = l3kernel.@@.mc["labels"] or { }
- l3kernel.@@.mc.labels[label] = num
+function ltx.@@.func.store_mc_label (label,num)
+ ltx.@@.mc["labels"] = ltx.@@.mc["labels"] or { }
+ ltx.@@.mc.labels[label] = num
 end
 
-function l3kernel.@@.func.store_mc_kid (mcnum,kid,page)
- l3kernel.@@.trace.log("MC"..mcnum.." STORING KID" .. kid.." on page " .. page,3)
- l3kernel.@@.mc[mcnum]["kids"] = l3kernel.@@.mc[mcnum]["kids"] or { }
+function ltx.@@.func.store_mc_kid (mcnum,kid,page)
+ ltx.@@.trace.log("MC"..mcnum.." STORING KID" .. kid.." on page " .. page,3)
+ ltx.@@.mc[mcnum]["kids"] = ltx.@@.mc[mcnum]["kids"] or { }
  local kidtable = {kid=kid,page=page}
- tableinsert(l3kernel.@@.mc[mcnum]["kids"], kidtable )
+ tableinsert(ltx.@@.mc[mcnum]["kids"], kidtable )
 end
 
 
-function l3kernel.@@.func.mc_num_of_kids (mcnum)
+function ltx.@@.func.mc_num_of_kids (mcnum)
  local num = 0
- if l3kernel.@@.mc[mcnum] and l3kernel.@@.mc[mcnum]["kids"] then
-   num = #l3kernel.@@.mc[mcnum]["kids"]
+ if ltx.@@.mc[mcnum] and ltx.@@.mc[mcnum]["kids"] then
+   num = #ltx.@@.mc[mcnum]["kids"]
  end
- l3kernel.@@.trace.log ("MC" .. mcnum .. "has " .. num .. "KIDS",4)
+ ltx.@@.trace.log ("MC" .. mcnum .. "has " .. num .. "KIDS",4)
  return num
 end
 
-function l3kernel.@@.func.mc_insert_kids (mcnum,single)
-  if l3kernel.@@.mc[mcnum] then
-  l3kernel.@@.trace.log("MC-KIDS test " .. mcnum,4)
-   if l3kernel.@@.mc[mcnum]["kids"] then
-    if #l3kernel.@@.mc[mcnum]["kids"] > 1 and single==1 then
+function ltx.@@.func.mc_insert_kids (mcnum,single)
+  if ltx.@@.mc[mcnum] then
+  ltx.@@.trace.log("MC-KIDS test " .. mcnum,4)
+   if ltx.@@.mc[mcnum]["kids"] then
+    if #ltx.@@.mc[mcnum]["kids"] > 1 and single==1 then
      tex.sprint("[")
     end
-    for i,kidstable in ipairs( l3kernel.@@.mc[mcnum]["kids"] ) do
+    for i,kidstable in ipairs( ltx.@@.mc[mcnum]["kids"] ) do
      local kidnum  = kidstable["kid"]
      local kidpage = kidstable["page"]
      local kidpageobjnum = pdfpageref(kidpage)
-     l3kernel.@@.trace.log("MC" .. mcnum .. " insert KID " ..i.. " with num " .. kidnum .. " on page " .. kidpage.."/"..kidpageobjnum,3)
+     ltx.@@.trace.log("MC" .. mcnum .. " insert KID " ..i.. " with num " .. kidnum .. " on page " .. kidpage.."/"..kidpageobjnum,3)
      tex.sprint(catlatex,"<</Type /MCR /Pg "..kidpageobjnum .. " 0 R /MCID "..kidnum.. ">> " )
     end
-    if #l3kernel.@@.mc[mcnum]["kids"] > 1 and single==1 then
+    if #ltx.@@.mc[mcnum]["kids"] > 1 and single==1 then
      tex.sprint("]")
     end
    else
-    l3kernel.@@.trace.log("WARN! MC"..mcnum.." has no kids",0)
+    ltx.@@.trace.log("WARN! MC"..mcnum.." has no kids",0)
     if single==1 then
       tex.sprint("null")
     end
    end
   else
-   l3kernel.@@.trace.log("WARN! MC"..mcnum.." doesn't exist",0)
+   ltx.@@.trace.log("WARN! MC"..mcnum.." doesn't exist",0)
   end
 end
 
 
-function l3kernel.@@.func.store_struct_mcabs (structnum,mcnum)
- l3kernel.@@.struct[structnum]=l3kernel.@@.struct[structnum] or { }
- l3kernel.@@.struct[structnum]["mc"]=l3kernel.@@.struct[structnum]["mc"] or { }
+function ltx.@@.func.store_struct_mcabs (structnum,mcnum)
+ ltx.@@.struct[structnum]=ltx.@@.struct[structnum] or { }
+ ltx.@@.struct[structnum]["mc"]=ltx.@@.struct[structnum]["mc"] or { }
  -- a structure can contain more than on mc chunk, the content should be ordered
- tableinsert(l3kernel.@@.struct[structnum]["mc"],mcnum)
- l3kernel.@@.trace.log("MCNUM "..mcnum.." insert in struct "..structnum,3)
+ tableinsert(ltx.@@.struct[structnum]["mc"],mcnum)
+ ltx.@@.trace.log("MCNUM "..mcnum.." insert in struct "..structnum,3)
  -- but every mc can only be in one structure
- l3kernel.@@.mc[mcnum]= l3kernel.@@.mc[mcnum] or { }
- l3kernel.@@.mc[mcnum]["parent"] = structnum
+ ltx.@@.mc[mcnum]= ltx.@@.mc[mcnum] or { }
+ ltx.@@.mc[mcnum]["parent"] = structnum
 end
 
-function l3kernel.@@.trace.show_struct_data (num)
- if l3kernel.@@ and l3kernel.@@.struct and l3kernel.@@.struct[num] then
-  for k,v in ipairs(l3kernel.@@.struct[num]) do
+function ltx.@@.trace.show_struct_data (num)
+ if ltx.@@ and ltx.@@.struct and ltx.@@.struct[num] then
+  for k,v in ipairs(ltx.@@.struct[num]) do
    @@_log  ("struct "..num..": "..tostring(k).."=>"..tostring(v))
   end
  else
@@ -752,53 +752,53 @@ end
 
 -- pay attention: lua counts arrays from 1, tex pages from one
 -- mcid and arrays in pdf count from 0.
-function l3kernel.@@.func.store_mc_in_page (mcnum,mcpagecnt,page)
- l3kernel.@@.page[page] = l3kernel.@@.page[page] or {}
- l3kernel.@@.page[page][mcpagecnt] = mcnum
- l3kernel.@@.trace.log("PAGE " .. page .. ": inserting MCID " .. mcpagecnt .. " => " .. mcnum,3)
+function ltx.@@.func.store_mc_in_page (mcnum,mcpagecnt,page)
+ ltx.@@.page[page] = ltx.@@.page[page] or {}
+ ltx.@@.page[page][mcpagecnt] = mcnum
+ ltx.@@.trace.log("PAGE " .. page .. ": inserting MCID " .. mcpagecnt .. " => " .. mcnum,3)
 end
 
-function l3kernel.@@.func.fill_parent_tree_line (page)
+function ltx.@@.func.fill_parent_tree_line (page)
      -- we need to get page-> i=kid -> mcnum -> structnum
      -- pay attention: the kid numbers and the page number in the parent tree start with 0!
     local numsentry =""
     local pdfpage = page-1
-    if l3kernel.@@.page[page] and l3kernel.@@.page[page][0] then
-     mcchunks=#l3kernel.@@.page[page]
-     l3kernel.@@.trace.log("PAGETREE PAGE "..page.." has "..mcchunks.."+1 Elements ",3)
+    if ltx.@@.page[page] and ltx.@@.page[page][0] then
+     mcchunks=#ltx.@@.page[page]
+     ltx.@@.trace.log("PAGETREE PAGE "..page.." has "..mcchunks.."+1 Elements ",3)
      for i=0,mcchunks do
-      l3kernel.@@.trace.log("PAGETREE CHUNKS "..l3kernel.@@.page[page][i],3)
+      ltx.@@.trace.log("PAGETREE CHUNKS "..ltx.@@.page[page][i],3)
      end
      if mcchunks == 0 then
       -- only one chunk so no need for an array
-      local mcnum  = l3kernel.@@.page[page][0]
-      local structnum = l3kernel.@@.mc[mcnum]["parent"]
+      local mcnum  = ltx.@@.page[page][0]
+      local structnum = ltx.@@.mc[mcnum]["parent"]
       local propname  = "g_@@_struct_"..structnum.."_prop"
-      local objref   =  l3kernel.@@.tables[propname]["objref"] or "XXXX"
+      local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
        texio.write_nl("=====>"..tostring(objref))
       numsentry = pdfpage .. " [".. objref .. "]"
-      l3kernel.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
+      ltx.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
      else
       numsentry = pdfpage .. " ["
        for i=0,mcchunks do
-        local mcnum  = l3kernel.@@.page[page][i]
-        local structnum = l3kernel.@@.mc[mcnum]["parent"] or 0
+        local mcnum  = ltx.@@.page[page][i]
+        local structnum = ltx.@@.mc[mcnum]["parent"] or 0
         local propname  = "g_@@_struct_"..structnum.."_prop"
-        local objref   =  l3kernel.@@.tables[propname]["objref"] or "XXXX"
+        local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
         numsentry = numsentry .. " ".. objref
        end
       numsentry = numsentry .. "] "
-      l3kernel.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
+      ltx.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
      end
     else
-      l3kernel.@@.trace.log ("PAGETREE: NO DATA FOR PAGE "..page,3)
+      ltx.@@.trace.log ("PAGETREE: NO DATA FOR PAGE "..page,3)
     end
     return numsentry
 end
 
-function l3kernel.@@.func.output_parenttree (abspage)
+function ltx.@@.func.output_parenttree (abspage)
  for i=1,abspage do
-  line = l3kernel.@@.func.fill_parent_tree_line (i) .. "^^J"
+  line = ltx.@@.func.fill_parent_tree_line (i) .. "^^J"
   tex.sprint(catlatex,line)
  end
 end

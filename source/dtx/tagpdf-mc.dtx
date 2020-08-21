@@ -453,7 +453,7 @@
 % and when building the trees connect both
 
 % key definitions are overwritten for luatex to store that data in tables
-% the data for the mc are in l3kernel.@@.mc[absnum]
+% the data for the mc are in ltx.@@.mc[absnum]
 % the fields of the table are
 % tag : the type (a string)
 % raw : more properties (string)
@@ -470,7 +470,7 @@
       {
         \hook_gput_code:nnn{shipout/before}{tagpdf/lua}
           {
-            \directlua{l3kernel.@@.func.mark_shipout ()}
+            \directlua{ltx.@@.func.mark_shipout ()}
           }
       }
   }
@@ -499,7 +499,7 @@
         \tl_set:Nx  \l_@@_mc_key_tag_tl { #1 }
         \directlua
           {
-            l3kernel.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","#1")
+            ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","#1")
           }
       },
     raw .code:n =
@@ -507,7 +507,7 @@
         \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
         \directlua
           {
-            l3kernel.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","#1")
+            ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","#1")
           }
       },
     alttext .code:n      = % Alt property
@@ -521,7 +521,7 @@
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
         \directlua
           {
-            l3kernel.@@.func.store_mc_data
+            ltx.@@.func.store_mc_data
               (
                  \@@_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l_@@_tmpa_str>"
               )
@@ -538,7 +538,7 @@
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
         \directlua
           {
-            l3kernel.@@.func.store_mc_data
+            ltx.@@.func.store_mc_data
               (
                 \@@_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l_@@_tmpa_str>"
               )
@@ -555,7 +555,7 @@
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
         \directlua
           {
-            l3kernel.@@.func.store_mc_data
+            ltx.@@.func.store_mc_data
               (
                 \@@_get_mc_abs_cnt:,"actualtext","/ActualText~<\str_use:N \l_@@_tmpa_str>"
               )
@@ -572,7 +572,7 @@
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
         \directlua
           {
-            l3kernel.@@.func.store_mc_data
+            ltx.@@.func.store_mc_data
               (
                 \@@_get_mc_abs_cnt:,
                 "actualtext",
@@ -585,7 +585,7 @@
         \tl_set:Nn\l_@@_mc_key_label_tl { #1 }
         \directlua
           {
-            l3kernel.@@.func.store_mc_data
+            ltx.@@.func.store_mc_data
               (
                 \@@_get_mc_abs_cnt:,"label","#1"
               )
@@ -595,7 +595,7 @@
       {
         \directlua
           {
-            l3kernel.@@.func.store_mc_data
+            ltx.@@.func.store_mc_data
               (
                 \@@_get_mc_abs_cnt:,"artifact","#1"
               )
@@ -644,7 +644,7 @@
   {
     \@@_attribute_set:Nn \l_@@_mc_type_attr
       {
-        \directlua { l3kernel.@@.func.output_num_from ("#1") }
+        \directlua { ltx.@@.func.output_num_from ("#1") }
       }
     \@@_attribute_set:Nn \l_@@_mc_cnt_attr  { \@@_get_mc_abs_cnt: }
   }
@@ -663,12 +663,12 @@
 %we need a variant for the case that it is the only kid, to get the array right
 \cs_new:Nn \@@_mc_insert_mcid_kids:n
   {
-    \directlua { l3kernel.@@.func.mc_insert_kids (#1,0) }
+    \directlua { ltx.@@.func.mc_insert_kids (#1,0) }
   }
 
 \cs_new:Nn \@@_mc_insert_mcid_single_kids:n
   {
-    \directlua {l3kernel.@@.func.mc_insert_kids (#1,1) }
+    \directlua {ltx.@@.func.mc_insert_kids (#1,1) }
   }
 
 
@@ -688,7 +688,7 @@
       }
     \directlua
       {
-        l3kernel.@@.func.store_struct_mcabs
+        ltx.@@.func.store_struct_mcabs
           (
             \g_@@_struct_stack_current_tl,#1
           )
