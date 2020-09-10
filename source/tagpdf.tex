@@ -285,8 +285,7 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \item[\PrintKeyName{check-tags}]
  \TagP^Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).\Pmeti
 \item[\PrintKeyName{inputencoding}]
- \TagP^Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).
- \Pmeti
+ \TagP^Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).\Pmeti
 \item[\PrintKeyName{interwordspace}]
  \TagP^Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.\Pmeti
 \item[\PrintKeyName{log}]
