@@ -29,16 +29,36 @@ uploadconfig = {
   announcement_file="ctan.ann"              
 }
 
-checkengines = {"pdftex", "luatex"}
+specialformats = specialformats or {}
+
+if string.find(status.banner,"2019") then
+  print("TL2019")
+  TL2019bool=true
+else 
+  -- tl2020
+  print("TL2020 or later")
+
+  specialformats["latex"] = specialformats["latex"] or 
+   {
+    luatex     = {binary="luahbtex",format = "lualatex"},
+   }
+  specialformats["latex-dev"] = specialformats["latex-dev"] or 
+   {
+    luatex = {binary="luahbtex",format = "lualatex-dev"}
+   }
+end
+
+checkengines = {"pdftex","luatex"}
 checkconfigs = {"build",
                 "config-pdftex",
                 "config-nosyntax", -- tests with invalid pdf as result
                 "config-luatex",
                -- "config-luatex-dev",
                -- "config-pdftex-dev",
-                "config-dev"}
+               -- "config-dev"
+                }
 checkruns = 3
-checksuppfiles = {"texmf.cnf","pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}
+checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}
 excludetests = {"test-saveboxes-structure-dev"}
 
 
@@ -47,17 +67,18 @@ if os.getenv('TRAVIS')  then
    excludetests = {"test-pdfresources-exist","test-saveboxes-structure-dev"}
 end 
 
-local extratexmf=os.getenv('TEXDEVDIR')
+-- currently probably not needed. files in texmfhome are found.
+-- local extratexmf=os.getenv('TEXDEVDIR')
 
 
-local file = io.open ("support/texmf.cnf","w")
-io.output(file)
-if extratexmf then
-io.write("TEXMFAUXTREES= "..extratexmf..",")
-else
-io.write("")
-end
-io.close(file)
+--local file = io.open ("support/texmf.cnf","w")
+--io.output(file)
+--if extratexmf then
+--io.write("TEXMFAUXTREES= "..extratexmf..",")
+--else
+--io.write("")
+--end
+--io.close(file)
 
 sourcefiledir = "./source"
 
@@ -124,9 +145,15 @@ function update_tag (file,content,tagname,tagdate)
  end
 
 -- ctan setup
-docfiles = {"source/tagpdf.tex","source/tagpdf.bib","source/link-figure-input.tex","source/pac3.PNG","source/examples/**/*.tex", "source/examples/**/*.pdf"}
+docfiles = {"source/tagpdf.tex",
+            "source/tagpdfdocu-patches.sty",
+            "source/tagpdf.bib",
+            "source/link-figure-input.tex",
+            "source/pac3.PNG",
+            "source/examples/**/*.tex", 
+            "source/examples/**/*.pdf"}
 textfiles= {"source/CTANREADME.md"}
-excludefiles ={"*/pdfresources.sty","*/hluatex-experimental.def"}
+excludefiles ={"*/pdfresources.sty","*/hgeneric-experimental.def"}
 ctanreadme= "CTANREADME.md"
 
 typesetexe = "lualatex"
@@ -149,8 +176,3 @@ typesetfiles = {"tagpdf.tex"}
 typesetruns = 4
 
 
-
--- kpse.set_program_name ("kpsewhich")
--- if not release_date then
--- dofile ( kpse.lookup ("l3build.lua"))
--- end

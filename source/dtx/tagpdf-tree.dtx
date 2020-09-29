@@ -32,7 +32,7 @@
 
 %this does the actual finishing:
 %Is \AfterEndDocument the best places??
-\AtBeginDocument
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_tree_bool
       {
@@ -50,11 +50,13 @@
 %new
 \pdf_object_new:nn { c_@@_struct_0_obj }{ dict }
 
-\AtBeginDocument %need to think about the best place ...
+ %need to think about the best place ...
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-        \pdf_catalog_gput:nx
+        \pdfdict_gput:nnx
+          { Catalog }
           { StructTreeRoot }
           { \pdf_object_ref:n { c_@@_struct_0_obj } }
       }
@@ -89,7 +91,7 @@
 % I use a counter to have a chance to get the correct number
 % if code is process twice.
 \newcounter  { g_@@_parenttree_obj_int }
-\AtBeginDocument
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \int_gset:Nn
       \c@g_@@_parenttree_obj_int
@@ -168,7 +170,7 @@
           {
             l3kernel.@@.func.output_parenttree
               (
-                \int_use:N\g_@@_abspage_int
+                \int_use:N\g_shipout_readonly_int
               )
           }
       }
@@ -224,7 +226,7 @@
 
 %classmap, should only be written, if values has been used
 
-\cs_new_protected:Nn \@@_tree_class_write_map:
+\cs_new_protected:Nn \@@_tree_write_classmap:
   {
     \tl_gclear:N \g_@@_attr_class_content_tl
     \seq_gremove_duplicates:N \g_@@_attr_class_used_seq
@@ -264,8 +266,8 @@
   {
     \@@_tree_write_parenttree:
     \@@_tree_write_rolemap:
-    \@@_tree_class_write_map:
-    \@@_tree_write_structelements:
+    \@@_tree_write_classmap:
+    \@@_tree_write_structelements: %this is rather slow!!
     \@@_tree_write_structtreeroot:
   }
 
@@ -274,31 +276,18 @@
 
 %StructParents !!! we need a better hook for \g__pdf_BACKEND_thispage_shipout_tl!!
 % No actually
-\AtBeginDocument
+\hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT\g_@@_active_tree_bool
       {
-       \tl_gput_left:Nn \g__pdf_BACKEND_thispage_shipout_tl
+       \hook_gput_code:nnn{shipout/before} { tagpdf/structparents }
          {
-           \exp_args:Nnx
-             \pdf_pageattr_gput:nn
+             \pdfdict_gput:nnx
+               { Page }
                {StructParents}
-               {\int_eval:n { \g_@@_abspage_int }}
+               {\int_eval:n { \g_shipout_readonly_int}}
          }
       }
-  }
-\cs_new_protected:Nn \@@_tree_write_pageattr:
-  {
-%    \@@_get_pdfpageattr:N \l_tmpa_tl
-%    \regex_replace_once:nnN {/StructParents\s*\d+} {}\l_tmpa_tl
-%    \regex_replace_once:nnN {/Tabs\s*/[SCR]} {}\l_tmpa_tl
-   % \pdf_thispageattr_gput:nn {XXXX}{\int_eval:n { \g_@@_abspage_int }}
-  %  \@@_gset_pdfpageattr:x
-%      {
-%        \l_tmpa_tl / StructParents \c_space_tl
-%        \int_eval:n { \g_@@_abspage_int }
-%        \l_@@_tree_tabs_order_tl
-%      }
   }
 
 %</tree>

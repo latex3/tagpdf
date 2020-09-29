@@ -41,6 +41,52 @@ tlmgr install enumitem listings
 
 tlmgr install oberdiek etoolbox unicode-data  xpatch  amsmath filehook
 
+# oberdiek split
+
+tlmgr install \
+accsupp \
+askinclude \
+atbegshi \
+atenddvi \
+attachfile2 \
+atveryend \
+auxhook \
+bigintcalc \
+bitset \
+bookmark \
+catchfile \
+embedfile \
+etexcmds \
+gettitlestring \
+grfext \
+hobsub \
+hologo \
+hycolor \
+iftex \
+infwarerr \
+inputenx \
+intcalc \
+kvdefinekeys \
+kvoptions \
+kvsetkeys \
+letltxmacro \
+ltxcmds \
+luacolor \
+magicnum \
+mleftright \
+pdfescape \
+pdfcolmk \
+pdflscape \
+pdftexcmds \
+refcount \
+rerunfilecheck \
+epstopdf-pkg \
+stringenc \
+transparent \
+uniquecounter \
+zref \
+
+
 # fonts
 tlmgr install fontspec  microtype amsfonts gnu-free­font ec cm-super heuristica
 

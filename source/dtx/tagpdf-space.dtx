@@ -75,5 +75,15 @@
       }
   }
 
+\sys_if_engine_xetex:T
+  {
+    \keys_define:nn { @@ / setup }
+      {
+        interwordspace .choices:nn = { true, on }  { \msg_warning:nnn {tag}{sys-no-interwordspace}{xetex}  },
+        interwordspace .choices:nn = { false, off }{ \msg_warning:nnn {tag}{sys-no-interwordspace}{xetex}  },
+        show-spaces .bool_set:N = \l_@@_showspaces_bool
+      }
+  }
+
 %</space>
 %    \end{macrocode}

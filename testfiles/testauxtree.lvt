@@ -37,8 +37,10 @@
 \fi
 \begin{document}\showoutput
 \START
+\ifluatex
 \directlua{print(kpse.var_value("TEXMFAUXTREES"))}
-\end{document}
+\fi
+%\end{document}
 \tagstructbegin{tag=Document}
  \tagstructbegin{tag=Sect}
   \tagstructbegin{tag=H}

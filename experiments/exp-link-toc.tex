@@ -162,7 +162,7 @@
 \hook_put:nnnn
  { pdf }
  { startlink_url_attr }
- { /StructParent }
+ { StructParent }
  { \int_use:N\c@g__uftag_parenttree_obj_int }
 
 \hook_put_right:nnn
@@ -184,7 +184,7 @@
 \hook_put:nnnn
  { pdf }
  { startlink_link_attr }
- { /StructParent }
+ { StructParent }
  { \int_use:N\c@g__uftag_parenttree_obj_int }
 
 \hook_put_right:nnn
@@ -198,7 +198,7 @@
 
 \ExplSyntaxOff
 
-\usepackage[customdriver=hluatex-experimental,
+\usepackage[customdriver=hgeneric-experimental,
              pdfdisplaydoctitle=true,pdfusetitle,hyperfootnotes=false,
             ]{hyperref}
 \usepackage{bookmark} %not really need, bookmark is also loaded by the class
