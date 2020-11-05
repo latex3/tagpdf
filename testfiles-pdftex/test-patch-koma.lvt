@@ -8,7 +8,7 @@
 
 %no page break involved. So the example works in lua and generic mode
 \RequirePackage{pdfresources}
-\DeclareDocumentMetaData{}
+\DeclareDocumentMetadata{}
 \input{regression-test}
 \documentclass{scrbook}
 \usepackage{graphicx}
