@@ -26,30 +26,17 @@ uploadconfig = {
   topic=    "tagged-pdf",
   note     = [[This version should be installed together with the just uploaded l3kernel/l3experimental! Uploaded automatically by l3build...]],
   description=[[The package offers tools to experiment with tagging and accessibility using pdfLATEX and LuaTEX. It isn't meant for production but allows the user to try out how difficult it is to tag some structures; to try out how much tagging is really needed; to test what else is needed so that a pdf works e.g. with a screen reader. Its goal is to get a feeling for what has to be done, which kernel changes are needed, how packages should be adapted.]],
-  announcement_file="ctan.ann"              
+  announcement_file="ctan.ann"
 }
-
+-- tests are done with dev-format always
 specialformats = specialformats or {}
-
-if string.find(status.banner,"2019") then
-  print("TL2019")
-  TL2019bool=true
-else 
-  -- tl2020
-  print("TL2020 or later")
-    specialformats = specialformats or {}
---  specialformats["latex-dev"] = specialformats["latex-dev"] or 
---   {
---    luatex = {binary="luahbtex",format = "lualatex-dev"}
---   }
-  specialformats["latex"] = specialformats["latex"] or 
-   {
+specialformats["latex"] = specialformats["latex"] or
+  {
     luatex     = {binary="luahbtex",format = "lualatex-dev"},
     pdftex     = {format = "pdflatex-dev"},
     xetex      = {format = "xelatex-dev"},
     latexdvips = {binary="latex.exe",format = "latex-dev"}
-    }   
-end
+  }
 
 checkengines = {"pdftex","luatex"}
 checkconfigs = {"build",
@@ -65,10 +52,10 @@ checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-al
 excludetests = {"test-saveboxes-structure-dev"}
 
 
-if os.getenv('TRAVIS')  then 
+if os.getenv('TRAVIS')  then
    checkconfigs = {"build","config-pdftex","config-luatex"}
    excludetests = {"test-pdfresources-exist","test-saveboxes-structure-dev"}
-end 
+end
 
 -- currently probably not needed. files in texmfhome are found.
 -- local extratexmf=os.getenv('TEXDEVDIR')
@@ -96,53 +83,53 @@ tagfiles = {"source/*.md",
 function update_tag (file,content,tagname,tagdate)
  tagdate = string.gsub (packagedate,"-", "/")
  if string.match (file, "%.dtx$" ) then
-  content = string.gsub (content,  
+  content = string.gsub (content,
                          "\\ProvidesExplPackage {(.-)} {.-} {.-}",
                          "\\ProvidesExplPackage {%1} {" .. tagdate.."} {"..packageversion .. "}")
-  content = string.gsub (content,  
+  content = string.gsub (content,
                          "\\ProvidesExplFile {(.-)} {.-} {.-}",
-                         "\\ProvidesExplFile {%1} {" .. tagdate.."} {"..packageversion .. "}") 
-  content = string.gsub (content,  
+                         "\\ProvidesExplFile {%1} {" .. tagdate.."} {"..packageversion .. "}")
+  content = string.gsub (content,
                          '(version%s*=%s*")%d%.%d+(",%s*--TAGVERSION)',
                          "%1"..packageversion.."%2")
-  content = string.gsub (content,  
+  content = string.gsub (content,
                          '(date%s*=%s*")%d%d%d%d%-%d%d%-%d%d(",%s*--TAGDATE)',
-                         "%1"..packagedate.."%2")                                                                                                 
-  return content 
+                         "%1"..packagedate.."%2")
+  return content
  elseif string.match (file, "^Readme.md$") then
-   content = string.gsub (content,  
+   content = string.gsub (content,
                          "Version: %d%.%d+",
                          "Version: " .. packageversion )
-   content = string.gsub (content,  
+   content = string.gsub (content,
                          "version%-%d%.%d+",
-                         "version-" .. packageversion ) 
-   content = string.gsub (content,  
+                         "version-" .. packageversion )
+   content = string.gsub (content,
                          "for %d%.%d+",
-                         "for " .. packageversion ) 
-   content = string.gsub (content,  
+                         "for " .. packageversion )
+   content = string.gsub (content,
                          "%d%d%d%d%-%d%d%-%d%d",
                          packagedate )
-   local imgpackagedate = string.gsub (packagedate,"%-","--")                          
-   content = string.gsub (content,  
+   local imgpackagedate = string.gsub (packagedate,"%-","--")
+   content = string.gsub (content,
                          "%d%d%d%d%-%-%d%d%-%-%d%d",
-                         imgpackagedate)                                                                                                     
-   return content                            
+                         imgpackagedate)
+   return content
  elseif string.match (file, "%.md$") then
-   content = string.gsub (content,  
+   content = string.gsub (content,
                          "Packageversion: %d%.%d+",
                          "Packageversion: " .. packageversion )
-   content = string.gsub (content,  
+   content = string.gsub (content,
                          "Packagedate: %d%d%d%d/%d%d/%d%d",
-                         "Packagedate: " .. tagdate )                      
-   return content                 
+                         "Packagedate: " .. tagdate )
+   return content
  elseif string.match (file, "%.tex$" ) then
-   content = string.gsub (content,  
+   content = string.gsub (content,
                          "package@version{%d%.%d+}",
                          "package@version{" .. packageversion .."}" )
-   content = string.gsub (content,  
+   content = string.gsub (content,
                          "package@date{%d%d%d%d%-%d%d%-%d%d}",
-                         "package@date{" .. packagedate .."}" )                      
-   return content   
+                         "package@date{" .. packagedate .."}" )
+   return content
  end
  return content
  end
@@ -153,7 +140,7 @@ docfiles = {"source/tagpdf.tex",
             "source/tagpdf.bib",
             "source/link-figure-input.tex",
             "source/pac3.PNG",
-            "source/examples/**/*.tex", 
+            "source/examples/**/*.tex",
             "source/examples/**/*.pdf"}
 textfiles= {"source/CTANREADME.md"}
 excludefiles ={"*/pdfresources.sty","*/hgeneric-experimental.def"}
@@ -165,17 +152,15 @@ installfiles = {
                 "**/*.sty",
                 "**/*.def",
                 "**/*.lua"
-               }  
-               
+               }
+
 sourcefiles  = {"**/*.dtx",
                 "**/*.ins",
                 --"**/*.sty",
                 --"**/*.def",
                 --"**/*.lua"
                }
-                            
+
 typesetfiles = {"tagpdf.tex"}
 
 typesetruns = 4
-
-
