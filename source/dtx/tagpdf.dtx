@@ -85,7 +85,34 @@
 %%% some packages
 \RequirePackage{xparse}
 \RequirePackage{atbegshi}
-\RequirePackage{zref-base,zref-lastpage}
+% references use l3xref, with zref as backup
+%\IfFileExists{l3xref.sty}
+% { \@firstoftwo }{ \@secondoftwo }%
+% {
+%   \RequirePackage{l3xref}
+%   \cs_new_protected:Npn \__tag_lastabspagelabel:
+%     {
+%       \legacy_if:nT { @filesw }
+%         {
+%           \exp_args:NNnx \exp_args:NNx\iow_now:Nn \@auxout
+%             {
+%               \token_to_str:N \newlabeldata
+%                 {__tag_absLastPage}
+%                 { {abspage}{\int_use:N \g_shipout_readonly_int}}
+%             }
+%         }
+%     }
+%
+%   \AddToHook{enddocument/afterlastpage}
+%     {\__tag_lastabspagelabel:}
+% }
+% {
+   \RequirePackage{zref-base,zref-lastpage}
+   %%% absolute page numbers
+   \zref@newlist {@@zrl} %zrl=zreflist
+   \zref@newprop*{tagabspage}     [0] { \int_use:N \g_shipout_readonly_int }
+   \zref@addprop {@@zrl} {tagabspage}
+% }
 \RequirePackage{etoolbox}
 \RequirePackage{l3pdf}
 %\RequirePackage{pdfescape} %check if needed
@@ -95,12 +122,6 @@
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
 
 
-%%% absolute page numbers
-%\int_new:N   \g_@@_abspage_int
-%\int_gset:Nn \g_@@_abspage_int { 0 }
-\zref@newlist {@@zrl} %zrl=zreflist
-\zref@newprop*{tagabspage}     [0] { \int_use:N \g_shipout_readonly_int }
-\zref@addprop {@@zrl} {tagabspage}
 
 
 %%% tagpdfsetup,
