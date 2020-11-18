@@ -7,15 +7,18 @@
 ### __tagzrlstruct, used when a structure is labeled
 
 * tagstruct \c@g_@@_struct_abs_int
-
+   unknown (in checks)
 ### __tagzrl
 * tagabspage:  (could use abspage) \int_use:N \g_shipout_readonly_int, default 0
+  -1
 * tagmcabs     \c@g__tag_MCID_abs_int, absolut mcid counter (latex counter)
+  empty, -1
 * tagmcid      \g_@@_MCID_tmp_bypage_int
 
 ### LastPage (used attributes)
 * tagmcabs to get the last mc. \c@g__tag_MCID_abs_int
 * abspage   
+  -1 (0 ginge auch)
 
 # xref setup
 \xref_attribute_gset:nnnn {@@_struct} {0}{now}    { \int_use:N \c@g_@@_struct_abs_int }
@@ -90,6 +93,14 @@
      \xref_label:nv {#1}{c_@@_ref#2_clist}
   }
 
+% xref doesn't expand the label so we need 
+\cs_generate_variant:Nn \@@_label:nn {en}
+
+# Core to extract the values
+
+
+
+
 \zref@newlabel{LastPage}{\default{1}\page{1}\abspage{1}\tagmcabs{2}}
 \zref@newlabel{tagpdfstruct-blub}{\tagstruct{2}}
 \zref@newlabel{mcid-1}{\tagabspage{1}\tagmcabs{1}\tagmcid{0}}
@@ -104,6 +115,21 @@
   }
 
 
+% local default:
+
+\cs_new:Npn \xref_value:nnn #1#2#3
+  {
+    \exp_args:Nee \__xref_value:nnn { \tl_to_str:n {#1} } { \tl_to_str:n {#2} } {#3}
+  }
+\cs_new:Npn \__xref_value:nnn #1#2#3
+  {
+    \tl_if_exist:cTF { g__xref_label_ #1 _ #2 _tl }
+      { \tl_use:c { g__xref_label_ #1 _ #2 _tl } }
+      {
+        % test if attribute exist at all?
+        #3
+      }
+  }
 
 %main
 
