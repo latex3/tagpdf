@@ -86,33 +86,147 @@
 \RequirePackage{xparse}
 \RequirePackage{atbegshi}
 % references use l3xref, with zref as backup
-%\IfFileExists{l3xref.sty}
-% { \@firstoftwo }{ \@secondoftwo }%
-% {
-%   \RequirePackage{l3xref}
-%   \cs_new_protected:Npn \__tag_lastabspagelabel:
-%     {
-%       \legacy_if:nT { @filesw }
-%         {
-%           \exp_args:NNnx \exp_args:NNx\iow_now:Nn \@auxout
-%             {
-%               \token_to_str:N \newlabeldata
-%                 {__tag_absLastPage}
-%                 { {abspage}{\int_use:N \g_shipout_readonly_int}}
-%             }
-%         }
-%     }
-%
-%   \AddToHook{enddocument/afterlastpage}
-%     {\__tag_lastabspagelabel:}
-% }
-% {
+\IfFileExists{l3xref.sty}
+ { \@firstoftwo }{ \@secondoftwo }%
+%here is the xref setup
+ {
+   \RequirePackage{l3xref}
+   %================
+   % temporary code
+   % ===============
+   % faking the LastPage label:
+   \cs_new_protected:Npn \@@_lastpagelabel:
+     {
+       \legacy_if:nT { @filesw }
+         {
+           \exp_args:NNnx \exp_args:NNx\iow_now:Nn \@auxout
+              {
+                \token_to_str:N \newlabeldata
+                  {@@_LastPage}
+                  {
+                    {abspage} { \int_use:N \g_shipout_readonly_int}
+                    {@@_mcabs}{ \int_use:N \c@g_@@_MCID_abs_int }
+                  }
+              }
+         }
+     }
+
+   \AddToHook{enddocument/afterlastpage}
+    {\@@_lastpagelabel:}
+
+   % a command to override the general default. See issue in xref
+   \cs_if_exist:NF \xref_value:nnn
+     {
+       \cs_new:Npn \xref_value:nnn #1#2#3
+         {
+           \exp_args:Nee
+             \__xref_value:nnn
+              { \tl_to_str:n {#1} } { \tl_to_str:n {#2} } {#3}
+         }
+       \cs_new:Npn \__xref_value:nnn #1#2#3
+         {
+           \tl_if_exist:cTF { g__xref_label_ #1 _ #2 _tl }
+             { \tl_use:c { g__xref_label_ #1 _ #2 _tl } }
+             {
+               % test if attribute exist at all?
+               #3
+             }
+         }
+     }
+
+   %=============
+   % attributes
+   %=============
+  \xref_attribute_gset:nnnn {@@_struct} {0}{now}    { \int_use:N \c@g_@@_struct_abs_int }
+   % replace by abspage??
+   %\xref_attribute_gset:nnnn {@@_abspage}{0}{shipout}{ \int_use:N \g_shipout_readonly_int }
+  \xref_attribute_gset:nnnn {@@_mcabs } {0}{now}    { \int_use:N \c@g_@@_MCID_abs_int }
+  \xref_attribute_gset:nnnn {@@_mcid }  {0}{now}    { \int_use:N \g_@@_MCID_tmp_bypage_int }
+  %============
+  % lists
+  %============
+  \clist_const:Nn \c_@@_refmc_clist     %mc is new!!
+  \clist_const:Nn \c_@@_refstruct_clist
+  %=================
+  % command to set a label
+  %================
+  \cs_generate_variant:Nn \xref_label:nn { nv }
+  \cs_new_protected:Npn \@@_ref_label:nn #1 #2 %#1 label, #2 name of list mc or struct
+    {
+      \xref_label:nv {#1}{c_@@_ref#2_clist}
+    }
+  %==============
+  % command to retrieve the value
+  %===============
+  \cs_new:Npn \@@_ref_value:nnn #1 #2 #3 %#1 label, #2 attribute, #3 default
+    {
+      \xref_value:nnn {#1}{#2}{#3}
+    }
+  %===============
+  % the LastPage label has a different name, so we need a special command for now
+  % =============
+  \cs_new:Npn \@@_ref_value_lastpage:nn #1 #2
+    {
+      \xref_value:nnn {@@_LastPage}{#1}{#2}
+    }
+ }
+% here is the zref setup
+ {
    \RequirePackage{zref-base,zref-lastpage}
-   %%% absolute page numbers
+   %=============
+   % attributes
+   %=============
+   \zref@newprop*{tagabspage}[0] { \int_use:N \g_shipout_readonly_int }
+   \zref@newprop {tagmcabs}  [0] { \int_use:N \c@g_@@_MCID_abs_int }
+   \zref@newprop {tagmcid}   [0] { \int_use:N \g_@@_MCID_tmp_bypage_int }
+   \zref@newprop {tagstruct} [0] { \int_use:N \c@g_@@_struct_abs_int }
+
+   %============
+   % lists
+   %============
+   \zref@newlist {@@zrlmc}% --> changed zrl name to zrlmc
+   \zref@newlist {@@zrlstruct}
+
+   %============
+   % add properties to the list
+   %============
+   \zref@addprop {@@zrlmc} {tagabspage}
+   \zref@addprop {@@zrlmc} {tagmcabs}
+   \zref@addprop {@@zrlmc} {tagmcid}
+
+   \zref@addprop {@@zrlstruct}{tagstruct}
+
+   \zref@addprop {LastPage} {tagmcabs}
    \zref@newlist {@@zrl} %zrl=zreflist
    \zref@newprop*{tagabspage}     [0] { \int_use:N \g_shipout_readonly_int }
    \zref@addprop {@@zrl} {tagabspage}
-% }
+
+   %=================
+   % command to set a label
+   %================
+   \cs_new_protected:Npn \@@_ref_label:nn #1 #2 %#1 label, #2 name of list mc or struct
+     {
+       \zref@labelbylist{#1}{@@zrl#2}
+     }
+   %==============
+   % command to retrieve the value
+   %===============
+   \cs_new:Npn \@@_ref_value:nnn #1 #2 #3
+     {
+       \zref@extractdefault {#1}{#2}{#3}
+     }
+   %===============
+   % the LastPage label has a different name, so we need a special command for now
+   % =============
+   \cs_new:Npn \@@_ref_value_lastpage:nn #1 #2
+     {
+       \zref@extractdefault {LastPage}{#1}{#2}
+     }
+ }
+% as xref doesn't expand label names we need variants:
+\cs_generate_variant:Nn \@@_ref_label:nn {en}
+\cs_generate_variant:Nn \@@_ref_value:nnn {enn}
+
 \RequirePackage{etoolbox}
 \RequirePackage{l3pdf}
 %\RequirePackage{pdfescape} %check if needed
