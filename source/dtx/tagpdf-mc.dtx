@@ -116,6 +116,8 @@
   \tag_mc_end:
  }
 
+% we need to define it for both modes to avoid a problem with the label
+\int_new:N \g_@@_MCID_tmp_bypage_int
 
 %</shared>
 %    \end{macrocode}
@@ -128,7 +130,6 @@
 % tagmcid is the id which should be also in the pdf
 % it will be (hopefully) reset by page
 
-\int_new:N \g_@@_MCID_tmp_bypage_int
 % ref code is in tagpdf.dtx now
 %
 % will hold the current maximum on a page

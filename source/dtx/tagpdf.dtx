@@ -87,7 +87,7 @@
 \RequirePackage{atbegshi}
 % references use l3xref, with zref as backup
 \IfFileExists{l3xref.sty}
- { \@firstoftwo }{ \@secondoftwo }%
+ { \@firstoftwo }{  \@secondoftwo }%
 %here is the xref setup
  {
    \RequirePackage{l3xref}
@@ -105,7 +105,7 @@
                   {@@_LastPage}
                   {
                     {abspage} { \int_use:N \g_shipout_readonly_int}
-                    {@@_mcabs}{ \int_use:N \c@g_@@_MCID_abs_int }
+                    {tagmcabs}{ \int_use:N \c@g_@@_MCID_abs_int }
                   }
               }
          }
@@ -137,23 +137,25 @@
    %=============
    % attributes
    %=============
-  \xref_attribute_gset:nnnn {@@_struct} {0}{now}    { \int_use:N \c@g_@@_struct_abs_int }
+  \xref_attribute_gset:nnnn {tagstruct} {0}{now}    { \int_use:N \c@g_@@_struct_abs_int }
    % replace by abspage??
-   %\xref_attribute_gset:nnnn {@@_abspage}{0}{shipout}{ \int_use:N \g_shipout_readonly_int }
-  \xref_attribute_gset:nnnn {@@_mcabs } {0}{now}    { \int_use:N \c@g_@@_MCID_abs_int }
-  \xref_attribute_gset:nnnn {@@_mcid }  {0}{now}    { \int_use:N \g_@@_MCID_tmp_bypage_int }
+  \xref_attribute_gset:nnnn {tagabspage}{0}{shipout}{ \int_use:N \g_shipout_readonly_int }
+  \xref_attribute_gset:nnnn {tagmcabs } {0}{now}    { \int_use:N \c@g_@@_MCID_abs_int }
+  \xref_attribute_gset:nnnn {tagmcid }  {0}{now}    { \int_use:N \g_@@_MCID_tmp_bypage_int }
   %============
   % lists
   %============
-  \clist_const:Nn \c_@@_refmc_clist     %mc is new!!
-  \clist_const:Nn \c_@@_refstruct_clist
+  \clist_const:Nn \c_@@_refmc_clist     {tagabspage,tagmcabs,tagmcid} %mc is new!!
+  \clist_const:Nn \c_@@_refstruct_clist {@@_struct}
   %=================
   % command to set a label
   %================
   \cs_generate_variant:Nn \xref_label:nn { nv }
   \cs_new_protected:Npn \@@_ref_label:nn #1 #2 %#1 label, #2 name of list mc or struct
     {
+      \@bsphack
       \xref_label:nv {#1}{c_@@_ref#2_clist}
+      \@esphack
     }
   %==============
   % command to retrieve the value
@@ -197,9 +199,6 @@
    \zref@addprop {@@zrlstruct}{tagstruct}
 
    \zref@addprop {LastPage} {tagmcabs}
-   \zref@newlist {@@zrl} %zrl=zreflist
-   \zref@newprop*{tagabspage}     [0] { \int_use:N \g_shipout_readonly_int }
-   \zref@addprop {@@zrl} {tagabspage}
 
    %=================
    % command to set a label
