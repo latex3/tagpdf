@@ -103,7 +103,7 @@
 \cs_new_protected:Nn \@@_check_struct_used:n %#1 label
   {
     \prop_get:cnNT
-      {g_@@_struct_\@@_ref_value:nnn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
+      {g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
       {P}
       \l_tmpa_tl
       {
@@ -198,7 +198,7 @@
           {
             \int_compare:nT
               {
-                \@@_ref_value:nnn
+                \@@_ref_value:enn
                   {mcid-####1}
                   {tagabspage}
                   {-1}
@@ -209,7 +209,7 @@
                \seq_gput_right:Nx \l_tmpa_seq
                  {
                    Page##1-####1-
-                   \@@_ref_value:nnn
+                   \@@_ref_value:enn
                      {mcid-####1}
                      {tagmcid}
                      {-1}

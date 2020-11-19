@@ -36,10 +36,7 @@
 \newcounter  { g_@@_struct_abs_int }
 \int_gzero:N \c@g_@@_struct_abs_int
 
-
-\zref@newprop {tagstruct} [0] { \int_use:N \c@g_@@_struct_abs_int }
-\zref@newlist {@@zrlstruct}
-\zref@addprop {@@zrlstruct}{tagstruct}
+% ref code is in tagpdf.dtx
 
 % a sequence stores structnum -> the obj numbers
 % to allow easy mapping over the structures
@@ -177,7 +174,7 @@
 
 \cs_new:Nn \@@_struct_kid_mc_gput_right:nn %#1 structure num, #2 MCID absnum%
   {
-    %\@@_store_pdfpageref:Nn \l_tmpa_tl { \zref@extractdefault{mcid-#2}{tagabspage}{1} }
+    %\@@_store_pdfpageref:Nn \l_tmpa_tl { \@@_ref_value:enn{mcid-#2}{tagabspage}{1} }
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
       {
@@ -185,8 +182,8 @@
         /Type \c_space_tl /MCR \c_space_tl
         /Pg %\c_space_tl \l_tmpa_tl \c_space_tl 0 \c_space_tl R \c_space_tl
           \c_space_tl
-          \pdf_object_pageref:n { \zref@extractdefault{mcid-#2}{tagabspage}{1} }
-        /MCID \c_space_tl \zref@extractdefault{mcid-#2}{tagmcid}{1}
+          \pdf_object_pageref:n { \@@_ref_value:enn{mcid-#2}{tagabspage}{1} }
+        /MCID \c_space_tl \@@_ref_value:enn{mcid-#2}{tagmcid}{1}
         >>
       }
   }
@@ -460,7 +457,7 @@
     \tl_if_empty:NF
       \l_@@_struct_key_label_tl
       {
-        \zref@labelbylist{tagpdfstruct-\l_@@_struct_key_label_tl}{@@zrlstruct}
+        \@@_ref_label:en{tagpdfstruct-\l_@@_struct_key_label_tl}{struct}
       }
     %get the potential parent from the stack:
     \seq_get:NNF
@@ -528,16 +525,16 @@
 \cs_new_protected:Nn \tag_struct_use:n %#1 is the label
   {
     \prop_if_exist:cTF
-      { g_@@_struct_\zref@extractdefault{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %??????????
+      { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %??????????
       {
         \@@_check_struct_used:n {#1}
         %add the label structure as kid to the current structure (can be the root)
         \@@_struct_kid_struct_gput_right:nn
           { \g_@@_struct_stack_current_tl }
-          { \zref@extractdefault{tagpdfstruct-#1}{tagstruct}{0} }
+          { \@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0} }
         %add the current structure to the labeled one as parents
         \@@_prop_gput:cnx
-          { g_@@_struct_\zref@extractdefault{tagpdfstruct-#1}{tagstruct}{0}_prop }
+          { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
           { P }
           {
             \prop_item:cn

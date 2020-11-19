@@ -95,7 +95,7 @@
   {
     \int_gset:Nn
       \c@g_@@_parenttree_obj_int
-      { \zref@extractdefault{LastPage}{abspage}{100}  }
+      { \@@_ref_value_lastpage:nn{abspage}{100}  }
   }
 
 % we need to record the obj references:
@@ -114,18 +114,18 @@
 
 \cs_new_protected:Nn \@@_tree_fill_parenttree:
   {
-    \int_step_inline:nnnn{1}{1}{\zref@extractdefault{LastPage}{abspage}{-1}} %not quite clear if labels are needed. See lua code
+    \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{abspage}{-1}} %not quite clear if labels are needed. See lua code
       { %page ##1\par
         \prop_clear:N \l_tmpa_prop
-        \int_step_inline:nnnn{1}{1}{\zref@extractdefault{LastPage}{tagmcabs}{-1}}
+        \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{tagmcabs}{-1}}
           {
             %mcid####1
             \int_compare:nT%F
-              {\zref@extractdefault{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
+              {\@@_ref_value:enn{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
               {% yes\par
                 \prop_put:Nxx
                   \l_tmpa_prop
-                  {\zref@extractdefault{mcid-####1}{tagmcid}{-1}}
+                  {\@@_ref_value:enn{mcid-####1}{tagmcid}{-1}}
                   {\prop_item:Nn \g_@@_mc_parenttree_prop {####1}}
               }
           }
