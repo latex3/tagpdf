@@ -81,23 +81,84 @@
 \zref@labelbylist{tagpdfstruct-\l_@@_struct_key_label_tl}{@@zrlstruct}
 
 ## zref version
-\cs_new_protected:Npn \@@_label:nn #1 #2 %#1 label, #2 name of list mc or struct
+\cs_new_protected:Npn \@@_ref_label:nn #1 #2 %#1 label, #2 name of list mc or struct
   {
      \zref@labelbylist{#1}{@@zrl#2}  
   }
   
 ## xref version  
 \cs_generate_variant:Nn \xref_label:nn { nv }
-\cs_new_protected:Npn \@@_label:nn #1 #2 %#1 label, #2 name of list mc or struct
+\cs_new_protected:Npn \@@_ref_label:nn #1 #2 %#1 label, #2 name of list mc or struct
   {
      \xref_label:nv {#1}{c_@@_ref#2_clist}
   }
 
 % xref doesn't expand the label so we need 
-\cs_generate_variant:Nn \@@_label:nn {en}
+\cs_generate_variant:Nn \@@_ref_label:nn {en}
 
-# Core to extract the values
+# Code to extract the values
 
+% we need local options
+\cs_if_exist:NF \xref_value:nnn 
+  {
+    \cs_new:Npn \xref_value:nnn #1#2#3
+      {
+        \exp_args:Nee \__xref_value:nnn { \tl_to_str:n {#1} } { \tl_to_str:n {#2} } {#3}
+      }
+    \cs_new:Npn \__xref_value:nnn #1#2#3
+      {
+        \tl_if_exist:cTF { g__xref_label_ #1 _ #2 _tl }
+          { \tl_use:c { g__xref_label_ #1 _ #2 _tl } }
+          {
+            % test if attribute exist at all?
+            #3
+          }
+      }
+  }
+
+% zref version
+\cs_new:Npn \@@_ref_value:nnn #1 #2 #3
+  {
+    \zref@extractdefault {#1}{#2}{#3}
+  }
+
+% xref version
+\cs_new:Npn \@@_ref_value:nnn #1 #2 #3
+  {
+    \xref_value:nnn {#1}{#2}{#3}
+  }
+
+\cs_generate_variant:Nn \@@_ref_value:nnn {enn}
+
+%the last page label has a different name: LastPage with zref,
+% @@_LastPage with xref, so we need a dedicted function here until this 
+% is sorted
+
+% zref version
+\cs_new:Npn \@@_ref_value_lastpage:nn #1 #2
+  {
+    \zref@extractdefault {LastPage}{#1}{#2}
+  }
+
+% xref version
+\cs_new:Npn \@@_ref_value_lastpage:nn #1 #2
+  {
+    \xref_value:nnn {@@_LastPage}{#1}{#2}
+  }
+
+
+\zref@extractdefault
+          {LastPage}
+          {abspage}
+          {-1}
+\zref@extractdefault
+          {LastPage}
+          {tagmcabs}
+          {-1}
+\zref@extractdefault
+          {mcid-####1}
+          {tagabspage}
+          {-1}
 
 
 
@@ -117,19 +178,32 @@
 
 % local default:
 
-\cs_new:Npn \xref_value:nnn #1#2#3
+\cs_if_exist:NF \xref_value:nnn 
   {
-    \exp_args:Nee \__xref_value:nnn { \tl_to_str:n {#1} } { \tl_to_str:n {#2} } {#3}
-  }
-\cs_new:Npn \__xref_value:nnn #1#2#3
-  {
-    \tl_if_exist:cTF { g__xref_label_ #1 _ #2 _tl }
-      { \tl_use:c { g__xref_label_ #1 _ #2 _tl } }
+    \cs_new:Npn \xref_value:nnn #1#2#3
       {
-        % test if attribute exist at all?
-        #3
+        \exp_args:Nee \__xref_value:nnn { \tl_to_str:n {#1} } { \tl_to_str:n {#2} } {#3}
+      }
+    \cs_new:Npn \__xref_value:nnn #1#2#3
+      {
+        \tl_if_exist:cTF { g__xref_label_ #1 _ #2 _tl }
+          { \tl_use:c { g__xref_label_ #1 _ #2 _tl } }
+          {
+            % test if attribute exist at all?
+            #3
+          }
       }
   }
+\prg_new_conditional:Npnn \xref_if:nn #1 #2 %#1 label, #2 attribute
+ {
+   \tl_if_exist:cTF { g__xref_label_ #1 _ #2 _tl }
+     {
+       \prg_return_true:
+     }
+     {
+       \prg_return_false:
+     } 
+ }  
 
 %main
 
