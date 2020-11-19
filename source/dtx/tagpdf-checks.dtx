@@ -103,7 +103,7 @@
 \cs_new_protected:Nn \@@_check_struct_used:n %#1 label
   {
     \prop_get:cnNT
-      {g_@@_struct_\zref@extractdefault{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
+      {g_@@_struct_\@@_ref_value:nnn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
       {P}
       \l_tmpa_tl
       {
@@ -177,8 +177,7 @@
   {
     \tl_set:Nx \l_@@_tmpa_tl
       {
-        \zref@extractdefault
-          {LastPage}
+        \@@_ref_value_lastpage:nn
           {abspage}
           {-1}
       }
@@ -192,15 +191,14 @@
           {1}
           {1}
           {
-            \zref@extractdefault
-              {LastPage}
+            \@@_ref_value_lastpage:nn
               {tagmcabs}
               {-1}
           }
           {
             \int_compare:nT
               {
-                \zref@extractdefault
+                \@@_ref_value:nnn
                   {mcid-####1}
                   {tagabspage}
                   {-1}
@@ -211,7 +209,7 @@
                \seq_gput_right:Nx \l_tmpa_seq
                  {
                    Page##1-####1-
-                   \zref@extractdefault
+                   \@@_ref_value:nnn
                      {mcid-####1}
                      {tagmcid}
                      {-1}
