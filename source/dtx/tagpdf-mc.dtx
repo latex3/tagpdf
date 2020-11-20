@@ -196,7 +196,7 @@
     \int_gincr:N \c@g_@@_MCID_abs_int
     \tl_set:Nx \l_@@_mc_ref_abspage_tl
       {
-        \@@_ref_value:nnn %3 args
+        \@@_ref_value:enn %3 args
           {
             mcid-\int_use:N \c@g_@@_MCID_abs_int
           }
@@ -744,7 +744,7 @@
 
 \cs_new_protected:Nn \tag_mc_use:n %#1: label name
   {
-    \tl_set:Nx  \l_tmpa_tl { \@@_ref_value:nnn{tagpdf-#1}{tagmcabs}{} }
+    \tl_set:Nx  \l_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
     \tl_if_empty:NTF\l_tmpa_tl
       {
         \msg_warning:nnn {tag} {mc-label-unknown} { #1 }
