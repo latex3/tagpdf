@@ -30,8 +30,8 @@
 \fancyhf{}
 
 \ExplSyntaxOn
-\pdfcoredict_gput:nnn {Catalog} {Lang}{(en-UK)}
-\pdfcoredict_gput:nnn {Info} {Title}{(Title)}
+\pdfmanagement_add:nnn {Catalog} {Lang}{(en-UK)}
+\pdfmanagement_add:nnn {Info} {Title}{(Title)}
 \ExplSyntaxOff
 \cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \textheight=3cm

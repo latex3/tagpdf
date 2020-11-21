@@ -260,13 +260,13 @@
     tagunmarked     .initial:n  = true,
     tabsorder       .choice:,
     tabsorder / row       .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/R}},
-      \pdfcoredict_gput:nnn { Page } {Tabs}{/R},
+      \pdfmanagement_add:nnn { Page } {Tabs}{/R},
     tabsorder / column    .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/C}},
-      \pdfcoredict_gput:nnn { Page } {Tabs}{/C},
+      \pdfmanagement_add:nnn { Page } {Tabs}{/C},
     tabsorder / structure .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {/Tabs/S}},
-      \pdfcoredict_gput:nnn { Page } {Tabs}{/S},
+      \pdfmanagement_add:nnn { Page } {Tabs}{/S},
     tabsorder / none      .code:n = %{\tl_set:Nn \l_@@_tree_tabs_order_tl {}},
-      \pdfcoredict_remove:nn {Page} {Tabs},
+      \pdfmanagement_remove:nn {Page} {Tabs},
     tabsorder       .initial:n = structure,
     uncompress      .code:n = {\pdf_uncompress:  },
     inputencoding   .code:n =
@@ -281,7 +281,7 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-         \pdfcoredict_gput:nnn { Catalog / MarkInfo } { Marked } { true }
+         \pdfmanagement_add:nnn { Catalog / MarkInfo } { Marked } { true }
       }
   }
 % escape commands are a bit engine specific so have been moved to the backend files.
