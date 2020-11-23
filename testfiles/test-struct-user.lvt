@@ -32,10 +32,10 @@
 \fancyhf{}
 
 \cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
-\ifluatex\else
-\pdfcatalog{/Lang (en-UK)}
-\pdfinfo {/Title (Title)}
-\fi
+\ExplSyntaxOn
+\pdfmanagement_add:nnn {Catalog}{Lang}{(en-UK)}
+\pdfmanagement_add:nnn {Info}{Title}{(Title)}
+\ExplSyntaxOff
 \begin{document}\showoutput
 \START
 \tagstructbegin{tag=Document}
