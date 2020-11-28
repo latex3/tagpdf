@@ -33,8 +33,8 @@
 \bool_if:nF
   {
     \bool_lazy_and_p:nn
-      {\bool_if_exist_p:N \g__pdf_Core_active_bool}
-      {\bool_if_p:N \g__pdf_Core_active_bool }
+      {\cs_if_exist_p:N \pdfmanagement_if_active_p:}
+      { \pdfmanagement_if_active_p: }
   }
   {  %error for now, perhaps warning later.
     \PackageError{tagpdf}
