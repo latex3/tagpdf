@@ -3,7 +3,7 @@
 \def\UlrikeFischer@package@version{0.72}
 \def\UlrikeFischer@package@date{2020-11-20}
 \makeatother
-\RequirePackage[patches]{pdfresources}
+\RequirePackage[patches]{pdfmanagement}
 \DeclareDocumentMetadata{pdfversion=1.7,lang=en-UK}
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
 \usepackage{scrlayer-scrpage}
@@ -1100,7 +1100,7 @@ To sum them up:\TagPend
 \TagP^A tagged \PDF{} is needed for accessibility but this is not enough. As already mentioned there are more requirements:\TagPend
 
  \begin{itemize}
- \item \TagP^The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfgdict_gput:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.\Pmeti
+ \item \TagP^The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfmanagement_add:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.\Pmeti
  \item \TagP^All characters must have an unicode representation or a suitable alternative text.
       With lualatex and open type (unicode) fonts this is normally not a problem. With pdflatex it could need\TagPend
       \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
