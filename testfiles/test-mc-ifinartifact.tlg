@@ -57,9 +57,9 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\write1{\zref@newlabel{mcid-1}{\tagabspage{\Z@C@tagabspage }\tagmcabs{1}\tagm\ETC.}
+...\write1{\newlabeldata{mcid-1}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
 ...\pdfliteral page{/P /l3pdf1 BDC}
-...\write1{\zref@newlabel{l3pdf1}{\pdf@abspage{\Z@C@pdf@abspage }}}
+...\write1{\newlabeldata{l3pdf1}{{abspage}{\__ref_attribute_abspage: }}}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\baselineskip) 6.3
 ...\hbox(8.2+0.0)x390.0, glue set 350.67262fil
