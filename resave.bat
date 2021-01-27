@@ -1,19 +1,6 @@
 rem */\(1+[a-z\-]\)\.\(2+[a-z]\)\.*
 rem l3build save -e\2 \1
 
-
-
-REM Failed tests for configuration config-pdftex:
-REM
-REM   Check failed with difference files
-REM   - ./build/test-config-pdftex/test-attribute.pdftex.pdf.fc
-REM   - ./build/test-config-pdftex/test-fakespace-tagpdf.pdftex.pdf.fc
-REM   - ./build/test-config-pdftex/test-mc-alt.pdftex.pdf.fc
-REM   - ./build/test-config-pdftex/test-pdf.pdftex.pdf.fc
-REM   - ./build/test-config-pdftex/test-sectioning-koma.pdftex.pdf.fc
-REM
-REM Failed tests for configuration config-nosyntax:
-REM
 REM   Check failed with difference files
 REM   - ./build/test-config-nosyntax/test-mc-low-bdc-emc.luatex.fc
 REM   - ./build/test-config-nosyntax/test-mcid-cnt.luatex.fc
