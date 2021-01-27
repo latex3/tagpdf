@@ -32,15 +32,18 @@
 \fancyhf{}
 
 \cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
-\ifluatex\else
-\pdfcatalog{/Lang (en-UK)}
-\pdfinfo {/Title (Title)}
-\fi
+\tagpdfifpdftexT
+{
+ \pdfcatalog{/Lang (en-UK)}
+ \pdfinfo {/Title (Title)}
+} 
+
 \begin{document}\showoutput
 \START
-\ifluatex
-\directlua{print(kpse.var_value("TEXMFAUXTREES"))}
-\fi
+\tagpdfifluatexT
+ {
+   \directlua{print(kpse.var_value("TEXMFAUXTREES"))}
+ }
 %\end{document}
 \tagstructbegin{tag=Document}
  \tagstructbegin{tag=Sect}
