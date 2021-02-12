@@ -6,7 +6,7 @@
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,uncompress,interwordspace=on,show-spaces}
-
+\ExplSyntaxOn\cs_set_eq:NN \__xparse_split_argument:nnn \__cmd_split_argument:nnn\ExplSyntaxOff
 \usepackage{lipsum}
 \begin{document}\START\showoutput
 

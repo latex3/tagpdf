@@ -1,8 +1,10 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \RequirePackage{pdfmanagement}
-\DeclareDocumentMetadata{}
+\DeclareDocumentMetadata{lang=de-DE}
+\RequirePackage{pdfmanagement-regressiontest}
+
 \documentclass{scrartcl}
-\input{regression-test}
+
 
 \usepackage[english]{babel}
 \usepackage[genericmode]{tagpdf}
@@ -32,11 +34,10 @@
 \fancyhf{}
 
 \cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
-\tagpdfifpdftexT
-{
- \pdfcatalog{/Lang (en-UK)}
- \pdfinfo {/Title (Title)}
-} 
+
+\ExplSyntaxOn
+\pdfmanagement_add:nnn{Info}{Title}{(title)}
+\ExplSyntaxOff
 
 \begin{document}\showoutput
 \START

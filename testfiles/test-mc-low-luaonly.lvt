@@ -6,20 +6,20 @@
 
 \usepackage[english]{babel}
 \usepackage{tagpdf}
+\ExplSyntaxOn
+\cs_set_eq:NN \__xparse_split_argument:nnn \__cmd_split_argument:nnn
+\ExplSyntaxOff
 \usepackage{graphicx,lipsum}
 \tagpdfifpdftexT
  {
   \usepackage[utf8]{inputenc}
   \usepackage[T1]{fontenc}
  }
-
 \tagpdfifluatexT
  {
   \usepackage{fontspec}
   \usepackage{luacode}
  }
-
-
 \tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
 \begin{document}
 some things untagged.
