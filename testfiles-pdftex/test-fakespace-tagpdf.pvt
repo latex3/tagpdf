@@ -8,8 +8,7 @@
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,uncompress,interwordspace=on,show-spaces}
-\ExplSyntaxOn\cs_set_eq:NN \__xparse_split_argument:nnn \__cmd_split_argument:nnn\ExplSyntaxOff
-\usepackage{lipsum}
+\usepackage{kantlipsum}
 \begin{document}\START\showoutput
 
 \tagstructbegin{tag=Document}
@@ -35,7 +34,7 @@ c &=d
 
 VA VA abc\hspace{0pt}abc abc""abc
 abc abc \sffamily abc abc
-\tagmcbegin{tag=P}\lipsum[1]\tagmcend
+\tagmcbegin{tag=P}\kant[1]\tagmcend
 
 \fontencoding{T1}\selectfont abc abc
 \tagstructend
