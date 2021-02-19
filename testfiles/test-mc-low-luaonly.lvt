@@ -18,6 +18,7 @@
   \usepackage{luacode}
  }
 \tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
+\usepackage{kantlipsum}
 \begin{document}
 some things untagged.
 \START
@@ -41,12 +42,12 @@ some things untagged.
 
 \tag_mc_begin:n{tag=P}marginpar \tagpdfifluatexT{\showtagpdfattributes} blblb  \tag_mc_end:
 
-\tag_mc_begin:n{tag=P}\lipsum[1]\tag_mc_end:
-\tag_mc_begin:n{tag=P}\lipsum[1]\tag_mc_end:
-\tag_mc_begin:n{tag=P}\lipsum[1]\tag_mc_end:
-\tag_mc_begin:n{tag=P}\lipsum[1]\tag_mc_end:
-\tag_mc_begin:n{tag=P}\lipsum[1]\tag_mc_end:
-\tag_mc_begin:n{tag=P}\lipsum[1]\tag_mc_end:
+\tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:
+\tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:
+\tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:
+\tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:
+\tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:
+\tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:
 \ExplSyntaxOff
 \end{document}
 
