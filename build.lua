@@ -51,6 +51,9 @@ checkruns = 3
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}
 excludetests = {"test-saveboxes-structure-dev"}
 
+sourcefiles =  {"*.dtx","*.ins",
+                "tagpdf-regressiontest.sty"
+               } 
 
 if os.getenv('TRAVIS')  then
    checkconfigs = {"build","config-pdftex","config-luatex"}

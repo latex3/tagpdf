@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\RequirePackage{pdfmanagement}
+\RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{}
-\input{regression-test}
+\RequirePackage{tagpdf-regressiontest}
 %\pdfsuppressptexinfo=3
 \documentclass{article}
 \begin{document}

@@ -1,5 +1,5 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\RequirePackage{pdfmanagement}
+\RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{}
 %This example shows how one can patch sectioning command and toc entries
 %to add tags.
@@ -8,7 +8,7 @@
 %if the sectioning commands are redefined more/different patches are perhaps needed
 
 %no page break involved. So the example works in lua and generic mode
-\input{regression-test}
+\RequirePackage{tagpdf-regressiontest}
 \documentclass{scrbook}
 \usepackage{graphicx}
 \usepackage[english]{babel}

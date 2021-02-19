@@ -1,6 +1,6 @@
-\RequirePackage{pdfmanagement}
+\RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{}
-\input{regression-test}
+\RequirePackage{tagpdf-regressiontest}
 
 \documentclass[a4paper, 12pt]{article}
 \usepackage{tagpdf}

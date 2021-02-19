@@ -7,9 +7,9 @@
 %if the sectioning commands are redefined more/different patches are perhaps needed
 
 %no page break involved. So the example works in lua and generic mode
-\RequirePackage{pdfmanagement}
+\RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{}
-\input{regression-test}
+\RequirePackage{tagpdf-regressiontest}
 \documentclass{scrbook}
 \usepackage{graphicx}
 \usepackage[english]{babel}

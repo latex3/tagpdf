@@ -1,8 +1,8 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\RequirePackage{pdfmanagement}
+\RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{}
 
-\input{regression-test}
+\RequirePackage{tagpdf-regressiontest}
 
 %This example shows how one can patch sectioning command and toc entries
 %to add tags.
