@@ -462,7 +462,7 @@
 % parent: the number of the structure it is in. Needed to build the parent tree.
 
 % The main function which wanders through the shipout box to inject the literals.
-\hook_gput_code:nnn{begindocument}{tagpdf}
+\hook_gput_code:nnn{begindocument}{tagpdf/mc}
   {
     \bool_if:NT\g_@@_active_mc_bool
       {
