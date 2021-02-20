@@ -441,7 +441,8 @@ end
 function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mctypeprev)
   local name = name or ("SOMEBOX")
   local mctypeprev = mctypeprev or -1
-  local abspage = tex.count["g_shipout_readonly_int"] + 1  -- the real counter is increased inside the box so one off
+  local abspage = status.total_pages + 1  -- the real counter is increased inside the box so one off
+                                                                       -- if the callback is not used.
   ltx.@@.trace.log ("PAGE " .. abspage,3)
   ltx.@@.trace.log ("FUNC ARGS: pagecnt".. mcpagecnt.." prev "..mccntprev .. " type prev "..mctypeprev,4)
   ltx.@@.trace.log ("TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
@@ -556,25 +557,28 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
  return mcopen,mcpagecnt,mccntprev,mctypeprev
 end
 
-function ltx.@@.func.mark_shipout ()
- mcopen = ltx.@@.func.mark_page_elements (tex.box["ShipoutBox"],-1,-100,0,"Shipout",-1)
+
+
+function ltx.__tag.func.mark_shipout (box)
+ mcopen = ltx.__tag.func.mark_page_elements (box,-1,-100,0,"Shipout",-1)
  if mcopen~=0 then -- there is a chunk open, close it (hope there is only one ...
   local emcnode = nodenew("whatsit","pdf_literal")
-  local box = tex.box["ShipoutBox"].list
+  local list = box.list
   emcnode.data = "EMC"
   emcnode.mode=1
-  if box then
-     box = node.insert_after (box,node.tail(box),emcnode)
+  if list then
+     list = node.insert_after (list,node.tail(list),emcnode)
      mcopen = mcopen - 1
-     ltx.@@.trace.log ("INSERT LAST EMC, MCOPEN = " .. mcopen,2)
+     ltx.__tag.trace.log ("INSERT LAST EMC, MCOPEN = " .. mcopen,2)
   else
-     ltx.@@.trace.log ("UPS ",1)
+     ltx.__tag.trace.log ("UPS ",1)
   end
   if mcopen ~=0 then
-     ltx.@@.trace.log ("!WARNING! open mc" .. " MCOPEN = " .. mcopen,1)
+     ltx.__tag.trace.log ("!WARNING! open mc" .. " MCOPEN = " .. mcopen,1)
   end
  end
 end
+
 
 function ltx.@@.trace.show_seq (seq)
  if (type(seq) == "table") then

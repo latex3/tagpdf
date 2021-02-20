@@ -462,14 +462,32 @@
 % parent: the number of the structure it is in. Needed to build the parent tree.
 
 % The main function which wanders through the shipout box to inject the literals.
+% if the new callback is there, it is used.
 \hook_gput_code:nnn{begindocument}{tagpdf/mc}
   {
-    \bool_if:NT\g_@@_active_mc_bool
+    \bool_if:NT\g__tag_active_mc_bool
       {
-        \hook_gput_code:nnn{shipout/before}{tagpdf/lua}
+        \directlua
           {
-            \directlua{ltx.@@.func.mark_shipout ()}
+            if~luatexbase.callbacktypes.pre_shipout_filter~then~
+              luatexbase.add_to_callback("pre_shipout_filter", function(TAGBOX)~
+              ltx.__tag.func.mark_shipout(TAGBOX)~return~true~
+              end, "tagpdf")~
+            end
           }
+       \directlua
+         {
+           if~luatexbase.callbacktypes.pre_shipout_filter~then~
+           token.get_next()~
+           end
+         }\@secondoftwo\@gobble
+           {
+             \hook_gput_code:nnn{shipout/before}{tagpdf/lua}
+               {
+                 \directlua
+                   { ltx.__tag.func.mark_shipout (tex.box["ShipoutBox"]) }
+               }
+           }
       }
   }
 
