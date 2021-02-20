@@ -676,15 +676,12 @@
               }
             \prop_if_in:NnF \g_@@_attr_objref_prop {##1}
               {%\prop_show:N \g_@@_attr_entries_prop
-                %\@@_pdfreserveobjnum:N \l_tmpa_tl
-                %\@@_pdfuseobjnum:Nx    \l_tmpa_tl
                 \pdf_object_unnamed_write:nx
                   { dict }
                   {
                     \prop_item:Nn\g_@@_attr_entries_prop {##1}
                   }
                 \prop_gput:Nnx \g_@@_attr_objref_prop {##1} {\pdf_object_ref_last:}
-                %\prop_show:N \g_@@_attr_objref_prop
               }
             \tl_put_right:Nx \l_@@_attr_value_tl
               {
