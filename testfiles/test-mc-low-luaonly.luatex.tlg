@@ -6,15 +6,15 @@ File: example-image-duck.pdf Graphic file (type pdf)
 Package luatex.def Info: example-image-duck.pdf  used on input line ....
 (luatex.def)             Requested size: 184.55002pt x 114.2104pt.
 tagpdf: showtagpdfattributes:MC=>abscnt=4=>attr=4=>tag=P=19
-tagpdf: THIS HAS NOT BEEN TAGGED
-tagpdf: INSERT EMC -1 MCOPEN = 0
-tagpdf: INSERT EMC -1 MCOPEN = 0
-tagpdf: INSERT EMC -1 MCOPEN = 0
 tagpdf: INSERT BDC 0
 tagpdf: INSERT EMC 0 MCOPEN = 0
 tagpdf: THIS HAS NOT BEEN TAGGED
 tagpdf: INSERT EMC 0 MCOPEN = 0
+tagpdf: INSERT EMC 0 MCOPEN = 0
+tagpdf: INSERT EMC 0 MCOPEN = 0
 tagpdf: INSERT BDC 1
+tagpdf: INSERT EMC 1 MCOPEN = 0
+tagpdf: THIS HAS NOT BEEN TAGGED
 tagpdf: INSERT EMC 1 MCOPEN = 0
 tagpdf: INSERT BDC 2
 tagpdf: INSERT EMC 2 MCOPEN = 0
@@ -23,6 +23,8 @@ tagpdf: INSERT EMC 3 MCOPEN = 0
 tagpdf: INSERT BDC 4
 tagpdf: INSERT EMC 4 MCOPEN = 0
 tagpdf: INSERT BDC 5
+tagpdf: INSERT EMC 5 MCOPEN = 0
+tagpdf: INSERT BDC 6
 tagpdf: INSERT LAST EMC, MCOPEN = 0
 Completed box being shipped out [1]
 \vbox(655.63496+0.0)x435.61176, direction TLT
@@ -31,6 +33,7 @@ Completed box being shipped out [1]
 ..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
 ...\kern-72.26999
 ...\hbox(0.0+0.0)x0.0, direction TLT
+....\pdfliteral page <lua data reference ...>
 ....\latelua0{ltx.__pdf.backend_ThisPage_gpush(tex.count["g_shipout_readonly_in
 t"])}
 ....\glue 0.0 plus 1.0fil minus 1.0fil
@@ -44,6 +47,7 @@ t"])}
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set >20000.0fil, direction TLT
+...\pdfliteral page <lua data reference ...>
 ...\pdfliteral page <lua data reference ...>
 ...\latelua0{ltx.__pdf.Page.Resources.ExtGState=true}
 ...\latelua0{ltx.pdf.Page_Resources_gpush(tex.count["g_shipout_readonly_int"])}
@@ -3772,9 +3776,11 @@ t"])}
 .......\TU/lmr/m/n/10.95 1
 .......\glue 0.0 plus 1.0fil
 ....\glue 0.0 plus 1.0fil minus 1.0fil
-.\pdfliteral page <lua data reference ...>
 .\kern0.0
+.\pdfliteral page <lua data reference ...>
 <../example-image-duck.pdf>
+tagpdf: THIS HAS NOT BEEN TAGGED
+tagpdf: INSERT EMC -1 MCOPEN = 0
 tagpdf: INSERT BDC 0
 tagpdf: INSERT EMC 0 MCOPEN = 0
 tagpdf: INSERT BDC 1
@@ -3790,6 +3796,7 @@ Completed box being shipped out [2]
 ..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
 ...\kern-72.26999
 ...\hbox(0.0+0.0)x0.0, direction TLT
+....\pdfliteral page <lua data reference ...>
 ....\latelua0{ltx.__pdf.backend_ThisPage_gpush(tex.count["g_shipout_readonly_in
 t"])}
 ....\glue 0.0 plus 1.0fil minus 1.0fil
@@ -3805,6 +3812,7 @@ t"])}
 ..\vbox(595.80026+0.0)x418.25555, glue set 244.77397fil, direction TLT
 ...\glue(\topskip) 3.4007
 ...\hbox(7.5993+2.24475)x418.25555, glue set 0.81966, direction TLT
+....\pdfliteral page <lua data reference ...>
 ....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/10.95 b
 ....\kern0.3066 (font)
@@ -6535,9 +6543,9 @@ t"])}
 .......\TU/lmr/m/n/10.95 2
 .......\glue 0.0 plus 1.0fil
 ....\glue 0.0 plus 1.0fil minus 1.0fil
-.\pdfliteral page <lua data reference ...>
 .\kern0.0
 .\kern-655.63496
 .\hbox(0.0+0.0)x0.0, direction TLT
 .\kern655.63496
+.\pdfliteral page <lua data reference ...>
 (test-mc-low-luaonly.aux)
