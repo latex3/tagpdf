@@ -221,13 +221,13 @@
 
 \cs_generate_variant:Nn \pdfannot_dict_put:nnn {nnx}
 \hook_gput_code:nnn
-  {pdfannot/Link/URI/before}
+  {pdfannot/link/URI/before}
   {tagpdf}
   {
     \tag_struct_begin:n{tag=Link}
     \tag_mc_begin:n{tag=Link}
     \pdfannot_dict_put:nnx
-    {Link/URI}
+    {link/URI}
     { StructParent }
     { \int_use:N\c@g__tag_parenttree_obj_int }
   }
@@ -264,7 +264,7 @@
     \tag_struct_begin:n{tag=Link}
     \tag_mc_begin:n{tag=Link}
     \pdfannot_dict_put:nnx
-    {annot/Link/GoTo}
+    {link/GoTo}
     { StructParent }
     { \int_use:N\c@g__tag_parenttree_obj_int }
   }
