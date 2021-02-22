@@ -218,14 +218,16 @@
 %   \tag_struct_begin:n{tag=Link}
 %   \tag_mc_begin:n{tag=Link}
 % }
+
+\cs_generate_variant:Nn \pdfannot_dict_put:nnn {nnx}
 \hook_gput_code:nnn
-  {pdf/annot/Link/URI/before}
+  {pdfannot/Link/URI/before}
   {tagpdf}
   {
     \tag_struct_begin:n{tag=Link}
     \tag_mc_begin:n{tag=Link}
-    \pdfdict_put:nnx
-    {annot/Link/URI}
+    \pdfannot_dict_put:nnx
+    {Link/URI}
     { StructParent }
     { \int_use:N\c@g__tag_parenttree_obj_int }
   }
@@ -239,7 +241,7 @@
 %   \tag_struct_end:
 % }
 \hook_gput_code:nnn
-  {pdf/annot/Link/URI/after}
+  {pdfannot/link/URI/after}
   {tagpdf}
   {
     \__tag_struct_finish_link:
@@ -256,12 +258,12 @@
 % }
 
 \hook_gput_code:nnn
-  {pdf/annot/Link/GoTo/before}
+  {pdfannot/link/GoTo/before}
   {tagpdf}
   {
     \tag_struct_begin:n{tag=Link}
     \tag_mc_begin:n{tag=Link}
-    \pdfdict_put:nnx
+    \pdfannot_dict_put:nnx
     {annot/Link/GoTo}
     { StructParent }
     { \int_use:N\c@g__tag_parenttree_obj_int }
@@ -280,7 +282,7 @@
 % }
 
 \hook_gput_code:nnn
-  {pdf/annot/Link/GoTo/after}
+  {pdfannot/link/GoTo/after}
   {tagpdf}
   {
     \__tag_struct_finish_link:
@@ -288,13 +290,13 @@
     \tag_struct_end:
   }
 % "alternative descriptions " for PAX3. How to get better text here??
-\pdfdict_put:nnx
- {annot/Link/URI}
+\pdfannot_dict_put:nnx
+ {link/URI}
  { Contents }
  { (url) }
 
-\pdfdict_put:nnx
- {annot/Link/GoTo}
+\pdfannot_dict_put:nnx
+ {link/GoTo}
  { Contents }
  { (ref) }
 
