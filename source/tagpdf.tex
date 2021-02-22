@@ -71,13 +71,13 @@
 
 \cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
 \newcommand\PDF{PDF}
-\newbool{paratagging}
-\AddToHook{para/begin}
-  {\ifbool{paratagging}
-    {\tagstructbegin{tag=P}\tagmcbegin{tag=P}\makebox[0pt]{\smash{\textcolor{red}{BB}}}}}
-\AddToHook{para/end}
-  {\ifbool{paratagging}
-    {\makebox[0pt]{\smash{\textcolor{red}{EE}}}\tagmcend\tagstructend}}
+%\newbool{paratagging}
+%\AddToHook{para/begin}
+%  {\ifbool{paratagging}
+%    {\tagstructbegin{tag=P}\tagmcbegin{tag=P}\makebox[0pt]{\smash{\textcolor{red}{BB}}}}}
+%\AddToHook{para/end}
+%  {\ifbool{paratagging}
+%    {\makebox[0pt]{\smash{\textcolor{red}{EE}}}\tagmcend\tagstructend}}
 \begin{document}
 \tagstructbegin{tag=Document}
 
@@ -88,7 +88,7 @@
 \tagstructend
 
 \begin{tcolorbox}[colframe=red]
-\tagstructbegin{tag=Div} \booltrue{paratagging}
+\tagstructbegin{tag=Div} %\booltrue{paratagging}
 \TagP^ This package is not meant for normal document production.
 
 \TagP You need a very current \LaTeX{} format.
@@ -97,8 +97,8 @@
 
 \TagP This package is incomplete, experimental and quite probably contains bugs.
       At some time it will disappear when the code has been integrated into the \LaTeX{} format.
-      
-\TagP This package can change in an incompatible way.      
+
+\TagP This package can change in an incompatible way.
 
 \TagP You need some knowledge about \TeX, \PDF{} and perhaps even lua to use it.
 
@@ -120,11 +120,13 @@
 
 \section{Preface to version 0.8}
 
+\TagP^
 With this version one major step towards integration of the code into the \LaTeX{} has been done:
 The code now relies on the new \LaTeX{} PDF management. This management, which is for a testphase provided
-as an external package, \texttt{pdfmanagement-testphase}, 
+as an external package, \texttt{pdfmanagement-testphase},
 prepares the ground for better support for tagged PDF in \LaTeX{}.
 It is part of a larger project to automatically generate tagged PDF \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/}
+\TagPend
 
 
 
