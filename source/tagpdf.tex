@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.72}
-\def\UlrikeFischer@package@date{2020-11-20}
+\def\UlrikeFischer@package@version{0.8}
+\def\UlrikeFischer@package@date{2021-02-23}
 \makeatother
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{pdfversion=1.7,lang=en-UK}
@@ -56,11 +56,14 @@
  %log=v
  %show-spaces
  }
-
- \usepackage[customdriver=hgeneric-experimental,
-             pdfdisplaydoctitle=true,pdfusetitle,hyperfootnotes=false,
+\usepackage{hyperxmp}
+ \usepackage[pdfdisplaydoctitle=true,hyperfootnotes=false,
             ]{hyperref}
-
+ \hypersetup{
+  pdftitle={The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname},
+  pdfauthor=Ulrike Fischer,
+  pdfaconformance=a,
+  pdfuapart=1}
 %\usepackage[ocgcolorlinks]{ocgx2}
 \usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
 \usepackage{tagpdfdocu-patches}
@@ -68,6 +71,13 @@
 
 \cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
 \newcommand\PDF{PDF}
+\newbool{paratagging}
+\AddToHook{para/begin}
+  {\ifbool{paratagging}
+    {\tagstructbegin{tag=P}\tagmcbegin{tag=P}\makebox[0pt]{\smash{\textcolor{red}{BB}}}}}
+\AddToHook{para/end}
+  {\ifbool{paratagging}
+    {\makebox[0pt]{\smash{\textcolor{red}{EE}}}\tagmcend\tagstructend}}
 \begin{document}
 \tagstructbegin{tag=Document}
 
@@ -78,12 +88,17 @@
 \tagstructend
 
 \begin{tcolorbox}[colframe=red]
-\tagstructbegin{tag=Div}
+\tagstructbegin{tag=Div} \booltrue{paratagging}
 \TagP^ This package is not meant for normal document production.
 
-\TagP You need a current expl3 version to use it, you even need the (experimental) \texttt{l3str-convert}.
+\TagP You need a very current \LaTeX{} format.
+      You need a very current L3 programming layer.
+      You need the new \LaTeX{} PDF management bundle.
 
 \TagP This package is incomplete, experimental and quite probably contains bugs.
+      At some time it will disappear when the code has been integrated into the \LaTeX{} format.
+      
+\TagP This package can change in an incompatible way.      
 
 \TagP You need some knowledge about \TeX, \PDF{} and perhaps even lua to use it.
 
@@ -102,6 +117,15 @@
 \begin{NoHyper} %combination of link and other struct is to complicated for now ...
 \tableofcontents
 \end{NoHyper}
+
+\section{Preface to version 0.8}
+
+With this version one major step towards integration of the code into the \LaTeX{} has been done:
+The code now relies on the new \LaTeX{} PDF management. This management, which is for a testphase provided
+as an external package, \texttt{pdfmanagement-testphase}, 
+prepares the ground for better support for tagged PDF in \LaTeX{}.
+It is part of a larger project to automatically generate tagged PDF \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/}
+
 
 
 \section{Introduction}
