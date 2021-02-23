@@ -16,20 +16,18 @@
  }
 
 
-
-\begin{filecontents}{example-input-file.tex}
-Additional info!
-\end{filecontents}
-
 \begin{document}
 \pagestyle{empty}
 
 \tagstructbegin{tag=Document}
 
 \ExplSyntaxOn
-
+\pdfdict_put:nnn {l_pdffile/FileSpec} {AFRelationship}{/Supplement}
 \pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
 
+%for the test we need to ensure that ModDate is stable
+\pdfdict_put:nnn { l_pdffile/streamParams }
+  {ModDate}  {(D:20100101)}
 %change AFRelationship
 \pdfdict_put:nnn {l_pdffile/FileSpec} {AFRelationship}{/Supplement}
 
