@@ -2,19 +2,19 @@
 
 %this is more or less minimal template that can be used as starting point
 %it doesn't set everything that would be needed!
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{lang=en-UK, uncompress}
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 
 \tagpdfifpdftexT
  {
-  \pdfcatalog{/Lang (en-UK)}
   \usepackage[T1]{fontenc}
  }
 
 \tagpdfifluatexT
  {
-  \pdfextension catalog{/Lang (en-UK)}
   \usepackage{fontspec}
  }
 
@@ -22,7 +22,6 @@
     {
       tabsorder=structure,
       activate-all,
-      uncompress
     }
 \begin{document}
 \pagestyle{empty} %

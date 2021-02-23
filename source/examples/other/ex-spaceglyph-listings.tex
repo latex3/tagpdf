@@ -1,4 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{uncompress,}
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage[ngerman]{babel}
@@ -9,7 +11,7 @@
 \def\lst@visiblespace{\lst@ttfamily{\char32}{\char32}}
 % with pdftex this could work
 %\def\lst@visiblespace{\lst@ttfamily{\pdffakespace\ }{\pdffakespace\ }}
-\tagpdfsetup{activate-all,uncompress,interwordspace=on,show-spaces,log=v}
+\tagpdfsetup{activate-all,interwordspace=on,show-spaces,log=v}
 \begin{document}\pagestyle{empty}
 \tagstructbegin{tag=Document}
 \tagmcbegin{tag=P}
@@ -18,4 +20,4 @@ aaa aaa    xxxx
 \end{lstlisting}
 \tagmcend
 \tagstructend
-\end{document}
+\end{document} 
