@@ -69,7 +69,7 @@
 \usepackage{tagpdfdocu-patches}
 \hypersetup{colorlinks,}
 
-\cfoot*{\parataggingOff\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
+\cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
 \newcommand\PDF{PDF}
 
 \ExplSyntaxOn
@@ -97,8 +97,8 @@
 \ExplSyntaxOff    
 
 \makeatletter
-%\patchcmd\@oddfoot{\begingroup}{\begingroup\parataggingOff}{}{}
-%\patchcmd\@oddhead{\begingroup}{\begingroup\parataggingOff}{}{}
+\patchcmd\@oddfoot{\begingroup}{\begingroup\parataggingOff}{}{}
+\patchcmd\@oddhead{\begingroup}{\begingroup\parataggingOff}{}{}
 \begin{document}
 \tagstructbegin{tag=Document}
 
@@ -151,10 +151,14 @@ prepares the ground for better support for tagged PDF in \LaTeX{}.
 It is part of a larger project to automatically generate tagged PDF \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/}
 %\TagPend
 
+While this is a major improvement---it will for example allow to use tagpdf with more engines as the new PDF management supports all major engines---it also means that this version requires a special setup of the document and is incompatible with a number of packages,
+see the documentation of \texttt{pdfmanagement-testphase} for details.
+
+Another improvement is a first step towards are new hooks in \LaTeX: the newest development version has hooks for paragraphs which should at the end allow to tag many paragraphs automatically. The small red numbers in this section show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
+
 \parataggingOff
 
 \section{Introduction}
-
 
 
 \TagP^ Since many year the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
