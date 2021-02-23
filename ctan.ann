@@ -1,3 +1,10 @@
-- version 0.61 adapts the code to some internal expl3 changes. 
-- In this course the compresslevel key has been removed as unneeded, (the uncompress key is still there).
-
+Version 0.80 is a major extension of the package with a number of breaking
+changes. 
+The package
+- requires the new PDF management code from the pdfmanagement-testphase bundle
+- requires utf8 encoding 
+- requires a latex 2020-10-01 or newer and a L3 programming layer  2021-02-18
+  or newer
+- changed the module name prefix from uftag to tag
+- adds support for associated files issue #18
+- add support for /Lang, /Ref and /E. (issue #22)

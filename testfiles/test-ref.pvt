@@ -1,0 +1,37 @@
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{
+   pdfversion=2.0
+  ,lang=de-DE
+  ,uncompress}
+\RequirePackage{tagpdf-regressiontest}  
+\documentclass{article}
+\usepackage{tagpdf}
+
+\tagpdfsetup{tabsorder=structure,
+             activate-all}
+
+\begin{document}
+\pagestyle{empty}
+
+\tagstructbegin{tag=Document}
+
+\tagstructbegin{tag=P,label=blub}
+  \tagmcbegin{tag=P,}
+   A structure
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,ref={bla,blub}}
+  \tagmcbegin{tag=P}
+   A middle one
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,label=bla}
+  \tagmcbegin{tag=P}
+   The last one
+  \tagmcend
+\tagstructend
+
+\tagstructend
+\end{document} 

@@ -27,7 +27,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*struct>
-\ProvidesExplPackage {tagpdf-struct-code} {2020/11/20} {0.72}
+\ProvidesExplPackage {tagpdf-struct-code} {2021/02/23} {0.80}
  {part of tagpdf - code related to storing structure}
 
 % I will use a latex counter for the structure count
@@ -416,6 +416,38 @@
           { ActualText }
           { <\l_@@_tmpa_str>}
       },
+    lang .code:n        = % Lang property
+      {
+        \@@_prop_gput:cnx
+          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+          { Lang }
+          { (#1) }
+      },
+    ref .code:n        = % Lang property
+      {
+        \tl_clear:N\l_@@_tmpa_tl
+        \clist_map_inline:nn {#1}
+          {
+            \tl_put_right:Nx \l_@@_tmpa_tl
+              {~\ref_value:nn{tagpdfstruct-##1}{tagstructobj} }
+          }
+        \@@_prop_gput:cnx
+          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+          { Ref }
+          { [\l_@@_tmpa_tl] }
+      },
+    E .code:n        = % E property
+      {
+        \str_set_convert:Nnon
+          \l_@@_tmpa_str
+          { #1 }
+          { default }
+          { utf16/hex }
+        \@@_prop_gput:cnx
+          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+          { E }
+          { <\l_@@_tmpa_str> }
+      },
   }
 
 % keys for AF keys, they rely on l3pdffile!
@@ -645,7 +677,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*attr>
-\ProvidesExplPackage {tagpdf-attr-code} {2020/11/20} {0.72}
+\ProvidesExplPackage {tagpdf-attr-code} {2021/02/23} {0.80}
   {part of tagpdf - code related to attributes and attribute classes}
 
 % the obj is written in tagpdf-tree-code.

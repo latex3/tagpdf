@@ -27,7 +27,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*package>
-\ProvidesExplPackage {tagpdf} {2020/11/20} {0.72}
+\ProvidesExplPackage {tagpdf} {2021/02/23} {0.80}
   { A package to experiment with pdf tagging }
 
 \bool_if:nF
@@ -118,7 +118,15 @@
  %=============
  % attributes
  %=============
-\ref_attribute_gset:nnnn {tagstruct} {0}{now}    { \int_use:N \c@g_@@_struct_abs_int }
+\ref_attribute_gset:nnnn {tagstruct}    {0}{now}    { \int_use:N \c@g_@@_struct_abs_int }
+\ref_attribute_gset:nnnn {tagstructobj} {}{now}
+ {
+  \exp_args:Ne
+   \pdf_object_if_exist:nT {c__tag_struct_ \int_use:N \c@g__tag_struct_abs_int _obj}
+    {
+      \pdf_object_ref:e{c__tag_struct_ \int_use:N \c@g_@@_struct_abs_int _obj}
+    }
+ }
  % replace by abspage??
 \ref_attribute_gset:nnnn {tagabspage}{0}{shipout}{ \int_use:N \g_shipout_readonly_int }
 \ref_attribute_gset:nnnn {tagmcabs } {0}{now}    { \int_use:N \c@g_@@_MCID_abs_int }
@@ -127,7 +135,7 @@
 % lists
 %============
 \clist_const:Nn \c_@@_refmc_clist     {tagabspage,tagmcabs,tagmcid} %mc is new!!
-\clist_const:Nn \c_@@_refstruct_clist {@@_struct}
+\clist_const:Nn \c_@@_refstruct_clist {tagstruct,tagstructobj}
 %=================
 % command to set a label
 %================
@@ -318,7 +326,7 @@
 %
 %    \begin{macrocode}
 %<*user>
-\ProvidesExplPackage {tagpdf-user} {2020/11/20} {0.72}
+\ProvidesExplPackage {tagpdf-user} {2021/02/23} {0.80}
   {tagpdf - user commands}
 
 \NewDocumentCommand \tagpdfsetup { m }

@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.72"
-packagedate="2020-11-20"
+packageversion="0.80"
+packagedate="2021-02-23"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -24,7 +24,7 @@ uploadconfig = {
   email    = mydata.email,
   update   = true ,
   topic=    "tagged-pdf",
-  note     = [[This version should be installed together with the just uploaded l3kernel/l3experimental! Uploaded automatically by l3build...]],
+  note     = [[This version should be installed together with the just uploaded pdfmanagement-testphase! Uploaded automatically by l3build...]],
   description=[[The package offers tools to experiment with tagging and accessibility using pdfLATEX and LuaTEX. It isn't meant for production but allows the user to try out how difficult it is to tag some structures; to try out how much tagging is really needed; to test what else is needed so that a pdf works e.g. with a screen reader. Its goal is to get a feeling for what has to be done, which kernel changes are needed, how packages should be adapted.]],
   announcement_file="ctan.ann"
 }
@@ -35,7 +35,7 @@ specialformats["latex"] = specialformats["latex"] or
     luatex     = {binary="luahbtex",format = "lualatex-dev"},
     pdftex     = {format = "pdflatex-dev"},
     xetex      = {format = "xelatex-dev"},
-    latexdvips = {binary="latex.exe",format = "latex-dev"}
+    latexdvips = {binary="latex",format = "latex-dev"}
   }
 
 checkengines = {"pdftex","luatex"}
@@ -51,9 +51,7 @@ checkruns = 3
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
 excludetests = {"test-saveboxes-structure-dev"}
 
-sourcefiles =  {"*.dtx","*.ins",
-                "tagpdf-regressiontest.sty"
-               }
+sourcefiles =  {"*.dtx","*.ins"}
 
 if os.getenv('TRAVIS')  then
    checkconfigs = {"build","config-pdftex","config-luatex"}

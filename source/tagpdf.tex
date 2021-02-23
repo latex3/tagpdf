@@ -1,6 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \makeatletter
-\def\UlrikeFischer@package@version{0.8}
+\def\UlrikeFischer@package@version{0.80}
 \def\UlrikeFischer@package@date{2021-02-23}
 \makeatother
 \RequirePackage{pdfmanagement-testphase}
@@ -300,12 +300,12 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 \TagP^\textbf{Breaking change!} The package now requires the new PDF management as provided for now by the package \texttt{pdfmanagement-testphase}\TagPend
 
-\TagP^Support to add associated files to structures has been added.\TagPend
+\TagP^Support to add associated files to structures has been added with new keys \texttt{AF}, \texttt{AFinline} and \texttt{AFinline-o}.\TagPend
 
-\TagP^\textbf{Breaking change!} The support for other 8-bit input encodings has been removed. 
+\TagP^\textbf{Breaking change!} The support for other 8-bit input encodings has been removed.
 utf8 is now the required encoding. \TagPend
 
-
+\TagP^The keys |lang|, |ref| and |E| have been added for structures.\TagPend
 
 \section{Setup}
 
@@ -957,7 +957,17 @@ The flat version creates a structure like this:\TagPend
    \item[\PrintKeyName{AFinline-o}]
     \TagP^This is like verb+AFinline+, but it expands the value once.\Pmeti
 
+   \item[\PrintKeyName{lang}]
+     \TagP^This key allows to set the language for a structure element. The value should be a bcp-identifier,
+     e.g. |de-De|.\Pmeti
 
+   \item[\PrintKeyName{ref}]
+     \TagP^This key allows to add references to other structure elements, it adds the |/Ref| array to the structure.
+       The value should be a comma seperated list of structure labels set with the |label| key.
+     e.g. |ref={label1,label2}|.\Pmeti
+
+   \item[\PrintKeyName{E}]
+     \TagP^This key sets the |/E| key, the expanded form of an abbreviation or an acronym (I couldn't think of a better name, so I sticked to E).\Pmeti
 \end{description}
 
 
