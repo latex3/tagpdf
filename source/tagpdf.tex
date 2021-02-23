@@ -69,15 +69,36 @@
 \usepackage{tagpdfdocu-patches}
 \hypersetup{colorlinks,}
 
-\cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
+\cfoot*{\parataggingOff\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
 \newcommand\PDF{PDF}
-%\newbool{paratagging}
-%\AddToHook{para/begin}
-%  {\ifbool{paratagging}
-%    {\tagstructbegin{tag=P}\tagmcbegin{tag=P}\makebox[0pt]{\smash{\textcolor{red}{BB}}}}}
-%\AddToHook{para/end}
-%  {\ifbool{paratagging}
-%    {\makebox[0pt]{\smash{\textcolor{red}{EE}}}\tagmcend\tagstructend}}
+
+\ExplSyntaxOn
+\newcounter{paracnt}
+\bool_new:N \l__tag_paratagging_bool
+\AddToHook{para/begin}
+  { 
+   \stepcounter{paracnt}
+   \bool_if:NT \l__tag_paratagging_bool
+    {
+      \tagstructbegin{tag=P}\tagmcbegin{tag=P}
+      \llap{\color{red}\tiny\arabic{paracnt}\ }
+    }
+  }
+\AddToHook{para/end}
+  {
+    \bool_if:NT \l__tag_paratagging_bool
+    {
+     \rlap{\color{red}\tiny\ \arabic{paracnt}}
+     \tagmcend\tagstructend}
+  }
+\newcommand\parataggingON {\bool_set_true:N \l__tag_paratagging_bool}  
+\newcommand\parataggingOff{\bool_set_false:N \l__tag_paratagging_bool}  
+
+\ExplSyntaxOff    
+
+\makeatletter
+%\patchcmd\@oddfoot{\begingroup}{\begingroup\parataggingOff}{}{}
+%\patchcmd\@oddhead{\begingroup}{\begingroup\parataggingOff}{}{}
 \begin{document}
 \tagstructbegin{tag=Document}
 
@@ -120,17 +141,20 @@
 
 \section{Preface to version 0.8}
 
-\TagP^
+\parataggingON
+
+%\TagP^
 With this version one major step towards integration of the code into the \LaTeX{} has been done:
 The code now relies on the new \LaTeX{} PDF management. This management, which is for a testphase provided
 as an external package, \texttt{pdfmanagement-testphase},
 prepares the ground for better support for tagged PDF in \LaTeX{}.
 It is part of a larger project to automatically generate tagged PDF \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/}
-\TagPend
+%\TagPend
 
-
+\parataggingOff
 
 \section{Introduction}
+
 
 
 \TagP^ Since many year the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
