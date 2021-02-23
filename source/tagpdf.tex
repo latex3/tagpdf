@@ -151,10 +151,11 @@ prepares the ground for better support for tagged PDF in \LaTeX{}.
 It is part of a larger project to automatically generate tagged PDF \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/}
 %\TagPend
 
-While this is a major improvement---it will for example allow to use tagpdf with more engines as the new PDF management supports all major engines---it also means that this version requires a special setup of the document and is incompatible with a number of packages,
+While this is a major improvement---it will for example allow to use tagpdf with more engines as the new PDF management supports all major engines and allowed to add support for associated files---it also means that this version requires a special setup of the document and is incompatible with a number of packages,
 see the documentation of \texttt{pdfmanagement-testphase} for details.
 
-Another improvement is a first step towards are new hooks in \LaTeX: the newest development version has hooks for paragraphs which should at the end allow to tag many paragraphs automatically. The small red numbers in this section show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
+Another important step are the new hook management in \LaTeX: the newest development version has hooks for paragraphs which should at the end allow to tag many paragraphs automatically. The small red numbers in this section show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
+
 
 \parataggingOff
 
@@ -289,11 +290,20 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 \item \TagP^dropped the compresslevel key  -- probably not needed\Pmeti
 \end{itemize}
 
-\subsection{Changes in version 0.7}
+\subsection{Changes in version 0.8}
+
 
 \TagP^As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with \verb|\uftag| will stay valid for some time but then be deprecated.\TagPend
 
 \TagP^\textbf{Breaking change!} The argument of \texttt{newattribute} option should no longer add the dictionary bracket \verb+<<..>>+, they are added by the code.\TagPend
+
+
+\TagP^\textbf{Breaking change!} The package now requires the new PDF management as provided for now by the package \texttt{pdfmanagement-testphase}\TagPend
+
+\TagP^Support to add associated files to structures has been added.\TagPend
+
+
+
 
 \section{Setup}
 
@@ -914,6 +924,38 @@ The flat version creates a structure like this:\TagPend
   \item[\PrintKeyName{title-o}]
   \TagP^This key allows to set the dictionary entry \texttt{/Title} in the structure object.
   The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.\Pmeti
+  
+   \item[\PrintKeyName{AF}]
+   \TagP^This key allows to reference an associated file in the structure element. 
+   The value should be the name of an object pointing to the \texttt{/Filespec} dictionary as expected by
+   \verb+\pdf_object_ref:n+ from a current \texttt{l3kernel}.  
+   For example:\TagPend
+   
+   \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+   \begin{lstlisting}
+   \pdfdict_put:nnn {l_pdffile/FileSpec} {AFRelationship}{/Supplement}
+   \pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
+   \tagstructbegin{tag=P,AF=tag/AFtest}
+   \end{lstlisting}
+   \tagmcend\tagstructend
+   
+   \TagP^As shown, the wanted AFRelationship can be set
+   by filling the dictionary with the value. The mime type
+   is here detected automatically, but for unknown types it can be set too.
+   See the \texttt{l3pdffile} documentation for details.\Pmeti
+   
+   \item[\PrintKeyName{AFinline}]
+    \TagP^This key allows to embed an associated file with inline content. The value is some text,
+    which is embedded in the PDF as a text file with mime type text/plain. \Pmeti
+    
+   \begin{lstlisting}
+   \tagstructbegin{tag=P,AFinline=Some extra text}
+   \end{lstlisting}
+   
+   \item[\PrintKeyName{AFinline-o}]
+    \TagP^This is like verb+AFinline+, but it expands the value once.\Pmeti
+
+   
 \end{description}
 
 

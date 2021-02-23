@@ -1,0 +1,63 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{
+   pdfversion=1.7
+  ,lang=de-DE
+  ,uncompress}
+\documentclass{article}
+\usepackage{tagpdf}
+
+\tagpdfsetup{tabsorder=structure,
+             activate-all}
+\tagpdfifpdftexT
+ {
+  \usepackage[T1]{fontenc}
+ }
+
+\tagpdfifluatexT
+ {
+  \usepackage{fontspec}
+  \usepackage{unicode-math}
+  \usepackage{luacode}
+  \newfontface\zerowidthfont{freeserif}
+ }
+
+\usepackage{graphicx}
+\begin{filecontents}{example-input-file.tex}
+Additional info!
+\end{filecontents}
+
+\begin{document}
+\pagestyle{empty}
+
+\tagstructbegin{tag=Document}
+
+\ExplSyntaxOn
+
+\pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
+
+%change AFRelationship
+\pdfdict_put:nnn {l_pdffile/FileSpec} {AFRelationship}{/Supplement}
+
+\ExplSyntaxOff
+\def\testtext{Bär with teh shirt}
+\tagstructbegin{tag=P,AFinline-o=\testtext}
+  \tagmcbegin{tag=P}
+   Ein Satz ohne Umlaute.
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,AFinline=Duck}
+  \tagmcbegin{tag=P}
+   Ein Satz ohne Umlaute.
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,AF=tag/AFtest}
+  \tagmcbegin{tag=P}
+   Ein Satz ohne Umlaute.
+  \tagmcend
+\tagstructend
+
+\tagstructend
+\end{document} 

@@ -1,0 +1,57 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{
+   pdfversion=2.0
+  ,lang=de-DE
+  ,uncompress}
+\RequirePackage{tagpdf-regressiontest}
+\documentclass{article}
+\usepackage{tagpdf}
+
+\tagpdfsetup{tabsorder=structure,
+             activate-all}
+\tagpdfifpdftexT
+ {
+  \usepackage[T1]{fontenc}
+ }
+
+
+
+\begin{filecontents}{example-input-file.tex}
+Additional info!
+\end{filecontents}
+
+\begin{document}
+\pagestyle{empty}
+
+\tagstructbegin{tag=Document}
+
+\ExplSyntaxOn
+
+\pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
+
+%change AFRelationship
+\pdfdict_put:nnn {l_pdffile/FileSpec} {AFRelationship}{/Supplement}
+
+\ExplSyntaxOff
+\def\testtext{Bär with teh shirt}
+\tagstructbegin{tag=P,AFinline-o=\testtext}
+  \tagmcbegin{tag=P}
+   Ein Satz ohne Umlaute.
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,AFinline=Duck}
+  \tagmcbegin{tag=P}
+   Ein Satz ohne Umlaute.
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,AF=tag/AFtest}
+  \tagmcbegin{tag=P}
+   Ein Satz ohne Umlaute.
+  \tagmcend
+\tagstructend
+
+\tagstructend
+\end{document} 

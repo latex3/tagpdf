@@ -418,6 +418,58 @@
       },
   }
 
+% keys for AF keys, they rely on l3pdffile!
+% The stream variants use txt as extension to get the mimetype.
+\keys_define:nn { @@ / struct }
+ {
+    AF .code:n        = % T property
+      {
+        \pdf_object_if_exist:nTF {#1}
+          {
+            \@@_prop_gput:cnx
+             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+             { AF }
+             { \pdf_object_ref:n {#1} }
+          }
+          {
+
+          }
+      },
+   ,AFinline .code:n =
+     {
+       \group_begin:
+       \exp_args:Ne
+       \pdf_object_if_exist:nF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
+        {
+          \pdffile_embed_stream:nxx
+            {#1}
+            {tag-AFfile\int_use:N\c@g_@@_struct_abs_int.txt}
+            {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
+        }
+       \@@_prop_gput:cnx
+         { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+         { AF }
+         { \pdf_object_ref:e {@@/fileobj\int_use:N\c@g_@@_struct_abs_int } }
+       \group_end:
+     }
+   ,AFinline-o .code:n =
+     {
+       \group_begin:
+       \exp_args:Ne
+       \pdf_object_if_exist:nF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
+        {
+          \pdffile_embed_stream:oxx
+            {#1}
+            {tag-AFfile\int_use:N\c@g_@@_struct_abs_int.txt}
+            {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
+        }
+       \@@_prop_gput:cnx
+         { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+         { AF }
+         { \pdf_object_ref:e {@@/fileobj\int_use:N\c@g_@@_struct_abs_int } }
+       \group_end:
+     }
+ }
 
 \cs_new_protected:Nn \tag_struct_begin:n
   {
