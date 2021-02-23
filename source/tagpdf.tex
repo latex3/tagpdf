@@ -76,7 +76,7 @@
 \newcounter{paracnt}
 \bool_new:N \l__tag_paratagging_bool
 \AddToHook{para/begin}
-  { 
+  {
    \stepcounter{paracnt}
    \bool_if:NT \l__tag_paratagging_bool
     {
@@ -91,10 +91,10 @@
      \rlap{\color{red}\tiny\ \arabic{paracnt}}
      \tagmcend\tagstructend}
   }
-\newcommand\parataggingON {\bool_set_true:N \l__tag_paratagging_bool}  
-\newcommand\parataggingOff{\bool_set_false:N \l__tag_paratagging_bool}  
+\newcommand\parataggingON {\bool_set_true:N \l__tag_paratagging_bool}
+\newcommand\parataggingOff{\bool_set_false:N \l__tag_paratagging_bool}
 
-\ExplSyntaxOff    
+\ExplSyntaxOff
 
 \makeatletter
 \patchcmd\@oddfoot{\begingroup}{\begingroup\parataggingOff}{}{}
@@ -302,6 +302,8 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 \TagP^Support to add associated files to structures has been added.\TagPend
 
+\TagP^\textbf{Breaking change!} The support for other 8-bit input encodings has been removed. 
+utf8 is now the required encoding. \TagPend
 
 
 
@@ -349,8 +351,6 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
  \TagP^Allows to define new tag names, see section \ref{sec:new-tag} for a description.\Pmeti
 \item[\PrintKeyName{check-tags}]
  \TagP^Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).\Pmeti
-\item[\PrintKeyName{inputencoding}]
- \TagP^Some keys convert their value and so need to know the encoding of the file. The default encoding is utf8.  When using pdflatex you can switch to another encoding with this key. The value should be one of names allowed by \texttt{l3str}. There is no checking that the name is valid (I don't think that it sensible to use something else than utf8).\Pmeti
 \item[\PrintKeyName{interwordspace}]
  \TagP^Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.\Pmeti
 \item[\PrintKeyName{log}]
@@ -924,13 +924,13 @@ The flat version creates a structure like this:\TagPend
   \item[\PrintKeyName{title-o}]
   \TagP^This key allows to set the dictionary entry \texttt{/Title} in the structure object.
   The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.\Pmeti
-  
+
    \item[\PrintKeyName{AF}]
-   \TagP^This key allows to reference an associated file in the structure element. 
+   \TagP^This key allows to reference an associated file in the structure element.
    The value should be the name of an object pointing to the \texttt{/Filespec} dictionary as expected by
-   \verb+\pdf_object_ref:n+ from a current \texttt{l3kernel}.  
+   \verb+\pdf_object_ref:n+ from a current \texttt{l3kernel}.
    For example:\TagPend
-   
+
    \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
    \begin{lstlisting}
    \pdfdict_put:nnn {l_pdffile/FileSpec} {AFRelationship}{/Supplement}
@@ -938,24 +938,26 @@ The flat version creates a structure like this:\TagPend
    \tagstructbegin{tag=P,AF=tag/AFtest}
    \end{lstlisting}
    \tagmcend\tagstructend
-   
+
    \TagP^As shown, the wanted AFRelationship can be set
    by filling the dictionary with the value. The mime type
    is here detected automatically, but for unknown types it can be set too.
-   See the \texttt{l3pdffile} documentation for details.\Pmeti
-   
+   See the \texttt{l3pdffile} documentation for details.  Associated files are
+   a concept new in PDF 2.0, but the code currently doesn't check the pdf version, it is your responsability
+   to set it (this can be done with the \texttt{pdfversion} key in \verb+\DeclareDocumentMetadata+). \Pmeti
+
    \item[\PrintKeyName{AFinline}]
     \TagP^This key allows to embed an associated file with inline content. The value is some text,
     which is embedded in the PDF as a text file with mime type text/plain. \Pmeti
-    
+
    \begin{lstlisting}
    \tagstructbegin{tag=P,AFinline=Some extra text}
    \end{lstlisting}
-   
+
    \item[\PrintKeyName{AFinline-o}]
     \TagP^This is like verb+AFinline+, but it expands the value once.\Pmeti
 
-   
+
 \end{description}
 
 

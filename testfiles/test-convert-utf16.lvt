@@ -26,13 +26,13 @@ Goal: I need utf16 (so chars/numbers  for every char)
   \str_set_convert:Nnon
    \l_tmpa_str
    {  abc! }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
   \str_set_convert:Noon
    \l_tmpa_str
    { \l_uf_content_tl }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
 
@@ -42,13 +42,13 @@ Goal: I need utf16 (so chars/numbers  for every char)
   \str_set_convert:Nnon
    \l_tmpa_str
    {  öäüß }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
   \str_set_convert:Noon
    \l_tmpa_str
    { \l_uf_content_tl }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
 
@@ -57,13 +57,13 @@ Goal: I need utf16 (so chars/numbers  for every char)
   \str_set_convert:Nnon
    \l_tmpa_str
    { \frac{a}{b} }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
   \str_set_convert:Noon
    \l_tmpa_str
    { \l_uf_content_tl }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
 
@@ -72,13 +72,13 @@ Goal: I need utf16 (so chars/numbers  for every char)
   \str_set_convert:Nnon
    \l_tmpa_str
    { \blub }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N  \l_tmpa_str
   \str_set_convert:Noon
    \l_tmpa_str
    { \l_uf_content_tl }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N   \l_tmpa_str
  }
@@ -91,13 +91,13 @@ Goal: I need utf16 (so chars/numbers  for every char)
   \str_set_convert:Nnon
    \l_tmpa_str
    { abc! }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
   \str_set_convert:Noon
    \l_tmpa_str
    { \l_uf_content_tl }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
 
@@ -107,13 +107,13 @@ Goal: I need utf16 (so chars/numbers  for every char)
   \str_set_convert:Nnon
    \l_tmpa_str
    { öäüß }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
   \str_set_convert:Noon
    \l_tmpa_str
    { \l_uf_content_tl }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
 
@@ -123,13 +123,13 @@ Goal: I need utf16 (so chars/numbers  for every char)
   \str_set_convert:Nnon
    \l_tmpa_str
    { \frac{a}{b} }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
   \str_set_convert:Noon
    \l_tmpa_str
    { \l_uf_content_tl }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
 
@@ -138,13 +138,13 @@ Goal: I need utf16 (so chars/numbers  for every char)
   \str_set_convert:Nnon
    \l_tmpa_str
    { \blub }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
   \str_set_convert:Noon
    \l_tmpa_str
    { \l_uf_content_tl }
-   { \g__tag_inputencoding_tl }
+   { default }
    { utf16/hex }
   \str_show:N \l_tmpa_str
  }

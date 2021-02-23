@@ -200,11 +200,6 @@
       \pdfmanagement_remove:nn {Page} {Tabs},
     tabsorder       .initial:n = structure,
     uncompress      .code:n = {\pdf_uncompress:  },
-    inputencoding   .code:n =
-     {
-       \sys_if_engine_pdftex:T
-         { \tl_gset:Nn \g_@@_inputencoding_tl { #1 } }
-     },
   }
 %need to think about the right place ...
 %\AtBeginDocument
