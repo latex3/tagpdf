@@ -1,13 +1,15 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{uncompress,lang=de_DE}
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
-\tagpdfsetup{activate-all,uncompress}
+\tagpdfsetup{activate-all}
 
-\ifluatex\else
-\pdfcatalog{/Lang (en-UK)}
-\pdfinfo {/Title (Title)}
-\fi
+\ExplSyntaxOn
+\pdfmanagement_add:nnn{Info}{Title}{(Title)}
+\ExplSyntaxOff
+
 
 \tagpdfsetup
 {

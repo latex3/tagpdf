@@ -7,15 +7,16 @@
 % open problem: line ends are not copy&pasted as spaces.
 % see also pull request #1, branch fake-space
 
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=1.7,uncompress}
 \documentclass{book}
 
 \usepackage[ngerman]{babel} %to get some hyphenation
 \usepackage{tagpdf}
 \tagpdfsetup{tabsorder=structure,
              activate-all, %deactivate to see the difference
-             uncompress
              }
-\usepackage{lipsum}%
+
 \usepackage{fontspec}
 
 \prehyphenchar`\^^ad
@@ -36,5 +37,5 @@
    \tagmcend
   \tagstructend
 \tagstructend
-\end{document} 
+\end{document}
 

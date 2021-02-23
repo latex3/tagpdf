@@ -1,22 +1,20 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-%\input{regression-test}
+
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=1.7,lang=de-DE}
+
 \documentclass{article}
+
 \usepackage{tagpdf}
 \tagpdfsetup{tabsorder=structure,
              uncompress,activate-all}
 \tagpdfifpdftexT
  {
-  %set language / can also be done with hyperref
-  \pdfcatalog{/Lang (de-DE)}
   \usepackage[T1]{fontenc}
-  \input glyphtounicode
-  \pdfgentounicode=1
  }
 
 \tagpdfifluatexT
  {
-  %set language / can also be done with hyperref
-  \pdfextension catalog{/Lang (de-DE)}
   \usepackage{fontspec}
   \usepackage{unicode-math}
   \usepackage{luacode}
@@ -34,7 +32,7 @@
 \tagstructbegin{tag=Document}
 
 %This isn't read by voice software
-Etwas unmarkierter Text. 
+Etwas unmarkierter Text.
 
 %This read ok by voice software
 \tagstructbegin{tag=P}
@@ -46,12 +44,12 @@ Etwas unmarkierter Text.
 %This read ok by  nvda, but adobe has difficulties with the umlauts
 \tagstructbegin{tag=P}
   \tagmcbegin{tag=P}
-   Grüße an die Welt und die öde Wüste. 
+   Grüße an die Welt und die öde Wüste.
   \tagmcend
 \tagstructend
 
-\newpage 
-% alttext is read, 
+\newpage
+% alttext is read,
 % actualtext copy & pasted
 \tagstructbegin{tag=P,alttext=Dies ist ein Text,actualtext=Copy}
   \tagmcbegin{tag=P}
@@ -59,7 +57,7 @@ Etwas unmarkierter Text.
   \tagmcend
 \tagstructend
 
-%alttext is read, 
+%alttext is read,
 %actualtext copy & pasted
 \tagstructbegin{tag=P}
  \tagmcbegin{tag=P,alttext=Dies ist ein zweiter Text,actualtext=Copy}
@@ -68,7 +66,7 @@ Etwas unmarkierter Text.
 \tagstructend
 
 
-%nvda: alttext of structure is read 
+%nvda: alttext of structure is read
 %adobe: alttext of inner mc is read
 % result of copy & paste of this page in adobe reader:
 % why twice??????
@@ -89,14 +87,14 @@ Etwas unmarkierter Text.
 % content is more or less ignored. This is not against the documentation:
 % Formula is explicitly describes as an "illustration", something with a content
 % which can not be read directly.
-% But it is a problem that nvda ignores it even with an alt text. 
+% But it is a problem that nvda ignores it even with an alt text.
 
 %test of Formula tag + alttext in the mc
 %pdflatex
 %nvda: content is ignored
 %adobe: reads the alt text but without {} and ()
 
-%luatex (unicode-math): 
+%luatex (unicode-math):
 % nvda: doesn't read
 %adobe: doesn't read  (warning "empty page")
 
@@ -142,8 +140,8 @@ Etwas unmarkierter Text.
  \tagmcend
 \tagstructend
 
-%pdftex 
-% sum is read as "pi" 
+%pdftex
+% sum is read as "pi"
 %luatex
 %adobe: almost nothing read (only 1 and =)
 %nvda: similar, obviously both have problems with the unicode math symbols

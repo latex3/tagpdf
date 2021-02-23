@@ -1,21 +1,21 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{
+   pdfversion=1.7
+  ,lang=de-DE
+  ,uncompress}
 \documentclass{article}
 \usepackage{tagpdf}
+
 \tagpdfsetup{tabsorder=structure,
-             uncompress,activate-all}
+             activate-all}
 \tagpdfifpdftexT
  {
-  %set language / can also be done with hyperref
-  \pdfcatalog{/Lang (de-DE)}
   \usepackage[T1]{fontenc}
-  \input glyphtounicode
-  \pdfgentounicode=1
  }
 
 \tagpdfifluatexT
  {
-  %set language / can also be done with hyperref
-  \pdfextension catalog{/Lang (de-DE)}
   \usepackage{fontspec}
   \usepackage{unicode-math}
   \usepackage{luacode}
@@ -56,4 +56,4 @@
 \tagstructend
 
 \tagstructend
-\end{document}
+\end{document} 

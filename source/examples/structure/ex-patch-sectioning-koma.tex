@@ -8,6 +8,9 @@
 
 %no page break involved. So the example works in lua and generic mode
 
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=1.7,uncompress}
+
 \documentclass{scrbook}
 \usepackage[english]{babel}
 
@@ -15,15 +18,11 @@
 
 \tagpdfifpdftexT
  {
-  %set language / can also be done with hyperref
-  \pdfcatalog{/Lang (en-US)}
   \usepackage[T1]{fontenc}
  }
 
 \tagpdfifluatexT
  {
-  %set language / can also be done with hyperref
-  \pdfextension catalog{/Lang (en-US)}
   \usepackage{fontspec}
   \usepackage{luacode}
  }
@@ -31,10 +30,8 @@
 
 \tagpdfsetup{tabsorder=structure,
              activate-all,
-             uncompress
              }
 
-\usepackage{lipsum}%\textheight3cm
 
 %%%%%%%%%%%%%%%
 %Marking the toc entries
@@ -68,9 +65,9 @@
 
 
 \renewcommand{\addtocentrydefault}[3]{%
- \ifstr{#3}{}{}
+ \Ifstr{#3}{}{}
    {%\
-   \ifstr{#2}{}
+   \Ifstr{#2}{}
     {%
      \addcontentsline{toc}{#1}
       {%
@@ -151,7 +148,7 @@
     #4
     \tagmcend\tagstructend}%
  }
- 
+
 \ExplSyntaxOff
 \AfterTOCHead{\tagstructbegin{tag=TOC}}
 \AfterStartingTOC{\tagstructend} %end TOC
