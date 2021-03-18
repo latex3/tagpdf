@@ -270,38 +270,53 @@ To make the package usable examples are needed: example that demonstrates how va
 Feedback, contribuations and corrections are welcome!
 \end{tcolorbox}
 
+
+All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
+
 \parataggingOff
-
-\TagP^ All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
-\TagPend
-
 
 \subsection{Changes in 0.3}
 
-\TagP^
+\parataggingON
+
 In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change means that the package now relies on the experimental expl3 package \texttt{l3str-convert}.
 
-\TagP
-I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.\TagPend
+I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
+
+\parataggingOff
+
 
 \subsection{Changes in 0.5}
-\TagP^I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
 
-\TagP I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{sec:spacechars}.\TagPend
+\parataggingON
 
+I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
+
+I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{sec:spacechars}.
+
+\parataggingOff
 
 \subsection{Changes in 0.6}
 
-\TagP^\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.\TagPend
+\parataggingON
+
+\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.
+
+\parataggingOff
+
 
 \subsection{Proof of concept: the tagging of the documentation itself}
-\TagP^With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnote gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes are probably simply wrong \ldots\TagPend
 
-\TagP^But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.\TagPend
+\parataggingON
+With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnote gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes are probably simply wrong \ldots
 
-\begin{tcolorbox}
-\TagP^Be aware that to create the tagged version a very experimental package and a experimental hyperref driver was needed for the links. This files are not in the package!\TagPend
+But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.
+
+\begin{tcolorbox}[before upper=\parataggingON]
+Be aware that to create the tagged version a very experimental package and a experimental hyperref driver was needed for the links. This files are not in the package!
 \end{tcolorbox}
+
+\parataggingOff
 
 \tagstructbegin{tag=Figure,alttext=PAC3 report}\tagmcbegin{tag=Figure}
 \includegraphics{pac3}
@@ -315,26 +330,34 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 \subsection{Changes in version 0.8}
 
+\parataggingON
 
-\TagP^As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with \verb|\uftag| will stay valid for some time but then be deprecated.\TagPend
+As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with \verb|\uftag| will stay valid for some time but then be deprecated.
 
-\TagP^\textbf{Breaking change!} The argument of \texttt{newattribute} option should no longer add the dictionary bracket \verb+<<..>>+, they are added by the code.\TagPend
+\textbf{Breaking change!} The argument of \texttt{newattribute} option should no longer add the dictionary bracket \verb+<<..>>+, they are added by the code.
 
 
-\TagP^\textbf{Breaking change!} The package now requires the new PDF management as provided for now by the package \texttt{pdfmanagement-testphase}\TagPend
+\textbf{Breaking change!} The package now requires the new PDF management as provided for now by the package \texttt{pdfmanagement-testphase}
 
-\TagP^Support to add associated files to structures has been added with new keys \texttt{AF}, \texttt{AFinline} and \texttt{AFinline-o}.\TagPend
+Support to add associated files to structures has been added with new keys \texttt{AF}, \texttt{AFinline} and \texttt{AFinline-o}.
 
-\TagP^\textbf{Breaking change!} The support for other 8-bit input encodings has been removed.
-utf8 is now the required encoding. \TagPend
+\textbf{Breaking change!} The support for other 8-bit input encodings has been removed.
+utf8 is now the required encoding. 
 
-\TagP^The keys |lang|, |ref| and |E| have been added for structures.\TagPend
+The keys |lang|, |ref| and |E| have been added for structures.
+
+\parataggingOff
 
 \section{Setup}
 
 \minisec{Activation needed!}
-\TagP^When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
-\TagPend
+
+\parataggingON
+
+When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
+
+\parataggingOff
+
 
 
 \subsection{Modes and package options}
