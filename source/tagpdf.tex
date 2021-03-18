@@ -162,55 +162,70 @@ Another important step are the new hook management in \LaTeX: the newest develop
 \section{Introduction}
 
 
-\TagP^ Since many year the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
+\parataggingON
+Since many year the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
 
-\TagP But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
+But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
-\TagP This package tries to close this gap by offering \emph{core} commands to tag a \PDF{}.\footnote{In case you don't know what this means: there will be some explanations later on.}
+This package tries to close this gap by offering \emph{core} commands to tag a \PDF{}.\footnote{In case you don't know what this means: there will be some explanations later on.}
 
-\TagP My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
+My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
-\TagP The package does not patch commands from other packages. It is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged \PDF{} files -- and the examples accompanying the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
+The package does not patch commands from other packages. It is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged \PDF{} files -- and the examples accompanying the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
 
-\TagP So this package deliberately concentrates on the basics -- and this already quite a lot, there are much more details involved as I expected when I started.
+So this package deliberately concentrates on the basics -- and this already quite a lot, there are much more details involved as I expected when I started.
 
-\TagP I'm sure that it has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
+I'm sure that it has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
 
-\TagP Please also check the github site for new examples and improvements.
-\TagPend
+Please also check the github site for new examples and improvements.
+
+\parataggingOff
 
 \subsection{Tagging and accessibility}
 
-\TagP^ While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} \PDF{}-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
+\parataggingON
 
-\TagP So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
-\TagPend
+While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} \PDF{}-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
+
+So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
+
+\parataggingOff
+
 
 \subsection{Engines and modes}
 
-\TagP^ The package works currently with pdflatex and lualatex. First steps have been done to also enable support for xelatex and the latex-dvips-route; but this isn't yet much tested.
+\parataggingON
 
-\TagP The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
+The package works currently with pdflatex and lualatex. First steps have been done to also enable support for xelatex and the latex-dvips-route; but this isn't yet much tested.
+
+The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
 
 
-\TagP I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
+I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
 
-\TagP While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.%
-\TagPend
+While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.%
 
+\parataggingOff
 
 
 \subsection{References}
 
-\TagP^ My main reference was the free reference for \PDF{} 1.7. \parencite{pdfreference}. This document is from 2006.
+\parataggingON
 
-\TagP In the meantime \PDF{} 2.0. has been released. I know that it contains also for accessibility relevant changes. As I got now the specification and luatex can set with \verb+\pdfmajorversion+ the version to 2.0 I will start to check to look into it too.%
-\TagPend
+My main reference was the free reference for \PDF{} 1.7. \parencite{pdfreference}. This document is from 2006.
+
+In the meantime \PDF{} 2.0. has been released. 
+I know that it contains also for accessibility relevant changes. 
+As I got now the specification and luatex can set with \verb+\pdfmajorversion+ 
+the version to 2.0 I will start to check to look into it too.%
+
+\parataggingOff
 
 \subsection{Validation}
 
-\TagP^ \PDF{}'s created with the commands of this package must be validated:\TagPend
+\parataggingON
 
+\PDF{}'s created with the commands of this package must be validated:
 
 \begin{itemize}
 \item
@@ -223,31 +238,39 @@ Another important step are the new hook management in \LaTeX: the newest develop
 \TagP^ One must check how good the accessibility is \emph{practically}.\Pmeti
 \end{itemize}
 
-\TagP^
+
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
 
-\TagP
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
 There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here.
 
-\TagP Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a \PDF{} has real accessibility problems.\TagPend
+Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a \PDF{} has real accessibility problems.
 
+\parataggingOff
 
 
 \minisec{Preflight woes}
 
-\TagP^Sadly validators can not be always trusted. As an example for an reason that I don't understand the adobe preflight don't like the list structure \texttt{L}.
-It is also possible that validators contradict: that the one says everything is okay, while the other complains.\TagPend
+\parataggingON
 
+Sadly validators can not be always trusted. As an example for an reason that I don't understand the adobe preflight don't like the list structure \texttt{L}.
+It is also possible that validators contradict: that the one says everything is okay, while the other complains.
+
+\parataggingOff
 
 \subsection{Examples wanted!}
-\TagP^ To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.\TagPend
 
-\begin{tcolorbox}[]
-\TagP^ Feedback, contribuations and corrections are welcome!\TagPend
+\parataggingON
+To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
+
+
+\begin{tcolorbox}[before upper=\parataggingON]
+Feedback, contribuations and corrections are welcome!
 \end{tcolorbox}
+
+\parataggingOff
 
 \TagP^ All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
 \TagPend

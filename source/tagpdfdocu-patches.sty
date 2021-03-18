@@ -169,6 +169,11 @@
 
 %% list
 
+\AddToHook{env/itemize/begin}{\par\parataggingOff\tagstructbegin{tag=L}}
+\AddToHook{env/itemize/end}{\tagstructend}
+\AddToHook{env/enumerate/begin}{\par\parataggingOff\tagstructbegin{tag=L}}
+\AddToHook{env/enumerate/end}{\tagstructend}
+
 \newcommand\tag@enit@format@preset[1]{%
   \tagstructbegin{tag=LI}%
   \tagstructbegin{tag=Lbl}%
@@ -192,9 +197,9 @@
 \ExplSyntaxOff
 \xpatchcmd\enit@preset{\@firstofone}{\tag@enit@format@preset}{}{\fail}
 \ExplSyntaxOn
-\setlist{
-    before*=\tagstructbegin{tag=L},
-    after*={\tagstructend}}
+%\setlist{
+%    before*=\tagstructbegin{tag=L},
+%    after*={\tagstructend}}
 
 % keys that overwrite \enit@format must be patched, eg like the follow
 % the font key should be patched in a similar way
@@ -205,6 +210,12 @@
    \tagmcbegin{tag=Lbl}%
    #1\tagmcend}}
 
+
+% tcolorbox.
+% the before upper setting is dangerous as it can be overwritten by
+% users. So a more stable hook is needed.
+\AddToHook{env/tcolorbox/begin}{\parataggingOff}
+%\tcbset{before upper=\parataggingON} %locally for now
  %%% hooks for links
  %%% attention, to get the order right, it is necessary currently to start a new
  %%% mc after a link! I'm not sure if this can/group be included in the hooks
