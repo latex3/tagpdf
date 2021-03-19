@@ -530,10 +530,13 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \end{figure}
 
+\parataggingOff
+
 \subsection{Task 1: Marking the chunks: the mark-content-step}
 
+\parataggingON
 
-\TagP^To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the \PDF{} reference they are called \enquote{marked content}. The three main variants needed here are:\TagPend
+To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the \PDF{} reference they are called \enquote{marked content}. The three main variants needed here are:
 
 \begin{description}
 \item[Artifacts] \TagP^They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.\TagPend
@@ -582,7 +585,7 @@ To tag a \PDF{} three tasks must be  carried out:
 \end{description}
 
 
-\TagP^The needed markers can be added with low level code e.g. like this (in pdftex syntax):\TagPend
+The needed markers can be added with low level code e.g. like this (in pdftex syntax):
 
 
 \begin{lstlisting}
@@ -592,7 +595,7 @@ To tag a \PDF{} three tasks must be  carried out:
 \end{lstlisting}
 
 
-\TagP^This sounds easy. But there are quite a number of traps.\TagPend
+This sounds easy. But there are quite a number of traps.
 
 \begin{enumerate}[beginpenalty=10000]
   \item \TagP^\PDF{} is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
@@ -631,6 +634,8 @@ To tag a \PDF{} three tasks must be  carried out:
   \item
   \TagP^\PDF{} is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.\Pmeti
 \end{enumerate}
+
+\parataggingOff
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
 
@@ -1319,12 +1324,12 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
  \item \TagP^The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfmanagement_add:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.\Pmeti
  \item \TagP^All characters must have an unicode representation or a suitable alternative text.
       With lualatex and open type (unicode) fonts this is normally not a problem. With pdflatex it could need\TagPend
-  
+
       \begin{verbatim}
       \input{glyphtounicode}
       \pdfgentounicode=1
       \end{verbatim}
-  
+
  \TagP^and perhaps some\verb+\pdfglyphtounicode+ commands.\Pmeti
  \item \TagP^Hard and soft hyphen must be distinct.\Pmeti
  \item \TagP^Spaces between words should be space glyphs and not only a horizontal movement. See section~\ref{sec:spacechars}.\Pmeti
