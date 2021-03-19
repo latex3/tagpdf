@@ -3,28 +3,16 @@ rem l3build save -e\2 \1
 rem l3build save -cconfig-pdftex -e\2 \1
 rem l3build save -cconfig-luatex -e\2 \1
 
-REM Failed tests for configuration build:
-REM
-REM   Check failed with difference files
-l3build save -eluatex test-AF-file
-l3build save -epdftex test-AF-file
-l3build save -eluatex test-empty-mc
-l3build save -epdftex test-empty-mc
-l3build save -eluatex test-links-backend
-l3build save -epdftex test-links-backend
-l3build save -eluatex test-ref
-l3build save -epdftex test-ref
-l3build save -eluatex test-saveboxes-structure
-l3build save -epdftex test-saveboxes-structure
+
 REM
 REM Failed tests for configuration config-pdftex:
 REM
 REM   Check failed with difference files
-REM   - ./build/test-config-pdftex/test-attribute.pdftex.pdf.fc
-REM   - ./build/test-config-pdftex/test-fakespace-tagpdf.pdftex.pdf.fc
-REM   - ./build/test-config-pdftex/test-mc-alt.pdftex.pdf.fc
-REM   - ./build/test-config-pdftex/test-pdf.pdftex.pdf.fc
-REM   - ./build/test-config-pdftex/test-sectioning-koma.pdftex.pdf.fc
+l3build save -cconfig-pdftex -epdftex test-attribute
+l3build save -cconfig-pdftex -epdftex test-fakespace-tagpdf
+l3build save -cconfig-pdftex -epdftex test-mc-alt
+l3build save -cconfig-pdftex -epdftex test-pdf
+l3build save -cconfig-pdftex -epdftex test-sectioning-koma
 REM
 REM Failed tests for configuration config-luatex:
 REM
