@@ -625,9 +625,11 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
 
-\TagP^While in generic mode the commands insert the literals directly and so have all the problems described above the lua mode works quite differently: The tagging commands don't insert literals but set some \emph{attributes} which are attached to all the following nodes. When the page is shipped out some lua code is called which wanders through the shipout box and injects the literals at the places where the attributes changes.
+\parataggingON
 
-\TagP This means that quite a number of problems mentioned above are not relevant for the lua mode:\TagPend
+While in generic mode the commands insert the literals directly and so have all the problems described above the lua mode works quite differently: The tagging commands don't insert literals but set some \emph{attributes} which are attached to all the following nodes. When the page is shipped out some lua code is called which wanders through the shipout box and injects the literals at the places where the attributes changes.
+
+This means that quite a number of problems mentioned above are not relevant for the lua mode:
 
 \begin{enumerate}
 \item \TagP^Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the \PDF{} and so bloat up \PDF{} a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).\Pmeti
@@ -635,6 +637,8 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 \item \TagP^The numbering of the MCID are done at shipout, so no label/ref system is needed.\Pmeti
 \item \TagP^The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.\Pmeti
 \end{enumerate}
+
+\parataggingOff
 
 \subsubsection{Commands to mark content and chunks}
 
@@ -778,9 +782,11 @@ Such markers should not be nested. The command will warn you if this happens.
 
 \subsubsection{Links}
 
-\TagP^Link annotations (like all \PDF{} annotations) are associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between the link and the content is based solely on visual appearance rather than on an explicitly specified association.\TagPend
+\parataggingON
 
-\TagP^To connect such a link with the underlying text a specific structure has to be added, see \ref{fig:linkannot}. When using the low-level commands to create a link, this structure can be created by adding an entry to the attr argument of the startlink command, and by by adding a command of the tagpdf package after the endlink command, as show in the following listing:\TagPend
+Link annotations (like all \PDF{} annotations) are associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between the link and the content is based solely on visual appearance rather than on an explicitly specified association.
+
+To connect such a link with the underlying text a specific structure has to be added, see \ref{fig:linkannot}. When using the low-level commands to create a link, this structure can be created by adding an entry to the attr argument of the startlink command, and by adding a command of the tagpdf package after the endlink command, as show in the following listing:
 
 
 \begin{lstlisting}
@@ -804,12 +810,16 @@ Such markers should not be nested. The command will warn you if this happens.
 \end{lstlisting}
 
 
-\TagP^The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project which tries to move some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time.\TagPend
+The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project which tries to move some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time.
+
+\parataggingOff
 
 \subsubsection{Math}
 
-\TagP^Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
-The \PDF{} then looked like this\TagPend
+\parataggingON
+
+Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
+The \PDF{} then looked like this
 
 
 \begin{lstlisting}
@@ -822,19 +832,24 @@ The \PDF{} then looked like this\TagPend
 
 
 
-\TagP^If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.\TagPend
+If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.
 
-\TagP^But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the \PDF{} and the task how to read this aloud delegated to the screen reader. More investigations are needed here.\TagPend
+But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the \PDF{} and the task how to read this aloud delegated to the screen reader. More investigations are needed here.
 
-\TagP^See also section~\ref{sec:alttext} for some more remarks and tests.\TagPend
+See also section~\ref{sec:alttext} for some more remarks and tests.
+
+\parataggingOff
 
 \subsubsection{Split paragraphs}\label{sec:splitpara}
 
-\TagP^A\marginnote{Generic mode only} problem are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
+\parataggingON
+%TODO: think about marginnote! Aside?
 
-\TagP So with pdflatex in generic mode one currently has to do the splitting manually.
+A\marginnote{Generic mode only} problem are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
 
-\TagP The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea is to use \verb+\vadjust+ in the right place:\TagPend
+So with pdflatex in generic mode one currently has to do the splitting manually.
+
+The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea is to use \verb+\vadjust+ in the right place:
 
 
 \begin{lstlisting}
@@ -848,14 +863,22 @@ Pellentesque scelerisque
 sit amet, lacus.\tagmcend
 \end{lstlisting}
 
-
+\parataggingOff
 
 
 \subsection{Task 2: Marking the structure}
-\TagP^The structure is represented in the \PDF{} with a number of objects of type \texttt{StructElem} which build a tree: each of this objects points back to its parent and normally has a number of kid elements, which are either again structure elements or -- as leafs of the tree -- the marked contents chunks marked up with the \verb+tagmc+-commands. The root of the tree is the \texttt{StructTreeRoot}.\TagPend
+
+\parataggingON
+
+The structure is represented in the \PDF{} with a number of objects of type \texttt{StructElem} which build a tree: each of this objects points back to its parent and normally has a number of kid elements, which are either again structure elements or -- as leafs of the tree -- the marked contents chunks marked up with the \verb+tagmc+-commands. The root of the tree is the \texttt{StructTreeRoot}.
+
+\parataggingOff
 
 \subsubsection{Structure types}
-\TagP^The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and base them on \texttt{P}:\TagPend
+
+\parataggingON
+
+The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and base them on \texttt{P}:
 
 
 \begin{lstlisting}
@@ -865,6 +888,7 @@ sit amet, lacus.\tagmcend
             }
 \end{lstlisting}
 
+\parataggingOff
 
 \subsubsection{Sectioning}
 \TagP^The sectioning units can be structured in two ways: a flat, html-like and a more xml-like version.
