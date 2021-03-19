@@ -55,41 +55,32 @@
 % Old code, I'm not quite sure if this was a good idea. Now I have mix of table in
 % ltx.@@.tables and ltx.@@.mc/struct. And a lot is probably not needed.
 
-\cs_new:Nn \@@_luatex_get_table_name:Nn
-  {
-    \tl_set_rescan:Nnn #1  { \char_set_catcode_ignore:N \\ } { #2 }
-  }
 
-
-\cs_new:Nn \@@_prop_new:N
+\cs_new_protected:Nn \@@_prop_new:N
   {
     \prop_new:N #1
-    \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { ltx.@@.tables.\l_tmpa_tl = {} }
+    \directlua { ltx.@@.tables.\cs_to_str:N#1 = {} }
   }
 
 
-\cs_new:Nn \@@_seq_new:N
+\cs_new_protected:Nn \@@_seq_new:N
   {
     \seq_new:N #1
-    \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { ltx.@@.tables.\l_tmpa_tl = {} }
+    \directlua { ltx.@@.tables.\cs_to_str:N#1 = {} }
   }
 
 
-\cs_new:Nn \@@_prop_gput:Nnn
+\cs_new_protected:Nn \@@_prop_gput:Nnn
   {
     \prop_gput:Nnn #1 { #2 } { #3 }
-    \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { ltx.@@.tables.\l_tmpa_tl["#2"] = "#3" }
+    \directlua { ltx.@@.tables.\cs_to_str:N#1 ["#2"] = "#3" }
   }
 
 
-\cs_new:Nn \@@_seq_gput_right:Nn
+\cs_new_protected:Nn \@@_seq_gput_right:Nn
   {
     \seq_gput_right:Nn #1 { #2 }
-    \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { table.insert(ltx.@@.tables.\l_tmpa_tl, "#2") }
+    \directlua { table.insert(ltx.@@.tables.\cs_to_str:N#1, "#2") }
   }
 
 %Hm not quite sure about the naming
@@ -105,20 +96,18 @@
   }
 
 %for debugging commands that show both the seq/prop and the lua tables
-\cs_new:Nn \@@_seq_show:N
+\cs_new_protected:Nn \@@_seq_show:N
   {
     \seq_show:N #1
-    \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua { ltx.@@.trace.log ("lua~sequence~array~\l_tmpa_tl",1) }
-    \directlua { ltx.@@.trace.show_seq (ltx.@@.tables.\l_tmpa_tl) }
+    \directlua { ltx.@@.trace.log ("lua~sequence~array~\cs_to_str:N#1",1) }
+    \directlua { ltx.@@.trace.show_seq (ltx.@@.tables.\cs_to_str:N#1) }
   }
 
-\cs_new:Nn \@@_prop_show:N
+\cs_new_protected:Nn \@@_prop_show:N
   {
     \prop_show:N #1
-    \@@_luatex_get_table_name:Nn \l_tmpa_tl { #1 }
-    \directlua {ltx.@@.trace.log  ("lua~property~table~\l_tmpa_tl",1) }
-    \directlua {ltx.@@.trace.show_prop (ltx.@@.tables.\l_tmpa_tl) }
+    \directlua {ltx.@@.trace.log  ("lua~property~table~\cs_to_str:N#1",1) }
+    \directlua {ltx.@@.trace.show_prop (ltx.@@.tables.\cs_to_str:N#1) }
  }
 %</luatex>
 %    \end{macrocode}
