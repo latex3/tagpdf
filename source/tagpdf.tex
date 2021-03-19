@@ -656,19 +656,21 @@ This means that quite a number of problems mentioned above are not relevant for 
 
 \subsubsection{Commands to mark content and chunks}
 
-\TagP^It\marginnote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
-For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.\TagPend
+\parataggingON
+
+It\marginnote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
+For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcbegin{<key-val-list>}
 \DescribeMacro\tag_mc_begin:n{<key-val-list>}
 \ExplSyntaxOff
 
-\TagP^These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
+These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
 Such markers should not be nested. The command will warn you if this happens.
 
+The key-val list understands the following keys:
 
-\TagP The key-val list understands the following keys:\TagPend
 \begin{description}
   \item[\PrintKeyName{tag}]
   \TagP^This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the \PDF{}, so it should with a starting slash give a valid \PDF{} name  (some ascii with numbers like \texttt{H4} is fine).\Pmeti
@@ -729,7 +731,9 @@ Such markers should not be nested. The command will warn you if this happens.
 \DescribeMacro\tag_mc_end:
 \ExplSyntaxOff
 
-\TagP^These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.\TagPend
+These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
+
+\parataggingOff
 
 \begin{tcolorbox}
 \minisec{About nesting mc-commands}
@@ -747,32 +751,34 @@ Such markers should not be nested. The command will warn you if this happens.
 \TagPend
 \end{tcolorbox}
 
+\parataggingON
+
 \ExplSyntaxOn
 \DescribeMacro\tagmcuse{<label name>}
 \DescribeMacro\tag_mc_use:n {<label name>}
 \ExplSyntaxOff
 
-\TagP^These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.\TagPend
+These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcifinTF{<true code>}{<false>}
 \DescribeMacro\tag_mc_if_in:TF{<true code>}{<false>}
 \ExplSyntaxOff
 
-\TagP^These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
+These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
 
-\TagP In \emph{generic mode}, where marked content command shouldn't be nested, it works with a global boolean.
+In \emph{generic mode}, where marked content command shouldn't be nested, it works with a global boolean.
 
-\TagP In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!\TagPend
+In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!
 
 \ExplSyntaxOn
 \DescribeMacro\tagpdfget{<key word>}
 \DescribeMacro\tag_get:n{<key word>}
 \ExplSyntaxOff
 
-\TagP^These commands give back some variables. Currently the only working key word is \verb+mc\_tag+.\TagPend.
+These commands give back some variables. Currently the only working key word is \verb+mc\_tag+.
 
-
+\parataggingOff
 
 \subsubsection{Tips}
 
@@ -942,16 +948,18 @@ The flat version is more \LaTeX-like and it is rather straightforward to patch \
 \parataggingOff
 
 \subsubsection{Commands to define the structure}
-\TagP^The following commands can be used to define the tree structure:
+
+\parataggingON
+The following commands can be used to define the tree structure:
 
 \ExplSyntaxOn
 \DescribeMacro\tagstructbegin{key-val-list}
 \DescribeMacro\tag_struct_begin:n {key-val-list}
 \ExplSyntaxOff
 
-\TagP These commands start a new structure. They don't start a group. They set all their values globally.
+These commands start a new structure. They don't start a group. They set all their values globally.
 
-\TagP The key-val list understands the following keys:\TagPend
+The key-val list understands the following keys:
 
 \begin{description}
   \item[\PrintKeyName{tag}]
@@ -1072,14 +1080,16 @@ The flat version is more \LaTeX-like and it is rather straightforward to patch \
 \DescribeMacro\tag_struct_end:
 \ExplSyntaxOff
 
-\TagP^These commands end a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.\TagPend
+These commands end a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.
 
 \ExplSyntaxOn
 \DescribeMacro\tagstructuse{<label>}
 \DescribeMacro\tag_struct_use:n {<label>}
 \ExplSyntaxOff
 
-\TagP^These commands insert a structure previously stashed away as kid into the currently active structure. A structure should be used only once, if the structure already has a parent you will get a warning.\TagPend
+These commands insert a structure previously stashed away as kid into the currently active structure. A structure should be used only once, if the structure already has a parent you will get a warning.
+
+\parataggingOff
 
 \subsubsection{Root structure}
 
@@ -1252,17 +1262,19 @@ This is quite workable as long as you mark everything manually. But how to write
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
 
-\TagP^The \PDF{} format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
-%\footnote{
+\parataggingON
+
+The \PDF{} format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
 There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now.
-Both can be added either to the marked content in the page stream or to the object describing the structure.\TagPend
+Both can be added either to the marked content in the page stream or to the object describing the structure.
 
-\TagP^The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the \PDF{} reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.\TagPend
 
-\TagP^\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with \PrintKeyName{alttext}) is a key to improve accessibility: with it one can add to a picture or something else an alternative text.\TagPend
+The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the \PDF{} reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.
 
-\TagP^The file \texttt{ex-alt-actualtext.tex} shows some experiments I made with with both keys and text-to-speech software (the in-built of adobe and nvda).
-To sum them up:\TagPend
+\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with \PrintKeyName{alttext}) is a key to improve accessibility: with it one can add to a picture or something else an alternative text.
+
+The file \texttt{ex-alt-actualtext.tex} shows some experiments I made with with both keys and text-to-speech software (the in-built of adobe and nvda).
+To sum them up:
 
 \begin{itemize}
 \item \TagP^The keys have an impact on text-to-speech software only if the document is fully tagged.\Pmeti
@@ -1273,20 +1285,24 @@ To sum them up:\TagPend
 
 
 
-
+\parataggingOff
 
 
 \section{Standard type and new tags}\label{sec:new-tag}
 
-\TagP^The \PDF{} reference mentions a number of standard types:
+\parataggingON
+
+The \PDF{} reference mentions a number of standard types:
 \ExplSyntaxOn
 \clist_use:Nn \c__tag_role_sttags_clist {,\c_space_tl}
+\ExplSyntaxOff
 
-\ExplSyntaxOff\TagPend
+Their meaning can be looked up in the \PDF{}-reference \parencite{pdfreference}.
 
-\TagP^Their meaning can be looked up in the \PDF{}-reference \parencite{pdfreference}.\TagPend
+New tags can be defined in the setup command with the key \texttt{add-new-tag}. It takes a value consisting of two names separated by a slash. The first is the new name, the second a known (e.g. a standard) tag it should be mapped too. Example:
 
-\TagP^New tags can be defined in the setup command with the key \texttt{add-new-tag}. It takes a value consisting of two names separated by a slash. The first is the new name, the second a known (e.g. a standard) tag it should be mapped too. Example:\TagPend
+
+\parataggingOff
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \Macro\tagpdfsetup{add-new-tag = section/H1}
@@ -1318,7 +1334,9 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
 
 \section{Accessibility is not only tagging}
 
-\TagP^A tagged \PDF{} is needed for accessibility but this is not enough. As already mentioned there are more requirements:\TagPend
+\parataggingON
+
+A tagged \PDF{} is needed for accessibility but this is not enough. As already mentioned there are more requirements:
 
  \begin{itemize}
  \item \TagP^The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfmanagement_add:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.\Pmeti
@@ -1335,11 +1353,15 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
  \item \TagP^Spaces between words should be space glyphs and not only a horizontal movement. See section~\ref{sec:spacechars}.\Pmeti
  \item \TagP^Various small infos must be present in the catalog dictionary, info dictionary and the page dictionaries, e.g. metadata like title.\Pmeti
 \end{itemize}
- \TagP^If suitable I will add code for this tasks to this packages. But some of them can also be done already with existing packages like hyperref, hyperxmp, pdfx.\TagPend
 
+If suitable I will add code for this tasks to this packages. But some of them can also be done already with existing packages like hyperref, hyperxmp, pdfx.
 
+\parataggingOff
 
 \section{To-do}
+
+\parataggingON
+
 \begin{itemize}
 \item \TagP^Add commands and keys to enable/disable the checks.\Pmeti
 \item \TagP^Check/extend the code for language tags.\Pmeti
@@ -1368,9 +1390,12 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
 
 \appendix
 
+\parataggingOff
+
 \section{Some remarks about the \PDF{} syntax}
 
-\TagP^This is not meant as a full reference only as a background to make the examples and remarks easier to understand.\TagPend
+\parataggingON
+This is not meant as a full reference only as a background to make the examples and remarks easier to understand.
 
 \begin{description}
 \item[postfix notation] \TagP^\PDF{} uses in various places postfix notation. This means that the operator is behind its arguments:\TagPend
@@ -1519,6 +1544,9 @@ endobj
 \TagP^This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.\Pmeti
 
 \end{description}
+
+\parataggingOff
+
 \tagstructend %document
 \end{document}
 %http://msf.mathmlcloud.org/file_formats/8 %sample \PDF{} for math
