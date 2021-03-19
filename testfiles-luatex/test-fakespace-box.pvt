@@ -1,0 +1,17 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\RequirePackage{tagpdf-regressiontest}
+\documentclass[a4paper]{article}
+\usepackage{tagpdf}
+\tagpdfsetup{activate-all,uncompress,interwordspace=on}
+
+
+\begin{document}\START\showoutput
+
+\tagstructbegin{tag=Document}
+\tagmcbegin{tag=P}
+abc \fbox{abc} abc
+\tagmcend
+\tagstructend
+\end{document} 
