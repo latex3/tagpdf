@@ -1129,19 +1129,25 @@ Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyNa
 \parataggingOff
 
 \subsection{Task 3: tree Management}
-\TagP^When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:\TagPend
+
+\parataggingON
+
+When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:
 
 \ExplSyntaxOn
 \DescribeMacro\tag_finish_structure:
 \ExplSyntaxOff
 
-\TagP^This will hopefully write all the needed objects and values to the \PDF{}. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).\TagPend
+This will hopefully write all the needed objects and values to the \PDF{}. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).
 
-\TagP^I'm not quite sure if this shouldn't be a really internal command.\TagPend
+I'm not quite sure if this shouldn't be a really internal command.
+
+\parataggingOff
 
 
 \subsection{A fully marked up document body}
-\TagP^The following shows the marking needed for a section, a sentence and a list with two items. It is obvious that one wouldn't like to have to do this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.\TagPend
+
+The following shows the marking needed for a section, a sentence and a list with two items. It is obvious that one wouldn't like to have to do this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.
 
 
 \begin{lstlisting}
@@ -1194,21 +1200,26 @@ Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyNa
 \end{document}
 \end{lstlisting}
 
-
+\parataggingOff
 
 \subsection{Lazy and automatic tagging}\label{sec:lazy}
 
-\TagP^A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alttext}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged.\TagPend
+\parataggingON
 
-\TagP^This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside it rather large mc-chunks. This minimizes the needed work.\TagPend
+A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alttext}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged.
 
-\TagP^One could ask if in lua mode the code couldn't try to mark up unmarked parts e.g. as P-type chunks, like it marks them up as artifacts currently. Sadly this is not so easy, as it is quite difficult to reliably identify the structure and the place in the kids array where such chunks belongs too. I also don't think that it is really needed. It is not so difficult to define user macros which e.g. opens a structure and start an mc-chunk or which close an open mc-chunk before issuing the next \verb+\tagmcbegin+.
-\TagPend
+This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside it rather large mc-chunks. This minimizes the needed work.
+
+One could ask if in lua mode the code couldn't try to mark up unmarked parts e.g. as P-type chunks, like it marks them up as artifacts currently. Sadly this is not so easy, as it is quite difficult to reliably identify the structure and the place in the kids array where such chunks belongs too. I also don't think that it is really needed. It is not so difficult to define user macros which e.g. opens a structure and start an mc-chunk or which close an open mc-chunk before issuing the next \verb+\tagmcbegin+.
+
+\parataggingOff
 
 
 \subsection{Adding tagging to commands}
 
-\TagP^As mentioned above the mc-markers should not be nested. Basically you write:\TagPend
+\parataggingON
+
+As mentioned above the mc-markers should not be nested. Basically you write:
 
 
 \begin{lstlisting}
@@ -1218,12 +1229,9 @@ Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyNa
 \end{lstlisting}
 
 
-\TagP^This is quite workable as long as you mark everything manually. But how to write commands, e.g for a tabular or a graphic, that do tagging automatically without breaking the flow and the structure?\TagPend
+This is quite workable as long as you mark everything manually. But how to write commands, e.g for a tabular or a graphic, that do tagging automatically without breaking the flow and the structure?
 
-
-
-
-
+\parataggingOff
 
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
