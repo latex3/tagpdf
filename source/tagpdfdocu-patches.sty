@@ -173,6 +173,9 @@
 \AddToHook{env/itemize/end}{\tagstructend}
 \AddToHook{env/enumerate/begin}{\par\parataggingOff\tagstructbegin{tag=L}}
 \AddToHook{env/enumerate/end}{\tagstructend}
+\AddToHook{env/description/begin}{\par\parataggingOff\tagstructbegin{tag=L}}
+\AddToHook{env/description/end}{\tagstructend}
+
 
 \newcommand\tag@enit@format@preset[1]{%
   \tagstructbegin{tag=LI}%
@@ -210,11 +213,14 @@
    \tagmcbegin{tag=Lbl}%
    #1\tagmcend}}
 
-% listings
+% listings + verbatim
 % the paragraph code could create span around the lines ...
 
 \AddToHook{env/lstlisting/begin}{\parataggingOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
 \AddToHook{env/lstlisting/end}{\tagmcend\tagstructend}
+
+\AddToHook{env/verbatim/begin}{\parataggingOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
+\AddToHook{env/verbatim/end}{\tagmcend\tagstructend}
 
 
 % tcolorbox.

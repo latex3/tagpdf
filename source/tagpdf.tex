@@ -323,10 +323,15 @@ Be aware that to create the tagged version a very experimental package and a exp
 \tagmcend\tagstructend
 
 \subsection{Changes in version 0.61}
+
+\parataggingON
+
 \begin{itemize}
 \item \TagP^internal code adaptions to expl3 changes.\Pmeti
 \item \TagP^dropped the compresslevel key  -- probably not needed\Pmeti
 \end{itemize}
+
+\parataggingOff
 
 \subsection{Changes in version 0.8}
 
@@ -381,13 +386,14 @@ This will force the generic mode for all engines.
 
 \subsection{Setup and activation}\label{ssec:setup}
 
-\TagP^The following command setups the general behaviour of the package. The command should be normally used only in the preamble (for a few keys it could also make sense to change them in the document).
+\parataggingON
 
+The following command setups the general behaviour of the package. The command should be normally used only in the preamble (for a few keys it could also make sense to change them in the document).
 
 \DescribeMacro\tagpdfsetup{<key-val-list>}
 
+The key-val list understands the following keys:
 
-\TagP The key-val list understands the following keys:\TagPend
 \begin{description}
 \item[\PrintKeyName{activate-all}]
  \TagP^Boolean, initially false. Activates everything, that's normally the sensible thing to do.\Pmeti
@@ -419,6 +425,7 @@ This will force the generic mode for all engines.
 
 \end{description}
 
+\parataggingOff
 
 \section{Tagging}
 
@@ -443,8 +450,6 @@ endstream
 \end{lstlisting}
 
 
-\parataggingON
-
 From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no guaranty that the stream contains the text in the order it should be read.
 
 Tagging means to enrich the \PDF{} with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)
@@ -453,7 +458,10 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 
 
 \subsection{Three tasks}
-\TagP^To tag a \PDF{} three tasks must be  carried out:\TagPend
+
+\parataggingON
+
+To tag a \PDF{} three tasks must be  carried out:
 
 \begin{enumerate}
 \item
@@ -468,6 +476,7 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
  \Pmeti
 \end{enumerate}
 
+\parataggingOff
 
 \begin{figure}[t!]
 \begin{tcolorbox}
@@ -679,12 +688,12 @@ Such markers should not be nested. The command will warn you if this happens.
   \item[\PrintKeyName{alttext-o}]
   \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3).
   That means that you can do something like this: \TagPend
-  
+
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
       \tagmcbegin{tag=P,alttext-o=\myalttext}
       \end{lstlisting}
-  
+
 
   \TagP^    and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.\Pmeti
 
@@ -700,7 +709,7 @@ Such markers should not be nested. The command will warn you if this happens.
       \newcommand\myactualtext{X}
       \tagmcbegin{tag=P,alttext-o=\myactualtext}
       \end{lstlisting}
- 
+
 
 
  \TagP^and it will insert \verb+X+ (hex encoded)  in the \PDF{}.\Pmeti
@@ -995,7 +1004,7 @@ The flat version is more \LaTeX-like and it is rather straightforward to patch \
   \item[\PrintKeyName{attribute-class}]
    \TagP^This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute classes to the structure object. As an example\TagPend
 
- 
+
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute-class= TH-row}
       \end{lstlisting}
@@ -1147,6 +1156,8 @@ I'm not quite sure if this shouldn't be a really internal command.
 
 \subsection{A fully marked up document body}
 
+\parataggingON
+
 The following shows the marking needed for a section, a sentence and a list with two items. It is obvious that one wouldn't like to have to do this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.
 
 
@@ -1280,23 +1291,25 @@ To sum them up:\TagPend
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
-\TagP^TeX uses only spaces (horizontal movements) to separate words. That means that a \PDF{} reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or e.g. as a kerning. Accessible document should use real space glyphs (U+0032) from a font in such places.\TagPend
+\parataggingON
 
-\TagP^With the key \PrintKeyName{interwordspace} you can activate such space glyphs.\TagPend
+TeX uses only spaces (horizontal movements) to separate words. That means that a \PDF{} reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or e.g. as a kerning. Accessible document should use real space glyphs (U+0032) from a font in such places.
 
-\TagP^With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the \PDF{}: from the current font to the dummy-space font and back again. This will make the \PDF{} larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.\TagPend
+With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
 
-\TagP^With luatex (in luamode) interwordspace is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.\TagPend
+With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the \PDF{}: from the current font to the dummy-space font and back again. This will make the \PDF{} larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.
 
-\TagP^The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.\TagPend
+With luatex (in luamode) interwordspace is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.
 
-\TagP^\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The \PDF{} viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro.\TagPend
+The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.
+
+\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The \PDF{} viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro.
 
 \DescribeMacro\pdffakespace
 
-\TagP^This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.\TagPend
+This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.
 
-
+\parataggingOff
 
 \section{Accessibility is not only tagging}
 
@@ -1306,13 +1319,12 @@ To sum them up:\TagPend
  \item \TagP^The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfmanagement_add:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.\Pmeti
  \item \TagP^All characters must have an unicode representation or a suitable alternative text.
       With lualatex and open type (unicode) fonts this is normally not a problem. With pdflatex it could need\TagPend
-      \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+  
       \begin{verbatim}
       \input{glyphtounicode}
       \pdfgentounicode=1
       \end{verbatim}
-      \tagmcend\tagstructend
-
+  
  \TagP^and perhaps some\verb+\pdfglyphtounicode+ commands.\Pmeti
  \item \TagP^Hard and soft hyphen must be distinct.\Pmeti
  \item \TagP^Spaces between words should be space glyphs and not only a horizontal movement. See section~\ref{sec:spacechars}.\Pmeti
@@ -1442,8 +1454,7 @@ To sum them up:\TagPend
 \TagP Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}
     but at least for examples a layout with line breaks and indentation is more readable:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
-    \begin{verbatim}
+    \begin{lstlisting}
     <<
       /Type      /Page
       /Contents  3 0 R
@@ -1451,8 +1462,9 @@ To sum them up:\TagPend
       /MediaBox  [0 0 595.276 841.89]
       /Parent    5 0 R
     >>
-    \end{verbatim}
-\tagmcend\tagstructend \meti
+    \end{lstlisting}
+
+\meti
 
 
  \item[(indirect) objects] \TagP^These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a \PDF{} is edited objects with a larger generation number can be added. As with pdflatex/lualatex the \PDF{} is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.\Pmeti
@@ -1462,8 +1474,7 @@ To sum them up:\TagPend
 
  \TagP Here an example of a stream, an object definition and reference. In the object 2 (a page object) the \texttt{/Contents} key references the object 3 and this then contains the text of the page in a stream. \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the first chooses the font with the name \texttt{/F15} at the size 10.9, the second displaces the reference point on the page and the third inserts the text.\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
-  \begin{verbatim}
+  \begin{lstlisting}
   % a page object (shortened)
   2 0 obj
     <<
@@ -1483,15 +1494,13 @@ To sum them up:\TagPend
     ET
    endstream
   endobj
-  \end{verbatim}
-\tagmcend\tagstructend
+  \end{lstlisting}
 
  \TagP^In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while drawing and graphics are outside of such pairs.\Pmeti
 
 \item[Number tree] \TagP^This is a more complex data structure that is meant to index objects by numbers. In the core is an array with number-value pairs. A simple version of number tree which has the keys 0 and 3 is\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
-\begin{verbatim}
+\begin{lstlisting}
 6 0 obj
 <<
   /Nums [
@@ -1500,8 +1509,7 @@ To sum them up:\TagPend
         ]
 >>
 endobj
-\end{verbatim}
-\tagmcend\tagstructend
+\end{lstlisting}
 
 \TagP^This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.\Pmeti
 
