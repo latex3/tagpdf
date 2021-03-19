@@ -214,9 +214,9 @@ While the generic mode is not bad and I spent quite some time to get it working 
 
 My main reference was the free reference for \PDF{} 1.7. \parencite{pdfreference}. This document is from 2006.
 
-In the meantime \PDF{} 2.0. has been released. 
-I know that it contains also for accessibility relevant changes. 
-As I got now the specification and luatex can set with \verb+\pdfmajorversion+ 
+In the meantime \PDF{} 2.0. has been released.
+I know that it contains also for accessibility relevant changes.
+As I got now the specification and luatex can set with \verb+\pdfmajorversion+
 the version to 2.0 I will start to check to look into it too.%
 
 \parataggingOff
@@ -342,7 +342,7 @@ As a first step to include the code proper in the \LaTeX\ kernel the module name
 Support to add associated files to structures has been added with new keys \texttt{AF}, \texttt{AFinline} and \texttt{AFinline-o}.
 
 \textbf{Breaking change!} The support for other 8-bit input encodings has been removed.
-utf8 is now the required encoding. 
+utf8 is now the required encoding.
 
 The keys |lang|, |ref| and |E| have been added for structures.
 
@@ -362,17 +362,21 @@ When the package is loaded it will -- apart from loading more packages and defin
 
 \subsection{Modes and package options}
 
-\TagP^The package has two different modes: The \textbf{generic mode} works (in theory, currently only with pdftex and luatex) probably with all engines, the \textbf{lua mode} only with luatex. The differences between both modes  will be described later. The mode can be set with package options:
+\parataggingON
+%TODO think about tagging of the keys. Aside? Header?
+
+
+The package has two different modes: The \textbf{generic mode} works (in theory, currently only with pdftex and luatex) probably with all engines, the \textbf{lua mode} only with luatex. The differences between both modes  will be described later. The mode can be set with package options:
 
 \DescribeKey{luamode}
 
-\TagP This is the default mode. It will use the generic mode if the document is processed with pdflatex and the lua mode with lualatex.
+This is the default mode. It will use the generic mode if the document is processed with pdflatex and the lua mode with lualatex.
 
 \DescribeKey{genericmode}
 
-\TagP This will force the generic mode for all engines. \TagPend
+This will force the generic mode for all engines. 
 
-
+\parataggingOff
 
 
 \subsection{Setup and activation}\label{ssec:setup}
@@ -418,9 +422,12 @@ When the package is loaded it will -- apart from loading more packages and defin
 
 \section{Tagging}
 
-\TagP^pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}:
-\TagPend
+\parataggingON
 
+%TODO: footnote
+pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}:
+
+\parataggingOff
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}[columns=fixed]
 stream
@@ -438,11 +445,13 @@ endstream
 \end{lstlisting}
 \tagmcend\tagstructend
 
-\TagP^From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no guaranty that the stream contains the text in the order it should be read.
+\parataggingON
 
-\TagP Tagging means to enrich the \PDF{} with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)\TagPend
+From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no guaranty that the stream contains the text in the order it should be read.
 
+Tagging means to enrich the \PDF{} with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)
 
+\parataggingOff
 
 
 \subsection{Three tasks}
