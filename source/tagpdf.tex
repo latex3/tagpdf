@@ -891,8 +891,11 @@ The tree should reflect the \emph{semantic} meaning of the text. That means that
 \parataggingOff
 
 \subsubsection{Sectioning}
-\TagP^The sectioning units can be structured in two ways: a flat, html-like and a more xml-like version.
-The flat version creates a structure like this:\TagPend
+
+\parataggingON
+
+The sectioning units can be structured in two ways: a flat, html-like and a more xml-like version.
+The flat version creates a structure like this:
 
 
 \begin{lstlisting}
@@ -903,9 +906,9 @@ The flat version creates a structure like this:\TagPend
 \end{lstlisting}
 
 
-\TagP^So here the headers are marked according their level with \texttt{H1}, \texttt{H2}, etc.
+So here the headers are marked according their level with \texttt{H1}, \texttt{H2}, etc.
 
-\TagP In the xml-like tree the complete text of a sectioning unit is surrounded with the \texttt{Sect} tag, and all headers with the tag \texttt{H}. Here the nesting defines the level of a sectioning header.\TagPend
+In the xml-like tree the complete text of a sectioning unit is surrounded with the \texttt{Sect} tag, and all headers with the tag \texttt{H}. Here the nesting defines the level of a sectioning header.
 
 
 \begin{lstlisting}
@@ -920,8 +923,9 @@ The flat version creates a structure like this:\TagPend
 \end{lstlisting}
 
 
-\TagP^The flat version is more \LaTeX-like and it is rather straightforward to patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates \texttt{H\ldots} start and end markers. The xml-like tree is more difficult to automate. If such a tree is wanted I would recommend to use -- like the context format -- explizit commands to start and end a sectioning unit.
-\TagPend
+The flat version is more \LaTeX-like and it is rather straightforward to patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates \texttt{H\ldots} start and end markers. The xml-like tree is more difficult to automate. If such a tree is wanted I would recommend to use -- like the context format -- explizit commands to start and end a sectioning unit.
+
+\parataggingOff
 
 \subsubsection{Commands to define the structure}
 \TagP^The following commands can be used to define the tree structure:
@@ -1065,24 +1069,30 @@ The flat version creates a structure like this:\TagPend
 
 \subsubsection{Root structure}
 
-\TagP^A document should have at least one structure which contains the whole document. A suitable tag is \texttt{Document} or \texttt{Article}. I'm considering to automatically inserting it.\TagPend
+\parataggingON
+
+A document should have at least one structure which contains the whole document. A suitable tag is \texttt{Document} or \texttt{Article}. I'm considering to automatically inserting it.
+
+
+\parataggingOff
 
 \subsubsection{Attributes and attribute classes}\label{sec:attributes}
 
-\TagP^Structure Element can have so-called attributes. A single attribute is a dictionary%\footnote{
+\parataggingON
+Structure Element can have so-called attributes. A single attribute is a dictionary%\footnote{
 (or a stream but this is currently not supported by the package as I don't know an use-case)
 with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
-As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:\TagPend
+As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:
 
 \begin{lstlisting}
 <</Owner /Table /Scope /Column>>
 \end{lstlisting}
 
-\TagP^One or more such attributes can be attached to a structure element. It is also possible to store such an attribute under a symbolic name in a so-called \enquote{ClassedMap} and then to attach references to such classes to a structure.\TagPend
+One or more such attributes can be attached to a structure element. It is also possible to store such an attribute under a symbolic name in a so-called \enquote{ClassedMap} and then to attach references to such classes to a structure.
 
-\TagP^To use such attributes you must at first declare it in \verb+\tagpdfsetup+ with the key \texttt{newattribute}. This key takes two argument, a name and the content of the attribute.
+To use such attributes you must at first declare it in \verb+\tagpdfsetup+ with the key \texttt{newattribute}. This key takes two argument, a name and the content of the attribute.
 The name should be a sensible key name, the content a dictionary.
-\TagPend
+
 
 
 \begin{lstlisting}
@@ -1097,15 +1107,16 @@ The name should be a sensible key name, the content a dictionary.
 
 
 
-\TagP^Attributes are only written to the \PDF{} when used, so it is not a problem to predeclare a number of standard attributes.
-\TagPend
+Attributes are only written to the \PDF{} when used, so it is not a problem to predeclare a number of standard attributes.
 
-\TagP^It is your responsability that the content of the dictionary is valid \PDF{} and that the values are sensible!
-\TagPend
 
-\TagP^Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyName{attribute-class} which both take a comma list of attribute names as argument:
+It is your responsability that the content of the dictionary is valid \PDF{} and that the values are sensible!
+
+
+Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyName{attribute-class} which both take a comma list of attribute names as argument:
 %\footnote{That's not really a sensible example}:
-\TagPend
+
+
 
 
 \begin{lstlisting}
@@ -1115,7 +1126,7 @@ The name should be a sensible key name, the content a dictionary.
  }
 \end{lstlisting}
 
-
+\parataggingOff
 
 \subsection{Task 3: tree Management}
 \TagP^When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:\TagPend
