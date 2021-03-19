@@ -210,6 +210,12 @@
    \tagmcbegin{tag=Lbl}%
    #1\tagmcend}}
 
+% listings
+% the paragraph code could create span around the lines ...
+
+\AddToHook{env/lstlisting/begin}{\parataggingOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
+\AddToHook{env/lstlisting/end}{\tagmcend\tagstructend}
+
 
 % tcolorbox.
 % the before upper setting is dangerous as it can be overwritten by

@@ -374,7 +374,7 @@ This is the default mode. It will use the generic mode if the document is proces
 
 \DescribeKey{genericmode}
 
-This will force the generic mode for all engines. 
+This will force the generic mode for all engines.
 
 \parataggingOff
 
@@ -427,8 +427,6 @@ This will force the generic mode for all engines.
 %TODO: footnote
 pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}:
 
-\parataggingOff
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}[columns=fixed]
 stream
    BT
@@ -443,7 +441,7 @@ stream
    ET
 endstream
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \parataggingON
 
@@ -525,30 +523,33 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 
 \subsection{Task 1: Marking the chunks: the mark-content-step}
 
+
 \TagP^To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the \PDF{} reference they are called \enquote{marked content}. The three main variants needed here are:\TagPend
 
 \begin{description}
 \item[Artifacts] \TagP^They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 /Artifact BMC
  text to be marked
 /EMC
 \end{lstlisting}
-\tagmcend\tagstructend\meti
+
+\meti
 
 
 
 \item[Artifacts with a type] \TagP^They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} has two arguments: again the tag name \texttt{/Artifact} and a following dictionary which allows to specify the suppressed info. Text in header and footer can e.g. be declared as pagination like this:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 /Artifact <</Type /Pagination>> BDC
  text to be marked
 /EMC
 \end{lstlisting}
-\tagmcend\tagstructend\meti
+
+\meti
 
 
 \item[Content]  \TagP^Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
@@ -556,13 +557,13 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 
 \TagP In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 /H <</MCID 3>> BDC
  text to be marked
 /EMC
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \TagP^This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system
 %\footnote{
@@ -574,13 +575,13 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 
 \TagP^The needed markers can be added with low level code e.g. like this (in pdftex syntax):\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \pdfliteral page {/H <</MCID 3>> BDC}%
  text to be marked
 \pdfliteral page {EMC}%
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \TagP^This sounds easy. But there are quite a number of traps.\TagPend
 
@@ -588,13 +589,13 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
   \item \TagP^\PDF{} is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
   So marking e.g. a section title like in the following example won't always work as the literal before the section could end on the previous page:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \pdfliteral page {/H <</MCID 3>> BDC} %problem: possible pagebreak here
  \section{mysection}
 \pdfliteral page {EMC}%
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
   \TagP^Using the literals \emph{inside} the section argument is better, but then one has to take care that they don't wander into the header and the toc.\Pmeti
 
@@ -674,12 +675,12 @@ Such markers should not be nested. The command will warn you if this happens.
   \item[\PrintKeyName{alttext-o}]
   \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3).
   That means that you can do something like this: \TagPend
-  \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+  
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
       \tagmcbegin{tag=P,alttext-o=\myalttext}
       \end{lstlisting}
-  \tagmcend\tagstructend
+  
 
   \TagP^    and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.\Pmeti
 
@@ -690,12 +691,12 @@ Such markers should not be nested. The command will warn you if this happens.
   \item[\PrintKeyName{actualtext-o}]
   \TagP^This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
       \begin{lstlisting}
       \newcommand\myactualtext{X}
       \tagmcbegin{tag=P,alttext-o=\myactualtext}
       \end{lstlisting}
- \tagmcend\tagstructend
+ 
 
 
  \TagP^and it will insert \verb+X+ (hex encoded)  in the \PDF{}.\Pmeti
@@ -718,11 +719,11 @@ Such markers should not be nested. The command will warn you if this happens.
 
 \TagP Consider a code like this:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P Block 2}} Block 3 \tagmcend
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \TagP^Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
 \TagPend
@@ -781,7 +782,7 @@ Such markers should not be nested. The command will warn you if this happens.
 
 \TagP^To connect such a link with the underlying text a specific structure has to be added, see \ref{fig:linkannot}. When using the low-level commands to create a link, this structure can be created by adding an entry to the attr argument of the startlink command, and by by adding a command of the tagpdf package after the endlink command, as show in the following listing:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \pdfextension startlink
     attr
@@ -801,7 +802,7 @@ Such markers should not be nested. The command will warn you if this happens.
 \pdfextension endlink
 \__tag_struct_finish_link: %<----
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \TagP^The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project which tries to move some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time.\TagPend
 
@@ -810,7 +811,7 @@ Such markers should not be nested. The command will warn you if this happens.
 \TagP^Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
 The \PDF{} then looked like this\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 /mn <</MCID 6 /ActualText<FEFF0034>/Alt(  : open bracket: four )>>BDC
 ...
@@ -818,7 +819,7 @@ The \PDF{} then looked like this\TagPend
 ...
 /mo <</MCID 8 /ActualText<FEFF2062>/Alt(  times  )>>BDC
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 
 \TagP^If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.\TagPend
@@ -835,7 +836,7 @@ The \PDF{} then looked like this\TagPend
 
 \TagP The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea is to use \verb+\vadjust+ in the right place:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \tagmcbegin{tag=P}
 ...
@@ -846,7 +847,7 @@ Pellentesque scelerisque
 ...
 sit amet, lacus.\tagmcend
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 
 
@@ -856,33 +857,33 @@ sit amet, lacus.\tagmcend
 \subsubsection{Structure types}
 \TagP^The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and base them on \texttt{P}:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \tagpdfsetup{
   add-new-tag = TAB/P,
   add-new-tag = FIG/P,
             }
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \subsubsection{Sectioning}
 \TagP^The sectioning units can be structured in two ways: a flat, html-like and a more xml-like version.
 The flat version creates a structure like this:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 <H1>section header</H1>
 <P> text</P>
 <H2>subsection header</H2>
 ...
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \TagP^So here the headers are marked according their level with \texttt{H1}, \texttt{H2}, etc.
 
 \TagP In the xml-like tree the complete text of a sectioning unit is surrounded with the \texttt{Sect} tag, and all headers with the tag \texttt{H}. Here the nesting defines the level of a sectioning header.\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 <Sect>
  <H>section header</H>
@@ -893,7 +894,7 @@ The flat version creates a structure like this:\TagPend
  </Sect>
 </Sect>
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \TagP^The flat version is more \LaTeX-like and it is rather straightforward to patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates \texttt{H\ldots} start and end markers. The xml-like tree is more difficult to automate. If such a tree is wanted I would recommend to use -- like the context format -- explizit commands to start and end a sectioning unit.
 \TagPend
@@ -927,12 +928,12 @@ The flat version creates a structure like this:\TagPend
   \item[\PrintKeyName{alttext-o}]
    \TagP^This key inserts an \texttt{/Alt} value in the dictionary of a structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
 
-   \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
       \tagstructbegin{tag=P,alttext-o=\myalttext}
       \end{lstlisting}
-   \tagmcend\tagstructend
+
 
 
    \TagP^   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.\Pmeti
@@ -944,32 +945,32 @@ The flat version creates a structure like this:\TagPend
   \item[\PrintKeyName{actualtext-o}]
    \TagP^This key inserts an \texttt{/ActualText} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
 
-   \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
       \begin{lstlisting}
       \newcommand\myactualtext{X}
       \tagstructbegin{tag=P,alttext-o=\myactualtext}
       \end{lstlisting}
-   \tagmcend\tagstructend
+
 
 
    \TagP^and it will insert \verb+X+ (hex encoded)  in the \PDF{}.\Pmeti
 
    \item[\PrintKeyName{attribute}]
     \TagP^This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute dictionary entries in the structure object. As an example\TagPend
-    \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute= TH-row}
-      \end{lstlisting}\tagmcend\tagstructend
+      \end{lstlisting}
 
     \TagP^See also section~\ref{sec:attributes}.\Pmeti
 
   \item[\PrintKeyName{attribute-class}]
    \TagP^This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute classes to the structure object. As an example\TagPend
 
-   \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+ 
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute-class= TH-row}
-      \end{lstlisting}\tagmcend\tagstructend
+      \end{lstlisting}
 
   \TagP^See also section~\ref{sec:attributes}.\Pmeti
 
@@ -986,13 +987,11 @@ The flat version creates a structure like this:\TagPend
    \verb+\pdf_object_ref:n+ from a current \texttt{l3kernel}.
    For example:\TagPend
 
-   \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
    \begin{lstlisting}
    \pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
    \pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
    \tagstructbegin{tag=P,AF=tag/AFtest}
    \end{lstlisting}
-   \tagmcend\tagstructend
 
    \TagP^As shown, the wanted AFRelationship can be set
    by filling the dictionary with the value. The mime type
@@ -1051,11 +1050,9 @@ The flat version creates a structure like this:\TagPend
 with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
 As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \begin{lstlisting}
 <</Owner /Table /Scope /Column>>
 \end{lstlisting}
-\tagmcend\tagstructend
 
 \TagP^One or more such attributes can be attached to a structure element. It is also possible to store such an attribute under a symbolic name in a so-called \enquote{ClassedMap} and then to attach references to such classes to a structure.\TagPend
 
@@ -1063,7 +1060,7 @@ As an example here an attribute that can be attached to tabular header (type TH)
 The name should be a sensible key name, the content a dictionary.
 \TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \tagpdfsetup
  {
@@ -1073,7 +1070,7 @@ The name should be a sensible key name, the content a dictionary.
    {TH-row}{/Owner /Table /Scope /Row},
   }
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 
 \TagP^Attributes are only written to the \PDF{} when used, so it is not a problem to predeclare a number of standard attributes.
@@ -1086,14 +1083,14 @@ The name should be a sensible key name, the content a dictionary.
 %\footnote{That's not really a sensible example}:
 \TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \tagstructbegin{tag=TH,
  attribute-class= {TH-row,TH-col},
  attribute      = {TH-row,TH-col},
  }
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 
 \subsection{Task 3: tree Management}
@@ -1111,7 +1108,7 @@ The name should be a sensible key name, the content a dictionary.
 \subsection{A fully marked up document body}
 \TagP^The following shows the marking needed for a section, a sentence and a list with two items. It is obvious that one wouldn't like to have to do this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \begin{document}
 
@@ -1161,7 +1158,7 @@ The name should be a sensible key name, the content a dictionary.
 \tagstructend   %Document
 \end{document}
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 
 \subsection{Lazy and automatic tagging}\label{sec:lazy}
@@ -1178,13 +1175,13 @@ The name should be a sensible key name, the content a dictionary.
 
 \TagP^As mentioned above the mc-markers should not be nested. Basically you write:\TagPend
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
+
 \begin{lstlisting}
 \tagmcbegin{..}some text ...\tagmcend
 <optional structure commands>
 \tagmcbegin{..}some other text\tagmcend
 \end{lstlisting}
-\tagmcend\tagstructend
+
 
 \TagP^This is quite workable as long as you mark everything manually. But how to write commands, e.g for a tabular or a graphic, that do tagging automatically without breaking the flow and the structure?\TagPend
 
