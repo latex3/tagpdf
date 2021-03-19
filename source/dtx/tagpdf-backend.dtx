@@ -237,6 +237,7 @@ local nodeid           = node.id
 local nodecopy         = node.copy
 local nodegetattribute = node.get_attribute
 local nodesetattribute = node.set_attribute
+local nodehasattribute = node.has_attribute
 local nodenew          = node.new
 local nodetail         = node.tail
 local nodeslide        = node.slide
@@ -359,6 +360,17 @@ local function @@_mark_spaces (head)
        then
         nodesetattribute(kern.next,iwspaceattributeid,1)
         nodesetattribute(kern.next,iwfontattributeid,glyph.font)
+       end
+      end
+     --  look also back
+     if glyph.prev and (glyph.prev.id == GLUE)
+        and not inside_math  and (glyph.prev.width >0) and not nodehasattribute(glyph.prev,iwspaceattributeid)
+      then
+        nodesetattribute(glyph.prev,iwspaceattributeid,1)
+        nodesetattribute(glyph.prev,iwfontattributeid,glyph.font)
+      -- for debugging
+       if ltx.__tag.trace.showspaces then
+        __tag_show_spacemark (head,glyph)
        end
       end
     elseif id == PENALTY then
@@ -770,7 +782,7 @@ function ltx.@@.func.fill_parent_tree_line (page)
       local structnum = ltx.@@.mc[mcnum]["parent"]
       local propname  = "g_@@_struct_"..structnum.."_prop"
       local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
-       texio.write_nl("=====>"..tostring(objref))
+      ltx.@@.trace.log("=====>"..tostring(objref),5)
       numsentry = pdfpage .. " [".. objref .. "]"
       ltx.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
      else
