@@ -29,28 +29,29 @@
 %<*struct>
 \ProvidesExplPackage {tagpdf-struct-code} {2021/02/23} {0.80}
  {part of tagpdf - code related to storing structure}
-
+%    \end{macrocode}
 % I will use a latex counter for the structure count
 % to have a chance to avoid double structures in align etc
-
+%    \begin{macrocode}
 \newcounter  { g_@@_struct_abs_int }
 \int_gzero:N \c@g_@@_struct_abs_int
-
-% ref code is in tagpdf.dtx
-
-% a sequence stores structnum -> the obj numbers
+%    \end{macrocode}
+% a sequence to store structnum -> the obj numbers
 % to allow easy mapping over the structures
-
+%    \begin{macrocode}
 \@@_seq_new:N  \g_@@_struct_objR_seq
-
-% a sequence for the structure stack. When a sequence is opened it's number is put on the stack.
+%    \end{macrocode}
+% a sequence for the structure stack.
+% When a sequence is opened it's number is put on the stack.
+%    \begin{macrocode}
 \seq_new:N    \g_@@_struct_stack_seq
 \seq_gpush:Nn \g_@@_struct_stack_seq {0}
-
-%this variables will hold the top entry and the parent on the stack
+%    \end{macrocode}
+%this variables will hold the number of top entry and the parent on the stack
+%    \begin{macrocode}
 \tl_new:N     \l_@@_struct_stack_parent_tmp_tl
 \tl_new:N     \g_@@_struct_stack_current_tl
-
+%    \end{macrocode}
 % I need at least one structure: the StructTreeRoot
 % normally it should have only one kid, e.g. the document element.
 
@@ -65,8 +66,7 @@
 % (the root has a special set of properties).
 % the values of the prop should be already escaped properly
 % when the entries are created (title,lange,alt,E,actualtext)
-
-
+%    \begin{macrocode}
 \seq_const_from_clist:Nn \c_@@_struct_StructTreeRoot_entries_seq
   {%p. 857/858
     Type,              % always /StructTreeRoot
@@ -131,19 +131,13 @@
 
 \@@_seq_new:c  { g_@@_struct_kids_0_seq }
 
-% deprecated
-%\@@_prop_gput:cno
-%  { g_@@_struct_0_prop }
-%  { objnum}
-%  { \c_@@_tree_obj_structtreeroot_tl }
-
 % new
-\@@_prop_gput:cno
+\@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { objref}
   { \pdf_object_ref:n { c_@@_struct_0_obj } }
 
-\@@_prop_gput:cno
+\@@_prop_gput:cnn
   { g_@@_struct_0_prop }
   { Type }
   { /StructTreeRoot }
