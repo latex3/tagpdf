@@ -433,7 +433,7 @@ Boolean.\marginnote{luamode} That's a debug option, it helps to see where space 
 \end{description}
 
 \parataggingOff
-\end{document}
+
 \section{Tagging}
 
 \parataggingON
@@ -471,19 +471,21 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 To tag a \PDF{} three tasks must be  carried out:
 
 \begin{enumerate}
-\item
-  \TagP^\textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.\Pmeti
+\item %TODO marginnote
+ \textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
 
 \item
-  \TagP^\textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the \PDF{} structure right still means that additional mark up must be added.
-  \Pmeti
+  \textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the \PDF{} structure right still means that additional mark up must be added.
+  
 
 \item
- \TagP^\textbf{The tree management}:\marginnote{tree-task} At last the structure must be written into the \PDF{}. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
- \Pmeti
+ \textbf{The tree management}:\marginnote{tree-task} At last the structure must be written into the \PDF{}. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
+ 
 \end{enumerate}
 
 \parataggingOff
+
+
 
 \begin{figure}[t!]
 \begin{tcolorbox}
@@ -546,7 +548,7 @@ To tag a \PDF{} three tasks must be  carried out:
 To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the \PDF{} reference they are called \enquote{marked content}. The three main variants needed here are:
 
 \begin{description}
-\item[Artifacts] \TagP^They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.\TagPend
+\item[Artifacts] They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.
 
 
 \begin{lstlisting}
@@ -555,11 +557,12 @@ To be able to refer to parts of the text in the structure, the text in the page 
 /EMC
 \end{lstlisting}
 
-\meti
 
 
 
-\item[Artifacts with a type] \TagP^They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} has two arguments: again the tag name \texttt{/Artifact} and a following dictionary which allows to specify the suppressed info. Text in header and footer can e.g. be declared as pagination like this:\TagPend
+
+\item[Artifacts with a type] 
+They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} has two arguments: again the tag name \texttt{/Artifact} and a following dictionary which allows to specify the suppressed info. Text in header and footer can e.g. be declared as pagination like this:
 
 
 \begin{lstlisting}
@@ -568,13 +571,13 @@ To be able to refer to parts of the text in the structure, the text in the page 
 /EMC
 \end{lstlisting}
 
-\meti
 
 
-\item[Content]  \TagP^Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
+
+\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
     Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
 
-\TagP In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:\TagPend
+In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:
 
 
 \begin{lstlisting}
@@ -584,14 +587,13 @@ To be able to refer to parts of the text in the structure, the text in the page 
 \end{lstlisting}
 
 
-\TagP^This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system
-%\footnote{
+This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system
 (It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the \PDF{} as one would need dummy objects.).
 
-\TagP It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.\Pmeti
+It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.
 \end{description}
 
-
+\end{document}
 The needed markers can be added with low level code e.g. like this (in pdftex syntax):
 
 
