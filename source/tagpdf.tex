@@ -102,6 +102,7 @@
 \makeatother
 
 \begin{document}
+
 \tagstructbegin{tag=Document}
 
 \tagstructbegin{tag=Title}
@@ -109,7 +110,7 @@
  \maketitle
  \tagmcend
 \tagstructend
-
+\thispagestyle{empty}%TODO pagestyle musst be discarded from paratagging!!!
 \begin{tcolorbox}[colframe=red]
 \tagstructbegin{tag=Div} %\booltrue{paratagging}
 \TagP^ This package is not meant for normal document production.
@@ -241,7 +242,6 @@ One must check how good the accessibility is \emph{practically}.
 \end{itemize}
 
 \parataggingOff
-\end{document}
 
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
@@ -331,11 +331,13 @@ Be aware that to create the tagged version a very experimental package and a exp
 \parataggingON
 
 \begin{itemize}
-\item \TagP^internal code adaptions to expl3 changes.\Pmeti
-\item \TagP^dropped the compresslevel key  -- probably not needed\Pmeti
+\item internal code adaptions to expl3 changes.
+\item dropped the compresslevel key  -- probably not needed.
 \end{itemize}
 
 \parataggingOff
+
+
 
 \subsection{Changes in version 0.8}
 
@@ -400,37 +402,38 @@ The key-val list understands the following keys:
 
 \begin{description}
 \item[\PrintKeyName{activate-all}]
- \TagP^Boolean, initially false. Activates everything, that's normally the sensible thing to do.\Pmeti
+ Boolean, initially false. Activates everything, that's normally the sensible thing to do.
 \item[\PrintKeyName{activate-mc}]
- \TagP^Boolean, initially false. Activates the code related to marked content.\Pmeti
+ Boolean, initially false. Activates the code related to marked content.
 \item[\PrintKeyName{activate-struct}]
- \TagP^Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.\Pmeti
+ Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
 \item[\PrintKeyName{activate-tree}]
-\TagP^ Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.\Pmeti
+Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
 \item[\PrintKeyName{add-new-tag}]
- \TagP^Allows to define new tag names, see section \ref{sec:new-tag} for a description.\Pmeti
+ Allows to define new tag names, see section \ref{sec:new-tag} for a description.
 \item[\PrintKeyName{check-tags}]
- \TagP^Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).\Pmeti
+ Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).
 \item[\PrintKeyName{interwordspace}]
- \TagP^Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.\Pmeti
+ Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.
+ 
 \item[\PrintKeyName{log}]
- \TagP^Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.\Pmeti
+ Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
 \item[\PrintKeyName{newattribute}]
- \TagP^This key takes two arguments and declares an attribute. See \ref{sec:attributes}.\Pmeti
+ This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
 \item[\PrintKeyName{show-spaces}]
-\TagP^Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.\Pmeti
+Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
 \item[\PrintKeyName{tabsorder}]
- \TagP^Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.\Pmeti
+ Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
 \item[\PrintKeyName{tagunmarked}]
- \TagP^Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.\Pmeti
+ Boolean,\marginnote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.
 \item[\PrintKeyName{uncompress}]
- \TagP^Sets both the \PDF{} compresslevel and the \PDF{} objcompresslevel to 0 and so allows to inspect the \PDF{}.\Pmeti
+ Sets both the \PDF{} compresslevel and the \PDF{} objcompresslevel to 0 and so allows to inspect the \PDF{}.
 
 
 \end{description}
 
 \parataggingOff
-
+\end{document}
 \section{Tagging}
 
 \parataggingON
