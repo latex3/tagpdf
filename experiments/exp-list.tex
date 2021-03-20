@@ -1,0 +1,133 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=1.7,lang=en-UK,uncompress}
+\documentclass{article}
+
+\usepackage{tagpdf}
+\tagpdfsetup{activate-all}
+\usepackage{enumitem}
+\usepackage{xpatch,color}
+
+%no head/foot paratagging
+\makeatletter
+\patchcmd\@oddfoot{\begingroup}{\begingroup\parataggingOff}{}{}
+\patchcmd\@oddhead{\begingroup}{\begingroup\parataggingOff}{}{}
+\makeatother
+
+\ExplSyntaxOn
+\newcounter{paracnt}
+\bool_new:N \l__tag_paratagging_bool
+\AddToHook{para/begin}
+  {
+   \stepcounter{paracnt}
+   \bool_if:nT 
+     { 
+       \l__tag_paratagging_bool
+     }
+    {
+      
+      \tagstructbegin{tag=P}\tagmcbegin{tag=P}
+      %\llap{\color{red}\tiny\arabic{paracnt}\ }
+    }
+  }
+\AddToHook{para/end}
+  {
+    \bool_if:NT \l__tag_paratagging_bool
+    {
+     %\rlap{\color{red}\tiny\ \arabic{paracnt}}
+     \tagmcend\tagstructend
+     }
+  }
+\newcommand\parataggingON {\bool_set_true:N \l__tag_paratagging_bool}
+\newcommand\parataggingOff{\bool_set_false:N \l__tag_paratagging_bool}
+\ExplSyntaxOff
+
+\AddToHook{env/itemize/begin}{\par\tagstructbegin{tag=L}}%\par is needed to close the paragraph before.
+\AddToHook{env/itemize/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
+\AddToHook{env/enumerate/begin}{\par\tagstructbegin{tag=L}}
+\AddToHook{env/enumerate/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
+\AddToHook{env/description/begin}{\par\tagstructbegin{tag=L}}
+\AddToHook{env/description/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
+
+\ExplSyntaxOn\makeatletter
+\newcommand\showcurrentstruct{\prop_show:c { g__tag_struct_\g__tag_struct_stack_current_tl _prop }}
+
+\newcommand\tag@enit@format@preset[1]{%
+ \str_if_eq:eeTF { \prop_item:cn { g__tag_struct_\g__tag_struct_stack_current_tl _prop }{S} }{/L}
+  {
+    \typeout{BEGIN~OF~LIST}
+  }
+  { \typeout{NEXT ITEM}\tagstructend\tagstructend} % for the LBody/LI
+  \tagstructbegin{tag=LI}
+  \tagstructbegin{tag=Lbl}
+  \tagmcbegin{tag=Lbl}
+    #1
+  \tagmcend
+  \tagstructend
+  \tagstructbegin{tag=LBody}
+  }
+\ExplSyntaxOff
+
+\xpatchcmd\enit@preset{\@firstofone}{\tag@enit@format@preset}{}{\fail}
+
+%close mc from paratagging and reopen ...
+\xpatchcmd\@item{\box\@labels}{\tagmcend \box\@labels \tagmcbegin{tag=P}}{}{\fail}
+\makeatother
+\begin{document}\pagestyle{empty}
+
+\tagstructbegin{tag=Document}
+\parataggingON
+
+abc
+
+\begin{enumerate}
+\item xxxx %\zzzz
+
+\item yyyy
+\end{enumerate}
+
+blub
+
+\begin{itemize}
+\item par 1
+
+      par 2
+
+\item par 1
+
+\item par 1
+
+\end{itemize}
+
+Nested list
+
+\begin{itemize}
+\item par 1
+
+      \begin{itemize}
+      \item blub
+      \item bla
+      \end{itemize}
+
+\item par 1
+
+\item par 1
+
+\end{itemize}
+
+\ExplSyntaxOn
+%\seq_show:N\g__tag_struct_stack_seq
+\ExplSyntaxOff
+
+\tagstructend %document
+\end{document}
+<L>
+
+ item -> LI
+           lbl-/lbl lbody P  paratagging on
+
+           /P
+ item -> /lbody li ....
+
+            <l>
+
