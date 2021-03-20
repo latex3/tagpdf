@@ -593,7 +593,7 @@ This integer is used to identify the chunk when building the structure tree. The
 It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.
 \end{description}
 
-\end{document}
+
 The needed markers can be added with low level code e.g. like this (in pdftex syntax):
 
 
@@ -607,8 +607,8 @@ The needed markers can be added with low level code e.g. like this (in pdftex sy
 This sounds easy. But there are quite a number of traps.
 
 \begin{enumerate}[beginpenalty=10000]
-  \item \TagP^\PDF{} is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
-  So marking e.g. a section title like in the following example won't always work as the literal before the section could end on the previous page:\TagPend
+  \item \PDF{} is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
+  So marking e.g. a section title like in the following example won't always work as the literal before the section could end on the previous page:
 
 
 \begin{lstlisting}
@@ -618,30 +618,30 @@ This sounds easy. But there are quite a number of traps.
 \end{lstlisting}
 
 
-  \TagP^Using the literals \emph{inside} the section argument is better, but then one has to take care that they don't wander into the header and the toc.\Pmeti
+  Using the literals \emph{inside} the section argument is better, but then one has to take care that they don't wander into the header and the toc.
 
   \item
-  \TagP^Literals are \enquote{whatsits} nodes and can change spacing, page and line breaking. The literal \emph{behind} the section in the previous example could e.g. lead to a lonely section title at the end of the page.\Pmeti
+  Literals are \enquote{whatsits} nodes and can change spacing, page and line breaking. The literal \emph{behind} the section in the previous example could e.g. lead to a lonely section title at the end of the page.
 
   \item
-   \TagP^The \texttt{/MCID} numbers must be unique on a page. So you can't use the literal in a saved box that you reuse in various places. This is e.\,g. a problem with \texttt{longtable} as it saves the table header and footer in a box.\Pmeti
+   The \texttt{/MCID} numbers must be unique on a page. So you can't use the literal in a saved box that you reuse in various places. This is e.\,g. a problem with \texttt{longtable} as it saves the table header and footer in a box.
 
   \item
-  \TagP^The  \texttt{/MCID}-chunks are leaf nodes in the structure tree, so they shouldn't be nested.\Pmeti
+  The  \texttt{/MCID}-chunks are leaf nodes in the structure tree, so they shouldn't be nested.
 
   \item
-  \TagP^Often text in a document is created automatically or moved around: entries in the table of contents, index, bibliography and more. To mark these text chunks correctly one has to analyze the code creating such content to find suitable places to inject the literals.\Pmeti
+  Often text in a document is created automatically or moved around: entries in the table of contents, index, bibliography and more. To mark these text chunks correctly one has to analyze the code creating such content to find suitable places to inject the literals.
 
   \item
-  \TagP^The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page (this package uses in generic mode a label-ref-system to get around this problem. This sadly means that three compilations are needed until everything has settled down).\Pmeti
+  The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page (this package uses in generic mode a label-ref-system to get around this problem. This sadly means that three compilations are needed until everything has settled down).
 
   \item
-  \TagP^There exist environments which process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
-       So one has to check for doublettes and holes in the counting system.\Pmeti
+  There exist environments which process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
+       So one has to check for doublettes and holes in the counting system.
 
 
   \item
-  \TagP^\PDF{} is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.\Pmeti
+  \PDF{} is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.
 \end{enumerate}
 
 \parataggingOff
@@ -655,14 +655,14 @@ While in generic mode the commands insert the literals directly and so have all 
 This means that quite a number of problems mentioned above are not relevant for the lua mode:
 
 \begin{enumerate}
-\item \TagP^Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the \PDF{} and so bloat up \PDF{} a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).\Pmeti
-\item \TagP^The commands don't insert literals directly and so affect line and page breaking much less.\Pmeti
-\item \TagP^The numbering of the MCID are done at shipout, so no label/ref system is needed.\Pmeti
-\item \TagP^The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.\Pmeti
+\item Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the \PDF{} and so bloat up \PDF{} a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).
+\item The commands don't insert literals directly and so affect line and page breaking much less.
+\item The numbering of the MCID are done at shipout, so no label/ref system is needed.
+\item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.
 \end{enumerate}
 
 \parataggingOff
-
+\end{document}
 \subsubsection{Commands to mark content and chunks}
 
 \parataggingON
