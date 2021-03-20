@@ -99,6 +99,8 @@
 \makeatletter
 \patchcmd\@oddfoot{\begingroup}{\begingroup\parataggingOff}{}{}
 \patchcmd\@oddhead{\begingroup}{\begingroup\parataggingOff}{}{}
+\makeatother
+
 \begin{document}
 \tagstructbegin{tag=Document}
 
@@ -229,15 +231,17 @@ the version to 2.0 I will start to check to look into it too.%
 
 \begin{itemize}
 \item
-\TagP^ One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}: e.g. if a chunk is opened on one page but closed on the next page.
-    \Pmeti
+ One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}: e.g. if a chunk is opened on one page but closed on the next page.
+
 \item
-\TagP^ One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
-    \Pmeti
+One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
+
 \item
-\TagP^ One must check how good the accessibility is \emph{practically}.\Pmeti
+One must check how good the accessibility is \emph{practically}.
 \end{itemize}
 
+\parataggingOff
+\end{document}
 
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.

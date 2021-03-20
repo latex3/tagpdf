@@ -169,22 +169,33 @@
 
 %% list
 
-\AddToHook{env/itemize/begin}{\par\parataggingOff\tagstructbegin{tag=L}}
-\AddToHook{env/itemize/end}{\tagstructend}
-\AddToHook{env/enumerate/begin}{\par\parataggingOff\tagstructbegin{tag=L}}
-\AddToHook{env/enumerate/end}{\tagstructend}
-\AddToHook{env/description/begin}{\par\parataggingOff\tagstructbegin{tag=L}}
-\AddToHook{env/description/end}{\tagstructend}
+\AddToHook{env/itemize/begin}{\par\tagstructbegin{tag=L}}%\par is needed to close the paragraph before.
+\AddToHook{env/itemize/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
+\AddToHook{env/enumerate/begin}{\par\tagstructbegin{tag=L}}
+\AddToHook{env/enumerate/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
+\AddToHook{env/description/begin}{\par\tagstructbegin{tag=L}}
+\AddToHook{env/description/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
 
+
+
+\ExplSyntaxOn
+\newcommand\showcurrentstruct{\prop_show:c { g__tag_struct_\g__tag_struct_stack_current_tl _prop }}
 
 \newcommand\tag@enit@format@preset[1]{%
-  \tagstructbegin{tag=LI}%
-  \tagstructbegin{tag=Lbl}%
-  \tagmcbegin{tag=Lbl}%
-  #1%
+ \str_if_eq:eeTF { \prop_item:cn { g__tag_struct_\g__tag_struct_stack_current_tl _prop }{S} }{/L}
+  {
+    \typeout{BEGIN~OF~LIST}
+  }
+  { \typeout{NEXT ITEM}\tagstructend\tagstructend} % for the LBody/LI
+  \tagstructbegin{tag=LI}
+  \tagstructbegin{tag=Lbl}
+  \tagmcbegin{tag=Lbl}
+    #1
   \tagmcend
-  \tagstructend %end Lbl
-  \tagstructbegin{tag=LBody}}
+  \tagstructend
+  \tagstructbegin{tag=LBody}
+  }
+\ExplSyntaxOff
 
 \newcommand\meti{% end of \item
  \tagstructend %end of LBody
@@ -197,9 +208,11 @@
  \tagstructend %end of LI
 }
 
-\ExplSyntaxOff
+
 \xpatchcmd\enit@preset{\@firstofone}{\tag@enit@format@preset}{}{\fail}
-\ExplSyntaxOn
+%close mc from paratagging and reopen ...
+\xpatchcmd\@item{\box\@labels}{\tagmcend \box\@labels \tagmcbegin{tag=P}}{}{\fail}
+
 %\setlist{
 %    before*=\tagstructbegin{tag=L},
 %    after*={\tagstructend}}
@@ -242,6 +255,7 @@
 %   \tag_mc_begin:n{tag=Link}
 % }
 
+\ExplSyntaxOn
 \cs_generate_variant:Nn \pdfannot_dict_put:nnn {nnx}
 \hook_gput_code:nnn
   {pdfannot/link/URI/before}
