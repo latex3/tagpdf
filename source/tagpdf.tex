@@ -421,7 +421,10 @@ Boolean, initially false. Activates the code related to trees. Should be used on
 \item[\PrintKeyName{newattribute}]
  This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
 \item[\PrintKeyName{show-spaces}]
-Boolean.\marginnote{luamode} That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
+
+Boolean.%\marginnote{luamode} 
+That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
+
 \item[\PrintKeyName{tabsorder}]
  Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
 \item[\PrintKeyName{tagunmarked}]
@@ -662,7 +665,7 @@ This means that quite a number of problems mentioned above are not relevant for 
 \end{enumerate}
 
 \parataggingOff
-\end{document}
+
 \subsubsection{Commands to mark content and chunks}
 
 \parataggingON
@@ -682,56 +685,54 @@ The key-val list understands the following keys:
 
 \begin{description}
   \item[\PrintKeyName{tag}]
-  \TagP^This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the \PDF{}, so it should with a starting slash give a valid \PDF{} name  (some ascii with numbers like \texttt{H4} is fine).\Pmeti
+  This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the \PDF{}, so it should with a starting slash give a valid \PDF{} name  (some ascii with numbers like \texttt{H4} is fine).
 
   \item[\PrintKeyName{artifact}]
-  \TagP^This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
+  This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
 
-  \TagP    It is not quite clear if rules and other decorative graphical objects needs to be marked up as artifacts. Acrobat seems not to mind if not, but PAC~3 complained.
+  It is not quite clear if rules and other decorative graphical objects needs to be marked up as artifacts. Acrobat seems not to mind if not, but PAC~3 complained.
 
-  \TagP    The validators complain if some text is not marked up, but it is not quite clear if this is a serious problem.
+  The validators complain if some text is not marked up, but it is not quite clear if this is a serious problem.
 
-  \TagP    The\marginnote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.\Pmeti
+  The\marginnote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.
 
   \item[\PrintKeyName{stash}]
-   \TagP^Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current structure.\Pmeti
+   Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current structure.
 
   \item[\PrintKeyName{label}]
-  \TagP^This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.\Pmeti
+  This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
 
   \item[\PrintKeyName{alttext}]
-   \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
+   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
+   
   \item[\PrintKeyName{alttext-o}]
-  \TagP^This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3).
-  That means that you can do something like this: \TagPend
+  This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3).
+  That means that you can do something like in the following listing 
+  and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.
 
-      \begin{lstlisting}
-      \newcommand\myalttext{\frac{a}{b}}
-      \tagmcbegin{tag=P,alttext-o=\myalttext}
-      \end{lstlisting}
+  \begin{lstlisting}
+  \newcommand\myalttext{\frac{a}{b}}
+  \tagmcbegin{tag=P,alttext-o=\myalttext}
+  \end{lstlisting}
 
 
-  \TagP^    and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.\Pmeti
+   
 
   \item[\PrintKeyName{actualtext}]
-  \TagP^This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
+  This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
 
 
   \item[\PrintKeyName{actualtext-o}]
-  \TagP^This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
+  This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like in the following listing and and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
 
 
-      \begin{lstlisting}
-      \newcommand\myactualtext{X}
-      \tagmcbegin{tag=P,alttext-o=\myactualtext}
-      \end{lstlisting}
-
-
-
- \TagP^and it will insert \verb+X+ (hex encoded)  in the \PDF{}.\Pmeti
+  \begin{lstlisting}
+   \newcommand\myactualtext{X}
+   \tagmcbegin{tag=P,alttext-o=\myactualtext}
+  \end{lstlisting}
 
   \item[\PrintKeyName{raw}]
-  \TagP^This key allows you to add more entries to the properties dictionary. The value must be correct, low-level \PDF{}. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.\Pmeti
+  This key allows you to add more entries to the properties dictionary. The value must be correct, low-level \PDF{}. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.
 \end{description}
 
 
@@ -792,11 +793,13 @@ These commands give back some variables. Currently the only working key word is 
 \subsubsection{Tips}
 
 \begin{itemize}
-\item \TagP^Mark commands inside floats should work fine (but need perhaps some compilation rounds in generic mode).\Pmeti
-\item \TagP^In case you want to use it inside a \verb+\savebox+ (or some command that saves the text internally in a box): If the box is used directly, there is probably no problem. If the use is later, stash the marked content and add the needed \verb+\tagmcuse+ directly  before oder after the box when you use it.\Pmeti
-\item \TagP^Don't use a saved box with markers twice.\Pmeti
-\item \TagP^If boxes are unboxed you will have to analyze the \PDF{} to check if everything is ok.\Pmeti
-\item \TagP^If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the \PDF{}.\Pmeti
+\item Mark commands inside floats should work fine (but need perhaps some compilation rounds in generic mode).
+
+\item In case you want to use it inside a \verb+\savebox+ (or some command that saves the text internally in a box): If the box is used directly, there is probably no problem. If the use is later, stash the marked content and add the needed \verb+\tagmcuse+ directly  before oder after the box when you use it.
+    
+\item Don't use a saved box with markers twice.
+\item If boxes are unboxed you will have to analyze the \PDF{} to check if everything is ok.
+\item If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the \PDF{}.
  \end{itemize}
 
 
@@ -808,6 +811,7 @@ These commands give back some variables. Currently the only working key word is 
 \caption{Structure needed for a link annotation}\label{fig:linkannot}
 \tagmcend\tagstructend
 \end{figure}
+
 
 \subsubsection{Links}
 
@@ -972,20 +976,20 @@ The key-val list understands the following keys:
 
 \begin{description}
   \item[\PrintKeyName{tag}]
-   \TagP^This is required. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags/types, see the same section.\Pmeti
+   This is required. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag}. It is possible to setup new tags/types, see the same section.
 
   \item[\PrintKeyName{stash}]
-   \TagP^Normally a new structure inserts itself as a kid into the currently active structure. This key prohibits this. The structure is nevertheless from now on \enquote{the current active structure} and parent for following  marked content and structures.\Pmeti
+   Normally a new structure inserts itself as a kid into the currently active structure. This key prohibits this. The structure is nevertheless from now on \enquote{the current active structure} and parent for following  marked content and structures.
 
   \item[\PrintKeyName{label}]
-   \TagP^This key sets a label by which you can use the structure later in another structure. Internally the label name will start with \texttt{tagpdfstruct-}.\Pmeti
+   This key sets a label by which you can use the structure later in another structure. Internally the label name will start with \texttt{tagpdfstruct-}.
 
 
   \item[\PrintKeyName{alttext}]
-   \TagP^This key inserts an \texttt{/Alt} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string and hex encoded.\Pmeti
+   This key inserts an \texttt{/Alt} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string and hex encoded.
 
   \item[\PrintKeyName{alttext-o}]
-   \TagP^This key inserts an \texttt{/Alt} value in the dictionary of a structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
+   This key inserts an \texttt{/Alt} value in the dictionary of a structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:
 
 
       \begin{lstlisting}
@@ -995,14 +999,14 @@ The key-val list understands the following keys:
 
 
 
-   \TagP^   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.\Pmeti
+   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.
 
 
   \item[\PrintKeyName{actualtext}]
-   \TagP^This key inserts an \texttt{/ActualText} value in the dictionary of structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.\Pmeti
+   This key inserts an \texttt{/ActualText} value in the dictionary of structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
 
   \item[\PrintKeyName{actualtext-o}]
-   \TagP^This key inserts an \texttt{/ActualText} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:\TagPend
+   This key inserts an \texttt{/ActualText} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{actualtext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3). That means that you can do something like this:
 
 
       \begin{lstlisting}
@@ -1012,39 +1016,39 @@ The key-val list understands the following keys:
 
 
 
-   \TagP^and it will insert \verb+X+ (hex encoded)  in the \PDF{}.\Pmeti
+   and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
 
    \item[\PrintKeyName{attribute}]
-    \TagP^This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute dictionary entries in the structure object. As an example\TagPend
-
+    This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute dictionary entries in the structure object. As an example
+    
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute= TH-row}
       \end{lstlisting}
 
-    \TagP^See also section~\ref{sec:attributes}.\Pmeti
+    See also section~\ref{sec:attributes}.
 
   \item[\PrintKeyName{attribute-class}]
-   \TagP^This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute classes to the structure object. As an example\TagPend
+   This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute classes to the structure object. As an example
 
 
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute-class= TH-row}
       \end{lstlisting}
 
-  \TagP^See also section~\ref{sec:attributes}.\Pmeti
+  See also section~\ref{sec:attributes}.
 
   \item[\PrintKeyName{title}]
-  \TagP^This key allows to set the dictionary entry \texttt{/Title} in the structure object. The value is handled as verbatim string and hex encoded. Commands are not expanded.\Pmeti
+  This key allows to set the dictionary entry \texttt{/Title} in the structure object. The value is handled as verbatim string and hex encoded. Commands are not expanded.
 
   \item[\PrintKeyName{title-o}]
-  \TagP^This key allows to set the dictionary entry \texttt{/Title} in the structure object.
-  The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.\Pmeti
+  This key allows to set the dictionary entry \texttt{/Title} in the structure object.
+  The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.
 
    \item[\PrintKeyName{AF}]
-   \TagP^This key allows to reference an associated file in the structure element.
+   This key allows to reference an associated file in the structure element.
    The value should be the name of an object pointing to the \texttt{/Filespec} dictionary as expected by
    \verb+\pdf_object_ref:n+ from a current \texttt{l3kernel}.
-   For example:\TagPend
+   For example:
 
    \begin{lstlisting}
    \pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
@@ -1052,35 +1056,35 @@ The key-val list understands the following keys:
    \tagstructbegin{tag=P,AF=tag/AFtest}
    \end{lstlisting}
 
-   \TagP^As shown, the wanted AFRelationship can be set
+   As shown, the wanted AFRelationship can be set
    by filling the dictionary with the value. The mime type
    is here detected automatically, but for unknown types it can be set too.
    See the \texttt{l3pdffile} documentation for details.  Associated files are
    a concept new in PDF 2.0, but the code currently doesn't check the pdf version, it is your responsability
-   to set it (this can be done with the \texttt{pdfversion} key in \verb+\DeclareDocumentMetadata+). \Pmeti
+   to set it (this can be done with the \texttt{pdfversion} key in \verb+\DeclareDocumentMetadata+). 
 
    \item[\PrintKeyName{AFinline}]
-    \TagP^This key allows to embed an associated file with inline content. The value is some text,
-    which is embedded in the PDF as a text file with mime type text/plain. \Pmeti
+    This key allows to embed an associated file with inline content. The value is some text,
+    which is embedded in the PDF as a text file with mime type text/plain. 
 
    \begin{lstlisting}
    \tagstructbegin{tag=P,AFinline=Some extra text}
    \end{lstlisting}
 
    \item[\PrintKeyName{AFinline-o}]
-    \TagP^This is like verb+AFinline+, but it expands the value once.\Pmeti
+    This is like verb+AFinline+, but it expands the value once.
 
    \item[\PrintKeyName{lang}]
-     \TagP^This key allows to set the language for a structure element. The value should be a bcp-identifier,
-     e.g. |de-De|.\Pmeti
+     This key allows to set the language for a structure element. The value should be a bcp-identifier,
+     e.g. |de-De|.
 
    \item[\PrintKeyName{ref}]
-     \TagP^This key allows to add references to other structure elements, it adds the |/Ref| array to the structure.
+     This key allows to add references to other structure elements, it adds the |/Ref| array to the structure.
        The value should be a comma seperated list of structure labels set with the |label| key.
-     e.g. |ref={label1,label2}|.\Pmeti
+     e.g. |ref={label1,label2}|.
 
    \item[\PrintKeyName{E}]
-     \TagP^This key sets the |/E| key, the expanded form of an abbreviation or an acronym (I couldn't think of a better name, so I sticked to E).\Pmeti
+     This key sets the |/E| key, the expanded form of an abbreviation or an acronym (I couldn't think of a better name, so I sticked to E).
 \end{description}
 
 
@@ -1286,10 +1290,10 @@ The file \texttt{ex-alt-actualtext.tex} shows some experiments I made with with 
 To sum them up:
 
 \begin{itemize}
-\item \TagP^The keys have an impact on text-to-speech software only if the document is fully tagged.\Pmeti
-\item \TagP^\PrintKeyName{/ActualText} should be at best used around short pieces of marked content.\Pmeti
-\item \TagP^\PrintKeyName{/Alt} is used at best with a structure -- this avoids problems with luatex where marked contents blocks can be split over pages.\Pmeti
-\item \TagP^To some extend one can get a not so bad reading of math with the alternative text.\Pmeti
+\item The keys have an impact on text-to-speech software only if the document is fully tagged.
+\item \PrintKeyName{/ActualText} should be at best used around short pieces of marked content.
+\item \PrintKeyName{/Alt} is used at best with a structure -- this avoids problems with luatex where marked contents blocks can be split over pages.
+\item To some extend one can get a not so bad reading of math with the alternative text.
 \end{itemize}
 
 
@@ -1348,19 +1352,19 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
 A tagged \PDF{} is needed for accessibility but this is not enough. As already mentioned there are more requirements:
 
  \begin{itemize}
- \item \TagP^The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfmanagement_add:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.\Pmeti
- \item \TagP^All characters must have an unicode representation or a suitable alternative text.
-      With lualatex and open type (unicode) fonts this is normally not a problem. With pdflatex it could need\TagPend
+ \item The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfmanagement_add:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.
+ \item All characters must have an unicode representation or a suitable alternative text.
+      With lualatex and open type (unicode) fonts this is normally not a problem. With pdflatex it could need
 
       \begin{verbatim}
       \input{glyphtounicode}
       \pdfgentounicode=1
       \end{verbatim}
 
- \TagP^and perhaps some\verb+\pdfglyphtounicode+ commands.\Pmeti
- \item \TagP^Hard and soft hyphen must be distinct.\Pmeti
- \item \TagP^Spaces between words should be space glyphs and not only a horizontal movement. See section~\ref{sec:spacechars}.\Pmeti
- \item \TagP^Various small infos must be present in the catalog dictionary, info dictionary and the page dictionaries, e.g. metadata like title.\Pmeti
+ and perhaps some\verb+\pdfglyphtounicode+ commands.
+ \item Hard and soft hyphen must be distinct.
+ \item Spaces between words should be space glyphs and not only a horizontal movement. See section~\ref{sec:spacechars}.
+ \item Various small infos must be present in the catalog dictionary, info dictionary and the page dictionaries, e.g. metadata like title.
 \end{itemize}
 
 If suitable I will add code for this tasks to this packages. But some of them can also be done already with existing packages like hyperref, hyperxmp, pdfx.
@@ -1372,29 +1376,30 @@ If suitable I will add code for this tasks to this packages. But some of them ca
 \parataggingON
 
 \begin{itemize}
-\item \TagP^Add commands and keys to enable/disable the checks.\Pmeti
-\item \TagP^Check/extend the code for language tags.\Pmeti
-\item \TagP^Think about math.\Pmeti
-\item \TagP^Think about Links/Annotations\Pmeti
-\item \TagP^Keys for alternative and actualtext. How to define the input encoding? Like in Accsupp?\Pmeti
-\item \TagP^Check twocolumn documents\Pmeti
-\item \TagP^Examples\Pmeti
-\item \TagP^Write more Tests\Pmeti
-\item \TagP^Write more Tests\Pmeti
-\item \TagP^Unicode\Pmeti
-\item \TagP^Hyphenation char\Pmeti
-\item \TagP^Think about included (tagged) \PDF{}. Can one handle them?\Pmeti
-\item \TagP^Improve the documentation\Pmeti
-\item \TagP^Tag as proof of concept the documentation (nearly done)\Pmeti
-\item \TagP^Document the code better\Pmeti
-\item \TagP^Create dtx\Pmeti
-\item \TagP^Find someone to check and improve the lua code\Pmeti
-\item \TagP^Move more things to lua in the luamode\Pmeti
-\item \TagP^Find someone to check and improve the rest of the code\Pmeti
-\item \TagP^Check differences between \PDF{} versions 1.7 and 2.0.\Pmeti
-\item \TagP^bidi?\Pmeti
+\item Add commands and keys to enable/disable the checks.
+\item Check/extend the code for language tags.
+\item Think about math.
+\item Think about Links/Annotations
+\item Keys for alternative and actualtext. How to define the input encoding? Like in Accsupp?
+\item Check twocolumn documents
+\item Examples
+\item Write more Tests
+\item Write more Tests
+\item Unicode
+\item Hyphenation char
+\item Think about included (tagged) \PDF{}. Can one handle them?
+\item Improve the documentation
+\item Tag as proof of concept the documentation (nearly done)
+\item Document the code better
+\item Create dtx
+\item Find someone to check and improve the lua code
+\item Move more things to lua in the luamode
+\item Find someone to check and improve the rest of the code
+\item Check differences between \PDF{} versions 1.7 and 2.0.
+\item bidi?
 \end{itemize}
 
+\end{document}
 \printbibliography
 
 \appendix
@@ -1407,7 +1412,7 @@ If suitable I will add code for this tasks to this packages. But some of them ca
 This is not meant as a full reference only as a background to make the examples and remarks easier to understand.
 
 \begin{description}
-\item[postfix notation] \TagP^\PDF{} uses in various places postfix notation. This means that the operator is behind its arguments:\TagPend
+\item[postfix notation] \PDF{} uses in various places postfix notation. This means that the operator is behind its arguments:
 
 \tagstructbegin{tag=Figure,alttext={Illustration of postfix notation}}\tagmcbegin{tag=Figure}
 \begin{tikzpicture}[baseline=(c.base)]
@@ -1451,26 +1456,26 @@ This is not meant as a full reference only as a background to make the examples 
 \draw[->] (c.south) --++(0,-2mm) -| (a2);
 \end{tikzpicture}
 \tagmcend\tagstructend
-\meti
 
-\item[Names] \TagP^\PDF{} knows a sort of variable called a \enquote{name}. Names start with a slash and may include any regular characters, but not delimiter or white-space characters. Uppercase and lowercase letters are considered distinct: \texttt{/A} and \texttt{/a} are different names. \verb+/.notdef+ and \verb+/Adobe#20Green+  are valid names.\TagPend
 
-    \TagP^Quite a number of the options of \texttt{tagpdf} actually define such a name which is  later added to the \PDF{}. I recommend \emph{strongly} not to use spaces and exotic chars in such names. While it is possible to escape such names it is rather a pain when moving them through the various lists and commands and quite probably I forgot some place where it is needed.\Pmeti
+\item[Names] \PDF{} knows a sort of variable called a \enquote{name}. Names start with a slash and may include any regular characters, but not delimiter or white-space characters. Uppercase and lowercase letters are considered distinct: \texttt{/A} and \texttt{/a} are different names. \verb+/.notdef+ and \verb+/Adobe#20Green+  are valid names.
 
-\item[Strings]\TagP^There are two types of strings: \emph{Literal strings} are enclosed in round parentheses. They normally contain a mix of ascii chars and octal numbers:\TagPend
+    Quite a number of the options of \texttt{tagpdf} actually define such a name which is  later added to the \PDF{}. I recommend \emph{strongly} not to use spaces and exotic chars in such names. While it is possible to escape such names it is rather a pain when moving them through the various lists and commands and quite probably I forgot some place where it is needed.
+
+\item[Strings]There are two types of strings: \emph{Literal strings} are enclosed in round parentheses. They normally contain a mix of ascii chars and octal numbers:
 
     \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}%
     \verb+(gr\374\377ehello[]\050\051)+.
     \tagmcend\tagstructend
 
 
-    \TagP^\emph{Hexadezimal strings} are enclosed in angle brackets. They allow for a representation of all characters the whole unicode ranges. This is the default output of lualatex.\TagPend
+    \emph{Hexadezimal strings} are enclosed in angle brackets. They allow for a representation of all characters the whole unicode ranges. This is the default output of lualatex.
 
     \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}\texttt{<003B00600243013D0032>}.
-    \tagmcend\tagstructend\meti
+    \tagmcend\tagstructend
 
 
-\item[Arrays] \TagP^Arrays are enclosed by square brackets. They can contain all sort of objects including more arrays. As an example here an array which contains five objects: a number, an object reference, a string, a dictionary and another array. Be aware that despite the spaces \texttt{15 0 R} is \emph{one} element of the array.\TagPend
+\item[Arrays] Arrays are enclosed by square brackets. They can contain all sort of objects including more arrays. As an example here an array which contains five objects: a number, an object reference, a string, a dictionary and another array. Be aware that despite the spaces \texttt{15 0 R} is \emph{one} element of the array.
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
     \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
@@ -1484,14 +1489,14 @@ This is not meant as a full reference only as a background to make the examples 
     \node[arg,right = of a3.east](a4) {<</Type /X>>};
     \node[arg,right = of a4.east](a5) {[1 2 3]};
     \end{tikzpicture}
-\tagmcend\tagstructend\meti
+\tagmcend\tagstructend
 
 
 \item[Dictionaries]
-\TagP^Dictionaries are enclosed by double angle brackets. They contain key-value pairs. The key is always a name. The value can be all sort of objects including more dictionaries. It doesn't matter in which order the keys are given.
+Dictionaries are enclosed by double angle brackets. They contain key-value pairs. The key is always a name. The value can be all sort of objects including more dictionaries. It doesn't matter in which order the keys are given.
 
-\TagP Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}
-    but at least for examples a layout with line breaks and indentation is more readable:\TagPend
+ Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}
+    but at least for examples a layout with line breaks and indentation is more readable:
 
     \begin{lstlisting}
     <<
@@ -1503,15 +1508,15 @@ This is not meant as a full reference only as a background to make the examples 
     >>
     \end{lstlisting}
 
-\meti
 
 
- \item[(indirect) objects] \TagP^These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a \PDF{} is edited objects with a larger generation number can be added. As with pdflatex/lualatex the \PDF{} is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.\Pmeti
 
- \item[streams] \TagP^A stream is a sequence of bytes. It can be long and is used for the real content of \PDF{}: text, fonts, content of graphics.
+ \item[(indirect) objects] These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a \PDF{} is edited objects with a larger generation number can be added. As with pdflatex/lualatex the \PDF{} is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.
+
+ \item[streams] A stream is a sequence of bytes. It can be long and is used for the real content of \PDF{}: text, fonts, content of graphics.
  A stream starts with a dictionary which at least sets the \texttt{/Length} name to the length of the stream followed by the stream content enclosed by the keywords \texttt{stream} and \texttt{endstream}.
 
- \TagP Here an example of a stream, an object definition and reference. In the object 2 (a page object) the \texttt{/Contents} key references the object 3 and this then contains the text of the page in a stream. \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the first chooses the font with the name \texttt{/F15} at the size 10.9, the second displaces the reference point on the page and the third inserts the text.\TagPend
+  Here an example of a stream, an object definition and reference. In the object 2 (a page object) the \texttt{/Contents} key references the object 3 and this then contains the text of the page in a stream. \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the first chooses the font with the name \texttt{/F15} at the size 10.9, the second displaces the reference point on the page and the third inserts the text.
 
   \begin{lstlisting}
   % a page object (shortened)
@@ -1535,9 +1540,9 @@ This is not meant as a full reference only as a background to make the examples 
   endobj
   \end{lstlisting}
 
- \TagP^In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while drawing and graphics are outside of such pairs.\Pmeti
+ In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while drawing and graphics are outside of such pairs.
 
-\item[Number tree] \TagP^This is a more complex data structure that is meant to index objects by numbers. In the core is an array with number-value pairs. A simple version of number tree which has the keys 0 and 3 is\TagPend
+\item[Number tree] This is a more complex data structure that is meant to index objects by numbers. In the core is an array with number-value pairs. A simple version of number tree which has the keys 0 and 3 is
 
 \begin{lstlisting}
 6 0 obj
@@ -1550,7 +1555,7 @@ This is not meant as a full reference only as a background to make the examples 
 endobj
 \end{lstlisting}
 
-\TagP^This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.\Pmeti
+This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.
 
 \end{description}
 
