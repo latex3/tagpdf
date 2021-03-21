@@ -5,7 +5,7 @@
 
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all}
-\usepackage{enumitem}
+\usepackage{enumitem,marginnote}
 \usepackage{xpatch,color}
 
 %no head/foot paratagging
@@ -20,12 +20,14 @@
 \AddToHook{para/begin}
   {
    \stepcounter{paracnt}
-   \bool_if:nT 
-     { 
+    \typeout{para/begin\arabic{paracnt}}
+    
+   \bool_if:nT
+     {
        \l__tag_paratagging_bool
      }
     {
-      
+
       \tagstructbegin{tag=P}\tagmcbegin{tag=P}%\showcurrentstruct
       %\llap{\color{red}\tiny\arabic{paracnt}\ }
     }
@@ -34,6 +36,7 @@
   {
     \bool_if:NT \l__tag_paratagging_bool
     {
+     \typeout{para/end \arabic{paracnt}}
      %\rlap{\color{red}\tiny\ \arabic{paracnt}}
      \tagmcend\tagstructend
      }
@@ -81,13 +84,14 @@
 abc
 
 \begin{enumerate}
-\item xxxx %\zzzz
+\item xxxx\marginnote{blub} %\zzzz
 
 \item yyyy
 \end{enumerate}
 
 blub
 
+\end{document}
 \begin{itemize}
 \item par 1
 

@@ -102,34 +102,39 @@
 \patchcmd\@oddhead{\begingroup}{\begingroup\parataggingOff}{}{}
 \makeatother
 
+
 \begin{document}
 
 \tagstructbegin{tag=Document}
 
+%TODO \maketitle (footnote ...)
 \tagstructbegin{tag=Title}
  \tagmcbegin{tag=P}
  \maketitle
  \tagmcend
 \tagstructend
 \thispagestyle{empty}%TODO pagestyle musst be discarded from paratagging!!!
+
+
 \begin{tcolorbox}[colframe=red]
 \tagstructbegin{tag=Div} %\booltrue{paratagging}
-\TagP^ This package is not meant for normal document production.
 
-\TagP You need a very current \LaTeX{} format.
+This package is not meant for normal document production.
+
+You need a very current \LaTeX{} format.
       You need a very current L3 programming layer.
       You need the new \LaTeX{} PDF management bundle.
 
-\TagP This package is incomplete, experimental and quite probably contains bugs.
+This package is incomplete, experimental and quite probably contains bugs.
       At some time it will disappear when the code has been integrated into the \LaTeX{} format.
 
-\TagP This package can change in an incompatible way.
+This package can change in an incompatible way.
 
-\TagP You need some knowledge about \TeX, \PDF{} and perhaps even lua to use it.
+You need some knowledge about \TeX, \PDF{} and perhaps even lua to use it.
 
 \medskip
 
-\TagP Issues, comments, suggestions should be added as issues to the github tracker:\TagPend
+Issues, comments, suggestions should be added as issues to the github tracker:
 
 \medskip
 \centering \url{https://github.com/u-fischer/tagpdf}
@@ -137,7 +142,7 @@
 
 \tagstructend
 \end{tcolorbox}
-
+\parataggingOff
 
 \begin{NoHyper} %combination of link and other struct is to complicated for now ...
 \tableofcontents
@@ -416,20 +421,20 @@ Boolean, initially false. Activates the code related to trees. Should be used on
  Boolean, initially true. Activates some safety checks (but doesn't do very much currently. It will perhaps be merged with the log-level key).
 \item[\PrintKeyName{interwordspace}]
  Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.
- 
+
 \item[\PrintKeyName{log}]
  Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
 \item[\PrintKeyName{newattribute}]
  This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
 \item[\PrintKeyName{show-spaces}]
 
-Boolean.%\marginnote{luamode} 
-That's a debug option, it helps to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
+Boolean.\sidenote{luamode}
+That's a debug option, it helps in lua mode to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
 
 \item[\PrintKeyName{tabsorder}]
  Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
 \item[\PrintKeyName{tagunmarked}]
- Boolean,\parataggingOff\marginnote{luamode}\parataggingON initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.
+ Boolean,\sidenote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.
 \item[\PrintKeyName{uncompress}]
  Sets both the \PDF{} compresslevel and the \PDF{} objcompresslevel to 0 and so allows to inspect the \PDF{}.
 
@@ -476,15 +481,15 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \begin{enumerate}
 \item %TODO marginnote
- \textbf{The mark-content-task}:\marginnote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
+ \textbf{The mark-content-task}:\sidenote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
 
 \item
-  \textbf{The structure-task}:\marginnote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the \PDF{} structure right still means that additional mark up must be added.
-  
+  \textbf{The structure-task}:\sidenote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the \PDF{} structure right still means that additional mark up must be added.
+
 
 \item
- \textbf{The tree management}:\marginnote{tree-task} At last the structure must be written into the \PDF{}. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
- 
+ \textbf{The tree management}:\sidenote{tree-task} At last the structure must be written into the \PDF{}. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
+
 \end{enumerate}
 
 \parataggingOff
@@ -565,7 +570,7 @@ To be able to refer to parts of the text in the structure, the text in the page 
 
 
 
-\item[Artifacts with a type] 
+\item[Artifacts with a type]
 They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} has two arguments: again the tag name \texttt{/Artifact} and a following dictionary which allows to specify the suppressed info. Text in header and footer can e.g. be declared as pagination like this:
 
 
@@ -671,7 +676,7 @@ This means that quite a number of problems mentioned above are not relevant for 
 
 \parataggingON
 
-It\marginnote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
+In generic mode\sidenote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
 For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.
 
 \ExplSyntaxOn
@@ -695,7 +700,7 @@ The key-val list understands the following keys:
 
   The validators complain if some text is not marked up, but it is not quite clear if this is a serious problem.
 
-  The\marginnote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.
+  The\sidenote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.
 
   \item[\PrintKeyName{stash}]
    Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current structure.
@@ -705,10 +710,10 @@ The key-val list understands the following keys:
 
   \item[\PrintKeyName{alttext}]
    This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
-   
+
   \item[\PrintKeyName{alttext-o}]
   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string like the key \PrintKeyName{alttext} but expanded once (the \texttt{o} refers to the \texttt{o} type in expl3).
-  That means that you can do something like in the following listing 
+  That means that you can do something like in the following listing
   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.
 
   \begin{lstlisting}
@@ -717,7 +722,7 @@ The key-val list understands the following keys:
   \end{lstlisting}
 
 
-   
+
 
   \item[\PrintKeyName{actualtext}]
   This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded.
@@ -748,7 +753,7 @@ These commands insert the end code of the marked content. They don't end a group
 
 \begin{tcolorbox}
 \minisec{About nesting mc-commands}
-\TagP^\textbf{Attention!}\marginnote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
+\TagP^\textbf{Attention!}\sidenote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
 
 \TagP Consider a code like this:\TagPend
 
@@ -797,7 +802,7 @@ These commands give back some variables. Currently the only working key word is 
 \item Mark commands inside floats should work fine (but need perhaps some compilation rounds in generic mode).
 
 \item In case you want to use it inside a \verb+\savebox+ (or some command that saves the text internally in a box): If the box is used directly, there is probably no problem. If the use is later, stash the marked content and add the needed \verb+\tagmcuse+ directly  before oder after the box when you use it.
-    
+
 \item Don't use a saved box with markers twice.
 \item If boxes are unboxed you will have to analyze the \PDF{} to check if everything is ok.
 \item If you use complicated structures and commands (breakable boxes like the one from tcolorbox, multicol, many footnotes) you will have to check the \PDF{}.
@@ -879,7 +884,7 @@ See also section~\ref{sec:alttext} for some more remarks and tests.
 \parataggingON
 %TODO: think about marginnote! Aside?
 
-A\marginnote{Generic mode only} problem are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
+A\sidenote{Generic mode only} problem in generic mode are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
 
 So with pdflatex in generic mode one currently has to do the splitting manually.
 
@@ -1021,7 +1026,7 @@ The key-val list understands the following keys:
 
    \item[\PrintKeyName{attribute}]
     This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute dictionary entries in the structure object. As an example
-    
+
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute= TH-row}
       \end{lstlisting}
@@ -1062,11 +1067,11 @@ The key-val list understands the following keys:
    is here detected automatically, but for unknown types it can be set too.
    See the \texttt{l3pdffile} documentation for details.  Associated files are
    a concept new in PDF 2.0, but the code currently doesn't check the pdf version, it is your responsability
-   to set it (this can be done with the \texttt{pdfversion} key in \verb+\DeclareDocumentMetadata+). 
+   to set it (this can be done with the \texttt{pdfversion} key in \verb+\DeclareDocumentMetadata+).
 
    \item[\PrintKeyName{AFinline}]
     This key allows to embed an associated file with inline content. The value is some text,
-    which is embedded in the PDF as a text file with mime type text/plain. 
+    which is embedded in the PDF as a text file with mime type text/plain.
 
    \begin{lstlisting}
    \tagstructbegin{tag=P,AFinline=Some extra text}

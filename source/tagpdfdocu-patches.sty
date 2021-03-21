@@ -5,6 +5,16 @@
  {patches/commands for the tagpdf documentation}
 
 % to do : marginnote, perhaps the description macros ...
+% marginnote has a bug (a \par is missing) so it messes up tagging. The following is a
+% fix, but currently unneeded as we marked them up as artifacts anyway as they don't contain
+% meaning ful contents
+\renewcommand{\mn@vadjust}[1]{%
+  \mn@zbox{\kern-\parskip
+    \leavevmode\vadjust{#1}%
+    \kern\parskip
+  }%
+}
+\NewDocumentCommand\sidenote{m}{\begin{tagmcartifact}{notype}\parataggingOff\marginnote{#1}\end{tagmcartifact}}
 % to do: footnotes!
 % printbibliography?
 
