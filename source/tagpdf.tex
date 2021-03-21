@@ -456,7 +456,7 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
 \parataggingON
 
 %TODO: footnote
-pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}:
+pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\parataggingOff\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}\parataggingON:
 
 \begin{lstlisting}[columns=fixed]
 stream
@@ -591,7 +591,7 @@ They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which 
 
 
 
-\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
+\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\parataggingOff\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}\parataggingON
     Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
 
 In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:
