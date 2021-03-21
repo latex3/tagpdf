@@ -6,8 +6,11 @@ build/*
 *.curlopt
 resave.bat
 source/dtx/*.sty
+!source/dtx/tagpdfdocu-patches.sty
 source/dtx/*.lua
 source/dtx/*.def
+source/tagpdf-test.tex
+source/*.kfpx
 source/*.kfpx
 source/tagpdf.html/*
 testfiles/*.pdf

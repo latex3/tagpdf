@@ -51,7 +51,7 @@ checkruns = 3
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
 excludetests = {"test-saveboxes-structure-dev"}
 
-sourcefiles =  {"*.dtx","*.ins"}
+sourcefiles =  {"*.dtx","*.ins","*.sty"}
 
 if os.getenv('TRAVIS')  then
    checkconfigs = {"build","config-pdftex","config-luatex"}
@@ -137,14 +137,13 @@ function update_tag (file,content,tagname,tagdate)
 
 -- ctan setup
 docfiles = {"source/tagpdf.tex",
-            "source/tagpdfdocu-patches.sty",
             "source/tagpdf.bib",
             "source/link-figure-input.tex",
             "source/pac3.PNG",
             "source/examples/**/*.tex",
             "source/examples/**/*.pdf"}
 textfiles= {"source/CTANREADME.md"}
-excludefiles ={"*/pdfresources.sty","*/hgeneric-experimental.def"}
+
 ctanreadme= "CTANREADME.md"
 
 typesetexe = "lualatex-dev"
@@ -152,12 +151,12 @@ packtdszip   = false
 installfiles = {
                 "**/*.sty",
                 "**/*.def",
-                "**/*.lua"
+                "**/*.lua",
                }
 
 sourcefiles  = {"**/*.dtx",
                 "**/*.ins",
-                --"**/*.sty",
+                "**/*.sty",
                 --"**/*.def",
                 --"**/*.lua"
                }
