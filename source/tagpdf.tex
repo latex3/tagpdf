@@ -102,7 +102,12 @@
 \patchcmd\@oddhead{\begingroup}{\begingroup\parataggingOff}{}{}
 \makeatother
 
-
+%this is cheating ...
+\tagpdfsetup
+  {
+    newattribute =
+    {bbox}{/Owner /Layout /BBox [0 0 100 100]}
+  }
 \begin{document}
 
 \tagstructbegin{tag=Document}
@@ -116,8 +121,8 @@
 \thispagestyle{empty}%TODO pagestyle musst be discarded from paratagging!!!
 
 
-\begin{tcolorbox}[colframe=red]
-\tagstructbegin{tag=Div} %\booltrue{paratagging}
+\begin{tcolorbox}[colframe=red,before upper=\parataggingON]
+%\tagstructbegin{tag=Div} %\booltrue{paratagging}
 
 This package is not meant for normal document production.
 
@@ -137,11 +142,13 @@ You need some knowledge about \TeX, \PDF{} and perhaps even lua to use it.
 Issues, comments, suggestions should be added as issues to the github tracker:
 
 \medskip
-\centering \url{https://github.com/u-fischer/tagpdf}
+\centering
+\url{https://github.com/u-fischer/tagpdf}
 
 
-\tagstructend
+%\tagstructend
 \end{tcolorbox}
+
 \parataggingOff
 
 \begin{NoHyper} %combination of link and other struct is to complicated for now ...
@@ -152,13 +159,12 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 \parataggingON
 
-%\TagP^
+
 With this version one major step towards integration of the code into the \LaTeX{} has been done:
 The code now relies on the new \LaTeX{} PDF management. This management, which is for a testphase provided
 as an external package, \texttt{pdfmanagement-testphase},
 prepares the ground for better support for tagged PDF in \LaTeX{}.
 It is part of a larger project to automatically generate tagged PDF \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/}
-%\TagPend
 
 While this is a major improvement---it will for example allow to use tagpdf with more engines as the new PDF management supports all major engines and allowed to add support for associated files---it also means that this version requires a special setup of the document and is incompatible with a number of packages,
 see the documentation of \texttt{pdfmanagement-testphase} for details.
@@ -176,7 +182,9 @@ Since many year the creation of accessible \PDF{}-files with \LaTeX\ which confo
 
 But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
-This package tries to close this gap by offering \emph{core} commands to tag a \PDF{}.\footnote{In case you don't know what this means: there will be some explanations later on.}
+This package tries to close this gap by offering \emph{core} commands to tag a \PDF{}%
+\parataggingOff\footnote{In case you don't know what this means: there will be some explanations later on.}%
+\parataggingON.
 
 My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
@@ -328,7 +336,7 @@ Be aware that to create the tagged version a very experimental package and a exp
 
 \parataggingOff
 
-\tagstructbegin{tag=Figure,alttext=PAC3 report}\tagmcbegin{tag=Figure}
+\tagstructbegin{tag=Figure,alttext=PAC3 report,attribute=bbox}\tagmcbegin{tag=Figure}
 \includegraphics{pac3}
 \tagmcend\tagstructend
 
@@ -501,7 +509,7 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \minisec{Page stream with marked content}
 
-\tagstructbegin{tag=Figure,alttext={Illustration of page stream with marked content}}%
+\tagstructbegin{tag=Figure,alttext={Illustration of page stream with marked content},attribute=bbox}%
 \tagmcbegin{tag=Figure}%
 \begin{tikzpicture}[baseline=(a.north),node distance=2pt,remember picture]
 \node(start){\ldots~\ldots~\ldots};
@@ -517,7 +525,7 @@ To tag a \PDF{} three tasks must be  carried out:
 \minisec{Structure}
 
 \newlength\ydistance\setlength\ydistance{-0.8cm}
-\tagstructbegin{tag=Figure,alttext={Illustration of structure}}%
+\tagstructbegin{tag=Figure,alttext={Illustration of structure},attribute=bbox}%
 \tagmcbegin{tag=Figure}%
 \begin{tikzpicture}[remember picture,baseline=(root.north)]
 
@@ -810,7 +818,7 @@ These commands give back some variables. Currently the only working key word is 
 
 
 \begin{figure}
-\tagstructbegin{tag=Figure,alttext={Illustration of link annotation structure}}\tagmcbegin{tag=Figure}
+\tagstructbegin{tag=Figure,alttext={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
 \input{link-figure-input}
 \tagmcend\tagstructend
 \tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption}
@@ -1420,7 +1428,7 @@ This is not meant as a full reference only as a background to make the examples 
 \begin{description}
 \item[postfix notation] \PDF{} uses in various places postfix notation. This means that the operator is behind its arguments:
 
-\tagstructbegin{tag=Figure,alttext={Illustration of postfix notation}}\tagmcbegin{tag=Figure}
+\tagstructbegin{tag=Figure,alttext={Illustration of postfix notation},attribute=bbox}\tagmcbegin{tag=Figure}
 \begin{tikzpicture}[baseline=(c.base)]
 \node[arg](a1) {18};
 \node[arg,right=of a1.east](a2) {0};
@@ -1487,7 +1495,7 @@ This is not meant as a full reference only as a background to make the examples 
     \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
 \tagmcend\tagstructend
 
-    \tagstructbegin{tag=Figure,alttext={Illustration of array}}\tagmcbegin{tag=Figure}
+    \tagstructbegin{tag=Figure,alttext={Illustration of array},attribute=bbox}\tagmcbegin{tag=Figure}
     \begin{tikzpicture}[baseline=(c.base)]
     \node[arg](a1) {0};
     \node[arg,right = of a1.east](a2) {15 0 R};
