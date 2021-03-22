@@ -1,47 +1,43 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=1.7,lang=en-UK}
+
+
 \makeatletter
 \def\UlrikeFischer@package@version{0.80}
 \def\UlrikeFischer@package@date{2021-02-23}
 \makeatother
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{pdfversion=1.7,lang=en-UK}
+
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
-\usepackage{scrlayer-scrpage}
-\usepackage{fontspec}
-\setmainfont{Heuristica}
-\usepackage{unicode-math}
+
 \usepackage[english]{babel}
-\usepackage[autostyle]{csquotes}
+
+\usepackage{unicode-math}
+\setmainfont{Heuristica}
 \usepackage{microtype}
-%\DisableLigatures{encoding = TU, family = tt* }
+
+\usepackage{scrlayer-scrpage}
+
+\usepackage[autostyle]{csquotes}
 \usepackage[style=numeric,hyperref=false]{biblatex}
 \addbibresource{tagpdf.bib}
 
 \usepackage{tcolorbox}
 
-\usepackage{tabularx}
 \usepackage[noparboxrestore]{marginnote}
-\makeatletter \renewcommand*{\mn@parboxrestore}{\parataggingOff}%
+\makeatletter \renewcommand*{\mn@parboxrestore}{\tagpdfparaOff}%
 \reversemarginpar
+
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 \usetikzlibrary{fit,tikzmark}
 \usetikzlibrary{arrows.meta}
-
-
 \tikzset{arg/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=2mm and 2mm}}
 \tikzset{operator/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=4mm and 4mm}}
-\usepackage{enumitem,needspace,xpatch}
-\makeatletter
-\enitkv@key{enumitem}{compactsep}[true]{%
-  \divide\partopsep by 2\relax
-  \divide\topsep by 2\relax
-  \divide\itemsep by 2\relax
-  \divide\parsep by 2\relax}
-\makeatother
-\title{The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname}
-\date{\csname UlrikeFischer@package@date\endcsname}
-\author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
+
+
+\usepackage{enumitem,xpatch}
+
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, columns=fullflexible,language=[LaTeX]TeX,
         escapechar=*,
@@ -57,60 +53,35 @@
  %log=v
  %show-spaces
  }
+ 
 \usepackage{hyperxmp}
- \usepackage[pdfdisplaydoctitle=true,hyperfootnotes=false,
+\usepackage[pdfdisplaydoctitle=true,hyperfootnotes=false,
             ]{hyperref}
+            
  \hypersetup{
   pdftitle={The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname},
   pdfauthor=Ulrike Fischer,
   pdfaconformance=a,
-  pdfuapart=1}
-%\usepackage[ocgcolorlinks]{ocgx2}
+  pdfuapart=1,
+  colorlinks}
+  
+
 \usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
 \usepackage{tagpdfdocu-patches}
-\hypersetup{colorlinks,}
 
+%header and footer. This still needs some sorting, the first page does't work correctly
 \cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
-\newcommand\PDF{PDF}
-
-\ExplSyntaxOn
-\newcounter{paracnt}
-\bool_new:N \l__tag_paratagging_bool
-\AddToHook{para/begin}
-  {
-   \stepcounter{paracnt}
-   \bool_if:NT \l__tag_paratagging_bool
-    {
-      \tagstructbegin{tag=P}\tagmcbegin{tag=P}
-      \llap{\color{red}\tiny\arabic{paracnt}\ }
-    }
-  }
-\AddToHook{para/end}
-  {
-    \bool_if:NT \l__tag_paratagging_bool
-    {
-     \rlap{\color{red}\tiny\ \arabic{paracnt}}
-     \tagmcend\tagstructend}
-  }
-
-
-\newcommand\parataggingON {\bool_set_true:N \l__tag_paratagging_bool}
-\newcommand\parataggingOff{\bool_set_false:N \l__tag_paratagging_bool}
-
-\AddtoDoHook{heading/begingroup}{\parataggingOff\use_none:n}
-\ExplSyntaxOff
-
 \makeatletter
-\patchcmd\@oddfoot{\begingroup}{\begingroup\parataggingOff}{}{}
-\patchcmd\@oddhead{\begingroup}{\begingroup\parataggingOff}{}{}
+\patchcmd\@oddfoot{\begingroup}{\begingroup\tagpdfparaOff}{}{}
+\patchcmd\@oddhead{\begingroup}{\begingroup\tagpdfparaOff}{}{}
 \makeatother
 
-%this is cheating ...
-\tagpdfsetup
-  {
-    newattribute =
-    {bbox}{/Owner /Layout /BBox [0 0 100 100]}
-  }
+\newcommand\PDF{PDF}
+  
+\title{The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname}
+\date{\csname UlrikeFischer@package@date\endcsname}
+\author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}  
+  
 \begin{document}
 
 \tagstructbegin{tag=Document}
@@ -123,9 +94,10 @@
 \tagstructend
 \thispagestyle{empty}%TODO pagestyle musst be discarded from paratagging!!!
 
+\tagpdfsetup{ paratagging,paratagging-show}
 
-\begin{tcolorbox}[colframe=red,before upper=\parataggingON]
-%\tagstructbegin{tag=Div} %\booltrue{paratagging}
+\tagstructbegin{tag=Div}
+\begin{tcolorbox}[colframe=red,before upper=\tagpdfparaOn]
 
 This package is not meant for normal document production.
 
@@ -148,20 +120,13 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 \centering
 \url{https://github.com/u-fischer/tagpdf}
 
-
-%\tagstructend
 \end{tcolorbox}
+\tagstructend
 
-\parataggingOff
 
-\begin{NoHyper} %combination of link and other struct is to complicated for now ...
 \tableofcontents
-\end{NoHyper}
 
 \section{Preface to version 0.8}
-
-\parataggingON
-
 
 With this version one major step towards integration of the code into the \LaTeX{} has been done:
 The code now relies on the new \LaTeX{} PDF management. This management, which is for a testphase provided
@@ -181,8 +146,7 @@ Since many year the creation of accessible \PDF{}-files with \LaTeX\ which confo
 But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
 This package tries to close this gap by offering \emph{core} commands to tag a \PDF{}%
-\parataggingOff\footnote{In case you don't know what this means: there will be some explanations later on.}%
-\parataggingON.
+\tagpdfparaOff\footnote{In case you don't know what this means: there will be some explanations later on.}\tagpdfparaOn.
 
 My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
@@ -194,11 +158,7 @@ I'm sure that it has bugs. Bugs reports, suggestions and comments can be added t
 
 Please also check the github site for new examples and improvements.
 
-
-
 \subsection{Tagging and accessibility}
-
-
 
 While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} \PDF{}-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
 
@@ -207,39 +167,34 @@ So the name of the package is a bit wrong. As excuse I can only say that it is s
 
 \subsection{Engines and modes}
 
-
 The package works currently with pdflatex and lualatex. First steps have been done to also enable support for xelatex and the latex-dvips-route; but this isn't yet much tested.
 
 The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
 
-
 I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
 
-While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.%
+While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.
 
 
 \subsection{References}
-
-
 
 My main reference was the free reference for \PDF{} 1.7. \parencite{pdfreference}. This document is from 2006.
 
 In the meantime \PDF{} 2.0. has been released.
 I know that it contains also for accessibility relevant changes.
-As I got now the specification and luatex can set with \verb+\pdfmajorversion+
-the version to 2.0 I will start to check to look into it too.%
-
+As I got now the specification and all engines can set the version to 2.0 
+I will start to check to look into it too.
 
 
 \subsection{Validation}
-
 
 
 \PDF{}'s created with the commands of this package must be validated:
 
 \begin{itemize}
 \item
- One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}: e.g. if a chunk is opened on one page but closed on the next page.
+ One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}: 
+ e.g. if a chunk is opened on one page but closed on the next page.
 
 \item
 One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
@@ -249,21 +204,14 @@ One must check how good the accessibility is \emph{practically}.
 \end{itemize}
 
 
-
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
-
-Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
-It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
-There is also the validator veraPDF \parencite{verapdf}. But I didn't try it yet and have no idea if it is useful here.
+There is also the validator veraPDF \parencite{verapdf}. 
 
 Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a \PDF{} has real accessibility problems.
 
-\parataggingOff
 
 \minisec{Preflight woes}
-
-\parataggingON
 
 Sadly validators can not be always trusted. As an example for an reason that I don't understand the adobe preflight don't like the list structure \texttt{L}.
 It is also possible that validators contradict: that the one says everything is okay, while the other complains.
@@ -276,12 +224,12 @@ It is also possible that validators contradict: that the one says everything is 
 To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
 
 
-\begin{tcolorbox}[before upper=\parataggingON]
+\begin{tcolorbox}[before upper=\tagpdfparaOn]
 Feedback, contribuations and corrections are welcome!
 \end{tcolorbox}
 
 
-All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
+All examples should use the \cs{tagpdfsetup} key \PrintKeyName{uncompress} described in the next section so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
 
 
 
@@ -319,17 +267,16 @@ With version 0.6 the documentation itself has been tagged. The tagging is in no 
 
 But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.
 
-\begin{tcolorbox}[before upper=\parataggingON]
+\begin{tcolorbox}[before upper=\tagpdfparaOn]
 Be aware that to create the tagged version a very experimental package and a experimental hyperref driver was needed for the links. This files are not in the package!
 \end{tcolorbox}
 
-\parataggingOff
 
 \tagstructbegin{tag=Figure,alttext=PAC3 report,attribute=bbox}\tagmcbegin{tag=Figure}
 \includegraphics{pac3}
 \tagmcend\tagstructend
 
-\parataggingON
+
 
 \subsection{Changes in version 0.61}
 
@@ -366,16 +313,10 @@ The keys |lang|, |ref| and |E| have been added for structures.
 \section{Setup}
 
 
-\parataggingOff
-
 \minisec{Activation needed!}
 
-\parataggingON
 
 When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
-
-
-
 
 
 \subsection{Modes and package options}
@@ -393,8 +334,6 @@ This is the default mode. It will use the generic mode if the document is proces
 \DescribeKey{genericmode}
 
 This will force the generic mode for all engines.
-
-
 
 
 \subsection{Setup and activation}\label{ssec:setup}
@@ -447,9 +386,7 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
 \section{Tagging}
 
 
-
-%TODO: footnote
-pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\parataggingOff\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}\parataggingON:
+pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\tagpdfparaOff\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}\tagpdfparaOn:
 
 \begin{lstlisting}[columns=fixed]
 stream
@@ -481,7 +418,7 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 To tag a \PDF{} three tasks must be  carried out:
 
 \begin{enumerate}
-\item %TODO marginnote
+\item 
  \textbf{The mark-content-task}:\sidenote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
 
 \item
@@ -493,12 +430,15 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \end{enumerate}
 
-\parataggingOff
 
 \begin{figure}[t!]
-\begin{tcolorbox}
+
+
+\begin{tcolorbox}[before upper=\tagpdfparaOn]
 
 \minisec{Page stream with marked content}
+
+\tagpdfparaOff
 
 \tagstructbegin{tag=Figure,alttext={Illustration of page stream with marked content},attribute=bbox}%
 \tagmcbegin{tag=Figure}%
@@ -512,8 +452,12 @@ To tag a \PDF{} three tasks must be  carried out:
 \end{tikzpicture}
 \tagmcend\tagstructend
 
+\tagpdfparaOn
+
 
 \minisec{Structure}
+
+\tagpdfparaOff
 
 \newlength\ydistance\setlength\ydistance{-0.8cm}
 \tagstructbegin{tag=Figure,alttext={Illustration of structure},attribute=bbox}%
@@ -540,14 +484,19 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \end{tikzpicture}
 \tagmcend\tagstructend
+
+\tagpdfparaOn
+
 \end{tcolorbox}
+
 \tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption}
 \caption{Schematical description of the relation between marked content in the page stream and the structure}
 \tagmcend\tagstructend
 
 \end{figure}
 
-\parataggingON
+
+
 
 \subsection{Task 1: Marking the chunks: the mark-content-step}
 
@@ -582,7 +531,7 @@ They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which 
 
 
 
-\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\parataggingOff\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}\parataggingON
+\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\tagpdfparaOff\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}\tagpdfparaOn
     Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
 
 In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:
@@ -747,13 +696,14 @@ The key-val list understands the following keys:
 
 These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
 
-\parataggingOff
 
-\begin{tcolorbox}
+
+\begin{tcolorbox}[before upper=\tagpdfparaOn]
 \minisec{About nesting mc-commands}
-\TagP^\textbf{Attention!}\sidenote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
 
-\TagP Consider a code like this:\TagPend
+\textbf{Attention!}\sidenote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
+
+Consider a code like this:
 
 
 \begin{lstlisting}
@@ -761,11 +711,11 @@ These commands insert the end code of the marked content. They don't end a group
 \end{lstlisting}
 
 
-\TagP^Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
-\TagPend
+Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
+
 \end{tcolorbox}
 
-\parataggingON
+
 
 \ExplSyntaxOn
 \DescribeMacro\tagmcuse{<label name>}
@@ -808,14 +758,22 @@ These commands give back some variables. Currently the only working key word is 
 
 
 \begin{figure}
-\parataggingOff
+\tagpdfparaOff
 
 \tagstructbegin{tag=Figure,alttext={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
+\ExplSyntaxOn
+\tag_stop_group_begin:
+\ExplSyntaxOff
 \input{link-figure-input}
+\ExplSyntaxOn
+\tag_stop_group_end:
+\ExplSyntaxOff
 \tagmcend\tagstructend
+
 \tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption}
 \caption{Structure needed for a link annotation}\label{fig:linkannot}
 \tagmcend\tagstructend
+
 \end{figure}
 
 
@@ -1122,11 +1080,11 @@ A document should have at least one structure which contains the whole document.
 
 Structure Element can have so-called attributes. A single attribute is a dictionary%\footnote{
 (or a stream but this is currently not supported by the package as I don't know an use-case)
-with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
+with at least the required key \verb+/O+ (for \enquote{Owner} which describes the scope the attribute applies too.
 As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:
 
 \begin{lstlisting}
-<</Owner /Table /Scope /Column>>
+<</O /Table /Scope /Column>>
 \end{lstlisting}
 
 One or more such attributes can be attached to a structure element. It is also possible to store such an attribute under a symbolic name in a so-called \enquote{ClassedMap} and then to attach references to such classes to a structure.
@@ -1140,9 +1098,9 @@ The name should be a sensible key name, the content a dictionary.
 \tagpdfsetup
  {
   newattribute =
-   {TH-col}{/Owner /Table /Scope /Column},
+   {TH-col}{/O /Table /Scope /Column},
   newattribute =
-   {TH-row}{/Owner /Table /Scope /Row},
+   {TH-row}{/O /Table /Scope /Row},
   }
 \end{lstlisting}
 
@@ -1317,13 +1275,13 @@ Their meaning can be looked up in the \PDF{}-reference \parencite{pdfreference}.
 New tags can be defined in the setup command with the key \texttt{add-new-tag}. It takes a value consisting of two names separated by a slash. The first is the new name, the second a known (e.g. a standard) tag it should be mapped too. Example:
 
 
-\parataggingOff
+\tagpdfparaOff
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
 \Macro\tagpdfsetup{add-new-tag = section/H1}
 \tagmcend\tagstructend
 
-\parataggingON
+\tagpdfparaOn
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
@@ -1421,7 +1379,7 @@ This is not meant as a full reference only as a background to make the examples 
 \begin{description}
 \item[postfix notation] \PDF{} uses in various places postfix notation. This means that the operator is behind its arguments:
 
-\parataggingOff
+\tagpdfparaOff
 
 \tagstructbegin{tag=Figure,alttext={Illustration of postfix notation},attribute=bbox}\tagmcbegin{tag=Figure}
 \begin{tikzpicture}[baseline=(c.base)]
@@ -1468,7 +1426,7 @@ This is not meant as a full reference only as a background to make the examples 
 
 
 
-\parataggingON
+\tagpdfparaOn
 
 \item[Names] \PDF{} knows a sort of variable called a \enquote{name}. Names start with a slash and may include any regular characters, but not delimiter or white-space characters. Uppercase and lowercase letters are considered distinct: \texttt{/A} and \texttt{/a} are different names. \verb+/.notdef+ and \verb+/Adobe#20Green+  are valid names.
 
@@ -1476,32 +1434,25 @@ This is not meant as a full reference only as a background to make the examples 
 
 \item[Strings]There are two types of strings: \emph{Literal strings} are enclosed in round parentheses. They normally contain a mix of ascii chars and octal numbers:
 
-\parataggingOff
 
-    \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}%
     \verb+(gr\374\377ehello[]\050\051)+.
-    \tagmcend\tagstructend
 
-\parataggingON
 
     \emph{Hexadezimal strings} are enclosed in angle brackets. They allow for a representation of all characters the whole unicode ranges. This is the default output of lualatex.
 
+    
+    \texttt{<003B00600243013D0032>}.
+    
 
-\parataggingOff
 
-    \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}\texttt{<003B00600243013D0032>}.
-    \tagmcend\tagstructend
-
-\parataggingON
 
 \item[Arrays] Arrays are enclosed by square brackets. They can contain all sort of objects including more arrays. As an example here an array which contains five objects: a number, an object reference, a string, a dictionary and another array. Be aware that despite the spaces \texttt{15 0 R} is \emph{one} element of the array.
 
-\parataggingOff
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
     \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
-\tagmcend\tagstructend
 
+
+\tagpdfparaOff
 
     \tagstructbegin{tag=Figure,alttext={Illustration of array},attribute=bbox}\tagmcbegin{tag=Figure}
     \begin{tikzpicture}[baseline=(c.base)]
@@ -1513,7 +1464,7 @@ This is not meant as a full reference only as a background to make the examples 
     \end{tikzpicture}
 \tagmcend\tagstructend
 
-\parataggingON
+\tagpdfparaOn
 
 
 \item[Dictionaries]
@@ -1583,11 +1534,6 @@ This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number tr
 
 \end{description}
 
-\tagstructend
-\end{document}
-
-
-\parataggingOff
 
 \tagstructend %document
 \end{document}

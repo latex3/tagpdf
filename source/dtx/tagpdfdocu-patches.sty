@@ -13,11 +13,12 @@
   }%
 }
 
+\AddToHook{env/tikzpicture/begin}{}
 % \section{marginnotes}
 % our marginnotes are only to visually emphasize the text. So we define a command which
 % marks them as artifact
 
-\NewDocumentCommand\sidenote{m}{\begin{tagmcartifact}{notype}\parataggingOff\marginnote{#1}\end{tagmcartifact}}
+\NewDocumentCommand\sidenote{m}{\begin{tagmcartifact}{notype}\tagpdfparaOff\marginnote{#1}\end{tagmcartifact}}
 % to do: footnotes!
 % printbibliography?
 
@@ -59,6 +60,14 @@
   \tag_struct_end:
  }
 
+% picture
+
+%this is cheating ...
+\tagpdfsetup
+  {
+     newattribute =
+    {bbox}{/O /Layout /BBox [0 0 100 100]}
+  }
 
 %%%%%
 % maketitle
@@ -139,6 +148,10 @@
 % Sectioning commands
 %%%%%%%%
 
+\AddtoDoHook{heading/begingroup}{\tagpdfparaOff\use_none:n}
+
+
+
 \prop_new:N    \g_tag_section_level_prop
 \prop_gput:Nnn \g_tag_section_level_prop {section}{H1}
 \prop_gput:Nnn \g_tag_section_level_prop {subsection}{H2}
@@ -167,16 +180,17 @@
  }
 
 %minisec is simply P, H6 doesn't work ....
-\cs_new:Nn \__tag_docu_tag_minisec:n
-{
-  \tag_struct_begin:n {tag=P}
-  \tag_mc_begin:n{tag=P}
-  #1
-  \tag_mc_end:
-  \tag_struct_end:
-}
-
-\addtokomafont{minisec}{\__tag_docu_tag_minisec:n}
+% so we let paratagging handle this
+%\cs_new:Nn \__tag_docu_tag_minisec:n
+%{
+%  \tag_struct_begin:n {tag=P}
+%  \tag_mc_begin:n{tag=P}
+%  #1
+%  \tag_mc_end:
+%  \tag_struct_end:
+%}
+%
+%\addtokomafont{minisec}{\__tag_docu_tag_minisec:n}
 
 \AfterTOCHead{\tag_struct_begin:n{tag=TOC}}
 \AfterStartingTOC{\tag_struct_end:} %end TOC
@@ -243,18 +257,18 @@
 % listings + verbatim
 % the paragraph code could create span around the lines ...
 
-\AddToHook{env/lstlisting/begin}{\parataggingOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
+\AddToHook{env/lstlisting/begin}{\tagpdfparaOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
 \AddToHook{env/lstlisting/end}{\tagmcend\tagstructend}
 
-\AddToHook{env/verbatim/begin}{\parataggingOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
+\AddToHook{env/verbatim/begin}{\tagpdfparaOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
 \AddToHook{env/verbatim/end}{\tagmcend\tagstructend}
 
 
 % tcolorbox.
 % the before upper setting is dangerous as it can be overwritten by
 % users. So a more stable hook is needed.
-\AddToHook{env/tcolorbox/begin}{\parataggingOff}
-%\tcbset{before upper=\parataggingON} %locally for now
+\AddToHook{env/tcolorbox/begin}{\tagpdfparaOff}
+%\tcbset{before upper=\tagpdfparaOn} %locally for now
  %%% hooks for links
  %%% attention, to get the order right, it is necessary currently to start a new
  %%% mc after a link! I'm not sure if this can/group be included in the hooks
