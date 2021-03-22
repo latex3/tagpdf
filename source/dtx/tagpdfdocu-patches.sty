@@ -173,33 +173,39 @@
 \AddToHook{env/verbatim/end}{\tagmcend\tagstructend}
 
 
-% links
-
-
-% to do : marginnote, perhaps the description macros ...
-% marginnote has a bug (a \par is missing) so it messes up tagging. The following is a
-% fix, but currently unneeded as we marked them up as artifacts anyway as they don't contain
-% meaning ful contents
-\renewcommand{\mn@vadjust}[1]{%
-  \mn@zbox{\kern-\parskip
-    \leavevmode\vadjust{#1}%
-    \kern\parskip
-  }%
-}
-
-\AddToHook{env/tikzpicture/begin}{}
-% \section{marginnotes}
-% our marginnotes are only to visually emphasize the text. So we define a command which
-% marks them as artifact
+% ======== marginnote ==========
+% TODO marginnote has a bug (a \par is missing) so it messes up tagging.
+% but currently unneeded as we marked them up as artifacts anyway as they don't contain
+% meaningful contents
 
 \NewDocumentCommand\sidenote{m}{\begin{tagmcartifact}{notype}\tagpdfparaOff\marginnote{#1}\end{tagmcartifact}}
-% to do: footnotes!
-% printbibliography?
+
+% ======== tikzpicture ==========
+% TODO this needs some investigation: it messes up the stack if one add paraOff
+
+\AddToHook{env/tikzpicture/begin}{}
+
+%======== tcolorbox ========
+% We switch of paratagging at the begin and reenable it locally in before upper.
+% the before upper setting is dangerous as it can be overwritten by
+% users. So a more stable hook is needed.
+\AddToHook{env/tcolorbox/begin}{\tagpdfparaOff}
+%\tcbset{before upper=\tagpdfparaOn} %locally for now
+
+
+% ======= footnote ========
+% TODO
+
+% ======= bibliography ========
+% biblatex. There are some entry mc-chunks somewhere.
 
 \newbibmacro*{begentry}{\tagstructbegin{tag=BibEntry}\tagmcbegin{tag=BibEntry}}
 \newbibmacro*{finentry}{\finentry\tagmcend\tagstructend}
 
-% hyperref
+% ====== hyperref ========
+% this should probably go into tagpdf, but it is related to
+% problem of pdf strings and context ....
+
 \@ifpackageloaded{hyperref}{%
 \pdfstringdefDisableCommands{
  \let\tagstructbegin\@gobble
@@ -208,54 +214,20 @@
  \let\tagstructend\relax
 }}{}
 
-%%%%%
-% Paragraphs
-%%%%%
 
-
-% picture
-
-%this is cheating ...
+%====== pictures ========
+% PAC3 complained that the BBox is missing, so we are cheating for now
+% and add a fix size.
 \tagpdfsetup
   {
      newattribute =
-    {bbox}{/O /Layout /BBox [0 0 100 100]}
+        {bbox}{/O /Layout /BBox [0~0~100~100]}
   }
 
 %%%%%
-% maketitle
+%======== Role maps =========
 %%%%%
-\tagpdfsetup{ add-new-tag=Title/H1 }
-
-
-
-
-
-
-
-
-
-
-
-% tcolorbox.
-% the before upper setting is dangerous as it can be overwritten by
-% users. So a more stable hook is needed.
-\AddToHook{env/tcolorbox/begin}{\tagpdfparaOff}
-%\tcbset{before upper=\tagpdfparaOn} %locally for now
- %%% hooks for links
- %%% attention, to get the order right, it is necessary currently to start a new
- %%% mc after a link! I'm not sure if this can/group be included in the hooks
- %%% grouping is a bit tricky ...
-%\cs_if_exist:NT\hook_put_left:nnn
-%{
-% \hook_put_left:nnn
-% { pdf }
-% { annot/Link/URI_begin }
-% {
-%   \tag_struct_begin:n{tag=Link}
-%   \tag_mc_begin:n{tag=Link}
-% }
-
+\tagpdfsetup{ add-new-tag=Title/H1,add-new-tag=Strong/Span }
 
 
 

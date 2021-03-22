@@ -181,10 +181,9 @@ While the generic mode is not bad and I spent quite some time to get it working 
 My main reference was the free reference for \PDF{} 1.7. \parencite{pdfreference}. This document is from 2006.
 
 In the meantime \PDF{} 2.0. has been released.
-I know that it contains also for accessibility relevant changes.
 As I got now the specification and all engines can set the version to 2.0
-I will start to check to look into it too.
-
+I will start to check to look into it too, but it should be noted that PAC3 doesn't like 2.0
+at all, this makes testing a bit of a challenge.
 
 \subsection{Validation}
 
@@ -308,6 +307,14 @@ utf8 is now the required encoding.
 
 The keys |lang|, |ref| and |E| have been added for structures.
 
+\subsection{Changes in version 0.81}
+
+Hook code to tag links (URI and GoTo type) have been added. So normally they should simply work if tagging 
+is activated.
+
+Commands and keys to allow automatic paragraph tagging have been added. See section~\ref{sec:paratagging}. 
+As can be seen in this documentation the code works quite good already, but one should be aware that \enquote{paragraphs} can appear in many places and sometimes there are even more paragraph begin than ends.
+
 
 
 \section{Setup}
@@ -316,7 +323,7 @@ The keys |lang|, |ref| and |E| have been added for structures.
 \minisec{Activation needed!}
 
 
-When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
+When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
 
 
 \subsection{Modes and package options}
@@ -370,6 +377,14 @@ Boolean, initially false. Activates the code related to trees. Should be used on
 
 Boolean.\sidenote{luamode}
 That's a debug option, it helps in lua mode to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
+
+\item[\PrintKeyName{paratagging}] Boolean. This activate/deactivates the automatic tagging of paragraphs.
+ It uses the \texttt{para/begin} and \texttt{para/end} hooks of the newest \LaTeX{} version (2021-05-01). 
+ This is a first try to use this hooks, and the code is bound to change. Paragraphs can appear in many unexpected
+ places and the code can easily break, so there is also an option to see where such paragraphs are:
+
+\item[\PrintKeyName{paratagging-show}] Boolean. This activate/deactivates small red numbers in the places where the hook code is used.
+     
 
 \item[\PrintKeyName{tabsorder}]
  Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
@@ -807,7 +822,9 @@ To connect such a link with the underlying text a specific structure has to be a
 \end{lstlisting}
 
 
-The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project which tries to move some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time.
+The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project moves some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time. This new code is now available in a test package
+\pkg{pdfmanagment-testphase} and it allows to add the code through hooks to links. This code is 
+now added automatically to URI and GoTo links if tagging is activated.
 
 
 
@@ -858,8 +875,14 @@ Pellentesque scelerisque
 sit amet, lacus.\tagmcend
 \end{lstlisting}
 
+\subsubsection{Automatic tagging of paragraphs}
 
+\DescribeMacro\tagpdfparaOn
+\DescribeMacro\tagpdfparaOff
 
+Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
+\pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with 
+options of \cs{tagpdfsetup} or with the two commands above. \emph{This is very experimental!}
 
 \subsection{Task 2: Marking the structure}
 
