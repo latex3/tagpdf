@@ -47,6 +47,12 @@
 \seq_new:N    \g_@@_struct_stack_seq
 \seq_gpush:Nn \g_@@_struct_stack_seq {0}
 %    \end{macrocode}
+% We will perhaps also need the tags. While it is possible to get them from the
+% numbered stack, lets build a tag stack too.
+%    \begin{macrocode}
+\seq_new:N    \g_@@_struct_tag_stack_seq
+\seq_gpush:Nn \g_@@_struct_tag_stack_seq {Root}
+%    \end{macrocode}
 %this variables will hold the number of top entry and the parent on the stack
 %    \begin{macrocode}
 \tl_new:N     \l_@@_struct_stack_parent_tmp_tl
@@ -320,23 +326,39 @@
       }
   }
 
+% this command allows to get the current structure tag. We will need to handle nesting
+% P
+\cs_new:Nn \@@_get_data_struct_tag:
+  {
+    \exp_args:Ne
+    \tl_tail:n
+     {
+       \prop_item:cn {g_@@_struct_\g__tag_struct_stack_current_tl _prop}{S}
+     }
+  }
+
 % keys for the user commands
 % should I pass the values (e.g. the tag) through an escape command?
+% we store the tag in a variable. But we should be careful, it is only reliable
+% at the begin
+\tl_new:N \g_@@_struct_tag_tl
+
 \keys_define:nn { @@ / struct }
   {
     label .tl_set:N      = \l_@@_struct_key_label_tl,
     stash .bool_set:N    = \l_@@_struct_elem_stash_bool,
     tag   .code:n        = % S property
-      {%%????????? \pdfescapename??
-        \tl_set:Nx \l_@@_tmpa_tl { #1 }
+      {%%????????? \pdfescapename?? slash/not slash is here the question ...
+        \tl_gset:Nx \g_@@_struct_tag_tl { #1 }
         \bool_if:NT \g_@@_check_tags_bool
           {
-            \@@_check_structure_tag:N \l_@@_tmpa_tl
+            \@@_check_structure_tag:N \g_@@_struct_tag_tl
           }
        \@@_prop_gput:cnx
          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
          { S }
-         { /\exp_not:V\l_@@_tmpa_tl }
+         { /\exp_not:V\g_@@_struct_tag_tl } %?why exp_not:N?
+         %{ \pdf_name_from_unicode_e:n { #1 } %? perhaps better
       },
     title .code:n        = % T property
       {
@@ -545,6 +567,7 @@
         \msg_error:nn { tag } { struct-faulty-nesting }
       }
     \seq_gpush:NV \g_@@_struct_stack_seq        \c@g_@@_struct_abs_int
+    \seq_gpush:NV \g_@@_struct_tag_stack_seq    \g_@@_struct_tag_tl
     \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
     %\seq_show:N   \g_@@_struct_stack_seq
     \bool_if:NF
@@ -572,13 +595,12 @@
     \group_end:
   }
 
-%deprecated
-\cs_set_eq:NN  \uftag_struct_begin:n \tag_struct_begin:n
 
 \cs_new_protected:Nn \tag_struct_end:
   { %take the current structure num from the stack:
     %the objects are written later, lua mode hasn't all needed info yet
     %\seq_show:N \g_@@_struct_stack_seq
+    \seq_gpop:NN \g_@@_struct_tag_stack_seq \l_tmpa_tl
     \seq_gpop:NNTF \g_@@_struct_stack_seq \l_tmpa_tl
       {
         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
@@ -595,10 +617,13 @@
       {
         \@@_check_no_open_struck:
       }
+   \seq_get:NNT \g_@@_struct_tag_stack_seq \l_tmpa_tl
+      {
+        \tl_gset:NV \g_@@_struct_tag_tl \l_tmpa_tl
+      }
   }
 
-%deprecated
-\cs_set_eq:NN  \uftag_struct_end: \tag_struct_end:
+
 
 \cs_new_protected:Nn \tag_struct_use:n %#1 is the label
   {
@@ -624,8 +649,6 @@
         \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
       }
   }
-
-\cs_set_eq:NN  \uftag_struct_use:n \tag_struct_use:n
 
 
 %%%% Code to tag links
