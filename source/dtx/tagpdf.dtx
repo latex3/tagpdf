@@ -556,7 +556,74 @@
 \newcommand\tagpdfparaOff{\bool_set_false:N \l__tag_para_bool}
 
 %    \end{macrocode}
+% \section{Links}
+%    \begin{macrocode}
+\cs_generate_variant:Nn \pdfannot_dict_put:nnn {nnx}
+\hook_gput_code:nnn
+  {pdfannot/link/URI/before}
+  {tagpdf}
+  {
+    \bool_if:NT \g_@@_active_struct_bool
+      {
+        \tag_struct_begin:n { tag=Link }
+        \tag_mc_begin:n { tag=Link }
+        \pdfannot_dict_put:nnx
+          { link/URI }
+          { StructParent }
+          { \int_use:N\c@g_@@_parenttree_obj_int }
+       }
+  }
 
+\hook_gput_code:nnn
+  {pdfannot/link/URI/after}
+  {tagpdf}
+  {
+    \bool_if:NT \g_@@_active_struct_bool
+      {
+        \@@_struct_finish_link:
+        \tag_mc_end:
+        \tag_struct_end:
+      }
+  }
 
+\hook_gput_code:nnn
+  {pdfannot/link/GoTo/before}
+  {tagpdf}
+  {
+    \bool_if:NT \g_@@_active_struct_bool
+      {
+        \tag_struct_begin:n{tag=Link}
+        \tag_mc_begin:n{tag=Link}
+        \pdfannot_dict_put:nnx
+          { link/GoTo }
+          { StructParent }
+          { \int_use:N\c@g_@@_parenttree_obj_int }
+       }
+  }
+
+\hook_gput_code:nnn
+  {pdfannot/link/GoTo/after}
+  {tagpdf}
+  {
+    \bool_if:NT \g_@@_active_struct_bool
+      {
+        \@@_struct_finish_link:
+        \tag_mc_end:
+        \tag_struct_end:
+      }
+  }
+
+% "alternative descriptions " for PAX3. How to get better text here??
+\pdfannot_dict_put:nnn
+ { link/URI }
+ { Contents }
+ { (url) }
+
+\pdfannot_dict_put:nnn
+ { link/GoTo }
+ { Contents }
+ { (ref) }
+
+%    \end{macrocode}
 %</user>
 %
