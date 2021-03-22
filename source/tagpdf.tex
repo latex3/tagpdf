@@ -92,9 +92,12 @@
      \rlap{\color{red}\tiny\ \arabic{paracnt}}
      \tagmcend\tagstructend}
   }
+
+
 \newcommand\parataggingON {\bool_set_true:N \l__tag_paratagging_bool}
 \newcommand\parataggingOff{\bool_set_false:N \l__tag_paratagging_bool}
 
+\AddtoDoHook{heading/begingroup}{\parataggingOff\use_none:n}
 \ExplSyntaxOff
 
 \makeatletter
@@ -171,13 +174,8 @@ see the documentation of \texttt{pdfmanagement-testphase} for details.
 
 Another important step are the new hook management in \LaTeX: the newest development version has hooks for paragraphs which should at the end allow to tag many paragraphs automatically. The small red numbers in this section show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
 
-
-\parataggingOff
-
 \section{Introduction}
 
-
-\parataggingON
 Since many year the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
 
 But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
@@ -196,22 +194,19 @@ I'm sure that it has bugs. Bugs reports, suggestions and comments can be added t
 
 Please also check the github site for new examples and improvements.
 
-\parataggingOff
+
 
 \subsection{Tagging and accessibility}
 
-\parataggingON
+
 
 While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} \PDF{}-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
 
 So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
 
-\parataggingOff
-
 
 \subsection{Engines and modes}
 
-\parataggingON
 
 The package works currently with pdflatex and lualatex. First steps have been done to also enable support for xelatex and the latex-dvips-route; but this isn't yet much tested.
 
@@ -222,12 +217,10 @@ I implemented the generic mode first. Mostly because my tex skills are much bett
 
 While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.%
 
-\parataggingOff
-
 
 \subsection{References}
 
-\parataggingON
+
 
 My main reference was the free reference for \PDF{} 1.7. \parencite{pdfreference}. This document is from 2006.
 
@@ -236,11 +229,11 @@ I know that it contains also for accessibility relevant changes.
 As I got now the specification and luatex can set with \verb+\pdfmajorversion+
 the version to 2.0 I will start to check to look into it too.%
 
-\parataggingOff
+
 
 \subsection{Validation}
 
-\parataggingON
+
 
 \PDF{}'s created with the commands of this package must be validated:
 
@@ -255,7 +248,7 @@ One must check how good the requirements of the PDF/UA standard are followed \em
 One must check how good the accessibility is \emph{practically}.
 \end{itemize}
 
-\parataggingOff
+
 
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
@@ -268,7 +261,6 @@ Practical validation is naturally the more complicated part. It needs screen rea
 
 \parataggingOff
 
-
 \minisec{Preflight woes}
 
 \parataggingON
@@ -276,11 +268,11 @@ Practical validation is naturally the more complicated part. It needs screen rea
 Sadly validators can not be always trusted. As an example for an reason that I don't understand the adobe preflight don't like the list structure \texttt{L}.
 It is also possible that validators contradict: that the one says everything is okay, while the other complains.
 
-\parataggingOff
+
 
 \subsection{Examples wanted!}
 
-\parataggingON
+
 To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
 
 
@@ -291,41 +283,38 @@ Feedback, contribuations and corrections are welcome!
 
 All examples should use the tagpdfsetup key \PrintKeyName{uncompress} described in the next section so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
 
-\parataggingOff
+
 
 \subsection{Changes in 0.3}
 
-\parataggingON
+
 
 In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change means that the package now relies on the experimental expl3 package \texttt{l3str-convert}.
 
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
-\parataggingOff
+
 
 
 \subsection{Changes in 0.5}
 
-\parataggingON
+
 
 I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
 
 I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{sec:spacechars}.
 
-\parataggingOff
+
 
 \subsection{Changes in 0.6}
 
-\parataggingON
+
 
 \textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.
-
-\parataggingOff
 
 
 \subsection{Proof of concept: the tagging of the documentation itself}
 
-\parataggingON
 With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnote gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes are probably simply wrong \ldots
 
 But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.
@@ -340,22 +329,23 @@ Be aware that to create the tagged version a very experimental package and a exp
 \includegraphics{pac3}
 \tagmcend\tagstructend
 
+\parataggingON
+
 \subsection{Changes in version 0.61}
 
-\parataggingON
+
 
 \begin{itemize}
 \item internal code adaptions to expl3 changes.
 \item dropped the compresslevel key  -- probably not needed.
 \end{itemize}
 
-\parataggingOff
 
 
 
 \subsection{Changes in version 0.8}
 
-\parataggingON
+
 
 As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with \verb|\uftag| will stay valid for some time but then be deprecated.
 
@@ -371,9 +361,12 @@ utf8 is now the required encoding.
 
 The keys |lang|, |ref| and |E| have been added for structures.
 
-\parataggingOff
+
 
 \section{Setup}
+
+
+\parataggingOff
 
 \minisec{Activation needed!}
 
@@ -381,13 +374,13 @@ The keys |lang|, |ref| and |E| have been added for structures.
 
 When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do anything. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
 
-\parataggingOff
+
 
 
 
 \subsection{Modes and package options}
 
-\parataggingON
+
 %TODO think about tagging of the keys. Aside? Header?
 
 
@@ -401,12 +394,12 @@ This is the default mode. It will use the generic mode if the document is proces
 
 This will force the generic mode for all engines.
 
-\parataggingOff
+
 
 
 \subsection{Setup and activation}\label{ssec:setup}
 
-\parataggingON
+
 
 The following command setups the general behaviour of the package. The command should be normally used only in the preamble (for a few keys it could also make sense to change them in the document).
 
@@ -449,11 +442,11 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
 
 \end{description}
 
-\parataggingOff
+
 
 \section{Tagging}
 
-\parataggingON
+
 
 %TODO: footnote
 pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\parataggingOff\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}\parataggingON:
@@ -478,12 +471,12 @@ From this stream one can extract the characters and their placement on the page 
 
 Tagging means to enrich the \PDF{} with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)
 
-\parataggingOff
+
 
 
 \subsection{Three tasks}
 
-\parataggingON
+
 
 To tag a \PDF{} three tasks must be  carried out:
 
@@ -501,8 +494,6 @@ To tag a \PDF{} three tasks must be  carried out:
 \end{enumerate}
 
 \parataggingOff
-
-
 
 \begin{figure}[t!]
 \begin{tcolorbox}
@@ -556,11 +547,11 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \end{figure}
 
-\parataggingOff
+\parataggingON
 
 \subsection{Task 1: Marking the chunks: the mark-content-step}
 
-\parataggingON
+
 
 To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the \PDF{} reference they are called \enquote{marked content}. The three main variants needed here are:
 
@@ -661,11 +652,10 @@ This sounds easy. But there are quite a number of traps.
   \PDF{} is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.
 \end{enumerate}
 
-\parataggingOff
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
 
-\parataggingON
+
 
 While in generic mode the commands insert the literals directly and so have all the problems described above the lua mode works quite differently: The tagging commands don't insert literals but set some \emph{attributes} which are attached to all the following nodes. When the page is shipped out some lua code is called which wanders through the shipout box and injects the literals at the places where the attributes changes.
 
@@ -678,11 +668,11 @@ This means that quite a number of problems mentioned above are not relevant for 
 \item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.
 \end{enumerate}
 
-\parataggingOff
+
 
 \subsubsection{Commands to mark content and chunks}
 
-\parataggingON
+
 
 In generic mode\sidenote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
 For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.
@@ -802,7 +792,7 @@ In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't te
 
 These commands give back some variables. Currently the only working key word is \verb+mc\_tag+.
 
-\parataggingOff
+
 
 \subsubsection{Tips}
 
@@ -818,6 +808,8 @@ These commands give back some variables. Currently the only working key word is 
 
 
 \begin{figure}
+\parataggingOff
+
 \tagstructbegin{tag=Figure,alttext={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
 \input{link-figure-input}
 \tagmcend\tagstructend
@@ -829,7 +821,7 @@ These commands give back some variables. Currently the only working key word is 
 
 \subsubsection{Links}
 
-\parataggingON
+
 
 Link annotations (like all \PDF{} annotations) are associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between the link and the content is based solely on visual appearance rather than on an explicitly specified association.
 
@@ -859,11 +851,11 @@ To connect such a link with the underlying text a specific structure has to be a
 
 The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project which tries to move some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time.
 
-\parataggingOff
+
 
 \subsubsection{Math}
 
-\parataggingON
+
 
 Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
 The \PDF{} then looked like this
@@ -885,11 +877,9 @@ But I'm not sure that this is the best way to do math. It looks rather odd that 
 
 See also section~\ref{sec:alttext} for some more remarks and tests.
 
-\parataggingOff
 
 \subsubsection{Split paragraphs}\label{sec:splitpara}
 
-\parataggingON
 %TODO: think about marginnote! Aside?
 
 A\sidenote{Generic mode only} problem in generic mode are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
@@ -910,20 +900,20 @@ Pellentesque scelerisque
 sit amet, lacus.\tagmcend
 \end{lstlisting}
 
-\parataggingOff
+
 
 
 \subsection{Task 2: Marking the structure}
 
-\parataggingON
+
 
 The structure is represented in the \PDF{} with a number of objects of type \texttt{StructElem} which build a tree: each of this objects points back to its parent and normally has a number of kid elements, which are either again structure elements or -- as leafs of the tree -- the marked contents chunks marked up with the \verb+tagmc+-commands. The root of the tree is the \texttt{StructTreeRoot}.
 
-\parataggingOff
+
 
 \subsubsection{Structure types}
 
-\parataggingON
+
 
 The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and base them on \texttt{P}:
 
@@ -935,11 +925,11 @@ The tree should reflect the \emph{semantic} meaning of the text. That means that
             }
 \end{lstlisting}
 
-\parataggingOff
+
 
 \subsubsection{Sectioning}
 
-\parataggingON
+
 
 The sectioning units can be structured in two ways: a flat, html-like and a more xml-like version.
 The flat version creates a structure like this:
@@ -972,11 +962,11 @@ In the xml-like tree the complete text of a sectioning unit is surrounded with t
 
 The flat version is more \LaTeX-like and it is rather straightforward to patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates \texttt{H\ldots} start and end markers. The xml-like tree is more difficult to automate. If such a tree is wanted I would recommend to use -- like the context format -- explizit commands to start and end a sectioning unit.
 
-\parataggingOff
+
 
 \subsubsection{Commands to define the structure}
 
-\parataggingON
+
 The following commands can be used to define the tree structure:
 
 \ExplSyntaxOn
@@ -1116,20 +1106,20 @@ These commands end a structure. They don't end a group and it doesn't matter if 
 
 These commands insert a structure previously stashed away as kid into the currently active structure. A structure should be used only once, if the structure already has a parent you will get a warning.
 
-\parataggingOff
+
 
 \subsubsection{Root structure}
 
-\parataggingON
+
 
 A document should have at least one structure which contains the whole document. A suitable tag is \texttt{Document} or \texttt{Article}. I'm considering to automatically inserting it.
 
 
-\parataggingOff
+
 
 \subsubsection{Attributes and attribute classes}\label{sec:attributes}
 
-\parataggingON
+
 Structure Element can have so-called attributes. A single attribute is a dictionary%\footnote{
 (or a stream but this is currently not supported by the package as I don't know an use-case)
 with at least the required key \verb+/Owner+ which describes the scope the attribute applies too.
@@ -1177,11 +1167,11 @@ Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyNa
  }
 \end{lstlisting}
 
-\parataggingOff
+
 
 \subsection{Task 3: tree Management}
 
-\parataggingON
+
 
 When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:
 
@@ -1193,12 +1183,12 @@ This will hopefully write all the needed objects and values to the \PDF{}. (Besi
 
 I'm not quite sure if this shouldn't be a really internal command.
 
-\parataggingOff
+
 
 
 \subsection{A fully marked up document body}
 
-\parataggingON
+
 
 The following shows the marking needed for a section, a sentence and a list with two items. It is obvious that one wouldn't like to have to do this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.
 
@@ -1253,11 +1243,9 @@ The following shows the marking needed for a section, a sentence and a list with
 \end{document}
 \end{lstlisting}
 
-\parataggingOff
 
 \subsection{Lazy and automatic tagging}\label{sec:lazy}
 
-\parataggingON
 
 A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alttext}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged.
 
@@ -1265,12 +1253,12 @@ This means that even if you don't care about a proper structure you should try t
 
 One could ask if in lua mode the code couldn't try to mark up unmarked parts e.g. as P-type chunks, like it marks them up as artifacts currently. Sadly this is not so easy, as it is quite difficult to reliably identify the structure and the place in the kids array where such chunks belongs too. I also don't think that it is really needed. It is not so difficult to define user macros which e.g. opens a structure and start an mc-chunk or which close an open mc-chunk before issuing the next \verb+\tagmcbegin+.
 
-\parataggingOff
+
 
 
 \subsection{Adding tagging to commands}
 
-\parataggingON
+
 
 As mentioned above the mc-markers should not be nested. Basically you write:
 
@@ -1284,12 +1272,12 @@ As mentioned above the mc-markers should not be nested. Basically you write:
 
 This is quite workable as long as you mark everything manually. But how to write commands, e.g for a tabular or a graphic, that do tagging automatically without breaking the flow and the structure?
 
-\parataggingOff
+
 
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
 
-\parataggingON
+
 
 The \PDF{} format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
 There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now.
@@ -1312,12 +1300,12 @@ To sum them up:
 
 
 
-\parataggingOff
+
 
 
 \section{Standard type and new tags}\label{sec:new-tag}
 
-\parataggingON
+
 
 The \PDF{} reference mentions a number of standard types:
 \ExplSyntaxOn
@@ -1335,11 +1323,11 @@ New tags can be defined in the setup command with the key \texttt{add-new-tag}. 
 \Macro\tagpdfsetup{add-new-tag = section/H1}
 \tagmcend\tagstructend
 
-
+\parataggingON
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
-\parataggingON
+
 
 TeX uses only spaces (horizontal movements) to separate words. That means that a \PDF{} reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or e.g. as a kerning. Accessible document should use real space glyphs (U+0032) from a font in such places.
 
@@ -1357,11 +1345,11 @@ The key \PrintKeyName{show-spaces} will show lines at the places where in lua mo
 
 This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.
 
-\parataggingOff
+
 
 \section{Accessibility is not only tagging}
 
-\parataggingON
+
 
 A tagged \PDF{} is needed for accessibility but this is not enough. As already mentioned there are more requirements:
 
@@ -1383,11 +1371,11 @@ A tagged \PDF{} is needed for accessibility but this is not enough. As already m
 
 If suitable I will add code for this tasks to this packages. But some of them can also be done already with existing packages like hyperref, hyperxmp, pdfx.
 
-\parataggingOff
+
 
 \section{To-do}
 
-\parataggingON
+
 
 \begin{itemize}
 \item Add commands and keys to enable/disable the checks.
@@ -1413,20 +1401,27 @@ If suitable I will add code for this tasks to this packages. But some of them ca
 \item bidi?
 \end{itemize}
 
-\end{document}
+
+
 \printbibliography
+
+
 
 \appendix
 
-\parataggingOff
+
 
 \section{Some remarks about the \PDF{} syntax}
 
-\parataggingON
+
 This is not meant as a full reference only as a background to make the examples and remarks easier to understand.
+
+
 
 \begin{description}
 \item[postfix notation] \PDF{} uses in various places postfix notation. This means that the operator is behind its arguments:
+
+\parataggingOff
 
 \tagstructbegin{tag=Figure,alttext={Illustration of postfix notation},attribute=bbox}\tagmcbegin{tag=Figure}
 \begin{tikzpicture}[baseline=(c.base)]
@@ -1472,28 +1467,41 @@ This is not meant as a full reference only as a background to make the examples 
 \tagmcend\tagstructend
 
 
+
+\parataggingON
+
 \item[Names] \PDF{} knows a sort of variable called a \enquote{name}. Names start with a slash and may include any regular characters, but not delimiter or white-space characters. Uppercase and lowercase letters are considered distinct: \texttt{/A} and \texttt{/a} are different names. \verb+/.notdef+ and \verb+/Adobe#20Green+  are valid names.
 
     Quite a number of the options of \texttt{tagpdf} actually define such a name which is  later added to the \PDF{}. I recommend \emph{strongly} not to use spaces and exotic chars in such names. While it is possible to escape such names it is rather a pain when moving them through the various lists and commands and quite probably I forgot some place where it is needed.
 
 \item[Strings]There are two types of strings: \emph{Literal strings} are enclosed in round parentheses. They normally contain a mix of ascii chars and octal numbers:
 
+\parataggingOff
+
     \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}%
     \verb+(gr\374\377ehello[]\050\051)+.
     \tagmcend\tagstructend
 
+\parataggingON
 
     \emph{Hexadezimal strings} are enclosed in angle brackets. They allow for a representation of all characters the whole unicode ranges. This is the default output of lualatex.
+
+
+\parataggingOff
 
     \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}\texttt{<003B00600243013D0032>}.
     \tagmcend\tagstructend
 
+\parataggingON
 
 \item[Arrays] Arrays are enclosed by square brackets. They can contain all sort of objects including more arrays. As an example here an array which contains five objects: a number, an object reference, a string, a dictionary and another array. Be aware that despite the spaces \texttt{15 0 R} is \emph{one} element of the array.
+
+\parataggingOff
 
 \tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
     \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
 \tagmcend\tagstructend
+
 
     \tagstructbegin{tag=Figure,alttext={Illustration of array},attribute=bbox}\tagmcbegin{tag=Figure}
     \begin{tikzpicture}[baseline=(c.base)]
@@ -1504,6 +1512,8 @@ This is not meant as a full reference only as a background to make the examples 
     \node[arg,right = of a4.east](a5) {[1 2 3]};
     \end{tikzpicture}
 \tagmcend\tagstructend
+
+\parataggingON
 
 
 \item[Dictionaries]
@@ -1572,6 +1582,10 @@ endobj
 This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.
 
 \end{description}
+
+\tagstructend
+\end{document}
+
 
 \parataggingOff
 

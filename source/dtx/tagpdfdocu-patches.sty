@@ -1,7 +1,5 @@
-\RequirePackage{expl3}[2018/06/14]
 %\RequirePackage[enable-debug]{expl3}[2018/06/14]
-\RequirePackage{xpatch}
-\ProvidesExplPackage {tagpdfdocu-patches} {2019/10/15} {0.70}
+\ProvidesExplPackage {tagpdfdocu-patches} {2021/03/22} {0.80}
  {patches/commands for the tagpdf documentation}
 
 % to do : marginnote, perhaps the description macros ...
@@ -14,6 +12,11 @@
     \kern\parskip
   }%
 }
+
+% \section{marginnotes}
+% our marginnotes are only to visually emphasize the text. So we define a command which
+% marks them as artifact
+
 \NewDocumentCommand\sidenote{m}{\begin{tagmcartifact}{notype}\parataggingOff\marginnote{#1}\end{tagmcartifact}}
 % to do: footnotes!
 % printbibliography?
@@ -150,7 +153,8 @@
   \@hangfrom
    {\hskip #2
     \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
-    \tl_if_empty:nF{#3}
+    %\tl_if_empty:nF{#3}
+    \tl_if_in:nnF{\@empty}{#3}
     {
      \tag_mc_begin:n    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
      #3
