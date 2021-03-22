@@ -329,6 +329,7 @@
 \ProvidesExplPackage {tagpdf-user} {2021/02/23} {0.80}
   {tagpdf - user commands}
 %    \end{macrocode}
+
 % \begin{macro}{\tagpdfsetup}
 %    \begin{macrocode}
 \NewDocumentCommand \tagpdfsetup { m }
@@ -457,12 +458,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \section{Debugging}
+%
 % \begin{macro}{\showtagpdfmcdata,\showtagpdfattributes }
 % This commands are lua only
 %    \begin{macrocode}
-
-
-%%%% debug/show commands
 \NewDocumentCommand\showtagpdfmcdata { O {\@@_tag_get_mc_abs_cnt:} }
   {
     \bool_if:NT \g_@@_mode_lua_bool
@@ -510,8 +510,53 @@
         \@@_fakespace:
       }
   }
-
-%</user>
 %    \end{macrocode}
 % \end{macro}
+% \section{Paratagging}
+%  The following are some simple commands to enable/disable paratagging.
+%  Probably one should add some checks if we are already in a paragraph.
+%    \begin{macrocode}
+\bool_new:N \l_@@_para_bool
+\bool_new:N \l_@@_para_show_bool
+\int_new:N \g_@@_para_int
+
+\keys_define:nn { @@ / setup }
+  {
+    paratagging      .bool_set:N = \l_@@_para_bool,
+    paratagging-show .bool_set:N = \l_@@_para_show_bool,
+  }
+
+\AddToHook{para/begin}
+  {
+   \int_gincr:N \g_@@_para_int
+   \bool_if:NT \l__tag_para_bool
+     {
+       \tag_struct_begin:n {tag=P}
+       \tag_mc_begin:n {tag=P}
+       \bool_if:NT \l_@@_para_show_bool
+        {
+          \llap{\color_select:n{red}\tiny\int_use:N\g_@@_para_int\ }
+        }
+     }
+  }
+\AddToHook{para/end}
+  {
+    \bool_if:NT \l__tag_para_bool
+      {
+        \bool_if:NT \l_@@_para_show_bool
+          {
+            \rlap{\color_select:n{red}\tiny\ \int_use:N\g_@@_para_int}
+          }
+        \tag_mc_end:\tag_struct_end:
+      }
+  }
+
+
+\newcommand\tagpdfparaOn {\bool_set_true:N \l__tag_para_bool}
+\newcommand\tagpdfparaOff{\bool_set_false:N \l__tag_para_bool}
+
+%    \end{macrocode}
+
+
+%</user>
 %
