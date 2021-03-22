@@ -53,18 +53,18 @@
  %log=v
  %show-spaces
  }
- 
+
 \usepackage{hyperxmp}
 \usepackage[pdfdisplaydoctitle=true,hyperfootnotes=false,
             ]{hyperref}
-            
+
  \hypersetup{
   pdftitle={The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname},
   pdfauthor=Ulrike Fischer,
   pdfaconformance=a,
   pdfuapart=1,
   colorlinks}
-  
+
 
 \usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
 \usepackage{tagpdfdocu-patches}
@@ -77,11 +77,11 @@
 \makeatother
 
 \newcommand\PDF{PDF}
-  
+
 \title{The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname}
 \date{\csname UlrikeFischer@package@date\endcsname}
-\author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}  
-  
+\author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
+
 \begin{document}
 
 \tagstructbegin{tag=Document}
@@ -182,7 +182,7 @@ My main reference was the free reference for \PDF{} 1.7. \parencite{pdfreference
 
 In the meantime \PDF{} 2.0. has been released.
 I know that it contains also for accessibility relevant changes.
-As I got now the specification and all engines can set the version to 2.0 
+As I got now the specification and all engines can set the version to 2.0
 I will start to check to look into it too.
 
 
@@ -193,7 +193,7 @@ I will start to check to look into it too.
 
 \begin{itemize}
 \item
- One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}: 
+ One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}:
  e.g. if a chunk is opened on one page but closed on the next page.
 
 \item
@@ -206,7 +206,7 @@ One must check how good the accessibility is \emph{practically}.
 
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
-There is also the validator veraPDF \parencite{verapdf}. 
+There is also the validator veraPDF \parencite{verapdf}.
 
 Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a \PDF{} has real accessibility problems.
 
@@ -418,7 +418,7 @@ Tagging means to enrich the \PDF{} with information about the \emph{semantic} me
 To tag a \PDF{} three tasks must be  carried out:
 
 \begin{enumerate}
-\item 
+\item
  \textbf{The mark-content-task}:\sidenote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
 
 \item
@@ -1440,9 +1440,9 @@ This is not meant as a full reference only as a background to make the examples 
 
     \emph{Hexadezimal strings} are enclosed in angle brackets. They allow for a representation of all characters the whole unicode ranges. This is the default output of lualatex.
 
-    
+
     \texttt{<003B00600243013D0032>}.
-    
+
 
 
 

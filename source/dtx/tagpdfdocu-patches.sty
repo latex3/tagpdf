@@ -2,93 +2,25 @@
 \ProvidesExplPackage {tagpdfdocu-patches} {2021/03/22} {0.80}
  {patches/commands for the tagpdf documentation}
 
-% to do : marginnote, perhaps the description macros ...
-% marginnote has a bug (a \par is missing) so it messes up tagging. The following is a
-% fix, but currently unneeded as we marked them up as artifacts anyway as they don't contain
-% meaning ful contents
-\renewcommand{\mn@vadjust}[1]{%
-  \mn@zbox{\kern-\parskip
-    \leavevmode\vadjust{#1}%
-    \kern\parskip
-  }%
-}
-
-\AddToHook{env/tikzpicture/begin}{}
-% \section{marginnotes}
-% our marginnotes are only to visually emphasize the text. So we define a command which
-% marks them as artifact
-
-\NewDocumentCommand\sidenote{m}{\begin{tagmcartifact}{notype}\tagpdfparaOff\marginnote{#1}\end{tagmcartifact}}
-% to do: footnotes!
-% printbibliography?
-
-\newbibmacro*{begentry}{\tagstructbegin{tag=BibEntry}\tagmcbegin{tag=BibEntry}}
-\newbibmacro*{finentry}{\finentry\tagmcend\tagstructend}
-
-% hyperref
-\@ifpackageloaded{hyperref}{%
-\pdfstringdefDisableCommands{
- \let\tagstructbegin\@gobble
- \let\tagmcbegin\@gobble
- \let\tagmcend\relax
- \let\tagstructend\relax
-}}{}
-
-%%%%%
-% Paragraphs
-%%%%%
-
-% we need a command which simply starts a paragraph \TagP^,
-% a "continuation" variant which closes the previous paragraph (\TagP),
-% and a final end.
-
-\NewDocumentCommand\TagP{t{^}}
- {
-  \tag_mc_if_in:T { \tag_mc_end: }
-  \IfBooleanF{#1}
-  {
-    \tag_struct_end:
-  }
-  \tag_struct_begin:n{tag=P}
-  \tag_mc_begin:n{tag=P}
- }
-% close a mc and one structure
-
-\NewDocumentCommand\TagPend{}
- {
-  \tag_mc_if_in:T { \tag_mc_end: }
-  \tag_struct_end:
- }
-
-% picture
-
-%this is cheating ...
-\tagpdfsetup
-  {
-     newattribute =
-    {bbox}{/O /Layout /BBox [0 0 100 100]}
-  }
-
-%%%%%
-% maketitle
-%%%%%
-\tagpdfsetup{ add-new-tag=Title/H1 }
-
 %%%%%
 % tableofcontents
 %%%%%
 
+\AfterTOCHead{\tag_struct_begin:n{tag=TOC}}
+\AfterStartingTOC{\tag_struct_end:} %end TOC
 %Marking the toc entries
 %around the whole entry so only structure:
 \newcommand\tagscrtocentry[1]{\tag_struct_begin:n{tag=TOCI}#1\tag_struct_end:}
 
 %leaf so structure and mc:
-\newcommand\tagscrtocpagenumber[1]{%
- \tag_struct_begin:n{tag=Reference}%
- \tag_mc_begin:n{tag=Reference}%
- #1%
- \tag_mc_end:
- \tag_struct_end:}
+\newcommand\tagscrtocpagenumber[1]
+ {
+   \tag_struct_begin:n{tag=Reference}
+   \tag_mc_begin:n{tag=Reference}
+   #1
+   \tag_mc_end:
+ \tag_struct_end:
+ }
 
 
 \DeclareTOCStyleEntry[
@@ -150,17 +82,12 @@
 
 \AddtoDoHook{heading/begingroup}{\tagpdfparaOff\use_none:n}
 
-
-
 \prop_new:N    \g_tag_section_level_prop
 \prop_gput:Nnn \g_tag_section_level_prop {section}{H1}
 \prop_gput:Nnn \g_tag_section_level_prop {subsection}{H2}
 \prop_gput:Nnn \g_tag_section_level_prop {subsubsection}{H3}
 \prop_gput:Nnn \g_tag_section_level_prop {paragraph}{H4}
 
-
-
-%unnumbered sections level give an empty mc, need to think about it.
 \renewcommand{\sectionlinesformat}[4]
  {
   \@hangfrom
@@ -180,22 +107,22 @@
  }
 
 %minisec is simply P, H6 doesn't work ....
-% so we let paratagging handle this
-%\cs_new:Nn \__tag_docu_tag_minisec:n
-%{
-%  \tag_struct_begin:n {tag=P}
-%  \tag_mc_begin:n{tag=P}
-%  #1
-%  \tag_mc_end:
-%  \tag_struct_end:
-%}
+% so we let paratagging handle this. But we add a strong structure
+
+\cs_new:Nn \__tag_docu_tag_minisec:n
+{
+  \tag_struct_begin:n {tag=Strong}
+  \tag_mc_begin:n{tag=Strong}
+  #1
+  \tag_mc_end:
+  \tag_struct_end:
+}
 %
-%\addtokomafont{minisec}{\__tag_docu_tag_minisec:n}
+\addtokomafont{minisec}{\__tag_docu_tag_minisec:n}
 
-\AfterTOCHead{\tag_struct_begin:n{tag=TOC}}
-\AfterStartingTOC{\tag_struct_end:} %end TOC
 
-%% list
+%%%%
+%% Lists
 
 \AddToHook{env/itemize/begin}{\par\tagstructbegin{tag=L}}%\par is needed to close the paragraph before.
 \AddToHook{env/itemize/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
@@ -203,11 +130,6 @@
 \AddToHook{env/enumerate/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
 \AddToHook{env/description/begin}{\par\tagstructbegin{tag=L}}
 \AddToHook{env/description/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
-
-
-
-\ExplSyntaxOn
-\newcommand\showcurrentstruct{\prop_show:c { g__tag_struct_\g__tag_struct_stack_current_tl _prop }}
 
 \newcommand\tag@enit@format@preset[1]{%
  \str_if_eq:eeTF { \prop_item:cn { g__tag_struct_\g__tag_struct_stack_current_tl _prop }{S} }{/L}
@@ -223,27 +145,12 @@
   \tagstructend
   \tagstructbegin{tag=LBody}
   }
+
 \ExplSyntaxOff
-
-\newcommand\meti{% end of \item
- \tagstructend %end of LBody
- \tagstructend %end of LI
-}
-
-\newcommand\Pmeti{% end of \item
- \TagPend      %end of P
- \tagstructend %end of LBody
- \tagstructend %end of LI
-}
-
-
 \xpatchcmd\enit@preset{\@firstofone}{\tag@enit@format@preset}{}{\fail}
 %close mc from paratagging and reopen ...
 \xpatchcmd\@item{\box\@labels}{\tagmcend \box\@labels \tagmcbegin{tag=P}}{}{\fail}
-
-%\setlist{
-%    before*=\tagstructbegin{tag=L},
-%    after*={\tagstructend}}
+\ExplSyntaxOn
 
 % keys that overwrite \enit@format must be patched, eg like the follow
 % the font key should be patched in a similar way
@@ -254,14 +161,80 @@
    \tagmcbegin{tag=Lbl}%
    #1\tagmcend}}
 
+
 % listings + verbatim
 % the paragraph code could create span around the lines ...
+% it is quite unclear if Code is a sensible structure as it no longer exists in pdf 2.0
 
 \AddToHook{env/lstlisting/begin}{\tagpdfparaOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
 \AddToHook{env/lstlisting/end}{\tagmcend\tagstructend}
 
 \AddToHook{env/verbatim/begin}{\tagpdfparaOff\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}}
 \AddToHook{env/verbatim/end}{\tagmcend\tagstructend}
+
+
+% links
+
+
+% to do : marginnote, perhaps the description macros ...
+% marginnote has a bug (a \par is missing) so it messes up tagging. The following is a
+% fix, but currently unneeded as we marked them up as artifacts anyway as they don't contain
+% meaning ful contents
+\renewcommand{\mn@vadjust}[1]{%
+  \mn@zbox{\kern-\parskip
+    \leavevmode\vadjust{#1}%
+    \kern\parskip
+  }%
+}
+
+\AddToHook{env/tikzpicture/begin}{}
+% \section{marginnotes}
+% our marginnotes are only to visually emphasize the text. So we define a command which
+% marks them as artifact
+
+\NewDocumentCommand\sidenote{m}{\begin{tagmcartifact}{notype}\tagpdfparaOff\marginnote{#1}\end{tagmcartifact}}
+% to do: footnotes!
+% printbibliography?
+
+\newbibmacro*{begentry}{\tagstructbegin{tag=BibEntry}\tagmcbegin{tag=BibEntry}}
+\newbibmacro*{finentry}{\finentry\tagmcend\tagstructend}
+
+% hyperref
+\@ifpackageloaded{hyperref}{%
+\pdfstringdefDisableCommands{
+ \let\tagstructbegin\@gobble
+ \let\tagmcbegin\@gobble
+ \let\tagmcend\relax
+ \let\tagstructend\relax
+}}{}
+
+%%%%%
+% Paragraphs
+%%%%%
+
+
+% picture
+
+%this is cheating ...
+\tagpdfsetup
+  {
+     newattribute =
+    {bbox}{/O /Layout /BBox [0 0 100 100]}
+  }
+
+%%%%%
+% maketitle
+%%%%%
+\tagpdfsetup{ add-new-tag=Title/H1 }
+
+
+
+
+
+
+
+
+
 
 
 % tcolorbox.
@@ -283,86 +256,39 @@
 %   \tag_mc_begin:n{tag=Link}
 % }
 
-\ExplSyntaxOn
-\cs_generate_variant:Nn \pdfannot_dict_put:nnn {nnx}
-\hook_gput_code:nnn
-  {pdfannot/link/URI/before}
-  {tagpdf}
-  {
-    \tag_struct_begin:n{tag=Link}
-    \tag_mc_begin:n{tag=Link}
-    \pdfannot_dict_put:nnx
-    {link/URI}
-    { StructParent }
-    { \int_use:N\c@g__tag_parenttree_obj_int }
-  }
-
-%\hook_put_right:nnn
-% { pdf }
-% { annot/Link/URI_end }
-% {
-%  \__tag_struct_finish_link:
-%   \tag_mc_end:
-%   \tag_struct_end:
-% }
-\hook_gput_code:nnn
-  {pdfannot/link/URI/after}
-  {tagpdf}
-  {
-    \__tag_struct_finish_link:
-    \tag_mc_end:
-    \tag_struct_end:
-  }
-
-%\hook_put_left:nnn
-% { pdf }
-% { annot/Link/GoTo_begin }
-% {
-%   \tag_struct_begin:n{tag=Link}
-%   \tag_mc_begin:n{tag=Link}
-% }
-
-\hook_gput_code:nnn
-  {pdfannot/link/GoTo/before}
-  {tagpdf}
-  {
-    \tag_struct_begin:n{tag=Link}
-    \tag_mc_begin:n{tag=Link}
-    \pdfannot_dict_put:nnx
-    {link/GoTo}
-    { StructParent }
-    { \int_use:N\c@g__tag_parenttree_obj_int }
-  }
 
 
-
-
-%\hook_put_right:nnn
-% { pdf }
-% { annot/link/GoTo_end }
-% {
-%  \__tag_struct_finish_link:
-%  \tag_mc_end:
-%  \tag_struct_end:
-% }
-
-\hook_gput_code:nnn
-  {pdfannot/link/GoTo/after}
-  {tagpdf}
-  {
-    \__tag_struct_finish_link:
-    \tag_mc_end:
-    \tag_struct_end:
-  }
-% "alternative descriptions " for PAX3. How to get better text here??
-\pdfannot_dict_put:nnx
- {link/URI}
- { Contents }
- { (url) }
-
-\pdfannot_dict_put:nnx
- {link/GoTo}
- { Contents }
- { (ref) }
 
 \endinput
+
+% ==========================
+% now unneeded commands
+
+% we need a command which simply starts a paragraph \TagP^,
+% a "continuation" variant which closes the previous paragraph (\TagP),
+% and a final end.
+
+\NewDocumentCommand\TagP{t{^}}
+ {
+  \tag_mc_if_in:T { \tag_mc_end: }
+  \IfBooleanF{#1}
+  {
+    \tag_struct_end:
+  }
+  \tag_struct_begin:n{tag=P}
+  \tag_mc_begin:n{tag=P}
+ }
+% close a mc and one structure
+
+\NewDocumentCommand\TagPend{}
+ {
+  \tag_mc_if_in:T { \tag_mc_end: }
+  \tag_struct_end:
+ }
+
+
+ \ExplSyntaxOn
+\newcommand\showcurrentstruct{\prop_show:c { g__tag_struct_\g__tag_struct_stack_current_tl _prop }}
+
+
+\ExplSyntaxOff
