@@ -328,7 +328,9 @@
 %<*user>
 \ProvidesExplPackage {tagpdf-user} {2021/02/23} {0.80}
   {tagpdf - user commands}
-
+%    \end{macrocode}
+% \begin{macro}{\tagpdfsetup}
+%    \begin{macrocode}
 \NewDocumentCommand \tagpdfsetup { m }
   {
     \keys_set:nn { @@ / setup } { #1 }
@@ -337,8 +339,12 @@
 \cs_set_eq:NN\tagpdfifluatexTF \sys_if_engine_luatex:TF
 \cs_set_eq:NN\tagpdfifluatexT  \sys_if_engine_luatex:T
 \cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
-
-%%% stop tagging
+%    \end{macrocode}
+% \end{macro}
+% We need a command to stop tagging in some places.
+%
+% \begin{macro}{ \tag_stop_group_begin:, \tag_stop_group_end: }
+%    \begin{macrocode}
 \bool_new:N \l_@@_stop_bool
 
 \prg_new_conditional:Nnn \@@_if_stop: {p,T,F,TF}
@@ -359,13 +365,6 @@
     \cs_set_eq:NN \tag_struct_begin:n \use_none:n
     \cs_set_eq:NN \tag_struct_end:    \prg_do_nothing:
     \cs_set_eq:NN \tag_struct_use:n   \use_none:n
-    %deprecated
-    \cs_set_eq:NN \uftag_mc_begin:n \tag_mc_begin:n
-    \cs_set_eq:NN \uftag_mc_end:    \tag_mc_end:
-    \cs_set_eq:NN \uftag_mc_use:n \tag_mc_use:n
-    \cs_set_eq:NN \uftag_struct_begin:n \tag_struct_begin:n
-    \cs_set_eq:NN \uftag_struct_end: \tag_struct_end:
-    \cs_set_eq:NN  \uftag_struct_use:n \tag_struct_use:n
   }
 
 \cs_new_protected:Npn \tag_stop_group_begin:
@@ -375,23 +374,34 @@
   }
 
 \cs_set_eq:NN \tag_stop_group_end: \group_end:
-
-
-%%% a generic command to retrieve data
-
+%    \end{macrocode}
+% \end{macro}
+% We need a command to stop tagging in some places.
+%
+% \begin{macro}{ \tagpdfget, \tag_get:n  }
+% This is a generic command to retrieve data. Currently
+% the only sensible value for the argument is |mc_tag|
+%    \begin{macrocode}
 \cs_new:Npn \tagpdfget #1   { \use:c {@@_get_data_#1: } }
 \cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
-%deprecated:
-\cs_new:Npn \uftag_get:n #1 { \use:c {@@_get_data_#1: } }
 
-
-%%%% mc related user commands
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tagmcifinTF}
+% This is a test if an mc is open or not. It is mostly of
+% importance for pdflatex as lualatex doesn't mind much if a mc tag is not
+% correctly closed.
+%    \begin{macrocode}
 \NewDocumentCommand \tagmcifinTF { m m }
   {
     \@@_mc_if_in:TF { #1 } { #2 }
   }
-
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{tagmcartifact}
+%    \begin{macrocode}
 \NewDocumentEnvironment{tagmcartifact}{m}
  {
   \tag_mc_artifact_group_begin:n { #1}\ignorespaces
@@ -400,6 +410,11 @@
   \tag_mc_artifact_group_end:
  }
 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tagmcbegin,\tagmcend,\tagmcuse  }
+%    \begin{macrocode}
 \NewDocumentCommand \tagmcbegin { m }
   {
     \tag_mc_begin:n {#1}\ignorespaces
@@ -417,9 +432,13 @@
     \tag_mc_use:n {#1}
   }
 
-
-%%%% structure related commands
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tagstructbegin,\tagstructend,\tagstructuse  }
+%
+% These are structure related user commands
+%    \begin{macrocode}
 \NewDocumentCommand \tagstructbegin { m }
   {
     \tag_struct_begin:n {#1}
@@ -435,6 +454,12 @@
     \tag_struct_use:n {#1}
   }
 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\showtagpdfmcdata,\showtagpdfattributes }
+% This commands are lua only
+%    \begin{macrocode}
 
 
 %%%% debug/show commands
@@ -473,6 +498,11 @@
       }
    }
 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{  }
+%    \begin{macrocode}
 \sys_if_engine_luatex:T
   {
     \NewDocumentCommand\pdffakespace { }
@@ -483,6 +513,7 @@
 
 %</user>
 %    \end{macrocode}
+% \end{macro}
 %
 %    \begin{macrocode}
 %<*deprecated>
