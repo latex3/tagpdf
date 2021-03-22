@@ -148,8 +148,6 @@
 
 \prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
 
-%deprecated
-\prg_new_eq_conditional:NNn \uftag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
 
 
 % this are the low level mc command.
@@ -381,8 +379,6 @@
     \group_end:
   }
 
-%deprecated
-\cs_set_eq:NN \uftag_mc_begin:n \tag_mc_begin:n
 
 \cs_new_protected:Nn \tag_mc_end:
   {
@@ -392,7 +388,7 @@
     \@@_mc_emc:
   }
 
-\cs_set_eq:NN \uftag_mc_end: \tag_mc_end:
+
 
 \cs_new_protected:Nn \tag_mc_use:n %#1: label name
   {
@@ -420,8 +416,6 @@
        }
   }
 
-%deprecated
-\cs_set_eq:NN \uftag_mc_use:n \tag_mc_use:n
 
 \cs_new:Nn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
 
@@ -500,8 +494,6 @@
 
 \prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
 
-%deprecated
-\prg_new_eq_conditional:NNn \uftag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
 
 % the keys
 \tl_new:N \l_@@_mc_key_tag_tl
@@ -746,8 +738,6 @@
     %\group_end:
   }
 
-%deprecated
-\cs_set_eq:NN \uftag_mc_begin:n \tag_mc_begin:n
 
 \cs_new_protected:Nn \tag_mc_end:
   {
@@ -758,7 +748,7 @@
     \tl_set:Nn  \l_@@_mc_key_tag_tl { }
   }
 
-\cs_set_eq:NN \uftag_mc_end: \tag_mc_end:
+
 
 \cs_new_protected:Nn \tag_mc_use:n %#1: label name
   {
@@ -772,7 +762,7 @@
       }
   }
 
-\cs_set_eq:NN \uftag_mc_use:n \tag_mc_use:n
+
 
 \cs_new:Nn \@@_get_data_mc_tag: { \l_@@_mc_key_tag_tl }
 %</luamode>
