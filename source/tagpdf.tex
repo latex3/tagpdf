@@ -22,11 +22,12 @@
 \usepackage[style=numeric,hyperref=false]{biblatex}
 \addbibresource{tagpdf.bib}
 
-\usepackage{tcolorbox}
-
 \usepackage[noparboxrestore]{marginnote}
 \makeatletter \renewcommand*{\mn@parboxrestore}{\tagpdfparaOff}%
 \reversemarginpar
+
+\usepackage{tcolorbox}
+%think later ...
 
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -59,15 +60,23 @@
             ]{hyperref}
 
  \hypersetup{
-  pdftitle={The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname},
+  pdftitle={The tagpdf package, v\csname UlrikeFischer@package@version\endcsname},
   pdfauthor=Ulrike Fischer,
   pdfaconformance=a,
   pdfuapart=1,
   colorlinks}
 
+\tcbuselibrary{documentation}
+\definecolor{Definition}{rgb}{0,0.2,0.6}
+\newcommand\PrintKeyName[1]{\textsf{#1}}
+\newcommand\pkg[1]{\texttt{#1}}
+\newcommand\DescribeKey[1]{\texttt{#1}}
+%\newcommand\cs[1]{\texttt{\textbackslash #1}}
+%\usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
 
-\usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
+
 \usepackage{tagpdfdocu-patches}
+
 
 %header and footer. This still needs some sorting, the first page does't work correctly
 \cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
@@ -82,19 +91,32 @@
 \date{\csname UlrikeFischer@package@date\endcsname}
 \author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
 
+\tagpdfsetup{paratagging,paratagging-show}
 \begin{document}
 
 \tagstructbegin{tag=Document}
 
-%TODO \maketitle (footnote ...)
+ 
 \tagstructbegin{tag=Title}
- \tagmcbegin{tag=P}
- \maketitle
+\tagmcbegin{tag=Title}
+
+\begin{center}\let\thanks\par
+\makeatletter
+  \usekomafont{title}{\huge \@title \par}
+
+  \vskip .5em
+  \usekomafont{author}{\@author \par}
+
+  \vskip 1em%
+  \usekomafont{date}{\@date \par}%
+  
+\end{center}%      
  \tagmcend
 \tagstructend
-\thispagestyle{empty}%TODO pagestyle musst be discarded from paratagging!!!
 
-\tagpdfsetup{ paratagging,paratagging-show}
+
+
+
 
 \tagstructbegin{tag=Div}
 \begin{tcolorbox}[colframe=red,before upper=\tagpdfparaOn]
@@ -270,12 +292,13 @@ But even if the documentation passed the tests of the validators:  as mentioned 
 Be aware that to create the tagged version a very experimental package and a experimental hyperref driver was needed for the links. This files are not in the package!
 \end{tcolorbox}
 
+\tagpdfparaOff
 
 \tagstructbegin{tag=Figure,alttext=PAC3 report,attribute=bbox}\tagmcbegin{tag=Figure}
 \includegraphics{pac3}
 \tagmcend\tagstructend
 
-
+\tagpdfparaOn
 
 \subsection{Changes in version 0.61}
 
@@ -309,10 +332,10 @@ The keys |lang|, |ref| and |E| have been added for structures.
 
 \subsection{Changes in version 0.81}
 
-Hook code to tag links (URI and GoTo type) have been added. So normally they should simply work if tagging 
+Hook code to tag links (URI and GoTo type) have been added. So normally they should simply work if tagging
 is activated.
 
-Commands and keys to allow automatic paragraph tagging have been added. See section~\ref{sec:paratagging}. 
+Commands and keys to allow automatic paragraph tagging have been added. See section~\ref{sec:paratagging}.
 As can be seen in this documentation the code works quite good already, but one should be aware that \enquote{paragraphs} can appear in many places and sometimes there are even more paragraph begin than ends.
 
 
@@ -346,10 +369,11 @@ This will force the generic mode for all engines.
 \subsection{Setup and activation}\label{ssec:setup}
 
 
+\begin{docCommand}{tagpdfsetup}{\marg{key-val-list}}\end{docCommand}
 
-The following command setups the general behaviour of the package. The command should be normally used only in the preamble (for a few keys it could also make sense to change them in the document).
-
-\DescribeMacro\tagpdfsetup{<key-val-list>}
+This command setups the general behaviour of the package.
+The command should be normally used only in the preamble
+(for a few keys it could also make sense to change them in the document).
 
 The key-val list understands the following keys:
 
@@ -379,12 +403,12 @@ Boolean.\sidenote{luamode}
 That's a debug option, it helps in lua mode to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
 
 \item[\PrintKeyName{paratagging}] Boolean. This activate/deactivates the automatic tagging of paragraphs.
- It uses the \texttt{para/begin} and \texttt{para/end} hooks of the newest \LaTeX{} version (2021-05-01). 
+ It uses the \texttt{para/begin} and \texttt{para/end} hooks of the newest \LaTeX{} version (2021-05-01).
  This is a first try to use this hooks, and the code is bound to change. Paragraphs can appear in many unexpected
  places and the code can easily break, so there is also an option to see where such paragraphs are:
 
 \item[\PrintKeyName{paratagging-show}] Boolean. This activate/deactivates small red numbers in the places where the hook code is used.
-     
+
 
 \item[\PrintKeyName{tabsorder}]
  Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
@@ -641,10 +665,9 @@ This means that quite a number of problems mentioned above are not relevant for 
 In generic mode\sidenote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
 For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.
 
-\ExplSyntaxOn
-\DescribeMacro\tagmcbegin{<key-val-list>}
-\DescribeMacro\tag_mc_begin:n{<key-val-list>}
-\ExplSyntaxOff
+\begin{docCommand}{tagmcbegin}{\marg{key-val-list}}\end{docCommand}
+\begin{docCommand}{tag_mc_begin:n}{\marg{key-val-list}}\end{docCommand}
+
 
 These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
 Such markers should not be nested. The command will warn you if this happens.
@@ -704,10 +727,8 @@ The key-val list understands the following keys:
 \end{description}
 
 
-\ExplSyntaxOn
-\DescribeMacro\tagmcend
-\DescribeMacro\tag_mc_end:
-\ExplSyntaxOff
+\begin{docCommand}{tagmcend}{}\end{docCommand}
+\begin{docCommand}{tag_mc:end}{}\end{docCommand}
 
 These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
 
@@ -731,18 +752,16 @@ Block 3 will here get the same id number as Block 1 and be stored in the structu
 \end{tcolorbox}
 
 
+\begin{docCommand}{tagmcuse}{}\end{docCommand}
+\begin{docCommand}{tag_mc_use:n}{}\end{docCommand}
 
-\ExplSyntaxOn
-\DescribeMacro\tagmcuse{<label name>}
-\DescribeMacro\tag_mc_use:n {<label name>}
-\ExplSyntaxOff
 
 These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.
 
-\ExplSyntaxOn
-\DescribeMacro\tagmcifinTF{<true code>}{<false>}
-\DescribeMacro\tag_mc_if_in:TF{<true code>}{<false>}
-\ExplSyntaxOff
+
+\begin{docCommand}{tagmcifinTF}{\marg{true code}\marg{false code}}\end{docCommand}
+\begin{docCommand}{tag_mc_if_in:TF}{\marg{true code}\marg{false code}}\end{docCommand}
+
 
 These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
 
@@ -750,12 +769,12 @@ In \emph{generic mode}, where marked content command shouldn't be nested, it wor
 
 In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!
 
-\ExplSyntaxOn
-\DescribeMacro\tagpdfget{<key word>}
-\DescribeMacro\tag_get:n{<key word>}
-\ExplSyntaxOff
 
-These commands give back some variables. Currently the only working key word is \verb+mc\_tag+.
+\begin{docCommand}{tagpdfget}{\marg{key word}}\end{docCommand}
+\begin{docCommand}{tag_get:n}{\marg{key word}}\end{docCommand}
+
+
+These commands give back some variables. Currently the only working key words are \verb+mc\_tag+ and \verb+struct\_tag+.
 
 
 
@@ -823,7 +842,7 @@ To connect such a link with the underlying text a specific structure has to be a
 
 
 The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project moves some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time. This new code is now available in a test package
-\pkg{pdfmanagment-testphase} and it allows to add the code through hooks to links. This code is 
+\pkg{pdfmanagment-testphase} and it allows to add the code through hooks to links. This code is
 now added automatically to URI and GoTo links if tagging is activated.
 
 
@@ -877,11 +896,11 @@ sit amet, lacus.\tagmcend
 
 \subsubsection{Automatic tagging of paragraphs}
 
-\DescribeMacro\tagpdfparaOn
-\DescribeMacro\tagpdfparaOff
+\begin{docCommand}{tagpdfparaOn}{}\end{docCommand}
+\begin{docCommand}{tagpdfparaOff}{}\end{docCommand}
 
 Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
-\pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with 
+\pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with
 options of \cs{tagpdfsetup} or with the two commands above. \emph{This is very experimental!}
 
 \subsection{Task 2: Marking the structure}
@@ -950,10 +969,9 @@ The flat version is more \LaTeX-like and it is rather straightforward to patch \
 
 The following commands can be used to define the tree structure:
 
-\ExplSyntaxOn
-\DescribeMacro\tagstructbegin{key-val-list}
-\DescribeMacro\tag_struct_begin:n {key-val-list}
-\ExplSyntaxOff
+
+\begin{docCommand}{tagstructbegin}{\marg{key-val-list}}\end{docCommand}
+\begin{docCommand}{tag_struct_begin:n}{\marg{key-val-list}}\end{docCommand}
 
 These commands start a new structure. They don't start a group. They set all their values globally.
 
@@ -1072,18 +1090,14 @@ The key-val list understands the following keys:
      This key sets the |/E| key, the expanded form of an abbreviation or an acronym (I couldn't think of a better name, so I sticked to E).
 \end{description}
 
-
-\ExplSyntaxOn
-\DescribeMacro\tagstructend
-\DescribeMacro\tag_struct_end:
-\ExplSyntaxOff
+\begin{docCommand}{tagstructend}{}\end{docCommand}
+\begin{docCommand}{tag_struct_end:}{}\end{docCommand}
 
 These commands end a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.
 
-\ExplSyntaxOn
-\DescribeMacro\tagstructuse{<label>}
-\DescribeMacro\tag_struct_use:n {<label>}
-\ExplSyntaxOff
+\begin{docCommand}{tagstructuse}{\marg{label}}\end{docCommand}
+\begin{docCommand}{tag_struct_use:n}{\marg{label}}\end{docCommand}
+
 
 These commands insert a structure previously stashed away as kid into the currently active structure. A structure should be used only once, if the structure already has a parent you will get a warning.
 
@@ -1156,9 +1170,7 @@ Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyNa
 
 When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:
 
-\ExplSyntaxOn
-\DescribeMacro\tag_finish_structure:
-\ExplSyntaxOff
+\begin{docCommand}{tag_finish_structure:}{}\end{docCommand}
 
 This will hopefully write all the needed objects and values to the \PDF{}. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).
 
@@ -1298,13 +1310,10 @@ Their meaning can be looked up in the \PDF{}-reference \parencite{pdfreference}.
 New tags can be defined in the setup command with the key \texttt{add-new-tag}. It takes a value consisting of two names separated by a slash. The first is the new name, the second a known (e.g. a standard) tag it should be mapped too. Example:
 
 
-\tagpdfparaOff
+\begin{lstlisting}
+ \tagpdfsetup{add-new-tag = section/H1}
+\end{lstlisting}
 
-\tagstructbegin{tag=Code}\tagmcbegin{tag=Code}
-\Macro\tagpdfsetup{add-new-tag = section/H1}
-\tagmcend\tagstructend
-
-\tagpdfparaOn
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
@@ -1322,7 +1331,8 @@ The key \PrintKeyName{show-spaces} will show lines at the places where in lua mo
 
 \emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The \PDF{} viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro.
 
-\DescribeMacro\pdffakespace
+\begin{docCommand}{pdffakespace}{}\end{docCommand}
+
 
 This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.
 

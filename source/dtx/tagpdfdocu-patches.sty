@@ -134,9 +134,10 @@
 \newcommand\tag@enit@format@preset[1]{%
  \str_if_eq:eeTF { \prop_item:cn { g__tag_struct_\g__tag_struct_stack_current_tl _prop }{S} }{/L}
   {
-    \typeout{BEGIN~OF~LIST}
+   %\typeout{BEGIN~OF~LIST}
   }
-  { \typeout{NEXT ITEM}\tagstructend\tagstructend} % for the LBody/LI
+  {%\typeout{NEXT ITEM}
+   \tagstructend\tagstructend} % for the LBody/LI
   \tagstructbegin{tag=LI}
   \tagstructbegin{tag=Lbl}
   \tagmcbegin{tag=Lbl}
@@ -189,8 +190,13 @@
 % We switch of paratagging at the begin and reenable it locally in before upper.
 % the before upper setting is dangerous as it can be overwritten by
 % users. So a more stable hook is needed.
-\AddToHook{env/tcolorbox/begin}{\tagpdfparaOff}
-%\tcbset{before upper=\tagpdfparaOn} %locally for now
+%\AddToHook{env/tcolorbox/begin}{\tagpdfparaOff}
+%\AddToHook{env/docCommand/begin}{\tagpdfparaOff}
+%\tcbset{before~upper=\tagpdfparaOn}
+\AddToHook{env/tcolorbox/begin}{\tagpdfparaOff \tcbset{before~upper=\tagpdfparaOn}}
+\AddToHook{env/docCommand/begin}{\tagpdfparaOff \tcbset{before~upper=\tagpdfparaOn}}
+
+ %locally for now
 
 
 % ======= footnote ========
