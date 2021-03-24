@@ -1,0 +1,44 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{uncompress,pdfversion=2.0}
+\begin{filecontents}[noheader]{eq1.xml}
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>E</mi>
+  <mo>=</mo>
+  <mi>m</mi>
+  <msup>
+    <mi>c</mi>
+    <mn>2</mn>
+  </msup>
+</math>
+\end{filecontents}
+\documentclass[12pt,a4paper]{article}
+\usepackage{tagpdf}
+\tagpdfsetup{activate-all,interwordspace=true, paratagging}
+
+\begin{document}\pagestyle{empty}
+\tagstructbegin{tag=Document}
+This is a famous formula
+
+\tagpdfparaOff
+
+\begingroup
+\ExplSyntaxOn
+\pdfdict_put:nnn{l_pdffile/Filespec}{AFRelationship}{/Supplement}
+\pdfdict_put:nnn{l_pdffile/Filespec}{Desc}{(MathMl)}
+\pdfdict_put:nnx{l_pdffile/Filespec}{Subtype}{\pdf_name_from_unicode_e:n{application/mathml+xml}}
+
+\pdffile_embed_file:nnn{eq1.xml}{}{tag/AFtest}
+\ExplSyntaxOff
+\tagstructbegin{tag=Formula,AF=tag/AFtest}
+\tagmcbegin{tag=Formula}
+\[ E = mc^2\]
+\tagmcend
+\tagstructend
+\endgroup
+
+
+\tagstructend
+\end{document}
