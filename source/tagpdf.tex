@@ -96,7 +96,7 @@
 
 \tagstructbegin{tag=Document}
 
- 
+
 \tagstructbegin{tag=Title}
 \tagmcbegin{tag=Title}
 
@@ -109,8 +109,8 @@
 
   \vskip 1em%
   \usekomafont{date}{\@date \par}%
-  
-\end{center}%      
+
+\end{center}%
  \tagmcend
 \tagstructend
 
@@ -1362,6 +1362,25 @@ A tagged \PDF{} is needed for accessibility but this is not enough. As already m
 
 If suitable I will add code for this tasks to this packages. But some of them can also be done already with existing packages like hyperref, hyperxmp, pdfx.
 
+\section{Debugging}
+
+While developing commands and tagging a document, it can be useful to get some info about the current structure. For this
+a number of commands are provided
+
+\begin{docCommand}{showtagstack}{}\end{docCommand}
+
+This shows the tag names of the currently open structures. Typically it will contain at
+least |root| and |Document|.
+
+\begin{docCommand}{showtagpdfmcdata}{\oarg{mc number}}\end{docCommand} 
+
+This\sidenote{luaonly} can only be used with lualatex and shows some info about the 
+current mc-chunk. The optional argument allows to select a number.
+
+\begin{docCommand}{showtagpdfattributes}{}\end{docCommand}
+
+This\sidenote{luaonly} can only be used with lualatex and shows some info about the
+current attributes.
 
 
 \section{To-do}
