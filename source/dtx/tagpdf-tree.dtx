@@ -31,12 +31,12 @@
  {part of tagpdf - code related to writing trees and dictionaries to the pdf}
 
 %this does the actual finishing:
-%Is \AfterEndDocument the best places??
+%Is \AddToHook{enddocument/end} the best places??
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_tree_bool
       {
-        \AfterEndDocument { \tag_finish_structure: }
+        \AddToHook{enddocument/end} { \tag_finish_structure: }
       }
   }
 
