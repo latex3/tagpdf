@@ -261,12 +261,20 @@
       }
   }
 
+% namespaces are only relevant for pdf2.0 but we don't care
+\pdf_object_new:nn{ c_@@_tree_namespaces_obj }{array}
+\cs_new_protected:Npn \@@_tree_write_namespaces:
+  {
+    \pdf_object_write:nx {c_@@_tree_namespaces_obj}{\seq_use:Nn \g_@@_role_NS_seq{~} }
+  }
+
 
 \cs_new_protected:Nn \tag_finish_structure:
   {
     \@@_tree_write_parenttree:
     \@@_tree_write_rolemap:
     \@@_tree_write_classmap:
+    \@@_tree_write_namespaces:
     \@@_tree_write_structelements: %this is rather slow!!
     \@@_tree_write_structtreeroot:
   }

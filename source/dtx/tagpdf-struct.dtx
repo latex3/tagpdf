@@ -81,7 +81,8 @@
     ParentTree,        % required,obj ref to the parent tree
     ParentTreeNextKey, %optional
     RoleMap,
-    ClassMap
+    ClassMap,
+    Namespaces
   }
 
 \seq_const_from_clist:Nn \c_@@_struct_StructElem_entries_seq
@@ -159,15 +160,22 @@
   { RoleMap }
   { \pdf_object_ref:n { c_@@_tree_rolemap_obj } }
 
-\@@_prop_gput:cno
+\@@_prop_gput:cnn
   { g_@@_struct_0_prop }
   { entries }
   { StructTreeRoot }
 
-\@@_prop_gput:cno
+\@@_prop_gput:cnn
   { g_@@_struct_0_prop }
   { num }
   { 0 }
+
+%Namespaces are pdf 2.0 but it doesn't harm to have an empty entry
+\@@_prop_gput:cnx
+  { g_@@_struct_0_prop }
+  { Namespaces }
+  { \pdf_object_ref:n { c_@@_tree_namespaces_obj } }
+
 
 % commands to store the kids
 % I don't compare the page objects number yet, but always add the /Pg key, perhaps later

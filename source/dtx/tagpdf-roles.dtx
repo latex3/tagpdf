@@ -33,7 +33,7 @@
 \@@_seq_new:N     \g_@@_role_tags_seq  %to get names from numbers
 \@@_prop_new:N    \g_@@_role_tags_prop %to get numbers from names
 \@@_prop_new:N    \g_@@_role_tags_NS_prop %to namespace info
-
+\@@_seq_new:N     \g_@@_role_NS_seq % collect namespaces
 % standard names spaces
 % mathml: “http://www.w3.org/1998/Math/MathML”
 % pdf2.0: "http://iso.org/pdf2/ssn"
@@ -167,17 +167,35 @@
     Strong= Span,     %only 2.0
   }
 
-\hook_gput_code:nnn
- {begindocument}{tagpdf/rolemap-2.0}
- {
-   \pdf_version_compare:NnT < {2.0}
-     {
-        \prop_map_inline:Nn \c_@@_role_map_sttagsTWO_prop
-          {
-            \@@_role_add_tag:nn {#1}{#2}
-          }
-     }
- }
+\bool_lazy_or:nnT
+  { \pdf_version_compare_p:Nn > {1.9} }
+  { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
+  {
+    \pdf_object_new:nn {c_@@_role_NS_pdf2.0_obj}{dict}
+    \pdf_object_write:nn{c_@@_role_NS_pdf2.0_obj}
+      {
+        /Type/Namespace/NS(http://iso.org/pdf2/ssn)
+      }
+    \seq_gput_right:Nx \g_@@_role_NS_seq
+      {\pdf_object_ref:n {c_@@_role_NS_pdf2.0_obj}}
+    \pdf_object_new:nn {c_@@_role_NS_pdf1.7_obj}{dict}
+    \pdf_object_write:nn{c_@@_role_NS_pdf1.7_obj}
+      {
+         /Type/Namespace/NS(http://iso.org/pdf/ssn)
+      }
+    \seq_gput_right:Nx \g_@@_role_NS_seq
+      {\pdf_object_ref:n {c_@@_role_NS_pdf1.7_obj}}
+    \pdf_object_new:nn {c_@@_role_NS_mathml_obj}{dict}
+    \pdf_object_write:nn{c_@@_role_NS_mathml_obj}
+      {
+        /Type/Namespace/NS(http://www.w3.org/1998/Math/MathML)
+      }
+    \seq_gput_right:Nx \g_@@_role_NS_seq
+         {\pdf_object_ref:n {c_@@_role_NS_mathml_obj}}
+  }
+
+
+
 % get tag name from number: \seq_item:Nn \g_@@_role_tags_seq { n }
 %\seq_gset_from_clist:NN \g_@@_role_tags_seq \c_@@_role_tags_clist
 
@@ -224,6 +242,18 @@
         \@@_prop_gput:Nnn \g_@@_role_rolemap_prop
           { #1 } { #2 }
       }
+  }
+
+%this requires that the version is already set. So if it wanders in the kernel
+% it must be delayed.
+\bool_lazy_or:nnT
+  { \pdf_version_compare_p:Nn < {2.0} }
+  { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
+  {
+     \prop_map_inline:Nn \c_@@_role_map_sttagsTWO_prop
+       {
+         \@@_role_add_tag:nn {#1}{#2}
+       }
   }
 
 \cs_generate_variant:Nn \@@_role_add_tag:nn {xx}
