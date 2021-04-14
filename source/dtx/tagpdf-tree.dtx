@@ -36,7 +36,13 @@
   {
     \bool_if:NT \g_@@_active_tree_bool
       {
-        \AddToHook{enddocument/end} { \tag_finish_structure: }
+        \sys_if_output_pdf:TF
+          {
+            \AddToHook{enddocument/end} { \tag_finish_structure: }
+          }
+          {
+            \AddToHook{shipout/lastpage} { \tag_finish_structure: }
+          }
       }
   }
 
