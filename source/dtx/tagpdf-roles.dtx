@@ -30,24 +30,40 @@
 \ProvidesExplPackage {tagpdf-roles-code} {2021/02/23} {0.80}
  {part of tagpdf - code related to roles and structure names}
 %    \end{macrocode}
+% \section{Variables}
 % Tags have both a name (a string) and a number (for the lua attribute).
 % Testing a name is easier with a prop, while accessing with a number is
 % better done with a seq. So both are used and must be kept in sync if a new
 % tag is added.
+% \begin{macro}{\g_@@_role_tags_seq,\g_@@_role_tags_prop}
 %    \begin{macrocode}
 \@@_seq_new:N     \g_@@_role_tags_seq  %to get names from numbers
 \@@_prop_new:N    \g_@@_role_tags_prop %to get numbers from names
 %    \end{macrocode}
-% 
+% \end{macro}
+% \begin{macro}{\g_@@_role_tags_NS_prop}
+% in pdf 2.0 tags belong to a name space. We record this in a prop.
+% The keys are the tags, the value shorthands like pdf2, or mathml.
 %    \begin{macrocode}
-
 \@@_prop_new:N    \g_@@_role_tags_NS_prop %to namespace info
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\g_@@_role_NS_seq}
+% The standard names spaces are the following. The keys are the name
+% tagpdf will use,  the urls are the identifier in the namespace object.
+% \begin{description}
+% \item[mathml] http://www.w3.org/1998/Math/MathML
+% \item[pdf2]  http://iso.org/pdf2/ssn
+% \item[pdf] http://iso.org/pdf/ssn (default)
+% \end{description}
+% The objects references of the namespaces must be collected in a seq, so that an
+% array can be written to the StructTreeRoot at the end (see tagpdf-tree).
+%    \begin{macrocode}
 \@@_seq_new:N     \g_@@_role_NS_seq % collect namespaces
-% standard names spaces
-% mathml: “http://www.w3.org/1998/Math/MathML”
-% pdf2.0: "http://iso.org/pdf2/ssn"
-% pdf1.7: "http://iso.org/pdf/ssn" (default)
+%    \end{macrocode}
+% \end{macro}
 %
+%    \begin{macrocode}
 %The list of standard adobe tags, namespace pdf 1.7.
 \clist_const:Nn \c_@@_role_sttags_clist
   {%possible root elements
@@ -107,6 +123,38 @@
     WP,
     Artifact % only MC-tag ?...
   }
+
+\clist_const:Nn \c_@@_role_sttags_only_pdf_clist
+ {
+   Art,
+   BlockQuote,
+   TOC,
+   TOCI,
+   Index,
+   Private,
+   Quote,
+   Note,
+   Reference,
+   BibEntry,
+   Code
+ }
+
+\clist_const:Nn \c_@@_role_sttags_only_pdfII_clist
+ {
+   DocumentFragment
+   ,Aside
+   ,H7
+   ,H8
+   ,H9
+   ,H10
+   ,Title
+   ,FENote
+   ,Sub
+   ,Em
+   ,Strong
+   ,Artifact
+ }
+
 
 %The list of standard pdf2.0, storing only for now.
 \clist_const:Nn \c_@@_role_sttagsTWO_clist
@@ -179,25 +227,36 @@
 \bool_lazy_or:nnT
   { \pdf_version_compare_p:Nn > {1.9} }
   { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
-  {
-    \pdf_object_new:nn {c_@@_role_NS_pdf2.0_obj}{dict}
-    \pdf_object_write:nn{c_@@_role_NS_pdf2.0_obj}
+  { %pdf 2.0
+    \pdf_object_new:nn {c_@@_role_NS_pdf2_obj}{dict}
+    \pdf_object_new:nn {c_@@_role_NS_pdf2_map_obj}{dict}
+    \pdf_object_write:nx{c_@@_role_NS_pdf2_obj}
       {
-        /Type/Namespace/NS(http://iso.org/pdf2/ssn)
+        /Type/Namespace
+        /NS(http://iso.org/pdf2/ssn)
+        /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_pdf2_map_obj}
       }
     \seq_gput_right:Nx \g_@@_role_NS_seq
-      {\pdf_object_ref:n {c_@@_role_NS_pdf2.0_obj}}
-    \pdf_object_new:nn {c_@@_role_NS_pdf1.7_obj}{dict}
-    \pdf_object_write:nn{c_@@_role_NS_pdf1.7_obj}
+      {\pdf_object_ref:n {c_@@_role_NS_pdf2_obj}}
+    %pdf 1.7
+    \pdf_object_new:nn {c_@@_role_NS_pdf_obj}{dict}
+    \pdf_object_new:nn {c_@@_role_NS_pdf_map_obj}{dict}
+    \pdf_object_write:nx{c_@@_role_NS_pdf_obj}
       {
-         /Type/Namespace/NS(http://iso.org/pdf/ssn)
+         /Type/Namespace
+         /NS(http://iso.org/pdf/ssn)
+         /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_pdf_map_obj}
       }
     \seq_gput_right:Nx \g_@@_role_NS_seq
-      {\pdf_object_ref:n {c_@@_role_NS_pdf1.7_obj}}
+      {\pdf_object_ref:n {c_@@_role_NS_pdf_obj}}
+    %mathml
     \pdf_object_new:nn {c_@@_role_NS_mathml_obj}{dict}
-    \pdf_object_write:nn{c_@@_role_NS_mathml_obj}
+    \pdf_object_new:nn {c_@@_role_NS_mathml_map_obj}{dict}
+    \pdf_object_write:nx{c_@@_role_NS_mathml_obj}
       {
-        /Type/Namespace/NS(http://www.w3.org/1998/Math/MathML)
+        /Type/Namespace
+        /NS(http://www.w3.org/1998/Math/MathML)
+        /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_mathml_map_obj}
       }
     \seq_gput_right:Nx \g_@@_role_NS_seq
          {\pdf_object_ref:n {c_@@_role_NS_mathml_obj}}
