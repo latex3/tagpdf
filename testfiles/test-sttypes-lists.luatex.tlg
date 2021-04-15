@@ -43,7 +43,24 @@ The sequence \g__tag_role_tags_seq contains the items (without outer braces):
 >  {Figure}
 >  {Formula}
 >  {Form}
->  {Artifact}.
+>  {Ruby}
+>  {RB}
+>  {RT}
+>  {Warichu}
+>  {WT}
+>  {WP}
+>  {Artifact}
+>  {DocumentFragment}
+>  {Aside}
+>  {Title}
+>  {Sub}
+>  {H7}
+>  {H8}
+>  {H9}
+>  {H10}
+>  {FENote}
+>  {Em}
+>  {Strong}.
 <recently read> }
 l. ...\__tag_seq_show:N \g__tag_role_tags_seq
 tagpdf: lua sequence array g__tag_role_tags_seq
@@ -88,7 +105,24 @@ tagpdf: [38] => Annot
 tagpdf: [39] => Figure
 tagpdf: [40] => Formula
 tagpdf: [41] => Form
-tagpdf: [42] => Artifact
+tagpdf: [42] => Ruby
+tagpdf: [43] => RB
+tagpdf: [44] => RT
+tagpdf: [45] => Warichu
+tagpdf: [46] => WT
+tagpdf: [47] => WP
+tagpdf: [48] => Artifact
+tagpdf: [49] => DocumentFragment
+tagpdf: [50] => Aside
+tagpdf: [51] => Title
+tagpdf: [52] => Sub
+tagpdf: [53] => H7
+tagpdf: [54] => H8
+tagpdf: [55] => H9
+tagpdf: [56] => H10
+tagpdf: [57] => FENote
+tagpdf: [58] => Em
+tagpdf: [59] => Strong
 The property list \g__tag_role_tags_prop contains the pairs (without outer
 braces):
 >  {Document}  =>  {1}
@@ -132,29 +166,54 @@ braces):
 >  {Figure}  =>  {39}
 >  {Formula}  =>  {40}
 >  {Form}  =>  {41}
->  {Artifact}  =>  {42}.
+>  {Ruby}  =>  {42}
+>  {RB}  =>  {43}
+>  {RT}  =>  {44}
+>  {Warichu}  =>  {45}
+>  {WT}  =>  {46}
+>  {WP}  =>  {47}
+>  {Artifact}  =>  {48}
+>  {DocumentFragment}  =>  {49}
+>  {Aside}  =>  {50}
+>  {Title}  =>  {51}
+>  {Sub}  =>  {52}
+>  {H7}  =>  {53}
+>  {H8}  =>  {54}
+>  {H9}  =>  {55}
+>  {H10}  =>  {56}
+>  {FENote}  =>  {57}
+>  {Em}  =>  {58}
+>  {Strong}  =>  {59}.
 <recently read> }
 l. ...\__tag_prop_show:N \g__tag_role_tags_prop
 tagpdf: lua property table g__tag_role_tags_prop
 tagpdf: [Annot] => 38
 tagpdf: [Art] => 3
-tagpdf: [Artifact] => 42
+tagpdf: [Artifact] => 48
+tagpdf: [Aside] => 50
 tagpdf: [BibEntry] => 35
 tagpdf: [BlockQuote] => 6
 tagpdf: [Caption] => 7
 tagpdf: [Code] => 36
 tagpdf: [Div] => 5
 tagpdf: [Document] => 1
+tagpdf: [DocumentFragment] => 49
+tagpdf: [Em] => 58
+tagpdf: [FENote] => 57
 tagpdf: [Figure] => 39
 tagpdf: [Form] => 41
 tagpdf: [Formula] => 40
 tagpdf: [H] => 12
 tagpdf: [H1] => 13
+tagpdf: [H10] => 56
 tagpdf: [H2] => 14
 tagpdf: [H3] => 15
 tagpdf: [H4] => 16
 tagpdf: [H5] => 17
 tagpdf: [H6] => 18
+tagpdf: [H7] => 53
+tagpdf: [H8] => 54
+tagpdf: [H9] => 55
 tagpdf: [Index] => 10
 tagpdf: [L] => 20
 tagpdf: [LBody] => 23
@@ -166,9 +225,14 @@ tagpdf: [Note] => 33
 tagpdf: [P] => 19
 tagpdf: [Part] => 2
 tagpdf: [Quote] => 32
+tagpdf: [RB] => 43
+tagpdf: [RT] => 44
 tagpdf: [Reference] => 34
+tagpdf: [Ruby] => 42
 tagpdf: [Sect] => 4
 tagpdf: [Span] => 31
+tagpdf: [Strong] => 59
+tagpdf: [Sub] => 52
 tagpdf: [TBody] => 29
 tagpdf: [TD] => 27
 tagpdf: [TFoot] => 30
@@ -178,6 +242,10 @@ tagpdf: [TOC] => 8
 tagpdf: [TOCI] => 9
 tagpdf: [TR] => 25
 tagpdf: [Table] => 24
+tagpdf: [Title] => 51
+tagpdf: [WP] => 47
+tagpdf: [WT] => 46
+tagpdf: [Warichu] => 45
 > \test=macro:
 ->H1.
 l. ...\show\test
