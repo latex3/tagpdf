@@ -273,18 +273,18 @@
   {
     \prop_map_inline:Nn \g_@@_role_NS_prop
       {
-        \pdfdict_if_empty:nF {g_@@_role_NS_map_##1_dict}
+        \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
           {
-            \pdf_object_write:nx {c_@@_role_NS_map_##1_obj}
+            \pdf_object_write:nx {c_@@_role/RoleMapNS_##1_obj}
               {
-                \pdfdict_use:n {g_@@_role_NS_map_##1_dict}
+                \pdfdict_use:n {g_@@_role/RoleMapNS_##1_dict}
               }
-            \pdfdict_gput:nnx{g_@@_role_NS_##1_dict}
-              {RoleMapNS}{\pdf_object_ref:n {c_@@_role_NS_map_##1_obj}}
+            \pdfdict_gput:nnx{g_@@_role/Namespace_##1_dict}
+              {RoleMapNS}{\pdf_object_ref:n {c_@@_role/RoleMapNS_##1_obj}}
           }
-        \pdf_object_write:nx{c_@@_role_NS_##1_obj}
+        \pdf_object_write:nx{c_@@_role/Namespace_##1_obj}
           {
-             \pdfdict_use:n {g_@@_role_NS_##1_dict}
+             \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
           }
       }
     \pdf_object_write:nx {c_@@_tree_namespaces_obj}

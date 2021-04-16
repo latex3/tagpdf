@@ -83,20 +83,19 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
   {
-    \pdf_object_new:nn {c_@@_role_NS_#1_obj}{dict}
-    \pdf_object_new:nn {c_@@_role_NS_map_#1_obj}{dict}
-    \prop_new:c {g_@@_role_NS_#1_map_prop}
-    \pdfdict_new:n   {g_@@_role_NS_#1_dict}
-    \pdfdict_new:n   {g_@@_role_NS_map_#1_dict}
-    \pdfdict_gput:nnn{g_@@_role_NS_#1_dict}
+    \pdf_object_new:nn {c_@@_role/Namespace_#1_obj}{dict}
+    \pdf_object_new:nn {c_@@_role/RoleMapNS_#1_obj}{dict}
+    \pdfdict_new:n   {g_@@_role/Namespace_#1_dict}
+    \pdfdict_new:n   {g_@@_role/RoleMapNS_#1_dict}
+    \pdfdict_gput:nnn{g_@@_role/Namespace_#1_dict}
       {Type}{/Namespace}
     \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_tmpa_str
-    \pdfdict_gput:nnx{g_@@_role_NS_#1_dict}
+    \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
       {NS}{\l_tmpa_str}
     %RoleMapNS is added in tree
-    \pdfdict_gput:nnx{g_@@_role_NS_#1_dict}
+    \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
       {Schema}{#3}
-    \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{c_@@_role_NS_#1_obj}~}
+    \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{c_@@_role/Namespace_#1_obj}~}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -255,9 +254,11 @@
       }
       { #1 }
   }
-
+%    \end{macrocode}
+%
 % new tags and the rolemap
-
+%    \begin{macrocode}
+\pdfdict_new:n {g_@@_RoleMap_dict}
 \@@_prop_new:N \g_@@_role_rolemap_prop
 
 \cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
@@ -272,6 +273,7 @@
          }
       }
     \@@_check_add_tag_role:nn {#1}{#2}
+    \pdfdict_gput:nnn {g_@@_RoleMap_dict}{#1}{#2}
     \tl_if_empty:nF { #2 }
       {
         \@@_prop_gput:Nnn \g_@@_role_rolemap_prop
