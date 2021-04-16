@@ -30,10 +30,10 @@
 \__tag_prop_show:N \g__tag_role_tags_prop
 
 
-\edef\test{\__tag_role_get_tag_from_index:nn{g__tag_role_tags}{13}}
+\edef\test{\seq_item:cn {g__tag_role_tags_seq}{13}}
 \show\test
 
-\edef\test{\__tag_role_get_index_from_tag:nn{g__tag_role_tags}{H1}}
+\edef\test{\prop_item:cn {g__tag_role_tags_prop}{H1}}
 \show\test
 \ExplSyntaxOff
 

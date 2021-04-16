@@ -56,7 +56,8 @@
 \msg_new:nnn { tag } {role-missing}     { tag~#1~has~no~role~assigned  }
 \msg_new:nnn { tag } {role-unknown}     { role~#1~is~not~known  }
 \msg_new:nnn { tag } {role-unknown-tag} { tag~#1~is~not~known  }
-\msg_new:nnn { tag } {role-new-tag}     { adding~new~tag~#1~mapped~to~role~#2  }
+\msg_new:nnn { tag } {role-tag}         { mapping~tag~#1~to~role~#2  }
+\msg_new:nnn { tag } {new-tag}          { adding~new~tag~#1 }
 
 
 % trees
@@ -122,7 +123,7 @@
       {
         \prop_get:NnNTF \g_@@_role_tags_prop {#2} \l_tmpa_tl
           {
-            \msg_info:nnnn { tag } {role-new-tag} {#1} {#2}
+            \msg_info:nnnn { tag } {role-tag} {#1} {#2}
           }
           {
             \msg_warning:nnn { tag } {role-unknown} {#2}

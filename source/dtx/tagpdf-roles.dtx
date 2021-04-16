@@ -118,12 +118,14 @@
 % At first the list of structure types. We split them in three lists,
 % the tags with which are both in the pdf and pdf2 namespace,
 % the one only in pdf and the one with the tags only in pdf2.
-%
+% We also define a rolemap for the pdfII only type to pdf so that
+% they can always be used.
 % \begin{macro}
 %   {
 %     \c_@@_role_sttags_pdf_pdfII_clist,
 %     \c_@@_role_sttags_only_pdf_clist,
-%     \c_@@_role_sttags_only_pdfII_clist
+%     \c_@@_role_sttags_only_pdfII_clist,
+%     \c_@@_role_sttags_pdfII_to_pdf_prop
 %   }
 %    \begin{macrocode}
 %
@@ -206,13 +208,8 @@
    ,Strong
    ,Artifact
  }
-%    \end{macrocode}
-% \end{macro}
-%
-%    \begin{macrocode}
 
-
-\prop_const_from_keyval:Nn \c_@@_role_map_sttagsTWO_prop
+\prop_const_from_keyval:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
   {
     DocumentFragment = Art, %only 2.0, a fragment from another document.
     Aside = Note,    %only 2.0
@@ -226,47 +223,11 @@
     Em    = Span,     %only 2.0
     Strong= Span,     %only 2.0
   }
-
-%\bool_lazy_or:nnT
-%  { \pdf_version_compare_p:Nn > {1.9} }
-%  { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
-%  { %pdf 2.0
-%    \pdf_object_new:nn {c_@@_role_NS_pdf2_obj}{dict}
-%    \pdf_object_new:nn {c_@@_role_NS_pdf2_map_obj}{dict}
-%    \pdf_object_write:nx{c_@@_role_NS_pdf2_obj}
-%      {
-%        /Type/Namespace
-%        /NS(http://iso.org/pdf2/ssn)
-%        /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_pdf2_map_obj}
-%      }
-%    \seq_gput_right:Nx \g_@@_role_NS_seq
-%      {\pdf_object_ref:n {c_@@_role_NS_pdf2_obj}}
-%    %pdf 1.7
-%    \pdf_object_new:nn {c_@@_role_NS_pdf_obj}{dict}
-%    \pdf_object_new:nn {c_@@_role_NS_pdf_map_obj}{dict}
-%    \pdf_object_write:nx{c_@@_role_NS_pdf_obj}
-%      {
-%         /Type/Namespace
-%         /NS(http://iso.org/pdf/ssn)
-%         /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_pdf_map_obj}
-%      }
-%    \seq_gput_right:Nx \g_@@_role_NS_seq
-%      {\pdf_object_ref:n {c_@@_role_NS_pdf_obj}}
-%    %mathml
-%    \pdf_object_new:nn {c_@@_role_NS_mathml_obj}{dict}
-%    \pdf_object_new:nn {c_@@_role_NS_mathml_map_obj}{dict}
-%    \pdf_object_write:nx{c_@@_role_NS_mathml_obj}
-%      {
-%        /Type/Namespace
-%        /NS(http://www.w3.org/1998/Math/MathML)
-%        /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_mathml_map_obj}
-%      }
-%    \seq_gput_right:Nx \g_@@_role_NS_seq
-%         {\pdf_object_ref:n {c_@@_role_NS_mathml_obj}}
-%  }
-
-
-
+%    \end{macrocode}
+% \end{macro}
+% We fill the structure tags in to the seq. We allow all pdf1.7 and pdf2.0,
+% and role map if needed the 2.0 tags.
+%    \begin{macrocode}
 % get tag name from number: \seq_item:Nn \g_@@_role_tags_seq { n }
 %\seq_gset_from_clist:NN \g_@@_role_tags_seq \c_@@_role_tags_clist
 
@@ -274,8 +235,17 @@
   {
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
   }
-
-
+\clist_map_inline:Nn \c_@@_role_sttags_only_pdf_clist
+  {
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+  }
+\clist_map_inline:Nn \c_@@_role_sttags_only_pdfII_clist
+  {
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+  }
+%    \end{macrocode}
+% For luatex we need a name/number relation.
+%    \begin{macrocode}
 % get tag number from name: \prop_item:Nn \g_@@_role_tags_prop { name }
 \int_step_inline:nnnn { 1 }{ 1 }{ \seq_count:N \g_@@_role_tags_seq }
   {
@@ -286,27 +256,20 @@
       { #1 }
   }
 
-%only used in tests
-\cs_new:Nn \@@_role_get_tag_from_index:nn
-  {
-    \@@_seq_item:cn { #1_seq } { #2 }
-  }
-
-\cs_new:Nn \@@_role_get_index_from_tag:nn
-  {
-    \@@_prop_item:cn { #1_prop } { #2 }
-  }
-
 % new tags and the rolemap
 
 \@@_prop_new:N \g_@@_role_rolemap_prop
 
-\cs_new_protected:Nn \@@_role_add_tag:nn %new name, reference to old
+\cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
   {
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-    \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
+    \prop_if_in:NnF \g_@@_role_tags_prop {#1}
       {
-        \seq_count:N \g_@@_role_tags_seq
+        \msg_info:nnn { tag }{new-tag}{#1}
+        \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+        \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
+         {
+           \seq_count:N \g_@@_role_tags_seq
+         }
       }
     \@@_check_add_tag_role:nn {#1}{#2}
     \tl_if_empty:nF { #2 }
@@ -322,7 +285,7 @@
   { \pdf_version_compare_p:Nn < {2.0} }
   { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
   {
-     \prop_map_inline:Nn \c_@@_role_map_sttagsTWO_prop
+     \prop_map_inline:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
        {
          \@@_role_add_tag:nn {#1}{#2}
        }

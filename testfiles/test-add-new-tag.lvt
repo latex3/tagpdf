@@ -33,10 +33,10 @@
 
 \__tag_prop_show:N \g__tag_role_rolemap_prop
 
-\edef\testname{\__tag_role_get_index_from_tag:nn{g__tag_role_tags}{mn}}
+\edef\testname{\prop_item:cn {g__tag_role_tags_prop}{mn}}
 \show\testname
 
-\edef\testnum{\__tag_role_get_tag_from_index:nn{g__tag_role_tags}{\testname}}
+\edef\testnum{\seq_item:cn {g__tag_role_tags_seq}{\testname}}
 \show\testnum
 
 \ExplSyntaxOff
