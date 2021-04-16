@@ -44,44 +44,95 @@
 % \begin{macro}{\g_@@_role_tags_NS_prop}
 % in pdf 2.0 tags belong to a name space. We record this in a prop.
 % The keys are the tags, the value shorthands like pdf2, or mathml.
+% There is no need to access this from lua, so we use the standard prop commands.
 %    \begin{macrocode}
-\@@_prop_new:N    \g_@@_role_tags_NS_prop %to namespace info
+\prop_new:N    \g_@@_role_tags_NS_prop %to namespace info
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\g_@@_role_NS_seq}
+% \begin{macro}{\g_@@_role_NS_prop}
 % The standard names spaces are the following. The keys are the name
 % tagpdf will use,  the urls are the identifier in the namespace object.
 % \begin{description}
 % \item[mathml] http://www.w3.org/1998/Math/MathML
-% \item[pdf2]  http://iso.org/pdf2/ssn
-% \item[pdf] http://iso.org/pdf/ssn (default)
+% \item[pdf2]   http://iso.org/pdf2/ssn
+% \item[pdf]    http://iso.org/pdf/ssn (default)
 % \end{description}
-% The objects references of the namespaces must be collected in a seq, so that an
-% array can be written to the StructTreeRoot at the end (see tagpdf-tree).
+% More namesspaces are possible and
+% their objects references and the ones of the namespaces must be collected
+% so that an array can be written to the StructTreeRoot at the end (see tagpdf-tree).
+% We use a prop so that the ID string can be stored too.
 %    \begin{macrocode}
-\@@_seq_new:N     \g_@@_role_NS_seq % collect namespaces
+\seq_new:N     \g_@@_role_NS_prop % collect namespaces
 %    \end{macrocode}
 % \end{macro}
-%
+% \section{Namesspaces}
+% The following commands setups a names space. Namespace dictionaries can
+% contain an optional |/Schema| and |/RoleMapNS| entry. We only reserve the
+% objects but delay the writing to finish code, where we can test if there if the
+% keys and the name spaces are actually needed
+% \begin{macro}{\@@_role_NS_new:nn}
+% This commands setups objects for the name space and its rolemap. It also
+% initialize a prop to collect the rolemaps if needed.
+% \begin{function}{\@@_role_NS_new:nnn}
+%  \begin{syntax}
+%   \cs{@@_role_NS_new:nnn}\Arg{shorthand}\Arg{URI-ID}{Schema}
+%  \end{syntax}
+% \end{function}
+% \begin{macro}{\@@_role_NS_new:nnn}
 %    \begin{macrocode}
-%The list of standard adobe tags, namespace pdf 1.7.
-\clist_const:Nn \c_@@_role_sttags_clist
-  {%possible root elements
+\cs_new_protected:Npn \@@_role_NS_new:nnn
+  {
+    \pdf_object_new:nn {c_@@_role_NS_#1_obj}{dict}
+    \pdf_object_new:nn {c_@@_role_NS_map_#1_obj}{dict}
+    \prop_new:cn {g_@@_role_NS_#1_map_prop}
+    \pdfdict_new:n   {g_@@_role_NS_#1_dict}
+    \pdfdict_gput:nnn{g_@@_role_NS_#1_dict}
+      {Type}{/Namespace}
+    \pdfdict_gput:nnx{g_@@_role_NS_#1_dict}
+      {NS}{\pdf_object_ref:n {c_@@_role_NS_#1_obj}}
+    \pdfdict_gput:nnx{g_@@_role_NS_#1_dict}
+      {RoleMapNS}{\pdf_object_ref:n {c_@@_role_NS_map_#1_obj}}
+    \pdfdict_gput:nnx{g_@@_role_NS_#1_dict}
+      {Schema}{#3}
+    \seq_gput:Nx \g_@@_role_NS_prop {\pdf_object_ref:n{c_@@_role_NS_#1_obj}}
+  }
+%    \end{macrocode}
+% \end{macro}
+% Now we setup the standard names spaces. Currently only if we detect pdf2.0 but
+% this will perhaps have to change if the structure code gets to messy.
+%    \begin{macrocode}
+\bool_lazy_or:nnT
+  { \pdf_version_compare_p:Nn > {1.9} }
+  { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
+  {
+    \@@_role_NS_new:nn {pdf}  {http://iso.org/pdf/ssn}{}
+    \@@_role_NS_new:nn {pdf2} {http://iso.org/pdf2/ssn}{}
+    \@@_role_NS_new:nn {mathml{http://www.w3.org/1998/Math/MathML}{}
+  }
+%    \end{macrocode}
+%
+% \section{Data}
+% In this section we setup the standard data.
+% At first the list of structure types. We split them in three lists,
+% the tags with which are both in the pdf and pdf2 namespace,
+% the one only in pdf and the one with the tags only in pdf2.
+%
+% \begin{macro}
+%   {
+%    \c_@@_role_sttags_pdf_pdfII_clist,
+%    \c_@@_role_sttags_only_pdf_clist,
+%    \c_@@_role_sttags_only_pdfII_clist
+%   }
+%    \begin{macrocode}
+%
+\clist_const:Nn \c_@@_role_sttags_pdf_pdfII_clist
+  {
     Document,   %A complete document. This is the root element of any structure tree containing
                 %multiple parts or multiple articles.
     Part,       %A large-scale division of a document.
-    Art,        %not 2.0,A relatively self-contained body of text constituting a single narrative or exposition
-    %subelements
     Sect,       %A container for grouping related content elements.
     Div,        %A generic block-level element or group of elements
-    BlockQuote, %A portion of text consisting of one or more paragraphs attributed to someone other
-                %than the author of the  surrounding text.
     Caption,    %A brief portion of text describing a table or figure.
-    TOC,        %A list made up of table of contents item entries (structure tag TOCI; see below)
-                %and/or other nested table of contents entries
-    TOCI,       %An individual member of a table of contents. This entry's children can be any of
-                %the following structure  tags:
-                %Lbl,Reference,NonStruct,P,TOC
     Index,
     NonStruct,  %probably not needed
     H,
@@ -104,11 +155,6 @@
     TBody,       %table rows
     TFoot,       %table footer
     Span,        %generic inline marker
-    Quote,       %inline quote
-    Note,        % footnote, endnote. Lbl can be child
-    Reference,   % A citation to content elsewhere in the document.
-    BibEntry,    %bibentry
-    Code,        %
     Link,        %
     Annot,
     Figure,
@@ -126,16 +172,20 @@
 
 \clist_const:Nn \c_@@_role_sttags_only_pdf_clist
  {
-   Art,
-   BlockQuote,
-   TOC,
-   TOCI,
+   Art,%A relatively self-contained body of text constituting a single narrative or exposition
+   BlockQuote, %A portion of text consisting of one or more paragraphs attributed to someone other
+               %than the author of the  surrounding text.
+   TOC,        %A list made up of table of contents item entries (structure tag TOCI; see below)
+                %and/or other nested table of contents entries
+   TOCI,       %An individual member of a table of contents. This entry's children can be any of
+               %the following structure  tags:
+               %Lbl,Reference,NonStruct,P,TOC
    Index,
    Private,
-   Quote,
-   Note,
-   Reference,
-   BibEntry,
+   Quote,       %inline quote
+   Note,        %footnote, endnote. Lbl can be child
+   Reference,   %A citation to content elsewhere in the document.
+   BibEntry,    %bibentry
    Code
  }
 
@@ -154,60 +204,11 @@
    ,Strong
    ,Artifact
  }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 
-
-%The list of standard pdf2.0, storing only for now.
-\clist_const:Nn \c_@@_role_sttagsTWO_clist
-  {%possible root elements
-    Document,   %A complete document. This is the root element of any structure tree containing
-                %multiple parts or multiple articles.
-    DocumentFragment, %only 2.0, a fragment from another document.
-    Part,       %A large-scale division of a document.
-    Sect,       %A container for grouping related content elements.
-    Div,        %A generic block-level element or group of elements
-    Aside,      % only 2.0
-    NonStruct,  % (grouping element)
-    Caption,    %A brief portion of text describing a table or figure.
-    Title,      %only 2.0.
-    Sub,        %only 2.0
-    H,
-    H1,
-    H2,
-    H3,
-    H4,
-    H5,
-    H6,
-    H7, % only 2.0 and more Hn
-    P,
-    FENote,      %only 2.0 (footnote/endnote)
-    L,           %list
-    LI,          %list item (around label and list item body)
-    Lbl,         %list label
-    LBody,       %list item body
-    Table,
-    TR,          %table row
-    TH,          %table header cell
-    TD,          %table data cell
-    THead,       %table header (n rows)
-    TBody,       %table rows
-    TFoot,       %table footer
-    Span,        %generic inline marker
-    Em,          %only 2.0
-    Strong,      %only 2.0
-    Link,        %
-    Annot,
-    Figure,
-    Formula,
-    Form,
-    Artifact,
-    % ruby warichu etc ..
-    Ruby,
-    RB,
-    RT,
-    Warichu,
-    WT,
-    WP,
-  }
 
 \prop_const_from_keyval:Nn \c_@@_role_map_sttagsTWO_prop
   {
