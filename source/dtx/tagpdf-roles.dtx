@@ -60,9 +60,10 @@
 % More namesspaces are possible and
 % their objects references and the ones of the namespaces must be collected
 % so that an array can be written to the StructTreeRoot at the end (see tagpdf-tree).
-% We use a prop so that the ID string can be stored too.
+% We use a prop to store also the object reference as it will be needed rather
+% often.
 %    \begin{macrocode}
-\seq_new:N     \g_@@_role_NS_prop % collect namespaces
+\prop_new:N \g_@@_role_NS_prop % collect namespaces
 %    \end{macrocode}
 % \end{macro}
 % \section{Namesspaces}
@@ -80,21 +81,22 @@
 % \end{function}
 % \begin{macro}{\@@_role_NS_new:nnn}
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_role_NS_new:nnn
+\cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
   {
     \pdf_object_new:nn {c_@@_role_NS_#1_obj}{dict}
     \pdf_object_new:nn {c_@@_role_NS_map_#1_obj}{dict}
-    \prop_new:cn {g_@@_role_NS_#1_map_prop}
+    \prop_new:c {g_@@_role_NS_#1_map_prop}
     \pdfdict_new:n   {g_@@_role_NS_#1_dict}
+    \pdfdict_new:n   {g_@@_role_NS_map_#1_dict}
     \pdfdict_gput:nnn{g_@@_role_NS_#1_dict}
       {Type}{/Namespace}
+    \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_tmpa_str
     \pdfdict_gput:nnx{g_@@_role_NS_#1_dict}
-      {NS}{\pdf_object_ref:n {c_@@_role_NS_#1_obj}}
-    \pdfdict_gput:nnx{g_@@_role_NS_#1_dict}
-      {RoleMapNS}{\pdf_object_ref:n {c_@@_role_NS_map_#1_obj}}
+      {NS}{\l_tmpa_str}
+    %RoleMapNS is added in tree
     \pdfdict_gput:nnx{g_@@_role_NS_#1_dict}
       {Schema}{#3}
-    \seq_gput:Nx \g_@@_role_NS_prop {\pdf_object_ref:n{c_@@_role_NS_#1_obj}}
+    \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{c_@@_role_NS_#1_obj}~}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -105,9 +107,9 @@
   { \pdf_version_compare_p:Nn > {1.9} }
   { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
   {
-    \@@_role_NS_new:nn {pdf}  {http://iso.org/pdf/ssn}{}
-    \@@_role_NS_new:nn {pdf2} {http://iso.org/pdf2/ssn}{}
-    \@@_role_NS_new:nn {mathml{http://www.w3.org/1998/Math/MathML}{}
+    \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
+    \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
+    \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
   }
 %    \end{macrocode}
 %
@@ -119,9 +121,9 @@
 %
 % \begin{macro}
 %   {
-%    \c_@@_role_sttags_pdf_pdfII_clist,
-%    \c_@@_role_sttags_only_pdf_clist,
-%    \c_@@_role_sttags_only_pdfII_clist
+%     \c_@@_role_sttags_pdf_pdfII_clist,
+%     \c_@@_role_sttags_only_pdf_clist,
+%     \c_@@_role_sttags_only_pdfII_clist
 %   }
 %    \begin{macrocode}
 %
@@ -225,50 +227,50 @@
     Strong= Span,     %only 2.0
   }
 
-\bool_lazy_or:nnT
-  { \pdf_version_compare_p:Nn > {1.9} }
-  { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
-  { %pdf 2.0
-    \pdf_object_new:nn {c_@@_role_NS_pdf2_obj}{dict}
-    \pdf_object_new:nn {c_@@_role_NS_pdf2_map_obj}{dict}
-    \pdf_object_write:nx{c_@@_role_NS_pdf2_obj}
-      {
-        /Type/Namespace
-        /NS(http://iso.org/pdf2/ssn)
-        /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_pdf2_map_obj}
-      }
-    \seq_gput_right:Nx \g_@@_role_NS_seq
-      {\pdf_object_ref:n {c_@@_role_NS_pdf2_obj}}
-    %pdf 1.7
-    \pdf_object_new:nn {c_@@_role_NS_pdf_obj}{dict}
-    \pdf_object_new:nn {c_@@_role_NS_pdf_map_obj}{dict}
-    \pdf_object_write:nx{c_@@_role_NS_pdf_obj}
-      {
-         /Type/Namespace
-         /NS(http://iso.org/pdf/ssn)
-         /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_pdf_map_obj}
-      }
-    \seq_gput_right:Nx \g_@@_role_NS_seq
-      {\pdf_object_ref:n {c_@@_role_NS_pdf_obj}}
-    %mathml
-    \pdf_object_new:nn {c_@@_role_NS_mathml_obj}{dict}
-    \pdf_object_new:nn {c_@@_role_NS_mathml_map_obj}{dict}
-    \pdf_object_write:nx{c_@@_role_NS_mathml_obj}
-      {
-        /Type/Namespace
-        /NS(http://www.w3.org/1998/Math/MathML)
-        /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_mathml_map_obj}
-      }
-    \seq_gput_right:Nx \g_@@_role_NS_seq
-         {\pdf_object_ref:n {c_@@_role_NS_mathml_obj}}
-  }
+%\bool_lazy_or:nnT
+%  { \pdf_version_compare_p:Nn > {1.9} }
+%  { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
+%  { %pdf 2.0
+%    \pdf_object_new:nn {c_@@_role_NS_pdf2_obj}{dict}
+%    \pdf_object_new:nn {c_@@_role_NS_pdf2_map_obj}{dict}
+%    \pdf_object_write:nx{c_@@_role_NS_pdf2_obj}
+%      {
+%        /Type/Namespace
+%        /NS(http://iso.org/pdf2/ssn)
+%        /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_pdf2_map_obj}
+%      }
+%    \seq_gput_right:Nx \g_@@_role_NS_seq
+%      {\pdf_object_ref:n {c_@@_role_NS_pdf2_obj}}
+%    %pdf 1.7
+%    \pdf_object_new:nn {c_@@_role_NS_pdf_obj}{dict}
+%    \pdf_object_new:nn {c_@@_role_NS_pdf_map_obj}{dict}
+%    \pdf_object_write:nx{c_@@_role_NS_pdf_obj}
+%      {
+%         /Type/Namespace
+%         /NS(http://iso.org/pdf/ssn)
+%         /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_pdf_map_obj}
+%      }
+%    \seq_gput_right:Nx \g_@@_role_NS_seq
+%      {\pdf_object_ref:n {c_@@_role_NS_pdf_obj}}
+%    %mathml
+%    \pdf_object_new:nn {c_@@_role_NS_mathml_obj}{dict}
+%    \pdf_object_new:nn {c_@@_role_NS_mathml_map_obj}{dict}
+%    \pdf_object_write:nx{c_@@_role_NS_mathml_obj}
+%      {
+%        /Type/Namespace
+%        /NS(http://www.w3.org/1998/Math/MathML)
+%        /RoleMapNS\c_space_tl \pdf_object_ref:n{c_@@_role_NS_mathml_map_obj}
+%      }
+%    \seq_gput_right:Nx \g_@@_role_NS_seq
+%         {\pdf_object_ref:n {c_@@_role_NS_mathml_obj}}
+%  }
 
 
 
 % get tag name from number: \seq_item:Nn \g_@@_role_tags_seq { n }
 %\seq_gset_from_clist:NN \g_@@_role_tags_seq \c_@@_role_tags_clist
 
-\clist_map_inline:Nn \c_@@_role_sttags_clist
+\clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
   {
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
   }
