@@ -1,8 +1,13 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 pdftex
-Package tagpdf Info: adding new tag section mapped to role H1
+Package tagpdf Info: adding new tag section
+Package tagpdf Info: mapping tag section to role H1
+Package tagpdf Info: adding new tag mn
 Package tagpdf Warning: tag mn has no role assigned
+Package pdfdict Warning: The value mn for g__tag_RoleMap_dict is blank and
+(pdfdict)                will be ignored
+Package tagpdf Info: adding new tag wrongtag
 Package tagpdf Warning: role HX is not known
 The property list \g__tag_role_rolemap_prop contains the pairs (without outer
 braces):
@@ -22,7 +27,7 @@ braces):
 <recently read> }
 l. ...\__tag_prop_show:N \g__tag_role_rolemap_prop
 > \testname=macro:
-->61.
+->64.
 l. ...\show\testname
 > \testnum=macro:
 ->mn.

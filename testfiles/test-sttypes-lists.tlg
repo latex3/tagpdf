@@ -4,13 +4,9 @@ pdftex
 The sequence \g__tag_role_tags_seq contains the items (without outer braces):
 >  {Document}
 >  {Part}
->  {Art}
 >  {Sect}
 >  {Div}
->  {BlockQuote}
 >  {Caption}
->  {TOC}
->  {TOCI}
 >  {Index}
 >  {NonStruct}
 >  {H}
@@ -33,11 +29,6 @@ The sequence \g__tag_role_tags_seq contains the items (without outer braces):
 >  {TBody}
 >  {TFoot}
 >  {Span}
->  {Quote}
->  {Note}
->  {Reference}
->  {BibEntry}
->  {Code}
 >  {Link}
 >  {Annot}
 >  {Figure}
@@ -50,85 +41,98 @@ The sequence \g__tag_role_tags_seq contains the items (without outer braces):
 >  {WT}
 >  {WP}
 >  {Artifact}
+>  {Art}
+>  {BlockQuote}
+>  {TOC}
+>  {TOCI}
+>  {Index}
+>  {Private}
+>  {Quote}
+>  {Note}
+>  {Reference}
+>  {BibEntry}
+>  {Code}
 >  {DocumentFragment}
 >  {Aside}
->  {Title}
->  {Sub}
 >  {H7}
 >  {H8}
 >  {H9}
 >  {H10}
+>  {Title}
 >  {FENote}
+>  {Sub}
 >  {Em}
->  {Strong}.
+>  {Strong}
+>  {Artifact}.
 <recently read> }
 l. ...\__tag_seq_show:N \g__tag_role_tags_seq
 The property list \g__tag_role_tags_prop contains the pairs (without outer
 braces):
 >  {Document}  =>  {1}
 >  {Part}  =>  {2}
->  {Art}  =>  {3}
->  {Sect}  =>  {4}
->  {Div}  =>  {5}
->  {BlockQuote}  =>  {6}
->  {Caption}  =>  {7}
->  {TOC}  =>  {8}
->  {TOCI}  =>  {9}
->  {Index}  =>  {10}
->  {NonStruct}  =>  {11}
->  {H}  =>  {12}
->  {H1}  =>  {13}
->  {H2}  =>  {14}
->  {H3}  =>  {15}
->  {H4}  =>  {16}
->  {H5}  =>  {17}
->  {H6}  =>  {18}
->  {P}  =>  {19}
->  {L}  =>  {20}
->  {LI}  =>  {21}
->  {Lbl}  =>  {22}
->  {LBody}  =>  {23}
->  {Table}  =>  {24}
->  {TR}  =>  {25}
->  {TH}  =>  {26}
->  {TD}  =>  {27}
->  {THead}  =>  {28}
->  {TBody}  =>  {29}
->  {TFoot}  =>  {30}
->  {Span}  =>  {31}
->  {Quote}  =>  {32}
->  {Note}  =>  {33}
->  {Reference}  =>  {34}
->  {BibEntry}  =>  {35}
->  {Code}  =>  {36}
->  {Link}  =>  {37}
->  {Annot}  =>  {38}
->  {Figure}  =>  {39}
->  {Formula}  =>  {40}
->  {Form}  =>  {41}
->  {Ruby}  =>  {42}
->  {RB}  =>  {43}
->  {RT}  =>  {44}
->  {Warichu}  =>  {45}
->  {WT}  =>  {46}
->  {WP}  =>  {47}
->  {Artifact}  =>  {48}
->  {DocumentFragment}  =>  {49}
->  {Aside}  =>  {50}
->  {Title}  =>  {51}
->  {Sub}  =>  {52}
+>  {Sect}  =>  {3}
+>  {Div}  =>  {4}
+>  {Caption}  =>  {5}
+>  {Index}  =>  {44}
+>  {NonStruct}  =>  {7}
+>  {H}  =>  {8}
+>  {H1}  =>  {9}
+>  {H2}  =>  {10}
+>  {H3}  =>  {11}
+>  {H4}  =>  {12}
+>  {H5}  =>  {13}
+>  {H6}  =>  {14}
+>  {P}  =>  {15}
+>  {L}  =>  {16}
+>  {LI}  =>  {17}
+>  {Lbl}  =>  {18}
+>  {LBody}  =>  {19}
+>  {Table}  =>  {20}
+>  {TR}  =>  {21}
+>  {TH}  =>  {22}
+>  {TD}  =>  {23}
+>  {THead}  =>  {24}
+>  {TBody}  =>  {25}
+>  {TFoot}  =>  {26}
+>  {Span}  =>  {27}
+>  {Link}  =>  {28}
+>  {Annot}  =>  {29}
+>  {Figure}  =>  {30}
+>  {Formula}  =>  {31}
+>  {Form}  =>  {32}
+>  {Ruby}  =>  {33}
+>  {RB}  =>  {34}
+>  {RT}  =>  {35}
+>  {Warichu}  =>  {36}
+>  {WT}  =>  {37}
+>  {WP}  =>  {38}
+>  {Artifact}  =>  {62}
+>  {Art}  =>  {40}
+>  {BlockQuote}  =>  {41}
+>  {TOC}  =>  {42}
+>  {TOCI}  =>  {43}
+>  {Private}  =>  {45}
+>  {Quote}  =>  {46}
+>  {Note}  =>  {47}
+>  {Reference}  =>  {48}
+>  {BibEntry}  =>  {49}
+>  {Code}  =>  {50}
+>  {DocumentFragment}  =>  {51}
+>  {Aside}  =>  {52}
 >  {H7}  =>  {53}
 >  {H8}  =>  {54}
 >  {H9}  =>  {55}
 >  {H10}  =>  {56}
->  {FENote}  =>  {57}
->  {Em}  =>  {58}
->  {Strong}  =>  {59}.
+>  {Title}  =>  {57}
+>  {FENote}  =>  {58}
+>  {Sub}  =>  {59}
+>  {Em}  =>  {60}
+>  {Strong}  =>  {61}.
 <recently read> }
 l. ...\__tag_prop_show:N \g__tag_role_tags_prop
 > \test=macro:
-->H1.
+->H5.
 l. ...\show\test
 > \test=macro:
-->13.
+->9.
 l. ...\show\test

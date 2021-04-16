@@ -4,13 +4,9 @@ luatex
 The sequence \g__tag_role_tags_seq contains the items (without outer braces):
 >  {Document}
 >  {Part}
->  {Art}
 >  {Sect}
 >  {Div}
->  {BlockQuote}
 >  {Caption}
->  {TOC}
->  {TOCI}
 >  {Index}
 >  {NonStruct}
 >  {H}
@@ -33,11 +29,6 @@ The sequence \g__tag_role_tags_seq contains the items (without outer braces):
 >  {TBody}
 >  {TFoot}
 >  {Span}
->  {Quote}
->  {Note}
->  {Reference}
->  {BibEntry}
->  {Code}
 >  {Link}
 >  {Annot}
 >  {Figure}
@@ -50,205 +41,222 @@ The sequence \g__tag_role_tags_seq contains the items (without outer braces):
 >  {WT}
 >  {WP}
 >  {Artifact}
+>  {Art}
+>  {BlockQuote}
+>  {TOC}
+>  {TOCI}
+>  {Index}
+>  {Private}
+>  {Quote}
+>  {Note}
+>  {Reference}
+>  {BibEntry}
+>  {Code}
 >  {DocumentFragment}
 >  {Aside}
->  {Title}
->  {Sub}
 >  {H7}
 >  {H8}
 >  {H9}
 >  {H10}
+>  {Title}
 >  {FENote}
+>  {Sub}
 >  {Em}
->  {Strong}.
+>  {Strong}
+>  {Artifact}.
 <recently read> }
 l. ...\__tag_seq_show:N \g__tag_role_tags_seq
 tagpdf: lua sequence array g__tag_role_tags_seq
 tagpdf: [1] => Document
 tagpdf: [2] => Part
-tagpdf: [3] => Art
-tagpdf: [4] => Sect
-tagpdf: [5] => Div
-tagpdf: [6] => BlockQuote
-tagpdf: [7] => Caption
-tagpdf: [8] => TOC
-tagpdf: [9] => TOCI
-tagpdf: [10] => Index
-tagpdf: [11] => NonStruct
-tagpdf: [12] => H
-tagpdf: [13] => H1
-tagpdf: [14] => H2
-tagpdf: [15] => H3
-tagpdf: [16] => H4
-tagpdf: [17] => H5
-tagpdf: [18] => H6
-tagpdf: [19] => P
-tagpdf: [20] => L
-tagpdf: [21] => LI
-tagpdf: [22] => Lbl
-tagpdf: [23] => LBody
-tagpdf: [24] => Table
-tagpdf: [25] => TR
-tagpdf: [26] => TH
-tagpdf: [27] => TD
-tagpdf: [28] => THead
-tagpdf: [29] => TBody
-tagpdf: [30] => TFoot
-tagpdf: [31] => Span
-tagpdf: [32] => Quote
-tagpdf: [33] => Note
-tagpdf: [34] => Reference
-tagpdf: [35] => BibEntry
-tagpdf: [36] => Code
-tagpdf: [37] => Link
-tagpdf: [38] => Annot
-tagpdf: [39] => Figure
-tagpdf: [40] => Formula
-tagpdf: [41] => Form
-tagpdf: [42] => Ruby
-tagpdf: [43] => RB
-tagpdf: [44] => RT
-tagpdf: [45] => Warichu
-tagpdf: [46] => WT
-tagpdf: [47] => WP
-tagpdf: [48] => Artifact
-tagpdf: [49] => DocumentFragment
-tagpdf: [50] => Aside
-tagpdf: [51] => Title
-tagpdf: [52] => Sub
+tagpdf: [3] => Sect
+tagpdf: [4] => Div
+tagpdf: [5] => Caption
+tagpdf: [6] => Index
+tagpdf: [7] => NonStruct
+tagpdf: [8] => H
+tagpdf: [9] => H1
+tagpdf: [10] => H2
+tagpdf: [11] => H3
+tagpdf: [12] => H4
+tagpdf: [13] => H5
+tagpdf: [14] => H6
+tagpdf: [15] => P
+tagpdf: [16] => L
+tagpdf: [17] => LI
+tagpdf: [18] => Lbl
+tagpdf: [19] => LBody
+tagpdf: [20] => Table
+tagpdf: [21] => TR
+tagpdf: [22] => TH
+tagpdf: [23] => TD
+tagpdf: [24] => THead
+tagpdf: [25] => TBody
+tagpdf: [26] => TFoot
+tagpdf: [27] => Span
+tagpdf: [28] => Link
+tagpdf: [29] => Annot
+tagpdf: [30] => Figure
+tagpdf: [31] => Formula
+tagpdf: [32] => Form
+tagpdf: [33] => Ruby
+tagpdf: [34] => RB
+tagpdf: [35] => RT
+tagpdf: [36] => Warichu
+tagpdf: [37] => WT
+tagpdf: [38] => WP
+tagpdf: [39] => Artifact
+tagpdf: [40] => Art
+tagpdf: [41] => BlockQuote
+tagpdf: [42] => TOC
+tagpdf: [43] => TOCI
+tagpdf: [44] => Index
+tagpdf: [45] => Private
+tagpdf: [46] => Quote
+tagpdf: [47] => Note
+tagpdf: [48] => Reference
+tagpdf: [49] => BibEntry
+tagpdf: [50] => Code
+tagpdf: [51] => DocumentFragment
+tagpdf: [52] => Aside
 tagpdf: [53] => H7
 tagpdf: [54] => H8
 tagpdf: [55] => H9
 tagpdf: [56] => H10
-tagpdf: [57] => FENote
-tagpdf: [58] => Em
-tagpdf: [59] => Strong
+tagpdf: [57] => Title
+tagpdf: [58] => FENote
+tagpdf: [59] => Sub
+tagpdf: [60] => Em
+tagpdf: [61] => Strong
+tagpdf: [62] => Artifact
 The property list \g__tag_role_tags_prop contains the pairs (without outer
 braces):
 >  {Document}  =>  {1}
 >  {Part}  =>  {2}
->  {Art}  =>  {3}
->  {Sect}  =>  {4}
->  {Div}  =>  {5}
->  {BlockQuote}  =>  {6}
->  {Caption}  =>  {7}
->  {TOC}  =>  {8}
->  {TOCI}  =>  {9}
->  {Index}  =>  {10}
->  {NonStruct}  =>  {11}
->  {H}  =>  {12}
->  {H1}  =>  {13}
->  {H2}  =>  {14}
->  {H3}  =>  {15}
->  {H4}  =>  {16}
->  {H5}  =>  {17}
->  {H6}  =>  {18}
->  {P}  =>  {19}
->  {L}  =>  {20}
->  {LI}  =>  {21}
->  {Lbl}  =>  {22}
->  {LBody}  =>  {23}
->  {Table}  =>  {24}
->  {TR}  =>  {25}
->  {TH}  =>  {26}
->  {TD}  =>  {27}
->  {THead}  =>  {28}
->  {TBody}  =>  {29}
->  {TFoot}  =>  {30}
->  {Span}  =>  {31}
->  {Quote}  =>  {32}
->  {Note}  =>  {33}
->  {Reference}  =>  {34}
->  {BibEntry}  =>  {35}
->  {Code}  =>  {36}
->  {Link}  =>  {37}
->  {Annot}  =>  {38}
->  {Figure}  =>  {39}
->  {Formula}  =>  {40}
->  {Form}  =>  {41}
->  {Ruby}  =>  {42}
->  {RB}  =>  {43}
->  {RT}  =>  {44}
->  {Warichu}  =>  {45}
->  {WT}  =>  {46}
->  {WP}  =>  {47}
->  {Artifact}  =>  {48}
->  {DocumentFragment}  =>  {49}
->  {Aside}  =>  {50}
->  {Title}  =>  {51}
->  {Sub}  =>  {52}
+>  {Sect}  =>  {3}
+>  {Div}  =>  {4}
+>  {Caption}  =>  {5}
+>  {Index}  =>  {44}
+>  {NonStruct}  =>  {7}
+>  {H}  =>  {8}
+>  {H1}  =>  {9}
+>  {H2}  =>  {10}
+>  {H3}  =>  {11}
+>  {H4}  =>  {12}
+>  {H5}  =>  {13}
+>  {H6}  =>  {14}
+>  {P}  =>  {15}
+>  {L}  =>  {16}
+>  {LI}  =>  {17}
+>  {Lbl}  =>  {18}
+>  {LBody}  =>  {19}
+>  {Table}  =>  {20}
+>  {TR}  =>  {21}
+>  {TH}  =>  {22}
+>  {TD}  =>  {23}
+>  {THead}  =>  {24}
+>  {TBody}  =>  {25}
+>  {TFoot}  =>  {26}
+>  {Span}  =>  {27}
+>  {Link}  =>  {28}
+>  {Annot}  =>  {29}
+>  {Figure}  =>  {30}
+>  {Formula}  =>  {31}
+>  {Form}  =>  {32}
+>  {Ruby}  =>  {33}
+>  {RB}  =>  {34}
+>  {RT}  =>  {35}
+>  {Warichu}  =>  {36}
+>  {WT}  =>  {37}
+>  {WP}  =>  {38}
+>  {Artifact}  =>  {62}
+>  {Art}  =>  {40}
+>  {BlockQuote}  =>  {41}
+>  {TOC}  =>  {42}
+>  {TOCI}  =>  {43}
+>  {Private}  =>  {45}
+>  {Quote}  =>  {46}
+>  {Note}  =>  {47}
+>  {Reference}  =>  {48}
+>  {BibEntry}  =>  {49}
+>  {Code}  =>  {50}
+>  {DocumentFragment}  =>  {51}
+>  {Aside}  =>  {52}
 >  {H7}  =>  {53}
 >  {H8}  =>  {54}
 >  {H9}  =>  {55}
 >  {H10}  =>  {56}
->  {FENote}  =>  {57}
->  {Em}  =>  {58}
->  {Strong}  =>  {59}.
+>  {Title}  =>  {57}
+>  {FENote}  =>  {58}
+>  {Sub}  =>  {59}
+>  {Em}  =>  {60}
+>  {Strong}  =>  {61}.
 <recently read> }
 l. ...\__tag_prop_show:N \g__tag_role_tags_prop
 tagpdf: lua property table g__tag_role_tags_prop
-tagpdf: [Annot] => 38
-tagpdf: [Art] => 3
-tagpdf: [Artifact] => 48
-tagpdf: [Aside] => 50
-tagpdf: [BibEntry] => 35
-tagpdf: [BlockQuote] => 6
-tagpdf: [Caption] => 7
-tagpdf: [Code] => 36
-tagpdf: [Div] => 5
+tagpdf: [Annot] => 29
+tagpdf: [Art] => 40
+tagpdf: [Artifact] => 62
+tagpdf: [Aside] => 52
+tagpdf: [BibEntry] => 49
+tagpdf: [BlockQuote] => 41
+tagpdf: [Caption] => 5
+tagpdf: [Code] => 50
+tagpdf: [Div] => 4
 tagpdf: [Document] => 1
-tagpdf: [DocumentFragment] => 49
-tagpdf: [Em] => 58
-tagpdf: [FENote] => 57
-tagpdf: [Figure] => 39
-tagpdf: [Form] => 41
-tagpdf: [Formula] => 40
-tagpdf: [H] => 12
-tagpdf: [H1] => 13
+tagpdf: [DocumentFragment] => 51
+tagpdf: [Em] => 60
+tagpdf: [FENote] => 58
+tagpdf: [Figure] => 30
+tagpdf: [Form] => 32
+tagpdf: [Formula] => 31
+tagpdf: [H] => 8
+tagpdf: [H1] => 9
 tagpdf: [H10] => 56
-tagpdf: [H2] => 14
-tagpdf: [H3] => 15
-tagpdf: [H4] => 16
-tagpdf: [H5] => 17
-tagpdf: [H6] => 18
+tagpdf: [H2] => 10
+tagpdf: [H3] => 11
+tagpdf: [H4] => 12
+tagpdf: [H5] => 13
+tagpdf: [H6] => 14
 tagpdf: [H7] => 53
 tagpdf: [H8] => 54
 tagpdf: [H9] => 55
-tagpdf: [Index] => 10
-tagpdf: [L] => 20
-tagpdf: [LBody] => 23
-tagpdf: [LI] => 21
-tagpdf: [Lbl] => 22
-tagpdf: [Link] => 37
-tagpdf: [NonStruct] => 11
-tagpdf: [Note] => 33
-tagpdf: [P] => 19
+tagpdf: [Index] => 44
+tagpdf: [L] => 16
+tagpdf: [LBody] => 19
+tagpdf: [LI] => 17
+tagpdf: [Lbl] => 18
+tagpdf: [Link] => 28
+tagpdf: [NonStruct] => 7
+tagpdf: [Note] => 47
+tagpdf: [P] => 15
 tagpdf: [Part] => 2
-tagpdf: [Quote] => 32
-tagpdf: [RB] => 43
-tagpdf: [RT] => 44
-tagpdf: [Reference] => 34
-tagpdf: [Ruby] => 42
-tagpdf: [Sect] => 4
-tagpdf: [Span] => 31
-tagpdf: [Strong] => 59
-tagpdf: [Sub] => 52
-tagpdf: [TBody] => 29
-tagpdf: [TD] => 27
-tagpdf: [TFoot] => 30
-tagpdf: [TH] => 26
-tagpdf: [THead] => 28
-tagpdf: [TOC] => 8
-tagpdf: [TOCI] => 9
-tagpdf: [TR] => 25
-tagpdf: [Table] => 24
-tagpdf: [Title] => 51
-tagpdf: [WP] => 47
-tagpdf: [WT] => 46
-tagpdf: [Warichu] => 45
+tagpdf: [Private] => 45
+tagpdf: [Quote] => 46
+tagpdf: [RB] => 34
+tagpdf: [RT] => 35
+tagpdf: [Reference] => 48
+tagpdf: [Ruby] => 33
+tagpdf: [Sect] => 3
+tagpdf: [Span] => 27
+tagpdf: [Strong] => 61
+tagpdf: [Sub] => 59
+tagpdf: [TBody] => 25
+tagpdf: [TD] => 23
+tagpdf: [TFoot] => 26
+tagpdf: [TH] => 22
+tagpdf: [THead] => 24
+tagpdf: [TOC] => 42
+tagpdf: [TOCI] => 43
+tagpdf: [TR] => 21
+tagpdf: [Table] => 20
+tagpdf: [Title] => 57
+tagpdf: [WP] => 38
+tagpdf: [WT] => 37
+tagpdf: [Warichu] => 36
 > \test=macro:
-->H1.
+->H5.
 l. ...\show\test
 > \test=macro:
-->13.
+->9.
 l. ...\show\test
