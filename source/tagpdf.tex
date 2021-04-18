@@ -1083,7 +1083,7 @@ The key-val list understands the following keys:
 
    \item[\PrintKeyName{ref}]
      This key allows to add references to other structure elements, it adds the |/Ref| array to the structure.
-       The value should be a comma seperated list of structure labels set with the |label| key.
+       The value should be a comma separated list of structure labels set with the |label| key.
      e.g. |ref={label1,label2}|.
 
    \item[\PrintKeyName{E}]
@@ -1294,25 +1294,61 @@ To sum them up:
 
 
 
+\section{Standard types and new tags}\label{sec:new-tag}
 
+The tags used to describe the type of a structure element can be rather freely chosen. 
+PDF 1.7 and earlier only requires that in a tagged PDF all types should be either from
+a known set of standard types or are \enquote{role mapped} to such a standard type. Such a role mapping is a simple key-value in the RoleMap dictionary.
 
-\section{Standard type and new tags}\label{sec:new-tag}
-
-
-
-The \PDF{} reference mentions a number of standard types:
-\ExplSyntaxOn
-\clist_use:Nn \c__tag_role_sttags_clist {,\c_space_tl}
-\ExplSyntaxOff
-
-Their meaning can be looked up in the \PDF{}-reference \parencite{pdfreference}.
-
-New tags can be defined in the setup command with the key \texttt{add-new-tag}. It takes a value consisting of two names separated by a slash. The first is the new name, the second a known (e.g. a standard) tag it should be mapped too. Example:
-
+So instead of |H1| the type |section| could be used. The role mapping can then be declared 
+with the |add-new-tag| key:
 
 \begin{lstlisting}
  \tagpdfsetup{add-new-tag = section/H1}
 \end{lstlisting}
+
+In PDF 2.0 the situation is a bit more complicated. At first PDF~2.0 introduced \emph{name spaces}.
+That means that a type can have more than one \enquote{meaning} depending on the name space it belongs to.
+|section (name space A)| and |section (name space B)| are two different types.
+
+At second PDF 2.0 still requires that a tagged PDF maps all types to a standard type, but now there are three sets of standard types (The meanings of the PDF types can be looked up in the \PDF{}-references \parencite{pdfspec-iso32000-1,pdfspec-iso32000-2_2020}, :
+
+\begin{enumerate}
+\item The \emph{standard structure namespace for PDF 1.7}, also called the \emph{default standard structure namespace}. These are the structure names from PDF 1.7:
+\ExplSyntaxOn
+\clist_use:Nn \c_@@_role_sttags_pdf_pdfII_clist {,\c_space_tl} 
+,~ \clist_use:Nn\c_@@_role_sttags_only_pdf_clist {,\c_space_tl}
+\ExplSyntaxOff 
+   
+\item The \emph{standard structure namespace for PDF 2.0}.
+These are more or less same types as in PDF. The following types have been removed from this set:\\
+\ExplSyntaxOn
+\clist_use:Nn\c_@@_role_sttags_only_pdf_clist {,\c_space_tl}\\
+\ExplSyntaxOff
+and the following are new:\\
+\ExplSyntaxOn
+\clist_use:Nn \c_@@_role_sttags_only_pdfII_clist {,\c_space_tl}
+\ExplSyntaxOff
+
+\item MathML 3.0 as an \emph{other namespaces}. There are nearly 200 types in this name space, so I refrain from listing them here.
+\end{enumerate}
+  
+To accomodate to this more complicated setup the syntax of the \texttt{add-new-tag} key has been extended.
+It now takes as argument a key-value list with the following key:
+
+\begin{description}
+\item[\PrintKeyName{tag}] This is the name of the new type as it should then be used in |\tagstructbegin|.
+\item[\PrintKeyName{namespace}] This is the namespace of the new type. The value should be a shorthand of a namespace. The allowed values are currently |pdf|, |pdf2|, |mathml| and |user|. The default value (and recommended value for a new tag) is |user|. 
+\item[\PrintKeyName{role}] This is type the tag should be mapped too. In a PDF 1.7 or earlier this is normally a type from the |pdf| set, in PDF 2.0 from the |pdf|, |pdf2| and |mathml| set. It can also be a user type, or a still unknown type. The PDF format allows mapping to be done transitively. But you should be aware that tagpdf can't (or more precisely won't) check such unusual role mapping. It lies in the responsability of the author to ensure here that every type is correctly role mapped. 
+\item[\PrintKeyName{role-namespace}] If the role is a known type the default value is the default namespace: |pdf2| for all types in this set, |pdf| for the type which exist only in PDF 1.7,  |mathml| for the MathML types, and  for previously defined user types whatever namespace has been set there. If the role is unknown, |user| is used and the code hopes that the type will be defined later.
+ \item[unknown key] An unknown key is interpreted as a |tag/role|, this preserves the old syntax. So this two calls are equivalent:
+   \begin{lstlisting}
+    \tagpdfsetup{add-new-tag = section/H1}
+    \tagpdfsetup{add-new-tag = {tag=section,role=H1}}
+   \end{lstlisting}
+\end{description}
+
+The exact effects of the key depends on the PDF version. With PDF 1.7 or older the namespace keys are ignored, with PDF 2.0 the namespace keys are use to setup the correct rolemaps. The |namespace| key is also used to define the default namespace if the type is used as a role or as tag in a structure. 
 
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
@@ -1372,9 +1408,9 @@ a number of commands are provided
 This shows the tag names of the currently open structures. Typically it will contain at
 least |root| and |Document|.
 
-\begin{docCommand}{showtagpdfmcdata}{\oarg{mc number}}\end{docCommand} 
+\begin{docCommand}{showtagpdfmcdata}{\oarg{mc number}}\end{docCommand}
 
-This\sidenote{luaonly} can only be used with lualatex and shows some info about the 
+This\sidenote{luaonly} can only be used with lualatex and shows some info about the
 current mc-chunk. The optional argument allows to select a number.
 
 \begin{docCommand}{showtagpdfattributes}{}\end{docCommand}

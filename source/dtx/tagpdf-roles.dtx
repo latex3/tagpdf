@@ -99,6 +99,27 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% We need an id for the user space. For the tests it should be possible
+% to set it to a fix value. So we use random numbers which can
+% be fixed by setting a seed. We fake a sort of
+% GUID but not try to be really exact as it doesn't matter ...
+%
+%    \begin{macrocode}
+\str_const:Nx \c_@@_role_userNS_id_str
+  { data:,
+    \int_to_Hex:n{\int_rand:n {65535}}
+    \int_to_Hex:n{\int_rand:n {65535}}
+    -
+    \int_to_Hex:n{\int_rand:n {65535}}
+    -
+    \int_to_Hex:n{\int_rand:n {65535}}
+    -
+    \int_to_Hex:n{\int_rand:n {65535}}
+    -
+    \int_to_Hex:n{\int_rand:n {16777215}}
+    \int_to_Hex:n{\int_rand:n {16777215}}
+  }
+%    \end{macrocode}
 % Now we setup the standard names spaces. Currently only if we detect pdf2.0 but
 % this will perhaps have to change if the structure code gets to messy.
 %    \begin{macrocode}
@@ -295,6 +316,14 @@
   }
 
 \cs_generate_variant:Nn \@@_role_add_tag:nn {xx}
+
+\keys_define:nn { @@ / tag-role }
+  {
+    tag        .tl_set:N = \l_@@_role_tag_tmpa_tl,
+    tag-namespace  .tl_set:N = \l_@@_role_tag_namespace_tmpa_tl,
+    role        .tl_set:N = \l_@@_role_role_tmpa_tl,
+    role-namespace .tl_set:N = \l_@@_role_role_namespace_tmpa_tl,
+  }
 
 \keys_define:nn { @@ / setup }
   {
