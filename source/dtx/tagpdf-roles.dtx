@@ -57,7 +57,7 @@
 % \item[pdf2]   http://iso.org/pdf2/ssn
 % \item[pdf]    http://iso.org/pdf/ssn (default)
 % \end{description}
-% More namesspaces are possible and
+% More namespaces are possible and
 % their objects references and the ones of the namespaces must be collected
 % so that an array can be written to the StructTreeRoot at the end (see tagpdf-tree).
 % We use a prop to store also the object reference as it will be needed rather
@@ -280,9 +280,9 @@
 % Starting with pdf 2.0 we have to handle the NS key for name spaces.
 % new tags and the rolemap
 %    \begin{macrocode}
-\pdfdict_new:n {g_@@_RoleMap_dict}
-\@@_prop_new:N \g_@@_role_rolemap_prop
+\pdfdict_new:n {g_@@_role/RoleMap_dict}
 
+%pdf 1.7version, only RoleMap is filled
 \cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
   {
     \prop_if_in:NnF \g_@@_role_tags_prop {#1}
@@ -290,16 +290,36 @@
         \msg_info:nnn { tag }{new-tag}{#1}
         \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
         \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
+          {
+            \seq_count:N \g_@@_role_tags_seq
+          }
+      }
+    \@@_check_add_tag_role:nn {#1}{#2}
+    \tl_if_empty:nF { #2 }
+      {
+        \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
+          {#1}
+          {\pdf_name_from_unicode_e:n{#2}}
+      }
+  }
+
+
+\cs_new_protected:Nn \@@_role_add_tag:nnnn %tag/namespace/role/namespace
+  {
+    \prop_if_in:NnF \g_@@_role_tags_prop {#1/#2}
+      {
+        \msg_info:nnn { tag }{new-tag}{#1}
+        \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/#2 }
+        \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1/#2 }
          {
            \seq_count:N \g_@@_role_tags_seq
          }
       }
-    \@@_check_add_tag_role:nn {#1}{#2}
-    \pdfdict_gput:nnn {g_@@_RoleMap_dict}{#1}{#2}
+    %\@@_check_add_tag_role:nn {#1}{#3}
     \tl_if_empty:nF { #2 }
       {
-        \@@_prop_gput:Nnn \g_@@_role_rolemap_prop
-          { #1 } { #2 }
+        \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
+          {[\pdf_name_from_unicode_e:n{#3}~\pdf_object_ref:n {c_@@_role/Namespace_#4_obj}] }
       }
   }
 
