@@ -42,7 +42,9 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\g_@@_role_tags_NS_prop}
-% in pdf 2.0 tags belong to a name space. We record this in a prop.
+% in pdf 2.0 tags belong to a name space. The tags are stores
+% as tag/NS, but we also record in a prop one tag/NS relation so that we can
+% find the default NS.
 % The keys are the tags, the value shorthands like pdf2, or mathml.
 % There is no need to access this from lua, so we use the standard prop commands.
 %    \begin{macrocode}
@@ -303,7 +305,7 @@
       }
   }
 
-
+%pdf 2.0 version
 \cs_new_protected:Nn \@@_role_add_tag:nnnn %tag/namespace/role/namespace
   {
     \prop_if_in:NnF \g_@@_role_tags_prop {#1/#2}
