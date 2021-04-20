@@ -35,10 +35,12 @@
 % Testing a name is easier with a prop, while accessing with a number is
 % better done with a seq. So both are used and must be kept in sync if a new
 % tag is added.
+% In PDF2.0 we have to take into account that a type can be in more than one
+% name space. So the internal name is |type/NS|, e.g. |H1/pdf2|.
 % \begin{macro}{\g_@@_role_tags_seq,\g_@@_role_tags_prop}
 %    \begin{macrocode}
-\@@_seq_new:N     \g_@@_role_tags_seq  %to get names from numbers
-\@@_prop_new:N    \g_@@_role_tags_prop %to get numbers from names
+\@@_seq_new:N  \g_@@_role_tags_seq  %to get names (type/NS) from numbers
+\@@_prop_new:N \g_@@_role_tags_prop %to get numbers  from names (type/NS)
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\g_@@_role_tags_NS_prop}
@@ -58,6 +60,7 @@
 % \item[mathml] http://www.w3.org/1998/Math/MathML
 % \item[pdf2]   http://iso.org/pdf2/ssn
 % \item[pdf]    http://iso.org/pdf/ssn (default)
+% \item[user]   \cs{c_@@_role_userNS_id_str} (random id, for user tags)
 % \end{description}
 % More namespaces are possible and
 % their objects references and the ones of the namespaces must be collected
@@ -71,7 +74,7 @@
 % \section{Namesspaces}
 % The following commands setups a names space. Namespace dictionaries can
 % contain an optional |/Schema| and |/RoleMapNS| entry. We only reserve the
-% objects but delay the writing to finish code, where we can test if there if the
+% objects but delay the writing to the finish code, where we can test if the
 % keys and the name spaces are actually needed
 % \begin{macro}{\@@_role_NS_new:nn}
 % This commands setups objects for the name space and its rolemap. It also
@@ -86,14 +89,18 @@
 \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
   {
     \pdf_object_new:nn {c_@@_role/Namespace_#1_obj}{dict}
+    \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
     \pdf_object_new:nn {c_@@_role/RoleMapNS_#1_obj}{dict}
-    \pdfdict_new:n   {g_@@_role/Namespace_#1_dict}
-    \pdfdict_new:n   {g_@@_role/RoleMapNS_#1_dict}
-    \pdfdict_gput:nnn{g_@@_role/Namespace_#1_dict}
-      {Type}{/Namespace}
+    \pdfdict_new:n     {g_@@_role/RoleMapNS_#1_dict}
+    \pdfdict_gput:nnn
+      {g_@@_role/Namespace_#1_dict}
+      {Type}
+      {/Namespace}
     \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_tmpa_str
-    \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
-      {NS}{\l_tmpa_str}
+    \pdfdict_gput:nnx
+      {g_@@_role/Namespace_#1_dict}
+      {NS}
+      {\l_tmpa_str}
     %RoleMapNS is added in tree
     \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
       {Schema}{#3}
@@ -125,13 +132,13 @@
 % Now we setup the standard names spaces. Currently only if we detect pdf2.0 but
 % this will perhaps have to change if the structure code gets to messy.
 %    \begin{macrocode}
-\bool_lazy_or:nnT
-  { \pdf_version_compare_p:Nn > {1.9} }
-  { \str_if_eq_p:ee{\pdf_version_major:}{-1} }
+\pdf_version_compare:NnT > {1.9}
   {
     \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
     \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
     \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
+    \exp_args:Nnx
+    \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
   }
 %    \end{macrocode}
 %
