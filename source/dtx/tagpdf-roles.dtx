@@ -240,17 +240,17 @@
 
 \prop_const_from_keyval:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
   {
-    DocumentFragment = Art, %only 2.0, a fragment from another document.
-    Aside = Note,    %only 2.0
-    Title = H1,      %only 2.0.
-    Sub   = Span,    %only 2.0
-    H7    = H6 ,     %only 2.0 and more Hn
+    DocumentFragment = Art,
+    Aside = Note,
+    Title = H1,
+    Sub   = Span,
+    H7    = H6 ,
     H8    = H6 ,
     H9    = H6 ,
     H10   = H6,
-    FENote= Note,     %only 2.0 (footnote/endnote)
-    Em    = Span,     %only 2.0
-    Strong= Span,     %only 2.0
+    FENote= Note,
+    Em    = Span,
+    Strong= Span,
   }
 %    \end{macrocode}
 % \end{macro}
@@ -258,24 +258,28 @@
 % and role map if needed the 2.0 tags.
 %    \begin{macrocode}
 % get tag name from number: \seq_item:Nn \g_@@_role_tags_seq { n }
-%\seq_gset_from_clist:NN \g_@@_role_tags_seq \c_@@_role_tags_clist
+% get tag number from name: \prop_item:Nn \g_@@_role_tags_prop { name }
 
 \clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
   {
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/pdf2 }
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/pdf }
+    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_only_pdf_clist
   {
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/pdf }
+    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_only_pdfII_clist
   {
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/pdf2 }
+    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
 %    \end{macrocode}
 % For luatex we need a name/number relation.
 %    \begin{macrocode}
-% get tag number from name: \prop_item:Nn \g_@@_role_tags_prop { name }
+
 \int_step_inline:nnnn { 1 }{ 1 }{ \seq_count:N \g_@@_role_tags_seq }
   {
     \@@_prop_gput:Nxn \g_@@_role_tags_prop
