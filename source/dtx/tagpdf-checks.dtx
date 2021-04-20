@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-checks.dtx
 %
-% Copyright (C) 2019-2020 Ulrike Fischer
+% Copyright (C) 2019-2021 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -89,6 +89,15 @@
       }
   }
 
+\cs_new:Nn \@@_check_structure_tag:NN            %_protected?
+  {
+    \exp_args:NNx
+    \prop_if_in:NnF \g_@@_role_tags_prop {#1/#2}
+      {
+        \msg_warning:nnx { tag } {role-unknown-tag} {#1}
+      }
+  }
+
 \cs_new_protected:Nn \@@_check_info_closing_struct:n %#1 struct num
   {
     \msg_info:nnn { tag } {struct-show-closing} {#1}
@@ -154,7 +163,7 @@
       {
         \msg_error:nnx { tag } {mc-tag-missing} { \@@_get_mc_abs_cnt: }
       }
-   \prop_if_in:NoF \g_@@_role_tags_prop {#1}
+   \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
      {
        \msg_warning:nnx { tag } {role-unknown-tag} {#1}
      }

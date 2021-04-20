@@ -350,23 +350,32 @@
 % we store the tag in a variable. But we should be careful, it is only reliable
 % at the begin
 \tl_new:N \g_@@_struct_tag_tl
-
+\tl_new:N \g_@@_struct_tag_NS_tl
+\cs_generate_variant:Nn \seq_set_split:Nnn{Nne}
 \keys_define:nn { @@ / struct }
   {
     label .tl_set:N      = \l_@@_struct_key_label_tl,
     stash .bool_set:N    = \l_@@_struct_elem_stash_bool,
     tag   .code:n        = % S property
       {%%????????? \pdfescapename?? slash/not slash is here the question ...
-        \tl_gset:Nx \g_@@_struct_tag_tl { #1 }
+        \seq_set_split:Nne \l_tmpa_seq { / } {#1/\prop_item:Nn\g__tag_role_tags_NS_prop{#1}}
+        \tl_gset:Nx \g_@@_struct_tag_tl    { \seq_item:Nn\l_tmpa_seq {1} }
+        \tl_gset:Nx \g_@@_struct_tag_NS_tl { \seq_item:Nn\l_tmpa_seq {2} }
         \bool_if:NT \g_@@_check_tags_bool
           {
-            \@@_check_structure_tag:N \g_@@_struct_tag_tl
+            \@@_check_structure_tag:NN \g_@@_struct_tag_tl \g_@@_struct_tag_NS_tl
           }
        \@@_prop_gput:cnx
          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
          { S }
-         { /\exp_not:V\g_@@_struct_tag_tl } %?why exp_not:N?
-         %{ \pdf_name_from_unicode_e:n { #1 } %? perhaps better
+         { \pdf_name_from_unicode_e:n{ \g_@@_struct_tag_tl} } %
+       \prop_get:NVNT \g_@@_role_NS_prop\g_@@_struct_tag_NS_tl\l_@@_tmpa_tl
+         {
+           \@@_prop_gput:cnx
+            { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+            { NS }
+            { \l_@@_tmpa_tl } %
+         }
       },
     title .code:n        = % T property
       {

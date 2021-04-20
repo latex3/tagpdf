@@ -295,19 +295,21 @@
 %    \begin{macrocode}
 \pdfdict_new:n {g_@@_role/RoleMap_dict}
 
-%pdf 1.7version, only RoleMap is filled
+%pdf 1.7version, only RoleMap is filled, the names
+%space doesn't matter but we need to fill the structures anyway an only user tags exists.
 \cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
   {
     \prop_if_in:NnF \g_@@_role_tags_prop {#1}
       {
-        \msg_info:nnn { tag }{new-tag}{#1}
-        \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-        \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
-          {
-            \seq_count:N \g_@@_role_tags_seq
-          }
+         \msg_info:nnn { tag }{new-tag}{#1}
+         \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/user }
+         \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1/user }
+           {
+             \seq_count:N \g_@@_role_tags_seq
+           }
+         \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ user }
       }
-    \@@_check_add_tag_role:nn {#1}{#2}
+      %\@@_check_add_tag_role:nn {#1}{#2} %%!TODO
     \tl_if_empty:nF { #2 }
       {
         \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
@@ -315,7 +317,7 @@
           {\pdf_name_from_unicode_e:n{#2}}
       }
   }
-
+\cs_generate_variant:Nn \@@_role_add_tag:nn {VV}
 %pdf 2.0 version
 \cs_new_protected:Nn \@@_role_add_tag:nnnn %tag/namespace/role/namespace
   {
@@ -324,18 +326,25 @@
         \msg_info:nnn { tag }{new-tag}{#1}
         \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/#2 }
         \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1/#2 }
-         {
-           \seq_count:N \g_@@_role_tags_seq
-         }
+          {
+            \seq_count:N \g_@@_role_tags_seq
+          }
+        \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ #2 }
       }
-    %\@@_check_add_tag_role:nn {#1}{#3}
-    \tl_if_empty:nF { #2 }
+    %\@@_check_add_tag_role:nn {#1}{#3} %TODO
+    \tl_if_empty:nF { #3 }
       {
         \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
-          {[\pdf_name_from_unicode_e:n{#3}~\pdf_object_ref:n {c_@@_role/Namespace_#4_obj}] }
+          {
+            [
+              \pdf_name_from_unicode_e:n{#3}
+              \c_space_tl
+              \pdf_object_ref:n {c_@@_role/Namespace_#4_obj}
+            ]
+          }
       }
   }
-
+\cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
 %this requires that the version is already set. So if it wanders in the kernel
 % it must be delayed.
 \pdf_version_compare:NnT < {2.0}
@@ -346,7 +355,7 @@
        }
   }
 
-\cs_generate_variant:Nn \@@_role_add_tag:nn {xx}
+
 
 \tl_new:N \l_@@_role_tag_tmpa_tl
 \tl_new:N \l_@@_role_tag_namespace_tmpa_tl
@@ -378,8 +387,36 @@
            \tl_set:Nx \l_@@_role_tag_tmpa_tl  { \seq_item:Nn \l_tmpa_seq {1} }
            \tl_set:Nx \l_@@_role_role_tmpa_tl { \seq_item:Nn \l_tmpa_seq {2} }
          }
-
-     }
+      \tl_if_empty:NT \l_@@_role_role_namespace_tmpa_tl
+         {
+           \prop_get:NVNTF
+             \g_@@_role_tags_NS_prop
+             \l_@@_role_role_tmpa_tl
+             \l_@@_role_role_namespace_tmpa_tl
+             {
+                \prop_if_in:NVF\g_@@_role_NS_prop \l_@@_role_role_namespace_tmpa_tl
+                 {
+                   \tl_set:Nn \l_@@_role_role_namespace_tmpa_tl {user}
+                 }
+             }
+             {
+               \tl_set:Nn \l_@@_role_role_namespace_tmpa_tl {user}
+             }
+         }
+      \pdf_version_compare:NnTF < {2.0}
+       {
+          \@@_role_add_tag:VV
+              \l_@@_role_tag_tmpa_tl
+              \l_@@_role_role_tmpa_tl
+       }
+       {
+         \@@_role_add_tag:VVVV
+           \l_@@_role_tag_tmpa_tl
+           \l_@@_role_tag_namespace_tmpa_tl
+           \l_@@_role_role_tmpa_tl
+           \l_@@_role_role_namespace_tmpa_tl
+       }
+    }
   }
 
 
