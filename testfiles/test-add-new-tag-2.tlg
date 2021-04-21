@@ -1,0 +1,31 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package tagpdf Info: adding new tag section
+Package tagpdf Info: adding new tag wrongsection
+Package tagpdf Info: adding new tag var
+Package tagpdf Info: adding new tag mn
+Package tagpdf Info: adding new tag space
+pdftex
+The global dictionary 'g__tag_role/RoleMap_dict' is empty
+> .
+<recently read> }
+l. ...\pdfdict_show:n {g__tag_role/RoleMap_dict}
+The global dictionary 'g__tag_role/RoleMapNS_user_dict' contains the pairs
+(without outer braces):
+>  {section}  =>  {[/H1 11 0 R]}
+>  {wrongsection}  =>  {[/H1 13 0 R]}
+>  {mn}  =>  {[/blub 15 0 R]}
+>  {space}  =>  {[/x#20space 15 0 R]}.
+<recently read> }
+l. ......t_show:n {g__tag_role/RoleMapNS_user_dict}
+The global dictionary 'g__tag_role/RoleMapNS_mathml_dict' contains the pairs
+(without outer braces):
+>  {var}  =>  {[/mo 13 0 R]}.
+<recently read> }
+l. ......show:n {g__tag_role/RoleMapNS_mathml_dict}
+> \testname=macro:
+->66.
+l. ...\show\testname
+> \testnum=macro:
+->mn.
+l. ...\show\testnum

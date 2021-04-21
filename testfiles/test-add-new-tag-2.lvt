@@ -1,6 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{}
+\DeclareDocumentMetadata{pdfversion=2.0}
 \RequirePackage{tagpdf-regressiontest}
 \documentclass{scrartcl}
 
@@ -23,17 +23,20 @@
 \tagpdfsetup{activate-all,log=all,uncompress}
 \START
 
+\tagpdfsetup{
+  add-new-tag=section/H1,
+  add-new-tag={tag=wrongsection,role=H1,role-namespace=mathml},
+  add-new-tag={tag=var,tag-namespace=mathml,role=mo,role-namespace=mathml},
+  add-new-tag=mn/blub,
+  add-new-tag=space/x space 
+  }
+
 \ExplSyntaxOn
 \iow_log:x { \c_sys_engine_str }
-\__tag_role_add_tag:nn {section}{H1}
 
-\__tag_role_add_tag:nn {mn}{}
-
-\__tag_role_add_tag:nn {wrongtag}{HX}
-
-%\__tag_prop_show:N \g__tag_role_rolemap_prop
 \pdfdict_show:n {g__tag_role/RoleMap_dict}
-
+\pdfdict_show:n {g__tag_role/RoleMapNS_user_dict}
+\pdfdict_show:n {g__tag_role/RoleMapNS_mathml_dict}
 \edef\testname{\prop_item:cn {g__tag_role_tags_prop}{mn}}
 \show\testname
 

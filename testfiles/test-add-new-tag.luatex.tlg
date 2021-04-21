@@ -2,44 +2,25 @@ This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 luatex
 Package tagpdf Info: adding new tag section
-Package tagpdf Info: mapping tag section to role H1
 Package tagpdf Info: adding new tag mn
-Package tagpdf Warning: tag mn has no role assigned
-Package pdfdict Warning: The value mn for g__tag_RoleMap_dict is blank and
-(pdfdict)                will be ignored
 Package tagpdf Info: adding new tag wrongtag
-Package tagpdf Warning: role HX is not known
-The property list \g__tag_role_rolemap_prop contains the pairs (without outer
-braces):
->  {DocumentFragment}  =>  {Art}
->  {Aside}  =>  {Note}
->  {Title}  =>  {H1}
->  {Sub}  =>  {Span}
->  {H7}  =>  {H6}
->  {H8}  =>  {H6}
->  {H9}  =>  {H6}
->  {H10}  =>  {H6}
->  {FENote}  =>  {Note}
->  {Em}  =>  {Span}
->  {Strong}  =>  {Span}
->  {section}  =>  {H1}
->  {wrongtag}  =>  {HX}.
+The global dictionary 'g__tag_role/RoleMap_dict' contains the pairs (without
+outer braces):
+>  {DocumentFragment}  =>  {/Art}
+>  {Aside}  =>  {/Note}
+>  {Title}  =>  {/H1}
+>  {Sub}  =>  {/Span}
+>  {H7}  =>  {/H6}
+>  {H8}  =>  {/H6}
+>  {H9}  =>  {/H6}
+>  {H10}  =>  {/H6}
+>  {FENote}  =>  {/Note}
+>  {Em}  =>  {/Span}
+>  {Strong}  =>  {/Span}
+>  {section}  =>  {/H1}
+>  {wrongtag}  =>  {/HX}.
 <recently read> }
-l. ...\__tag_prop_show:N \g__tag_role_rolemap_prop
-tagpdf: lua property table g__tag_role_rolemap_prop
-tagpdf: [Aside] => Note
-tagpdf: [DocumentFragment] => Art
-tagpdf: [Em] => Span
-tagpdf: [FENote] => Note
-tagpdf: [H10] => H6
-tagpdf: [H7] => H6
-tagpdf: [H8] => H6
-tagpdf: [H9] => H6
-tagpdf: [Strong] => Span
-tagpdf: [Sub] => Span
-tagpdf: [Title] => H1
-tagpdf: [section] => H1
-tagpdf: [wrongtag] => HX
+l. ...\pdfdict_show:n {g__tag_role/RoleMap_dict}
 > \testname=macro:
 ->64.
 l. ...\show\testname
