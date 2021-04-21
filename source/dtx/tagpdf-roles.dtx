@@ -34,9 +34,8 @@
 % Tags have both a name (a string) and a number (for the lua attribute).
 % Testing a name is easier with a prop, while accessing with a number is
 % better done with a seq. So both are used and must be kept in sync if a new
-% tag is added.
-% In PDF2.0 we have to take into account that a type can be in more than one
-% name space. So the internal name is |type/NS|, e.g. |H1/pdf2|.
+% tag is added. The number is only relevant for the MC type, tags with the same
+% name from different names spaces can have the same number.
 % \begin{macro}{\g_@@_role_tags_seq,\g_@@_role_tags_prop}
 %    \begin{macrocode}
 \@@_seq_new:N  \g_@@_role_tags_seq  %to get names (type/NS) from numbers
@@ -44,9 +43,8 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\g_@@_role_tags_NS_prop}
-% in pdf 2.0 tags belong to a name space. The tags are stores
-% as tag/NS, but we also record in a prop one tag/NS relation so that we can
-% find the default NS.
+% in pdf 2.0 tags belong to a name space. For every tag we store a default
+% name space.
 % The keys are the tags, the value shorthands like pdf2, or mathml.
 % There is no need to access this from lua, so we use the standard prop commands.
 %    \begin{macrocode}
@@ -87,7 +85,7 @@
 % \begin{macro}{\@@_role_NS_new:nnn}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
-  {
+  { \msg_redirect_name:nnn { pdfdict } { empty-value } { none }
     \pdf_object_new:nn {c_@@_role/Namespace_#1_obj}{dict}
     \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
     \pdf_object_new:nn {c_@@_role/RoleMapNS_#1_obj}{dict}
@@ -105,6 +103,7 @@
     \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
       {Schema}{#3}
     \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{c_@@_role/Namespace_#1_obj}~}
+    \msg_redirect_name:nnn { pdfdict } { empty-value } { warning }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -262,22 +261,22 @@
 
 \clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
   {
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/pdf2 }
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/pdf }
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_only_pdf_clist
   {
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/pdf }
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_only_pdfII_clist
   {
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/pdf2 }
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
 %    \end{macrocode}
-% For luatex we need a name/number relation.
+% For luatex and the MC we need a name/number relation.
+% The name space is not relevant.
 %    \begin{macrocode}
 
 \int_step_inline:nnnn { 1 }{ 1 }{ \seq_count:N \g_@@_role_tags_seq }
@@ -297,13 +296,14 @@
 
 %pdf 1.7version, only RoleMap is filled, the names
 %space doesn't matter but we need to fill the structures anyway an only user tags exists.
+% the arguments should not be empty but we test/ensure that at use
 \cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
   {
     \prop_if_in:NnF \g_@@_role_tags_prop {#1}
       {
          \msg_info:nnn { tag }{new-tag}{#1}
-         \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/user }
-         \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1/user }
+         \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+         \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
            {
              \seq_count:N \g_@@_role_tags_seq
            }
@@ -321,29 +321,23 @@
 %pdf 2.0 version
 \cs_new_protected:Nn \@@_role_add_tag:nnnn %tag/namespace/role/namespace
   {
-    \prop_if_in:NnF \g_@@_role_tags_prop {#1/#2}
-      {
-        \msg_info:nnn { tag }{new-tag}{#1}
-        \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1/#2 }
-        \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1/#2 }
-          {
-            \seq_count:N \g_@@_role_tags_seq
-          }
-        \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ #2 }
-      }
+    \msg_info:nnn { tag }{new-tag}{#1}
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
+       {
+         \seq_count:N \g_@@_role_tags_seq
+       }
+    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ #2 }
     %\@@_check_add_tag_role:nn {#1}{#3} %TODO
-    \tl_if_empty:nF { #3 }
-      {
-        \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
-          {
-            [
-              \pdf_name_from_unicode_e:n{#3}
-              \c_space_tl
-              \pdf_object_ref:n {c_@@_role/Namespace_#4_obj}
-            ]
-          }
-      }
-  }
+    \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
+       {
+         [
+           \pdf_name_from_unicode_e:n{#3}
+           \c_space_tl
+           \pdf_object_ref:n {c_@@_role/Namespace_#4_obj}
+         ]
+       }
+   }
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
 %this requires that the version is already set. So if it wanders in the kernel
 % it must be delayed.
