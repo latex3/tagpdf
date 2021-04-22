@@ -17,8 +17,10 @@ this project uses date-based 'snapshot' version identifiers.
  - Support for PDF 2.0 name spaces. 
  - keys paratagging and paratagging-show for automatic tagging of paragraphs,
    commands \tagpdfparaOn and \tagpdfparaOff to disable the automatic tagging.
+   This requires a current latex-dev
  - The code to tag links has been moved from the documentation to the main 
-   package. All links are now tagged automatically (if hyperref or the commands
-   from l3pdfannot are used).  
-   
- 
+   package. Links are now tagged automatically (if hyperref or the commands
+   from l3pdfannot are used). This requires a current latex-dev. 
+ - added commands \tag_mc_end_push: and \tag_mc_begin_pop:n which allow to "interrupt"
+   a mc-chunk to insert some sub structure by moving the current tag onto a stack. 
+   This is for example used by the links.

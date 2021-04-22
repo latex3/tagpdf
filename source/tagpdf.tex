@@ -200,14 +200,14 @@ While the generic mode is not bad and I spent quite some time to get it working 
 
 \subsection{References and target PDF version}
 
-My main reference for the first versions of this package 
+My main reference for the first versions of this package
 was the free reference for \PDF{} 1.7. \parencite{pdfreference} and so the package also targetted this version.
 
 In 2018 \PDF{} 2.0. has been released, and since 2020 all engines can set the version to 2.0. So the package will
-now target \PDF{} 2.0. This doesn't mean that 2.0 will be required, but that the code and the options will be extended to 
-support \PDF{} 2.0. One example is the support for associated files, another the support for name spaces. 
+now target \PDF{} 2.0. This doesn't mean that 2.0 will be required, but that the code and the options will be extended to
+support \PDF{} 2.0. One example is the support for associated files, another the support for name spaces.
 
-The packages doesn't try to suppress all 2.0 features if an older \PDF{} version is produced. It normally doesn't harm if a \PDF{} contains keys unknown in its version and it makes the code faster and easier to maintain if there aren't too many tests and code pathes. 
+The packages doesn't try to suppress all 2.0 features if an older \PDF{} version is produced. It normally doesn't harm if a \PDF{} contains keys unknown in its version and it makes the code faster and easier to maintain if there aren't too many tests and code pathes.
 
 It should be noted that some tools don't like 2.0.  PAC3 for example simply crashes, and pdftk will create a \PDF{}~1.0 from it. This makes testing \PDF{}~2.0 files a bit of a challenge.
 
@@ -739,7 +739,7 @@ These commands insert the end code of the marked content. They don't end a group
 
 
 \begin{tcolorbox}[before upper=\tagpdfparaOn]
-\minisec{About nesting mc-commands}
+\minisec{About nesting mc-commands}\label{mc-nesting}
 
 \textbf{Attention!}\sidenote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
 
@@ -983,7 +983,7 @@ The key-val list understands the following keys:
 
 \begin{description}
   \item[\PrintKeyName{tag}]
-   This is required. The value of the key is normally one of the standard types listed in section \ref{sec:new-tag}. It is possible to setup new tags/types, see the same section. The value can also be of the form |type/NS|, where |NS| is the 
+   This is required. The value of the key is normally one of the standard types listed in section \ref{sec:new-tag}. It is possible to setup new tags/types, see the same section. The value can also be of the form |type/NS|, where |NS| is the
    shorthand of a declared name space. Currently the names spaces |pdf|, |pdf2|, |mathml| and |user| are defined. This allows to use a different name space than the one connected by default to the tag. But normally this should not be needed.
 
   \item[\PrintKeyName{stash}]
@@ -1338,9 +1338,9 @@ and the following are new:\\
 \item MathML 3.0 as an \emph{other namespaces}. There are nearly 200 types in this name space, so I refrain from listing them here.
 \end{enumerate}
 
-To allow to this more complicated setup 
-the syntax of the \texttt{add-new-tag} key has been extended. 
-It now takes as argument a key-value list with the following keys. 
+To allow to this more complicated setup
+the syntax of the \texttt{add-new-tag} key has been extended.
+It now takes as argument a key-value list with the following keys.
 A normal document shouldn't need the extended syntax, the simple
 syntax |section/H1| should in most cases do the right thing.
 
