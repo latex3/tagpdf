@@ -9,7 +9,12 @@
 \begin{document}
 \tagstructbegin{tag=Document}
 
-\refstepcounter{section}\label{test}
+\refstepcounter{section}\makeatletter\def\@currentlabelname{test}\makeatother\label{test}
+
+abc \pageref{test} xyz
+
+abc \nameref{test} xyz
+
 
 abc \url{https://www.tug.org} xyz
 
