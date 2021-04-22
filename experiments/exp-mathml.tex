@@ -22,9 +22,11 @@
 \tagstructbegin{tag=Document}
 This is a famous formula
 
-\tagpdfparaOff
+
 
 \begingroup
+\tagpdfparaOff
+
 \ExplSyntaxOn
 \pdfdict_put:nnn{l_pdffile/Filespec}{AFRelationship}{/Supplement}
 \pdfdict_put:nnn{l_pdffile/Filespec}{Desc}{(MathMl)}
@@ -37,8 +39,9 @@ This is a famous formula
 \[ E = mc^2\]
 \tagmcend
 \tagstructend
+
 \endgroup
 
 
 \tagstructend
-\end{document}
+\end{document} 

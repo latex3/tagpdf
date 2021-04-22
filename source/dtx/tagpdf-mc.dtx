@@ -56,6 +56,9 @@
 % value: the structure number the mc is in
 \_@@_prop_new:N \g_@@_mc_parenttree_prop
 
+% some commands (e.g. links) want to close a previous mc and reopen it after
+% there work. For this we create a stack:
+\seq_new:N \g_@@_mc_stack_seq
 % shared keys
 % the rest are in the splitted code
 \tl_new:N \l_@@_mc_artifact_type_tl
@@ -118,6 +121,53 @@
 
 % we need to define it for both modes to avoid a problem with the label
 \int_new:N \g_@@_MCID_tmp_bypage_int
+
+%    \end{macrocode}
+
+%  \begin{function}[added = 2021-04-22]
+%   {
+%     \tag_mc_end_push:, \tag_mc_begin_pop:n
+%   }
+%   \begin{syntax}
+%     \cs{tag_mc_end_push:} \\
+%     \cs{tag_mc_begin_pop:n}
+%   \end{syntax}
+% If there is an open mc chunk,
+% \cs{tag_mc_end_push:} ends it and pushes its tag of the stack. If there is no
+% open chunk, it puts -1 on the stack (for debugging)
+% \cs{tag_mc_begin_pop:n} removes a value from the stack. If it is different from
+% -1 it opens a tag with it.
+% The reopened mc chunk looses info like the alttext for now.
+%
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_end_push:
+ {
+   \@@_mc_if_in:TF
+     {
+       \seq_gpush:Nx \g_@@_mc_stack_seq { \tag_get:n {mc_tag} }
+       \@@_check_mc_pushed_popped:nn {pushed}{\tag_get:n {mc_tag}}
+       \tag_mc_end:
+     }
+     {
+       \@@_check_mc_pushed_popped:nn {pushed}{-1}
+       \seq_gpush:Nn \g_@@_mc_stack_seq{ -1  }
+     }
+ }
+\cs_new_protected:Npn \tag_mc_begin_pop:n #1
+ {
+   \seq_gpop:NNTF \g_@@_mc_stack_seq \l_@@_tmpa_tl
+     {
+       \tl_if_eq:NnTF \l_@@_tmpa_tl {-1}
+         {
+           \@@_check_mc_pushed_popped:nn {popped}{-1}
+         }
+         {
+           \@@_check_mc_pushed_popped:nn {popped}{\l_@@_tmpa_tl}
+           \tag_mc_begin:n {tag=\l_@@_tmpa_tl,#1}
+         }
+     }
+     { \@@_check_mc_pushed_popped:nn {popped}{empty~stack,~nothing} } %message?
+ }
 
 %</shared>
 %    \end{macrocode}
@@ -418,7 +468,6 @@
 
 
 \cs_new:Nn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
-
 %</generic>
 %    \end{macrocode}
 %    \begin{macrocode}

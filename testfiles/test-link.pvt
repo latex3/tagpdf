@@ -1,0 +1,20 @@
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=2.0}
+\documentclass{article}
+\usepackage{tagpdf}
+\tagpdfsetup{activate-all,uncompress,paratagging,paratagging-show
+}
+\usepackage{hyperref}
+\usepackage{kantlipsum}
+\begin{document}
+\tagstructbegin{tag=Document}
+
+\refstepcounter{section}\label{test}
+
+abc \url{https://www.tug.org} xyz
+
+abc \ref{test} xyz
+
+
+\tagstructend
+\end{document} 

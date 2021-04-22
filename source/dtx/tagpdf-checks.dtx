@@ -39,6 +39,8 @@
 \msg_new:nnn { tag } {mc-label-unknown} { label~#1~unknown~-~rerun }
 \msg_new:nnn { tag } {mc-used-twice}    { mc~#1~has~been~already~used }
 \msg_new:nnn { tag } {mc-not-open}      { there~is~no~mc~to~end~at~#1 }
+\msg_new:nnn { tag } {mc-pushed}        { #1~has~been~pushed~to~the~mc~stack}
+\msg_new:nnn { tag } {mc-popped}        { #1~has~been~removed~from~the~mc~stack }
 
 % structures
 \msg_new:nnn { tag } {struct-no-objnum}      { objnum~missing~for~structure~#1 }
@@ -156,6 +158,20 @@
         \msg_warning:nnx { tag } {mc-not-open} { \@@_get_mc_abs_cnt: }
       }
   }
+
+\cs_new_protected:Nn \@@_check_mc_pushed_popped:nn
+  {
+    \int_compare:nNnT
+      { \l_@@_loglevel_int } ={ 2 }
+      { \msg_info:nnx {tag}{mc-#1}{#2} }
+    \int_compare:nNnT
+      { \l_@@_loglevel_int } > { 2 }
+      {
+       \msg_warning:nnx {tag}{mc-#1}{#2}
+       \seq_log:N \g_@@_mc_stack_seq
+      }
+  }
+
 
 \cs_new:Nn \@@_check_mc_tag:N %protected??
   {
