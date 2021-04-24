@@ -767,13 +767,13 @@ Block 3 will here get the same id number as Block 1 and be stored in the structu
 These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.
 
 
-\begin{docCommand}{tag_mc_end_push:\end{docCommand}
-\begin{docCommand}{tag_mc_begin_pop:n}\Arg{key-value}\end{docCommand}
+\begin{docCommand}{tag_mc_end_push:}{}\end{docCommand}
+\begin{docCommand}{tag_mc_begin_pop:n}{\marg{key-val-list}}\end{docCommand}
 
 If there is an open mc chunk,
-\cs{tag_mc_end_push:} ends it and pushes its tag on a stack. If there is no
+the first command ends it and pushes its tag on a stack. If there is no
 open chunk, it puts $-1$ on the stack (for debugging).
-\cs{tag_mc_begin_pop:n} removes a value from the stack. If it is different from
+The second command removes a value from the stack. If it is different from
 $-1$ it opens a tag with it. The command is mainly meant to be used inside hooks and command
 definitions so there is only an expl3 version. Perhaps other content of the mc-dictionary (for example the Lang) needs to be saved on the stacked too.
  
@@ -842,7 +842,7 @@ mc-chunks on page~\pageref{mc-nesting}.
 \end{lstlisting}
 
 If the attribute is set globally this wouldn't be a problem. Currently the question is undecided.
-To allow to test with both versions it is possible to switch for a document with \textt{global-mc} to global attributes.
+To allow to test with both versions it is possible to switch for a document with \texttt{global-mc} to global attributes.
 
 
 
