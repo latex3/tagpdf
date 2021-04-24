@@ -195,7 +195,7 @@ The package has two modes: the \emph{generic mode} which should work in theory w
 
 I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
 
-While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode. The main problem with luatex is how to insert \enquote{fake spaces} between words.
+While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode.
 
 
 \subsection{References and target PDF version}
@@ -205,11 +205,11 @@ was the free reference for \PDF{} 1.7. \parencite{pdfreference} and so the packa
 
 In 2018 \PDF{} 2.0. has been released, and since 2020 all engines can set the version to 2.0. So the package will
 now target \PDF{} 2.0. This doesn't mean that 2.0 will be required, but that the code and the options will be extended to
-support \PDF{} 2.0. One example is the support for associated files, another the support for name spaces.
+support \PDF{} 2.0. One example is the support for associated files, another the support for name spaces in version 0.82.
 
-The packages doesn't try to suppress all 2.0 features if an older \PDF{} version is produced. It normally doesn't harm if a \PDF{} contains keys unknown in its version and it makes the code faster and easier to maintain if there aren't too many tests and code pathes.
+The packages doesn't try to suppress all 2.0 features if an older \PDF{} version is produced. It normally doesn't harm if a \PDF{} contains keys unknown in its version and it makes the code faster and easier to maintain if there aren't too many tests and code pathes; so for example associated files will always be added. But tests could be added in case this leads to incompabilities.
 
-It should be noted that some tools don't like 2.0.  PAC3 for example simply crashes, and pdftk will create a \PDF{}~1.0 from it. This makes testing \PDF{}~2.0 files a bit of a challenge.
+It should be noted that some tools don't like \PDF{}~2.0.  PAC3 for example simply crashes, and pdftk will create a \PDF{}~1.0 from it. This makes testing \PDF{}~2.0 files a bit of a challenge.
 
 \subsection{Validation}
 
@@ -219,7 +219,7 @@ It should be noted that some tools don't like 2.0.  PAC3 for example simply cras
 \begin{itemize}
 \item
  One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}:
- e.g. if a chunk is opened on one page but closed on the next page.
+ e.g. if a chunk is opened on one page but closed on the next page or if the document isn't compiled often enough.
 
 \item
 One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
@@ -246,7 +246,7 @@ It is also possible that validators contradict: that the one says everything is 
 \subsection{Examples wanted!}
 
 
-To make the package usable examples are needed: example that demonstrates how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
+To make the package usable examples are needed: examples that demonstrate how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
 
 
 \begin{tcolorbox}[before upper=\tagpdfparaOn]
@@ -261,8 +261,7 @@ All examples should use the \cs{tagpdfsetup} key \PrintKeyName{uncompress} descr
 \subsection{Changes in 0.3}
 
 
-
-In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change means that the package now relies on the experimental expl3 package \texttt{l3str-convert}.
+In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change meant that the package relied on the module \texttt{l3str-convert}.
 
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
@@ -270,7 +269,6 @@ I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it 
 
 
 \subsection{Changes in 0.5}
-
 
 
 I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
@@ -286,23 +284,7 @@ I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{
 \textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.
 
 
-\subsection{Proof of concept: the tagging of the documentation itself}
 
-With version 0.6 the documentation itself has been tagged. The tagging is in no way perfect. The validator from Adobe doesn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnote gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes are probably simply wrong \ldots
-
-But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are rather crude. So there is lot space for improvement.
-
-\begin{tcolorbox}[before upper=\tagpdfparaOn]
-Be aware that to create the tagged version a very experimental package and a experimental hyperref driver was needed for the links. This files are not in the package!
-\end{tcolorbox}
-
-\tagpdfparaOff
-
-\tagstructbegin{tag=Figure,alttext=PAC3 report,attribute=bbox}\tagmcbegin{tag=Figure}
-\includegraphics{pac3}
-\tagmcend\tagstructend
-
-\tagpdfparaOn
 
 \subsection{Changes in version 0.61}
 
@@ -342,7 +324,29 @@ is activated.
 Commands and keys to allow automatic paragraph tagging have been added. See section~\ref{sec:paratagging}.
 As can be seen in this documentation the code works quite good already, but one should be aware that \enquote{paragraphs} can appear in many places and sometimes there are even more paragraph begin than ends.
 
+A key to test if local or global setting of the mc-attributes in luamode is more sensible, see \ref{sec:global-local} for more details. 
 
+New commands to store and reset mc-tags.
+
+\subsection{Proof of concept: the tagging of the documentation itself}
+
+Starting with version 0.6 the documentation itself has been tagged. The tagging wasn't (and isn't) in no way perfect. The validator from Adobe didn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnotes gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes were simply wrong \ldots
+
+The tagging has been improved and automated over time in sync with improvements and new features in the LaTeX kernel and the pdfmanagement code.
+
+But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are still rather crude. So there is lot space for improvement.
+
+\begin{tcolorbox}[before upper=\tagpdfparaOn]
+Be aware that to create the tagged version a current lualatex-dev and a current version of the pdfmanagment-testphase package is needed.
+\end{tcolorbox}
+
+\tagpdfparaOff
+
+\tagstructbegin{tag=Figure,alttext=PAC3 report,attribute=bbox}\tagmcbegin{tag=Figure}
+\includegraphics{pac3}
+\tagmcend\tagstructend
+
+\tagpdfparaOn
 
 \section{Setup}
 
@@ -359,7 +363,7 @@ When the package is loaded it will -- apart from loading more packages and defin
 %TODO think about tagging of the keys. Aside? Header?
 
 
-The package has two different modes: The \textbf{generic mode} works (in theory, currently only with pdftex and luatex) probably with all engines, the \textbf{lua mode} only with luatex. The differences between both modes  will be described later. The mode can be set with package options:
+The package has two different modes: The \textbf{generic mode} works (in theory, currently only tested with pdftex and luatex) probably with all engines, the \textbf{lua mode} only with luatex. The differences between both modes  will be described later. The mode can be set with package options:
 
 \DescribeKey{luamode}
 
@@ -411,7 +415,7 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
  This is a first try to use this hooks, and the code is bound to change. Paragraphs can appear in many unexpected
  places and the code can easily break, so there is also an option to see where such paragraphs are:
 
-\item[\PrintKeyName{paratagging-show}] Boolean. This activate/deactivates small red numbers in the places where the hook code is used.
+\item[\PrintKeyName{paratagging-show}] Boolean. This activate/deactivates small red numbers in the places where the paratagging hook code is used.
 
 
 \item[\PrintKeyName{tabsorder}]
@@ -420,6 +424,9 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
  Boolean,\sidenote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.
 \item[\PrintKeyName{uncompress}]
  Sets both the \PDF{} compresslevel and the \PDF{} objcompresslevel to 0 and so allows to inspect the \PDF{}.
+
+\item[\PrintKeyName{global-mc}]
+ Only relevant for luatex and luamode and can only be used in the preamble. If used the attributes used for the mc-tags are set globally. This key is temporary! It is there to allow to test if global or local setting is more sensible. See section~\ref{sec:global-local} for more info.
 
 
 \end{description}
@@ -581,7 +588,7 @@ In the second argument of \texttt{BDC} -- in the property dictionary -- more dat
 
 
 \begin{lstlisting}
-/H <</MCID 3>> BDC
+/H1 <</MCID 3>> BDC
  text to be marked
 /EMC
 \end{lstlisting}
@@ -598,21 +605,21 @@ The needed markers can be added with low level code e.g. like this (in pdftex sy
 
 
 \begin{lstlisting}
-\pdfliteral page {/H <</MCID 3>> BDC}%
+\pdfliteral page {/H1 <</MCID 3>> BDC}%
  text to be marked
 \pdfliteral page {EMC}%
 \end{lstlisting}
 
 
-This sounds easy. But there are quite a number of traps.
+This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
 
 \begin{enumerate}[beginpenalty=10000]
   \item \PDF{} is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
-  So marking e.g. a section title like in the following example won't always work as the literal before the section could end on the previous page:
+  So marking e.g. a section title like in the following example won't always work  as the literal before the section could end on the previous page:
 
 
 \begin{lstlisting}
-\pdfliteral page {/H <</MCID 3>> BDC} %problem: possible pagebreak here
+\pdfliteral page {/H1 <</MCID 3>> BDC} %problem: possible pagebreak here
  \section{mysection}
 \pdfliteral page {EMC}%
 \end{lstlisting}
@@ -647,8 +654,6 @@ This sounds easy. But there are quite a number of traps.
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
 
-
-
 While in generic mode the commands insert the literals directly and so have all the problems described above the lua mode works quite differently: The tagging commands don't insert literals but set some \emph{attributes} which are attached to all the following nodes. When the page is shipped out some lua code is called which wanders through the shipout box and injects the literals at the places where the attributes changes.
 
 This means that quite a number of problems mentioned above are not relevant for the lua mode:
@@ -663,7 +668,6 @@ This means that quite a number of problems mentioned above are not relevant for 
 
 
 \subsubsection{Commands to mark content and chunks}
-
 
 
 In generic mode\sidenote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
@@ -734,7 +738,7 @@ The key-val list understands the following keys:
 \begin{docCommand}{tagmcend}{}\end{docCommand}
 \begin{docCommand}{tag_mc:end}{}\end{docCommand}
 
-These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
+These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues in hmode at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
 
 
 
@@ -747,11 +751,11 @@ Consider a code like this:
 
 
 \begin{lstlisting}
-\tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P Block 2}} Block 3 \tagmcend
+\tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P} Block 2} Block 3 \tagmcend
 \end{lstlisting}
 
 
-Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}.
+Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}. See also section~\ref{sec:global-local}.
 
 \end{tcolorbox}
 
@@ -761,6 +765,18 @@ Block 3 will here get the same id number as Block 1 and be stored in the structu
 
 
 These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.
+
+
+\begin{docCommand}{tag_mc_end_push:\end{docCommand}
+\begin{docCommand}{tag_mc_begin_pop:n}\Arg{key-value}\end{docCommand}
+
+If there is an open mc chunk,
+\cs{tag_mc_end_push:} ends it and pushes its tag on a stack. If there is no
+open chunk, it puts $-1$ on the stack (for debugging).
+\cs{tag_mc_begin_pop:n} removes a value from the stack. If it is different from
+$-1$ it opens a tag with it. The command is mainly meant to be used inside hooks and command
+definitions so there is only an expl3 version. Perhaps other content of the mc-dictionary (for example the Lang) needs to be saved on the stacked too.
+ 
 
 
 \begin{docCommand}{tagmcifinTF}{\marg{true code}\marg{false code}}\end{docCommand}
@@ -779,6 +795,54 @@ In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't te
 
 
 These commands give back some variables. Currently the only working key words are \verb+mc\_tag+ and \verb+struct\_tag+.
+
+\subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}
+
+In\sidenote{Luamode mode only} luamode the mc-commands set and unset an attribute to mark the nodes. One can view such an attribute like a font change or a color: they affect all following chars and glue node until stopped.
+
+Currently the attributes are set locally. This has the advantage that the attributes don't spill over in area where they are not wanted like the header and footer or the background pictures.
+But it has the disadvantage that is difficult for an inner structure to correctly interrupt the outer
+mc-chunk if it can't control the group level. For example this would work fine:
+
+\begin{lstlisting}
+\tagstructbegin{tag=P}
+\tagmcbegin{tag=P} 
+  Start paragraph
+   \tag_mc_end_push:
+   \tagstructbegin{tag=Em}
+   \tagmcbegin{tag=Em}
+   \emph{Emphasized test}
+   \tagmcend
+   \tagstructend
+   \tag_mc_begin_pop:n{}
+ Continuation of paragraph   
+\tagmcend
+\tagstructend 
+\end{lstlisting}
+
+But if the user adds a group like in the following listing, then the reading order will be wrong and the \emph{emphasized text} will move in the structure at the end as described in the box about nesting
+mc-chunks on page~\pageref{mc-nesting}.
+
+\begin{lstlisting}
+\tagstructbegin{tag=P}
+\tagmcbegin{tag=P}
+  Start paragraph
+  { %group
+   \tag_mc_end_push:
+   \tagstructbegin{tag=Em}
+   \tagmcbegin{tag=Em}
+   \emph{with emphasized text}
+   \tagmcend
+   \tagstructend
+   \tag_mc_begin_pop:n{}
+  } %group
+ Continuation of paragraph
+\tagmcend
+\tagstructend
+\end{lstlisting}
+
+If the attribute is set globally this wouldn't be a problem. Currently the question is undecided.
+To allow to test with both versions it is possible to switch for a document with \textt{global-mc} to global attributes.
 
 
 
@@ -817,8 +881,6 @@ These commands give back some variables. Currently the only working key words ar
 
 \subsubsection{Links}
 
-
-
 Link annotations (like all \PDF{} annotations) are associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between the link and the content is based solely on visual appearance rather than on an explicitly specified association.
 
 To connect such a link with the underlying text a specific structure has to be added, see \ref{fig:linkannot}. When using the low-level commands to create a link, this structure can be created by adding an entry to the attr argument of the startlink command, and by adding a command of the tagpdf package after the endlink command, as show in the following listing:
@@ -845,10 +907,12 @@ To connect such a link with the underlying text a specific structure has to be a
 \end{lstlisting}
 
 
-The question is here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project moves some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time. This new code is now available in a test package
-\pkg{pdfmanagment-testphase} and it allows to add the code through hooks to links. This code is
-now added automatically to URI and GoTo links if tagging is activated.
+The question was here is how to add this to the hyperref commands without doing a lot patching? This had lead to a new project to some definitions for links to the \LaTeX-kernel so that package likes hyperref and tagpdf can coexist and both add their code to links at the same time. This new code is now available in a test package
+\pkg{pdfmanagment-testphase} and it allows to add the code through hooks to links which has been done.
 
+So starting with version 0.81 links are tagged automatically if tagging is activated.
+
+With luatex and local attributes (see section~\ref{sec:global-local}) commands like \cs{url} should not be grouped to allow them to reset the mc-attributes, or if groups are involved the mc-chunks should be closed and reopened manually to get the right reading order.
 
 
 \subsubsection{Math}
@@ -871,7 +935,7 @@ The \PDF{} then looked like this
 
 If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it probably possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically.
 
-But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the \PDF{} and the task how to read this aloud delegated to the screen reader. More investigations are needed here.
+But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the \PDF{} and the task how to read this aloud delegated to the screen reader. As \PDF{}~2.0 introduced associated files it is probable that this will be the way to go but more investigations are needed here.
 
 See also section~\ref{sec:alttext} for some more remarks and tests.
 
@@ -905,7 +969,7 @@ sit amet, lacus.\tagmcend
 
 Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
 \pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with
-options of \cs{tagpdfsetup} or with the two commands above. \emph{This is very experimental!}
+options of \cs{tagpdfsetup} or with the two commands above. \emph{This is very experimental and it requires a new latex-dev!}
 
 \subsection{Task 2: Marking the structure}
 
@@ -919,7 +983,7 @@ The structure is represented in the \PDF{} with a number of objects of type \tex
 
 
 
-The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and base them on \texttt{P}:
+The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and bases them on \texttt{P}:
 
 
 \begin{lstlisting}
@@ -935,7 +999,7 @@ The tree should reflect the \emph{semantic} meaning of the text. That means that
 
 
 
-The sectioning units can be structured in two ways: a flat, html-like and a more xml-like version.
+The sectioning units can be structured in two ways: a flat, html-like and a more (in pdf/UA2 basically deprecated) xml-like version.
 The flat version creates a structure like this:
 
 
@@ -964,7 +1028,7 @@ In the xml-like tree the complete text of a sectioning unit is surrounded with t
 \end{lstlisting}
 
 
-The flat version is more \LaTeX-like and it is rather straightforward to patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates \texttt{H\ldots} start and end markers. The xml-like tree is more difficult to automate. If such a tree is wanted I would recommend to use -- like the context format -- explizit commands to start and end a sectioning unit.
+The flat version is more \LaTeX-like and it is rather straightforward to patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates \texttt{H\ldots} start and end markers. The xml-like tree is more difficult to automate. If such a tree is wanted I would recommend to use -- like the context format -- explicit commands to start and end a sectioning unit.
 
 
 
@@ -1278,7 +1342,6 @@ This is quite workable as long as you mark everything manually. But how to write
 
 
 The \PDF{} format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
-There is also the \PrintKeyName{/E} key for acronyms but I will ignore it for now.
 Both can be added either to the marked content in the page stream or to the object describing the structure.
 
 
@@ -1316,7 +1379,7 @@ In PDF 2.0 the situation is a bit more complicated. At first PDF~2.0 introduced 
 That means that a type can have more than one \enquote{meaning} depending on the name space it belongs to.
 |section (name space A)| and |section (name space B)| are two different types.
 
-At second PDF 2.0 still requires that a tagged PDF maps all types to a standard type, but now there are three sets of standard types (The meanings of the PDF types can be looked up in the \PDF{}-references \parencite{pdfspec-iso32000-1,pdfspec-iso32000-2_2020}, :
+At second PDF 2.0 still requires that a tagged PDF maps all types to a standard type, but now there are three sets of standard types (The meanings of the PDF types can be looked up in the \PDF{}-references \parencite{pdfspec-iso32000-1,pdfspec-iso32000-2_2020}):
 
 \begin{enumerate}
 \item The \emph{standard structure namespace for PDF 1.7}, also called the \emph{default standard structure namespace}. These are the structure names from PDF 1.7:
