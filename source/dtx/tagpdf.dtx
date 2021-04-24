@@ -208,6 +208,11 @@
       \pdfmanagement_remove:nn {Page} {Tabs},
     tabsorder       .initial:n = structure,
     uncompress      .code:n = {\pdf_uncompress:  },
+    global-mc .code:n =
+      {
+        \cs_set_eq:NN\@@_attribute_set:Nn \@@_attribute_gset:Nn
+        \cs_set_eq:NN\@@_attribute_unset:N\@@_attribute_gunset:N
+      }
   }
 %need to think about the right place ...
 %\AtBeginDocument
@@ -217,6 +222,10 @@
       {
          \pdfmanagement_add:nnn { Catalog / MarkInfo } { Marked } { true }
       }
+    \keys_define:nn { @@ / setup }
+     {
+       global-mc .code:n={}
+     }
   }
 % escape commands are a bit engine specific so have been moved to the backend files.
 % commands to escape strings so that they can be safely used in pdf
