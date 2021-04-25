@@ -1,0 +1,51 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\PassOptionsToPackage{enable-debug,check-declarations}{expl3}
+\RequirePackage{expl3}
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{uncompress,pdfversion=2.0}
+\documentclass{article}
+% \usepackage{unicode-math}
+\usepackage{tagpdf}
+\tagpdfsetup{activate-all,%paratagging,
+interwordspace=true,
+add-new-tag={tag=math,role=math,role-namespace=mathml}}
+
+\usepackage{amsmath}
+\usepackage{luamml}
+\RegisterFamilyMapping\symsymbols{oms}
+\RegisterFamilyMapping\symletters{oml}
+\ExplSyntaxOn
+\cs_new_protected:Npn \ShowMathMLObj {
+  \message { \luamml_get_last_mathml_stream:e{}~0~R }
+}
+
+\pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
+\ExplSyntaxOff
+\begin{document}
+\tagstructbegin{tag=Document}
+\ExplSyntaxOn
+\pdf_object_new:nn{mathml}{dict}
+\ExplSyntaxOff
+\tagstructbegin{tag=math/mathml,AF=mathml}
+\tagmcbegin{tag=math}
+\[
+  %ax^2+bx+c=0
+  \int_1^n f(x) = \sum_{i=1}^m x^4 dx
+\]
+%\ShowMathMLObj
+\ExplSyntaxOn
+\edef\blub{\luamml_get_last_mathml_stream:e{}}
+\pdf_object_write:nx { mathml }
+            {
+              \pdfdict_use:n { l_pdffile/Filespec}
+              /EF <</F~\blub\c_space_tl 0~R /UF~\blub \c_space_tl 0~R>>
+              %/F <FEFF006100620063002E0078006D006C> /UF <FEFF006100620063002E0078006D006C>
+              /F <FEFF006500780061006D0070006C0065002D0069006E007000750074002D00660069006C0065002E007400650078> /UF <FEFF006500780061006D0070006C0065002D0069006E007000750074002D00660069006C0065002E007400650078>
+            }
+\ExplSyntaxOff
+
+\tagmcend
+\tagstructend
+\tagstructend
+
+\end{document}
