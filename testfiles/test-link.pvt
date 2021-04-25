@@ -1,5 +1,6 @@
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{pdfversion=2.0}
+\RequirePackage{tagpdf-regressiontest}
 \documentclass{article}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,uncompress,paratagging,paratagging-show
