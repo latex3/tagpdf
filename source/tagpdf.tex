@@ -53,6 +53,7 @@
  interwordspace=true,
  %log=v
  %show-spaces
+ global-mc
  }
 
 \usepackage{hyperxmp}
@@ -148,9 +149,9 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 \tableofcontents
 
-\section{Preface to version 0.8}
+\section{Preface to version 0.8 and newer}
 
-With this version one major step towards integration of the code into the \LaTeX{} has been done:
+Starting with version 0.8 one major step towards integration of the code into the \LaTeX{} has been done:
 The code now relies on the new \LaTeX{} PDF management. This management, which is for a testphase provided
 as an external package, \texttt{pdfmanagement-testphase},
 prepares the ground for better support for tagged PDF in \LaTeX{}.
@@ -159,7 +160,7 @@ It is part of a larger project to automatically generate tagged PDF \url{https:/
 While this is a major improvement---it will for example allow to use tagpdf with more engines as the new PDF management supports all major engines and allowed to add support for associated files---it also means that this version requires a special setup of the document and is incompatible with a number of packages,
 see the documentation of \texttt{pdfmanagement-testphase} for details.
 
-Another important step are the new hook management in \LaTeX: the newest development version has hooks for paragraphs which should at the end allow to tag many paragraphs automatically. The small red numbers in this section show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
+Another important step is the new hook management in \LaTeX: the newest development version has hooks for paragraphs which should at the end allow to tag many paragraphs automatically. The small red numbers around paragraphs in the documentation show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
 
 \section{Introduction}
 
@@ -232,6 +233,7 @@ One must check how good the accessibility is \emph{practically}.
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
 There is also the validator veraPDF \parencite{verapdf}.
+A rather new tool is \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application which converts a tagged PDF to html, allows to inspect its structure and also to edit the structure.
 
 Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a \PDF{} has real accessibility problems.
 
@@ -1630,7 +1632,7 @@ This is not meant as a full reference only as a background to make the examples 
 \item[Dictionaries]
 Dictionaries are enclosed by double angle brackets. They contain key-value pairs. The key is always a name. The value can be all sort of objects including more dictionaries. It doesn't matter in which order the keys are given.
 
- Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}
+ Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}\\
     but at least for examples a layout with line breaks and indentation is more readable:
 
     \begin{lstlisting}
