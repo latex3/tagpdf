@@ -153,6 +153,7 @@
 %     \c_@@_role_sttags_pdf_pdfII_clist,
 %     \c_@@_role_sttags_only_pdf_clist,
 %     \c_@@_role_sttags_only_pdfII_clist,
+%     \c_@@_role_sttags_mathml_clist,
 %     \c_@@_role_sttags_pdfII_to_pdf_prop
 %   }
 %    \begin{macrocode}
@@ -237,6 +238,201 @@
    ,Artifact
  }
 
+\clist_const:Nn \c_@@_role_sttags_mathml_clist
+ {
+   abs
+   ,and
+   ,annotation
+   ,apply
+   ,approx
+   ,arccos
+   ,arccosh
+   ,arccot
+   ,arccoth
+   ,arccsc
+   ,arccsch
+   ,arcsec
+   ,arcsech
+   ,arcsin
+   ,arcsinh
+   ,arctan
+   ,arctanh
+   ,arg
+   ,bind
+   ,bvar
+   ,card
+   ,cartesianproduct
+   ,cbytes
+   ,ceiling
+   ,cerror
+   ,ci
+   ,cn
+   ,codomain
+   ,complexes
+   ,compose
+   ,condition
+   ,conjugate
+   ,cos
+   ,cosh
+   ,cot
+   ,coth
+   ,cs
+   ,csc
+   ,csch
+   ,csymbol
+   ,curl
+   ,declare
+   ,degree
+   ,determinant
+   ,diff
+   ,divergence
+   ,divide
+   ,domain
+   ,domainofapplication
+   ,emptyset
+   ,eq
+   ,equivalent
+   ,eulergamma
+   ,exists
+   ,exp
+   ,exponentiale
+   ,factorial
+   ,factorof
+   ,false
+   ,floor
+   ,fn
+   ,forall
+   ,gcd
+   ,geq
+   ,grad
+   ,gt
+   ,ident
+   ,image
+   ,imaginary
+   ,imaginaryi
+   ,implies
+   ,in
+   ,infinity
+   ,int
+   ,integers
+   ,intersect
+   ,interval
+   ,inverse
+   ,lambda
+   ,laplacian
+   ,lcm
+   ,leq
+   ,limit
+   ,ln
+   ,log
+   ,logbase
+   ,lowlimit
+   ,lt
+   ,maction
+   ,maligngroup
+   ,malignmark
+   ,math
+   ,matrix
+   ,matrixrow
+   ,max
+   ,mean
+   ,median
+   ,menclose
+   ,merror
+   ,mfenced
+   ,mfrac
+   ,mglyph
+   ,mi
+   ,min
+   ,minus
+   ,mlabeledtr
+   ,mlongdiv
+   ,mmultiscripts
+   ,mn
+   ,mo
+   ,mode
+   ,moment
+   ,momentabout
+   ,mover
+   ,mpadded
+   ,mphantom
+   ,mprescripts
+   ,mroot
+   ,mrow
+   ,ms
+   ,mscarries
+   ,mscarry
+   ,msgroup
+   ,msline
+   ,mspace
+   ,msqrt
+   ,msrow
+   ,mstack
+   ,mstyle
+   ,msub
+   ,msubsup
+   ,msup
+   ,mtable
+   ,mtd
+   ,mtext
+   ,mtr
+   ,munder
+   ,munderover
+   ,naturalnumbers
+   ,neq
+   ,none
+   ,not
+   ,notanumber
+   ,notin
+   ,notprsubset
+   ,notsubset
+   ,or
+   ,otherwise
+   ,outerproduct
+   ,partialdiff
+   ,pi
+   ,piece
+   ,piecewise
+   ,plus
+   ,power
+   ,primes
+   ,product
+   ,prsubset
+   ,quotient
+   ,rationals
+   ,real
+   ,reals
+   ,reln
+   ,rem
+   ,root
+   ,scalarproduct
+   ,sdev
+   ,sec
+   ,sech
+   ,selector
+   ,semantics
+   ,sep
+   ,set
+   ,setdiff
+   ,share
+   ,sin
+   ,sinh
+   ,subset
+   ,sum
+   ,tan
+   ,tanh
+   ,tendsto
+   ,times
+   ,transpose
+   ,true
+   ,union
+   ,uplimit
+   ,variance
+   ,vector
+   ,vectorproduct
+   ,xor
+ }
+
 \prop_const_from_keyval:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
   {
     DocumentFragment = Art,
@@ -274,6 +470,14 @@
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
+\pdf_version_compare:NnT > {1.9}
+  {
+     \clist_map_inline:Nn \c_@@_role_sttags_mathml_clist
+       {
+         \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+         \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ mathml }
+       }
+  }
 %    \end{macrocode}
 % For luatex and the MC we need a name/number relation.
 % The name space is not relevant.
@@ -289,14 +493,19 @@
   }
 %    \end{macrocode}
 %
-% Starting with pdf 2.0 we have to handle the NS key for name spaces.
-% new tags and the rolemap
+% \section{Adding new tags and rolemapping}
+%
+% \subsection{pdf 1.7 and earlier}
+% With this versions only RoleMap is filled.
+% At first the dictionary:
 %    \begin{macrocode}
 \pdfdict_new:n {g_@@_role/RoleMap_dict}
-
-%pdf 1.7version, only RoleMap is filled, the names
-%space doesn't matter but we need to fill the structures anyway an only user tags exists.
-% the arguments should not be empty but we test/ensure that at use
+%    \end{macrocode}
+% \begin{macro}{\@@_role_add_tag:nn}
+% The pdf 1.7 version has only two arguments: new and rolemap name.
+% To make pdf 2.0 types usable we directly define a rolemapping for them.
+% TODO: add checks
+%    \begin{macrocode}
 \cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
   {
     \prop_if_in:NnF \g_@@_role_tags_prop {#1}
@@ -309,7 +518,7 @@
            }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ user }
       }
-      %\@@_check_add_tag_role:nn {#1}{#2} %%!TODO
+    %\@@_check_add_tag_role:nn {#1}{#2} %%!TODO
     \tl_if_empty:nF { #2 }
       {
         \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
@@ -318,7 +527,23 @@
       }
   }
 \cs_generate_variant:Nn \@@_role_add_tag:nn {VV}
-%pdf 2.0 version
+
+\pdf_version_compare:NnT < {2.0}
+  {
+     \prop_map_inline:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
+       {
+         \@@_role_add_tag:nn {#1}{#2}
+       }
+  }
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_role_add_tag:nnnn}
+% The pdf 2.0 version takes for arguments:
+% tag/namespace/role/namespace
+% TODO: add checks
+%    \begin{macrocode}
 \cs_new_protected:Nn \@@_role_add_tag:nnnn %tag/namespace/role/namespace
   {
     \msg_info:nnn { tag }{new-tag}{#1}
@@ -339,17 +564,11 @@
        }
    }
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
-%this requires that the version is already set. So if it wanders in the kernel
-% it must be delayed.
-\pdf_version_compare:NnT < {2.0}
-  {
-     \prop_map_inline:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
-       {
-         \@@_role_add_tag:nn {#1}{#2}
-       }
-  }
-
-
+%    \end{macrocode}
+% \end{macro}
+%  The user interface use the key add-new-tag, which takes either a
+%  keyval list as argument, or a tag/role.
+%    \begin{macrocode}
 
 \tl_new:N \l_@@_role_tag_tmpa_tl
 \tl_new:N \l_@@_role_tag_namespace_tmpa_tl
@@ -399,6 +618,7 @@
          }
       \pdf_version_compare:NnTF < {2.0}
        {
+        %TODO add check for emptyness?
           \@@_role_add_tag:VV
               \l_@@_role_tag_tmpa_tl
               \l_@@_role_role_tmpa_tl
