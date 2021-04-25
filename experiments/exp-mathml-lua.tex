@@ -1,14 +1,15 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \PassOptionsToPackage{enable-debug,check-declarations}{expl3}
-\RequirePackage{expl3}
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{uncompress,pdfversion=2.0}
+\RequirePackage{expl3}
 \documentclass{article}
 % \usepackage{unicode-math}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,%paratagging,
 interwordspace=true,
-add-new-tag={tag=math,role=math,role-namespace=mathml}}
+%add-new-tag={tag=math,role=math,role-namespace=mathml}
+}
 
 \usepackage{amsmath}
 \usepackage{luamml}
@@ -48,4 +49,4 @@ add-new-tag={tag=math,role=math,role-namespace=mathml}}
 \tagstructend
 \tagstructend
 
-\end{document}
+\end{document} 
