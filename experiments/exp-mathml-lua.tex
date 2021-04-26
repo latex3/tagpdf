@@ -15,6 +15,7 @@ interwordspace=true,
 \usepackage{luamml}
 \RegisterFamilyMapping\symsymbols{oms}
 \RegisterFamilyMapping\symletters{oml}
+\RegisterFamilyMapping\symlargesymbols{omx}
 \ExplSyntaxOn
 \cs_new_protected:Npn \ShowMathMLObj {
   \message { \luamml_get_last_mathml_stream:e{}~0~R }
@@ -49,4 +50,4 @@ interwordspace=true,
 \tagstructend
 \tagstructend
 
-\end{document} 
+\end{document}
