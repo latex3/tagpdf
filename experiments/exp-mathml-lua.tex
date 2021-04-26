@@ -4,7 +4,7 @@
 \DeclareDocumentMetadata{uncompress,pdfversion=2.0}
 \RequirePackage{expl3}
 \documentclass{article}
-% \usepackage{unicode-math}
+\usepackage{unicode-math}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all,%paratagging,
 interwordspace=true,
@@ -39,7 +39,7 @@ interwordspace=true,
     \group_end:
   }
 \ExplSyntaxOff
-\begin{document}
+\begin{document}\tracingmathml=2
 \tagstructbegin{tag=Document}
 \ExplSyntaxOn
 \pdf_object_new:nn{mathml}{dict}
@@ -71,11 +71,14 @@ interwordspace=true,
 \edef\blub{\luamml_get_last_mathml_stream:e{}\c_space_tl 0~R}
 \pdffile_write_filespec:nnn{mathml2}{test2.xml}{\blub}
 
+%inline math: $a=b$ $c=d$\luamml_get_last_mathml_stream:e{}
 \ExplSyntaxOff
 
 
 \tagmcend
 \tagstructend
+
+
 \tagstructend
 
 \end{document}
