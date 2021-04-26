@@ -22,6 +22,22 @@ interwordspace=true,
 }
 
 \pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
+\cs_new_protected:Npn \pdffile_write_filespec:nnn #1#2#3 %dict,filename,stream ref
+ {
+   \group_begin:
+   \__pdffile_filename_convert_to_print:nN  { #2 } \l__pdffile_tmpa_str
+   \pdfdict_put:nnx {l_pdffile/Filespec}{F} { \l__pdffile_tmpa_str }
+   \pdfdict_put:nnx {l_pdffile/Filespec}{UF}{ \l__pdffile_tmpa_str }
+    \pdf_object_write:nx { #1 }
+      {
+          \pdfdict_use:n { l_pdffile/Filespec}
+          \tl_if_empty:nF { #3 }
+          {
+            /EF <</F~#3 /UF~#3>>
+          }
+       }
+    \group_end:
+  }
 \ExplSyntaxOff
 \begin{document}
 \tagstructbegin{tag=Document}
@@ -36,15 +52,27 @@ interwordspace=true,
 \]
 %\ShowMathMLObj
 \ExplSyntaxOn
-\edef\blub{\luamml_get_last_mathml_stream:e{}}
-\pdf_object_write:nx { mathml }
-            {
-              \pdfdict_use:n { l_pdffile/Filespec}
-              /EF <</F~\blub\c_space_tl 0~R /UF~\blub \c_space_tl 0~R>>
-              %/F <FEFF006100620063002E0078006D006C> /UF <FEFF006100620063002E0078006D006C>
-              /F <FEFF006500780061006D0070006C0065002D0069006E007000750074002D00660069006C0065002E007400650078> /UF <FEFF006500780061006D0070006C0065002D0069006E007000750074002D00660069006C0065002E007400650078>
-            }
+\edef\blub{\luamml_get_last_mathml_stream:e{}\c_space_tl 0~R}
+\pdffile_write_filespec:nnn{mathml}{test1.xml}{\blub}
+\tagmcend
+\tagstructend
 \ExplSyntaxOff
+
+\ExplSyntaxOn
+\pdf_object_new:nn{mathml2}{dict}
+\ExplSyntaxOff
+\tagstructbegin{tag=math/mathml,AF=mathml2}
+\tagmcbegin{tag=math}
+\begin{align}
+  \int_1^n f(x) &= 123
+\end{align}
+%\ShowMathMLObj
+\ExplSyntaxOn
+\edef\blub{\luamml_get_last_mathml_stream:e{}\c_space_tl 0~R}
+\pdffile_write_filespec:nnn{mathml2}{test2.xml}{\blub}
+
+\ExplSyntaxOff
+
 
 \tagmcend
 \tagstructend
