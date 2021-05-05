@@ -257,14 +257,14 @@
       {
         \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
           {
-            \pdf_object_write:nx {c_@@_role/RoleMapNS_##1_obj}
+            \pdf_object_write:nx {@@/RoleMapNS/##1}
               {
                 \pdfdict_use:n {g_@@_role/RoleMapNS_##1_dict}
               }
             \pdfdict_gput:nnx{g_@@_role/Namespace_##1_dict}
-              {RoleMapNS}{\pdf_object_ref:n {c_@@_role/RoleMapNS_##1_obj}}
+              {RoleMapNS}{\pdf_object_ref:n {@@/RoleMapNS/##1}}
           }
-        \pdf_object_write:nx{c_@@_role/Namespace_##1_obj}
+        \pdf_object_write:nx{tag/NS/##1}
           {
              \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
           }
