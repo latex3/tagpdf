@@ -54,7 +54,7 @@
 %\tl_const:Nx \c_@@_tree_obj_structtreeroot_tl { \l_tmpa_tl }
 
 %new
-\pdf_object_new:nn { c_@@_struct_0_obj }{ dict }
+\pdf_object_new:nn { @@/struct/0 }{ dict }
 
  %need to think about the best place ...
 \hook_gput_code:nnn{begindocument}{tagpdf}
@@ -64,7 +64,7 @@
         \pdfmanagement_add:nnx
           { Catalog }
           { StructTreeRoot }
-          { \pdf_object_ref:n { c_@@_struct_0_obj } }
+          { \pdf_object_ref:n { @@/struct/0 } }
       }
   }
 \cs_new_protected:Nn \@@_tree_write_structtreeroot:
@@ -88,7 +88,7 @@
 %\tl_const:Nx \c_@@_tree_obj_parenttree_tl    { \l_tmpa_tl }
 
 %new
-\pdf_object_new:nn { c_@@_tree_parenttree_obj }{ dict }
+\pdf_object_new:nn { @@/tree/parenttree }{ dict }
 
 % we have two sets of entries in the parent tree:
 % page streams and real objects.
@@ -194,7 +194,7 @@
         \@@_tree_fill_parenttree:
       }
     \tl_put_right:NV \l_@@_parenttree_content_tl\g_@@_parenttree_objr_tl
-    \pdf_object_write:nx  { c_@@_tree_parenttree_obj }
+    \pdf_object_write:nx  { @@/tree/parenttree }
       {
         /Nums\c_space_tl [\l_@@_parenttree_content_tl]
       }
@@ -202,11 +202,11 @@
 
 %the Rolemap tree
 
-\pdf_object_new:nn { c_@@_tree_rolemap_obj }{ dict }
+\pdf_object_new:nn { @@/tree/rolemap }{ dict }
 
 \cs_new_protected:Nn \@@_tree_write_rolemap:
   {
-    \pdf_object_write:nx  { c_@@_tree_rolemap_obj }
+    \pdf_object_write:nx  { @@/tree/rolemap }
       {
         \pdfdict_use:n{g_@@_role/RoleMap_dict}
       }
@@ -236,21 +236,21 @@
     \tl_if_empty:NF
       \g_@@_attr_class_content_tl
       {
-        \pdf_object_new:nn { c_@@_tree_classmap_obj }{ dict }
+        \pdf_object_new:nn { @@/tree/classmap }{ dict }
      %   \@@_pdfreserveobjnum:N \l_tmpa_tl
      %   \tl_const:Nx \c_@@_tree_obj_classmap_tl { \l_tmpa_tl }
         \pdf_object_write:nx
-          { c_@@_tree_classmap_obj }
+          { @@/tree/classmap }
           { \g_@@_attr_class_content_tl }
         \@@_prop_gput:cnx
           { g_@@_struct_0_prop }
           { ClassMap }
-          { \pdf_object_ref:n { c_@@_tree_classmap_obj }  }
+          { \pdf_object_ref:n { @@/tree/classmap }  }
       }
   }
 
 % namespaces are only relevant for pdf2.0 but we don't care
-\pdf_object_new:nn{ c_@@_tree_namespaces_obj }{array}
+\pdf_object_new:nn{ @@/tree/namespaces }{array}
 \cs_new_protected:Npn \@@_tree_write_namespaces:
   {
     \prop_map_inline:Nn \g_@@_role_NS_prop
@@ -269,7 +269,7 @@
              \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
           }
       }
-    \pdf_object_write:nx {c_@@_tree_namespaces_obj}
+    \pdf_object_write:nx {@@/tree/namespaces}
       {
         \prop_map_tokens:Nn \g_@@_role_NS_prop{\use_ii:nn}
       }

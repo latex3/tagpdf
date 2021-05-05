@@ -142,7 +142,7 @@
 \@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { objref}
-  { \pdf_object_ref:n { c_@@_struct_0_obj } }
+  { \pdf_object_ref:n { @@/struct/0 } }
 
 \@@_prop_gput:cnn
   { g_@@_struct_0_prop }
@@ -153,12 +153,12 @@
 \@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { ParentTree }
-  { \pdf_object_ref:n { c_@@_tree_parenttree_obj } }
+  { \pdf_object_ref:n { @@/tree/parenttree } }
 
 \@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { RoleMap }
-  { \pdf_object_ref:n { c_@@_tree_rolemap_obj } }
+  { \pdf_object_ref:n { @@/tree/rolemap } }
 
 \@@_prop_gput:cnn
   { g_@@_struct_0_prop }
@@ -174,7 +174,7 @@
 \@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { Namespaces }
-  { \pdf_object_ref:n { c_@@_tree_namespaces_obj } }
+  { \pdf_object_ref:n { @@/tree/namespaces } }
 
 
 % commands to store the kids
@@ -324,7 +324,7 @@
         \@@_struct_get_dict_content:n { #1 }
         \exp_args:Nx
           \pdf_object_write:nx
-            { c_@@_struct_#1_obj }
+            { @@/struct/#1 }
             {
               \l_@@_struct_dict_content_tl
             }
@@ -363,7 +363,7 @@
         \tl_gset:Nx \g_@@_struct_tag_NS_tl { \seq_item:Nn\l_tmpa_seq {2} }
         \bool_if:NT \g_@@_check_tags_bool
           {
-            \@@_check_structure_tag:N \g_@@_struct_tag_tl 
+            \@@_check_structure_tag:N \g_@@_struct_tag_tl
           }
        \@@_prop_gput:cnx
          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
@@ -546,7 +546,7 @@
     %\@@_pdfreserveobjnum:N \l_tmpa_tl
     \exp_args:Ne
       \pdf_object_new:nn
-        { c_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_obj }
+        { @@/struct/\int_eval:n { \c@g_@@_struct_abs_int } }
         { dict }
     \@@_prop_gput:cnx
       { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
@@ -554,7 +554,7 @@
       {
         \exp_args:Ne
           \pdf_object_ref:n
-            {c_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_obj}
+            {@@/struct/\int_eval:n { \c@g_@@_struct_abs_int }}
       }
 %    \prop_show:c { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
     \@@_prop_gput:cnx
