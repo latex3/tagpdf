@@ -4,8 +4,8 @@
 
 
 \makeatletter
-\def\UlrikeFischer@package@version{0.80}
-\def\UlrikeFischer@package@date{2021-02-23}
+\def\UlrikeFischer@package@version{0.81}
+\def\UlrikeFischer@package@date{2021-05-14}
 \makeatother
 
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
@@ -122,7 +122,8 @@
 \tagstructbegin{tag=Div}
 \begin{tcolorbox}[colframe=red,before upper=\tagpdfparaOn]
 
-This package is not meant for normal document production.
+This package is not meant for normal document production. It is mainly a tool to \emph{research} 
+tagging.
 
 You need a very current \LaTeX{} format.
       You need a very current L3 programming layer.
@@ -326,7 +327,7 @@ is activated.
 Commands and keys to allow automatic paragraph tagging have been added. See section~\ref{sec:paratagging}.
 As can be seen in this documentation the code works quite good already, but one should be aware that \enquote{paragraphs} can appear in many places and sometimes there are even more paragraph begin than ends.
 
-A key to test if local or global setting of the mc-attributes in luamode is more sensible, see \ref{sec:global-local} for more details. 
+A key to test if local or global setting of the mc-attributes in luamode is more sensible, see \ref{sec:global-local} for more details.
 
 New commands to store and reset mc-tags.
 
@@ -778,7 +779,7 @@ open chunk, it puts $-1$ on the stack (for debugging).
 The second command removes a value from the stack. If it is different from
 $-1$ it opens a tag with it. The command is mainly meant to be used inside hooks and command
 definitions so there is only an expl3 version. Perhaps other content of the mc-dictionary (for example the Lang) needs to be saved on the stacked too.
- 
+
 
 
 \begin{docCommand}{tagmcifinTF}{\marg{true code}\marg{false code}}\end{docCommand}
@@ -808,7 +809,7 @@ mc-chunk if it can't control the group level. For example this would work fine:
 
 \begin{lstlisting}
 \tagstructbegin{tag=P}
-\tagmcbegin{tag=P} 
+\tagmcbegin{tag=P}
   Start paragraph
    \tag_mc_end_push:
    \tagstructbegin{tag=Em}
@@ -817,9 +818,9 @@ mc-chunk if it can't control the group level. For example this would work fine:
    \tagmcend
    \tagstructend
    \tag_mc_begin_pop:n{}
- Continuation of paragraph   
+ Continuation of paragraph
 \tagmcend
-\tagstructend 
+\tagstructend
 \end{lstlisting}
 
 But if the user adds a group like in the following listing, then the reading order will be wrong and the \emph{emphasized text} will move in the structure at the end as described in the box about nesting
