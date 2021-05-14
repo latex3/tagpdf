@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2021-05-14]
 ### Changed 
  - \tagmcend no longer issues an \unskip in vertical mode. This disturbed 
    to often spacing in unwanted places. 
