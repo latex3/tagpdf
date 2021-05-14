@@ -24,3 +24,5 @@ this project uses date-based 'snapshot' version identifiers.
  - added commands \tag_mc_end_push: and \tag_mc_begin_pop:n which allow to "interrupt"
    a mc-chunk to insert some sub structure by moving the current tag onto a stack. 
    This is for example used by the links.
+ - a key |global-mc|. With  it in luamode the mc attributes are set globally.
+   This allows to test the differences between both approaches.
