@@ -86,16 +86,21 @@ function update_tag (file,content,tagname,tagdate)
  if string.match (file, "%.dtx$" ) then
   content = string.gsub (content,
                          "\\ProvidesExplPackage {(.-)} {.-} {.-}",
-                         "\\ProvidesExplPackage {%1} {" .. tagdate.."} {"..packageversion .. "}")
+                         "\\ProvidesExplPackage {%1} {" .. packagedate.."} {"..packageversion .. "}")
   content = string.gsub (content,
                          "\\ProvidesExplFile {(.-)} {.-} {.-}",
-                         "\\ProvidesExplFile {%1} {" .. tagdate.."} {"..packageversion .. "}")
+                         "\\ProvidesExplFile {%1} {" .. packagedate.."} {"..packageversion .. "}")
   content = string.gsub (content,
                          '(version%s*=%s*")%d%.%d+(",%s*--TAGVERSION)',
                          "%1"..packageversion.."%2")
   content = string.gsub (content,
                          '(date%s*=%s*")%d%d%d%d%-%d%d%-%d%d(",%s*--TAGDATE)',
                          "%1"..packagedate.."%2")
+  return content
+elseif string.match (file, "%.sty$" ) then
+  content = string.gsub (content,
+                         "\\ProvidesExplPackage {(.-)} {.-} {.-}",
+                         "\\ProvidesExplPackage {%1} {" .. packagedate .."} {"..packageversion .. "}")
   return content
  elseif string.match (file, "^Readme.md$") then
    content = string.gsub (content,
