@@ -1,4 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{uncompress}
 
 \documentclass{scrartcl}
 \usepackage[english]{babel}
@@ -23,7 +25,7 @@
 \newsavebox\testboxa
 \newsavebox\testboxb
 \pagestyle{empty}
-\begin{document}
+\begin{document}\showoutput
 
 % Some tests with mc + boxes
 
@@ -32,10 +34,10 @@
 %%%%%%%%%%%%
 
 % pdftex: ok
-% luatex: ok 
+% luatex: ok
 
 
-\tagmcbegin{tag=P}xxx\tagmcend 
+\tagmcbegin{tag=P}xxx\tagmcend
 \savebox\testboxa{\tagmcbegin{tag=BOXA}box\tagmcend}
 \usebox\testboxa
 \tagmcbegin{tag=P}yyy\tagmcend
@@ -44,18 +46,27 @@
 % reusing the box a second time
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-% pdftex: NOK, /BOX <</MCID 1 >> BDC twice in the pdf
+% pdftex: NOK, /BOXA /l3pdf2 BDC twice in the pdf
+% label is created twice
+% \newlabeldata{mcid-2}{{tagabspage}{1}{tagmcabs}{2}{tagmcid}{0}}
+% so box can't be used in another structure.
 % luatex: OK
-
-\tagmcbegin{tag=P}xxx\tagmcend
 \usebox\testboxa
-\tagmcbegin{tag=P}yyy\tagmcend
 
+\newpage 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% reusing the box a second time
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%pdflatex:NOK
+% affects even number of first page due to duplication of labels
+
+\usebox\testboxa
 
 %%%%%%%%%%%%%%%
 % delayed use
 %%%%%%%%%%%%%%%
-% pdftex OK, numbering 5,7,6 
+% pdftex OK, numbering 5,7,6
 % luatex OK, numbering 5,6,7
 
 \tagmcbegin{tag=P}xxx\tagmcend
@@ -73,7 +84,7 @@
 \tagmcbegin{tag=P}xxx\tagmcend
 \savebox\testboxb{\tagmcbegin{tag=BOXC}box\tagmcend}
 \tagmcbegin{tag=P}yyy\tagmcend
-\newpage 
+\newpage
 
 \usebox\testboxb
 
@@ -81,11 +92,11 @@
 %%%%%%%%%%%%%%%
 % Is there a way to delay/reset the numbers in the saved box???
 % this here does (naturally) not work, but demonstrates what is needed
-\newcommand\testnum{1}
-\savebox\testboxb{\pdfliteral{/BOXB<</MCID \testnum>> BDC EMC}}
-\usebox\testboxb
-\renewcommand\testnum{2}
-\usebox\testboxb
+%\newcommand\testnum{1}
+%\savebox\testboxb{\pdfliteral{/BOXB<</MCID \testnum>> BDC EMC}}
+%\usebox\testboxb
+%\renewcommand\testnum{2}
+%\usebox\testboxb
 
 \end{document}
 
