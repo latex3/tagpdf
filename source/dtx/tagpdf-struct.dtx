@@ -706,6 +706,15 @@
       }
   }
 
+% Code to add an OBJR to the structure.
+% This is for example needed for widget annotations and form field
+% It reuses the command used by links
+\cs_new_protected:Npn \tag_struct_add_OBJR:n #1 %#1 should be an object reference
+  {
+    \exp_args:Nx
+      \@@_struct_kid_link_gput_right:nx
+         {\g_@@_struct_stack_current_tl}{#1}
+  }
 %</struct>
 
 %    \end{macrocode}
