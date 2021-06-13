@@ -20,11 +20,15 @@
 abc
 \ExplSyntaxOn
 \tag_mc_end_push:
+
+\group_begin:
+\pdfannot_dict_put:nnx {widget}{StructParent}{\tag_struct_OBJR_ref:}
 \pdffield_checkbox:n{name=a}
-\tag_struct_add_OBJR:n { \pdffield_annot_ref_last: }
-\tag_mc_begin_pop:n{} 
+\tag_struct_finish_OBJR:n { \pdffield_annot_ref_last: }
+\group_end:
+\tag_mc_begin_pop:n{}
  \ExplSyntaxOff
 xxx
-\tagstructend   
+\tagstructend
 \end{document}
 

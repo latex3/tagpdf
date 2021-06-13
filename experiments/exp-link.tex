@@ -45,11 +45,13 @@ abc
             /URI(http://www.dante.de)
            >>
          \c_space_tl
-         /StructParent \c_space_tl \int_use:N\c@g__tag_parenttree_obj_int
+         /StructParent \c_space_tl 
+         \tag_struct_OBJR_ref:
+         %\int_use:N\c@g__tag_parenttree_obj_int
      }
     This is a link. a long link a long link a long link a long line
 \__pdf_backend_link_end:
-\__tag_struct_finish_link:
+ \tag_struct_finish_OBJR:x{\pdfannot_link_ref_last:}
 \ExplSyntaxOff
 \tagmcend
 \tagstructend
@@ -68,11 +70,14 @@ abc
             /URI(http://www.dante.de)
            >>
          \c_space_tl
-         /StructParent \c_space_tl \int_use:N\c@g__tag_parenttree_obj_int
+         /StructParent \c_space_tl 
+         \tag_struct_OBJR_ref:
+         %\int_use:N\c@g__tag_parenttree_obj_int
      }
     This is a link. a long link a long link a long link a long line
 \__pdf_backend_link_end:
-\__tag_struct_finish_link: %don't forget this!!
+ \tag_struct_finish_OBJR:x{\pdfannot_link_ref_last:} %don't forget this!!
+ %\__tag_struct_finish_link: %don't forget this!!
 \ExplSyntaxOff
 \tagmcend
 \tagstructend
@@ -91,11 +96,12 @@ abc
             /URI(http://www.dante.de)
            >>
          \c_space_tl
-         /StructParent \c_space_tl \int_use:N\c@g__tag_parenttree_obj_int
+         /StructParent \c_space_tl \tag_struct_OBJR_ref: %\int_use:N\c@g__tag_parenttree_obj_int
     }
     This is a another link.
 \__pdf_backend_link_end:
-\__tag_struct_finish_link:
+ \tag_struct_finish_OBJR:x{\pdfannot_link_ref_last:}
+ %\__tag_struct_finish_link:
 \ExplSyntaxOff
 \tagmcend
 \tagstructend
