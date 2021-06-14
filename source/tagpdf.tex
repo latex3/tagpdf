@@ -79,6 +79,7 @@
 \usepackage{tagpdfdocu-patches}
 
 
+
 %header and footer. This still needs some sorting, the first page does't work correctly
 \cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
 \makeatletter
@@ -93,6 +94,10 @@
 \author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
 
 \tagpdfsetup{paratagging,paratagging-show}
+
+\usepackage{shortvrb}
+\MakeShortVerb|
+
 \begin{document}
 
 \tagstructbegin{tag=Document}
@@ -305,7 +310,7 @@ I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{
 
 
 
-As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with \verb|\uftag| will stay valid for some time but then be deprecated.
+As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with |\uftag| will stay valid for some time but then be deprecated.
 
 \textbf{Breaking change!} The argument of \texttt{newattribute} option should no longer add the dictionary bracket \verb+<<..>>+, they are added by the code.
 
@@ -361,6 +366,9 @@ Be aware that to create the tagged version a current lualatex-dev and a current 
 
 When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+, see below. (At least that's the theory, I'm not quite sure, if really the tests are done always as planed\ldots.)
 
+Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
+
+\begin{docCommand}{tag_if_active:TF}{}\end{docCommand}
 
 \subsection{Modes and package options}
 
@@ -889,32 +897,33 @@ To allow to test with both versions it is possible to switch for a document with
 Annotations (like links or form field annotations) are objects associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between a link or a form field and the text is based solely on visual appearance (the link text is in the same region, or there is empty space for the form field annotation) rather than on an explicitly specified association.
 
 To connect such a annotation with the structure and so with surrounding or underlying text a specific structure has to be added, see \ref{fig:linkannot}:
-The annotation is added to a structure element as an object reference. It is not referenced directly but through an intermediate object of type OBJR. To the dictionary of the annotation a |/StructParent| entry must be added, the value is a number which is then
-used in the ParentTree to define a relationship between the annotation and the parent structure element. 
+The annotation is added to a structure element as an object reference. It is not referenced directly but through an intermediate object of type OBJR. To the dictionary of the annotation a \texttt{/StructParent} entry must be added, the value is a number which is then
+used in the ParentTree to define a relationship between the annotation and the parent structure element.
 
 To support this, \pkg{tagpdf} offers currently two commands
 
-\begin{docCommand}{\tag_struct_parent_int:}{}\end{docCommand}
+\begin{docCommand}{tag_struct_parent_int:}{}\end{docCommand}
 
-This insert the current value of a global counter used to track such object. It can be used to add the |/StructParent| value to 
-the annotation dictionary. 
+This insert the current value of a global counter used to track such object. It can be used to add the \texttt{/StructParent} value to
+the annotation dictionary.
 
-\begin{docCommand}{\tag_struct_insert_annot:nn}{\marg{object reference}{struct parent number}\end{docCommand}
+\begin{docCommand}{tag_struct_insert_annot:nn}{\marg{object reference}\marg{struct parent number}}\end{docCommand}
 
 This will insert the annotation described by the object reference into the current structure by creating the OBJR object. It will
 also add the necessary entry to the parent tree and increase the global counter referred to by |\tag_struct_parent_int:|.
+It does nothing if (structure) tagging is not activated. 
 
-Attention! As the second command increases the global counter at the end it changes the value given back by the first. 
+Attention! As the second command increases the global counter at the end it changes the value given back by the first.
 That means that if nesting is involved care must be taken that the correct numbers is used. This should be easy to fulfil for most annotations, as there are boxes.
 There the second command should at best be used directly behind the annotation and it can make use of |\tag_struct_parent_int:|. For links nesting is theoretically possible, and it
 could be that future versions need more sophisticated handling here.
 
 In environments which process their content twice like tabularx or align it would be the
-best to exclude the second command from the trial step, but this will need better support from these environments. 
+best to exclude the second command from the trial step, but this will need better support from these environments.
 
-Typically using this commands is not often needed: Since version 0.81 
+Typically using this commands is not often needed: Since version 0.81
 \pkg{tagpdf} already handles (unnested) links, and form fields created with
-the \pkg{l3pdffield-testphase} package will be handle by this package. 
+the \pkg{l3pdffield-testphase} package will be handle by this package.
 
 The following listing shows low-level to create link where the two commands are used:
 
@@ -960,7 +969,7 @@ The \PDF{} then looked like this
 \end{lstlisting}
 
 
-If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically. Some first implementation is done by Marcel Krüger in the luamml project. 
+If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically. Some first implementation is done by Marcel Krüger in the luamml project.
 
 But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the \PDF{} and the task how to read this aloud delegated to the screen reader. As \PDF{}~2.0 introduced associated files it is probable that this will be the way to go but more investigations are needed here.
 
