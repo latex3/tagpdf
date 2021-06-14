@@ -7,7 +7,7 @@ this project uses date-based 'snapshot' version identifiers.
 ## [2021-06-14]
 ### Added
  - commands to add annotations to a structure
- 
+ - \tag_if_active: added 
 
 ## [2021-05-14]
 ### Changed 
