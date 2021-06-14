@@ -1,0 +1,34 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=2.0}
+\documentclass{scrartcl}
+\RequirePackage{tagpdf-regressiontest}
+
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+\usepackage{graphicx}
+\usepackage{l3pdffield-testphase}
+\tagpdfifpdftexT
+ {
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+ }
+\tagpdfsetup{activate-all,paratagging}
+\begin{document}\showoutput
+\START
+\tagstructbegin{tag=Document}
+abc
+\ExplSyntaxOn
+\tag_mc_end_push:
+
+\group_begin:
+\pdfannot_dict_put:nnx {widget}{StructParent}{\tag_struct_OBJR_ref:}
+\pdffield_checkbox:n{name=a}
+\tag_struct_finish_OBJR:n { \pdffield_annot_ref_last: }
+\group_end:
+\tag_mc_begin_pop:n{}
+ \ExplSyntaxOff
+xxx
+\tagstructend
+\end{document}
+
