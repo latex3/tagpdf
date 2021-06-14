@@ -27,7 +27,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*struct>
-\ProvidesExplPackage {tagpdf-struct-code} {2021-05-14} {0.81}
+\ProvidesExplPackage {tagpdf-struct-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to storing structure}
 %    \end{macrocode}
 % I will use a latex counter for the structure count
@@ -681,46 +681,14 @@
 %           { StructParent }
 %           { \int_use:N\c@g_@@_parenttree_obj_int }
 %    <start link> link text <stop link>
-% (2+3)   \@@_struct_finish_link:
+% (2+3)   \@@_struct_insert_annot:nn {obj ref}{parent num}
 %         \tag_mc_end:
 %         \tag_struct_end:
 %
 %%%% this works for url, see exp-link.pdf.
 %%%% it must be checked for other links
 
-%\cs_new_protected:Nn \@@_struct_finish_link:
-%  {
-%    \bool_if:NT \g_@@_active_struct_bool
-%      {
-%        %get the number of the parent link structure:
-%        \seq_get:NNF
-%          \g_@@_struct_stack_seq
-%          \l_@@_struct_stack_parent_tmp_tl
-%          {
-%            \msg_error:nn { tag } { struct-faulty-nesting }
-%          }
-%        %put the obj number of link annot in the kid entry:
-%        \@@_struct_kid_OBJR_gput_right:nx
-%          {
-%            \l_@@_struct_stack_parent_tmp_tl
-%          }
-%          {
-%            \pdfannot_link_ref_last:
-%          }
-%        % add the parent obj number to the parent tree:
-%        \@@_parenttree_add_objr:nn
-%          {
-%            \int_use:N\c@g_@@_parenttree_obj_int
-%          }
-%          {
-%            \prop_item:cn
-%              { g_@@_struct_\l_@@_struct_stack_parent_tmp_tl _prop }
-%              { objref }
-%          }
-%        % increase the int:
-%        \stepcounter{ g_@@_parenttree_obj_int }
-%      }
-%  }
+
 % this will probably be used for xform too, but then we can rename it.
 \cs_new_protected:Npn \@@_struct_insert_annot:nn #1 #2 %#1 object reference to the annotation/xform
                                                        %#2 structparent number
@@ -777,7 +745,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*attr>
-\ProvidesExplPackage {tagpdf-attr-code} {2021/05/14} {0.81}
+\ProvidesExplPackage {tagpdf-attr-code} {2021-06-14} {0.82}
   {part of tagpdf - code related to attributes and attribute classes}
 
 % the obj is written in tagpdf-tree-code.

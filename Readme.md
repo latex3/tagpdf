@@ -1,7 +1,7 @@
 # tagpdf
 
-![Version: 0.81](https://img.shields.io/badge/current_version-0.81-blue.svg?style=flat-square)
-![Date: 2021-05-14](https://img.shields.io/badge/date-2021--05--14-blue.svg?style=flat-square)
+![Version: 0.82](https://img.shields.io/badge/current_version-0.82-blue.svg?style=flat-square)
+![Date: 2021-06-14](https://img.shields.io/badge/date-2021--06--14-blue.svg?style=flat-square)
 [![License: LPPL1.3c ](https://img.shields.io/badge/license-LPPL1.3c-blue.svg?style=flat-square)](https://ctan.org/license/lppl1.3c)
 
 A package to experiment with tagging and other requirements of accessible pdfs with pdflatex and lualatex
@@ -30,7 +30,7 @@ The tagpdf package may be modified and distributed under the terms and condition
  
 ## Current development version
 
-[![Version: 0.81](https://img.shields.io/badge/version-0.81-blue.svg?style=flat-square)](https://travis-ci.com/u-fischer/tagpdf/)
-![Travis CI for 0.81](https://img.shields.io/travis/com/u-fischer/tagpdf/master.svg?style=flat-square)
+[![Version: 0.82](https://img.shields.io/badge/version-0.82-blue.svg?style=flat-square)](https://travis-ci.com/u-fischer/tagpdf/)
+![Travis CI for 0.82](https://img.shields.io/travis/com/u-fischer/tagpdf/master.svg?style=flat-square)
 
 
