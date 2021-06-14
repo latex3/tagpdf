@@ -590,7 +590,7 @@
         \pdfannot_dict_put:nnx
           { link/URI }
           { StructParent }
-          { \tag_struct_OBJR_ref: }
+          { \tag_struct_parent_int: }
        }
   }
 
@@ -600,7 +600,7 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-        \tag_struct_finish_OBJR:x{\pdfannot_link_ref_last:}
+        \tag_struct_insert_annot:xx {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
         \tag_mc_end:
         \tag_struct_end:
         \tag_mc_begin_pop:n{}
@@ -619,7 +619,7 @@
         \pdfannot_dict_put:nnx
           { link/GoTo }
           { StructParent }
-          { \tag_struct_OBJR_ref: }
+          { \tag_struct_parent_int: }
        }
   }
 
@@ -629,7 +629,7 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
-        \tag_struct_finish_OBJR:x{\pdfannot_link_ref_last:}
+        \tag_struct_insert_annot:xx {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
         \tag_mc_end:
         \tag_struct_end:
         \tag_mc_begin_pop:n{}
