@@ -23,7 +23,38 @@
 % for those people who are interested.
 %
 % \fi
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\usepackage{l3pdffield-testphase,tikz}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-tree module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \title{^^A
+%   The \pkg{tagpdf-tree} module\\ Commands trees and main dictionaries   ^^A
+%   \\ part of the tagpdf package
+% }
 %
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.82, released 2021-06-14}
+% \maketitle
+% \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
 %<*tree>
@@ -381,3 +412,5 @@
   }
 %</tree>
 %    \end{macrocode}
+% \end{implementation}
+% \PrintIndex
