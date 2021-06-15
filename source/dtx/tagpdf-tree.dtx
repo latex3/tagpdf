@@ -29,34 +29,38 @@
 %<*tree>
 \ProvidesExplPackage {tagpdf-tree-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to writing trees and dictionaries to the pdf}
-
-%this does the actual finishing:
-%Is \AddToHook{enddocument/end} the best places??
+%    \end{macrocode}
+% \section{Trees and finalization code}
+%
+% The code to finish the structure is in a hook.
+% This will perhaps at the end be a kernel hook.
+% TODO check right place for the code
+%    \begin{macrocode}
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_tree_bool
       {
         \sys_if_output_pdf:TF
           {
-            \AddToHook{enddocument/end} { \tag_finish_structure: }
+            \AddToHook{enddocument/end} { \@@_finish_structure: }
           }
           {
-            \AddToHook{shipout/lastpage} { \tag_finish_structure: }
+            \AddToHook{shipout/lastpage} { \@@_finish_structure: }
           }
       }
   }
-
-
-% the StructTreeRoot
-% we better get the object number in any case:
-% deprecated
-%\@@_pdfreserveobjnum:N \l_tmpa_tl
-%\tl_const:Nx \c_@@_tree_obj_structtreeroot_tl { \l_tmpa_tl }
-
-%new
+%    \end{macrocode}
+% \subsection{Structure tree}
+% The following commands are needed to write out the structure.
+% \begin{macro}{@@/struct/0}
+% This is the object for the root object, the StructTreeRoot
+%    \begin{macrocode}
 \pdf_object_new:nn { @@/struct/0 }{ dict }
-
- %need to think about the best place ...
+%    \end{macrocode}
+% \end{macro}
+% The StructTreeRoot must be added to the catalog.
+% TODO Should this be done later to prevent other packages to interfere?
+%    \begin{macrocode}
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_struct_bool
@@ -67,35 +71,48 @@
           { \pdf_object_ref:n { @@/struct/0 } }
       }
   }
-\cs_new_protected:Nn \@@_tree_write_structtreeroot:
+%    \end{macrocode}
+% \begin{macro}{\@@_tree_write_structtreeroot:}
+% This writes out the root object.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_structtreeroot:
   {
     \@@_struct_write_obj:n { 0 }
   }
-
-\cs_new_protected:Nn \@@_tree_write_structelements:
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_tree_write_structelements:}
+% This writes out the other struct elems, the absolute number is in the counter
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_structelements:
   {
     \int_step_inline:nnnn {1}{1}{\c@g_@@_struct_abs_int}
       {
-        %\prop_show:c {g_@@_struct_##1_prop}
-        \@@_struct_write_obj:n { ##1 } %write the object
+        \@@_struct_write_obj:n { ##1 }
       }
   }
-
-
-%the ParentTree
-% deprecated
-%\@@_pdfreserveobjnum:N \l_tmpa_tl
-%\tl_const:Nx \c_@@_tree_obj_parenttree_tl    { \l_tmpa_tl }
-
-%new
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{ParentTree}
+% \begin{macro}{@@/tree/parenttree}
+% The object which will hold the parenttree
+%    \begin{macrocode}
 \pdf_object_new:nn { @@/tree/parenttree }{ dict }
-
-% we have two sets of entries in the parent tree:
-% page streams and real objects.
-% The numbers must be distinct and ordered
-% So we rely on abspage and put the real objects at the end
-% I use a counter to have a chance to get the correct number
-% if code is process twice.
+%    \end{macrocode}
+% \end{macro}
+% The ParentTree maps numbers to objects or (if the number represents a page)
+% to arrays of objects. The numbers refer to two dictinct types of entries:
+% page streams and real objects like annotations.
+% The numbers must be distinct and ordered.
+% So we rely on abspage for the pages and put the real objects at the end.
+% We use a counter to have a chance to get the correct number
+% if code is processed twice.
+%
+% \begin{macro}{\c@g_@@_parenttree_obj_int}
+%  This is a counter for the real objects. It starts at the absolute last page
+%  value. It relies on l3ref.
+%    \begin{macrocode}
 \newcounter  { g_@@_parenttree_obj_int }
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
@@ -103,39 +120,58 @@
       \c@g_@@_parenttree_obj_int
       { \@@_ref_value_lastpage:nn{abspage}{100}  }
   }
-
-% we need to record the obj references:
-
+%    \end{macrocode}
+% \end{macro}
+% We store the number/object references in a tl-var. If more structure is needed
+% one could switch to a seq.
+%  \begin{variable}{ \g_@@_parenttree_objr_tl }
+%    \begin{macrocode}
 \tl_new:N \g_@@_parenttree_objr_tl
-
-\cs_new_protected:Nn \@@_parenttree_add_objr:nn %#1 Structparent number, #2 objref
+%    \end{macrocode}
+% \end{variable}
+%
+%  \begin{macro}{ \@@_parenttree_add_objr:nn }
+%  This command stores a Structparent number and a objref into the tl var.
+%  This only for objects like annotations, pages are handled elsewhere.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_parenttree_add_objr:nn #1 #2 %#1 Structparent number, #2 objref
   {
     \tl_gput_right:Nx \g_@@_parenttree_objr_tl
       {
         #1 \c_space_tl #2 ^^J
       }
   }
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\l_@@_parenttree_content_tl}
+% A tl-var which will get the page related parenttree content.
+%    \begin{macrocode}
 \tl_new:N \l_@@_parenttree_content_tl
-
-\cs_new_protected:Nn \@@_tree_fill_parenttree:
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_tree_fill_parenttree:}
+% This is the main command to assemble the page related entries of the parent tree.
+% It wanders through the pages and the mcid numbers and collects all mcid of one page.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_fill_parenttree:
   {
     \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{abspage}{-1}} %not quite clear if labels are needed. See lua code
-      { %page ##1\par
-        \prop_clear:N \l_tmpa_prop
+      { %page ##1
+        \prop_clear:N \l_@@_tmpa_prop
         \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{tagmcabs}{-1}}
           {
             %mcid####1
-            \int_compare:nT%F
+            \int_compare:nT
               {\@@_ref_value:enn{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
-              {% yes\par
+              {% yes
                 \prop_put:Nxx
-                  \l_tmpa_prop
+                  \l_@@_tmpa_prop
                   {\@@_ref_value:enn{mcid-####1}{tagmcid}{-1}}
                   {\prop_item:Nn \g_@@_mc_parenttree_prop {####1}}
               }
           }
-          %\prop_show:N \l_tmpa_prop
         \tl_put_right:Nx\l_@@_parenttree_content_tl
           {
             \int_eval:n {##1-1}\c_space_tl
@@ -144,16 +180,15 @@
         \int_step_inline:nnnn
           {0}
           {1}
-          { \prop_map_function:NN \l_tmpa_prop\@@_prop_count:nn -1 }
+          { \prop_map_function:NN \l_@@_tmpa_prop\@@_prop_count:nn -1 }
           {
-            \prop_get:NnNTF \l_tmpa_prop {####1} \l_tmpb_tl
-              {% page#1:mcid##1:\l_tmpb_tl :content
+            \prop_get:NnNTF \l_@@_tmpa_prop {####1} \l_@@_tmpa_tl
+              {% page#1:mcid##1:\l_@@_tmpa_tl :content
                 \tl_put_right:Nx \l_@@_parenttree_content_tl
                   {
-                    \prop_item:cn { g_@@_struct_\l_tmpb_tl _prop } {objref}
+                    \prop_item:cn { g_@@_struct_\l_@@_tmpa_tl _prop } {objref}
                     \c_space_tl
                   }
-                %\tl_show:N \l_@@_parenttree_content_tl
               }
               {
                 \msg_warning:nn { tag } {tree-mcid-index-wrong}
@@ -166,9 +201,14 @@
           }
       }
   }
-
-%lua mode must/can do it differently
-\cs_new_protected:Nn \@@_tree_lua_fill_parenttree:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_tree_lua_fill_parenttree:}
+% This is a special variant for luatex.
+% lua mode must/can do it differently.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_lua_fill_parenttree:
   {
     \tl_set:Nn \l_@@_parenttree_content_tl
       {
@@ -181,10 +221,14 @@
           }
       }
   }
-
-
-
-\cs_new_protected:Nn \@@_tree_write_parenttree:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_tree_write_parenttree:}
+% This combines the two parts and writes out the object.
+% TODO should the check for lua be moved into the backend code?
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_parenttree:
   {
     \bool_if:NTF \g_@@_mode_lua_bool
       {
@@ -199,26 +243,44 @@
         /Nums\c_space_tl [\l_@@_parenttree_content_tl]
       }
   }
-
-%the Rolemap tree
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Rolemap dictionary}
+% The Rolemap dictionary describes relations between new tags and standard types.
+% The main part here is handled in the role module, here we only define the
+% command which writes it to the PDF.
+% \begin{variable}{@@/tree/rolemap}
+% At first we reserve again an object.
+%    \begin{macrocode}
 \pdf_object_new:nn { @@/tree/rolemap }{ dict }
-
-\cs_new_protected:Nn \@@_tree_write_rolemap:
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_tree_write_rolemap:}
+% This writes out the rolemap, basically it simply pushes out
+% the dictionary which has been filled in the role module.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_rolemap:
   {
     \pdf_object_write:nx  { @@/tree/rolemap }
       {
         \pdfdict_use:n{g_@@_role/RoleMap_dict}
       }
   }
-
-%classmap, should only be written, if values has been used
-
-\cs_new_protected:Nn \@@_tree_write_classmap:
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Classmap dictionary}
+% Classmap and attributes are setup in the struct module, here is only the
+% code to write it out. It should only done if values have been used.
+% \begin{macro}{\@@_tree_write_classmap:}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_classmap:
   {
     \tl_gclear:N \g_@@_attr_class_content_tl
     \seq_gremove_duplicates:N \g_@@_attr_class_used_seq
-    \seq_set_map:NNn \l_tmpa_seq \g_@@_attr_class_used_seq
+    \seq_set_map:NNn \l_@@_tmpa_seq \g_@@_attr_class_used_seq
       {
         /##1\c_space_tl
         <<
@@ -230,15 +292,13 @@
     \tl_gset:Nx \g_@@_attr_class_content_tl
       {
         \seq_use:Nn
-          \l_tmpa_seq
+          \l_@@_tmpa_seq
           { \iow_newline: }
       }
     \tl_if_empty:NF
       \g_@@_attr_class_content_tl
       {
         \pdf_object_new:nn { @@/tree/classmap }{ dict }
-     %   \@@_pdfreserveobjnum:N \l_tmpa_tl
-     %   \tl_const:Nx \c_@@_tree_obj_classmap_tl { \l_tmpa_tl }
         \pdf_object_write:nx
           { @@/tree/classmap }
           { \g_@@_attr_class_content_tl }
@@ -248,9 +308,18 @@
           { \pdf_object_ref:n { @@/tree/classmap }  }
       }
   }
-
-% namespaces are only relevant for pdf2.0 but we don't care
+%    \end{macrocode}
+% \end{macro}
+% \subsection{Namespaces}
+% Namespaces are handle in the role module, here is the code to write them out.
+% Namespaces are only relevant for pdf2.0 but we don't care, it doesn't harm.
+% \begin{variable}{@@/tree/namespaces}
+%    \begin{macrocode}
 \pdf_object_new:nn{ @@/tree/namespaces }{array}
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\@@_tree_write_namespaces:}
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_namespaces:
   {
     \prop_map_inline:Nn \g_@@_role_NS_prop
@@ -274,9 +343,14 @@
         \prop_map_tokens:Nn \g_@@_role_NS_prop{\use_ii:nn}
       }
   }
-
-
-\cs_new_protected:Nn \tag_finish_structure:
+%    \end{macrocode}
+% \end{macro}
+% \subsection{Finishing the structure}
+% This assembles the various parts.
+% TODO (when tabular are done or if someone requests it): IDTree
+%  \begin{macro}{ \@@_finish_structure: }
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_finish_structure:
   {
     \@@_tree_write_parenttree:
     \@@_tree_write_rolemap:
@@ -285,10 +359,13 @@
     \@@_tree_write_structelements: %this is rather slow!!
     \@@_tree_write_structtreeroot:
   }
-
-
-%StructParents !!! we need a better hook for \g__pdf_BACKEND_thispage_shipout_tl!!
-% No actually
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{StructParents entry for Page}
+% We need to add to the Page resources the |StructParents| entry, this is simply the
+% absolute page number.
+%    \begin{macrocode}
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT\g_@@_active_tree_bool
@@ -302,6 +379,5 @@
          }
       }
   }
-
 %</tree>
 %    \end{macrocode}
