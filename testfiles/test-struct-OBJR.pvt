@@ -20,10 +20,10 @@
 abc
 \ExplSyntaxOn
 \tag_mc_end_push:
-
+%This tests only obj ref, so we set tag=false. 
 \group_begin:
 \pdfannot_dict_put:nnx {widget}{StructParent}{\tag_struct_parent_int:}
-\pdffield_checkbox:n{name=a}
+\pdffield_checkbox:n{name=a,tag=false}
 \tag_struct_insert_annot:xx { \pdffield_annot_ref_last: }{\tag_struct_parent_int:}
 \group_end:
 \tag_mc_begin_pop:n{}
