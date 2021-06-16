@@ -22,59 +22,182 @@
 %
 % for those people who are interested.
 %
-% \fi
 %
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-checks module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% \title{^^A
+%   The \pkg{tagpdf-checks} module\\ Messages and check code   ^^A
+%   \\ part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.82, released 2021-06-14}
+% \maketitle
+% \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
 %<*checks>
 \ProvidesExplPackage {tagpdf-checks-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to checks and messages}
-
-
-%messages
-
-% mc
+%    \end{macrocode}
+% \section{Messages and checks}
+% \subsection{Messages}
+% \subsubsection{Messages related to mc-chunks}
+% \begin{macro}{mc-nested}
+% This message is issue is a mc is opened before the previous has been closed.
+% This is not relevant for luamode, as the attributes don't care about this.
+% It is used in the |\@@_check_mc_if_nested:| test.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {mc-nested}        { nested~marked~content~found~-~mcid~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-tag-missing}
+% If the tag is missing
+%    \begin{macrocode}
 \msg_new:nnn { tag } {mc-tag-missing}   { required~tag~missing~-~mcid~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-label-unknown}
+% If the label of a mc that is used in another place is not known (yet)
+%    \begin{macrocode}
 \msg_new:nnn { tag } {mc-label-unknown} { label~#1~unknown~-~rerun }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-used-twice}
+% An mc-chunk can be inserted only in one structure. This indicates wrong coding
+% and so should at least give a warning.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {mc-used-twice}    { mc~#1~has~been~already~used }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-not-open}
+% This is issued if a |\tag_mc_end:| is issued wrongly, wrong coding.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {mc-not-open}      { there~is~no~mc~to~end~at~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-pushed,mc-popped}
+% Informational messages about mc-pushing.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {mc-pushed}        { #1~has~been~pushed~to~the~mc~stack}
 \msg_new:nnn { tag } {mc-popped}        { #1~has~been~removed~from~the~mc~stack }
-
-% structures
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Messages related to mc-chunks}
+% \begin{macro}{struct-no-objnum}
+% Should not happen \ldots
+%    \begin{macrocode}
 \msg_new:nnn { tag } {struct-no-objnum}      { objnum~missing~for~structure~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-faulty-nesting}
+% This indicates that there is somewhere one |\tag_struct_end:| too much.
+% This should be normally an error.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {struct-faulty-nesting} { there~is~no~open~structure~on~the~stack }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-missing-tag}
+% A structure must have a tag.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {struct-missing-tag}    { a~structure~must~have~a~tag! }
-\msg_new:nnn { tag } {struct-show-closing}   { closing~structure~#1~tagged~\prop_item:cn{g_@@_struct_#1_prop}{S} }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-used-twice}
+%    \begin{macrocode}
 \msg_new:nnn { tag } {struct-used-twice}     { structure~with~label~#1~has~already~been~used}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-label-unknown}
+% label is unknown, typically needs a rerun.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {struct-label-unknown}  { structure~with~label~#1~is~unknown~rerun}
-
-% attributes
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-show-closing}
+% Informational message shown if log-mode is high enough
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-show-closing}   { closing~structure~#1~tagged~\prop_item:cn{g_@@_struct_#1_prop}{S} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Attributes}
+% Not much yet, as attributes aren't used so much.
+% \begin{macro}{attr-unknown}
+%    \begin{macrocode}
 \msg_new:nnn { tag } {attr-unknown}  { attribute~#1~is~unknown}
-
-
-%Roles
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Roles}
+% \begin{macro}{role-missing,role-unknown,role-unknown-tag}
+% Warning message if either the tag or the role is missing
+%    \begin{macrocode}
 \msg_new:nnn { tag } {role-missing}     { tag~#1~has~no~role~assigned  }
 \msg_new:nnn { tag } {role-unknown}     { role~#1~is~not~known  }
 \msg_new:nnn { tag } {role-unknown-tag} { tag~#1~is~not~known  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{role-tag,new-tag}
+% Info messages.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {role-tag}         { mapping~tag~#1~to~role~#2  }
 \msg_new:nnn { tag } {new-tag}          { adding~new~tag~#1 }
-
-
-% trees
-\msg_new:nnn { tag } {tree-mcid-index-wrong} {something~is~wrong~with~the~mcid}
-
-% obj
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Miscellaneous}
+% \begin{macro}{tree-mcid-index-wrong}
+% Used in the tree code, typically indicates the document must be rerun.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {tree-mcid-index-wrong} {something~is~wrong~with~the~mcid--rerun}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{obj-write-num}
+% An info message, useful for reporting.
+%    \begin{macrocode}
 \msg_new:nnn { tag } {obj-write-num} {write~obj~#1~to~pdf}
-
-% engine problem
-\msg_new:nnn { tag } {sys-no-interwordspace} {engine~#1~doesn't~support~the~interword~spaces}
-
-%checks
-%structures
-
-\cs_new:Nn \@@_check_structure_has_tag:n %#1 struct num %_protected?
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{sys-no-interwordspace}
+% Currently only pdflatex and lualatex have some support for real spaces.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {sys-no-interwordspace} {engine/backend~#1~doesn't~support~the~interword~spaces}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Checks}
+% These are checks used in various places in the code.
+%
+% \subsubsection{Checks related to stuctures}
+% \begin{macro}{\@@_check_structure_has_tag:n}
+% Structures must have a tag, so we check if the S entry is in the property.
+% It is an error if this is missing. The argument is a number.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_structure_has_tag:n #1 %#1 struct num
   {
     \prop_if_in:cnF { g_@@_struct_#1_prop }
       {S}
@@ -82,37 +205,46 @@
         \msg_error:nn { tag } {struct-missing-tag}
       }
   }
-
-\cs_new:Nn \@@_check_structure_tag:N            %_protected?
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_structure_tag:N}
+% This checks if the name of the tag is known.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_structure_tag:N #1
   {
     \prop_if_in:NoF \g_@@_role_tags_prop {#1}
       {
         \msg_warning:nnx { tag } {role-unknown-tag} {#1}
       }
   }
-
-\cs_new:Nn \@@_check_structure_tag:NN            %_protected?
-  {
-    \exp_args:NNx
-    \prop_if_in:NnF \g_@@_role_tags_prop {#1/#2}
-      {
-        \msg_warning:nnx { tag } {role-unknown-tag} {#1}
-      }
-  }
-
-\cs_new_protected:Nn \@@_check_info_closing_struct:n %#1 struct num
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_info_closing_struct:n}
+% This info message is issued at a closing structure, the use should be guarded by
+% log-level.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_info_closing_struct:n #1 %#1 struct num
   {
     \msg_info:nnn { tag } {struct-show-closing} {#1}
   }
 
 \cs_generate_variant:Nn \@@_check_info_closing_struct:n {o,x}
-
-\cs_new_protected:Nn \@@_check_no_open_struck:
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_no_open_struct:}
+% This checks if there is an open structure. It should be used when trying to
+% close a structure. It errors if false.%
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_no_open_struct:
   {
     \msg_error:nn { tag } {struct-faulty-nesting}
   }
-
-\cs_new_protected:Nn \@@_check_struct_used:n %#1 label
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_struct_used:n}
+% This checks if a stashed structure has already been used.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_struct_used:n #1 %#1 label
   {
     \prop_get:cnNT
       {g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
@@ -122,10 +254,14 @@
         \msg_warning:nnn { tag } {struct-used-twice} {#1}
       }
   }
-
-%roles
-
-\cs_new_protected:Nn \@@_check_add_tag_role:nn %#1 tag, #2 role
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Checks related to roles}
+% \begin{macro}{\@@_check_add_tag_role:nn}
+% This check is used when defining a new role mapping.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_add_tag_role:nn #1 #2 %#1 tag, #2 role
   {
     \tl_if_empty:nTF {#2}
       {
@@ -141,9 +277,15 @@
           }
       }
   }
-
-%mc
-\cs_new_protected:Nn \@@_check_mc_if_nested:
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Check related to mc-chunks}
+%
+% \begin{macro}{\@@_check_mc_if_nested:,\@@_check_mc_if_open:}
+% Two tests if a mc is currently open.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_mc_if_nested:
   {
     \@@_mc_if_in:T
       {
@@ -151,15 +293,21 @@
       }
   }
 
-\cs_new_protected:Nn \@@_check_mc_if_open:
+\cs_new_protected:Npn \@@_check_mc_if_open:
   {
     \@@_mc_if_in:F
       {
         \msg_warning:nnx { tag } {mc-not-open} { \@@_get_mc_abs_cnt: }
       }
   }
-
-\cs_new_protected:Nn \@@_check_mc_pushed_popped:nn
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_mc_pushed_popped:nn}
+% This creates an information message if mc's are pushed or popped.
+% The first argument is a word (pushed or popped), the second the tag name.
+% With larger log-level the stack is shown too.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_mc_pushed_popped:nn #1 #2
   {
     \int_compare:nNnT
       { \l_@@_loglevel_int } ={ 2 }
@@ -171,9 +319,12 @@
        \seq_log:N \g_@@_mc_stack_seq
       }
   }
-
-
-\cs_new:Nn \@@_check_mc_tag:N %protected??
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_mc_tag:N}
+% This checks if the mc has a (known) tag.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_mc_tag:N #1  %#1 is var with a tag name in it
   {
     \tl_if_empty:NT #1
       {
@@ -184,9 +335,22 @@
        \msg_warning:nnx { tag } {role-unknown-tag} {#1}
      }
   }
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\g_@@_check_mc_used_seq}
+% This variable holds the list of used mc. It will
+% hopefully be rather short, so checking the seq is not
+% to slow.
+%    \begin{macrocode}
 \seq_new:N \g_@@_check_mc_used_seq
-\cs_new_protected:Nn \@@_check_mc_used:n
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_check_mc_used:n}
+% This checks if a mc is used twice.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_mc_used:n #1
   {
     \seq_if_in:NnTF \g_@@_check_mc_used_seq {#1}
       {
@@ -196,10 +360,12 @@
         \seq_gput_right:Nx \g_@@_check_mc_used_seq {#1}
       }
   }
-
-
-
-\cs_new_protected:Nn \@@_check_show_MCID_by_page:
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_show_MCID_by_page:}
+% This allows to show the mc on a page. Currently unused.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_show_MCID_by_page:
   {
     \tl_set:Nx \l_@@_tmpa_tl
       {
@@ -245,14 +411,23 @@
           \seq_show:N \l_tmpa_seq
       }
   }
-
-\cs_new:Nn \@@_check_record_pdfobj_num:n %protected?
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Miscellaneous}
+%
+% \begin{macro}{\@@_check_record_pdfobj_num:n}
+% This writes the object numbers. Not sure if needed, currently unused.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_record_pdfobj_num:n #1
   {
     \int_compare:nT { \l_@@_loglevel_int >= 3 }
       {
         \msg_info:nnx { tag } {obj-write-num} {#1}
       }
   }
-
 %</checks>
 %    \end{macrocode}
+% \end{macro}
+% \end{implementation}
+% \PrintIndex

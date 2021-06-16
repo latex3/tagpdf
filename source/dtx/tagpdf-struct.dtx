@@ -625,14 +625,14 @@
             \@@_check_info_closing_struct:o { \g_@@_struct_stack_current_tl }
           }
       }
-      { \@@_check_no_open_struck: }
+      { \@@_check_no_open_struct: }
     % get the previous one, shouldn't be empty as the root should be there
     \seq_get:NNTF \g_@@_struct_stack_seq \l_tmpa_tl
       {
         \tl_gset:NV   \g_@@_struct_stack_current_tl \l_tmpa_tl
       }
       {
-        \@@_check_no_open_struck:
+        \@@_check_no_open_struct:
       }
    \seq_get:NNT \g_@@_struct_tag_stack_seq \l_tmpa_tl
       {
