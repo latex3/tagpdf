@@ -169,6 +169,6 @@ sourcefiles  = {"**/*.dtx",
                 --"**/*.lua"
                }
 
-typesetfiles = {"tagpdf.tex","tagpdf-tree.dtx"}
+typesetfiles = {"tagpdf.tex","tagpdf-tree.dtx","tagpdf-checks.dtx"}
 
 typesetruns = 4

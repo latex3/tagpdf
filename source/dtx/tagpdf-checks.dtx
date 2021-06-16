@@ -69,13 +69,13 @@
 % This is not relevant for luamode, as the attributes don't care about this.
 % It is used in the |\@@_check_mc_if_nested:| test.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-nested}        { nested~marked~content~found~-~mcid~#1 }
+\msg_new:nnn { tag } {mc-nested} { nested~marked~content~found~-~mcid~#1 }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{mc-tag-missing}
 % If the tag is missing
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-tag-missing}   { required~tag~missing~-~mcid~#1 }
+\msg_new:nnn { tag } {mc-tag-missing} { required~tag~missing~-~mcid~#1 }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{mc-label-unknown}
@@ -88,20 +88,20 @@
 % An mc-chunk can be inserted only in one structure. This indicates wrong coding
 % and so should at least give a warning.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-used-twice}    { mc~#1~has~been~already~used }
+\msg_new:nnn { tag } {mc-used-twice} { mc~#1~has~been~already~used }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{mc-not-open}
 % This is issued if a |\tag_mc_end:| is issued wrongly, wrong coding.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-not-open}      { there~is~no~mc~to~end~at~#1 }
+\msg_new:nnn { tag } {mc-not-open} { there~is~no~mc~to~end~at~#1 }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{mc-pushed,mc-popped}
 % Informational messages about mc-pushing.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-pushed}        { #1~has~been~pushed~to~the~mc~stack}
-\msg_new:nnn { tag } {mc-popped}        { #1~has~been~removed~from~the~mc~stack }
+\msg_new:nnn { tag } {mc-pushed} { #1~has~been~pushed~to~the~mc~stack}
+\msg_new:nnn { tag } {mc-popped} { #1~has~been~removed~from~the~mc~stack }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -109,37 +109,42 @@
 % \begin{macro}{struct-no-objnum}
 % Should not happen \ldots
 %    \begin{macrocode}
-\msg_new:nnn { tag } {struct-no-objnum}      { objnum~missing~for~structure~#1 }
+\msg_new:nnn { tag } {struct-no-objnum} { objnum~missing~for~structure~#1 }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{struct-faulty-nesting}
 % This indicates that there is somewhere one |\tag_struct_end:| too much.
 % This should be normally an error.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {struct-faulty-nesting} { there~is~no~open~structure~on~the~stack }
+\msg_new:nnn { tag }
+  {struct-faulty-nesting}
+  { there~is~no~open~structure~on~the~stack }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{struct-missing-tag}
 % A structure must have a tag.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {struct-missing-tag}    { a~structure~must~have~a~tag! }
+\msg_new:nnn { tag } {struct-missing-tag} { a~structure~must~have~a~tag! }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{struct-used-twice}
 %    \begin{macrocode}
-\msg_new:nnn { tag } {struct-used-twice}     { structure~with~label~#1~has~already~been~used}
+\msg_new:nnn { tag } {struct-used-twice}
+  { structure~with~label~#1~has~already~been~used}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{struct-label-unknown}
 % label is unknown, typically needs a rerun.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {struct-label-unknown}  { structure~with~label~#1~is~unknown~rerun}
+\msg_new:nnn { tag } {struct-label-unknown}
+  { structure~with~label~#1~is~unknown~rerun}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{struct-show-closing}
 % Informational message shown if log-mode is high enough
 %    \begin{macrocode}
-\msg_new:nnn { tag } {struct-show-closing}   { closing~structure~#1~tagged~\prop_item:cn{g_@@_struct_#1_prop}{S} }
+\msg_new:nnn { tag } {struct-show-closing}
+  { closing~structure~#1~tagged~\prop_item:cn{g_@@_struct_#1_prop}{S} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -172,7 +177,8 @@
 % \begin{macro}{tree-mcid-index-wrong}
 % Used in the tree code, typically indicates the document must be rerun.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {tree-mcid-index-wrong} {something~is~wrong~with~the~mcid--rerun}
+\msg_new:nnn { tag } {tree-mcid-index-wrong}
+  {something~is~wrong~with~the~mcid--rerun}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{obj-write-num}
@@ -184,7 +190,8 @@
 % \begin{macro}{sys-no-interwordspace}
 % Currently only pdflatex and lualatex have some support for real spaces.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {sys-no-interwordspace} {engine/backend~#1~doesn't~support~the~interword~spaces}
+\msg_new:nnn { tag } {sys-no-interwordspace}
+  {engine/backend~#1~doesn't~support~the~interword~spaces}
 %    \end{macrocode}
 % \end{macro}
 %
