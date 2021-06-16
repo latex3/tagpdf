@@ -338,6 +338,19 @@ New commands to store and reset mc-tags.
 
 PDF 2.0 namespace are now supported.
 
+\subsection{Changes in version 0.82}
+
+A command \cs{tag_if_active:TF} to test if tagging is active has been added. This allow external packages to write conditional code.
+
+The commands \cs{tag_struct_parent_int:} and \cs{tag_struct_insert_annot:nn} have been added. They allow to 
+add annotations to the structure.
+
+
+
+\subsection{Changes in version 0.83}
+
+\cs{tag_finish_structure:} is no longer a public command.
+
 \subsection{Proof of concept: the tagging of the documentation itself}
 
 Starting with version 0.6 the documentation itself has been tagged. The tagging wasn't (and isn't) in no way perfect. The validator from Adobe didn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnotes gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes were simply wrong \ldots
@@ -911,7 +924,7 @@ the annotation dictionary.
 
 This will insert the annotation described by the object reference into the current structure by creating the OBJR object. It will
 also add the necessary entry to the parent tree and increase the global counter referred to by |\tag_struct_parent_int:|.
-It does nothing if (structure) tagging is not activated. 
+It does nothing if (structure) tagging is not activated.
 
 Attention! As the second command increases the global counter at the end it changes the value given back by the first.
 That means that if nesting is involved care must be taken that the correct numbers is used. This should be easy to fulfil for most annotations, as there are boxes.
@@ -1271,18 +1284,11 @@ Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyNa
 
 \subsection{Task 3: tree Management}
 
+When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with an internal command in an end document hook. 
 
-
-When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with the following command in \verb+\AfterEndDocument+:
-
-\begin{docCommand}{tag_finish_structure:}{}\end{docCommand}
+\begin{docCommand}{__tag_finish_structure:}{}\end{docCommand}
 
 This will hopefully write all the needed objects and values to the \PDF{}. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).
-
-I'm not quite sure if this shouldn't be a really internal command.
-
-
-
 
 \subsection{A fully marked up document body}
 
