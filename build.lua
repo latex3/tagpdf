@@ -96,6 +96,9 @@ function update_tag (file,content,tagname,tagdate)
   content = string.gsub (content,
                          '(date%s*=%s*")%d%d%d%d%-%d%d%-%d%d(",%s*--TAGDATE)',
                          "%1"..packagedate.."%2")
+  content = string.gsub (content,
+                         "date{Version %d%.%d+%a, released %d%d%d%d%-%d%d%-%d%d",
+                         "date{Version "..packageversion..", released ".. packagedate)
   return content
 elseif string.match (file, "%.sty$" ) then
   content = string.gsub (content,
@@ -166,6 +169,6 @@ sourcefiles  = {"**/*.dtx",
                 --"**/*.lua"
                }
 
-typesetfiles = {"tagpdf.tex"}
+typesetfiles = {"tagpdf.tex","tagpdf-tree.dtx"}
 
 typesetruns = 4
