@@ -174,7 +174,8 @@ typesetfiles =
    "tagpdf.tex",
    "tagpdf-tree.dtx",
    "tagpdf-checks.dtx",
-   "tagpdf-space.dtx"
+   "tagpdf-space.dtx",
+   "tagpdf-roles.dtx"
  }
 
 typesetruns = 4
