@@ -270,8 +270,29 @@
     \file_input:n {tagpdf-pdftex.def}
   }
 
+% need to sort the attributes later. Do it in lua?
 \sys_if_engine_luatex:T
   {
+     \cs_set_protected:Npn \@@_attribute_gset:Nn #1 #2
+       {
+         \tex_global:D \setattribute #1 #2
+       }
+
+     \cs_set_protected:Npn \@@_attribute_set:Nn #1 #2
+       {
+         \setattribute #1 #2
+       }
+
+     \cs_set_protected:Npn \@@_attribute_gunset:N #1
+       {
+         \tex_global:D \unsetattribute #1
+       }
+
+     \cs_set_protected:Npn \@@_attribute_unset:N #1
+       {
+         \unsetattribute #1
+       }
+
     \file_input:n {tagpdf-luatex.def}
   }
 

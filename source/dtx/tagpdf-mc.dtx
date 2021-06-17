@@ -202,6 +202,22 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}
+%  {
+%   \l_@@_mc_key_tag_tl,
+%   \g_@@_mc_key_tag_tl,
+%   \l_@@_mc_key_label_tl,
+%   \l_@@_mc_key_properties_tl
+%  }
+% Variables used by the keys. |\l_@@_mc_key_properties_tl|
+% will collect a number of values. TODO: should this be a pdfdict now?
+%    \begin{macrocode}
+\tl_new:N \l_@@_mc_key_tag_tl
+\tl_new:N \g_@@_mc_key_tag_tl
+\tl_new:N \l_@@_mc_key_label_tl
+\tl_new:N \l_@@_mc_key_properties_tl
+%    \end{macrocode}
+% \end{variable}
 %
 % \subsection{Functions}
 % \begin{macro}{\_@@_mc_handle_mc_label:n}
@@ -362,16 +378,6 @@
 \tl_new:N \l_@@_mc_tmpa_tl
 %    \end{macrocode}
 
-% \begin{variable}
-%  {\l_@@_mc_key_tag_tl,\g_@@_mc_key_tag_tl,\l_@@_mc_key_properties_tl}
-% Variables used by the keys. |\l_@@_mc_key_properties_tl|
-% will collect a number of values. TODO: should this be a pdfdict now?
-%    \begin{macrocode}
-\tl_new:N \l_@@_mc_key_tag_tl
-\tl_new:N \g_@@_mc_key_tag_tl
-\tl_new:N \l_@@_mc_key_properties_tl
-%    \end{macrocode}
-% \end{variable}
 
 % \subsection{Functions}
 
@@ -685,7 +691,7 @@
 % \section{Marked content code -- luamode code}
 % luamode uses attributes to mark mc-chunks. The two attributes used are
 % defined in the backend file. The backend also load the lua file, as it can contain
-% functions needed elsewhere. 
+% functions needed elsewhere.
 %
 %    \begin{macrocode}
 %<*luamode>
@@ -720,9 +726,10 @@
 % kids: a array of tables {1={kid=num2,page=pagenum1}, 2={kid=num2,page=pagenum2},...},
 % this describes the chunks the mc has been split to by the traversing code
 % parent: the number of the structure it is in. Needed to build the parent tree.
-
+%    \end{macrocode}
 % The main function which wanders through the shipout box to inject the literals.
 % if the new callback is there, it is used.
+%    \begin{macrocode}
 \hook_gput_code:nnn{begindocument}{tagpdf/mc}
   {
     \bool_if:NT\g__tag_active_mc_bool
@@ -750,7 +757,12 @@
            }
       }
   }
-
+%    \end{macrocode}
+% \subsection{Commands}
+% \begin{macro}{\@@_mc_if_in:,\tag_mc_if_in:}
+% This tests, if we are in an mc, for attributes
+% this means to check against a number.
+%    \begin{macrocode}
 \prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
   {
     \int_compare:nNnTF { -2147483647 }={ \l_@@_mc_type_attr }
@@ -759,13 +771,57 @@
   }
 
 \prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%  {
+%     \@@_mc_lua_set_mc_type_attr:n
+%    ,\@@_mc_lua_set_mc_type_attr:o
+%    ,\@@_mc_lua_unset_mc_type_attr:
+%  }
+% This takes a tag name, and sets the attributes to the related number.
+% It is not decided yet if this will be global or local, see the global-mc option.
+%    \begin{macrocode}
+\cs_new:Nn \@@_mc_lua_set_mc_type_attr:n % #1 is a tag name
+  {
+    \@@_attribute_set:Nn \l_@@_mc_type_attr
+      {
+        \directlua { ltx.@@.func.output_num_from ("#1") }
+      }
+    \@@_attribute_set:Nn \l_@@_mc_cnt_attr  { \@@_get_mc_abs_cnt: }
+  }
 
+\cs_generate_variant:Nn\@@_mc_lua_set_mc_type_attr:n { o }
 
-% the keys
-\tl_new:N \l_@@_mc_key_tag_tl
-\tl_new:N \l_@@_mc_key_label_tl
-\tl_new:N \l_@@_mc_key_properties_tl
+\cs_new:Nn \@@_mc_lua_unset_mc_type_attr:
+  {
+    \@@_attribute_unset:N \l_@@_mc_type_attr
+    \@@_attribute_unset:N \l_@@_mc_cnt_attr
+  }
 
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}
+%  {
+%    \@@_mc_insert_mcid_kids:n
+%   ,\@@_mc_insert_mcid_single_kids:n
+%  }
+% These commands will in the finish code replace the dummy for a mc by the real mcid kids
+% we need a variant for the case that it is the only kid, to get the array right
+%    \begin{macrocode}
+\cs_new:Nn \@@_mc_insert_mcid_kids:n
+  {
+    \directlua { ltx.@@.func.mc_insert_kids (#1,0) }
+  }
+
+\cs_new:Nn \@@_mc_insert_mcid_single_kids:n
+  {
+    \directlua {ltx.@@.func.mc_insert_kids (#1,1) }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 \keys_define:nn { @@ / mc }
   {
     tag .code:n = %
@@ -891,59 +947,10 @@
 
 
 % attributes
-% set the mc from a tag name
-
-\cs_set_protected:Npn \@@_attribute_gset:Nn #1 #2
-  {
-    \tex_global:D \setattribute #1 #2
-  }
-
-\cs_set_protected:Npn \@@_attribute_set:Nn #1 #2
-  {
-    \setattribute #1 #2
-  }
-
-\cs_set_protected:Npn \@@_attribute_gunset:N #1
-  {
-    \tex_global:D \unsetattribute #1
-  }
-
-\cs_set_protected:Npn \@@_attribute_unset:N #1
-  {
-    \unsetattribute #1
-  }
-
-
-\cs_new:Nn \@@_mc_lua_set_mc_type_attr:n % #1 is a tag name
-  {
-    \@@_attribute_set:Nn \l_@@_mc_type_attr
-      {
-        \directlua { ltx.@@.func.output_num_from ("#1") }
-      }
-    \@@_attribute_set:Nn \l_@@_mc_cnt_attr  { \@@_get_mc_abs_cnt: }
-  }
-
-\cs_generate_variant:Nn\@@_mc_lua_set_mc_type_attr:n { o }
-
-\cs_new:Nn \@@_mc_lua_unset_mc_type_attr:
-  {
-    \@@_attribute_unset:N \l_@@_mc_type_attr
-    \@@_attribute_unset:N \l_@@_mc_cnt_attr
-  }
 
 
 
-%This command will in the finish code replace the dummy for a mc by the real mcid kids
-%we need a variant for the case that it is the only kid, to get the array right
-\cs_new:Nn \@@_mc_insert_mcid_kids:n
-  {
-    \directlua { ltx.@@.func.mc_insert_kids (#1,0) }
-  }
 
-\cs_new:Nn \@@_mc_insert_mcid_single_kids:n
-  {
-    \directlua {ltx.@@.func.mc_insert_kids (#1,1) }
-  }
 
 
 % we need to pass the info if the kids are alone or already in an array
