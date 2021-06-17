@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-mc.dtx
 %
-% Copyright (C) 2019-2020 Ulrike Fischer
+% Copyright (C) 2019-2021 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -21,79 +21,39 @@
 %    https://github.com/u-fischer/tagpdf
 %
 % for those people who are interested.
-%
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-mc module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
 % \fi
+% \title{^^A
+%   The \pkg{tagpdf-mc} module\\ Code relatex to Marked Content (mc-chunks)  ^^A
+%   \\ part of the tagpdf package
+% }
 %
-%    \begin{macrocode}
-%<@@=tag>
-%<*shared>
-\ProvidesExplPackage {tagpdf-mc-code-shared} {2021-06-14} {0.82}
-  {part of tagpdf - code related to marking chunks -
-   code shared by generic and luamode }
-% I use a latex counter for the absolute count, so that it is added to
-% \cl@@ckpt and restored e.g. in tabulars and align
-% \int_new:N  \c@g_@@_MCID_int and
-% \tl_put_right:Nn\cl@@ckpt{\@elt{g_uf_test_int}}
-% would work too, but as the name is not expl3 then too, why bother?
-% the absolute counter can be used to label and to check if the page
-% counter needs a reset.
-
-\newcounter { g_@@_MCID_abs_int }
-\cs_new:Nn \_@@_get_mc_abs_cnt: { \int_use:N \c@g_@@_MCID_abs_int }
-
-% tagmcabs is the label name of the absolute count which is used
-% to identify the chunk
-% the ref code is now in tagpdf.dtx
-
-%stores labels of mcid.
-\cs_new:Nn \_@@_mc_handle_mc_label:n
-  {
-    \@@_ref_label:en{tagpdf-#1}{mc}
-  }
-
-% will hold the structure numbers for the parenttree
-% key:   absolute number of the mc (tagmcabs)
-% value: the structure number the mc is in
-\_@@_prop_new:N \g_@@_mc_parenttree_prop
-
-% some commands (e.g. links) want to close a previous mc and reopen it after
-% there work. For this we create a stack:
-\seq_new:N \g_@@_mc_stack_seq
-% shared keys
-% the rest are in the splitted code
-\tl_new:N \l_@@_mc_artifact_type_tl
-
-\keys_define:nn { @@ / mc }
-  {
-    stash                  .bool_set:N    = \l_@@_mc_key_stash_bool,
-    artifact-bool          .bool_set:N    = \l_@@_mc_artifact_bool,
-    artifact-type          .choice:,
-    artifact-type / pagination .code:n    =
-      {
-        \tl_set:Nn \l_@@_mc_artifact_type_tl { Pagination }
-      },
-    artifact-type / layout     .code:n    =
-      {
-        \tl_set:Nn \l_@@_mc_artifact_type_tl { Layout }
-      },
-    artifact-type / page       .code:n    =
-      {
-        \tl_set:Nn \l_@@_mc_artifact_type_tl { Page }
-      },
-    artifact-type / background .code:n    =
-      {
-        \tl_set:Nn \l_@@_mc_artifact_type_tl { Background }
-      },
-    artifact-type / notype     .code:n    =
-      {
-        \tl_set:Nn \l_@@_mc_artifact_type_tl {}
-      },
-     artifact-type /      .code:n    =
-      {
-        \tl_set:Nn \l_@@_mc_artifact_type_tl {}
-      },
-  }
-%    \end{macrocode}
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.82, released 2021-06-14}
+% \maketitle
+% \begin{documentation}
+% \section{Public Commands}
 %  \begin{function}[added = 2019-11-20]
 %   {
 %     \tag_mc_artifact_group_begin:n, \tag_mc_artifact_group_end:
@@ -101,12 +61,153 @@
 %   \begin{syntax}
 %     \cs{tag_mc_artifact_group_begin:n} \Arg{name}
 %   \end{syntax}
-%   This command pair create a group with an artifact marker at the begin
+%   This command pair creates a group with an artifact marker at the begin
 %   and the end. Inside the group the tagging commands are disabled.
+%   It allows to mark a complete region as artifact without having to worry
+%   about user commands with tagging commands.
+%   \meta{name} should be a value allowed also for the |artifact| key.
+%
+%   TODO: document is in tagpdf.tex
 %   \end{function}
+%
+%  \begin{function}[added = 2021-04-22]
+%   {
+%     \tag_mc_end_push:, \tag_mc_begin_pop:n
+%   }
+%   \begin{syntax}
+%     \cs{tag_mc_end_push:} \\
+%     \cs{tag_mc_begin_pop:n}\Arg{key-values}
+%   \end{syntax}
+% If there is an open mc chunk,
+% \cs{tag_mc_end_push:} ends it and pushes its tag of the (global) stack.
+% If there is no open chunk, it puts $-1$ on the stack (for debugging)
+% \cs{tag_mc_begin_pop:n} removes a value from the stack. If it is different from
+% $-1$ it opens a tag with it.
+% The reopened mc chunk looses info like the alttext for now.
+% \end{function}
+%
+% \begin{function}[pTF, EXP]{\tag_mc_if_in:}
+%   \begin{syntax}
+%     \cs{\tag_mc_if_in:TF} \Arg{true code} \Arg{false code}
+%   \end{syntax}
+%   Determines if a mc-chunk is open.
+% \end{function}
+
+%
+% \section{Public keys}
+% The following keys can be used with |\tag_mc_begin:n|, |\tagmcbegin|.
+%
+% \begin{function}{stash}
+% This \enquote{stashes} an mc-chunk: it is not inserted into the current structure.
+% It should be normally be used along with a label to be able to use the mc-chunk
+% in another place.
+% \end{function}
+%
+% \end{documentation}
+% \begin{implementation}
+% The code is splitted into three parts: code shared by all engines,
+% code specific to luamode and code not used by luamode.
+% \section{Marked content code -- shared}
 %    \begin{macrocode}
-
-
+%<@@=tag>
+%<*shared>
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2021-06-14} {0.82}
+  {part of tagpdf - code related to marking chunks -
+   code shared by generic and luamode }
+%    \end{macrocode}
+%
+% \subsection{Variables and counters}
+% MC chunks must be counted.
+% I use a latex counter for the absolute count, so that it is added to
+% |\cl@@ckpt| and restored e.g. in tabulars and align.
+% |\int_new:N  \c@g_@@_MCID_int| and
+% |\tl_put_right:Nn\cl@@ckpt{\@elt{g_uf_test_int}}|
+% would work too, but as the name is not expl3 then too, why bother?
+% The absolute counter can be used to label and to check if the page
+% counter needs a reset.
+%
+% \begin{variable}{g_@@_MCID_abs_int}
+%    \begin{macrocode}
+\newcounter { g_@@_MCID_abs_int }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\_@@_get_mc_abs_cnt:}
+% A (expandable) function to get the current value of the cnt.
+%    \begin{macrocode}
+\cs_new:Npn \_@@_get_mc_abs_cnt: { \int_use:N \c@g_@@_MCID_abs_int }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\g_@@_MCID_tmp_bypage_int}
+% The following hold the temporary by page number assigned to a mc.
+% It must be defined in the shared code to avoid problems with labels.
+%    \begin{macrocode}
+\int_new:N \g_@@_MCID_tmp_bypage_int
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_mc_parenttree_prop}
+% For every chunk we need to know the structure it is in, to
+% record this in the parent tree. We store this in a property.\\
+% key:   absolute number of the mc (tagmcabs)\\
+% value: the structure number the mc is in
+%    \begin{macrocode}
+\@@_prop_new:N \g_@@_mc_parenttree_prop
+%    \end{macrocode}
+% \end{variable}
+%
+%\begin{variable}{\g_@@_mc_parenttree_prop}
+% Some commands (e.g. links) want to close a previous mc and reopen it after
+% they did their work. For this we create a stack:
+%    \begin{macrocode}
+\seq_new:N \g_@@_mc_stack_seq
+%    \end{macrocode}
+% \end{variable}
+%
+%\begin{variable}{\l_@@_mc_artifact_type_tl}
+% Artifacts can have various types like Pagination or Layout. This stored
+% in this variable.
+%    \begin{macrocode}
+\tl_new:N \l_@@_mc_artifact_type_tl
+%    \end{macrocode}
+% \end{variable}
+%
+%\begin{variable}{\l_@@_mc_key_stash_bool,\l_@@_mc_artifact_bool}
+%This booleans store the stash and artifact status of the mc-chunk.
+%    \begin{macrocode}
+\bool_new:N \l_@@_mc_key_stash_bool
+\bool_new:N \l_@@_mc_artifact_bool
+%    \end{macrocode}
+% \end{variable}
+%
+%
+% \subsection{Functions}
+% \begin{macro}{\_@@_mc_handle_mc_label:n}
+% The commands labels a mc-chunk. It is used if the user explicitly
+% labels the mc-chunk with the |label| key. The argument is the
+% value provided by the user. It stores the attributes\\
+% |tagabspage|: the absolute page, |\g_shipout_readonly_int|,\\
+% |tagmcabs|: the absolute mc-counter |\c@g_@@_MCID_abs_int|,\\
+% |tagmcid|: the ID of the chunk on the page |\g_@@_MCID_tmp_bypage_int|, this
+%  typically settles down after a second compilation.
+%  The reference command is defined in tagpdf.dtx and is based on l3ref.
+%    \begin{macrocode}
+\cs_new:Nn \_@@_mc_handle_mc_label:n
+  {
+    \@@_ref_label:en{tagpdf-#1}{mc}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \tag_mc_artifact_group_begin:n,
+%     \tag_mc_artifact_group_end:
+%   }
+% This opens an artifact of the type given in the argument,
+% and then stops all tagging. It creates a group.
+%    \begin{macrocode}
 \cs_new_protected:Npn \tag_mc_artifact_group_begin:n #1
  {
   \tag_mc_begin:n {artifact=#1}
@@ -118,77 +219,145 @@
   \tag_stop_group_end:
   \tag_mc_end:
  }
-
-% we need to define it for both modes to avoid a problem with the label
-\int_new:N \g_@@_MCID_tmp_bypage_int
-
 %    \end{macrocode}
-
-%  \begin{function}[added = 2021-04-22]
-%   {
-%     \tag_mc_end_push:, \tag_mc_begin_pop:n
-%   }
-%   \begin{syntax}
-%     \cs{tag_mc_end_push:} \\
-%     \cs{tag_mc_begin_pop:n}\Arg{key-values}
-%   \end{syntax}
-% If there is an open mc chunk,
-% \cs{tag_mc_end_push:} ends it and pushes its tag of the stack. If there is no
-% open chunk, it puts -1 on the stack (for debugging)
-% \cs{tag_mc_begin_pop:n} removes a value from the stack. If it is different from
-% -1 it opens a tag with it.
-% The reopened mc chunk looses info like the alttext for now.
+% \end{macro}
+%
+% \begin{macro}{\tag_mc_end_push:, \tag_mc_begin_pop:n}
 %
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_mc_end_push:
- {
-   \@@_mc_if_in:TF
-     {
-       \seq_gpush:Nx \g_@@_mc_stack_seq { \tag_get:n {mc_tag} }
-       \@@_check_mc_pushed_popped:nn {pushed}{\tag_get:n {mc_tag}}
-       \tag_mc_end:
-     }
-     {
-       \@@_check_mc_pushed_popped:nn {pushed}{-1}
-       \seq_gpush:Nn \g_@@_mc_stack_seq{ -1  }
-     }
- }
-\cs_new_protected:Npn \tag_mc_begin_pop:n #1
- {
-   \seq_gpop:NNTF \g_@@_mc_stack_seq \l_@@_tmpa_tl
-     {
-       \tl_if_eq:NnTF \l_@@_tmpa_tl {-1}
-         {
-           \@@_check_mc_pushed_popped:nn {popped}{-1}
-         }
-         {
-           \@@_check_mc_pushed_popped:nn {popped}{\l_@@_tmpa_tl}
-           \tag_mc_begin:n {tag=\l_@@_tmpa_tl,#1}
-         }
-     }
-     { \@@_check_mc_pushed_popped:nn {popped}{empty~stack,~nothing} } %message?
- }
+  {
+    \@@_mc_if_in:TF
+      {
+        \seq_gpush:Nx \g_@@_mc_stack_seq { \tag_get:n {mc_tag} }
+        \@@_check_mc_pushed_popped:nn
+          { pushed }
+          { \tag_get:n {mc_tag} }
+        \tag_mc_end:
+      }
+      {
+        \seq_gpush:Nn \g_@@_mc_stack_seq {-1}
+        \@@_check_mc_pushed_popped:nn { pushed }{-1}
+      }
+  }
 
+\cs_new_protected:Npn \tag_mc_begin_pop:n #1
+  {
+    \seq_gpop:NNTF \g_@@_mc_stack_seq \l_@@_tmpa_tl
+      {
+        \tl_if_eq:NnTF \l_@@_tmpa_tl {-1}
+          {
+            \@@_check_mc_pushed_popped:nn {popped}{-1}
+          }
+          {
+            \@@_check_mc_pushed_popped:nn {popped}{\l_@@_tmpa_tl}
+            \tag_mc_begin:n {tag=\l_@@_tmpa_tl,#1}
+          }
+      }
+      {
+        \@@_check_mc_pushed_popped:nn {popped}{empty~stack,~nothing}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Keys}
+% This are the keys where the code can be shared between the modes.
+%
+% \begin{macro}{stash,__artifact-bool,__artifact-type}
+% the two internal artifact keys are use to define the public |artifact|.
+%    \begin{macrocode}
+\keys_define:nn { @@ / mc }
+  {
+    stash                    .bool_set:N    = \l_@@_mc_key_stash_bool,
+    __artifact-bool          .bool_set:N    = \l_@@_mc_artifact_bool,
+    __artifact-type          .choice:,
+    __artifact-type / pagination .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Pagination }
+      },
+    __artifact-type / layout     .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Layout }
+      },
+    __artifact-type / page       .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Page }
+      },
+    __artifact-type / background .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Background }
+      },
+    __artifact-type / notype     .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl {}
+      },
+    __artifact-type /      .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl {}
+      },
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 %</shared>
 %    \end{macrocode}
+% \section{Marked content code -- generic mode}
 %    \begin{macrocode}
 %<*generic>
 \ProvidesExplPackage {tagpdf-mc-code-generic} {2021-06-14} {0.82}
  {part of tagpdf - code related to marking chunks - generic mode}
-
-% for the label system
-% tagmcid is the id which should be also in the pdf
-% it will be (hopefully) reset by page
-
-% ref code is in tagpdf.dtx now
-%
-% will hold the current maximum on a page
-% it will contain key-value of type "abspagenum=max mcid on this page"
-\@@_prop_new:N \g_@@_MCID_byabspage_prop
-
-%to test nesting mc:
+%    \end{macrocode}
+% \subsection{Variables}
+% \begin{variable}{\g_@@_in_mc_bool}
+% This booleans records if a mc is open, to test nesting.
+%    \begin{macrocode}
 \bool_new:N \g_@@_in_mc_bool
+%    \end{macrocode}
+% \end{variable}
 
+% \begin{variable}{\g_@@_MCID_byabspage_prop}
+% This property will hold the current maximum on a page
+% it will contain key-value of type \meta{abspagenum}=\meta{max mcid}
+%
+%    \begin{macrocode}
+\@@_prop_new:N \g_@@_MCID_byabspage_prop
+%    \end{macrocode}
+% \end{variable}
+
+% \begin{variable}{\l_@@_mc_ref_abspage_tl}
+% We need a ref-label system to ensure that the MCID cnt
+% restarts at 0 on a new page
+% This will be used to store the tagabspage attribute retrieved from
+% a label.
+%    \begin{macrocode}
+\tl_new:N \l_@@_mc_ref_abspage_tl
+%    \end{macrocode}
+% \end{variable}
+
+% \begin{variable}{\l_@@_mc_tmpa_tl}
+% temporary variable
+%    \begin{macrocode}
+\tl_new:N \l_@@_mc_tmpa_tl
+%    \end{macrocode}
+
+% \begin{variable}
+%  {\l_@@_mc_key_tag_tl,\g_@@_mc_key_tag_tl,\l_@@_mc_key_properties_tl}
+% Variables used by the keys. |\l_@@_mc_key_properties_tl|
+% will collect a number of values. TODO: should this be a pdfdict now?
+%    \begin{macrocode}
+\tl_new:N \l_@@_mc_key_tag_tl
+\tl_new:N \g_@@_mc_key_tag_tl
+\tl_new:N \l_@@_mc_key_properties_tl
+%    \end{macrocode}
+% \end{variable}
+
+% \subsection{Functions}
+
+% \begin{macro}[pTF]{\@@_mc_if_in:,\tag_mc_if_in:}
+% This is a test if a mc is open or not. It depends simply on a global boolean:
+% mc-chunks are added linearly so nesting should not be relevant.
+%    \begin{macrocode}
 \prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
   {
     \bool_if:NTF \g_@@_in_mc_bool
@@ -197,47 +366,25 @@
   }
 
 \prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
-
-
-
-% this are the low level mc command.
-% they insert literals and so a are specific to generic mode
-% checking if the type is defined will done somewhere else
-% #1 is the type/tag
-% change 04.08.2018: I don't try to escape the name, but assume that it is valid.
-% Checks/conversions should perhaps be done on a higher level
-\cs_new_protected:Nn \@@_mc_bmc:n
-  {
-    \pdf_bmc:n {#1}
-%    \@@_pdfliteral_page:n
-%      {
-%        /#1\c_space_tl BMC
-%      }
-  }
-
-\cs_new_protected:Nn \@@_mc_emc:
-  {
-    \pdf_emc:
-    %\@@_pdfliteral_page:n
-%      {
-%        EMC
-%      }
-  }
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{ \@@_mc_bmc:n,\@@_mc_emc:,\@@_mc_bdc:nn,\@@_mc_bdc:nx}
+% These are the low-level commands. There are now equal to the
+% pdfmanagement commands generic mode, but we use an indirection
+% in case luamode need something else.
+% change 04.08.2018: the commands do not check the validity of the arguments or try
+% to escape them, this should be done before using them.
+%    \begin{macrocode}
 % #1 tag, #2 properties
-% change 04.08.2018: I don't escape the name. Also the dictionary content
-% must imho be done at a higher level
-\cs_new_protected:Nn \@@_mc_bdc:nn
-  {
-    \pdf_bdc:nn { #1 } { #2 }
-  }
-
+\cs_set_eq:NN \@@_mc_bmc:n  \pdf_bmc:n
+\cs_set_eq:NN \@@_mc_emc:   \pdf_emc:
+\cs_set_eq:NN \@@_mc_bdc:nn \pdf_bdc:nn
 \cs_generate_variant:Nn \@@_mc_bdc:nn {nx}
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 % bdc with /MCID + more properties
-% we need a ref-label system to ensure that the cnt restarts at 0 on a new page
-
-\tl_new:N \l_@@_mc_ref_abspage_tl %will store the abspage value of label
-\tl_new:N \l_@@_mc_tmp_tl
 
 \cs_new:Nn \@@_mc_bdc_mcid:nn
   {
@@ -256,14 +403,14 @@
       {
         \l_@@_mc_ref_abspage_tl
       }
-      \l_@@_mc_tmp_tl
+      \l_@@_mc_tmpa_tl
       {
         %key already present, use value for MCID and add 1 for the next
-        \int_gset:Nn \g_@@_MCID_tmp_bypage_int { \l_@@_mc_tmp_tl }
+        \int_gset:Nn \g_@@_MCID_tmp_bypage_int { \l_@@_mc_tmpa_tl }
         \@@_prop_gput:Nxx
           \g_@@_MCID_byabspage_prop
           { \l_@@_mc_ref_abspage_tl }
-          { \int_eval:n {\l_@@_mc_tmp_tl +1} }
+          { \int_eval:n {\l_@@_mc_tmpa_tl +1} }
       }
       {
         %key not present, set MCID to 0 and insert 1
@@ -304,12 +451,12 @@
 
 % perhaps later: more properties for artifacts
 
+% for the label system
+% tagmcid is the id which should be also in the pdf
+% it will be (hopefully) reset by page
 
 % keyval definitions for the user commands:
 
-\tl_new:N \l_@@_mc_key_tag_tl
-\tl_new:N \g_@@_mc_key_tag_tl %for "outside" queries
-\tl_new:N \l_@@_mc_key_properties_tl
 
 % Attention! definitions are different in luamode.
 % tag and raw are expanded as \directlua in lua does it too.
@@ -371,7 +518,7 @@
         \exp_args:Nnx
           \keys_set:nn
             { @@ / mc }
-            { artifact-bool, artifact-type=#1 }
+            { __artifact-bool, __artifact-type=#1 }
       },
     artifact .default:n    = {notype}
   }
@@ -419,7 +566,8 @@
            \l_@@_mc_key_properties_tl
         \tl_if_empty:NF {\l_@@_mc_key_label_tl}
           {
-            \@@_mc_handle_mc_label:n { \l_@@_mc_key_label_tl }
+            \exp_args:NV
+            \@@_mc_handle_mc_label:n \l_@@_mc_key_label_tl
           }
         \bool_if:NF \l_@@_mc_key_stash_bool
           {
@@ -663,7 +811,7 @@
         \exp_args:Nnx
           \keys_set:nn
             { @@ / mc}
-            { artifact-bool, artifact-type=#1, tag=Artifact }
+            { __artifact-bool, __artifact-type=#1, tag=Artifact }
         \exp_args:Nnx
           \keys_set:nn
             { @@ / mc }
@@ -775,7 +923,8 @@
       { % store the absolute num name in a label:
         \tl_if_empty:NF {\l_@@_mc_key_label_tl}
           {
-            \@@_mc_handle_mc_label:n { \l_@@_mc_key_label_tl }
+            \exp_args:NV
+             \@@_mc_handle_mc_label:n  \l_@@_mc_key_label_tl
           }
        % if not stashed record the absolute number
         \bool_if:NF \l_@@_mc_key_stash_bool
