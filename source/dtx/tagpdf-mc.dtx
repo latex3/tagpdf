@@ -468,7 +468,7 @@
        {#1}
        { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~ \exp_not:n { #2 } }
  }
-\cs_new_protected:Nün \@@_mc_bdc_mcid:n #1
+\cs_new_protected:Npn \@@_mc_bdc_mcid:n #1
   {
     \@@_mc_bdc_mcid:nn {#1} {}
   }
@@ -489,7 +489,7 @@
 % structure for the parent tree.
 % The name is a bit confusing, \ldots.
 %    \begin{macrocode}
-\cs_new:protected:Npn \@@_mc_handle_stash:n #1 %1 mcidnum
+\cs_new_protected:Npn \@@_mc_handle_stash:n #1 %1 mcidnum
   {
     \@@_check_mc_used:n {#1}
     \@@_struct_kid_mc_gput_right:nn
