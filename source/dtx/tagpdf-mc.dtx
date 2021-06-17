@@ -54,6 +54,27 @@
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
+%  \begin{function}{\tag_mc_begin:n,\tag_mc_end:}
+%   \begin{syntax}
+%     \cs{tag_mc_begin:n}\Arg{key-values}\\
+%     \cs{tag_mc_end:}
+%   \end{syntax}
+% These commands insert the end code of the marked content.
+% They don't end a group and in generic mode it doesn't matter
+% if they are in another group as the starting commands.
+% In generic mode both commands check if if they are correctly nested
+% and issue a warning if not.
+% \end{function}
+%
+%  \begin{function}{\tag_mc_use:n}
+%   \begin{syntax}
+%     \cs{tag_mc_use:n}\Arg{label}
+%   \end{syntax}
+% These command allow to record a marked content that was stashed away before
+% into the current structure. A marked content can be used only once --
+% the command will issue a warning if an mc is use a second time.
+% \end{function}
+%
 %  \begin{function}[added = 2019-11-20]
 %   {
 %     \tag_mc_artifact_group_begin:n, \tag_mc_artifact_group_end:
@@ -383,10 +404,22 @@
 \cs_generate_variant:Nn \@@_mc_bdc:nn {nx}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}
+%   {
+%     \@@_mc_bdc_mcid:nn,\@@_mc_bdc_mcid:n,
+%     \@@_mc_handle_mcid:nn,\@@_mc_handle_mcid:VV
+%   }
+%
+% This create a BDC mark with an |/MCID| key. Most of the work here is to get
+% the current number value for the MCID: they must be numbered by page
+% starting with 0 and then successively.
+% The first argument is the tag, e.g. |P| or |Span|, the second is used to pass
+% more properties.
+% We also define a wrapper around the low-level command as luamode will need
+% something.
 %    \begin{macrocode}
-% bdc with /MCID + more properties
-
-\cs_new:Nn \@@_mc_bdc_mcid:nn
+\cs_new_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
   {
     \int_gincr:N \c@g_@@_MCID_abs_int
     \tl_set:Nx \l_@@_mc_ref_abspage_tl
@@ -425,46 +458,171 @@
         mcid-\int_use:N \c@g_@@_MCID_abs_int
       }
       { mc }
-   %\exp_args:Nnx
      \@@_mc_bdc:nx
        {#1}
        { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~ \exp_not:n { #2 } }
  }
-
-% only /MCID
-\cs_new:Nn \@@_mc_bdc_mcid:n
+\cs_new_protected:Nün \@@_mc_bdc_mcid:n #1
   {
     \@@_mc_bdc_mcid:nn {#1} {}
   }
 
-%artifact without type
-\cs_new:Nn  \@@_mc_bmc_artifact:
+\cs_new_protected:Npn \@@_mc_handle_mcid:nn #1 #2 %#1 tag, #2 properties
+  {
+    \@@_mc_bdc_mcid:nn {#1} {#2}
+  }
+
+\cs_generate_variant:Nn \@@_mc_handle_mcid:nn {VV}
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\@@_mc_handle_stash:n}
+% This is the handler which puts a mc into the
+% the current structure. The argument is the number of the mc.
+% Beside storing the mc into the structure, it also has to record the
+% structure for the parent tree.
+% The name is a bit confusing, \ldots.
+%    \begin{macrocode}
+\cs_new:protected:Npn \@@_mc_handle_stash:n #1 %1 mcidnum
+  {
+    \@@_check_mc_used:n {#1}
+    \@@_struct_kid_mc_gput_right:nn
+      { \g_@@_struct_stack_current_tl }
+      {#1}
+   \prop_gput:Nxx \g_@@_mc_parenttree_prop
+     {#1}
+     { \g_@@_struct_stack_current_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}
+%  {
+%    \@@_mc_bmc_artifact:,
+%    \@@_mc_bmc_artifact:n,
+%    \@@_mc_handle_artifact:N
+%   }
+% Two commands to create artifacts, one without type, and one with.
+% We define also a wrapper handler as luamode will need a different definition.
+% TODO: perhaps later: more properties for artifacts
+%    \begin{macrocode}
+\cs_new_protected:Npn  \@@_mc_bmc_artifact:
   {
     \@@_mc_bmc:n {Artifact}
   }
-
-%artifact with a type:
-\cs_new:Nn \@@_mc_bmc_artifact:n
+\cs_new_protected:Npn \@@_mc_bmc_artifact:n #1
   {
     \@@_mc_bdc:nn {Artifact}{/Type/#1}
   }
+\cs_new_protected:Npn \@@_mc_handle_artifact:N #1
+   % #1 is a var containing the artifact type
+  {
+    \tl_if_empty:NTF #1
+      { \@@_mc_bmc_artifact: }
+      { \exp_args:NV\@@_mc_bmc_artifact:n #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
 
-% perhaps later: more properties for artifacts
+% \begin{macro}{ \@@_get_data_mc_tag: }
+% This allows to retrieve the active mc-tag.
+% It is use by the get command.
+%    \begin{macrocode}
+\cs_new:Nn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tag_mc_begin:n,\tag_mc_end:}
+% These are the core public commands to open and close an mc.
+% They don't need to be in the same group or grouping level,
+% but the code expect that they are issued linearly. The tag and
+% the state is passed to the end command through a global var and
+% a global boolean.
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_begin:n #1 %#1 keyval
+  {
+    \group_begin: %hm
+    \@@_check_mc_if_nested:
+    \bool_gset_true:N \g_@@_in_mc_bool
+    \keys_set:nn { @@ / mc } {#1}
+    \bool_if:NTF \l_@@_mc_artifact_bool
+      { %handle artifact
+        \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
+      }
+      { %handle mcid type
+        \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
+        \@@_mc_handle_mcid:VV
+           \l_@@_mc_key_tag_tl
+           \l_@@_mc_key_properties_tl
+        \tl_if_empty:NF {\l_@@_mc_key_label_tl}
+          {
+            \exp_args:NV
+            \@@_mc_handle_mc_label:n \l_@@_mc_key_label_tl
+          }
+        \bool_if:NF \l_@@_mc_key_stash_bool
+          {
+            \@@_mc_handle_stash:n { \int_use:N \c@g_@@_MCID_abs_int }
+          }
+      }
+    \group_end:
+  }
+\cs_new_protected:Nn \tag_mc_end:
+  {
+    \@@_check_mc_if_open:
+    \bool_gset_false:N \g_@@_in_mc_bool
+    \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
+    \@@_mc_emc:
+  }
+%    \end{macrocode}
+% \end{macro}
 
-% for the label system
-% tagmcid is the id which should be also in the pdf
-% it will be (hopefully) reset by page
-
-% keyval definitions for the user commands:
-
-
-% Attention! definitions are different in luamode.
-% tag and raw are expanded as \directlua in lua does it too.
+% \begin{macro}{\tag_mc_use:n}
+% These command allow to record a marked content that was stashed away before
+% into the current structure. A marked content can be used only once --
+% the command will issue a warning if an mc is use a second time.
+% The argument is a label name set with the |label| key.
+%
+% TODO: is the claim about the warning right???
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_use:n #1 %#1: label name
+  {
+    \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
+    \tl_if_empty:NTF\l_@@_tmpa_tl
+      {
+        \msg_warning:nnn {tag} {mc-label-unknown} {#1}
+      }
+      {
+        \prop_gput:Nxx
+          \g_@@_mc_parenttree_prop
+          {
+            \l_@@_tmpa_tl
+            %\@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
+          }
+          {
+            \g_@@_struct_stack_current_tl
+          }
+        \@@_struct_kid_mc_gput_right:nn
+          {
+            \g_@@_struct_stack_current_tl
+          }
+          {
+            \l_@@_tmpa_tl
+            %\@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
+          }
+       }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Keys}
+% Definitions are different in luamode.
+% |tag| and |raw| are expanded as |\directlua| in lua does it too and
+% we assume that their values are safe.
+%    \begin{macrocode}
 \keys_define:nn { @@ / mc }
   {
-    tag .code:n = % the name (H,P,Spa) etc
+    tag .code:n = % the name (H,P,Span) etc
       {
-         %%????????? \pdfescapename??
         \tl_set:Nx   \l_@@_mc_key_tag_tl { #1 }
         \tl_gset:Nx  \g_@@_mc_key_tag_tl { #1 }
       },
@@ -522,102 +680,13 @@
       },
     artifact .default:n    = {notype}
   }
-
-\cs_new:Nn \@@_mc_handle_artifact:N %#1 contains the artifact type
-  {
-    \tl_if_empty:NTF #1
-      { \@@_mc_bmc_artifact: }
-      { \exp_args:No\@@_mc_bmc_artifact:n {#1} }
-  }
-
-\cs_new:Nn \@@_mc_handle_mcid:nn %#1 tag, #2 properties
-  {
-    \@@_mc_bdc_mcid:nn {#1} {#2}
-  }
-
-\cs_generate_variant:Nn \@@_mc_handle_mcid:nn {VV}
-
-% puts the absolute number of an mcid in the current structure
-\cs_new:Nn \@@_mc_handle_stash:n %1 mcidnum
-  {
-    \@@_check_mc_used:n {#1}
-    \@@_struct_kid_mc_gput_right:nn
-      { \g_@@_struct_stack_current_tl }
-      {#1}
-   \prop_gput:Nxx \g_@@_mc_parenttree_prop
-     {#1}
-     { \g_@@_struct_stack_current_tl }
-  }
-
-\cs_new_protected:Nn \tag_mc_begin:n
-  {
-    \group_begin: %hm
-    \@@_check_mc_if_nested:
-    \bool_gset_true:N \g_@@_in_mc_bool
-    \keys_set:nn { @@ / mc } {#1}
-    \bool_if:NTF \l_@@_mc_artifact_bool
-      { %handle artifact
-        \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
-      }
-      { %handle mcid type
-        \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
-        \@@_mc_handle_mcid:VV
-           \l_@@_mc_key_tag_tl
-           \l_@@_mc_key_properties_tl
-        \tl_if_empty:NF {\l_@@_mc_key_label_tl}
-          {
-            \exp_args:NV
-            \@@_mc_handle_mc_label:n \l_@@_mc_key_label_tl
-          }
-        \bool_if:NF \l_@@_mc_key_stash_bool
-          {
-            \@@_mc_handle_stash:n { \int_use:N \c@g_@@_MCID_abs_int }
-          }
-      }
-    \group_end:
-  }
-
-
-\cs_new_protected:Nn \tag_mc_end:
-  {
-    \@@_check_mc_if_open:
-    \bool_gset_false:N \g_@@_in_mc_bool
-    \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
-    \@@_mc_emc:
-  }
-
-
-
-\cs_new_protected:Nn \tag_mc_use:n %#1: label name
-  {
-    \tl_set:Nx  \l_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
-    \tl_if_empty:NTF\l_tmpa_tl
-      {
-        \msg_warning:nnn {tag} {mc-label-unknown} {#1}
-      }
-      {
-        \prop_gput:Nxx
-          \g_@@_mc_parenttree_prop
-          {
-            \@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
-          }
-          {
-            \g_@@_struct_stack_current_tl
-          }
-        \@@_struct_kid_mc_gput_right:nn
-          {
-            \g_@@_struct_stack_current_tl
-          }
-          {
-            \@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
-          }
-       }
-  }
-
-
-\cs_new:Nn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
 %</generic>
 %    \end{macrocode}
+% \section{Marked content code -- luamode code}
+% luamode uses attributes to mark mc-chunks. The two attributes used are
+% defined in the backend file. The backend also load the lua file, as it can contain
+% functions needed elsewhere. 
+%
 %    \begin{macrocode}
 %<*luamode>
 \ProvidesExplPackage {tagpdf-mc-code-lua} {2021-06-14} {0.82}
@@ -950,13 +1019,13 @@
 
 \cs_new_protected:Nn \tag_mc_use:n %#1: label name
   {
-    \tl_set:Nx  \l_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
-    \tl_if_empty:NTF\l_tmpa_tl
+    \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
+    \tl_if_empty:NTF\l_@@_tmpa_tl
       {
         \msg_warning:nnn {tag} {mc-label-unknown} { #1 }
       }
       {
-        \@@_mc_handle_stash:o { \l_tmpa_tl }
+        \@@_mc_handle_stash:o { \l_@@_tmpa_tl }
       }
   }
 
