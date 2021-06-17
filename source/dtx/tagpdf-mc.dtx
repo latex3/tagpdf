@@ -37,7 +37,7 @@
 %</driver>
 % \fi
 % \title{^^A
-%   The \pkg{tagpdf-mc} module\\ Code relatex to Marked Content (mc-chunks)  ^^A
+%   The \pkg{tagpdf-mc} module\\ Code related to Marked Content (mc-chunks)  ^^A
 %   \\ part of the tagpdf package
 % }
 %
@@ -80,7 +80,8 @@
 %     \tag_mc_artifact_group_begin:n, \tag_mc_artifact_group_end:
 %   }
 %   \begin{syntax}
-%     \cs{tag_mc_artifact_group_begin:n} \Arg{name}
+%     \cs{tag_mc_artifact_group_begin:n} \Arg{name}\\
+%     \cs{tag_mc_artifact_group_end:}
 %   \end{syntax}
 %   This command pair creates a group with an artifact marker at the begin
 %   and the end. Inside the group the tagging commands are disabled.
@@ -109,7 +110,7 @@
 %
 % \begin{function}[pTF, EXP]{\tag_mc_if_in:}
 %   \begin{syntax}
-%     \cs{\tag_mc_if_in:TF} \Arg{true code} \Arg{false code}
+%     \cs{tag_mc_if_in:TF} \Arg{true code} \Arg{false code}
 %   \end{syntax}
 %   Determines if a mc-chunk is open.
 % \end{function}
@@ -118,12 +119,56 @@
 % \section{Public keys}
 % The following keys can be used with |\tag_mc_begin:n|, |\tagmcbegin|.
 %
+% \begin{function}{tag}
+% This key is required, unless artifact is used.
+% The value is a tag like |P| or |H1| without a slash at the begin,
+% this is added by the code.
+% It is possible to setup new tags.
+% The value of the key is expanded, so it can be a command.
+% The expansion is passed unchanged to the PDF,
+% so it should with a starting slash give a valid PDF name
+% (some ascii with numbers like \texttt{H4} is fine).
+% \end{function}
+%
+% \begin{function}{artifact}
+%  This will setup the marked content as an artifact. The key should be used
+%  for content that should be ignored.
+%  The key can take one of the values |pagination|,
+%  |layout|,  |page|,  |background| and |notype|
+%  (this is the default).
+% \end{function}
+%
+% \begin{function}{raw}
+% This key allows  to add more entries to the properties dictionary.
+% The value must be correct, low-level PDF. E.g.
+% \verb+raw=/Alt (Hello)+ will insert an alternative Text.
+% \end{function}
+%
+% \begin{function}{alttext,alttext-o}
+%  This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator.
+%  The value is handled as verbatim string, commands are not expanded. With |alttext-o|
+%  the value is expanded once.
+% \end{function}
+%
+% \begin{function}{actualtext,actualtext-o}
+%  This key inserts an \texttt{/ActualText} value in the property dictionary
+%  of the BDC operator. The value is handled as verbatim string,
+%  commands are not expanded.With |actualtext-o|
+%  the value is expanded once.
+% \end{function}
+%
+% \begin{function}{label}
+%  This key sets a label by which one can call the marked content
+%  later in another structure
+%  (if it has been stashed with the |stash| key).
+%  Internally the label name will start with \texttt{tagpdf-}.
+% \end{function}
+%
 % \begin{function}{stash}
 % This \enquote{stashes} an mc-chunk: it is not inserted into the current structure.
 % It should be normally be used along with a label to be able to use the mc-chunk
 % in another place.
 % \end{function}
-%
 % \end{documentation}
 % \begin{implementation}
 % The code is splitted into three parts: code shared by all engines,
@@ -377,7 +422,7 @@
 %    \begin{macrocode}
 \tl_new:N \l_@@_mc_tmpa_tl
 %    \end{macrocode}
-
+% \end{variable}
 
 % \subsection{Functions}
 
@@ -624,6 +669,13 @@
 % Definitions are different in luamode.
 % |tag| and |raw| are expanded as |\directlua| in lua does it too and
 % we assume that their values are safe.
+% \begin{macro}
+%  {
+%   tag,raw,
+%   alttext,alttext-o,
+%   actualtext,actualtext-o,
+%   label,artifact
+%  }
 %    \begin{macrocode}
 \keys_define:nn { @@ / mc }
   {
@@ -688,44 +740,42 @@
   }
 %</generic>
 %    \end{macrocode}
+% \end{macro}
+%
 % \section{Marked content code -- luamode code}
 % luamode uses attributes to mark mc-chunks. The two attributes used are
 % defined in the backend file. The backend also load the lua file, as it can contain
 % functions needed elsewhere.
+% The attributes for mc are currently local, but this will probably change, see
+% the |global-mc| option.\\
+% |\newattribute \l_@@_mc_type_attr|:  the value represent the type\\
+% |\newattribute \l_@@_mc_cnt_attr|:   will hold the |\c@g_@@_MCID_abs_int value|
+%
+% Handling attribute needs a different system to number the page wise mcid's:
+% a tagmcbegin ... tagmcend pair no longer surrounds exactly one mc chunk:
+% it can be split
+% at page breaks. We know the included mcid(s) only after the ship out.
+% So for the |struct -> mcid| mapping we
+% need to record |struct -> mc-cnt| (in |\g_@@_mc_parenttree_prop| and/or a lua table
+% and at shipout |mc-cnt-> {mcid, mcid, ...}|
+% and when building the trees connect both.
+%
+% Key definitions are overwritten for luatex to store that data in tables.
+% The data for the mc are in |ltx.@@.mc[absnum]|.
+% The fields of the table are:\\
+% tag : the type (a string)\\
+% raw : more properties (string)\\
+% label: a string. \\
+% artifact: the presence indicates an artifact, the value (string) is the type.\\
+% kids: a array of tables\\
+% |{1={kid=num2,page=pagenum1}, 2={kid=num2,page=pagenum2},...}|,\\
+% this describes the chunks the mc has been split to by the traversing code\\
+% parent: the number of the structure it is in. Needed to build the parent tree.
 %
 %    \begin{macrocode}
 %<*luamode>
 \ProvidesExplPackage {tagpdf-mc-code-lua} {2021-06-14} {0.82}
   {tagpdf - mc code only for the luamode }
-
-% the two attibutes are defined in the driver file.
-% it also load the lua (as it can also contain functions needed by generic mode.
-% (new) attributes for mc are local:
-% \newattribute \l_@@_mc_type_attr     %the value represent the type
-% \newattribute \l_@@_mc_cnt_attr      %will hold the \c@g_@@_MCID_abs_int value
-
-
-% An attribute for the current structure probably doesn't make sense as mc chunks can be used later.
-% \newattribute \g_@@_struct_type_attr %represent the current structure type. Not sure if needed
-% \newattribute \g_@@_struct_cnt_attr  %will hold \c@g_@@_struct_abs_int a cnt
-
-% handling attribute needs a different system to number the page wise mcid's:
-% a tagmcbegin ... tagmcend pair no longer surrounds exactly one mc chunk: it can be split
-% at page breaks. We know the included mcid(s) only after the ship out. So for the struct-> mcid mapping we
-% need to record struct -> mc-cnt (in \g_@@_mc_parenttree_prop and/or a lua table
-% and at shipout mc-cnt-> {mcid, mcid, ...} (in a table?)
-% and when building the trees connect both
-
-% key definitions are overwritten for luatex to store that data in tables
-% the data for the mc are in ltx.@@.mc[absnum]
-% the fields of the table are
-% tag : the type (a string)
-% raw : more properties (string)
-% label: a string. Do we need a way to retrieve the num from the label from lua??
-% artifact: the presence indicates an artifact, the value (string) is the type.
-% kids: a array of tables {1={kid=num2,page=pagenum1}, 2={kid=num2,page=pagenum2},...},
-% this describes the chunks the mc has been split to by the traversing code
-% parent: the number of the structure it is in. Needed to build the parent tree.
 %    \end{macrocode}
 % The main function which wanders through the shipout box to inject the literals.
 % if the new callback is there, it is used.
@@ -821,6 +871,116 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%
+%\begin{macro}{\@@_mc_handle_stash:n,\@@_mc_handle_stash:o}
+% This is the lua variant for the command to
+% put an mcid absolute number in the current structure.
+%    \begin{macrocode}
+\cs_new:Nn \@@_mc_handle_stash:n %1 mcidnum
+  {
+    \@@_check_mc_used:n { #1 }
+    \seq_gput_right:cn % Don't fill a lua table due to the command in the item,
+                       % so use the kernel command
+      { g_@@_struct_kids_\g_@@_struct_stack_current_tl _seq }
+      {
+        \@@_mc_insert_mcid_kids:n {#1}%
+      }
+    \directlua
+      {
+        ltx.@@.func.store_struct_mcabs
+          (
+            \g_@@_struct_stack_current_tl,#1
+          )
+      }
+    \prop_gput:Nxx
+      \g_@@_mc_parenttree_prop
+      { #1 }
+      { \g_@@_struct_stack_current_tl }
+  }
+
+\cs_generate_variant:Nn \@@_mc_handle_stash:n { o }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tag_mc_begin:n}
+% This is the lua version of the user command.
+% Unlike the generic version there is currently no
+% group as the attribute is set locally.
+% This means one must be careful with the keys.
+% If the attribute is global again, wen can change this.
+%    \begin{macrocode}
+\cs_new_protected:Nn \tag_mc_begin:n
+  {
+    %\group_begin:
+    %\@@_check_mc_if_nested:
+    %\bool_gset_true:N \g_@@_in_mc_bool
+    \bool_set_false:N\l_@@_mc_artifact_bool
+    \tl_clear:N \l_@@_mc_key_properties_tl
+    \int_gincr:N \c@g_@@_MCID_abs_int
+    \keys_set:nn { @@ / mc }{ label={}, #1 }
+    %check that a tag or artifact has been used
+    \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
+    %set the attributes:
+    \@@_mc_lua_set_mc_type_attr:o  { \l_@@_mc_key_tag_tl }
+    \bool_if:NF \l_@@_mc_artifact_bool
+      { % store the absolute num name in a label:
+        \tl_if_empty:NF {\l_@@_mc_key_label_tl}
+          {
+            \exp_args:NV
+             \@@_mc_handle_mc_label:n  \l_@@_mc_key_label_tl
+          }
+       % if not stashed record the absolute number
+        \bool_if:NF \l_@@_mc_key_stash_bool
+          {
+            \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
+          }
+      }
+    %\group_end:
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_mc_end:,\tag_mc_use:n}
+%    \begin{macrocode}
+\cs_new_protected:Nn \tag_mc_end:
+  {
+    %\@@_check_mc_if_open:
+    %\bool_gset_false:N \g_@@_in_mc_bool
+    \bool_set_false:N\l_@@_mc_artifact_bool
+    \@@_mc_lua_unset_mc_type_attr:
+    \tl_set:Nn  \l_@@_mc_key_tag_tl { }
+  }
+
+\cs_new_protected:Nn \tag_mc_use:n %#1: label name
+  {
+    \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
+    \tl_if_empty:NTF\l_@@_tmpa_tl
+      {
+        \msg_warning:nnn {tag} {mc-label-unknown} { #1 }
+      }
+      {
+        \@@_mc_handle_stash:o { \l_@@_tmpa_tl }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{ \@@_get_data_mc_tag: }
+% The command to retrieve the current mc tag. When we change to global
+% this should use a global variable too!!
+%    \begin{macrocode}
+\cs_new:Npn \@@_get_data_mc_tag: { \l_@@_mc_key_tag_tl }
+%    \end{macrocode}
+% \end{macro}
+
+% \subsection{Key definitions}
+% \begin{macro}
+%   {
+%    tag,raw,
+%    alttext,alttext-o,
+%    actualtext,actualtext-o,
+%    label,artifact
+%   }
+%   TODO: check conversion, check if local/global setting is right.
 %    \begin{macrocode}
 \keys_define:nn { @@ / mc }
   {
@@ -945,99 +1105,9 @@
     artifact .default:n    = { notype }
   }
 
-
-% attributes
-
-
-
-
-
-
-% we need to pass the info if the kids are alone or already in an array
-% so we add a second argument, which should == 1 if the kids are single
-
-
-% puts an mcid absolute number in the current structure
-\cs_new:Nn \@@_mc_handle_stash:n %1 mcidnum
-  {
-    \@@_check_mc_used:n { #1 }
-    \seq_gput_right:cn % Don't fill a lua table due to the command in the item,
-                       % so use the kernel command
-      { g_@@_struct_kids_\g_@@_struct_stack_current_tl _seq }
-      {
-        \@@_mc_insert_mcid_kids:n {#1}%
-      }
-    \directlua
-      {
-        ltx.@@.func.store_struct_mcabs
-          (
-            \g_@@_struct_stack_current_tl,#1
-          )
-      }
-    \prop_gput:Nxx
-      \g_@@_mc_parenttree_prop
-      { #1 }
-      { \g_@@_struct_stack_current_tl }
-  }
-
-\cs_generate_variant:Nn \@@_mc_handle_stash:n { o }
-
-\cs_new_protected:Nn \tag_mc_begin:n
-  {
-    %\group_begin:
-    %\@@_check_mc_if_nested:
-    %\bool_gset_true:N \g_@@_in_mc_bool
-    \bool_set_false:N\l_@@_mc_artifact_bool
-    \int_gincr:N \c@g_@@_MCID_abs_int
-    \tl_clear:N \l_@@_mc_key_properties_tl
-    \keys_set:nn { @@ / mc }{ label={}, #1 }
-    %check that a tag or artifact has been used
-    \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
-    %set the attributes:
-    \@@_mc_lua_set_mc_type_attr:o  { \l_@@_mc_key_tag_tl }
-    \bool_if:NF \l_@@_mc_artifact_bool
-      { % store the absolute num name in a label:
-        \tl_if_empty:NF {\l_@@_mc_key_label_tl}
-          {
-            \exp_args:NV
-             \@@_mc_handle_mc_label:n  \l_@@_mc_key_label_tl
-          }
-       % if not stashed record the absolute number
-        \bool_if:NF \l_@@_mc_key_stash_bool
-          {
-            \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
-          }
-      }
-    %\bool_set_false:N\l_@@_mc_artifact_bool
-    %\group_end:
-  }
-
-
-\cs_new_protected:Nn \tag_mc_end:
-  {
-    %\@@_check_mc_if_open:
-    %\bool_gset_false:N \g_@@_in_mc_bool
-    \bool_set_false:N\l_@@_mc_artifact_bool
-    \@@_mc_lua_unset_mc_type_attr:
-    \tl_set:Nn  \l_@@_mc_key_tag_tl { }
-  }
-
-
-
-\cs_new_protected:Nn \tag_mc_use:n %#1: label name
-  {
-    \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
-    \tl_if_empty:NTF\l_@@_tmpa_tl
-      {
-        \msg_warning:nnn {tag} {mc-label-unknown} { #1 }
-      }
-      {
-        \@@_mc_handle_stash:o { \l_@@_tmpa_tl }
-      }
-  }
-
-
-
-\cs_new:Nn \@@_get_data_mc_tag: { \l_@@_mc_key_tag_tl }
 %</luamode>
 %    \end{macrocode}
+% \end{macro}
+%
+% \end{implementation}
+% \PrintIndex
