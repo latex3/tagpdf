@@ -308,7 +308,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_classmap:
   {
-    \tl_gclear:N \g_@@_attr_class_content_tl
+    \tl_clear:N \l_@@_tmpa_tl
     \seq_gremove_duplicates:N \g_@@_attr_class_used_seq
     \seq_set_map:NNn \l_@@_tmpa_seq \g_@@_attr_class_used_seq
       {
@@ -319,19 +319,19 @@
             {##1}
         >>
       }
-    \tl_gset:Nx \g_@@_attr_class_content_tl
+    \tl_set:Nx \l_@@_tmpa_tl
       {
         \seq_use:Nn
           \l_@@_tmpa_seq
           { \iow_newline: }
       }
     \tl_if_empty:NF
-      \g_@@_attr_class_content_tl
+      \l_@@_tmpa_tl
       {
         \pdf_object_new:nn { @@/tree/classmap }{ dict }
         \pdf_object_write:nx
           { @@/tree/classmap }
-          { \g_@@_attr_class_content_tl }
+          { \l_@@_tmpa_tl }
         \@@_prop_gput:cnx
           { g_@@_struct_0_prop }
           { ClassMap }

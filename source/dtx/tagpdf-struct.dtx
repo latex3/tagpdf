@@ -93,6 +93,7 @@
 % together with \cs{tag_struct_insert_annot:nn} which will increase the number.
 % \end{function}
 % \section{Public keys}
+% \subsection{Keys for the structure commands}
 % \begin{function}{tag}
 % This is required. The value of the key is normally one of the
 % standard types listed in section \ref{sec:new-tag}.
@@ -166,6 +167,45 @@
 %
 % \end{function}
 %
+% \begin{function}{attribute}
+%  This key takes as argument a comma list of attribute names
+%  (use braces to protect the commas from the external key-val parser)
+%  and allows to add one or more attribute dictionary entries in
+%  the structure object. As an example
+%     \begin{verbatim}
+%      \tagstructbegin{tag=TH,attribute= TH-row}
+%      \end{verbatim}
+%  Attribute names and their content must be declared first in \cs{tagpdfsetup}.
+%
+%  \end{function}
+%
+% \begin{function}{attribute-class}
+%  This key takes as argument a comma list of attribute class names
+%  (use braces to protect the commas from the external key-val parser)
+%  and allows to add one or more attribute classes to the structure object.
+%
+%  Attribute class names and their content
+%  must be declared first in \cs{tagpdfsetup}.
+% \end{function}
+% \subsection{Setup keys}
+% \begin{function}{newattribute}
+% \begin{syntax}
+% newattribute = \Arg{name}\Arg{Content}
+% \end{syntax}
+% This key can be used in the setup command \cs{tagpdfsetup} and allow to declare a
+% new attribute, which can be used as attribute or attribute class.
+% The value are two brace groups, the first contains the name, the second the content.
+% \begin{verbatim}
+% \tagpdfsetup
+%  {
+%   newattribute =
+%    {TH-col}{/O /Table /Scope /Column},
+%   newattribute =
+%    {TH-row}{/O /Table /Scope /Row},
+%   }
+% \end{verbatim}
+% 
+% \end{function}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -174,7 +214,7 @@
 \ProvidesExplPackage {tagpdf-struct-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to storing structure}
 %    \end{macrocode}
-% \subsection{Variables}
+% \section{Variables}
 % \begin{variable}{\c@g_@@_struct_abs_int}
 % Every structure will have a unique, absolute number.
 % I will use a latex counter for the structure count
@@ -290,7 +330,7 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \subsubsection{Variables used by the keys}
+% \subsection{Variables used by the keys}
 % \begin{variable}{\g_@@_struct_tag_tl,\g_@@_struct_tag_NS_tl}
 % Use by the tag key to store the tag and the namespace.
 %    \begin{macrocode}
@@ -310,7 +350,7 @@
 \bool_new:N \l_@@_struct_elem_stash_bool
 %    \end{macrocode}
 % \end{variable}
-% \subsection{Commands}
+% \section{Commands}
 %
 % The properties must be in some places handled expandably.
 % So I need an output handler for each prop, to get expandable output
@@ -342,7 +382,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{Initialization of the StructTreeRoot}
+% \subsection{Initialization of the StructTreeRoot}
 % The first structure element, the StructTreeRoot is special, so
 % created manually. The underlying object |@@/struct/0| and the
 % other objects are setup in the tree code, which must be loaded first.
@@ -389,7 +429,7 @@
   { \pdf_object_ref:n { @@/tree/namespaces } }
 %    \end{macrocode}
 % \end{variable}
-% \subsubsection{Handlings kids}
+% \subsection{Handlings kids}
 % Commands to store the kids. Kids in a structure can be a reference to a mc-chunk,
 % an object reference to another structure element, or a object reference to an
 % annotation (through an OBJR object).
@@ -665,7 +705,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{Keys}
+% \section{Keys}
 % This are the keys for the user commands.
 % we store the tag in a variable. But we should be careful, it is only reliable
 % at the begin.
@@ -870,7 +910,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{User commands}
+% \section{User commands}
 %    \begin{macrocode}
 \cs_generate_variant:Nn \pdf_object_ref:n {e} % check later
 %    \end{macrocode}
@@ -1028,23 +1068,52 @@
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
+% \section{Attributes and attribute classes}
 %    \begin{macrocode}
 %<*attr>
 \ProvidesExplPackage {tagpdf-attr-code} {2021-06-14} {0.82}
   {part of tagpdf - code related to attributes and attribute classes}
-
-% the obj is written in tagpdf-tree-code.
-
-\seq_new:N  \g_@@_attr_class_used_seq
-\prop_new:N \g_@@_attr_objref_prop %will contain obj num of used attributes
-
+%    \end{macrocode}
+% \subsection{Variables}
+%  \begin{variable}
+%   {
+%     ,\g_@@_attr_entries_prop
+%     ,\g_@@_attr_class_used_seq
+%     ,\g_@@_attr_objref_prop
+%     ,\l_@@_attr_value_tl
+%   }
+% |\g_@@_attr_entries_prop| will store attribute names and their dictionary content.\\
+% |\g_@@_attr_class_used_seq| will hold the attributes which have been used as
+% class name.
+% |\l_@@_attr_value_tl| is used to build the attribute array or key.
+% Everytime an attribute is used for the first time, and object is created
+% with its content, the name-object reference relation is stored in
+% |\g_@@_attr_objref_prop|
+%    \begin{macrocode}
 \prop_new:N \g_@@_attr_entries_prop
-\tl_new:N   \g_@@_attr_class_content_tl
-\tl_new:N   \l_@@_attr_objtmp_tl
+\seq_new:N  \g_@@_attr_class_used_seq
 \tl_new:N   \l_@@_attr_value_tl
-
-
-\cs_new_protected:Nn \@@_attr_new_entry:nn %#1:name, #2: content
+\prop_new:N \g_@@_attr_objref_prop %will contain obj num of used attributes
+%    \end{macrocode}
+% \end{variable}
+% \subsection{Commands and keys}
+% \begin{macro}{\@@_attr_new_entry:nn,newattribute}
+% This allows to define attributes. Defined attributes
+% are stored in a global property. |newattribute| expects
+% two brace group, the name and the content. The content typically
+% needs an |/O| key for the owner. An example look like
+% this.
+% \begin{verbatim}
+%  \tagpdfsetup
+%   {
+%    newattribute =
+%     {TH-col}{/O /Table /Scope /Column},
+%    newattribute =
+%     {TH-row}{/O /Table /Scope /Row},
+%    }
+% \end{verbatim}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_attr_new_entry:nn #1 #2 %#1:name, #2: content
   {
     \prop_gput:Nnn \g_@@_attr_entries_prop
       {#1}{#2}
@@ -1057,16 +1126,19 @@
         \@@_attr_new_entry:nn #1
       }
   }
-
-
-% the key for the structure:
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{attribute-class}
+% attribute-class has to store the used attribute names so that
+% they can be added to the ClassMap later.
+%    \begin{macrocode}
 \keys_define:nn { @@ / struct }
   {
     attribute-class .code:n =
      {
-       \clist_set:No \l_tmpa_clist { #1 }
-       \seq_set_from_clist:NN \l_tmpa_seq \l_tmpa_clist
-       \seq_map_inline:Nn \l_tmpa_seq
+       \clist_set:No \l_@@_tmpa_clist { #1 }
+       \seq_set_from_clist:NN \l_@@_tmpa_seq \l_@@_tmpa_clist
+       \seq_map_inline:Nn \l_@@_tmpa_seq
          {
            \prop_if_in:NnF \g_@@_attr_entries_prop {##1}
              {
@@ -1074,38 +1146,41 @@
              }
            \seq_gput_left:Nn\g_@@_attr_class_used_seq { ##1}
          }
-       \seq_set_map:NNn \l_tmpb_seq \l_tmpa_seq
+       \seq_set_map:NNn \l_@@_tmpb_seq \l_@@_tmpa_seq
          {
            /##1
          }
-       \tl_set:Nx \l_tmpa_tl
+       \tl_set:Nx \l_@@_tmpa_tl
          {
-           \int_compare:nT { \seq_count:N \l_tmpa_seq > 1 }{[}
-           \seq_use:Nn \l_tmpb_seq  { \c_space_tl  }
-           \int_compare:nT { \seq_count:N \l_tmpa_seq > 1 }{]}
+           \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{[}
+           \seq_use:Nn \l_@@_tmpb_seq  { \c_space_tl  }
+           \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{]}
          }
-       \int_compare:nT { \seq_count:N \l_tmpa_seq > 0 }
+       \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 0 }
          {
            \@@_prop_gput:cnx
              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
              { C }
-             { \l_tmpa_tl }
+             { \l_@@_tmpa_tl }
           %\prop_show:c  { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
          }
-    }
+     }
   }
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{attribute}
+%    \begin{macrocode}
 \keys_define:nn { @@ / struct }
   {
     attribute .code:n  = % A property (attribute, value currently a dictionary)
       {
-        \clist_set:No          \l_tmpa_clist { #1 }
-        \seq_set_from_clist:NN \l_tmpa_seq \l_tmpa_clist
+        \clist_set:No          \l_@@_tmpa_clist { #1 }
+        \seq_set_from_clist:NN \l_@@_tmpa_seq \l_@@_tmpa_clist
         \tl_set:Nx \l_@@_attr_value_tl
           {
-            \int_compare:nT { \seq_count:N \l_tmpa_seq > 1 }{[}%]
+            \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{[}%]
           }
-        \seq_map_inline:Nn \l_tmpa_seq
+        \seq_map_inline:Nn \l_@@_tmpa_seq
           {
             \prop_if_in:NnF \g_@@_attr_entries_prop {##1}
               {
@@ -1129,7 +1204,7 @@
           }
         \tl_put_right:Nx \l_@@_attr_value_tl
           { %[
-            \int_compare:nT { \seq_count:N \l_tmpa_seq > 1 }{]}%
+            \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{]}%
           }
  %     \tl_show:N \l_@@_attr_value_tl
         \@@_prop_gput:cnx
