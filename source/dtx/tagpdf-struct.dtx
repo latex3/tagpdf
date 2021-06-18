@@ -124,8 +124,7 @@
 % \begin{description}
 %    \item[objnum] the object number reference, TODO: check against xelatex/dvips
 %    \item[Type] StructTreeRoot or StructElem
-%    \item[num]  number (identical to the num in the name, or 0 for the root)
-%    TODO: check if needed.
+%    \item[entries] ??TODO: check if needed.
 %  \end{description}
 % and the keys from the two following lists
 % (the root has a special set of properties).
@@ -178,6 +177,26 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \subsubsection{Variables used by the keys}
+% \begin{variable}{\g_@@_struct_tag_tl,\g_@@_struct_tag_NS_tl}
+% Use by the tag key to store the tag and the namespace.
+%    \begin{macrocode}
+\tl_new:N \g_@@_struct_tag_tl
+\tl_new:N \g_@@_struct_tag_NS_tl
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}{\l_@@_struct_key_label_tl}
+% This will hold the label value.
+%    \begin{macrocode}
+\tl_new:N \l_@@_struct_key_label_tl
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}{\l_@@_struct_elem_stash_bool}
+% This will keep track of the stash status
+%    \begin{macrocode}
+\bool_new:N \l_@@_struct_elem_stash_bool
+%    \end{macrocode}
+% \end{variable}
 % \subsection{Commands}
 %
 % The properties must be in some places handled expandably.
@@ -251,10 +270,6 @@
   { entries }
   { StructTreeRoot }
 
-\@@_prop_gput:cnn
-  { g_@@_struct_0_prop }
-  { num }
-  { 0 }
 %    \end{macrocode}
 % Namespaces are pdf 2.0 but it doesn't harm
 % to have an empty entry. We could add a test, but if the code moves into
@@ -413,26 +428,23 @@
 
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_struct_get_dict_content:nN}
+% This maps the dictionary content of a structure into a tl-var.
+% Basically it does what |\pdfdict_use:n| does.
 % TODO!! this looks overly complicated. Check if it can be done with pdfdict now.
 % Probably I need to get rid of non-object entries in the prop first. Don't forget
 % that lua uses the objref entry in the lua code.
 %    \begin{macrocode}
-% this command can be used for roots and structure elements
-% #1 is a num
-
-\tl_new:N \l_@@_struct_dict_content_tl
-
-\cs_new:Nn \@@_struct_get_dict_content:n
+\cs_new_protected:Npn \@@_struct_get_dict_content:nN #1 #2 %#1: stucture num
   {
-    %\tl_set:Nn \l_@@_struct_dict_content_tl {<<}
-    \tl_clear:N \l_@@_struct_dict_content_tl
+    \tl_clear:N #2
     \seq_map_inline:cn
       {
         c_@@_struct_\prop_item:cn{ g_@@_struct_#1_prop }{entries}_entries_seq
       }
       {
         \tl_put_right:Nx
-          \l_@@_struct_dict_content_tl
+          #2
           {
              \prop_if_in:cnT
                { g_@@_struct_#1_prop }
@@ -442,33 +454,36 @@
                }
           }
       }
-    %\tl_put_right:Nn \l_@@_struct_dict_content_tl { >> }
   }
-
-
-% #1 is the struct num
-\cs_new:Nn \@@_struct_write_obj:n
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_struct_write_obj:n}
+% This writes out the structure object.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_write_obj:n #1 % #1 is the struct num
   {
     \pdf_object_if_exist:nTF { @@/struct/#1 }
       {
         \@@_struct_fill_kid_key:n { #1 }
-        %\prop_show:c { g_@@_struct_#1_prop }
-        \@@_struct_get_dict_content:n { #1 }
+        \@@_struct_get_dict_content:nN { #1 } \l_@@_tmpa_tl
         \exp_args:Nx
           \pdf_object_write:nx
             { @@/struct/#1 }
             {
-              \l_@@_struct_dict_content_tl
+              \l_@@_tmpa_tl
             }
       }
       {
         \msg_error:nnn { tag } { struct-no-objnum } { #1}
       }
   }
-
-% this command allows to get the current structure tag. We will need to handle nesting
-% P
-\cs_new:Nn \@@_get_data_struct_tag:
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_get_data_struct_tag:}
+% this command allows \cs{tag_get:n} to get the current
+% structure tag with the keyword |struct_tag|. We will need to handle nesting
+%    \begin{macrocode}
+\cs_new:Npn \@@_get_data_struct_tag:
   {
     \exp_args:Ne
     \tl_tail:n
@@ -476,23 +491,32 @@
        \prop_item:cn {g_@@_struct_\g__tag_struct_stack_current_tl _prop}{S}
      }
   }
-
-% keys for the user commands
-% should I pass the values (e.g. the tag) through an escape command?
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Keys}
+% This are the keys for the user commands.
 % we store the tag in a variable. But we should be careful, it is only reliable
-% at the begin
-\tl_new:N \g_@@_struct_tag_tl
-\tl_new:N \g_@@_struct_tag_NS_tl
+% at the begin.
+% \begin{macro}
+%  {
+%    label,stash,tag,
+%    title,title-o,
+%    alttext,alttext-o,
+%    actualtext,actualtext-o
+%    lang,ref,E
+%  }
+%    \begin{macrocode}
 \cs_generate_variant:Nn \seq_set_split:Nnn{Nne}
 \keys_define:nn { @@ / struct }
   {
     label .tl_set:N      = \l_@@_struct_key_label_tl,
     stash .bool_set:N    = \l_@@_struct_elem_stash_bool,
     tag   .code:n        = % S property
-      {%%????????? \pdfescapename?? slash/not slash is here the question ...
-        \seq_set_split:Nne \l_tmpa_seq { / } {#1/\prop_item:Nn\g__tag_role_tags_NS_prop{#1}}
-        \tl_gset:Nx \g_@@_struct_tag_tl    { \seq_item:Nn\l_tmpa_seq {1} }
-        \tl_gset:Nx \g_@@_struct_tag_NS_tl { \seq_item:Nn\l_tmpa_seq {2} }
+      {
+        \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:Nn\g__tag_role_tags_NS_prop{#1}}
+        \tl_gset:Nx \g_@@_struct_tag_tl    { \seq_item:Nn\l_@@_tmpa_seq {1} }
+        \tl_gset:Nx \g_@@_struct_tag_NS_tl { \seq_item:Nn\l_@@_tmpa_seq {2} }
         \bool_if:NT \g_@@_check_tags_bool
           {
             \@@_check_structure_tag:N \g_@@_struct_tag_tl
@@ -614,12 +638,17 @@
           { <\l_@@_tmpa_str> }
       },
   }
-
-% keys for AF keys, they rely on l3pdffile!
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{AF,AFinline,AFinline-o}
+% keys for the AF keys (associated files). They use commands from l3pdffile!
 % The stream variants use txt as extension to get the mimetype.
+% TODO: check if this should be configurable. For math we will perhaps need another
+% extension.
+%    \begin{macrocode}
 \keys_define:nn { @@ / struct }
  {
-    AF .code:n        = % T property
+    AF .code:n        = % AF property
       {
         \pdf_object_if_exist:nTF {#1}
           {
@@ -667,16 +696,21 @@
        \group_end:
      }
  }
-
+%    \end{macrocode}
+% \end{macro}
+% \subsection{User commands}
+%    \begin{macrocode}
 \cs_generate_variant:Nn \pdf_object_ref:n {e} % check later
-\cs_new_protected:Nn \tag_struct_begin:n
+%    \end{macrocode}
+% \begin{macro}{\tag_struct_begin:n}
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_struct_begin:n #1 %#1 key-val
   {
     \group_begin:
     \int_gincr:N \c@g_@@_struct_abs_int
     \@@_prop_new:c  { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
     \@@_new_output_prop_handler:n {\int_eval:n { \c@g_@@_struct_abs_int }}
     \@@_seq_new:c  { g_@@_struct_kids_\int_eval:n { \c@g_@@_struct_abs_int }_seq}
-    %\@@_pdfreserveobjnum:N \l_tmpa_tl
     \exp_args:Ne
       \pdf_object_new:nn
         { @@/struct/\int_eval:n { \c@g_@@_struct_abs_int } }
@@ -689,11 +723,6 @@
           \pdf_object_ref:n
             {@@/struct/\int_eval:n { \c@g_@@_struct_abs_int }}
       }
-%    \prop_show:c { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
-    \@@_prop_gput:cnx
-      { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
-      { num}
-      { \int_eval:n { \c@g_@@_struct_abs_int } }
     \@@_prop_gput:cno
       { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
       { Type }
