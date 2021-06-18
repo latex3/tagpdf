@@ -124,7 +124,6 @@
 % \begin{description}
 %    \item[objnum] the object number reference, TODO: check against xelatex/dvips
 %    \item[Type] StructTreeRoot or StructElem
-%    \item[entries] ??TODO: check if needed.
 %  \end{description}
 % and the keys from the two following lists
 % (the root has a special set of properties).
@@ -264,11 +263,6 @@
   { g_@@_struct_0_prop }
   { RoleMap }
   { \pdf_object_ref:n { @@/tree/rolemap } }
-
-\@@_prop_gput:cnn
-  { g_@@_struct_0_prop }
-  { entries }
-  { StructTreeRoot }
 
 %    \end{macrocode}
 % Namespaces are pdf 2.0 but it doesn't harm
@@ -442,7 +436,6 @@
       {
         c_@@_struct_
          \int_compare:nNnTF{#1}={0}{StructTreeRoot}{StructElem}
-         %\prop_item:cn{ g_@@_struct_#1_prop }{entries}
          _entries_seq
       }
       {
@@ -730,10 +723,6 @@
       { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
       { Type }
       { /StructElem }
-    \@@_prop_gput:cno
-      { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
-      { entries }
-      { StructElem }
     \keys_set:nn { @@ / struct} { #1 }
     \@@_check_structure_has_tag:n { \int_eval:n {\c@g_@@_struct_abs_int} }
     \tl_if_empty:NF
@@ -760,9 +749,6 @@
           { P }
           {
             \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
-           % \prop_item:cn
-%              { g_@@_struct_\l_@@_struct_stack_parent_tmpa_tl _prop}
-%              { objref }
           }
         %record this structure as kid:
         %\tl_show:N \g_@@_struct_stack_current_tl
