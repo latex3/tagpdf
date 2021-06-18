@@ -413,6 +413,9 @@
 
 %    \end{macrocode}
 % \end{macro}
+% TODO!! this looks overly complicated. Check if it can be done with pdfdict now.
+% Probably I need to get rid of non-object entries in the prop first. Don't forget
+% that lua uses the objref entry in the lua code.
 %    \begin{macrocode}
 % this command can be used for roots and structure elements
 % #1 is a num
@@ -446,9 +449,7 @@
 % #1 is the struct num
 \cs_new:Nn \@@_struct_write_obj:n
   {
-    \prop_if_in:cnTF
-      { g_@@_struct_#1_prop }
-      { objref }
+    \pdf_object_if_exist:nTF { @@/struct/#1 }
       {
         \@@_struct_fill_kid_key:n { #1 }
         %\prop_show:c { g_@@_struct_#1_prop }
@@ -667,6 +668,7 @@
      }
  }
 
+\cs_generate_variant:Nn \pdf_object_ref:n {e} % check later
 \cs_new_protected:Nn \tag_struct_begin:n
   {
     \group_begin:
@@ -725,9 +727,10 @@
           { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
           { P }
           {
-            \prop_item:cn
-              { g_@@_struct_\l_@@_struct_stack_parent_tmpa_tl _prop}
-              { objref }
+            \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
+           % \prop_item:cn
+%              { g_@@_struct_\l_@@_struct_stack_parent_tmpa_tl _prop}
+%              { objref }
           }
         %record this structure as kid:
         %\tl_show:N \g_@@_struct_stack_current_tl
@@ -788,9 +791,10 @@
           { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
           { P }
           {
-            \prop_item:cn
-              { g_@@_struct_\g_@@_struct_stack_current_tl _prop}
-              { objref }
+            \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
+            %\prop_item:cn
+%              { g_@@_struct_\g_@@_struct_stack_current_tl _prop}
+%              { objref }
           }
       }
       {
@@ -848,9 +852,10 @@
             #2
           }
           {
-            \prop_item:cn
-              { g_@@_struct_\l_@@_struct_stack_parent_tmpa_tl _prop }
-              { objref }
+            \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
+          %  \prop_item:cn
+%              { g_@@_struct_\l_@@_struct_stack_parent_tmpa_tl _prop }
+%              { objref }
           }
         % increase the int:
         \stepcounter{ g_@@_parenttree_obj_int }
