@@ -21,57 +21,122 @@
 %    https://github.com/u-fischer/tagpdf
 %
 % for those people who are interested.
-%
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-tree module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
 % \fi
+% \title{^^A
+%   The \pkg{tagpdf-struct} module\\ Commands to create the structure   ^^A
+%   \\ part of the tagpdf package
+% }
 %
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.82, released 2021-06-14}
+% \maketitle
+% \section{Structure code}
+% \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
 %<*struct>
 \ProvidesExplPackage {tagpdf-struct-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to storing structure}
 %    \end{macrocode}
+% \subsection{Variables}
+% \begin{variable}{\c@g_@@_struct_abs_int}
+% Every structure will have a unique, absolute number.
 % I will use a latex counter for the structure count
-% to have a chance to avoid double structures in align etc
+% to have a chance to avoid double structures in align etc.
+%
 %    \begin{macrocode}
 \newcounter  { g_@@_struct_abs_int }
 \int_gzero:N \c@g_@@_struct_abs_int
 %    \end{macrocode}
-% a sequence to store structnum -> the obj numbers
-% to allow easy mapping over the structures
+% \end{variable}
+%
+% \begin{variable}{\g_@@_struct_objR_seq}
+% a sequence to store mapping between the
+% structure number and the object number.
+% We assume that structure numbers are assign
+% consecutively and so the index of the seq can be used.
+% A seq allows easy mapping over the structures.
 %    \begin{macrocode}
 \@@_seq_new:N  \g_@@_struct_objR_seq
 %    \end{macrocode}
-% a sequence for the structure stack.
+% \end{variable}
+%
+% \begin{variable}{\g_@@_struct_stack_seq}
+% A stack sequence for the structure stack.
 % When a sequence is opened it's number is put on the stack.
 %    \begin{macrocode}
 \seq_new:N    \g_@@_struct_stack_seq
 \seq_gpush:Nn \g_@@_struct_stack_seq {0}
 %    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_struct_tag_stack_seq}
 % We will perhaps also need the tags. While it is possible to get them from the
 % numbered stack, lets build a tag stack too.
 %    \begin{macrocode}
 \seq_new:N    \g_@@_struct_tag_stack_seq
 \seq_gpush:Nn \g_@@_struct_tag_stack_seq {Root}
 %    \end{macrocode}
-%this variables will hold the number of top entry and the parent on the stack
+% \end{variable}
+%
+% \begin{variable}{\g_@@_struct_stack_current_tl,\l_@@_struct_stack_parent_tmpa_tl}
+% The global variable will hold the current structure number.
+% The local temporary variable will hold the parent when we fetch it from the stack.
 %    \begin{macrocode}
-\tl_new:N     \l_@@_struct_stack_parent_tmp_tl
 \tl_new:N     \g_@@_struct_stack_current_tl
+\tl_new:N     \l_@@_struct_stack_parent_tmpa_tl
 %    \end{macrocode}
-% I need at least one structure: the StructTreeRoot
+% \end{variable}
+%
+% I will need at least one structure: the StructTreeRoot
 % normally it should have only one kid, e.g. the document element.
 
 % The data of the StructTreeRoot and the StructElem are in properties:
-% \g_@@_struct_0_prop for the root
-% \g_@@_struct_N_prop, N >=1
-% they have all the keys
-% objnum    - number,
-% Type      - StructTreeRoot or StructElem
-% num - number (identical to the num in the name, or 0 for the root)
+% |\g_@@_struct_0_prop| for the root and
+% |\g_@@_struct_N_prop|, $N \geq =1$ for the other.
+%
+% This creates quite a number of properties, so perhaps we will have to
+% do this more efficiently in the future.
+%
+% All properties have at least the keys
+% \begin{description}
+%    \item[objnum] the object number reference, TODO: check against xelatex/dvips
+%    \item[Type] StructTreeRoot or StructElem
+%    \item[num]  number (identical to the num in the name, or 0 for the root)
+%  \end{description}
 % and the keys from the two following lists
 % (the root has a special set of properties).
 % the values of the prop should be already escaped properly
 % when the entries are created (title,lange,alt,E,actualtext)
+% \begin{variable}
+%   {
+%     \c_@@_struct_StructTreeRoot_entries_seq,
+%     \c_@@_struct_StructElem_entries_seq
+%   }
+%  This contains the keys we support in the two object types.
+%  They need to be adapted if there are changes in the PDF format.
 %    \begin{macrocode}
 \seq_const_from_clist:Nn \c_@@_struct_StructTreeRoot_entries_seq
   {%p. 857/858
@@ -79,7 +144,7 @@
     K,                 % kid, dictionary or array of dictionaries
     IDTree,            % currently unused
     ParentTree,        % required,obj ref to the parent tree
-    ParentTreeNextKey, %optional
+    ParentTreeNextKey, % optional
     RoleMap,
     ClassMap,
     Namespaces
@@ -96,22 +161,35 @@
     K,                 %kids
     A,                 %attributes, probably unused
     C,                 %class ""
-    %R,
+    %R,                %attribute revision number, irrelevant for us as we
+                       % don't update/change existing PDF and (probably)
+                       % deprecated in PDF 2.0
     T,                 %title, value in () or <>
     Lang,              %language
     Alt,               % value in () or <>
-    E,                 %abreviation
+    E,                 % abreviation
     ActualText,
     AF,                 %pdf 2.0, array of dict, associated files
     NS,                 %pdf 2.0, dict, namespace
     PhoneticAlphabet,   %pdf 2.0
     Phoneme             %pdf 2.0
   }
-
-% I need an output handler for each prop, to get expandable output
-% see https://tex.stackexchange.com/questions/424208/expandable-version-of-a-expl3-command/424213#424213
-
-\cs_new:Nn \@@_struct_output_prop_aux:nn %#1 num, #2 key
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{Commands}
+%
+% The properties must be in some places handled expandably.
+% So I need an output handler for each prop, to get expandable output
+% see \url{https://tex.stackexchange.com/questions/424208}.
+% There is probably room here for a more efficient implementation.
+% TODO check if this can now be implemented with the pdfdict commands.
+% The property contains currently non pdf keys, but e.g. object numbers are
+% perhaps no longer needed as we have named object anyway.
+%
+% \begin{macro}{\@@_struct_output_prop_aux:nn,\@@_new_output_prop_handler:n}
+%    \begin{macrocode}
+\cs_new:Npn \@@_struct_output_prop_aux:nn #1 #2 %#1 num, #2 key
   {
     \prop_if_in:cnT
       { g_@@_struct_#1_prop }
@@ -121,24 +199,31 @@
       }
   }
 
-\cs_new:Nn \@@_new_output_prop_handler:n
+\cs_new_protected:Npn \@@_new_output_prop_handler:n #1
   {
     \cs_new:cn { @@_struct_output_prop_#1:n }
       {
         \@@_struct_output_prop_aux:nn {#1}{##1}
       }
   }
-
-
-% the first one, the StructTreeRoot is special, so
-% created manually:
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Initialization of the StructTreeRoot}
+% The first structure element, the StructTreeRoot is special, so
+% created manually. The underlying object |@@/struct/0| and the
+% other objects are setup in the tree code, which must be loaded first.
+%
+%    \begin{macrocode}
+\tl_gset:Nn \g_@@_struct_stack_current_tl {0}
+%    \end{macrocode}
+%
+% \begin{variable}{g_@@_struct_0_prop,g_@@_struct_kids_0_seq}
+%    \begin{macrocode}
 \@@_prop_new:c { g_@@_struct_0_prop }
 \@@_new_output_prop_handler:n {0}
-\tl_gset:Nn \g_@@_struct_stack_current_tl {0}
-
 \@@_seq_new:c  { g_@@_struct_kids_0_seq }
 
-% new
 \@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { objref}
@@ -149,7 +234,7 @@
   { Type }
   { /StructTreeRoot }
 
-% the constants are defined in the tree code.
+
 \@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { ParentTree }
@@ -169,51 +254,75 @@
   { g_@@_struct_0_prop }
   { num }
   { 0 }
-
-%Namespaces are pdf 2.0 but it doesn't harm to have an empty entry
+%    \end{macrocode}
+% Namespaces are pdf 2.0 but it doesn't harm
+% to have an empty entry. We could add a test, but if the code moves into
+% the kernel, timing could get tricky.
+%    \begin{macrocode}
 \@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { Namespaces }
   { \pdf_object_ref:n { @@/tree/namespaces } }
-
-
-% commands to store the kids
-% I don't compare the page objects number yet, but always add the /Pg key, perhaps later
-
-\cs_new:Nn \@@_struct_kid_mc_gput_right:nn %#1 structure num, #2 MCID absnum%
+%    \end{macrocode}
+% \end{macro}
+% \subsubsection{Handlings kids}
+% Commands to store the kids. Kids in a structure can be a reference to a mc-chunk,
+% an object reference to another structure element, or a object reference to an
+% annotation (through an OBJR object).
+% \begin{macro}{\@@_struct_kid_mc_gput_right:nn}
+% The command to store an mc-chunk, this is a dictionary of type MCR.
+% It would be possible to write out the content directly as unnamed object
+% and to store only the object reference, but probably this would be slower,
+% and the PDF is more readable like this.
+% The code doesn't try to avoid the use of the /Pg key by checking page numbers.
+% That imho only slows down without much gain.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_kid_mc_gput_right:nn #1 #2 %#1 structure num, #2 MCID absnum%
   {
-    %\@@_store_pdfpageref:Nn \l_tmpa_tl { \@@_ref_value:enn{mcid-#2}{tagabspage}{1} }
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
       {
         <<
         /Type \c_space_tl /MCR \c_space_tl
-        /Pg %\c_space_tl \l_tmpa_tl \c_space_tl 0 \c_space_tl R \c_space_tl
+        /Pg
           \c_space_tl
           \pdf_pageobject_ref:n { \@@_ref_value:enn{mcid-#2}{tagabspage}{1} }
         /MCID \c_space_tl \@@_ref_value:enn{mcid-#2}{tagmcid}{1}
         >>
       }
   }
-
-\cs_new:Nn\@@_struct_kid_struct_gput_right:nn %#1 num of parent struct, #2 kid struct
+%    \end{macrocode}
+% \end{macro}
+%  \begin{macro}
+%    {
+%      \@@_struct_kid_struct_gput_right:nn,\@@_struct_kid_struct_gput_right:xx
+%    }
+%  This commands adds a structure as kid. We only need to record the object
+%  reference in the sequence.
+%    \begin{macrocode}
+\cs_new_protected:Npn\@@_struct_kid_struct_gput_right:nn #1 #2 %#1 num of parent struct, #2 kid struct
   {
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
       {
-        \prop_item:cn
-          { g_@@_struct_#2_prop }
-          { objref }
+        \pdf_object_ref:n { @@/struct/#2 }
       }
  }
 
-\cs_new:Nn\@@_struct_kid_OBJR_gput_right:nn %#1 num of parent struct, #2 obj reference
+\cs_generate_variant:Nn \@@_struct_kid_struct_gput_right:nn {xx}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_struct_kid_OBJR_gput_right:nn}
+% At last the command to add an OBJR object. This has to write an object first.
+%
+%    \begin{macrocode}
+\cs_new_protected:Npn\@@_struct_kid_OBJR_gput_right:nn #1 #2 %#1 num of parent struct,
+                                                             %#2 obj reference
   {
-    \pdf_object_unnamed_write:nx
+    \pdf_object_unnamed_write:nn
       { dict }
       {
-        /Type \c_space_tl /OBJR \c_space_tl
-        /Obj~#2
+        /Type/OBJR/Obj~#2
       }
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
@@ -222,7 +331,11 @@
       }
   }
 
-\cs_generate_variant:Nn\@@_struct_kid_OBJR_gput_right:nn { nx }
+\cs_generate_variant:Nn\@@_struct_kid_OBJR_gput_right:nn { xx }
+
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 
 \cs_new:Nn\@@_struct_exchange_kid_command:N %N= seq
   {
@@ -579,7 +692,7 @@
     %get the potential parent from the stack:
     \seq_get:NNF
       \g_@@_struct_stack_seq
-      \l_@@_struct_stack_parent_tmp_tl
+      \l_@@_struct_stack_parent_tmpa_tl
       {
         \msg_error:nn { tag } { struct-faulty-nesting }
       }
@@ -595,20 +708,20 @@
           { P }
           {
             \prop_item:cn
-              { g_@@_struct_\l_@@_struct_stack_parent_tmp_tl _prop}
+              { g_@@_struct_\l_@@_struct_stack_parent_tmpa_tl _prop}
               { objref }
           }
         %record this structure as kid:
         %\tl_show:N \g_@@_struct_stack_current_tl
-        %\tl_show:N \l_@@_struct_stack_parent_tmp_tl
-        \@@_struct_kid_struct_gput_right:nn
-          { \l_@@_struct_stack_parent_tmp_tl }
-          { \g_@@_struct_stack_current_tl }
+        %\tl_show:N \l_@@_struct_stack_parent_tmpa_tl
+        \@@_struct_kid_struct_gput_right:xx
+           { \l_@@_struct_stack_parent_tmpa_tl }
+           { \g_@@_struct_stack_current_tl }
         %\prop_show:c { g_@@_struct_\g_@@_struct_stack_current_tl _prop }
-        %\seq_show:c {g_@@_struct_kids_\l_@@_struct_stack_parent_tmp_tl _seq}
+        %\seq_show:c {g_@@_struct_kids_\l_@@_struct_stack_parent_tmpa_tl _seq}
       }
     %\prop_show:c { g_@@_struct_\g_@@_struct_stack_current_tl _prop }
-    %\seq_show:c {g_@@_struct_kids_\l_@@_struct_stack_parent_tmp_tl _seq}
+    %\seq_show:c {g_@@_struct_kids_\l_@@_struct_stack_parent_tmpa_tl _seq}
     \group_end:
   }
 
@@ -649,7 +762,7 @@
       {
         \@@_check_struct_used:n {#1}
         %add the label structure as kid to the current structure (can be the root)
-        \@@_struct_kid_struct_gput_right:nn
+        \@@_struct_kid_struct_gput_right:xx
           { \g_@@_struct_stack_current_tl }
           { \@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0} }
         %add the current structure to the labeled one as parents
@@ -698,14 +811,14 @@
         %get the number of the parent link structure:
         \seq_get:NNF
           \g_@@_struct_stack_seq
-          \l_@@_struct_stack_parent_tmp_tl
+          \l_@@_struct_stack_parent_tmpa_tl
           {
             \msg_error:nn { tag } { struct-faulty-nesting }
           }
         %put the obj number of link annot in the kid entry:
-        \@@_struct_kid_OBJR_gput_right:nx
+        \@@_struct_kid_OBJR_gput_right:xx
           {
-            \l_@@_struct_stack_parent_tmp_tl
+            \l_@@_struct_stack_parent_tmpa_tl
           }
           {
             #1 %
@@ -718,7 +831,7 @@
           }
           {
             \prop_item:cn
-              { g_@@_struct_\l_@@_struct_stack_parent_tmp_tl _prop }
+              { g_@@_struct_\l_@@_struct_stack_parent_tmpa_tl _prop }
               { objref }
           }
         % increase the int:
@@ -855,3 +968,5 @@
   }
 %</attr>
 %    \end{macrocode}
+% \end{macro}
+% \end{implementation}
