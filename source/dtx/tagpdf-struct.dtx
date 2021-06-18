@@ -125,6 +125,7 @@
 %    \item[objnum] the object number reference, TODO: check against xelatex/dvips
 %    \item[Type] StructTreeRoot or StructElem
 %    \item[num]  number (identical to the num in the name, or 0 for the root)
+%    TODO: check if needed.
 %  \end{description}
 % and the keys from the two following lists
 % (the root has a special set of properties).
@@ -312,9 +313,11 @@
 \cs_generate_variant:Nn \@@_struct_kid_struct_gput_right:nn {xx}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_struct_kid_OBJR_gput_right:nn}
+% \begin{macro}
+%  {\@@_struct_kid_OBJR_gput_right:nn,\@@_struct_kid_OBJR_gput_right:xx}
 % At last the command to add an OBJR object. This has to write an object first.
-%
+% The first argument is the number of the parent structure, the second the
+% (expanded) object reference of the annotation.
 %    \begin{macrocode}
 \cs_new_protected:Npn\@@_struct_kid_OBJR_gput_right:nn #1 #2 %#1 num of parent struct,
                                                              %#2 obj reference
@@ -335,27 +338,39 @@
 
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}
+%   {\@@_struct_exchange_kid_command:N, \@@_struct_exchange_kid_command:c}
+%  In luamode it can happen that a single kid in a structure is split at a page
+%  break into two or more mcid. In this case the lua code has to convert
+%  put the dictionary of the kid into an array. See issue 13 at tagpdf repo.
+%  We exchange the dummy command for the kids to mark this case.
 %    \begin{macrocode}
-
-\cs_new:Nn\@@_struct_exchange_kid_command:N %N= seq
+\cs_new_protected:Npn\@@_struct_exchange_kid_command:N #1 %#1 = seq var
   {
-    \seq_gpop_left:NN #1 \l_tmpa_tl
+    \seq_gpop_left:NN #1 \l_@@_tmpa_tl
     \regex_replace_once:nnN
       { \c{\@@_mc_insert_mcid_kids:n} }
       { \c{\@@_mc_insert_mcid_single_kids:n} }
-      \l_tmpa_tl
-   \seq_gput_left:NV #1 \l_tmpa_tl
+      \l_@@_tmpa_tl
+    \seq_gput_left:NV #1 \l_@@_tmpa_tl
   }
 
 \cs_generate_variant:Nn\@@_struct_exchange_kid_command:N { c }
-
-\cs_new:Nn \@@_struct_fill_kid_key:n %#1 is the struct num
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{ \@@_struct_fill_kid_key:n }
+% This command adds to kid info to the K entry. In lua mode the
+% content contains commands which are expanded later. The argument is the structure
+% number.
+%
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_fill_kid_key:n #1 %#1 is the struct num
   {
     \int_case:nnF
       {
         \seq_count:c
           {
-            g_@@_struct_kids_\prop_item:cn{ g_@@_struct_#1_prop }{num}_seq
+            g_@@_struct_kids_#1_seq
           }
       }
       {
@@ -364,17 +379,17 @@
         { 1 } % 1 kid, insert
          {
            % in this case we need a special command in
-           %luamode to get the array right. See issue #13
+           % luamode to get the array right. See issue #13
            \bool_if:NT\g_@@_mode_lua_bool
              {
                \@@_struct_exchange_kid_command:c
-                 {g_@@_struct_kids_\prop_item:cn{ g_@@_struct_#1_prop }{num}_seq}
+                {g_@@_struct_kids_#1_seq}
              }
            \@@_prop_gput:cnx { g_@@_struct_#1_prop } {K}
              {
                \seq_item:cn
                  {
-                   g_@@_struct_kids_\prop_item:cn{ g_@@_struct_#1_prop }{num}_seq
+                   g_@@_struct_kids_#1_seq
                  }
                  {1}
              }
@@ -386,7 +401,7 @@
             [
               \seq_use:cn
                 {
-                  g_@@_struct_kids_\prop_item:cn{ g_@@_struct_#1_prop }{num}_seq
+                  g_@@_struct_kids_#1_seq
                 }
                 {
                   \c_space_tl
@@ -396,6 +411,9 @@
       }
   }
 
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 % this command can be used for roots and structure elements
 % #1 is a num
 
