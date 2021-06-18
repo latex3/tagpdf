@@ -431,7 +431,7 @@
 % \begin{macro}{\@@_struct_get_dict_content:nN}
 % This maps the dictionary content of a structure into a tl-var.
 % Basically it does what |\pdfdict_use:n| does.
-% TODO!! this looks overly complicated. Check if it can be done with pdfdict now.
+% TODO!! this looks over-complicated. Check if it can be done with pdfdict now.
 % Probably I need to get rid of non-object entries in the prop first. Don't forget
 % that lua uses the objref entry in the lua code.
 %    \begin{macrocode}
@@ -440,7 +440,10 @@
     \tl_clear:N #2
     \seq_map_inline:cn
       {
-        c_@@_struct_\prop_item:cn{ g_@@_struct_#1_prop }{entries}_entries_seq
+        c_@@_struct_
+         \int_compare:nNnTF{#1}={0}{StructTreeRoot}{StructElem}
+         %\prop_item:cn{ g_@@_struct_#1_prop }{entries}
+         _entries_seq
       }
       {
         \tl_put_right:Nx
