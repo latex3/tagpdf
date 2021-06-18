@@ -52,7 +52,121 @@
 %
 % \date{Version 0.82, released 2021-06-14}
 % \maketitle
-% \section{Structure code}
+% \begin{documentation}
+% \section{Public Commands}
+% \begin{function}{\tag_struct_begin:n,\tag_struct_end:}
+%   \begin{syntax}
+%     \cs{tag_struct_begin:n}\Arg{key-values}\\
+%     \cs{tag_struct_end:}
+%   \end{syntax}
+%  These commands start and end a new structure.
+%  They don't start a group. They set all their values globally.
+% \end{function}
+%  \begin{function}{\tag_struct_use:n}
+%   \begin{syntax}
+%     \cs{tag_struct_use:n}\Arg{label}
+%   \end{syntax}
+% These commands insert a structure previously stashed away as kid
+% into the currently active structure.
+% A structure should be used only once,
+% if the structure already has a parent a warning is issued.
+% \end{function}
+% The following two functions are used to add annotations. They must be used
+% together and with care to get the same numbers. Perhaps some improvements are needed
+% here.
+%  \begin{function}{\tag_struct_insert_annot:nn}
+%   \begin{syntax}
+%     \cs{tag_struct_insert_annot:nn}\Arg{object reference}\Arg{struct parent number}
+%   \end{syntax}
+% This inserts an annotation in the structure. \meta{object reference}
+% is there reference to the annotation. \meta{struct parent number}
+% should be the same number as had been inserted with \cs{tag_struct_parent_int:}
+% as |StructParent| value to the dictionary of the annotion.
+% The command will increase the value of the counter
+% used by \cs{tag_struct_parent_int:}.
+% \end{function}
+% \begin{function}{\tag_struct_parent_int:}
+%   \begin{syntax}
+%     \cs{tag_struct_parent_int:}
+%   \end{syntax}
+% This gives back the next free /StructParent number (assuming that it is
+% together with \cs{tag_struct_insert_annot:nn} which will increase the number.
+% \end{function}
+% \section{Public keys}
+% \begin{function}{tag}
+% This is required. The value of the key is normally one of the
+% standard types listed in section \ref{sec:new-tag}.
+% It is possible to setup new tags/types.
+% The value can also be of the form |type/NS|, where |NS| is the
+% shorthand of a declared name space.
+% Currently the names spaces |pdf|, |pdf2|, |mathml| and |user| are defined.
+% This allows to use a different name space than
+% the one connected by default to the tag. But normally this should not be needed.
+% \end{function}
+% \begin{function}{stash}
+%  Normally a new structure inserts itself as a kid
+%  into the currently active structure. This key prohibits this.
+%  The structure is nevertheless from now on
+%  \enquote{the current active structure}
+%  and parent for following  marked content and structures.
+% \end{function}
+% \begin{function}{label}
+% This key sets a label by which
+% one can use the structure later in another structure.
+% Internally the label name will start with \texttt{tagpdfstruct-}.
+% \end{function}
+% \begin{function}{title,title-o}
+% This keys allows to set the dictionary entry
+% \texttt{/Title} in the structure object.
+% The value is handled as verbatim string and hex encoded.
+% Commands are not expanded. |title-o| will expand the value once.
+% \end{function}
+%
+% \begin{function}{alttext,alttext-o}
+% This key inserts an \texttt{/Alt} value in the dictionary of structure object.
+% The value is handled as verbatim string and hex encoded.
+% |alttext-o| will expand the value once.
+% \end{function}
+% \begin{function}{actualtext,actualtext-o}
+% This key inserts an \texttt{/ActualText} value in the dictionary of structure object.
+% The value is handled as verbatim string and hex encoded.
+% |actualtext-o| will expand the value once.
+% \end{function}
+% \begin{function}{lang}
+% This key allows to set the language for a structure element. The value should be a bcp-identifier,
+% e.g. |de-De|.
+% \end{function}
+% \begin{function}{ref}
+%  This key allows to add references to other structure elements,
+%  it adds the |/Ref| array to the structure.
+% The value should be a comma separated list of structure labels
+% set with the |label| key. e.g. |ref={label1,label2}|.
+% \end{function}
+% \begin{function}{E}
+%  This key sets the |/E| key, the expanded form of an
+%  abbreviation or an acronym
+%  (I couldn't think of a better name, so I sticked to E).
+% \end{function}
+% \begin{function}{AF,AFinline,AFinline-o}
+% \begin{syntax}
+% AF = \meta{object name}\\
+% AF-inline = \meta{text content}
+% \end{syntax}
+% These keys allows to reference an associated file in the structure element.
+% The value \meta{object name} should be the name of an object pointing
+% to the \texttt{/Filespec} dictionary as expected by
+% |\pdf_object_ref:n| from a current \texttt{l3kernel}.
+%
+% The value |AF-inline| is some text,
+% which is embedded in the PDF as a text file with mime type text/plain.
+% |AF-inline-o| is like |AF-inline| but expands the value once.
+%
+% Future versions will perhaps extend this to more mime types, but it is
+% still a research task to find out what is really needed.
+%
+% \end{function}
+%
+% \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
@@ -274,7 +388,7 @@
   { Namespaces }
   { \pdf_object_ref:n { @@/tree/namespaces } }
 %    \end{macrocode}
-% \end{macro}
+% \end{variable}
 % \subsubsection{Handlings kids}
 % Commands to store the kids. Kids in a structure can be a reference to a mc-chunk,
 % an object reference to another structure element, or a object reference to an
@@ -475,6 +589,67 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_struct_insert_annot:nn}
+% This is the command to insert an annotation into the structure.
+% It can probably be used for xform too.
+%
+% Annotations used as structure content must
+% \begin{enumerate}
+% \item add a StructParent integer to their dictionary
+% \item push the object reference as OBJR object in the structure
+% \item Add a Stuctparent/obj-nr reference to the parent tree.
+% \end{enumerate}
+% For a link this looks like this
+% \begin{verbatim}
+%         \tag_struct_begin:n { tag=Link }
+%         \tag_mc_begin:n { tag=Link }
+% (1)     \pdfannot_dict_put:nnx
+%           { link/URI }
+%           { StructParent }
+%           { \int_use:N\c@g_@@_parenttree_obj_int }
+%    <start link> link text <stop link>
+% (2+3)   \@@_struct_insert_annot:nn {obj ref}{parent num}
+%         \tag_mc_end:
+%         \tag_struct_end:
+% \end{verbatim}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_insert_annot:nn #1 #2 %#1 object reference to the annotation/xform
+                                                       %#2 structparent number
+  {
+    \bool_if:NT \g_@@_active_struct_bool
+      {
+        %get the number of the parent structure:
+        \seq_get:NNF
+          \g_@@_struct_stack_seq
+          \l_@@_struct_stack_parent_tmpa_tl
+          {
+            \msg_error:nn { tag } { struct-faulty-nesting }
+          }
+        %put the obj number of the annot in the kid entry, this also creates
+        %the OBJR object
+        \@@_struct_kid_OBJR_gput_right:xx
+          {
+            \l_@@_struct_stack_parent_tmpa_tl
+          }
+          {
+            #1 %
+          }
+        % add the parent obj number to the parent tree:
+        \exp_args:Nnx
+        \@@_parenttree_add_objr:nn
+          {
+            #2
+          }
+          {
+            \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
+          }
+        % increase the int:
+        \stepcounter{ g_@@_parenttree_obj_int }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_get_data_struct_tag:}
 % this command allows \cs{tag_get:n} to get the current
 % structure tag with the keyword |struct_tag|. We will need to handle nesting
@@ -694,11 +869,13 @@
  }
 %    \end{macrocode}
 % \end{macro}
+%
 % \subsection{User commands}
 %    \begin{macrocode}
 \cs_generate_variant:Nn \pdf_object_ref:n {e} % check later
 %    \end{macrocode}
-% \begin{macro}{\tag_struct_begin:n}
+%
+% \begin{macro}{\tag_struct_begin:n,\tag_struct_end:}
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_struct_begin:n #1 %#1 key-val
   {
@@ -769,8 +946,8 @@
   { %take the current structure num from the stack:
     %the objects are written later, lua mode hasn't all needed info yet
     %\seq_show:N \g_@@_struct_stack_seq
-    \seq_gpop:NN \g_@@_struct_tag_stack_seq \l_tmpa_tl
-    \seq_gpop:NNTF \g_@@_struct_stack_seq \l_tmpa_tl
+    \seq_gpop:NN   \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
+    \seq_gpop:NNTF \g_@@_struct_stack_seq \l_@@_tmpa_tl
       {
         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
           {
@@ -779,25 +956,27 @@
       }
       { \@@_check_no_open_struct: }
     % get the previous one, shouldn't be empty as the root should be there
-    \seq_get:NNTF \g_@@_struct_stack_seq \l_tmpa_tl
+    \seq_get:NNTF \g_@@_struct_stack_seq \l_@@_tmpa_tl
       {
-        \tl_gset:NV   \g_@@_struct_stack_current_tl \l_tmpa_tl
+        \tl_gset:NV   \g_@@_struct_stack_current_tl \l_@@_tmpa_tl
       }
       {
         \@@_check_no_open_struct:
       }
-   \seq_get:NNT \g_@@_struct_tag_stack_seq \l_tmpa_tl
+   \seq_get:NNT \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
       {
-        \tl_gset:NV \g_@@_struct_tag_tl \l_tmpa_tl
+        \tl_gset:NV \g_@@_struct_tag_tl \l_@@_tmpa_tl
       }
   }
-
-
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_struct_use:n}
+% This command allows to use a stashed structure in another place.
+%    \begin{macrocode}
 \cs_new_protected:Nn \tag_struct_use:n %#1 is the label
   {
     \prop_if_exist:cTF
-      { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %??????????
+      { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
       {
         \@@_check_struct_used:n {#1}
         %add the label structure as kid to the current structure (can be the root)
@@ -810,81 +989,31 @@
           { P }
           {
             \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
-            %\prop_item:cn
-%              { g_@@_struct_\g_@@_struct_stack_current_tl _prop}
-%              { objref }
           }
       }
       {
         \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
       }
   }
-
-
-%%%% Code to tag annotations like links.
-% Annotations used as structure content must
-% (1) add a StructParent integer to their dictionary
-% (2) push the object reference as OBJR object in the structure
-% (3) Add a Stuctparent/obj-nr reference to the parent three.
-% For a link this looks like this
-%         \tag_struct_begin:n { tag=Link }
-%         \tag_mc_begin:n { tag=Link }
-% (1)     \pdfannot_dict_put:nnx
-%           { link/URI }
-%           { StructParent }
-%           { \int_use:N\c@g_@@_parenttree_obj_int }
-%    <start link> link text <stop link>
-% (2+3)   \@@_struct_insert_annot:nn {obj ref}{parent num}
-%         \tag_mc_end:
-%         \tag_struct_end:
+%    \end{macrocode}
+% \end{macro}
 %
-%%%% this works for url, see exp-link.pdf.
-%%%% it must be checked for other links
-
-
-% this will probably be used for xform too, but then we can rename it.
-\cs_new_protected:Npn \@@_struct_insert_annot:nn #1 #2 %#1 object reference to the annotation/xform
-                                                       %#2 structparent number
-  {
-    \bool_if:NT \g_@@_active_struct_bool
-      {
-        %get the number of the parent link structure:
-        \seq_get:NNF
-          \g_@@_struct_stack_seq
-          \l_@@_struct_stack_parent_tmpa_tl
-          {
-            \msg_error:nn { tag } { struct-faulty-nesting }
-          }
-        %put the obj number of link annot in the kid entry:
-        \@@_struct_kid_OBJR_gput_right:xx
-          {
-            \l_@@_struct_stack_parent_tmpa_tl
-          }
-          {
-            #1 %
-          }
-        % add the parent obj number to the parent tree:
-        \exp_args:Nnx
-        \@@_parenttree_add_objr:nn
-          {
-            #2
-          }
-          {
-            \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
-          %  \prop_item:cn
-%              { g_@@_struct_\l_@@_struct_stack_parent_tmpa_tl _prop }
-%              { objref }
-          }
-        % increase the int:
-        \stepcounter{ g_@@_parenttree_obj_int }
-      }
-  }
-
-
-
-% Code to add an annot to the structure.
-% This is for example needed for widget annotations and form field
-% It reuses the command used by links
+% \begin{macro}
+%   {
+%     \tag_struct_insert_annot:nn,
+%     \tag_struct_insert_annot:xx
+%   }
+% \begin{macro}[EXP]
+%   {
+%     \tag_struct_parent_int:
+%   }
+% This are the user command to insert annotations. They must be used
+% together to get the numbers right. They use a counter to the
+% |StructParent| and \cs{tag_struct_insert_annot:nn}  increases the
+% counter given back by \cs{tag_struct_parent_int:}.
+%
+% It must be used together with
+%    \begin{macrocode}
 \cs_new_protected:Npn \tag_struct_insert_annot:nn #1 #2 %#1 should be an object reference
                                                         %#2 struct parent num
   {
@@ -897,6 +1026,8 @@
 %</struct>
 
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
 %    \begin{macrocode}
 %<*attr>
 \ProvidesExplPackage {tagpdf-attr-code} {2021-06-14} {0.82}
@@ -1009,5 +1140,4 @@
   }
 %</attr>
 %    \end{macrocode}
-% \end{macro}
 % \end{implementation}

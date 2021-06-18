@@ -342,7 +342,7 @@ PDF 2.0 namespace are now supported.
 
 A command \cs{tag_if_active:TF} to test if tagging is active has been added. This allow external packages to write conditional code.
 
-The commands \cs{tag_struct_parent_int:} and \cs{tag_struct_insert_annot:nn} have been added. They allow to 
+The commands \cs{tag_struct_parent_int:} and \cs{tag_struct_insert_annot:nn} have been added. They allow to
 add annotations to the structure.
 
 
@@ -917,7 +917,7 @@ To support this, \pkg{tagpdf} offers currently two commands
 
 \begin{docCommand}{tag_struct_parent_int:}{}\end{docCommand}
 
-This insert the current value of a global counter used to track such object. It can be used to add the \texttt{/StructParent} value to
+This insert the current value of a global counter used to track such objects. It can be used to add the \texttt{/StructParent} value to
 the annotation dictionary.
 
 \begin{docCommand}{tag_struct_insert_annot:nn}{\marg{object reference}\marg{struct parent number}}\end{docCommand}
@@ -1284,7 +1284,7 @@ Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyNa
 
 \subsection{Task 3: tree Management}
 
-When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with an internal command in an end document hook. 
+When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with an internal command in an end document hook.
 
 \begin{docCommand}{__tag_finish_structure:}{}\end{docCommand}
 
