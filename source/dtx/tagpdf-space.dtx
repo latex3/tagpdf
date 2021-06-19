@@ -131,11 +131,13 @@
     \cs_new_protected:Nn \@@_fakespace:
       {
         \group_begin:
-        \setattribute\g_@@_interwordspace_attr{1}
-        \setattribute\g_@@_interwordfont_attr
-          {
-            \directlua{tex.print(\the\catcodetable@latex, font.current())}
-          }
+        \directlua{tex.setattribute("g_@@_interwordspace_attr",1)}
+        %\setattribute\g_@@_interwordspace_attr{1}
+        \directlua{tex.setattribute("g_@@_interwordfont_attr",font.current())}
+       % \setattribute\g_@@_interwordfont_attr
+%          {
+%            \directlua{tex.print(\the\catcodetable@latex, font.current())}
+%          }
         \skip_horizontal:n{\c_zero_skip}
         \group_end:
       }

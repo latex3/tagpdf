@@ -287,22 +287,26 @@
   {
      \cs_set_protected:Npn \@@_attribute_gset:Nn #1 #2
        {
-         \tex_global:D \setattribute #1 #2
+         %\tex_global:D \setattribute #1 #2
+         \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",#2)}
        }
 
      \cs_set_protected:Npn \@@_attribute_set:Nn #1 #2
        {
-         \setattribute #1 #2
+         %\setattribute #1 #2
+         \lua_now:e{tex.setattribute("\cs_to_str:N#1",#2)}
        }
 
      \cs_set_protected:Npn \@@_attribute_gunset:N #1
        {
-         \tex_global:D \unsetattribute #1
+         %\tex_global:D \unsetattribute #1
+         \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",-2147483647)}
        }
 
      \cs_set_protected:Npn \@@_attribute_unset:N #1
        {
-         \unsetattribute #1
+         %\unsetattribute #1
+         \lua_now:e{tex.setattribute("\cs_to_str:N#1",-2147483647)}
        }
 
     \file_input:n {tagpdf-luatex.def}
