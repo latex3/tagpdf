@@ -82,12 +82,6 @@
 %    \end{macrocode}
 % \subsection{Structure tree}
 % The following commands are needed to write out the structure.
-% \begin{macro}{@@/struct/0}
-% This is the object for the root object, the StructTreeRoot
-%    \begin{macrocode}
-\pdf_object_new:nn { @@/struct/0 }{ dict }
-%    \end{macrocode}
-% \end{macro}
 % The StructTreeRoot must be added to the catalog.
 % TODO Should this be done later to prevent other packages to interfere?
 %    \begin{macrocode}
@@ -95,6 +89,16 @@
   {
     \bool_if:NT \g_@@_active_struct_bool
       {
+        \@@_prop_gput:cnx
+          { g_@@_struct_0_prop }
+          { ParentTree }
+          { \pdf_object_ref:n { @@/tree/parenttree } }
+
+       \@@_prop_gput:cnx
+         { g_@@_struct_0_prop }
+         { RoleMap }
+         { \pdf_object_ref:n { @@/tree/rolemap } }
+
         \pdfmanagement_add:nnx
           { Catalog }
           { StructTreeRoot }
