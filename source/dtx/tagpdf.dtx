@@ -265,7 +265,7 @@
       }
   }
 %need to think about the right place ...
-%\AtBeginDocument
+
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_struct_bool
@@ -283,54 +283,22 @@
 %escape command. They are backend specific as \pdf@escapehex would ignore most chars
 %outside the "pdflatex" range
 
-
-%testing the engines and loading the backend files
-\sys_if_engine_xetex:T
-  { %lets try with xelatex ...
-    %\PackageError { tagpdf } { xelatex~is~not~supported~-~aborting } {}
-    %\tex_endinput:D
-    \file_input:n {tagpdf-pdftex.def}
-  }
-
-% need to sort the attributes later. Do it in lua?
-\sys_if_engine_luatex:T
+% These commands are only aliases for most engines but
+% are defined differently with luatex
+% to get also lua tables.
+\sys_if_engine_luatex:TF
   {
-     \cs_set_protected:Npn \@@_attribute_gset:Nn #1 #2
-       {
-         %\tex_global:D \setattribute #1 #2
-         \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",#2)}
-       }
-
-     \cs_set_protected:Npn \@@_attribute_set:Nn #1 #2
-       {
-         %\setattribute #1 #2
-         \lua_now:e{tex.setattribute("\cs_to_str:N#1",#2)}
-       }
-
-     \cs_set_protected:Npn \@@_attribute_gunset:N #1
-       {
-         %\tex_global:D \unsetattribute #1
-         \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",-2147483647)}
-       }
-
-     \cs_set_protected:Npn \@@_attribute_unset:N #1
-       {
-         %\unsetattribute #1
-         \lua_now:e{tex.setattribute("\cs_to_str:N#1",-2147483647)}
-       }
-
     \file_input:n {tagpdf-luatex.def}
   }
-
-\sys_if_engine_pdftex:T
   {
-    \file_input:n {tagpdf-pdftex.def}
-  }
-
-\sys_if_output_dvi:T
-  {
-    %\PackageError { tagpdf } { dvi~output~is~not~supported~-~aborting }{}
-    %\tex_endinput:D
+    \cs_set_eq:NN \@@_prop_new:N        \prop_new:N
+    \cs_set_eq:NN \@@_seq_new:N         \seq_new:N
+    \cs_set_eq:NN \@@_prop_gput:Nnn     \prop_gput:Nnn
+    \cs_set_eq:NN \@@_seq_gput_right:Nn \seq_gput_right:Nn
+    \cs_set_eq:NN \@@_seq_item:cn       \seq_item:cn
+    \cs_set_eq:NN \@@_prop_item:cn      \prop_item:cn
+    \cs_set_eq:NN \@@_seq_show:N        \seq_show:N
+    \cs_set_eq:NN \@@_prop_show:N       \prop_show:N
   }
 
 \cs_generate_variant:Nn \@@_prop_gput:Nnn      { Nxn , Nxx, Nnx , cnn, cxn, cnx, cno}
