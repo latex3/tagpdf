@@ -195,6 +195,7 @@
 % This is the main command to assemble the page related entries of the parent tree.
 % It wanders through the pages and the mcid numbers and collects all mcid of one page.
 %    \begin{macrocode}
+
 \cs_new_protected:Npn \@@_tree_fill_parenttree:
   {
     \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{abspage}{-1}} %not quite clear if labels are needed. See lua code
@@ -226,12 +227,10 @@
               {% page#1:mcid##1:\l_@@_tmpa_tl :content
                 \tl_put_right:Nx \l_@@_parenttree_content_tl
                   {
-                    %\prop_item:cn { g_@@_struct_\l_@@_tmpa_tl _prop } {objref}
-                    \exp_args:Nx
-                    \pdf_object_if_exist:nT { @@/struct/\l_@@_tmpa_tl }
+                    \pdf_object_if_exist:eT { @@/struct/\l_@@_tmpa_tl }
                      {
                        \pdf_object_ref:e { @@/struct/\l_@@_tmpa_tl }
-                     }  
+                     }
                     \c_space_tl
                   }
               }

@@ -708,7 +708,6 @@
 %    lang,ref,E
 %  }
 %    \begin{macrocode}
-\cs_generate_variant:Nn \seq_set_split:Nnn{Nne}
 \keys_define:nn { @@ / struct }
   {
     label .tl_set:N      = \l_@@_struct_key_label_tl,
@@ -865,8 +864,7 @@
    ,AFinline .code:n =
      {
        \group_begin:
-       \exp_args:Ne
-       \pdf_object_if_exist:nF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
+       \pdf_object_if_exist:eF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
         {
           \pdffile_embed_stream:nxx
             {#1}
@@ -882,8 +880,7 @@
    ,AFinline-o .code:n =
      {
        \group_begin:
-       \exp_args:Ne
-       \pdf_object_if_exist:nF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
+       \pdf_object_if_exist:eF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
         {
           \pdffile_embed_stream:oxx
             {#1}
@@ -901,9 +898,6 @@
 % \end{macro}
 %
 % \section{User commands}
-%    \begin{macrocode}
-\cs_generate_variant:Nn \pdf_object_ref:n {e} % check later
-%    \end{macrocode}
 %
 % \begin{macro}{\tag_struct_begin:n,\tag_struct_end:}
 %    \begin{macrocode}
