@@ -65,6 +65,9 @@
 % The code to finish the structure is in a hook.
 % This will perhaps at the end be a kernel hook.
 % TODO check right place for the code
+% The pdfmanagement code is the kernel hook after
+% shipout/lastpage so all code affecting it should be before.
+% Objects can be written later, at least in pdf mode.
 %    \begin{macrocode}
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
@@ -91,20 +94,10 @@
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-\hook_gput_code:nnn{begindocument}{tagpdf}
+\hook_gput_code:nnn{shipout/lastpage}{tagpdf}
   {
-    \bool_if:NT \g_@@_active_struct_bool
+    \bool_if:NT \g_@@_active_tree_bool
       {
-        \@@_prop_gput:cnx
-          { g_@@_struct_0_prop }
-          { ParentTree }
-          { \pdf_object_ref:n { @@/tree/parenttree } }
-
-       \@@_prop_gput:cnx
-         { g_@@_struct_0_prop }
-         { RoleMap }
-         { \pdf_object_ref:n { @@/tree/rolemap } }
-
         \pdfmanagement_add:nnx
           { Catalog }
           { StructTreeRoot }
@@ -117,7 +110,15 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_structtreeroot:
   {
-    \@@_struct_write_obj:n { 0 }
+     \@@_prop_gput:cnx
+       { g_@@_struct_0_prop }
+       { ParentTree }
+       { \pdf_object_ref:n { @@/tree/parenttree } }
+     \@@_prop_gput:cnx
+       { g_@@_struct_0_prop }
+       { RoleMap }
+       { \pdf_object_ref:n { @@/tree/rolemap } }
+     \@@_struct_write_obj:n { 0 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -396,12 +397,15 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_finish_structure:
   {
-    \@@_tree_write_parenttree:
-    \@@_tree_write_rolemap:
-    \@@_tree_write_classmap:
-    \@@_tree_write_namespaces:
-    \@@_tree_write_structelements: %this is rather slow!!
-    \@@_tree_write_structtreeroot:
+    \bool_if:NT\g_@@_active_tree_bool
+      {
+        \@@_tree_write_parenttree:
+        \@@_tree_write_rolemap:
+        \@@_tree_write_classmap:
+        \@@_tree_write_namespaces:
+        \@@_tree_write_structelements: %this is rather slow!!
+        \@@_tree_write_structtreeroot:
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -416,10 +420,10 @@
       {
        \hook_gput_code:nnn{shipout/before} { tagpdf/structparents }
          {
-             \pdfmanagement_add:nnx
-               { Page }
-               {StructParents}
-               {\int_eval:n { \g_shipout_readonly_int}}
+           \pdfmanagement_add:nnx
+             { Page }
+             { StructParents }
+             { \int_eval:n { \g_shipout_readonly_int} }
          }
       }
   }
