@@ -24,7 +24,8 @@
 %
 % \fi
 %
-%
+% \begin{implementation}
+% Initialization and test if pdfmanagement is active.
 %    \begin{macrocode}
 %<@@=tag>
 %<*package>
@@ -50,15 +51,16 @@
        before~\string\documentclass
      }
   }
-
-%\debug_on:n{check-declarations,check-expressions,deprecation}
-
-%map internal tag to package name
+%    \end{macrocode}
+% We map the internal module name \enquote{tag} to \enquote{tagpdf} in messages.
+%    \begin{macrocode}
 \prop_if_exist:NT \g_msg_module_name_prop
   {
     \prop_gput:Nnn \g_msg_module_name_prop { tag }{ tagpdf }
   }
+%    \end{macrocode}
 
+%    \begin{macrocode}
 % storing internal names to my name space:
 \cs_set_eq:NN \@@_tex_global:D              \tex_global:D
 
