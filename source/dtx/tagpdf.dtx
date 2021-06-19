@@ -25,7 +25,7 @@
 % \fi
 %
 % \begin{implementation}
-% Initialization and test if pdfmanagement is active.
+% \section{Initialization and test if pdfmanagement is active.}
 %    \begin{macrocode}
 %<@@=tag>
 %<*package>
@@ -59,26 +59,29 @@
     \prop_gput:Nnn \g_msg_module_name_prop { tag }{ tagpdf }
   }
 %    \end{macrocode}
-
+%\section{Package options}
+% There are only two options to switch for luatex between generic and luamode,
+% TODO try to get rid of them.
 %    \begin{macrocode}
-% storing internal names to my name space:
-\cs_set_eq:NN \@@_tex_global:D              \tex_global:D
-
-%%% package options
 \bool_new:N\g_@@_mode_lua_bool
-
 \DeclareOption {luamode}    { \sys_if_engine_luatex:T { \bool_gset_true:N \g_@@_mode_lua_bool } }
 \DeclareOption {genericmode}{ \bool_gset_false:N\g_@@_mode_lua_bool }
 \ExecuteOptions{luamode}
 \ProcessOptions
-
-%%% some packages
-%references use l3ref-tmp
+%    \end{macrocode}
+% \end{macro}
+% \section{Packages}
+% We need the temporary version of l3ref until this is in the kernel.
+%    \begin{macrocode}
 \RequirePackage{l3ref-tmp}
- %================
- % temporary code
- % ===============
- % faking the LastPage label:
+%    \end{macrocode}
+% \end{macro}
+% \section{Temporary code}
+% This is code which will be removed when proper support exists in LaTeX
+% \subsection{a LastPage label}
+% See also issue \#2 in Accessible-xref
+% \begin{macro}{\@@_lastpagelabel:}
+%    \begin{macrocode}
  \cs_new_protected:Npn \@@_lastpagelabel:
    {
      \legacy_if:nT { @filesw }
@@ -97,8 +100,17 @@
 
  \AddToHook{enddocument/afterlastpage}
   {\@@_lastpagelabel:}
-
- % a command to override the general default. See issue in ref
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ref_value:nnn}
+% This allows to locally set a default value if the label or the attribute
+% doesn't exist.
+% See issue \#4 in Accessible-xref.
+% \begin{syntax}
+% \cs{ref_value:nnn}\Arg{label}\Arg{attribute}\Arg{Fallback default}
+% \end{syntax}
+%    \begin{macrocode}
  \cs_if_exist:NF \ref_value:nnn
    {
      \cs_new:Npn \ref_value:nnn #1#2#3
@@ -112,12 +124,17 @@
          \tl_if_exist:cTF { g__ref_label_ #1 _ #2 _tl }
            { \tl_use:c { g__ref_label_ #1 _ #2 _tl } }
            {
-             % test if attribute exist at all?
              #3
            }
        }
    }
-
+%    \end{macrocode}
+% \end{macro}
+% \section{Variables}
+%
+%
+% \section{Label attributes}
+%    \begin{macrocode}
  %=============
  % attributes
  %=============
@@ -137,7 +154,7 @@
 %============
 % lists
 %============
-\clist_const:Nn \c_@@_refmc_clist     {tagabspage,tagmcabs,tagmcid} %mc is new!!
+\clist_const:Nn \c_@@_refmc_clist     {tagabspage,tagmcabs,tagmcid}
 \clist_const:Nn \c_@@_refstruct_clist {tagstruct,tagstructobj}
 %=================
 % command to set a label
@@ -168,11 +185,6 @@
 \cs_generate_variant:Nn \@@_ref_value:nnn {enn}
 
 \RequirePackage{etoolbox}
-%\RequirePackage{l3pdf}
-%\RequirePackage{pdfescape} %check if needed
-%\RequirePackage{pdftexcmds}%check if needed (expandable commands!)
-
-%\RequirePackage{l3str-convert}
 % \subsection{Variants of l3 commands}
 \prg_generate_conditional_variant:Nnn \pdf_object_if_exist:n {e}{T,F}
 \cs_generate_variant:Nn \pdf_object_ref:n {e}
