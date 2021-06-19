@@ -226,7 +226,12 @@
               {% page#1:mcid##1:\l_@@_tmpa_tl :content
                 \tl_put_right:Nx \l_@@_parenttree_content_tl
                   {
-                    \prop_item:cn { g_@@_struct_\l_@@_tmpa_tl _prop } {objref}
+                    %\prop_item:cn { g_@@_struct_\l_@@_tmpa_tl _prop } {objref}
+                    \exp_args:Nx
+                    \pdf_object_if_exist:nT { @@/struct/\l_@@_tmpa_tl }
+                     {
+                       \pdf_object_ref:e { @@/struct/\l_@@_tmpa_tl }
+                     }  
                     \c_space_tl
                   }
               }

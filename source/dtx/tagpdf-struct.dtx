@@ -384,7 +384,8 @@
 %
 % \subsection{Initialization of the StructTreeRoot}
 % The first structure element, the StructTreeRoot is special, so
-% created manually. The underlying object is |@@/struct/0|.
+% created manually. The underlying object is |@@/struct/0| which is currently
+% created in the tree code (TODO move it here).
 % The |ParentTree| and |RoleMap| entries are added at begin document
 % in the tree code as they refer to object which are setup in other parts of the
 % code. This avoid timing issues.
@@ -399,11 +400,6 @@
 \@@_prop_new:c { g_@@_struct_0_prop }
 \@@_new_output_prop_handler:n {0}
 \@@_seq_new:c  { g_@@_struct_kids_0_seq }
-
-%\@@_prop_gput:cnx
-%  { g_@@_struct_0_prop }
-%  { objref}
-%  { \pdf_object_ref:n { @@/struct/0 } }
 
 \@@_prop_gput:cnn
   { g_@@_struct_0_prop }
@@ -922,14 +918,6 @@
       \pdf_object_new:nn
         { @@/struct/\int_eval:n { \c@g_@@_struct_abs_int } }
         { dict }
-%    \@@_prop_gput:cnx
-%      { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
-%      { objref}
-%      {
-%        \exp_args:Ne
-%          \pdf_object_ref:n
-%            {@@/struct/\int_eval:n { \c@g_@@_struct_abs_int }}
-%      }
     \@@_prop_gput:cno
       { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
       { Type }
