@@ -393,12 +393,6 @@
 \tl_gset:Nn \g_@@_struct_stack_current_tl {0}
 %    \end{macrocode}
 
-% \begin{macro}{@@/struct/0}
-% This is the object for the root object, the StructTreeRoot
-%    \begin{macrocode}
-\pdf_object_new:nn { @@/struct/0 }{ dict }
-%    \end{macrocode}
-% \end{macro}
 %
 % \begin{variable}{g_@@_struct_0_prop,g_@@_struct_kids_0_seq}
 %    \begin{macrocode}
@@ -406,10 +400,10 @@
 \@@_new_output_prop_handler:n {0}
 \@@_seq_new:c  { g_@@_struct_kids_0_seq }
 
-\@@_prop_gput:cnx
-  { g_@@_struct_0_prop }
-  { objref}
-  { \pdf_object_ref:n { @@/struct/0 } }
+%\@@_prop_gput:cnx
+%  { g_@@_struct_0_prop }
+%  { objref}
+%  { \pdf_object_ref:n { @@/struct/0 } }
 
 \@@_prop_gput:cnn
   { g_@@_struct_0_prop }
@@ -928,14 +922,14 @@
       \pdf_object_new:nn
         { @@/struct/\int_eval:n { \c@g_@@_struct_abs_int } }
         { dict }
-    \@@_prop_gput:cnx
-      { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
-      { objref}
-      {
-        \exp_args:Ne
-          \pdf_object_ref:n
-            {@@/struct/\int_eval:n { \c@g_@@_struct_abs_int }}
-      }
+%    \@@_prop_gput:cnx
+%      { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
+%      { objref}
+%      {
+%        \exp_args:Ne
+%          \pdf_object_ref:n
+%            {@@/struct/\int_eval:n { \c@g_@@_struct_abs_int }}
+%      }
     \@@_prop_gput:cno
       { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
       { Type }

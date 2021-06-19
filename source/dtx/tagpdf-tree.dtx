@@ -84,6 +84,12 @@
 % The following commands are needed to write out the structure.
 % The StructTreeRoot must be added to the catalog.
 % TODO Should this be done later to prevent other packages to interfere?
+% \begin{macro}{@@/struct/0}
+% This is the object for the root object, the StructTreeRoot
+%    \begin{macrocode}
+\pdf_object_new:nn { @@/struct/0 }{ dict }
+%    \end{macrocode}
+% \end{macro}
 %    \begin{macrocode}
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {

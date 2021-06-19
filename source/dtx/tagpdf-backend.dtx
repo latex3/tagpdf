@@ -313,6 +313,13 @@ local function @@_insert_bdc_node (head,current,tag,dict)
  return head
 end
 
+local function @@_pdf_object_ref (name)
+   local tokenname = 'c__pdf_backend_object_'..name..'_int'
+   local object = token.create(tokenname).index..' 0 R'
+   return object
+end
+ltx.@@.func.pdf_object_ref=@@_pdf_object_ref
+
 -- this is for debugging the space chars
 local function @@_show_spacemark (head,current,color,height)
  local markcolor = color or "1 0 0"
@@ -770,7 +777,8 @@ function ltx.@@.func.fill_parent_tree_line (page)
       local mcnum  = ltx.@@.page[page][0]
       local structnum = ltx.@@.mc[mcnum]["parent"]
       local propname  = "g_@@_struct_"..structnum.."_prop"
-      local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
+      --local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
+      local objref = @@_pdf_object_ref('@@/struct/'..structnum)
       ltx.@@.trace.log("=====>"..tostring(objref),5)
       numsentry = pdfpage .. " [".. objref .. "]"
       ltx.@@.trace.log("PAGETREE PAGE" .. page.. " NUM ENTRY = ".. numsentry,3)
@@ -780,7 +788,8 @@ function ltx.@@.func.fill_parent_tree_line (page)
         local mcnum  = ltx.@@.page[page][i]
         local structnum = ltx.@@.mc[mcnum]["parent"] or 0
         local propname  = "g_@@_struct_"..structnum.."_prop"
-        local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
+        --local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
+        local objref = @@_pdf_object_ref('@@/struct/'..structnum)
         numsentry = numsentry .. " ".. objref
        end
       numsentry = numsentry .. "] "
