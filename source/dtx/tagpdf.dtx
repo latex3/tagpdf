@@ -412,38 +412,13 @@
 %    \end{macrocode}
 % \end{macro}
 
-%
-% We need a command to stop tagging in some places.
-%
 % \begin{macro}{ \tag_stop_group_begin:, \tag_stop_group_end: }
+% We need a command to stop tagging in some places.
+% This simply switches the two local booleans.
 %    \begin{macrocode}
-%\bool_new:N \l_@@_stop_bool
-%
-%\prg_new_conditional:Nnn \@@_if_stop: {p,T,F,TF}
-%  {
-%    \bool_if:NTF \l_@@_stop_bool
-%      { \prg_return_true:  }
-%      { \prg_return_false: }
-%  }
-%
-%\prg_new_eq_conditional:NNn \tag_if_stop: \@@_if_stop: {p,T,F,TF}
-%
-%\cs_new_protected:Npn \@@_stop:
-%  {
-% %   \bool_set_true:N \l_@@_stop_bool
-%%    \cs_set_eq:NN \tag_mc_begin:n     \use_none:n
-%%    \cs_set_eq:NN \tag_mc_end:        \prg_do_nothing:
-%%    \cs_set_eq:NN \tag_mc_use:n       \use_none:n
-%%    \cs_set_eq:NN \tag_struct_begin:n \use_none:n
-%%    \cs_set_eq:NN \tag_struct_end:    \prg_do_nothing:
-%%    \cs_set_eq:NN \tag_struct_use:n   \use_none:n
-%
-%  }
-
 \cs_new_protected:Npn \tag_stop_group_begin:
   {
     \group_begin:
-    %\@@_stop:
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
   }
@@ -451,7 +426,6 @@
 \cs_set_eq:NN \tag_stop_group_end: \group_end:
 %    \end{macrocode}
 % \end{macro}
-% We need a command to stop tagging in some places.
 %
 % \begin{macro}{ \tagpdfget, \tag_get:n  }
 % This is a generic command to retrieve data. Currently
@@ -475,18 +449,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{tagmcartifact}
-%    \begin{macrocode}
-\NewDocumentEnvironment{tagmcartifact}{m}
- {
-  \tag_mc_artifact_group_begin:n { #1}\ignorespaces
- }
- {
-  \tag_mc_artifact_group_end:
- }
-
-%    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}{\tagmcbegin,\tagmcend,\tagmcuse  }
 %    \begin{macrocode}

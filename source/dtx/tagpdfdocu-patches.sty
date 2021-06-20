@@ -185,7 +185,10 @@
 % but currently unneeded as we marked them up as artifacts anyway as they don't contain
 % meaningful contents
 
-\NewDocumentCommand\sidenote{m}{\begin{tagmcartifact}{notype}\tagpdfparaOff\marginnote{#1}\end{tagmcartifact}}
+\NewDocumentCommand\sidenote{m}
+ {
+   \tag_mc_artifact_group_begin:n{notype}\tagpdfparaOff\marginnote{#1}\tag_mc_artifact_group_end:
+ }
 
 % ======== tikzpicture ==========
 % TODO this needs some investigation: it messes up the stack if one add paraOff
