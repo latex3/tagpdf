@@ -647,33 +647,36 @@
 % The argument is a label name set with the |label| key.
 %
 % TODO: is the claim about the warning right???
-% TODO: how should this be guarded by an active test?
+% TODO: is testing for struct the right test?
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_mc_use:n #1 %#1: label name
   {
-    \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
-    \tl_if_empty:NTF\l_@@_tmpa_tl
+    \@@_check_if_active_struct:T
       {
-        \msg_warning:nnn {tag} {mc-label-unknown} {#1}
-      }
-      {
-        \prop_gput:Nxx
-          \g_@@_mc_parenttree_prop
+        \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
+        \tl_if_empty:NTF\l_@@_tmpa_tl
           {
-            \l_@@_tmpa_tl
-            %\@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
+            \msg_warning:nnn {tag} {mc-label-unknown} {#1}
           }
           {
-            \g_@@_struct_stack_current_tl
-          }
-        \@@_struct_kid_mc_gput_right:nn
-          {
-            \g_@@_struct_stack_current_tl
-          }
-          {
-            \l_@@_tmpa_tl
-            %\@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
-          }
+            \prop_gput:Nxx
+              \g_@@_mc_parenttree_prop
+              {
+                \l_@@_tmpa_tl
+                %\@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
+              }
+              {
+                \g_@@_struct_stack_current_tl
+              }
+            \@@_struct_kid_mc_gput_right:nn
+              {
+                \g_@@_struct_stack_current_tl
+              }
+              {
+                \l_@@_tmpa_tl
+                %\@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
+              }
+           }
        }
   }
 %    \end{macrocode}

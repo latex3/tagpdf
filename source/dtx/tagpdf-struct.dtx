@@ -996,24 +996,27 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \tag_struct_use:n %#1 is the label
   {
-    \prop_if_exist:cTF
-      { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
+    \@@_check_if_active_struct:T
       {
-        \@@_check_struct_used:n {#1}
-        %add the label structure as kid to the current structure (can be the root)
-        \@@_struct_kid_struct_gput_right:xx
-          { \g_@@_struct_stack_current_tl }
-          { \@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0} }
-        %add the current structure to the labeled one as parents
-        \@@_prop_gput:cnx
-          { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
-          { P }
+        \prop_if_exist:cTF
+          { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
           {
-            \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
+            \@@_check_struct_used:n {#1}
+            %add the label structure as kid to the current structure (can be the root)
+            \@@_struct_kid_struct_gput_right:xx
+              { \g_@@_struct_stack_current_tl }
+              { \@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0} }
+            %add the current structure to the labeled one as parents
+            \@@_prop_gput:cnx
+              { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+              { P }
+              {
+                \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
+              }
           }
-      }
-      {
-        \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
+          {
+            \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
+          }
       }
   }
 %    \end{macrocode}
