@@ -54,16 +54,21 @@
 %
 % \date{Version 0.82, released 2021-06-14}
 % \maketitle
+% \begin{documentation}
+% \begin{function}[pTF,EXP]{\tag_if_active:}
+% This command tests if tagging is active. It only gives true if all tagging has
+% been activated, \emph{and} if tagging hasn't been stopped locally.
+% \end{function}
+% \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
 %<*checks>
 \ProvidesExplPackage {tagpdf-checks-code} {2021-06-14} {0.82}
- {part of tagpdf - code related to checks and messages}
+ {part of tagpdf - code related to checks, conditionals, debugging and messages}
 %    \end{macrocode}
-% \section{Messages and checks}
-% \subsection{Messages}
-% \subsubsection{Messages related to mc-chunks}
+% \section{Messages}
+% \subsection{Messages related to mc-chunks}
 % \begin{macro}{mc-nested}
 % This message is issue is a mc is opened before the previous has been closed.
 % This is not relevant for luamode, as the attributes don't care about this.
@@ -105,7 +110,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{Messages related to mc-chunks}
+% \subsection{Messages related to mc-chunks}
 % \begin{macro}{struct-no-objnum}
 % Should not happen \ldots
 %    \begin{macrocode}
@@ -148,7 +153,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{Attributes}
+% \subsection{Attributes}
 % Not much yet, as attributes aren't used so much.
 % \begin{macro}{attr-unknown}
 %    \begin{macrocode}
@@ -173,7 +178,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{Miscellaneous}
+% \subsection{Miscellaneous}
 % \begin{macro}{tree-mcid-index-wrong}
 % Used in the tree code, typically indicates the document must be rerun.
 %    \begin{macrocode}
@@ -195,8 +200,34 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \section{User conditionals}
+% \begin{macro}[pTF]{\tag_if_active:}
+% This is a test it tagging is active. This allows packages
+% to add conditional code.
+% The test is true if all booleans, the global and the two local one are true.
 %
-% \subsection{Checks}
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \tag_if_active: { p , T , TF, F }
+  {
+     \bool_lazy_all:nTF
+       {
+         {\g_@@_active_struct_bool}
+         {\g_@@_active_mc_bool}
+         {\g_@@_active_tree_bool}
+         {\l_@@_active_struct_bool}
+         {\l_@@_active_mc_bool}
+       }
+       {
+         \prg_return_true:
+       }
+       {
+         \prg_return_false:
+       }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{Internal checks}
 % These are checks used in various places in the code.
 %
 % \subsection{checks for active tagging}
@@ -226,7 +257,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsubsection{Checks related to stuctures}
+% \subsection{Checks related to stuctures}
 % \begin{macro}{\@@_check_structure_has_tag:n}
 % Structures must have a tag, so we check if the S entry is in the property.
 % It is an error if this is missing. The argument is a number.
@@ -291,7 +322,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{Checks related to roles}
+% \subsection{Checks related to roles}
 % \begin{macro}{\@@_check_add_tag_role:nn}
 % This check is used when defining a new role mapping.
 %    \begin{macrocode}
@@ -314,7 +345,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{Check related to mc-chunks}
+% \subsection{Check related to mc-chunks}
 %
 % \begin{macro}{\@@_check_mc_if_nested:,\@@_check_mc_if_open:}
 % Two tests if a mc is currently open.
@@ -448,7 +479,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{Miscellaneous}
+% \subsection{Miscellaneous}
 %
 % \begin{macro}{\@@_check_record_pdfobj_num:n}
 % This writes the object numbers. Not sure if needed, currently unused.

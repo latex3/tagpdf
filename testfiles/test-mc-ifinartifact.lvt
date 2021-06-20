@@ -9,7 +9,11 @@
 
 \begin{document}\START \showoutput
 
-xxx\begin{tagmcartifact}{} in artifact: \tagmcbegin{tag=P}xxx \tagmcend artifact \end{tagmcartifact}xxx
+xxx\ExplSyntaxOn
+\tag_mc_artifact_group_begin:n{}
+\ExplSyntaxOff
+ in artifact: \tagmcbegin{tag=P}xxx \tagmcend artifact 
+\ExplSyntaxOn\tag_mc_artifact_group_end:\ExplSyntaxOff xxx
 
 \tagmcbegin{tag=P,alttext=AA} in P\tagmcend
 \end{document} 

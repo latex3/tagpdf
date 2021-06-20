@@ -411,54 +411,41 @@
 \cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\tag_if_active:}
-% This is a test it tagging is active. This allows packages
-% to add conditional code. We probably will need a better
-% test in the end, but for now it should be ok.
-%    \begin{macrocode}
-\prg_new_conditional:Npnn \tag_if_active: { p , T , TF, F }
-  {
-     \bool_if:NTF\g_@@_active_struct_bool
-       {
-         \prg_return_true:
-       }
-       {
-         \prg_return_false:
-       }
-  }
-%    \end{macrocode}
-% \end{macro}
+
 %
 % We need a command to stop tagging in some places.
 %
 % \begin{macro}{ \tag_stop_group_begin:, \tag_stop_group_end: }
 %    \begin{macrocode}
-\bool_new:N \l_@@_stop_bool
-
-\prg_new_conditional:Nnn \@@_if_stop: {p,T,F,TF}
-  {
-    \bool_if:NTF \l_@@_stop_bool
-      { \prg_return_true:  }
-      { \prg_return_false: }
-  }
-
-\prg_new_eq_conditional:NNn \tag_if_stop: \@@_if_stop: {p,T,F,TF}
-
-\cs_new_protected:Npn \@@_stop:
-  {
-    \bool_set_true:N \l_@@_stop_bool
-    \cs_set_eq:NN \tag_mc_begin:n     \use_none:n
-    \cs_set_eq:NN \tag_mc_end:        \prg_do_nothing:
-    \cs_set_eq:NN \tag_mc_use:n       \use_none:n
-    \cs_set_eq:NN \tag_struct_begin:n \use_none:n
-    \cs_set_eq:NN \tag_struct_end:    \prg_do_nothing:
-    \cs_set_eq:NN \tag_struct_use:n   \use_none:n
-  }
+%\bool_new:N \l_@@_stop_bool
+%
+%\prg_new_conditional:Nnn \@@_if_stop: {p,T,F,TF}
+%  {
+%    \bool_if:NTF \l_@@_stop_bool
+%      { \prg_return_true:  }
+%      { \prg_return_false: }
+%  }
+%
+%\prg_new_eq_conditional:NNn \tag_if_stop: \@@_if_stop: {p,T,F,TF}
+%
+%\cs_new_protected:Npn \@@_stop:
+%  {
+% %   \bool_set_true:N \l_@@_stop_bool
+%%    \cs_set_eq:NN \tag_mc_begin:n     \use_none:n
+%%    \cs_set_eq:NN \tag_mc_end:        \prg_do_nothing:
+%%    \cs_set_eq:NN \tag_mc_use:n       \use_none:n
+%%    \cs_set_eq:NN \tag_struct_begin:n \use_none:n
+%%    \cs_set_eq:NN \tag_struct_end:    \prg_do_nothing:
+%%    \cs_set_eq:NN \tag_struct_use:n   \use_none:n
+%
+%  }
 
 \cs_new_protected:Npn \tag_stop_group_begin:
   {
     \group_begin:
-    \@@_stop:
+    %\@@_stop:
+    \bool_set_false:N \l_@@_active_struct_bool
+    \bool_set_false:N \l_@@_active_mc_bool
   }
 
 \cs_set_eq:NN \tag_stop_group_end: \group_end:
