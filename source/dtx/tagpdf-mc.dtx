@@ -974,6 +974,7 @@
         \bool_set_false:N\l_@@_mc_artifact_bool
         \@@_mc_lua_unset_mc_type_attr:
         \tl_set:Nn  \l_@@_mc_key_tag_tl { }
+        \tl_gset:Nn \g_@@_mc_key_tag_tl { }
       }
   }
 
@@ -1014,6 +1015,7 @@
     tag .code:n = %
       {%%????????? \pdfescapename??
         \tl_set:Nx  \l_@@_mc_key_tag_tl { #1 }
+        \tl_gset:Nx  \g_@@_mc_key_tag_tl { #1 }
         \lua_now:e
           {
             ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","#1")

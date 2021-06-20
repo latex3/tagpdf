@@ -330,12 +330,16 @@
       {
         \cs_set_eq:NN\@@_attribute_set:Nn \@@_attribute_gset:Nn
         \cs_set_eq:NN\@@_attribute_unset:N\@@_attribute_gunset:N
+        \cs_set:Npn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
       }
   }
+
+
 %need to think about the right place ...
 
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
+    \keys_set:nn { @@ / setup }{global-mc}
     \keys_define:nn { @@ / setup }
      {
        global-mc .code:n={}
@@ -437,7 +441,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\tagmcifinTF}
+% \begin{macro}{\tagmcifinTF,\tag_mc_if_in:}
 % This is a test if an mc is open or not. It is mostly of
 % importance for pdflatex as lualatex doesn't mind much if a mc tag is not
 % correctly closed.
