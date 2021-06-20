@@ -138,7 +138,8 @@
 %    \l_@@_tmpa_prop,
 %    \l_@@_tmpa_seq,
 %    \l_@@_tmpb_seq,
-%    \l_@@_tmpa_clist
+%    \l_@@_tmpa_clist,
+%    \l_@@_tmpa_int
 %  }
 % A few temporary variables
 %    \begin{macrocode}
@@ -148,6 +149,7 @@
 \seq_new:N   \l_@@_tmpa_seq
 \seq_new:N   \l_@@_tmpb_seq
 \clist_new:N \l_@@_tmpa_clist
+\int_new:N   \l_@@_tmpa_int
 %    \end{macrocode}
 % Attribute lists for the label command. We have a list for
 % mc-related labels, and one for structures.
@@ -208,11 +210,17 @@
 \bool_set_true:N \l_@@_active_struct_bool
 %    \end{macrocode}
 % \end{variable}
-
+%
+% \begin{variable}{\g_@@_tagunmarked_bool}
+% This boolean controls if the code should try to automatically
+% tag parts not in mc-chunk. It is currently only used in luamode.
+% It would be possible to used it in generic mode, but this would create
+% quite a lot empty artifact mc-chunks.
 %    \begin{macrocode}
 \bool_new:N \g_@@_tagunmarked_bool
 %    \end{macrocode}
-
+% \end{variable}
+%
 % \section{Variants of l3 commands}
 %     \begin{macrocode}
 \prg_generate_conditional_variant:Nnn \pdf_object_if_exist:n {e}{T,F}
@@ -227,10 +235,17 @@
 %    \end{macrocode}
 
 % \section{Setup label attributes}
+% \begin{macro}{tagstruct,tagstructobj,tagabspage,tagmcabs,tagmcid}
+% This are attributes used by the label/ref system.
+% With structures we store the structure number |tagstruct|
+% and the object reference |tagstructobj|.
+% The second is needed to be able to reference a structure which hasn't been
+% created yet. The alternative would be to create the object in such cases,
+% but then we need to check the object existence all the time.
+%
+% With mc-chunks we store the absolute page number |tagabspage|,
+% the absolute id |tagmcabc|, and the id on the page |tagmcid|.
 %    \begin{macrocode}
- %=============
- % attributes
- %=============
 \ref_attribute_gset:nnnn { tagstruct } {0} { now }
   { \int_use:N \c@g_@@_struct_abs_int }
 \ref_attribute_gset:nnnn { tagstructobj } {} { now }
@@ -240,16 +255,15 @@
         \pdf_object_ref:e{@@/struct/\int_use:N \c@g_@@_struct_abs_int}
       }
   }
- % replace by abspage??
 \ref_attribute_gset:nnnn { tagabspage } {0} { shipout }
   { \int_use:N \g_shipout_readonly_int }
 \ref_attribute_gset:nnnn { tagmcabs } {0} { now }
   { \int_use:N \c@g_@@_MCID_abs_int }
 \ref_attribute_gset:nnnn {tagmcid }  {0} { now }
   { \int_use:N \g_@@_MCID_tmp_bypage_int }
-%============
-% lists
-%============
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 %=================
 % command to set a label
 %================
@@ -291,7 +305,8 @@
     activate-mc     .bool_gset:N = \g_@@_active_mc_bool,
     activate-tree   .bool_gset:N = \g_@@_active_tree_bool,
     activate-struct .bool_gset:N = \g_@@_active_struct_bool,
-    activate-all    .meta:n ={activate-mc,activate-tree,activate-struct},
+    activate-all    .meta:n = {activate-mc,activate-tree,activate-struct},
+    activate        .meta:n = {activate-mc,activate-tree,activate-struct},
     log             .choice:,
     log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
     log / v         .code:n = {\int_set:Nn \l_@@_loglevel_int { 1 }},
@@ -310,7 +325,7 @@
     tabsorder / none      .code:n =
       \pdfmanagement_remove:nn {Page} {Tabs},
     tabsorder       .initial:n = structure,
-    uncompress      .code:n = {\pdf_uncompress:  },
+    uncompress      .code:n = { \pdf_uncompress:  },
     global-mc .code:n =
       {
         \cs_set_eq:NN\@@_attribute_set:Nn \@@_attribute_gset:Nn
@@ -321,10 +336,6 @@
 
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
-    \bool_if:NT \g_@@_active_struct_bool
-      {
-         \pdfmanagement_add:nnn { Catalog / MarkInfo } { Marked } { true }
-      }
     \keys_define:nn { @@ / setup }
      {
        global-mc .code:n={}
@@ -360,12 +371,6 @@
 \cs_generate_variant:Nn \@@_seq_new:N    { c }
 \cs_generate_variant:Nn \@@_seq_show:N   { c }
 \cs_generate_variant:Nn \@@_prop_show:N  { c }
-
-
-
-% helper function to get the propcount.
-% use as \prop_map_function:NN PROP { \@@_prop_count:nn -1 }
-\cs_new:Nn\@@_prop_count:nn { + 1 }
 
 %% Loading the tagpdf sub packages
 \RequirePackage { tagpdf-checks-code }

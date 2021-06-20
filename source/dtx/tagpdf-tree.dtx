@@ -60,7 +60,7 @@
 \ProvidesExplPackage {tagpdf-tree-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to writing trees and dictionaries to the pdf}
 %    \end{macrocode}
-% \section{Trees and finalization code}
+% \section{Trees, pdfmanagement and finalization code}
 %
 % The code to finish the structure is in a hook.
 % This will perhaps at the end be a kernel hook.
@@ -83,10 +83,9 @@
       }
   }
 %    \end{macrocode}
-% \subsection{Structure tree}
-% The following commands are needed to write out the structure.
-% The StructTreeRoot must be added to the catalog.
-% TODO Should this be done later to prevent other packages to interfere?
+% \subsection{Catalog: MarkInfo and StructTreeRoot}
+% The StructTreeRoot and the MarkInfo entry must be added to the catalog.
+% We do it late so that we can win, but before the pdfmanagement hook.
 % \begin{macro}{@@/struct/0}
 % This is the object for the root object, the StructTreeRoot
 %    \begin{macrocode}
@@ -98,6 +97,7 @@
   {
     \bool_if:NT \g_@@_active_tree_bool
       {
+        \pdfmanagement_add:nnn { Catalog / MarkInfo } { Marked } { true }
         \pdfmanagement_add:nnx
           { Catalog }
           { StructTreeRoot }
@@ -105,6 +105,9 @@
       }
   }
 %    \end{macrocode}
+%
+% \subsection{Writing structure elements}
+% The following commands are needed to write out the structure.
 % \begin{macro}{\@@_tree_write_structtreeroot:}
 % This writes out the root object.
 %    \begin{macrocode}
@@ -122,6 +125,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%
 % \begin{macro}{\@@_tree_write_structelements:}
 % This writes out the other struct elems, the absolute number is in the counter
 %    \begin{macrocode}
@@ -222,7 +226,7 @@
         \int_step_inline:nnnn
           {0}
           {1}
-          { \prop_map_function:NN \l_@@_tmpa_prop\@@_prop_count:nn -1 }
+          { \prop_count:N \l_@@_tmpa_prop -1 }
           {
             \prop_get:NnNTF \l_@@_tmpa_prop {####1} \l_@@_tmpa_tl
               {% page#1:mcid##1:\l_@@_tmpa_tl :content
