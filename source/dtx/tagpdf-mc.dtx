@@ -681,7 +681,7 @@
 %
 % \subsection{Keys}
 % Definitions are different in luamode.
-% |tag| and |raw| are expanded as |\directlua| in lua does it too and
+% |tag| and |raw| are expanded as |\lua_now:e| in lua does it too and
 % we assume that their values are safe.
 % \begin{macro}
 %  {
@@ -798,7 +798,7 @@
   {
     \bool_if:NT\g__tag_active_mc_bool
       {
-        \directlua
+        \lua_now:e
           {
             if~luatexbase.callbacktypes.pre_shipout_filter~then~
               luatexbase.add_to_callback("pre_shipout_filter", function(TAGBOX)~
@@ -806,7 +806,7 @@
               end, "tagpdf")~
             end
           }
-       \directlua
+       \lua_now:e
          {
            if~luatexbase.callbacktypes.pre_shipout_filter~then~
            token.get_next()~
@@ -815,7 +815,7 @@
            {
              \hook_gput_code:nnn{shipout/before}{tagpdf/lua}
                {
-                 \directlua
+                 \lua_now:e
                    { ltx.__tag.func.mark_shipout (tex.box["ShipoutBox"]) }
                }
            }
@@ -851,7 +851,7 @@
   {
     \@@_attribute_set:Nn \l_@@_mc_type_attr
       {
-        \directlua { ltx.@@.func.output_num_from ("#1") }
+        \lua_now:e { ltx.@@.func.output_num_from ("#1") }
       }
     \@@_attribute_set:Nn \l_@@_mc_cnt_attr  { \@@_get_mc_abs_cnt: }
   }
@@ -876,12 +876,12 @@
 %    \begin{macrocode}
 \cs_new:Nn \@@_mc_insert_mcid_kids:n
   {
-    \directlua { ltx.@@.func.mc_insert_kids (#1,0) }
+    \lua_now:e { ltx.@@.func.mc_insert_kids (#1,0) }
   }
 
 \cs_new:Nn \@@_mc_insert_mcid_single_kids:n
   {
-    \directlua {ltx.@@.func.mc_insert_kids (#1,1) }
+    \lua_now:e {ltx.@@.func.mc_insert_kids (#1,1) }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -899,7 +899,7 @@
       {
         \@@_mc_insert_mcid_kids:n {#1}%
       }
-    \directlua
+    \lua_now:e
       {
         ltx.@@.func.store_struct_mcabs
           (
@@ -1008,7 +1008,7 @@
     tag .code:n = %
       {%%????????? \pdfescapename??
         \tl_set:Nx  \l_@@_mc_key_tag_tl { #1 }
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","#1")
           }
@@ -1016,7 +1016,7 @@
     raw .code:n =
       {
         \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","#1")
           }
@@ -1030,7 +1030,7 @@
           { utf16/hex }
         \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.store_mc_data
               (
@@ -1047,7 +1047,7 @@
           { utf16/hex }
         \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.store_mc_data
               (
@@ -1064,7 +1064,7 @@
           { utf16/hex }
         \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.store_mc_data
               (
@@ -1081,7 +1081,7 @@
           { utf16/hex }
         \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.store_mc_data
               (
@@ -1094,7 +1094,7 @@
     label .code:n =
       {
         \tl_set:Nn\l_@@_mc_key_label_tl { #1 }
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.store_mc_data
               (
@@ -1104,7 +1104,7 @@
       },
     __artifact-store .code:n =
       {
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.store_mc_data
               (

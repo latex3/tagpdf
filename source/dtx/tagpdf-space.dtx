@@ -95,15 +95,15 @@
       {
         interwordspace .choices:nn =
                                  { true, on }
-                                 { \directlua{ltx.@@.func.markspaceon()} },
+                                 { \lua_now:e{ltx.@@.func.markspaceon()} },
         interwordspace .choices:nn =
                                  { false, off }
-                                 {\directlua{ltx.@@.func.markspaceoff()} },
+                                 {\lua_now:e{ltx.@@.func.markspaceoff()} },
         show-spaces      .choice:,
         show-spaces  / true  .code:n =
-                                 {\directlua{ltx.@@.trace.showspaces=true}},
+                                 {\lua_now:e{ltx.@@.trace.showspaces=true}},
         show-spaces  / false .code:n =
-                                 {\directlua{ltx.@@.trace.showspaces=nil}},
+                                 {\lua_now:e{ltx.@@.trace.showspaces=nil}},
         show-spaces .default:n = true
       }
   }
@@ -131,13 +131,8 @@
     \cs_new_protected:Nn \@@_fakespace:
       {
         \group_begin:
-        \directlua{tex.setattribute("g_@@_interwordspace_attr",1)}
-        %\setattribute\g_@@_interwordspace_attr{1}
-        \directlua{tex.setattribute("g_@@_interwordfont_attr",font.current())}
-       % \setattribute\g_@@_interwordfont_attr
-%          {
-%            \directlua{tex.print(\the\catcodetable@latex, font.current())}
-%          }
+        \lua_now:e{tex.setattribute("g_@@_interwordspace_attr",1)}
+        \lua_now:e{tex.setattribute("g_@@_interwordfont_attr",font.current())}
         \skip_horizontal:n{\c_zero_skip}
         \group_end:
       }

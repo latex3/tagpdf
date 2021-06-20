@@ -172,10 +172,10 @@
 % \end{variable}
 %
 %  \begin{macro}{ \@@_parenttree_add_objr:nn }
-%  This command stores a Structparent number and a objref into the tl var.
-%  This only for objects like annotations, pages are handled elsewhere.
+%  This command stores a StructParent number and a objref into the tl var.
+%  This is only for objects like annotations, pages are handled elsewhere.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_parenttree_add_objr:nn #1 #2 %#1 Structparent number, #2 objref
+\cs_new_protected:Npn \@@_parenttree_add_objr:nn #1 #2 %#1 StructParent number, #2 objref
   {
     \tl_gput_right:Nx \g_@@_parenttree_objr_tl
       {
@@ -257,7 +257,7 @@
   {
     \tl_set:Nn \l_@@_parenttree_content_tl
       {
-        \directlua
+        \lua_now:e
           {
             ltx.@@.func.output_parenttree
               (
