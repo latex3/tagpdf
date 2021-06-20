@@ -118,7 +118,7 @@
 %
 % \section{Public keys}
 % The following keys can be used with |\tag_mc_begin:n|, |\tagmcbegin|,
-% |\tag_mc_begin_pop:n|, 
+% |\tag_mc_begin_pop:n|,
 %
 % \begin{function}{tag}
 % This key is required, unless artifact is used.
@@ -310,35 +310,41 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_mc_end_push:
   {
-    \@@_mc_if_in:TF
+    \@@_check_if_active_mc:T
       {
-        \seq_gpush:Nx \g_@@_mc_stack_seq { \tag_get:n {mc_tag} }
-        \@@_check_mc_pushed_popped:nn
-          { pushed }
-          { \tag_get:n {mc_tag} }
-        \tag_mc_end:
-      }
-      {
-        \seq_gpush:Nn \g_@@_mc_stack_seq {-1}
-        \@@_check_mc_pushed_popped:nn { pushed }{-1}
+        \@@_mc_if_in:TF
+          {
+            \seq_gpush:Nx \g_@@_mc_stack_seq { \tag_get:n {mc_tag} }
+            \@@_check_mc_pushed_popped:nn
+              { pushed }
+              { \tag_get:n {mc_tag} }
+            \tag_mc_end:
+          }
+          {
+            \seq_gpush:Nn \g_@@_mc_stack_seq {-1}
+            \@@_check_mc_pushed_popped:nn { pushed }{-1}
+          }
       }
   }
 
 \cs_new_protected:Npn \tag_mc_begin_pop:n #1
   {
-    \seq_gpop:NNTF \g_@@_mc_stack_seq \l_@@_tmpa_tl
+    \@@_check_if_active_mc:T
       {
-        \tl_if_eq:NnTF \l_@@_tmpa_tl {-1}
+        \seq_gpop:NNTF \g_@@_mc_stack_seq \l_@@_tmpa_tl
           {
-            \@@_check_mc_pushed_popped:nn {popped}{-1}
+            \tl_if_eq:NnTF \l_@@_tmpa_tl {-1}
+              {
+                \@@_check_mc_pushed_popped:nn {popped}{-1}
+              }
+              {
+                \@@_check_mc_pushed_popped:nn {popped}{\l_@@_tmpa_tl}
+                \tag_mc_begin:n {tag=\l_@@_tmpa_tl,#1}
+              }
           }
           {
-            \@@_check_mc_pushed_popped:nn {popped}{\l_@@_tmpa_tl}
-            \tag_mc_begin:n {tag=\l_@@_tmpa_tl,#1}
+            \@@_check_mc_pushed_popped:nn {popped}{empty~stack,~nothing}
           }
-      }
-      {
-        \@@_check_mc_pushed_popped:nn {popped}{empty~stack,~nothing}
       }
   }
 %    \end{macrocode}
@@ -593,37 +599,43 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_mc_begin:n #1 %#1 keyval
   {
-    \group_begin: %hm
-    \@@_check_mc_if_nested:
-    \bool_gset_true:N \g_@@_in_mc_bool
-    \keys_set:nn { @@ / mc } {#1}
-    \bool_if:NTF \l_@@_mc_artifact_bool
-      { %handle artifact
-        \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
-      }
-      { %handle mcid type
-        \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
-        \@@_mc_handle_mcid:VV
-           \l_@@_mc_key_tag_tl
-           \l_@@_mc_key_properties_tl
-        \tl_if_empty:NF {\l_@@_mc_key_label_tl}
-          {
-            \exp_args:NV
-            \@@_mc_handle_mc_label:n \l_@@_mc_key_label_tl
+    \@@_check_if_active_mc:T
+      {
+        \group_begin: %hm
+        \@@_check_mc_if_nested:
+        \bool_gset_true:N \g_@@_in_mc_bool
+        \keys_set:nn { @@ / mc } {#1}
+        \bool_if:NTF \l_@@_mc_artifact_bool
+          { %handle artifact
+            \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
           }
-        \bool_if:NF \l_@@_mc_key_stash_bool
-          {
-            \@@_mc_handle_stash:n { \int_use:N \c@g_@@_MCID_abs_int }
+          { %handle mcid type
+            \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
+            \@@_mc_handle_mcid:VV
+               \l_@@_mc_key_tag_tl
+               \l_@@_mc_key_properties_tl
+            \tl_if_empty:NF {\l_@@_mc_key_label_tl}
+              {
+                \exp_args:NV
+                \@@_mc_handle_mc_label:n \l_@@_mc_key_label_tl
+              }
+            \bool_if:NF \l_@@_mc_key_stash_bool
+              {
+                \@@_mc_handle_stash:n { \int_use:N \c@g_@@_MCID_abs_int }
+              }
           }
+        \group_end:
       }
-    \group_end:
   }
 \cs_new_protected:Nn \tag_mc_end:
   {
-    \@@_check_mc_if_open:
-    \bool_gset_false:N \g_@@_in_mc_bool
-    \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
-    \@@_mc_emc:
+    \@@_check_if_active_mc:T
+      {
+        \@@_check_mc_if_open:
+        \bool_gset_false:N \g_@@_in_mc_bool
+        \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
+        \@@_mc_emc:
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -635,6 +647,7 @@
 % The argument is a label name set with the |label| key.
 %
 % TODO: is the claim about the warning right???
+% TODO: how should this be guarded by an active test?
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_mc_use:n #1 %#1: label name
   {
@@ -912,43 +925,50 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \tag_mc_begin:n
   {
-    %\group_begin:
-    %\@@_check_mc_if_nested:
-    %\bool_gset_true:N \g_@@_in_mc_bool
-    \bool_set_false:N\l_@@_mc_artifact_bool
-    \tl_clear:N \l_@@_mc_key_properties_tl
-    \int_gincr:N \c@g_@@_MCID_abs_int
-    \keys_set:nn { @@ / mc }{ label={}, #1 }
-    %check that a tag or artifact has been used
-    \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
-    %set the attributes:
-    \@@_mc_lua_set_mc_type_attr:o  { \l_@@_mc_key_tag_tl }
-    \bool_if:NF \l_@@_mc_artifact_bool
-      { % store the absolute num name in a label:
-        \tl_if_empty:NF {\l_@@_mc_key_label_tl}
-          {
-            \exp_args:NV
-             \@@_mc_handle_mc_label:n  \l_@@_mc_key_label_tl
+    \@@_check_if_active_mc:T
+      {
+        %\group_begin:
+        %\@@_check_mc_if_nested:
+        %\bool_gset_true:N \g_@@_in_mc_bool
+        \bool_set_false:N\l_@@_mc_artifact_bool
+        \tl_clear:N \l_@@_mc_key_properties_tl
+        \int_gincr:N \c@g_@@_MCID_abs_int
+        \keys_set:nn { @@ / mc }{ label={}, #1 }
+        %check that a tag or artifact has been used
+        \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
+        %set the attributes:
+        \@@_mc_lua_set_mc_type_attr:o  { \l_@@_mc_key_tag_tl }
+        \bool_if:NF \l_@@_mc_artifact_bool
+          { % store the absolute num name in a label:
+            \tl_if_empty:NF {\l_@@_mc_key_label_tl}
+              {
+                \exp_args:NV
+                 \@@_mc_handle_mc_label:n  \l_@@_mc_key_label_tl
+              }
+           % if not stashed record the absolute number
+            \bool_if:NF \l_@@_mc_key_stash_bool
+              {
+                \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
+              }
           }
-       % if not stashed record the absolute number
-        \bool_if:NF \l_@@_mc_key_stash_bool
-          {
-            \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
-          }
-      }
-    %\group_end:
+        %\group_end:
+     }
   }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\tag_mc_end:,\tag_mc_use:n}
+% TODO: check how the use command must be guarded.
 %    \begin{macrocode}
 \cs_new_protected:Nn \tag_mc_end:
   {
-    %\@@_check_mc_if_open:
-    %\bool_gset_false:N \g_@@_in_mc_bool
-    \bool_set_false:N\l_@@_mc_artifact_bool
-    \@@_mc_lua_unset_mc_type_attr:
-    \tl_set:Nn  \l_@@_mc_key_tag_tl { }
+    \@@_check_if_active_mc:T
+      {
+        %\@@_check_mc_if_open:
+        %\bool_gset_false:N \g_@@_in_mc_bool
+        \bool_set_false:N\l_@@_mc_artifact_bool
+        \@@_mc_lua_unset_mc_type_attr:
+        \tl_set:Nn  \l_@@_mc_key_tag_tl { }
+      }
   }
 
 \cs_new_protected:Nn \tag_mc_use:n %#1: label name

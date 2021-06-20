@@ -131,7 +131,16 @@
 %    \end{macrocode}
 % \end{macro}
 % \section{Variables}
-% few temp tl
+% \begin{macro}
+%  {
+%    \l_@@_tmpa_tl,
+%    \l_@@_tmpa_str,
+%    \l_@@_tmpa_prop,
+%    \l_@@_tmpa_seq,
+%    \l_@@_tmpb_seq,
+%    \l_@@_tmpa_clist
+%  }
+% A few temporary variables
 %    \begin{macrocode}
 \tl_new:N    \l_@@_tmpa_tl
 \str_new:N   \l_@@_tmpa_str
@@ -140,20 +149,66 @@
 \seq_new:N   \l_@@_tmpb_seq
 \clist_new:N \l_@@_tmpa_clist
 %    \end{macrocode}
-% Attribute lists for the label command
+% Attribute lists for the label command. We have a list for
+% mc-related labels, and one for structures.
+% \begin{macro}{\c_@@_refmc_clist,\c_@@_refstruct_clist}
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_refmc_clist     {tagabspage,tagmcabs,tagmcid}
 \clist_const:Nn \c_@@_refstruct_clist {tagstruct,tagstructobj}
 %    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\l_@@_loglevel_int}
+% This integer hold the log-level and so allows to
+% control the messages.
+% TODO: a list which log-level shows what is needed. The current behaviour
+% is quite ad-hoc.
 %    \begin{macrocode}
 \int_new:N  \l_@@_loglevel_int
-\tl_new:N   \l_@@_tree_tabs_order_tl
 %    \end{macrocode}
-
+% \end{variable}
+%
+% \begin{variable}
+%  {
+%    \g_@@_active_mc_bool,
+%    \g_@@_active_tree_bool,
+%    \g_@@_active_struct_bool
+%  }
+% These booleans should help to control the global behaviour of tagpdf.
+% Ideally it should do nothing if all are false.
+% The mc-boolean activates \cs{tag_mc_begin:n},
+% the tree-boolean activates writing the finish code and the pdfmanagement related
+% commands, the struct boolean actives the storing of the structure data.
+% In a normal document all should be active, the split is only there for
+% debugging purpose.
+% Also we assume currently that they are set only at begin document. But
+% if some control passing over groups are needed they could be perhaps
+% used in a document too.
+% TODO: check if they are used everywhere as needed and as wanted.
 %    \begin{macrocode}
 \bool_new:N \g_@@_active_mc_bool
 \bool_new:N \g_@@_active_tree_bool
 \bool_new:N \g_@@_active_struct_bool
+%    \end{macrocode}
+% \end{variable}
+
+% \begin{variable}
+%  {
+%    \l_@@_active_mc_bool,
+%    \l_@@_active_struct_bool
+%  }
+% These booleans should help to control the local behaviour of tagpdf.
+% In some cases it could be necessary to stop tagging completly.
+% TODO: check if they are used everywhere as needed and as wanted.
+%    \begin{macrocode}
+\bool_new:N \l_@@_active_mc_bool
+\bool_set_true:N \l_@@_active_mc_bool
+\bool_new:N \l_@@_active_struct_bool
+\bool_set_true:N \l_@@_active_struct_bool
+%    \end{macrocode}
+% \end{variable}
+
+%    \begin{macrocode}
 \bool_new:N \g_@@_check_tags_bool
 \bool_new:N \g_@@_tagunmarked_bool
 %    \end{macrocode}

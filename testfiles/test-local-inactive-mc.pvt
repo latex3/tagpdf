@@ -1,0 +1,20 @@
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata
+ {uncompress}
+\RequirePackage{tagpdf-regressiontest}
+\documentclass{article}
+\usepackage{tagpdf}
+\tagpdfsetup{activate-all}
+
+\begin{document}
+
+\ExplSyntaxOn
+\tagmcbegin{tag=XXX}abc\tagmcend
+
+\bool_set_false:N \l__tag_active_mc_bool
+
+\tagmcbegin{tag=XXX}abc\tagmcend
+
+\ExplSyntaxOff
+
+\end{document}

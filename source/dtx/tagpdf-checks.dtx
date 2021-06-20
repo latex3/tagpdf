@@ -199,6 +199,33 @@
 % \subsection{Checks}
 % These are checks used in various places in the code.
 %
+% \subsection{checks for active tagging}
+% \begin{macro}{\@@_check_structure_has_tag:n}
+% Structures must have a tag, so we check if the S entry is in the property.
+% It is an error if this is missing. The argument is a number.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_check_if_active_mc: {T,F,TF}
+  {
+    \bool_lazy_and:nnTF { \g_@@_active_mc_bool } { \l_@@_active_mc_bool }
+      {
+         \prg_return_true:
+      }
+      {
+         \prg_return_false:
+      }
+  }
+\prg_new_conditional:Npnn \@@_check_if_active_struct: {T,F,TF}
+  {
+    \bool_lazy_and:nnTF { \g_@@_active_struct_bool } { \l_@@_active_struct_bool }
+      {
+         \prg_return_true:
+      }
+      {
+         \prg_return_false:
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \subsubsection{Checks related to stuctures}
 % \begin{macro}{\@@_check_structure_has_tag:n}
 % Structures must have a tag, so we check if the S entry is in the property.
