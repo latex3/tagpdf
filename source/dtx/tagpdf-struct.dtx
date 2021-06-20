@@ -718,11 +718,8 @@
         \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:Nn\g__tag_role_tags_NS_prop{#1}}
         \tl_gset:Nx \g_@@_struct_tag_tl    { \seq_item:Nn\l_@@_tmpa_seq {1} }
         \tl_gset:Nx \g_@@_struct_tag_NS_tl { \seq_item:Nn\l_@@_tmpa_seq {2} }
-        \bool_if:NT \g_@@_check_tags_bool
-          {
-            \@@_check_structure_tag:N \g_@@_struct_tag_tl
-          }
-       \@@_prop_gput:cnx
+        \@@_check_structure_tag:N \g_@@_struct_tag_tl
+        \@@_prop_gput:cnx
          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
          { S }
          { \pdf_name_from_unicode_e:n{ \g_@@_struct_tag_tl} } %
@@ -1046,7 +1043,7 @@
     \@@_check_if_active_struct:T
       {
         \@@_struct_insert_annot:nn {#1}{#2}
-      }  
+      }
   }
 
 \cs_generate_variant:Nn \tag_struct_insert_annot:nn {xx}

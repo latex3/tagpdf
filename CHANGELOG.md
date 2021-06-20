@@ -9,6 +9,9 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed
  - \tag_finish_structure: is no longer a public command.
 
+### Removed
+ - check-tags key. This is now done with the log-level. 
+
 ## [2021-06-14]
 ### Added
  - commands to add annotations to a structure

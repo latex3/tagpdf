@@ -210,7 +210,6 @@
 % \end{variable}
 
 %    \begin{macrocode}
-\bool_new:N \g_@@_check_tags_bool
 \bool_new:N \g_@@_tagunmarked_bool
 %    \end{macrocode}
 
@@ -293,8 +292,6 @@
     activate-tree   .bool_gset:N = \g_@@_active_tree_bool,
     activate-struct .bool_gset:N = \g_@@_active_struct_bool,
     activate-all    .meta:n ={activate-mc,activate-tree,activate-struct},
-    check-tags      .bool_gset:N = \g_@@_check_tags_bool,
-    check-tags      .initial:n  = true,
     log             .choice:,
     log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
     log / v         .code:n = {\int_set:Nn \l_@@_loglevel_int { 1 }},
