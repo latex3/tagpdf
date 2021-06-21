@@ -835,7 +835,10 @@
 %    \begin{macrocode}
 \prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
   {
-    \int_compare:nNnTF { -2147483647 }={ \lua_now:e{ltx.@@.func.get_mc_type_attr()} }
+    \int_compare:nNnTF
+      { -2147483647 }
+      =
+      {\lua_now:e{tex.print(tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr))}}
       { \prg_return_false:  }
       { \prg_return_true: }
   }
@@ -855,12 +858,25 @@
 %    \begin{macrocode}
 \cs_new:Nn \@@_mc_lua_set_mc_type_attr:n % #1 is a tag name
   {
- %   \@@_attribute_set:Nn \l_@@_mc_type_attr
-%      {
-%        \lua_now:e { ltx.@@.func.output_num_from ("#1") }
-%      }
-    \lua_now:e {ltx.@@.func.set_mc_type_attr("#1")}
-    \@@_attribute_set:Nn \l_@@_mc_cnt_attr  { \@@_get_mc_abs_cnt: }
+    \tl_set:Nx\l_@@_tmpa_tl{\lua_now:e{ltx.@@.func.output_num_from ("#1")} }
+    \lua_now:e
+      {
+        tex.setattribute
+         (
+          "global",
+          luatexbase.attributes.g_@@_mc_type_attr,
+          \l_@@_tmpa_tl
+         )
+      }
+    \lua_now:e
+      {
+        tex.setattribute
+         (
+           "global",
+           luatexbase.attributes.g_@@_mc_cnt_attr,
+           \@@_get_mc_abs_cnt:
+         )
+      }
   }
 
 \cs_generate_variant:Nn\@@_mc_lua_set_mc_type_attr:n { o }
@@ -868,8 +884,9 @@
 \cs_new:Nn \@@_mc_lua_unset_mc_type_attr:
   {
     %\@@_attribute_unset:N \l_@@_mc_type_attr
-    \lua_now:e {ltx.@@.func.unset_mc_type_attr("#1")}
-    \@@_attribute_unset:N \l_@@_mc_cnt_attr
+     \lua_now:e {tex.setattribute("global",luatexbase.attributes.g_@@_mc_type_attr,-2147483647)}
+     \lua_now:e {tex.setattribute("global",luatexbase.attributes.g_@@_mc_cnt_attr,-2147483647)}
+    %\@@_attribute_unset:N \l_@@_mc_cnt_attr
   }
 
 %    \end{macrocode}

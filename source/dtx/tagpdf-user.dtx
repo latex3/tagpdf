@@ -232,11 +232,11 @@
                  (
                    "showtagpdfattributes:
                     MC=>abscnt=\@@_get_mc_abs_cnt:
-                    =>attr=\the\l_@@_mc_cnt_attr=>tag="
+                    =>attr="..tex.getattribute(luatexbase.attributes.g_@@_mc_cnt_attr).."=>tag="
                     ..
-                    tostring(ltx.@@.func.get_tag_from (\the\l_@@_mc_type_attr))
+                    tostring(ltx.@@.func.get_tag_from (tex.getattribute(luatexbase.attributes.g_@@_mc_type_attr)))
                     ..
-                    "=\the\l_@@_mc_type_attr",0
+                    "="..tex.getattribute(luatexbase.attributes.g_@@_mc_type_attr),0
                  )
              }
             \ignorespaces

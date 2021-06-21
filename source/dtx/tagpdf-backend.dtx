@@ -30,33 +30,33 @@
 \ProvidesExplFile {tagpdf-luatex.def} {2021-06-14} {0.82}
   {tagpdf~driver~for~luatex}
 
-\newattribute \l_@@_mc_type_attr     %the value represent the type
-\newattribute \l_@@_mc_cnt_attr      %will hold the \c@g_@@_MCID_abs_int value
+%\newattribute \l_@@_mc_type_attr     %the value represent the type
+%\newattribute \l_@@_mc_cnt_attr      %will hold the \c@g_@@_MCID_abs_int value
 
 
-\cs_new_protected:Npn \@@_attribute_gset:Nn #1 #2
-   {
-     %\tex_global:D \setattribute #1 #2
-     \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",#2)}
-   }
-
- \cs_new_protected:Npn \@@_attribute_set:Nn #1 #2
-   {
-     %\setattribute #1 #2
-     \lua_now:e{tex.setattribute("\cs_to_str:N#1",#2)}
-   }
-
- \cs_new_protected:Npn \@@_attribute_gunset:N #1
-   {
-     %\tex_global:D \unsetattribute #1
-     \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",-2147483647)}
-   }
-
- \cs_new_protected:Npn \@@_attribute_unset:N #1
-   {
-     %\unsetattribute #1
-     \lua_now:e{tex.setattribute("\cs_to_str:N#1",-2147483647)}
-   }
+%\cs_new_protected:Npn \@@_attribute_gset:Nn #1 #2
+%   {
+%     %\tex_global:D \setattribute #1 #2
+%     \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",#2)}
+%   }
+%
+% \cs_new_protected:Npn \@@_attribute_set:Nn #1 #2
+%   {
+%     %\setattribute #1 #2
+%     \lua_now:e{tex.setattribute("\cs_to_str:N#1",#2)}
+%   }
+%
+% \cs_new_protected:Npn \@@_attribute_gunset:N #1
+%   {
+%     %\tex_global:D \unsetattribute #1
+%     \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",-2147483647)}
+%   }
+%
+% \cs_new_protected:Npn \@@_attribute_unset:N #1
+%   {
+%     %\unsetattribute #1
+%     \lua_now:e{tex.setattribute("\cs_to_str:N#1",-2147483647)}
+%   }
 
 % The lua code
 % ensure that 10pt font has been loaded:
@@ -201,12 +201,12 @@ functions
 --]]
 
 --local mctypeattributeid       = luatexbase.registernumber ("l_@@_mc_type_attr")
-local mccntattributeid        = luatexbase.registernumber ("l_@@_mc_cnt_attr")
+--local mccntattributeid        = luatexbase.registernumber ("l_@@_mc_cnt_attr")
 --local iwspaceattributeid = luatexbase.registernumber ("g_@@_interwordspace_attr")
 --local iwfontattributeid = luatexbase.registernumber ("g_@@_interwordfont_attr")
 
-local mctypeattributeid  = luatexbase.new_attribute ("l_@@_mc_type_attr")
---local mccntattributeid   = luatexbase.new_attribute ("l_@@_mc_cnt_attr")
+local mctypeattributeid  = luatexbase.new_attribute ("g_@@_mc_type_attr")
+local mccntattributeid   = luatexbase.new_attribute ("g_@@_mc_cnt_attr")
 local iwspaceattributeid = luatexbase.new_attribute ("g_@@_interwordspace_attr")
 local iwfontattributeid  = luatexbase.new_attribute ("g_@@_interwordfont_attr")
 
@@ -270,22 +270,6 @@ local function fakespace()
    tex.setattribute(iwfontattributeid,font.current())
 end
 ltx.@@.func.fakespace = fakespace
-
-local function set_mc_type_attr (tag)
-   tex.setattribute("global",mctypeattributeid,ltx.@@.func.output_num_from (tag))
-end
-ltx.@@.func.set_mc_type_attr = set_mc_type_attr
-
-local function unset_mc_type_attr ()
-   tex.setattribute("global",mctypeattributeid,-2147483647)
-end
-ltx.@@.func.unset_mc_type_attr = unset_set_mc_type_attr
-
-local function get_mc_type_attr ()
-   tex.print(tex.getattribute(mctypeattributeid))
-end
-ltx.@@.func.get_mc_type_attr = get_mc_type_attr
-
 
 
 local @@_log =
