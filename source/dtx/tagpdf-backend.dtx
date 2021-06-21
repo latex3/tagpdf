@@ -33,8 +33,8 @@
 \newattribute \l_@@_mc_type_attr     %the value represent the type
 \newattribute \l_@@_mc_cnt_attr      %will hold the \c@g_@@_MCID_abs_int value
 
-\newattribute \g_@@_interwordspace_attr
-\newattribute \g_@@_interwordfont_attr
+%\newattribute \g_@@_interwordspace_attr
+%\newattribute \g_@@_interwordfont_attr
 
 \cs_new_protected:Npn \@@_attribute_gset:Nn #1 #2
    {
@@ -204,10 +204,10 @@ functions
 
 local mctypeattributeid       = luatexbase.registernumber ("l_@@_mc_type_attr")
 local mccntattributeid        = luatexbase.registernumber ("l_@@_mc_cnt_attr")
-local iwspaceattributeid = luatexbase.registernumber ("g_@@_interwordspace_attr")
-local iwfontattributeid = luatexbase.registernumber ("g_@@_interwordfont_attr")
---local iwspaceattributeid = luatexbase.new_attribute ("g_@@_interwordspace_attr")
---local iwfontattributeid  = luatexbase.new_attribute ("g_@@_interwordfont_attr")
+--local iwspaceattributeid = luatexbase.registernumber ("g_@@_interwordspace_attr")
+--local iwfontattributeid = luatexbase.registernumber ("g_@@_interwordfont_attr")
+local iwspaceattributeid = luatexbase.new_attribute ("g_@@_interwordspace_attr")
+local iwfontattributeid  = luatexbase.new_attribute ("g_@@_interwordfont_attr")
 
 local catlatex       = luatexbase.registernumber("catcodetable@latex")
 local tagunmarkedbool= token.create("g_@@_tagunmarked_bool")
@@ -263,6 +263,12 @@ ltx.@@.page           = ltx.@@.page   or  { } -- page data, currently only i->{0
 ltx.@@.trace          = ltx.@@.trace  or  { } -- show commands
 ltx.@@.func           = ltx.@@.func   or  { } -- functions
 ltx.@@.conf           = ltx.@@.conf   or  { } -- configuration variables
+
+local function fakespace()
+   tex.setattribute(iwspaceattributeid,1)
+   tex.setattribute(iwfontattributeid,font.current())
+end
+ltx.@@.func.fakespace = fakespace
 
 local @@_log =
  function (message,loglevel)
