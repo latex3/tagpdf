@@ -150,6 +150,20 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 
 \tableofcontents
+\section{Preface to version 0.9}
+
+In this version lots of things have changed, but most of them are internal: the code has been reviewed and cleaned up,
+a number of errors corrected, the code has been properly documentated (and the code documentation can now be compiled and 
+printed).
+
+There are nevertheless also a few changes for the public interface, one of them even a breaking change 
+\begin{description}
+\item[More engines supported] The generic mode of \pkg{tagpdf} now works 
+(theoretically, it is not much tested) with all engines supported
+by the pdfmanagement. So compilations with Xe\LaTeX{} or with dvips should work. But it should be noted that 
+these engines and backends don't support the |interspaceword| option. With Xe\LaTeX{} it is perhaps possible
+implement something with the 
+\end{description}
 
 \section{Preface to version 0.8 and newer}
 

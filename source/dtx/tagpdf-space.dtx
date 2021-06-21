@@ -132,6 +132,7 @@
       {
         \group_begin:
         \lua_now:e{tex.setattribute("g_@@_interwordspace_attr",1)}
+        \lua_now:e{ltx.__tag.func.setinterwordspace()}
         \lua_now:e{tex.setattribute("g_@@_interwordfont_attr",font.current())}
         \skip_horizontal:n{\c_zero_skip}
         \group_end:
