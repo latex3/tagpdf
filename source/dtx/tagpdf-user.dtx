@@ -21,8 +21,86 @@
 %    https://github.com/u-fischer/tagpdf
 %
 % for those people who are interested.
-%
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-user module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
 % \fi
+% \title{^^A
+%   The \pkg{tagpdf-user} module\\ Code related to \LaTeX2e user commands and document commands   ^^A
+%   \\ part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.82, released 2021-06-14}
+% \maketitle
+% \begin{documentation}
+% \section{Setup commands}
+% \begin{function}{\tagpdfsetup}
+% \begin{syntax}
+% \cs{tagpdfsetup}\Arg{key val list}
+% \end{syntax}
+% This is the main setup command to adapt the behaviour of tagpdf.
+% It can be used in the preamble and in the document (but not all keys make sense there).
+%
+% \end{function}
+%
+% \section{Commands related to mc-chunks}
+% \begin{function}{\tagmcbegin, \tagmcend,\tagmcuse}
+% \begin{syntax}
+% \cs{tagmcbegin} \Arg{key-val}\\
+% \cs{tagmcend}\\
+% \cs{tagmcuse}\Arg{label}
+% \end{syntax}
+% These are wrappers around |\tag_mc_begin:n|, |\tag_mc_end:| and |\tag_mc_use:n|.
+% The commands and their argument are documentated in the \pkg{tagpdf-mc} module.
+% In difference to the expl3 commands, \cs{tagmcbegin} issues also an \cs{ignorespaces},
+% and \cs{tagmcend} will issue in horizontal mode an \cs{unskip}.
+% \end{function}
+%
+% \begin{function}{\tagmcifin}
+% \begin{syntax}
+% \cs{tagmcifin} \Arg{true code}\Arg{false code}
+% \end{syntax}
+% This is a wrapper around |\tag_mc_if_in:TF|.
+% and tests if an mc is open or not. It is mostly of
+% importance for pdflatex as lualatex doesn't mind much if a mc tag is not
+% correctly closed. Unlike the expl3 command it is not expandable.
+%
+% The command is probably not of much use and will perhaps disappear in future
+% versions. It normally makes more sense to push/pop an mc-chunk.
+% \end{function}
+%
+% \section{Commands related to structures}
+% \begin{function}{\tagstructbegin, \tagstructend,\tagstructuse}
+% \begin{syntax}
+% \cs{tagstructbegin} \Arg{key-val}\\
+% \cs{tagstructend}\\
+% \cs{tagstructuse}\Arg{label}
+% \end{syntax}
+% These are direct wrappers around |\tag_struct_begin:n|,
+% |\tag_struct_end:| and |\tag_struct_use:n|.
+% The commands and their argument are documentated in the \pkg{tagpdf-struct} module.
+% \end{function}
+% \end{documentation}
 %
 % \begin{implementation}
 % \section{User commands and extensions of document commands}
@@ -32,58 +110,18 @@
 \ProvidesExplPackage {tagpdf-user} {2021-06-14} {0.82}
   {tagpdf - user commands}
 %    \end{macrocode}
-
+% \section{Setup and preamble commands}
 % \begin{macro}{\tagpdfsetup}
 %    \begin{macrocode}
 \NewDocumentCommand \tagpdfsetup { m }
   {
     \keys_set:nn { @@ / setup } { #1 }
   }
-
-\cs_set_eq:NN\tagpdfifluatexTF \sys_if_engine_luatex:TF
-\cs_set_eq:NN\tagpdfifluatexT  \sys_if_engine_luatex:T
-\cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
-%    \end{macrocode}
-% \end{macro}
-
-% \begin{macro}{ \tag_stop_group_begin:, \tag_stop_group_end: }
-% We need a command to stop tagging in some places.
-% This simply switches the two local booleans.
-%    \begin{macrocode}
-\cs_new_protected:Npn \tag_stop_group_begin:
-  {
-    \group_begin:
-    \bool_set_false:N \l_@@_active_struct_bool
-    \bool_set_false:N \l_@@_active_mc_bool
-  }
-
-\cs_set_eq:NN \tag_stop_group_end: \group_end:
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{ \tagpdfget, \tag_get:n  }
-% This is a generic command to retrieve data. Currently
-% the only sensible value for the argument is |mc_tag|
-%    \begin{macrocode}
-\cs_new:Npn \tagpdfget #1   { \use:c {@@_get_data_#1: } }
-\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
 
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\tagmcifinTF,\tag_mc_if_in:}
-% This is a test if an mc is open or not. It is mostly of
-% importance for pdflatex as lualatex doesn't mind much if a mc tag is not
-% correctly closed.
-%    \begin{macrocode}
-\NewDocumentCommand \tagmcifinTF { m m }
-  {
-    \@@_mc_if_in:TF { #1 } { #2 }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
-%
+% \section{Commands for the mc-chunks}
 % \begin{macro}{\tagmcbegin,\tagmcend,\tagmcuse  }
 %    \begin{macrocode}
 \NewDocumentCommand \tagmcbegin { m }
@@ -105,10 +143,24 @@
 
 %    \end{macrocode}
 % \end{macro}
+
+% \begin{macro}{\tagmcifinTF}
+% This is a wrapper around |\tag_mc_if_in:| and tests if an mc is open or not. It is mostly of
+% importance for pdflatex as lualatex doesn't mind much if a mc tag is not
+% correctly closed. Unlike the expl3 command it is not expandable.
+%    \begin{macrocode}
+\NewDocumentCommand \tagmcifinTF { m m }
+  {
+    \tag_mc_if_in:TF { #1 } { #2 }
+  }
+%    \end{macrocode}
+% \end{macro}
 %
+% \section{Commands for the structure}
 % \begin{macro}{\tagstructbegin,\tagstructend,\tagstructuse  }
 %
-% These are structure related user commands
+% These are structure related user commands. There are direct wrapper around the
+% expl3 variants.
 %    \begin{macrocode}
 \NewDocumentCommand \tagstructbegin { m }
   {
@@ -124,10 +176,34 @@
   {
     \tag_struct_use:n {#1}
   }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\tagpdfifluatexTF,\tagpdfifluatexT,\tagpdfifpdftexTF}
+% I should deprecate them ...
+%    \begin{macrocode}
+\cs_set_eq:NN\tagpdfifluatexTF \sys_if_engine_luatex:TF
+\cs_set_eq:NN\tagpdfifluatexT  \sys_if_engine_luatex:T
+\cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[EXP]{ \tagpdfget, \tag_get:n  }
+% This is a generic command to retrieve data. Currently
+% the only sensible values for the argument are |mc_tag| and |struct_tag|.
+%    \begin{macrocode}
+\cs_new:Npn \tagpdfget #1   { \use:c {@@_get_data_#1: } }
+\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
 
 %    \end{macrocode}
 % \end{macro}
 %
+
+%
+%
+
+%
+
 % \section{Debugging}
 %
 % \begin{macro}{\showtagpdfmcdata,\showtagpdfattributes }
