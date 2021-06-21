@@ -294,6 +294,20 @@
 
 %    \end{macrocode}
 %
+% \begin{macro}{ \tag_stop_group_begin:, \tag_stop_group_end: }
+% We need a command to stop tagging in some places.
+% This simply switches the two local booleans.
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_stop_group_begin:
+  {
+    \group_begin:
+    \bool_set_false:N \l_@@_active_struct_bool
+    \bool_set_false:N \l_@@_active_mc_bool
+  }
+
+\cs_set_eq:NN \tag_stop_group_end: \group_end:
+%    \end{macrocode}
+% \end{macro}
 %
 % \section{Keys for tagpdfsetup}
 % TODO: checks need to be improved
@@ -375,6 +389,8 @@
 \cs_generate_variant:Nn \@@_seq_new:N    { c }
 \cs_generate_variant:Nn \@@_seq_show:N   { c }
 \cs_generate_variant:Nn \@@_prop_show:N  { c }
+
+
 
 %% Loading the tagpdf sub packages
 \RequirePackage { tagpdf-checks-code }
