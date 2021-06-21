@@ -714,7 +714,9 @@ function ltx.@@.func.mc_insert_kids (mcnum,single)
      tex.sprint("]")
     end
    else
-    ltx.@@.trace.log("WARN! MC"..mcnum.." has no kids",0)
+    -- this is typically not a problem, e.g. empty hbox in footer/header can
+    -- trigger this warning.
+    ltx.@@.trace.log("WARN! MC"..mcnum.." has no kids",2)
     if single==1 then
       tex.sprint("null")
     end
