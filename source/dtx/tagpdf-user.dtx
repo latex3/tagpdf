@@ -1,0 +1,361 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf-user.dtx
+%
+% Copyright (C) 2019-2020 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%
+% \fi
+%
+% \begin{implementation}
+% \section{User commands and extensions of document commands}
+%    \begin{macrocode}
+%<@@=tag>
+%<*user>
+\ProvidesExplPackage {tagpdf-user} {2021-06-14} {0.82}
+  {tagpdf - user commands}
+%    \end{macrocode}
+
+% \begin{macro}{\tagpdfsetup}
+%    \begin{macrocode}
+\NewDocumentCommand \tagpdfsetup { m }
+  {
+    \keys_set:nn { @@ / setup } { #1 }
+  }
+
+\cs_set_eq:NN\tagpdfifluatexTF \sys_if_engine_luatex:TF
+\cs_set_eq:NN\tagpdfifluatexT  \sys_if_engine_luatex:T
+\cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{ \tag_stop_group_begin:, \tag_stop_group_end: }
+% We need a command to stop tagging in some places.
+% This simply switches the two local booleans.
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_stop_group_begin:
+  {
+    \group_begin:
+    \bool_set_false:N \l_@@_active_struct_bool
+    \bool_set_false:N \l_@@_active_mc_bool
+  }
+
+\cs_set_eq:NN \tag_stop_group_end: \group_end:
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{ \tagpdfget, \tag_get:n  }
+% This is a generic command to retrieve data. Currently
+% the only sensible value for the argument is |mc_tag|
+%    \begin{macrocode}
+\cs_new:Npn \tagpdfget #1   { \use:c {@@_get_data_#1: } }
+\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tagmcifinTF,\tag_mc_if_in:}
+% This is a test if an mc is open or not. It is mostly of
+% importance for pdflatex as lualatex doesn't mind much if a mc tag is not
+% correctly closed.
+%    \begin{macrocode}
+\NewDocumentCommand \tagmcifinTF { m m }
+  {
+    \@@_mc_if_in:TF { #1 } { #2 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\tagmcbegin,\tagmcend,\tagmcuse  }
+%    \begin{macrocode}
+\NewDocumentCommand \tagmcbegin { m }
+  {
+    \tag_mc_begin:n {#1}\ignorespaces
+  }
+
+
+\NewDocumentCommand \tagmcend {  }
+  {
+    \if_mode_horizontal: \unskip \fi: %
+    \tag_mc_end:
+  }
+
+\NewDocumentCommand \tagmcuse { m }
+  {
+    \tag_mc_use:n {#1}
+  }
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tagstructbegin,\tagstructend,\tagstructuse  }
+%
+% These are structure related user commands
+%    \begin{macrocode}
+\NewDocumentCommand \tagstructbegin { m }
+  {
+    \tag_struct_begin:n {#1}
+  }
+
+\NewDocumentCommand \tagstructend {  }
+  {
+   \tag_struct_end:
+  }
+
+\NewDocumentCommand \tagstructuse { m }
+  {
+    \tag_struct_use:n {#1}
+  }
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{Debugging}
+%
+% \begin{macro}{\showtagpdfmcdata,\showtagpdfattributes }
+% This commands are lua only
+%    \begin{macrocode}
+\NewDocumentCommand\showtagpdfmcdata { O {\@@_tag_get_mc_abs_cnt:} }
+  {
+    \bool_if:NT \g_@@_mode_lua_bool
+      {
+        \sys_if_engine_luatex:T
+          {
+            \lua_now:e{ltx.@@.trace.show_all_mc_data(#1)}
+          }
+      }
+  }
+
+\NewDocumentCommand\showtagpdfattributes { }
+  {
+    \bool_if:NT \g_@@_mode_lua_bool
+      {
+        \sys_if_engine_luatex:T
+          {
+            \lua_now:e
+              {
+                ltx.@@.trace.log
+                 (
+                   "showtagpdfattributes:
+                    MC=>abscnt=\@@_get_mc_abs_cnt:
+                    =>attr=\the\l_@@_mc_cnt_attr=>tag="
+                    ..
+                    tostring(ltx.@@.func.get_tag_from (\the\l_@@_mc_type_attr))
+                    ..
+                    "=\the\l_@@_mc_type_attr",0
+                 )
+             }
+            \ignorespaces
+          }
+      }
+   }
+
+\NewDocumentCommand\showtagstack {}
+  {
+    \seq_show:N \g_@@_struct_tag_stack_seq
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{  }
+%    \begin{macrocode}
+\sys_if_engine_luatex:T
+  {
+    \NewDocumentCommand\pdffakespace { }
+      {
+        \@@_fakespace:
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \section{Paratagging}
+%  The following are some simple commands to enable/disable paratagging.
+%  Probably one should add some checks if we are already in a paragraph.
+%    \begin{macrocode}
+\bool_new:N \l_@@_para_bool
+\bool_new:N \l_@@_para_show_bool
+\int_new:N \g_@@_para_int
+
+\keys_define:nn { @@ / setup }
+  {
+    paratagging      .bool_set:N = \l_@@_para_bool,
+    paratagging-show .bool_set:N = \l_@@_para_show_bool,
+  }
+
+\AddToHook{para/begin}
+  {
+   \int_gincr:N \g_@@_para_int
+   \bool_if:NT \l__tag_para_bool
+     {
+       \tag_struct_begin:n {tag=P}
+       \bool_if:NT \l_@@_para_show_bool
+        { \tag_mc_begin:n{artifact}
+          \llap{\color_select:n{red}\tiny\int_use:N\g_@@_para_int\ }
+          \tag_mc_end:
+        }
+       \tag_mc_begin:n {tag=P}
+     }
+  }
+\AddToHook{para/end}
+  {
+    \bool_if:NT \l__tag_para_bool
+      {
+        \tag_mc_end:
+        \bool_if:NT \l_@@_para_show_bool
+          { \tag_mc_begin:n{artifact}
+            \rlap{\color_select:n{red}\tiny\ \int_use:N\g_@@_para_int}
+            \tag_mc_end:
+          }
+        \tag_struct_end:
+      }
+  }
+
+
+\newcommand\tagpdfparaOn {\bool_set_true:N \l__tag_para_bool}
+\newcommand\tagpdfparaOff{\bool_set_false:N \l__tag_para_bool}
+
+%    \end{macrocode}
+% \section{Links}
+% We need to close and reopen mc-chunks around links.
+% With luatex the push/pop command must be outside groups,
+% so we add also code to the generic commands in the hyperref driver.
+%    \begin{macrocode}
+\hook_gput_code:nnn
+  {pdfannot/link/URI/before}
+  {tagpdf}
+  {
+    \tag_mc_end_push:
+    \tag_struct_begin:n { tag=Link }
+    \tag_mc_begin:n { tag=Link }
+    \pdfannot_dict_put:nnx
+      { link/URI }
+      { StructParent }
+      { \tag_struct_parent_int: }
+  }
+
+\hook_gput_code:nnn
+  {pdfannot/link/URI/after}
+  {tagpdf}
+  {
+     \tag_struct_insert_annot:xx {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+     \tag_mc_end:
+     \tag_struct_end:
+     \tag_mc_begin_pop:n{}
+  }
+
+\hook_gput_code:nnn
+  {pdfannot/link/GoTo/before}
+  {tagpdf}
+  {
+     \tag_mc_end_push:
+     \tag_struct_begin:n{tag=Link}
+     \tag_mc_begin:n{tag=Link}
+     \pdfannot_dict_put:nnx
+       { link/GoTo }
+       { StructParent }
+       { \tag_struct_parent_int: }
+  }
+
+\hook_gput_code:nnn
+  {pdfannot/link/GoTo/after}
+  {tagpdf}
+  {
+    \tag_struct_insert_annot:xx {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+    \tag_mc_end:
+    \tag_struct_end:
+    \tag_mc_begin_pop:n{}
+
+  }
+
+\hook_gput_code:nnn
+ {cmd/url/before}
+ {tagpdf}
+ {\tag_mc_end_push:}
+
+\hook_gput_code:nnn
+ {cmd/url/after}
+ {tagpdf}
+ {\tag_mc_begin_pop:n{}}
+
+\hook_gput_code:nnn
+ {cmd/href/before}
+ {tagpdf}
+ {\tag_mc_end_push:}
+
+\hook_gput_code:nnn
+ {cmd/href/after}
+ {tagpdf}
+ {\tag_mc_begin_pop:n{}}
+
+\hook_gput_code:nnn
+ {cmd/hrefurl/before}
+ {tagpdf}
+ {\tag_mc_end_push:}
+
+\hook_gput_code:nnn
+ {cmd/hrefurl/after}
+ {tagpdf}
+ {\tag_mc_begin_pop:n{}}
+
+%this will go when references are improved
+\hook_gput_code:nnn
+ {cmd/T@ref/before}
+ {tagpdf}
+ {\tag_mc_end_push:}
+
+\hook_gput_code:nnn
+ {cmd/T@ref/after}
+ {tagpdf}
+ {\tag_mc_begin_pop:n{}}
+
+\hook_gput_code:nnn
+ {cmd/T@pageref/before}
+ {tagpdf}
+ {\tag_mc_end_push:}
+
+\hook_gput_code:nnn
+ {cmd/T@pageref/after}
+ {tagpdf}
+ {\tag_mc_begin_pop:n{}}
+
+\hook_gput_code:nnn
+ {cmd/T@nameref/before}
+ {tagpdf}
+ {\tag_mc_end_push:}
+
+\hook_gput_code:nnn
+ {cmd/T@nameref/after}
+ {tagpdf}
+ {\tag_mc_begin_pop:n{}}
+% "alternative descriptions " for PAX3. How to get better text here??
+\pdfannot_dict_put:nnn
+ { link/URI }
+ { Contents }
+ { (url) }
+
+\pdfannot_dict_put:nnn
+ { link/GoTo }
+ { Contents }
+ { (ref) }
+
+%    \end{macrocode}
+%</user>
+%
