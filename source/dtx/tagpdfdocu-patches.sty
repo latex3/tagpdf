@@ -1,6 +1,40 @@
 %\RequirePackage[enable-debug]{expl3}[2018/06/14]
 \ProvidesExplPackage {tagpdfdocu-patches} {2021-06-14} {0.82}
  {patches/commands for the tagpdf documentation}
+\RequirePackage{etoolbox}
+%%%%
+% header and footer (now needed as attributes are global again)
+%%%%
+%% patching \@oddfoot/\@oddhead is nonsense, that is redefined all the time.
+%% Using the scrlayer interfaces would probably work
+%% but we will need a core latex solution anyway
+%% so let's test it here and patch \@outputpage
+%% we also disable paratagging, not for the tagging but to avoid that the small
+%% numbers gives overfull vbox messages ...
+\patchcmd\@outputpage
+ {\hb@xt@\textwidth{\@thehead}}
+ {
+  \hb@xt@\textwidth
+   {
+    \bool_set_false:N \l__tag_para_bool
+    \tag_mc_artifact_group_begin:n{pagination}
+    \@thehead
+    \tag_mc_artifact_group_end:
+   }
+ }
+ {}{\fail}
+\patchcmd\@outputpage
+ {\hb@xt@\textwidth{\@thefoot}}
+ {
+  \hb@xt@\textwidth
+   {
+    \bool_set_false:N \l__tag_para_bool
+    \tag_mc_artifact_group_begin:n{pagination}
+    \@thefoot
+    \tag_mc_artifact_group_end:
+   }
+ }
+ {}{\fail}
 
 %%%%%
 % tableofcontents

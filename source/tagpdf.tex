@@ -79,13 +79,9 @@
 \usepackage{tagpdfdocu-patches}
 
 
+\cfoot*{\pagemark}
 
-%header and footer. This still needs some sorting, the first page does't work correctly
-\cfoot*{\leavevmode\tagmcbegin{artifact=pagination}\pagemark\tagmcend}
-\makeatletter
-\patchcmd\@oddfoot{\begingroup}{\begingroup\tagpdfparaOff}{}{}
-\patchcmd\@oddhead{\begingroup}{\begingroup\tagpdfparaOff}{}{}
-\makeatother
+%
 
 \newcommand\PDF{PDF}
 
