@@ -23,7 +23,7 @@
 abc
 \tagmcend
 \START \showoutput
-\ifluatex
+
 \tagmcbegin{tag=P}
 Cras egestas ipsum a nisl. Vivamus varius dolor
 Pellentesque scelerisque\ShowTagging{mc-current}
@@ -48,7 +48,7 @@ Pellentesque scelerisque\ShowTagging{mc-current}
 augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
 \tagmcend
 
-\fi
+
 \tagstructend
 \end{document}
 
