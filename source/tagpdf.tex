@@ -371,6 +371,7 @@ links which have to interrupt the current marking code---the attributes couldn't
 users. See section~\ref{sec:global-local} for more details.
 \item \textbf{key global-mc removed:} Due to the changes in the attribute keys this key is not longer needed.
 \item \textbf{key check-tags removed:} It doesn't fit. Checks are handled over the logging level.
+\item \cs{tagpdfget} has been removed, use the expl3 version if needed.
 \end{itemize}
 
 
@@ -836,11 +837,9 @@ In \emph{generic mode}, where marked content command shouldn't be nested, it wor
 In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!
 
 
-\begin{docCommand}{tagpdfget}{\marg{key word}}\end{docCommand}
 \begin{docCommand}{tag_get:n}{\marg{key word}}\end{docCommand}
 
-
-These commands give back some variables. Currently the only working key words are \verb+mc\_tag+ and \verb+struct\_tag+.
+This command give back some variables. Currently the only working key words are \verb+mc\_tag+ and \verb+struct\_tag+.
 
 \subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}
 
@@ -942,7 +941,7 @@ the needed code too.
 \end{figure}
 
 
-\subsubsection{Links and other annotations}
+\subsubsection{Links and other annotations\label{sec:link+annot}}
 
 Annotations (like links or form field annotations) are objects associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between a link or a form field and the text is based solely on visual appearance (the link text is in the same region, or there is empty space for the form field annotation) rather than on an explicitly specified association.
 
@@ -1584,9 +1583,11 @@ current attributes.
 \begin{itemize}
 \item Add commands and keys to enable/disable the checks.
 \item Check/extend the code for language tags.
-\item Think about math.
-\item Think about Links/Annotations
-\item Keys for alternative and actualtext. How to define the input encoding? Like in Accsupp?
+\item Think about math (progress: examples using luamml, associated files exists).
+\item Think about Links/Annotations 
+     (progress: mostly done, see section~\ref{sec:link+annot} and the code in \pkg{l3pdffield})
+\item Keys for alternative and actualtext. How to define the input encoding? Like in Accsupp? 
+     (progress: keys are there, but encoding interface needs perhaps improving)
 \item Check twocolumn documents
 \item Examples
 \item Write more Tests
@@ -1594,14 +1595,14 @@ current attributes.
 \item Unicode
 \item Hyphenation char
 \item Think about included (tagged) \PDF{}. Can one handle them?
-\item Improve the documentation
+\item Improve the documentation (progress: it gets better)
 \item Tag as proof of concept the documentation (nearly done)
-\item Document the code better
-\item Create dtx
+\item Document the code better (progress: mostly done)
+\item Create dtx (progress: done)
 \item Find someone to check and improve the lua code
 \item Move more things to lua in the luamode
 \item Find someone to check and improve the rest of the code
-\item Check differences between \PDF{} versions 1.7 and 2.0.
+\item Check differences between \PDF{} versions 1.7 and 2.0. (progress: WIP, namespaces done)
 \item bidi?
 \end{itemize}
 

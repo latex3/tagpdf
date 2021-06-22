@@ -149,7 +149,7 @@
  }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 %    \begin{macrocode}
 %</luatex>
 %    \end{macrocode}
@@ -211,8 +211,8 @@ functions
  ltx.@@.func.fill_parent_tree_line (page): outputs the entries of the parenttree for this page
  ltx.@@.func.output_parenttree(): outputs the content of the parenttree
  ltx.@@.func.markspaceon(), ltx.@@.func.markspaceoff(): (de)activates the marking of positions for space chars
- ltx.@@.trace.show_mc_data (num): shows ltx.@@.mc[num]
- ltx.@@.trace.show_all_mc_data (max): shows a maximum about mc's
+ ltx.@@.trace.show_mc_data (num,loglevel): shows ltx.@@.mc[num] is the current log level is >= loglevel
+ ltx.@@.trace.show_all_mc_data (max,loglevel): shows a maximum about mc's if the current log level is >= loglevel
  ltx.@@.trace.show_seq: shows a sequence (array)
  ltx.@@.trace.show_struct_data (num): shows data of structure num
  ltx.@@.trace.show_prop: shows a prop
@@ -549,7 +549,7 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
         box.list = @@_insert_bdc_node (box.list,n,tag, dict)
         ltx.@@.func.store_mc_kid (mccnt,mcpagecnt,abspage)
         ltx.@@.func.store_mc_in_page(mccnt,mcpagecnt,abspage)
-        ltx.@@.trace.show_mc_data (mccnt)
+        ltx.@@.trace.show_mc_data (mccnt,3)
        end
        mcopen = mcopen + 1
       else
@@ -676,15 +676,15 @@ function ltx.@@.func.store_mc_data (num,key,data)
  @@_log  ("storing mc"..num..": "..tostring(key).."=>"..tostring(data))
 end
 
-function ltx.@@.trace.show_mc_data (num)
+function ltx.@@.trace.show_mc_data (num,loglevel)
  if ltx.@@ and ltx.@@.mc and ltx.@@.mc[num] then
   for k,v in pairs(ltx.@@.mc[num]) do
-   @@_log  ("mc"..num..": "..tostring(k).."=>"..tostring(v),3)
+   @@_log  ("mc"..num..": "..tostring(k).."=>"..tostring(v),loglevel)
   end
   if ltx.@@.mc[num]["kids"] then
-  @@_log ("mc" .. num .. " has " .. #ltx.@@.mc[num]["kids"] .. " kids",3)
+  @@_log ("mc" .. num .. " has " .. #ltx.@@.mc[num]["kids"] .. " kids",loglevel)
    for k,v in ipairs(ltx.@@.mc[num]["kids"]) do
-    @@_log ("mc ".. num .. " kid "..k.." =>" .. v.kid.." on page " ..v.page,3)
+    @@_log ("mc ".. num .. " kid "..k.." =>" .. v.kid.." on page " ..v.page,loglevel)
    end
   end
  else
@@ -692,10 +692,11 @@ function ltx.@@.trace.show_mc_data (num)
  end
 end
 
-function ltx.@@.trace.show_all_mc_data (max)
+function ltx.@@.trace.show_all_mc_data (max,loglevel)
  for i = 1, max do
-  ltx.@@.trace.show_mc_data (i)
+  ltx.@@.trace.show_mc_data (i,loglevel)
  end
+ texio.write_nl("")
 end
 
 

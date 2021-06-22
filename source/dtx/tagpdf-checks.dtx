@@ -55,10 +55,26 @@
 % \date{Version 0.82, released 2021-06-14}
 % \maketitle
 % \begin{documentation}
+% \section{Commands}
 % \begin{function}[pTF,EXP]{\tag_if_active:}
 % This command tests if tagging is active. It only gives true if all tagging has
 % been activated, \emph{and} if tagging hasn't been stopped locally.
 % \end{function}
+% \begin{function}[EXP]{\tag_get:n}
+%  \begin{syntax}
+%  \cs{tag_get:n}\Arg{keyword}
+%  \end{syntax}
+% This is a generic command to retrieve data. Currently
+% the only sensible values for the argument \meta{keyword}
+% are |mc_tag| and |struct_tag|.
+% \end{function}
+% \section{log-levels}
+%
+%  \begin{tabular}{llll}
+%  command/message          & log-level   & type     & note\\
+%  \cs{showtagpdfmcdata}    & 0           & log/term & lua-only\\
+%  
+%  \end{tabular}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -197,6 +213,15 @@
 %    \begin{macrocode}
 \msg_new:nnn { tag } {sys-no-interwordspace}
   {engine/output~mode~#1~doesn't~support~the~interword~spaces}
+%    \end{macrocode}
+% \end{macro}
+% \section{Retrieving data}
+% \begin{macro}[EXP]{\tag_get:n}
+% This retrieves some data.
+% This is a generic command to retrieve data. Currently
+% the only sensible values for the argument are |mc_tag| and |struct_tag|.
+%    \begin{macrocode}
+\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
 %    \end{macrocode}
 % \end{macro}
 %

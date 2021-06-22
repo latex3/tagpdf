@@ -188,34 +188,19 @@
 \cs_set_eq:NN\tagpdfifpdftexT  \sys_if_engine_pdftex:T
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}[EXP]{ \tagpdfget, \tag_get:n  }
-% This is a generic command to retrieve data. Currently
-% the only sensible values for the argument are |mc_tag| and |struct_tag|.
-%    \begin{macrocode}
-\cs_new:Npn \tagpdfget #1   { \use:c {@@_get_data_#1: } }
-\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
-
-%    \end{macrocode}
-% \end{macro}
 %
-
-%
-%
-
-%
-
 % \section{Debugging}
 %
 % \begin{macro}{\showtagpdfmcdata,\showtagpdfattributes }
 % This commands are lua only
 %    \begin{macrocode}
-\NewDocumentCommand\showtagpdfmcdata { O {\@@_tag_get_mc_abs_cnt:} }
+\NewDocumentCommand\showtagpdfmcdata { O {\@@_get_mc_abs_cnt:} }
   {
     \bool_if:NT \g_@@_mode_lua_bool
       {
         \sys_if_engine_luatex:T
           {
-            \lua_now:e{ltx.@@.trace.show_all_mc_data(#1)}
+            \lua_now:e{ltx.@@.trace.show_all_mc_data(#1,0)}
           }
       }
   }

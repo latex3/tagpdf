@@ -4,6 +4,9 @@
 \documentclass{article}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-mc,uncompress}
+\ExplSyntaxOn
+\cs_set_eq:NN\tagpdfget\tag_get:n
+\ExplSyntaxOff
 \begin{document}
 \START \showoutput
 x\tagpdfget{mc_tag}x
