@@ -176,7 +176,22 @@
 % These commands allow to enable/disable para tagging too and are a bit
 % faster then |\tagpdfsetup|. But I'm not sure if the names are good.
 % \end{function}
-
+%
+% \subsection{Link tagging}
+% Links need a special structure and cross reference system.
+% This is added through hooks of the l3pdfannot module and will work
+% automatically if tagging is activated.
+%
+% Links should (probably) have an alternative text in the Contents
+% key. It is unclear which text this should be and
+% how to get it. Currently the code simply adds the fix texts |url| and |ref|.
+% Another text can be added by changing the dictionary value:
+% \begin{verbatim}
+% \pdfannot_dict_put:nnn
+% { link/GoTo }
+% { Contents }
+% { (ref) }
+% \end{verbatim}
 % \end{documentation}
 %
 % \begin{implementation}
@@ -463,7 +478,6 @@
       }
   }
 %    \end{macrocode}
-% \end{macro}
 % \begin{macro}
 %   {
 %    \tagpdfparaOn,
@@ -479,6 +493,10 @@
 %
 % \subsection{Links}
 % We need to close and reopen mc-chunks around links.
+% Currently we handle URI and GoTo (internal) links.
+% Links should have an alternative text in the Contents
+% key. It is unclear which text this should be and
+% how to get it.
 %    \begin{macrocode}
 \hook_gput_code:nnn
   {pdfannot/link/URI/before}
@@ -527,8 +545,6 @@
 
   }
 
-
-
 % "alternative descriptions " for PAX3. How to get better text here??
 \pdfannot_dict_put:nnn
  { link/URI }
@@ -542,4 +558,5 @@
 
 %    \end{macrocode}
 %</user>
-%
+% \end{implementation}
+% \PrintIndex
