@@ -478,7 +478,7 @@
 % The first argument is the tag, e.g. |P| or |Span|, the second is used to pass
 % more properties.
 % We also define a wrapper around the low-level command as luamode will need
-% something.
+% something different.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
   {
@@ -666,7 +666,6 @@
               \g_@@_mc_parenttree_prop
               {
                 \l_@@_tmpa_tl
-                %\@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
               }
               {
                 \g_@@_struct_stack_current_tl
@@ -677,7 +676,6 @@
               }
               {
                 \l_@@_tmpa_tl
-                %\@@_ref_value:enn {tagpdf-#1} {tagmcabs} {}
               }
            }
        }
@@ -766,21 +764,22 @@
 % luamode uses attributes to mark mc-chunks. The two attributes used are
 % defined in the backend file. The backend also load the lua file, as it can contain
 % functions needed elsewhere.
-% The attributes for mc are currently local, but this will probably change, see
-% the |global-mc| option.\\
-% |\newattribute \l_@@_mc_type_attr|:  the value represent the type\\
-% |\newattribute \l_@@_mc_cnt_attr|:   will hold the |\c@g_@@_MCID_abs_int value|
+% The attributes for mc are global (between 0.6 and 0.81 they were local but this
+% was reverted). The attributes are setup only in lua, and one should use
+% the lua functions to set and get them.\\
+% |g_@@_mc_type_attr|:  the value represent the type\\
+% |g_@@_mc_cnt_attr|:   will hold the |\c@g_@@_MCID_abs_int value|
 %
 % Handling attribute needs a different system to number the page wise mcid's:
-% a tagmcbegin ... tagmcend pair no longer surrounds exactly one mc chunk:
-% it can be split
-% at page breaks. We know the included mcid(s) only after the ship out.
+% a |\tagmcbegin ... \tagmcend| pair no longer surrounds exactly one mc chunk:
+% it can be split at page breaks.
+% We know the included mcid(s) only after the ship out.
 % So for the |struct -> mcid| mapping we
 % need to record |struct -> mc-cnt| (in |\g_@@_mc_parenttree_prop| and/or a lua table
 % and at shipout |mc-cnt-> {mcid, mcid, ...}|
 % and when building the trees connect both.
 %
-% Key definitions are overwritten for luatex to store that data in tables.
+% Key definitions are overwritten for luatex to store that data in lua-tables.
 % The data for the mc are in |ltx.@@.mc[absnum]|.
 % The fields of the table are:\\
 % tag : the type (a string)\\
@@ -838,7 +837,11 @@
     \int_compare:nNnTF
       { -2147483647 }
       =
-      {\lua_now:e{tex.print(tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr))}}
+      {\lua_now:e
+         {
+           tex.print(tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr))
+         }
+      }
       { \prg_return_false:  }
       { \prg_return_true: }
   }
@@ -858,6 +861,7 @@
 %    \begin{macrocode}
 \cs_new:Nn \@@_mc_lua_set_mc_type_attr:n % #1 is a tag name
   {
+    %TODO ltx.@@.func.get_num_from("#1") seems not to return a suitable number??
     \tl_set:Nx\l_@@_tmpa_tl{\lua_now:e{ltx.@@.func.output_num_from ("#1")} }
     \lua_now:e
       {
@@ -883,10 +887,24 @@
 
 \cs_new:Nn \@@_mc_lua_unset_mc_type_attr:
   {
-    %\@@_attribute_unset:N \l_@@_mc_type_attr
-     \lua_now:e {tex.setattribute("global",luatexbase.attributes.g_@@_mc_type_attr,-2147483647)}
-     \lua_now:e {tex.setattribute("global",luatexbase.attributes.g_@@_mc_cnt_attr,-2147483647)}
-    %\@@_attribute_unset:N \l_@@_mc_cnt_attr
+    \lua_now:e
+      {
+        tex.setattribute
+          (
+            "global",
+            luatexbase.attributes.g_@@_mc_type_attr,
+            -2147483647
+          )
+      }
+     \lua_now:e
+      {
+        tex.setattribute
+          (
+            "global",
+            luatexbase.attributes.g_@@_mc_cnt_attr,
+            -2147483647
+          )
+      }
   }
 
 %    \end{macrocode}
@@ -943,18 +961,16 @@
 %
 % \begin{macro}{\tag_mc_begin:n}
 % This is the lua version of the user command.
-% Unlike the generic version there is currently no
-% group as the attribute is set locally.
-% This means one must be careful with the keys.
-% If the attribute is global again, wen can change this.
+% We currently don't check if there is nesting as it doesn't matter so
+% much in lua.
 %    \begin{macrocode}
 \cs_new_protected:Nn \tag_mc_begin:n
   {
     \@@_check_if_active_mc:T
       {
-        %\group_begin:
+        \group_begin:
         %\@@_check_mc_if_nested:
-        %\bool_gset_true:N \g_@@_in_mc_bool
+        \bool_gset_true:N \g_@@_in_mc_bool
         \bool_set_false:N\l_@@_mc_artifact_bool
         \tl_clear:N \l_@@_mc_key_properties_tl
         \int_gincr:N \c@g_@@_MCID_abs_int
@@ -976,7 +992,7 @@
                 \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
               }
           }
-        %\group_end:
+        \group_end:
      }
   }
 %    \end{macrocode}
@@ -989,7 +1005,7 @@
     \@@_check_if_active_mc:T
       {
         %\@@_check_mc_if_open:
-        %\bool_gset_false:N \g_@@_in_mc_bool
+        \bool_gset_false:N \g_@@_in_mc_bool
         \bool_set_false:N\l_@@_mc_artifact_bool
         \@@_mc_lua_unset_mc_type_attr:
         \tl_set:Nn  \l_@@_mc_key_tag_tl { }
@@ -1012,10 +1028,10 @@
 % \end{macro}
 %
 % \begin{macro}{ \@@_get_data_mc_tag: }
-% The command to retrieve the current mc tag. When we change to global
-% this should use a global variable too!!
+% The command to retrieve the current mc tag.
+% TODO: Perhaps this should use the attribute instead.
 %    \begin{macrocode}
-\cs_new:Npn \@@_get_data_mc_tag: { \l_@@_mc_key_tag_tl }
+\cs_new:Npn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
 %    \end{macrocode}
 % \end{macro}
 
@@ -1032,8 +1048,8 @@
 \keys_define:nn { @@ / mc }
   {
     tag .code:n = %
-      {%%????????? \pdfescapename??
-        \tl_set:Nx  \l_@@_mc_key_tag_tl { #1 }
+      {
+        \tl_set:Nx   \l_@@_mc_key_tag_tl { #1 }
         \tl_gset:Nx  \g_@@_mc_key_tag_tl { #1 }
         \lua_now:e
           {

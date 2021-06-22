@@ -22,53 +22,57 @@
 %
 % for those people who are interested.
 %
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-mc module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
 % \fi
+% \title{^^A
+%   The \pkg{tagpdf-luatex.def} \\ Driver for luatex  ^^A
+%   \\ part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.82, released 2021-06-14}
+% \maketitle
 %
 %    \begin{macrocode}
 %<@@=tag>
 %<*luatex>
 \ProvidesExplFile {tagpdf-luatex.def} {2021-06-14} {0.82}
   {tagpdf~driver~for~luatex}
-
-%\newattribute \l_@@_mc_type_attr     %the value represent the type
-%\newattribute \l_@@_mc_cnt_attr      %will hold the \c@g_@@_MCID_abs_int value
-
-
-%\cs_new_protected:Npn \@@_attribute_gset:Nn #1 #2
-%   {
-%     %\tex_global:D \setattribute #1 #2
-%     \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",#2)}
-%   }
+%    \end{macrocode}
+% \section{Loading the lua}
+% The space code requires that the fall back font has been loaded and initialized,
+% so we force that first. But perhaps this could be done in the kernel.
 %
-% \cs_new_protected:Npn \@@_attribute_set:Nn #1 #2
-%   {
-%     %\setattribute #1 #2
-%     \lua_now:e{tex.setattribute("\cs_to_str:N#1",#2)}
-%   }
-%
-% \cs_new_protected:Npn \@@_attribute_gunset:N #1
-%   {
-%     %\tex_global:D \unsetattribute #1
-%     \lua_now:e{tex.setattribute("global","\cs_to_str:N#1",-2147483647)}
-%   }
-%
-% \cs_new_protected:Npn \@@_attribute_unset:N #1
-%   {
-%     %\unsetattribute #1
-%     \lua_now:e{tex.setattribute("\cs_to_str:N#1",-2147483647)}
-%   }
-
-% The lua code
-% ensure that 10pt font has been loaded:
+%    \begin{macrocode}
 {
   \fontencoding{TU}\fontfamily{lmr}\fontseries{m}\fontshape{n}\fontsize{10pt}{10pt}\selectfont
 }
 \lua_now:e { tagpdf=require('tagpdf.lua') }
-
-%%%% driver (lualatex) commands
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+%    \end{macrocode}
+%
+% The following defines wrappers around prop and seq commands to store the
+% data also in lua tables.
 % I probably want also lua tables
 % I put them in the ltx.@@.tables namespaces
 % The tables will be named like the variables but without backslash
@@ -76,8 +80,20 @@
 % ltx.@@.tables[string]
 % Old code, I'm not quite sure if this was a good idea. Now I have mix of table in
 % ltx.@@.tables and ltx.@@.mc/struct. And a lot is probably not needed.
+% TODO: this is probably unneeded and should be cleaned up!
 
-
+% \begin{macro}
+%   {
+%     \@@_prop_new:N,
+%     \@@_seq_new:N,
+%     \@@_prop_gput:Nnn,
+%     \@@_seq_gput_right:Nn,
+%     \@@_seq_item:cn,
+%     \@@_prop_item:cn,
+%     \@@_seq_show:N,
+%     \@@_prop_show:N
+%   }
+%    \begin{macrocode}
 \cs_new_protected:Nn \@@_prop_new:N
   {
     \prop_new:N #1
@@ -131,6 +147,10 @@
     \lua_now:e {ltx.@@.trace.log  ("lua~property~table~\cs_to_str:N#1",1) }
     \lua_now:e {ltx.@@.trace.show_prop (ltx.@@.tables.\cs_to_str:N#1) }
  }
+%    \end{macrocode}
+% \end{macro}
+% 
+%    \begin{macrocode}
 %</luatex>
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -200,10 +220,6 @@ functions
  ltx.@@.trace.showspaces : boolean
 --]]
 
---local mctypeattributeid       = luatexbase.registernumber ("l_@@_mc_type_attr")
---local mccntattributeid        = luatexbase.registernumber ("l_@@_mc_cnt_attr")
---local iwspaceattributeid = luatexbase.registernumber ("g_@@_interwordspace_attr")
---local iwfontattributeid = luatexbase.registernumber ("g_@@_interwordfont_attr")
 
 local mctypeattributeid  = luatexbase.new_attribute ("g_@@_mc_type_attr")
 local mccntattributeid   = luatexbase.new_attribute ("g_@@_mc_cnt_attr")
