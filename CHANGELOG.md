@@ -11,7 +11,8 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Removed
  - check-tags key. This is now done with the log-level. 
-
+ - global-mc key. No longer needed as attributes are global again.
+ 
 ## [2021-06-14]
 ### Added
  - commands to add annotations to a structure

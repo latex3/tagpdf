@@ -53,7 +53,6 @@
  interwordspace=true,
  %log=v
  %show-spaces
- global-mc
  }
 
 \usepackage{hyperxmp}
@@ -153,21 +152,15 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 \section{Preface to version 0.9}
 
 In this version lots of things have changed, but most of them are internal: the code has been reviewed and cleaned up,
-a number of errors corrected, the code has been properly documentated (and the code documentation can now be compiled and 
+a number of errors corrected, the code has been properly documented (and the code documentation can now be compiled and
 printed).
 
-There are nevertheless also a few changes for the public interface, one of them even a breaking change 
-\begin{description}
-\item[More engines supported] The generic mode of \pkg{tagpdf} now works 
-(theoretically, it is not much tested) with all engines supported
-by the pdfmanagement. So compilations with Xe\LaTeX{} or with dvips should work. But it should be noted that 
-these engines and backends don't support the |interspaceword| option. With Xe\LaTeX{} it is perhaps possible
-implement something with the 
-\end{description}
+There are nevertheless also a few changes for the public interface, one of them a breaking change. Check the change section below for 
+details. 
 
 \section{Preface to version 0.8 and newer}
 
-Starting with version 0.8 one major step towards integration of the code into the \LaTeX{} has been done:
+Starting with version 0.8 one major step towards integration of the code into the \LaTeX{} kernel has been done:
 The code now relies on the new \LaTeX{} PDF management. This management, which is for a testphase provided
 as an external package, \texttt{pdfmanagement-testphase},
 prepares the ground for better support for tagged PDF in \LaTeX{}.
@@ -356,10 +349,30 @@ The commands |\tag_struct_parent_int:| and |\tag_struct_insert_annot:nn| have be
 add annotations to the structure.
 
 
-
 \subsection{Changes in version 0.83}
 
 |\tag_finish_structure:| has been removed, it is no longer a public command.
+
+\subsection{Changes in version 0.9}
+
+\begin{itemize}
+\item Code has been cleaned up and better documented.
+
+\item \textbf{More engines supported} The generic mode of \pkg{tagpdf} now works
+(theoretically, it is not much tested) with all engines supported
+by the pdfmanagement. So compilations with Xe\LaTeX{} or with dvips should work. But it should be noted that
+these engines and backends don't support the |interspaceword| option. With Xe\LaTeX{} it is perhaps possible
+implement something with |\XeTeXinterchartoks|, but for the dvips route I don't see an option (apart from lots
+of manual macros everywhere).
+\item \textbf{MC-attributes are global again} In\sidenote{Breaking change!} version 0.6 the attributes used in
+luamode to mark the MC-chunks were no longer set globally. This avoided a number of problems with header and footer
+and background material, but further tests showed that it makes it difficult to correctly mark things like
+links which have to interrupt the current marking code---the attributes couldn't easily escape groups added by
+users. See section~\ref{sec:global-local} for more details.
+\item \textbf{key global-mc removed:} Due to the changes in the attribute keys this key is not longer needed.
+\item \textbf{key check-tags removed:} It doesn't fit. Checks are handled over the logging level.
+\end{itemize}
+
 
 \subsection{Proof of concept: the tagging of the documentation itself}
 
@@ -393,6 +406,8 @@ Most commands do nothing if tagging is not activated, but in case a test is need
 
 \begin{docCommand}{tag_if_active:TF}{}\end{docCommand}
 
+The check is true only if \emph{everything} is activated. In all other cases (also if tagging has been stopped locally) it will be false.
+
 \subsection{Modes and package options}
 
 
@@ -422,7 +437,7 @@ The command should be normally used only in the preamble
 The key-val list understands the following keys:
 
 \begin{description}
-\item[\PrintKeyName{activate-all}]
+\item[\PrintKeyName{activate-all},\PrintKeyName{activate}]
  Boolean, initially false. Activates everything, that's normally the sensible thing to do.
 \item[\PrintKeyName{activate-mc}]
  Boolean, initially false. Activates the code related to marked content.
@@ -458,9 +473,6 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
  Boolean,\sidenote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.
 \item[\PrintKeyName{uncompress}]
  Sets both the \PDF{} compresslevel and the \PDF{} objcompresslevel to 0 and so allows to inspect the \PDF{}.
-
-\item[\PrintKeyName{global-mc}]
- Only relevant for luatex and luamode and can only be used in the preamble. If used the attributes used for the mc-tags are set globally. This key is temporary! It is there to allow to test if global or local setting is more sensible. See section~\ref{sec:global-local} for more info.
 
 
 \end{description}
@@ -772,26 +784,26 @@ The key-val list understands the following keys:
 \begin{docCommand}{tagmcend}{}\end{docCommand}
 \begin{docCommand}{tag_mc:end}{}\end{docCommand}
 
-These commands insert the end code of the marked content. They don't end a group and in generic mode it doesn't matter if they are in another group as the starting commands. The user command also issues in hmode at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends with the current group or with a new \verb+\tagmcbegin+ anyway.
+These commands insert the end code of the marked content. They don't end a group and it doesn't matter if they are in another group as the starting commands. The user command also issues in hmode at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends  with a new \verb+\tagmcbegin+ anyway.
 
 
-
-\begin{tcolorbox}[before upper=\tagpdfparaOn]
-\minisec{About nesting mc-commands}\label{mc-nesting}
-
-\textbf{Attention!}\sidenote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
-
-Consider a code like this:
-
-
-\begin{lstlisting}
-\tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P} Block 2} Block 3 \tagmcend
-\end{lstlisting}
-
-
-Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}. See also section~\ref{sec:global-local}.
-
-\end{tcolorbox}
+% no longer relevant
+%\begin{tcolorbox}[before upper=\tagpdfparaOn]
+%\minisec{About nesting mc-commands}\label{mc-nesting}
+%
+%\textbf{Attention!}\sidenote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
+%
+%Consider a code like this:
+%
+%
+%\begin{lstlisting}
+%\tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P} Block 2} Block 3 \tagmcend
+%\end{lstlisting}
+%
+%
+%Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}. See also section~\ref{sec:global-local}.
+%
+%\end{tcolorbox}
 
 
 \begin{docCommand}{tagmcuse}{}\end{docCommand}
@@ -832,16 +844,18 @@ These commands give back some variables. Currently the only working key words ar
 
 \subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}
 
-In\sidenote{Luamode mode only} luamode the mc-commands set and unset an attribute to mark the nodes. One can view such an attribute like a font change or a color: they affect all following chars and glue node until stopped.
+In\sidenote{Luamode mode only} luamode the mc-commands set and unset an attribute to mark the nodes. One can view such an attribute like a font change or a color: they affect all following chars and glue nodes until stopped.
 
-Currently the attributes are set locally. This has the advantage that the attributes don't spill over in area where they are not wanted like the header and footer or the background pictures.
-But it has the disadvantage that is difficult for an inner structure to correctly interrupt the outer
-mc-chunk if it can't control the group level. For example this would work fine:
+From version 0.6 to 0.82 the attributes were set locally. 
+This had the advantage that the attributes didn't spill over in area where they are not wanted like the header and footer or the background pictures.
+But it had the disadvantage that it was difficult for an inner structure to correctly interrupt the outer
+mc-chunk if it can't control the group level. For example this didn't work due to the grouping inserted by the user:
 
 \begin{lstlisting}
 \tagstructbegin{tag=P}
 \tagmcbegin{tag=P}
   Start paragraph
+  {% user grouping
    \tag_mc_end_push:
    \tagstructbegin{tag=Em}
    \tagmcbegin{tag=Em}
@@ -849,35 +863,50 @@ mc-chunk if it can't control the group level. For example this would work fine:
    \tagmcend
    \tagstructend
    \tag_mc_begin_pop:n{}
+  }% user grouping 
  Continuation of paragraph
 \tagmcend
 \tagstructend
 \end{lstlisting}
 
-But if the user adds a group like in the following listing, then the reading order will be wrong and the \emph{emphasized text} will move in the structure at the end as described in the box about nesting
-mc-chunks on page~\pageref{mc-nesting}.
+The reading order was then wrong, and the \emph{emphasized text} moved in the structure at the end.
+
+So starting with version 0.9 this has been reverted. The attribute is now global again. 
+This solves the \enquote{interruption} problem, but has its price: Material inserted by the output routine
+must be properly guarded. For example
 
 \begin{lstlisting}
-\tagstructbegin{tag=P}
-\tagmcbegin{tag=P}
-  Start paragraph
-  { %group
-   \tag_mc_end_push:
-   \tagstructbegin{tag=Em}
-   \tagmcbegin{tag=Em}
-   \emph{with emphasized text}
-   \tagmcend
-   \tagstructend
-   \tag_mc_begin_pop:n{}
-  } %group
- Continuation of paragraph
-\tagmcend
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{uncompress}
+\documentclass{article}
+\usepackage{tagpdf}
+\tagpdfsetup{activate,interwordspace=true}
+
+\pagestyle{headings}
+\begin{document}
+\tagstructbegin{tag=Document}
+\sectionmark{HEADER}
+\AddToHook{shipout/background}{\put(5cm,-5cm){BACKGROUND}}
+\tagmcbegin{tag=P}Page 1\newpage Page 2\tagmcend
 \tagstructend
+\end{document}
 \end{lstlisting}
 
-If the attribute is set globally this wouldn't be a problem. Currently the question is undecided.
-To allow to test with both versions it is possible to switch for a document with \texttt{global-mc} to global attributes.
+Here the header and the background code on the  \emph{first} page will be marked up as paragraph
+and added as chunk to the document structure. The header and the background code on 
+the \emph{second} page will be marked as artifact. The following figure shows how the tags looks
+like.
 
+\tagpdfparaOff
+\tagstructbegin{tag=Figure,alttext=Show tags of examples,attribute=bbox}\tagmcbegin{tag=Figure}
+\includegraphics{global-ex}
+\tagmcend\tagstructend
+\tagpdfparaOn
+
+It is therefore from now on important to correctly markup such code. Header and footer typically should be 
+artifacts. The LaTeX kernel hasn't yet suitable hooks around header and footer to allow to automate 
+this, but they will be added. With packages like \pkg{fancyhdr}  or \pkg{scrlayer-scrpage} it is quite easy to add
+the needed code too. 
 
 
 \subsubsection{Tips}
