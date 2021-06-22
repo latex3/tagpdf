@@ -1573,20 +1573,19 @@ This command takes as argument a key-val list which implements a number of show 
   newpage. The value is a positive integer and sets the first mc-shown. If no value
   is given, 1 is used and so all mc-chunks created so far are shown. 
   
-  \item[] 
+  \item[\PrintKeyName{mc-current}]  This key shows the number and the tag of 
+  the currently open mc-chunk. If no chunk is open it shows only the 
+  state of the absolute counter. It works in all mode,
+  but the output in luamode looks different. 
+  
+  \item[\PrintKeyName{struct-stack}] This key shows the current 
+  structure stack. Typically it will contain at
+  least |root| and |Document|.
+  With the value |log| the info is only
+  written to the log-file, |show| stops the compilation and shows on the terminal.
+  If no value is used, then the default is |show|.
 \end{description}
 
-
-\begin{docCommand}{showtagstack}{}\end{docCommand}
-
-This shows the tag names of the currently open structures. Typically it will contain at
-least |root| and |Document|.
-
-
-\begin{docCommand}{showtagpdfattributes}{}\end{docCommand}
-
-This\sidenote{luaonly} can only be used with lualatex and shows some info about the
-current attributes.
 
 
 \section{To-do}

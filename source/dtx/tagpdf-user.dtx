@@ -129,6 +129,54 @@
 % chunk is open it shows only the state of the abs count. It works in all mode,
 % but the output in luamode looks different.
 % \end{function}
+% \begin{function}{struct-stack}
+%  \begin{syntax}
+%    |struct-stack| = |log|\verb+|+|show|
+%  \end{syntax}
+% This key shows the current structure stack. With |log| the info is only
+% written to the log-file, |show| stops the compilation and shows on the terminal.
+% If no value is used, then the default is |show|.
+% \end{function}
+%
+% \section{Extension commands}
+% The following commands and code parts are not core command of tagpdf.
+% They either provide work-arounds for missing functionality elsewhere,
+% or do a first step to apply tagpdf commands to document commands.
+%
+% The commands and keys should be view as experimental!
+%
+% This part will be regularly revisited to check if the code should go to a
+% better place or can be improved and so can change easily.
+%
+% \subsection{Fake space}
+% \begin{function}{\pdffakespace}
+% (lua-only) This provides a lua-version of the |\pdffakespace| primitive of
+% pdftex.
+% \end{function}
+%
+% \subsection{Paratagging}
+%
+% This is a first try to make use of the new paragraph hooks in a current LaTeX to
+% automate the tagging of paragraph. It requires sane paragraph nesting,
+% faulty code, e.g. a missing |\par| at the end of a low-level vbox can highly
+% confuse the tagging. The tags should be carefully checked if this is used.
+%
+% \begin{function}{paratagging,paratagging-show}
+%  \begin{syntax}
+%    |paratagging| = |true|\verb+|+|false|\\
+%    |paratagging-show| = |true|\verb+|+|false|\\
+%  \end{syntax}
+% This keys can be used in |\tagpdfsetup| and enable/disable paratagging.
+% |paratagging-show| puts small red numbers at the begin and end of a paragraph.
+% This is meant as a debugging help. The number are boxes and have a (tiny) height,
+% so they can affect typesetting.
+% \end{function}
+%
+% \begin{function}{\tagpdfparaOn,\tagpdfparaOff}
+% These commands allow to enable/disable para tagging too and are a bit
+% faster then |\tagpdfsetup|. But I'm not sure if the names are good.
+% \end{function}
+
 % \end{documentation}
 %
 % \begin{implementation}
@@ -316,38 +364,77 @@
          }
      }
   }
-\NewDocumentCommand\showtagstack {}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{struct-stack}
+%    \begin{macrocode}
+\keys_define:nn { @@ / show }
   {
-    \seq_show:N \g_@@_struct_tag_stack_seq
+     struct-stack .choice:
+    ,struct-stack / log .code:n = \seq_log:N \g_@@_struct_tag_stack_seq
+    ,struct-stack / show .code:n = \seq_show:N \g_@@_struct_tag_stack_seq
+    ,struct-stack .default:n = show
   }
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{  }
+% \section{Commands to extend document commands}
+% The following commands and code parts are not core command of tagpdf.
+% The either provide work arounds for missing functionality elsewhere,
+% or do a first step to apply tagpdf commands to document commands.
+% This part should be regularly revisited to check if the code should go to a
+% better place or can be improved.
+%
+% \subsection{Fake space}
+% \begin{macro}{\pdffakespace}
+% We need a luatex variant for |\pdffakespace|. This should probably go into
+% the kernel at some time.
 %    \begin{macrocode}
 \sys_if_engine_luatex:T
   {
     \NewDocumentCommand\pdffakespace { }
-      {
-        \@@_fakespace:
-      }
+     {
+       \@@_fakespace:
+     }
   }
 %    \end{macrocode}
 % \end{macro}
-% \section{Paratagging}
+%
+% \subsection{Paratagging}
 %  The following are some simple commands to enable/disable paratagging.
 %  Probably one should add some checks if we are already in a paragraph.
+%
+%
+%  \begin{macro}{\l_@@_para_bool,\l_@@_para_show_bool,\g_@@_para_int}
+%  At first some variables.
 %    \begin{macrocode}
 \bool_new:N \l_@@_para_bool
 \bool_new:N \l_@@_para_show_bool
-\int_new:N \g_@@_para_int
-
+\int_new:N  \g_@@_para_int
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%\begin{macro}
+% {
+%  paratagging,
+%  paratagging-show,
+%  }
+% These keys enable/disable locally paratagging, and the debug modus.
+% It can affect the typesetting if |paratagging-show| is used. The small numbers
+% are boxes and they have a (small) height.
+%    \begin{macrocode}
 \keys_define:nn { @@ / setup }
   {
     paratagging      .bool_set:N = \l_@@_para_bool,
     paratagging-show .bool_set:N = \l_@@_para_show_bool,
   }
 
+%    \end{macrocode}
+% \end{macro}
+% This fills the para hooks with the needed code.
+%    \begin{macrocode}
 \AddToHook{para/begin}
   {
    \int_gincr:N \g_@@_para_int
@@ -375,16 +462,23 @@
         \tag_struct_end:
       }
   }
-
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}
+%   {
+%    \tagpdfparaOn,
+%    \tagpdfparaOff
+%   }
+%  This two command switch para mode on and off. |\tagpdfsetup| could be used
+%  too but is longer.
+%    \begin{macrocode}
 \newcommand\tagpdfparaOn {\bool_set_true:N \l__tag_para_bool}
 \newcommand\tagpdfparaOff{\bool_set_false:N \l__tag_para_bool}
-
 %    \end{macrocode}
-% \section{Links}
+% \end{macro}
+%
+% \subsection{Links}
 % We need to close and reopen mc-chunks around links.
-% With luatex the push/pop command must be outside groups,
-% so we add also code to the generic commands in the hyperref driver.
 %    \begin{macrocode}
 \hook_gput_code:nnn
   {pdfannot/link/URI/before}
