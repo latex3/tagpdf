@@ -73,7 +73,7 @@
 %  \begin{tabular}{llll}
 %  command/message          & log-level   & type     & note\\
 %  \cs{showtagpdfmcdata}    & 0           & log/term & lua-only\\
-%  
+%
 %  \end{tabular}
 % \end{documentation}
 % \begin{implementation}
@@ -125,7 +125,17 @@
 \msg_new:nnn { tag } {mc-popped} { #1~has~been~removed~from~the~mc~stack }
 %    \end{macrocode}
 % \end{macro}
-%
+% \begin{macro}{mc-current}
+% Informational messages about current mc state.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {mc-current}
+  { current~MC:~
+    \bool_if:NTF\g_@@_in_mc_bool
+      {abscnt=\@@_get_mc_abs_cnt:,~tag=\g_@@_mc_key_tag_tl}
+      {no~MC~open,~current~abscnt=\@@_get_mc_abs_cnt:"}
+  }
+%    \end{macrocode}
+% \end{macro}
 % \subsection{Messages related to mc-chunks}
 % \begin{macro}{struct-no-objnum}
 % Should not happen \ldots

@@ -155,7 +155,7 @@ In this version lots of things have changed, but most of them are internal: the 
 a number of errors corrected, the code has been properly documented (and the code documentation can now be compiled and
 printed).
 
-There are nevertheless also a few changes for the public interface, one of them a breaking change. Check the change section below for 
+There are nevertheless also a few changes for the public interface, including some breaking changes. Check the change section below for 
 details. 
 
 \section{Preface to version 0.8 and newer}
@@ -371,7 +371,9 @@ links which have to interrupt the current marking code---the attributes couldn't
 users. See section~\ref{sec:global-local} for more details.
 \item \textbf{key global-mc removed:} Due to the changes in the attribute keys this key is not longer needed.
 \item \textbf{key check-tags removed:} It doesn't fit. Checks are handled over the logging level.
-\item \cs{tagpdfget} has been removed, use the expl3 version if needed.
+\item |\tagpdfget| has been removed, use the expl3 version if needed.
+\item The show commands |\showtagpdfmcdata|, |\showtagpdfattributes|, |\showtagstack| have been removed and replaced
+by a more flexible command |\ShowTagging|.
 \end{itemize}
 
 
@@ -1558,17 +1560,28 @@ If suitable I will add code for this tasks to this packages. But some of them ca
 \section{Debugging}
 
 While developing commands and tagging a document, it can be useful to get some info about the current structure. For this
-a number of commands are provided
+a show command is provided
+
+\begin{docCommand}{ShowTagging}{\marg{key-val}}\end{docCommand}
+
+This command takes as argument a key-val list which implements a number of show options.
+
+\begin{description}
+  \item[\PrintKeyName{mc-data}] This key is relevant for luamode only. 
+  It shows the data of all mc-chunks created so far.
+  It is accurate only after shipout, so typically should be issued after a
+  newpage. The value is a positive integer and sets the first mc-shown. If no value
+  is given, 1 is used and so all mc-chunks created so far are shown. 
+  
+  \item[] 
+\end{description}
+
 
 \begin{docCommand}{showtagstack}{}\end{docCommand}
 
 This shows the tag names of the currently open structures. Typically it will contain at
 least |root| and |Document|.
 
-\begin{docCommand}{showtagpdfmcdata}{\oarg{mc number}}\end{docCommand}
-
-This\sidenote{luaonly} can only be used with lualatex and shows some info about the
-current mc-chunk. The optional argument allows to select a number.
 
 \begin{docCommand}{showtagpdfattributes}{}\end{docCommand}
 

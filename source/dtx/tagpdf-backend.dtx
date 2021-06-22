@@ -692,8 +692,8 @@ function ltx.@@.trace.show_mc_data (num,loglevel)
  end
 end
 
-function ltx.@@.trace.show_all_mc_data (max,loglevel)
- for i = 1, max do
+function ltx.@@.trace.show_all_mc_data (min,max,loglevel)
+ for i = min, max do
   ltx.@@.trace.show_mc_data (i,loglevel)
  end
  texio.write_nl("")

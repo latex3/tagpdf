@@ -100,6 +100,35 @@
 % |\tag_struct_end:| and |\tag_struct_use:n|.
 % The commands and their argument are documentated in the \pkg{tagpdf-struct} module.
 % \end{function}
+%
+% \section{Debugging}
+% \begin{function}{\ShowTagging}
+%   \begin{syntax}
+%   \cs{ShowTagging} \Arg{key-val}
+%   \end{syntax}
+% This is a generic function to output various debugging helps. It not
+% necessarly stops the compilation. The keys and their function are described below.
+% \end{function}
+%
+% \begin{function}{mc-data}
+%  \begin{syntax}
+%    |mc-data| = \meta{number}
+%  \end{syntax}
+% This key is (currently?) relevant for lua mode only.
+% It shows the data of all mc-chunks created so far.
+% It is accurate only after shipout (and perhaps a second compilation),
+% so typically should be issued after a
+% newpage. The value is a positive integer and sets the first mc-shown. If no value
+% is given, 1 is used and so all mc-chunks created so far are shown.
+% \end{function}
+% \begin{function}{mc-current}
+%  \begin{syntax}
+%    |mc-current|
+%  \end{syntax}
+% This key shows the number and the tag of the currently open mc-chunk. If no
+% chunk is open it shows only the state of the abs count. It works in all mode,
+% but the output in luamode looks different.
+% \end{function}
 % \end{documentation}
 %
 % \begin{implementation}
@@ -190,45 +219,103 @@
 % \end{macro}
 %
 % \section{Debugging}
-%
-% \begin{macro}{\showtagpdfmcdata,\showtagpdfattributes }
-% This commands are lua only
+% \begin{macro}{\ShowTagging}
+% This is a generic command for various show commands.
+% It takes a keyval list, the various keys are implemented below.
 %    \begin{macrocode}
-\NewDocumentCommand\showtagpdfmcdata { O {\@@_get_mc_abs_cnt:} }
+\NewDocumentCommand\ShowTagging { m }
   {
-    \bool_if:NT \g_@@_mode_lua_bool
+    \keys_set:nn { @@ / show }{ #1}
+
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{mc-data}
+% This key is (currently?) relevant for lua mode only.
+% It shows the data of all mc-chunks created so far.
+% It is accurate only after shipout, so typically should be issued after a
+% newpage. With the optional argument the minimal number can be set.
+%    \begin{macrocode}
+\keys_define:nn { @@ / show }
+  {
+    mc-data .code:n =
       {
         \sys_if_engine_luatex:T
           {
-            \lua_now:e{ltx.@@.trace.show_all_mc_data(#1,0)}
+            \lua_now:e{ltx.@@.trace.show_all_mc_data(#1,\@@_get_mc_abs_cnt:,0)}
           }
       }
+    ,mc-data .default:n = 1
   }
 
-\NewDocumentCommand\showtagpdfattributes { }
-  {
-    \bool_if:NT \g_@@_mode_lua_bool
-      {
-        \sys_if_engine_luatex:T
-          {
-            \lua_now:e
-              {
-                ltx.@@.trace.log
-                 (
-                   "showtagpdfattributes:
-                    MC=>abscnt=\@@_get_mc_abs_cnt:
-                    =>attr="..tex.getattribute(luatexbase.attributes.g_@@_mc_cnt_attr).."=>tag="
-                    ..
-                    tostring(ltx.@@.func.get_tag_from (tex.getattribute(luatexbase.attributes.g_@@_mc_type_attr)))
-                    ..
-                    "="..tex.getattribute(luatexbase.attributes.g_@@_mc_type_attr),0
-                 )
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-current}
+% This shows some info about the current mc-chunk. It works in generic and lua-mode.
+%    \begin{macrocode}
+\keys_define:nn { @@ / show }
+  { mc-current .code:n =
+     {
+       \bool_if:NTF \g_@@_mode_lua_bool
+         {
+           \sys_if_engine_luatex:T
+             {
+               \int_compare:nNnTF
+                 { -2147483647 }
+                  =
+                 {
+                   \lua_now:e
+                     {
+                        tex.print
+                         (tex.getattribute
+                           (luatexbase.attributes.g__tag_mc_cnt_attr))
+                     }
+                 }
+                 {
+                   \lua_now:e
+                     {
+                       ltx.@@.trace.log
+                        (
+                          "mc-current:~no~MC~open,~current~abscnt
+                           =\@@_get_mc_abs_cnt:"
+                          ,0
+                        )
+                       texio.write_nl("")
+                     }
+                 }
+                 {
+                   \lua_now:e
+                     {
+                       ltx.@@.trace.log
+                        (
+                          "mc-current:~abscnt=\@@_get_mc_abs_cnt:=="
+                           ..
+                           tex.getattribute(luatexbase.attributes.g_@@_mc_cnt_attr)
+                           ..
+                           "~=>tag="
+                           ..
+                           tostring
+                             (ltx.@@.func.get_tag_from
+                               (tex.getattribute
+                                 (luatexbase.attributes.g_@@_mc_type_attr)))
+                           ..
+                           "="
+                           ..
+                           tex.getattribute
+                            (luatexbase.attributes.g_@@_mc_type_attr)
+                           ,0
+                        )
+                       texio.write_nl("")
+                     }
+                 }
              }
-            \ignorespaces
-          }
-      }
-   }
-
+         }
+         {
+          \msg_note:nn{ tag }{ mc-current }
+         }
+     }
+  }
 \NewDocumentCommand\showtagstack {}
   {
     \seq_show:N \g_@@_struct_tag_stack_seq
