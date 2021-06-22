@@ -6,17 +6,15 @@
 
 \usepackage[english]{babel}
 \usepackage{tagpdf}
-\usepackage{graphicx}
-\tagpdfifpdftexT
- {
-  \usepackage[utf8]{inputenc}
-  \usepackage[T1]{fontenc}
- }
-\tagpdfifluatexT
- {
+\usepackage{graphicx,iftex}
+
+\iftutex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
+\else
+  \usepackage[T1]{fontenc}
+\fi
+
 \tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
 \usepackage{kantlipsum}
 \begin{document}
@@ -40,7 +38,7 @@ Artifact%
 
 some things untagged.
 
-\tag_mc_begin:n{tag=P}marginpar \tagpdfifluatexT{\showtagpdfattributes} blblb  \tag_mc_end:
+\tag_mc_begin:n{tag=P}marginpar\ShowTagging{mc-current} blblb  \tag_mc_end:
 
 \tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:
 \tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:

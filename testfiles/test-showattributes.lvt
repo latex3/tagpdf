@@ -11,8 +11,7 @@
 \iftutex
   \usepackage{fontspec}
   \usepackage{luacode}
-\else
-  \usepackage[utf8]{inputenc}
+\else  
   \usepackage[T1]{fontenc}
 \fi
 
