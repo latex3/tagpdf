@@ -47,7 +47,7 @@ checkconfigs = {"build",
                -- "config-pdftex-dev",
                -- "config-dev"
                 }
-checkruns = 3
+checkruns = 4
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
 excludetests = {"test-saveboxes-structure-dev"}
 
