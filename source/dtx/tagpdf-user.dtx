@@ -100,7 +100,9 @@
 % |\tag_struct_end:| and |\tag_struct_use:n|.
 % The commands and their argument are documentated in the \pkg{tagpdf-struct} module.
 % \end{function}
-%
+
+
+
 % \section{Debugging}
 % \begin{function}{\ShowTagging}
 %   \begin{syntax}
@@ -198,13 +200,15 @@
 % \section{User commands and extensions of document commands}
 %    \begin{macrocode}
 %<@@=tag>
-%<*user>
+%<*header>
 \ProvidesExplPackage {tagpdf-user} {2021-06-14} {0.82}
   {tagpdf - user commands}
+%</header>
 %    \end{macrocode}
 % \section{Setup and preamble commands}
 % \begin{macro}{\tagpdfsetup}
 %    \begin{macrocode}
+%<*package>
 \NewDocumentCommand \tagpdfsetup { m }
   {
     \keys_set:nn { @@ / setup } { #1 }
@@ -557,6 +561,6 @@
  { (ref) }
 
 %    \end{macrocode}
-%</user>
+%</package>
 % \end{implementation}
 % \PrintIndex

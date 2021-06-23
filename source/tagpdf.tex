@@ -155,8 +155,10 @@ In this version lots of things have changed, but most of them are internal: the 
 a number of errors corrected, the code has been properly documented (and the code documentation can now be compiled and
 printed).
 
-There are nevertheless also a few changes for the public interface, including some breaking changes. Check the change section below for 
-details. 
+There are nevertheless also a few changes for the public interface, including some breaking changes. Check the change section below for
+details.
+
+
 
 \section{Preface to version 0.8 and newer}
 
@@ -207,6 +209,8 @@ I implemented the generic mode first. Mostly because my tex skills are much bett
 
 While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode.
 
+The package uses quite a lot labels (in generic mode more than with luamode). At the begin it relied on the \pkg{zref} package, but switched now to a new experimental implementation for labels. The drawback of the new method is that they don't give yet good rerun messages if they have changed. I advise to use the \pkg{rerunfilecheck} package as a intermediate work-around.
+
 
 \subsection{References and target PDF version}
 
@@ -217,7 +221,7 @@ In 2018 \PDF{} 2.0. has been released, and since 2020 all engines can set the ve
 now target \PDF{} 2.0. This doesn't mean that 2.0 will be required, but that the code and the options will be extended to
 support \PDF{} 2.0. One example is the support for associated files, another the support for name spaces in version 0.82.
 
-The packages doesn't try to suppress all 2.0 features if an older \PDF{} version is produced. It normally doesn't harm if a \PDF{} contains keys unknown in its version and it makes the code faster and easier to maintain if there aren't too many tests and code pathes; so for example associated files will always be added. But tests could be added in case this leads to incompabilities.
+The package doesn't try to suppress all 2.0 features if an older \PDF{} version is produced. It normally doesn't harm if a \PDF{} contains keys unknown in its version and it makes the code faster and easier to maintain if there aren't too many tests and code pathes; so for example associated files will always be added. But tests could be added in case this leads to incompabilities.
 
 It should be noted that some tools don't like \PDF{}~2.0.  PAC3 for example simply crashes, and pdftk will create a \PDF{}~1.0 from it. This makes testing \PDF{}~2.0 files a bit of a challenge.
 
@@ -242,7 +246,7 @@ One must check how good the accessibility is \emph{practically}.
 Syntax validation and formal standard validation can be done with preflight of the (non-free) adobe acrobat.
 It can also be done also with the free \PDF{} Accessibility Checker (PAC~3) \parencite{pac3}.
 There is also the validator veraPDF \parencite{verapdf}.
-A rather new tool is \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application which converts a tagged PDF to html, allows to inspect its structure and also to edit the structure.
+A rather new and quite useful tool is \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application which converts a tagged PDF to html, allows to inspect its structure and also to edit the structure.
 
 Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a \PDF{} has real accessibility problems.
 
@@ -689,7 +693,16 @@ This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
   Often text in a document is created automatically or moved around: entries in the table of contents, index, bibliography and more. To mark these text chunks correctly one has to analyze the code creating such content to find suitable places to inject the literals.
 
   \item
-  The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page (this package uses in generic mode a label-ref-system to get around this problem. This sadly means that three compilations are needed until everything has settled down).
+  The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page. This package uses in generic mode a label-ref-system to get around this problem. This sadly means that often at least three compilations are needed until everything has settled down.
+  
+  It can actually be worse: If the text is changed after the MCID-numbers have been assigned, and 
+  a new mc-chunk is inserted in the middle of the page, then all the numbers have to be recalculated 
+  and that requires again a number of compilations until it really settles down again. 
+  Internal references are especially problematic here, as the first compilation
+  typically creates a non-link |??|, and only the second inserts the structure and the new mc.
+  When the reference system in LaTeX will be extended, care will be taken to ensure that already the dummy text builds a chunk.
+  Until then the advice is to first compile the document and resolve all cross-reference and to activate tagging only at the end.
+
 
   \item
   There exist environments which process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
@@ -713,6 +726,7 @@ This means that quite a number of problems mentioned above are not relevant for 
 \item The numbering of the MCID are done at shipout, so no label/ref system is needed.
 \item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.
 \end{enumerate}
+
 
 
 
@@ -847,7 +861,7 @@ This command give back some variables. Currently the only working key words are 
 
 In\sidenote{Luamode mode only} luamode the mc-commands set and unset an attribute to mark the nodes. One can view such an attribute like a font change or a color: they affect all following chars and glue nodes until stopped.
 
-From version 0.6 to 0.82 the attributes were set locally. 
+From version 0.6 to 0.82 the attributes were set locally.
 This had the advantage that the attributes didn't spill over in area where they are not wanted like the header and footer or the background pictures.
 But it had the disadvantage that it was difficult for an inner structure to correctly interrupt the outer
 mc-chunk if it can't control the group level. For example this didn't work due to the grouping inserted by the user:
@@ -864,7 +878,7 @@ mc-chunk if it can't control the group level. For example this didn't work due t
    \tagmcend
    \tagstructend
    \tag_mc_begin_pop:n{}
-  }% user grouping 
+  }% user grouping
  Continuation of paragraph
 \tagmcend
 \tagstructend
@@ -872,7 +886,7 @@ mc-chunk if it can't control the group level. For example this didn't work due t
 
 The reading order was then wrong, and the \emph{emphasized text} moved in the structure at the end.
 
-So starting with version 0.9 this has been reverted. The attribute is now global again. 
+So starting with version 0.9 this has been reverted. The attribute is now global again.
 This solves the \enquote{interruption} problem, but has its price: Material inserted by the output routine
 must be properly guarded. For example
 
@@ -894,7 +908,7 @@ must be properly guarded. For example
 \end{lstlisting}
 
 Here the header and the background code on the  \emph{first} page will be marked up as paragraph
-and added as chunk to the document structure. The header and the background code on 
+and added as chunk to the document structure. The header and the background code on
 the \emph{second} page will be marked as artifact. The following figure shows how the tags looks
 like.
 
@@ -904,10 +918,10 @@ like.
 \tagmcend\tagstructend
 \tagpdfparaOn
 
-It is therefore from now on important to correctly markup such code. Header and footer typically should be 
-artifacts. The LaTeX kernel hasn't yet suitable hooks around header and footer to allow to automate 
+It is therefore from now on important to correctly markup such code. Header and footer typically should be
+artifacts. The LaTeX kernel hasn't yet suitable hooks around header and footer to allow to automate
 this, but they will be added. With packages like \pkg{fancyhdr}  or \pkg{scrlayer-scrpage} it is quite easy to add
-the needed code too. 
+the needed code too.
 
 
 \subsubsection{Tips}
@@ -999,8 +1013,6 @@ The following listing shows low-level to create link where the two commands are 
 \tag_struct_insert_annot:xx {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
 \end{lstlisting}
 
-
-With luatex and local attributes (see section~\ref{sec:global-local}) commands like \cs{url} should not be grouped to allow them to reset the mc-attributes, or if groups are involved the mc-chunks should be closed and reopened manually to get the right reading order.
 
 
 \subsubsection{Math}
@@ -1567,18 +1579,18 @@ a show command is provided
 This command takes as argument a key-val list which implements a number of show options.
 
 \begin{description}
-  \item[\PrintKeyName{mc-data}] This key is relevant for luamode only. 
+  \item[\PrintKeyName{mc-data}] This key is relevant for luamode only.
   It shows the data of all mc-chunks created so far.
   It is accurate only after shipout, so typically should be issued after a
   newpage. The value is a positive integer and sets the first mc-shown. If no value
-  is given, 1 is used and so all mc-chunks created so far are shown. 
-  
-  \item[\PrintKeyName{mc-current}]  This key shows the number and the tag of 
-  the currently open mc-chunk. If no chunk is open it shows only the 
+  is given, 1 is used and so all mc-chunks created so far are shown.
+
+  \item[\PrintKeyName{mc-current}]  This key shows the number and the tag of
+  the currently open mc-chunk. If no chunk is open it shows only the
   state of the absolute counter. It works in all mode,
-  but the output in luamode looks different. 
-  
-  \item[\PrintKeyName{struct-stack}] This key shows the current 
+  but the output in luamode looks different.
+
+  \item[\PrintKeyName{struct-stack}] This key shows the current
   structure stack. Typically it will contain at
   least |root| and |Document|.
   With the value |log| the info is only
@@ -1596,9 +1608,9 @@ This command takes as argument a key-val list which implements a number of show 
 \item Add commands and keys to enable/disable the checks.
 \item Check/extend the code for language tags.
 \item Think about math (progress: examples using luamml, associated files exists).
-\item Think about Links/Annotations 
+\item Think about Links/Annotations
      (progress: mostly done, see section~\ref{sec:link+annot} and the code in \pkg{l3pdffield})
-\item Keys for alternative and actualtext. How to define the input encoding? Like in Accsupp? 
+\item Keys for alternative and actualtext. How to define the input encoding? Like in Accsupp?
      (progress: keys are there, but encoding interface needs perhaps improving)
 \item Check twocolumn documents
 \item Examples

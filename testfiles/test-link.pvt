@@ -7,6 +7,21 @@
 }
 \usepackage{hyperref}
 \usepackage{kantlipsum}
+\makeatletter %to make compilation faster, we ensure that the ??
+% has an mc-chunk directly. 
+\def\@setref#1#2#3{% csname, extract group, refname
+  \ifx#1\relax
+    \protect\G@refundefinedtrue
+    \nfss@text{\reset@font\bfseries
+     \csname tag_mc_end_push:\endcsname\tagmcbegin{tag=P}??\tagmcend\csname tag_mc_begin_pop:n\endcsname{}}%
+    \@latex@warning{%
+      Reference `#3' on page \thepage \space undefined%
+    }%
+  \else
+    \expandafter\Hy@setref@link#1\@empty\@empty\@nil{#2}%
+  \fi
+}
+\makeatother
 \begin{document}
 \tagstructbegin{tag=Document}
 

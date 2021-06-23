@@ -56,9 +56,10 @@
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
-%<*tree>
+%<*header>
 \ProvidesExplPackage {tagpdf-tree-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to writing trees and dictionaries to the pdf}
+%</header>
 %    \end{macrocode}
 % \section{Trees, pdfmanagement and finalization code}
 %
@@ -69,6 +70,7 @@
 % shipout/lastpage so all code affecting it should be before.
 % Objects can be written later, at least in pdf mode.
 %    \begin{macrocode}
+%<*package>
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT \g_@@_active_tree_bool
@@ -431,7 +433,7 @@
          }
       }
   }
-%</tree>
+%</package>
 %    \end{macrocode}
 % \end{implementation}
 % \PrintIndex

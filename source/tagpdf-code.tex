@@ -1,0 +1,91 @@
+ \iffalse meta-comment
+
+% File: tagpdf.dtx
+
+ Copyright (C) 2019-2020 Ulrike Fischer
+
+ It may be distributed and/or modified under the conditions of the
+ LaTeX Project Public License (LPPL), either version 1.3c of this
+ license or (at your option) any later version.  The latest version
+ of this license is in the file
+
+    https://www.latex-project.org/lppl.txt
+
+ This file is part of the "tagpdf bundle" (The Work in LPPL)
+ and all files in that bundle must be distributed together.
+
+ -----------------------------------------------------------------------
+
+ The development version of the bundle can be found at
+
+    https://github.com/u-fischer/tagpdf
+
+ for those people who are interested.
+
+ \fi
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother 
+\documentclass{l3doc}
+
+% The next line is needed so that \GetFileInfo will be able to pick up
+% version data.
+\usepackage{tagpdf}
+
+
+\begin{document}
+
+\GetFileInfo{tagpdf.sty}
+
+\title{%
+  \pkg{tagpdf} -- A package to experiment with pdf tagging%
+  \thanks{This file describes \fileversion,
+    last revised \filedate.}%
+}
+
+\author{^^A
+ Ulrike Fischer\thanks
+   {^^A
+     E-mail:
+       \href{mailto:fischer@troubleshooting-tex.de}
+         {fischer@troubleshooting-tex.de}^^A
+   }^^A
+}
+
+\date{Released \filedate}
+
+\maketitle
+\tableofcontents
+
+\clearpage
+
+% Make the separate source files into a single whole, format-wise
+\makeatletter
+\RenewDocumentCommand\maketitle{}{%
+  \clearpage
+  \part{\@title}%
+}
+\makeatother
+\renewcommand*\partname{Part}
+\DeclareExpandableDocumentCommand\thanks{m}{}
+
+\let\DelayPrintIndex\PrintIndex
+\RenewDocumentCommand\PrintIndex{}{}
+
+% Load the source files in order
+%\DocInput{tagpdf.dtx}
+\DocInput{tagpdf-checks.dtx}
+%\DocInput{tagpdf-user.dtx}
+%\DocInput{tagpdf-tree.dtx}
+%\DocInput{tagpdf-mc.dtx}
+%\DocInput{tagpdf-struct.dtx}
+%\DocInput{tagpdf-backend.dtx}
+%\DocInput{tagpdf-roles.dtx}
+%\DocInput{tagpdf-space.dtx}
+\clearpage
+
+\DelayPrintIndex
+
+\end{document}

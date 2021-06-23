@@ -55,9 +55,10 @@
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
-%<*roles>
+%<*header>
 \ProvidesExplPackage {tagpdf-roles-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to roles and structure names}
+%</header>
 %    \end{macrocode}
 % \section{Code related to roles and structure names}
 % \subsection{Variables}
@@ -68,6 +69,7 @@
 % name from different names spaces can have the same number.
 % \begin{variable}{\g_@@_role_tags_seq,\g_@@_role_tags_prop}
 %    \begin{macrocode}
+%<*package>
 \@@_seq_new:N  \g_@@_role_tags_seq  %to get names (type/NS) from numbers
 \@@_prop_new:N \g_@@_role_tags_prop %to get numbers  from names (type/NS)
 %    \end{macrocode}
@@ -680,7 +682,7 @@
        }
     }
   }
-%</roles>
+%</package>
 %    \end{macrocode}
 % \end{macro}
 % \end{implementation}

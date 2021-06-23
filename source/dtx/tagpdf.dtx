@@ -151,6 +151,7 @@
 \clist_new:N \l_@@_tmpa_clist
 \int_new:N   \l_@@_tmpa_int
 %    \end{macrocode}
+%
 % Attribute lists for the label command. We have a list for
 % mc-related labels, and one for structures.
 % \begin{macro}{\c_@@_refmc_clist,\c_@@_refstruct_clist}
@@ -177,10 +178,10 @@
 %    \g_@@_active_struct_bool
 %  }
 % These booleans should help to control the global behaviour of tagpdf.
-% Ideally it should do nothing if all are false.
+% Ideally it should more or less do nothing if all are false.
 % The mc-boolean activates \cs{tag_mc_begin:n},
 % the tree-boolean activates writing the finish code and the pdfmanagement related
-% commands, the struct boolean actives the storing of the structure data.
+% commands, the struct-boolean activates the storing of the structure data.
 % In a normal document all should be active, the split is only there for
 % debugging purpose.
 % Also we assume currently that they are set only at begin document. But
@@ -241,7 +242,7 @@
 % and the object reference |tagstructobj|.
 % The second is needed to be able to reference a structure which hasn't been
 % created yet. The alternative would be to create the object in such cases,
-% but then we need to check the object existence all the time.
+% but then we would have to check the object existence all the time.
 %
 % With mc-chunks we store the absolute page number |tagabspage|,
 % the absolute id |tagmcabc|, and the id on the page |tagmcid|.
@@ -263,37 +264,82 @@
   { \int_use:N \g_@@_MCID_tmp_bypage_int }
 %    \end{macrocode}
 % \end{macro}
+%
+% \section{Label commands}
+% \begin{macro}{\@@_ref_label:nn}
+% A version of |\ref_label:nn| to set a label
+% which takes a keyword |mc| or |struct| to
+% call the relevant lists.
+% TODO: check if |\@bsphack| and |\@esphack| make sense here.
 %    \begin{macrocode}
-%=================
-% command to set a label
-%================
 \cs_new_protected:Npn \@@_ref_label:nn #1 #2 %#1 label, #2 name of list mc or struct
   {
     \@bsphack
     \ref_label:nv {#1}{c_@@_ref#2_clist}
     \@esphack
   }
-%==============
-% command to retrieve the value
-%===============
+\cs_generate_variant:Nn \@@_ref_label:nn {en}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_ref_value:nnn}
+% A local version to retrieve the value. It is a direct wrapper,
+% but to keep naming consistent \ldots. It uses the variant defined temporarly
+% above.
+%    \begin{macrocode}
 \cs_new:Npn \@@_ref_value:nnn #1 #2 #3 %#1 label, #2 attribute, #3 default
   {
     \ref_value:nnn {#1}{#2}{#3}
   }
-%===============
-% the LastPage label has a different name, so we need a special command for now
-% =============
+\cs_generate_variant:Nn \@@_ref_value:nnn {enn}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_ref_value_lastpage:nn}
+% A command to retrieve the lastpage label, this will be adapted when there
+% is a proper, kernel lastpage label.
+%    \begin{macrocode}
 \cs_new:Npn \@@_ref_value_lastpage:nn #1 #2
   {
     \ref_value:nnn {@@_LastPage}{#1}{#2}
   }
-
-% as ref doesn't expand label names we need variants:
-\cs_generate_variant:Nn \@@_ref_label:nn {en}
-\cs_generate_variant:Nn \@@_ref_value:nnn {enn}
-
 %    \end{macrocode}
+%\end{macro}
 %
+%\section{Commands to fill seq and prop}
+% With most engines these are simply copies of the expl3 commands,
+% but luatex will overwrite them, to store the data also in lua tables.
+% \begin{macro}
+%  {
+%    \@@_prop_new:N
+%    ,\@@_seq_new:N
+%    ,\@@_prop_gput:Nnn
+%    ,\@@_seq_gput_right:Nn
+%    ,\@@_seq_item:cn
+%    ,\@@_prop_item:cn
+%    ,\@@_seq_show:N
+%    ,\@@_prop_show:N
+%  }
+%    \begin{macrocode}
+\cs_set_eq:NN \@@_prop_new:N        \prop_new:N
+\cs_set_eq:NN \@@_seq_new:N         \seq_new:N
+\cs_set_eq:NN \@@_prop_gput:Nnn     \prop_gput:Nnn
+\cs_set_eq:NN \@@_seq_gput_right:Nn \seq_gput_right:Nn
+\cs_set_eq:NN \@@_seq_item:cn       \seq_item:cn
+\cs_set_eq:NN \@@_prop_item:cn      \prop_item:cn
+\cs_set_eq:NN \@@_seq_show:N        \seq_show:N
+\cs_set_eq:NN \@@_prop_show:N       \prop_show:N
+
+\cs_generate_variant:Nn \@@_prop_gput:Nnn      { Nxn , Nxx, Nnx , cnn, cxn, cnx, cno}
+\cs_generate_variant:Nn \@@_seq_gput_right:Nn  { Nx  , No, cn, cx }
+\cs_generate_variant:Nn \@@_prop_new:N   { c }
+\cs_generate_variant:Nn \@@_seq_new:N    { c }
+\cs_generate_variant:Nn \@@_seq_show:N   { c }
+\cs_generate_variant:Nn \@@_prop_show:N  { c }
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{General tagging commands}
+
 % \begin{macro}{ \tag_stop_group_begin:, \tag_stop_group_end: }
 % We need a command to stop tagging in some places.
 % This simply switches the two local booleans.
@@ -304,16 +350,18 @@
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
   }
-
 \cs_set_eq:NN \tag_stop_group_end: \group_end:
 %    \end{macrocode}
 % \end{macro}
 %
 % \section{Keys for tagpdfsetup}
-% TODO: checks need to be improved
+
+% TODO: the log-levels must be sorted
+%
+% \begin{macro}
+%  {activate-mc,activate-tree,activate-struct,activate-all,activate}
+%  Keys to (globally) activate tagging.
 %    \begin{macrocode}
-
-
 \keys_define:nn { @@ / setup }
   {
     activate-mc     .bool_gset:N = \g_@@_active_mc_bool,
@@ -321,14 +369,33 @@
     activate-struct .bool_gset:N = \g_@@_active_struct_bool,
     activate-all    .meta:n = {activate-mc,activate-tree,activate-struct},
     activate        .meta:n = {activate-mc,activate-tree,activate-struct},
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{log}
+% The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
+% The description of the log levels is in tagpdf-checks.
+%    \begin{macrocode}
     log             .choice:,
     log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
     log / v         .code:n = {\int_set:Nn \l_@@_loglevel_int { 1 }},
     log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
     log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
     log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{tagunmarked}
+% This key allows to set if (in luamode) unmarked text should be
+% marked up as artifact. The initial value is true.
+%    \begin{macrocode}
     tagunmarked     .bool_gset:N = \g_@@_tagunmarked_bool,
     tagunmarked     .initial:n  = true,
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{tabsorder}
+% This sets the tabsorder one a page. The values are |row|, |column|, |structure| (default)
+% or |none|. Currently this is set more or less globally. More finer controll can be
+% added if needed.
+%    \begin{macrocode}
     tabsorder       .choice:,
     tabsorder / row       .code:n =
       \pdfmanagement_add:nnn { Page } {Tabs}{/R},
@@ -340,76 +407,25 @@
       \pdfmanagement_remove:nn {Page} {Tabs},
     tabsorder       .initial:n = structure,
     uncompress      .code:n = { \pdf_uncompress:  },
-    global-mc .code:n =
-      {
-        \cs_set_eq:NN\@@_attribute_set:Nn \@@_attribute_gset:Nn
-        \cs_set_eq:NN\@@_attribute_unset:N\@@_attribute_gunset:N
-        \cs_set:Npn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
-      }
   }
-
-
-%need to think about the right place ...
-
-\hook_gput_code:nnn{begindocument}{tagpdf}
-  {
-    \keys_set:nn { @@ / setup }{global-mc}
-    \keys_define:nn { @@ / setup }
-     {
-       global-mc .code:n={}
-     }
-  }
-% escape commands are a bit engine specific so have been moved to the backend files.
-% commands to escape strings so that they can be safely used in pdf
-% currently not much used. But will be needed later, when alt and actualtext are added.
-%escape command. They are backend specific as \pdf@escapehex would ignore most chars
-%outside the "pdflatex" range
-
-% These commands are only aliases for most engines but
-% are defined differently with luatex
-% to get also lua tables.
-\sys_if_engine_luatex:TF
+%    \end{macrocode}
+% \end{macro}
+% \section{loading of engine/more dependent code}
+%    \begin{macrocode}
+\sys_if_engine_luatex:T
   {
     \file_input:n {tagpdf-luatex.def}
   }
-  {
-    \cs_set_eq:NN \@@_prop_new:N        \prop_new:N
-    \cs_set_eq:NN \@@_seq_new:N         \seq_new:N
-    \cs_set_eq:NN \@@_prop_gput:Nnn     \prop_gput:Nnn
-    \cs_set_eq:NN \@@_seq_gput_right:Nn \seq_gput_right:Nn
-    \cs_set_eq:NN \@@_seq_item:cn       \seq_item:cn
-    \cs_set_eq:NN \@@_prop_item:cn      \prop_item:cn
-    \cs_set_eq:NN \@@_seq_show:N        \seq_show:N
-    \cs_set_eq:NN \@@_prop_show:N       \prop_show:N
-  }
-
-\cs_generate_variant:Nn \@@_prop_gput:Nnn      { Nxn , Nxx, Nnx , cnn, cxn, cnx, cno}
-\cs_generate_variant:Nn \@@_seq_gput_right:Nn  { Nx  , No, cn, cx }
-\cs_generate_variant:Nn \@@_prop_new:N   { c }
-\cs_generate_variant:Nn \@@_seq_new:N    { c }
-\cs_generate_variant:Nn \@@_seq_show:N   { c }
-\cs_generate_variant:Nn \@@_prop_show:N  { c }
-
-
-
-%% Loading the tagpdf sub packages
-\RequirePackage { tagpdf-checks-code }
-\RequirePackage { tagpdf-user }
-\RequirePackage { tagpdf-tree-code }
-\RequirePackage { tagpdf-roles-code }
-\RequirePackage { tagpdf-attr-code }
-% mc-code is split:
-\RequirePackage { tagpdf-mc-code-shared }
+%</package>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*mcloading>
 \bool_if:NTF \g_@@_mode_lua_bool
   {
    \RequirePackage {tagpdf-mc-code-lua}
   }
   {
-   \RequirePackage { tagpdf-mc-code-generic } %
+   \RequirePackage {tagpdf-mc-code-generic} %
   }
-
-\RequirePackage { tagpdf-struct-code }
-\RequirePackage { tagpdf-space-code }
-%</package>
+%</mcloading>
 %    \end{macrocode}
-%

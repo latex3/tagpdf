@@ -79,9 +79,10 @@
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
-%<*checks>
+%<*header>
 \ProvidesExplPackage {tagpdf-checks-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to checks, conditionals, debugging and messages}
+%</header>
 %    \end{macrocode}
 % \section{Messages}
 % \subsection{Messages related to mc-chunks}
@@ -90,6 +91,7 @@
 % This is not relevant for luamode, as the attributes don't care about this.
 % It is used in the |\@@_check_mc_if_nested:| test.
 %    \begin{macrocode}
+%<*package>
 \msg_new:nnn { tag } {mc-nested} { nested~marked~content~found~-~mcid~#1 }
 %    \end{macrocode}
 % \end{macro}
@@ -526,7 +528,7 @@
         \msg_info:nnx { tag } {obj-write-num} {#1}
       }
   }
-%</checks>
+%</package>
 %    \end{macrocode}
 % \end{macro}
 % \end{implementation}

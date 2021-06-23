@@ -210,9 +210,10 @@
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
-%<*struct>
+%<*header>
 \ProvidesExplPackage {tagpdf-struct-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to storing structure}
+%</header>
 %    \end{macrocode}
 % \section{Variables}
 % \begin{variable}{\c@g_@@_struct_abs_int}
@@ -221,6 +222,7 @@
 % to have a chance to avoid double structures in align etc.
 %
 %    \begin{macrocode}
+%<*package>
 \newcounter  { g_@@_struct_abs_int }
 \int_gzero:N \c@g_@@_struct_abs_int
 %    \end{macrocode}
@@ -1052,16 +1054,17 @@
 \cs_generate_variant:Nn \tag_struct_insert_annot:nn {xx}
 \cs_new:Npn \tag_struct_parent_int: {\int_use:c { c@g_@@_parenttree_obj_int }}
 
-%</struct>
+%</package>
 
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
 % \section{Attributes and attribute classes}
 %    \begin{macrocode}
-%<*attr>
+%<*header>
 \ProvidesExplPackage {tagpdf-attr-code} {2021-06-14} {0.82}
   {part of tagpdf - code related to attributes and attribute classes}
+%</header>
 %    \end{macrocode}
 % \subsection{Variables}
 %  \begin{variable}
@@ -1079,6 +1082,7 @@
 % with its content, the name-object reference relation is stored in
 % |\g_@@_attr_objref_prop|
 %    \begin{macrocode}
+%<*package>
 \prop_new:N \g_@@_attr_entries_prop
 \seq_new:N  \g_@@_attr_class_used_seq
 \tl_new:N   \l_@@_attr_value_tl
@@ -1202,6 +1206,6 @@
           { \l_@@_attr_value_tl }
     },
   }
-%</attr>
+%</package>
 %    \end{macrocode}
 % \end{implementation}

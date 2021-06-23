@@ -55,9 +55,10 @@
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
-%<*space>
+%<*header>
 \ProvidesExplPackage {tagpdf-space-code} {2021-06-14} {0.82}
  {part of tagpdf - code related to real space chars}
+%</header>
 %    \end{macrocode}
 % \section{Code for interword spaces}
 % The code is engine/backend dependant. Basically only pdftex and luatex
@@ -66,6 +67,7 @@
 %
 % \begin{macro}{interwordspace,show-spaces}
 %    \begin{macrocode}
+%<*package>
 \sys_if_engine_pdftex:T
   {
     \sys_if_output_pdf:TF
@@ -140,7 +142,7 @@
         \group_end:
       }
   }
-%</space>
+%</package>
 %    \end{macrocode}
 % \end{macro}
 % \end{implementation}

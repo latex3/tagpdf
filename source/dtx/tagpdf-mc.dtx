@@ -177,10 +177,11 @@
 % \section{Marked content code -- shared}
 %    \begin{macrocode}
 %<@@=tag>
-%<*shared>
+%<*header>
 \ProvidesExplPackage {tagpdf-mc-code-shared} {2021-06-14} {0.82}
   {part of tagpdf - code related to marking chunks -
    code shared by generic and luamode }
+%</header>
 %    \end{macrocode}
 %
 % \subsection{Variables and counters}
@@ -195,6 +196,7 @@
 %
 % \begin{variable}{g_@@_MCID_abs_int}
 %    \begin{macrocode}
+%<*shared>
 \newcounter { g_@@_MCID_abs_int }
 %    \end{macrocode}
 % \end{variable}
@@ -399,11 +401,13 @@
 %<*generic>
 \ProvidesExplPackage {tagpdf-mc-code-generic} {2021-06-14} {0.82}
  {part of tagpdf - code related to marking chunks - generic mode}
+%</generic>
 %    \end{macrocode}
 % \subsection{Variables}
 % \begin{variable}{\g_@@_in_mc_bool}
 % This booleans records if a mc is open, to test nesting.
 %    \begin{macrocode}
+%<*generic>
 \bool_new:N \g_@@_in_mc_bool
 %    \end{macrocode}
 % \end{variable}
@@ -795,10 +799,12 @@
 %<*luamode>
 \ProvidesExplPackage {tagpdf-mc-code-lua} {2021-06-14} {0.82}
   {tagpdf - mc code only for the luamode }
+%</luamode>
 %    \end{macrocode}
 % The main function which wanders through the shipout box to inject the literals.
 % if the new callback is there, it is used.
 %    \begin{macrocode}
+%<*luamode>
 \hook_gput_code:nnn{begindocument}{tagpdf/mc}
   {
     \bool_if:NT\g__tag_active_mc_bool

@@ -55,36 +55,48 @@ and all files in that bundle must be distributed together.
 \keepsilent
 
 \generate
-  {\file{tagpdf.sty}           {\from{tagpdf.dtx}{package}}}
-\generate
-  {\file{tagpdf-user.sty}      {\from{tagpdf-user.dtx}{user}}}
+  {\file{tagpdf.sty}
+      {
+        \from{tagpdf.dtx}{package}
+        \from{tagpdf-checks.dtx}{package}
+        \from{tagpdf-user.dtx}{package}
+        \from{tagpdf-mc.dtx}{shared}
+        \from{tagpdf.dtx}{mcloading}
+        \from{tagpdf-tree.dtx}{package}
+        \from{tagpdf-roles.dtx}{package}
+        \from{tagpdf-struct.dtx}{package}%contains also the attr code.
+        \from{tagpdf-space.dtx}{package}
+      }
+  }
+%\generate
+%  {\file{tagpdf-user.sty}      {\from{tagpdf-user.dtx}{user}}}
 
 \generate
   {\file{tagpdf-luatex.def}{\from{tagpdf-backend.dtx}{luatex}}}
 
-\generate
-  {\file{tagpdf-mc-code-shared.sty}{\from{tagpdf-mc.dtx}{shared}}}
+%\generate
+%  {\file{tagpdf-mc-code-shared.sty}{\from{tagpdf-mc.dtx}{shared}}}
 \generate
   {\file{tagpdf-mc-code-generic.sty}{\from{tagpdf-mc.dtx}{generic}}}
 \generate
   {\file{tagpdf-mc-code-lua.sty}{\from{tagpdf-mc.dtx}{luamode}}}
-
-\generate
-  {\file{tagpdf-struct-code.sty}{\from{tagpdf-struct.dtx}{struct}}}
-\generate
-  {\file{tagpdf-attr-code.sty}{\from{tagpdf-struct.dtx}{attr}}}
-
-\generate
-  {\file{tagpdf-checks-code.sty}{\from{tagpdf-checks.dtx}{checks}}}
-
-\generate
-  {\file{tagpdf-roles-code.sty}{\from{tagpdf-roles.dtx}{roles}}}
-
-\generate
-  {\file{tagpdf-space-code.sty}{\from{tagpdf-space.dtx}{space}}}
-
-\generate
-  {\file{tagpdf-tree-code.sty}{\from{tagpdf-tree.dtx}{tree}}}
+%
+%\generate
+%  {\file{tagpdf-struct-code.sty}{\from{tagpdf-struct.dtx}{struct}}}
+%\generate
+%  {\file{tagpdf-attr-code.sty}{\from{tagpdf-struct.dtx}{attr}}}
+%
+%\generate
+%  {\file{tagpdf-checks-code.sty}{\from{tagpdf-checks.dtx}{checks}}}
+%
+%\generate
+%  {\file{tagpdf-roles-code.sty}{\from{tagpdf-roles.dtx}{roles}}}
+%
+%\generate
+%  {\file{tagpdf-space-code.sty}{\from{tagpdf-space.dtx}{space}}}
+%
+%\generate
+%  {\file{tagpdf-tree-code.sty}{\from{tagpdf-tree.dtx}{tree}}}
 
 \def\MetaPrefix{-- }
 \def\defaultpostamble{%

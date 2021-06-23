@@ -145,6 +145,7 @@ elseif string.match (file, "%.sty$" ) then
 
 -- ctan setup
 docfiles = {"source/tagpdf.tex",
+            "source/tagpdf-code.tex",
             "source/tagpdf.bib",
             "source/link-figure-input.tex",
             "source/pac3.PNG",
@@ -171,15 +172,15 @@ sourcefiles  = {"**/*.dtx",
 
 typesetfiles =
  {
-   "tagpdf.tex",
-   "tagpdf-tree.dtx",
-   "tagpdf-checks.dtx",
-   "tagpdf-space.dtx",
-   "tagpdf-roles.dtx",
-   "tagpdf-mc.dtx",
-   "tagpdf-struct.dtx",
-   "tagpdf-user.dtx",
-   "tagpdf.dtx"
+   "tagpdf.tex","tagpdf-code.tex"
+--   "tagpdf-tree.dtx",
+--   "tagpdf-checks.dtx",
+--   "tagpdf-space.dtx",
+--   "tagpdf-roles.dtx",
+--   "tagpdf-mc.dtx",
+--   "tagpdf-struct.dtx",
+--   "tagpdf-user.dtx",
+--   "tagpdf.dtx"
  }
 
 typesetruns = 4
