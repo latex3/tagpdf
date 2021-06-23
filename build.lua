@@ -149,6 +149,7 @@ docfiles = {"source/tagpdf.tex",
             "source/tagpdf.bib",
             "source/link-figure-input.tex",
             "source/pac3.PNG",
+            "source/global-ex.png",
             "source/examples/**/*.tex",
             "source/examples/**/*.pdf"}
 textfiles= {"source/CTANREADME.md"}
