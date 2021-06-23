@@ -74,10 +74,10 @@
    pagenumberformat=\tagscrtocpagenumber]{tocline}{paragraph}
 
 
-
+% \IfStr{#3} doesnt like a \label ...
 \renewcommand{\addtocentrydefault}[3]{%
- \Ifstr{#3}{}{}
-   {%\
+% \Ifstr{#3}{}{}
+%   {%
    \Ifstr{#2}{}
     {%
      \addcontentsline{toc}{#1}
@@ -103,7 +103,8 @@
      \tagstructend
      }%
     }%
-   }}%
+  %}
+}%
 
 % the dots must be marked too
 

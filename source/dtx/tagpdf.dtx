@@ -69,13 +69,12 @@
 \ExecuteOptions{luamode}
 \ProcessOptions
 %    \end{macrocode}
-% \end{macro}
 % \section{Packages}
 % We need the temporary version of l3ref until this is in the kernel.
 %    \begin{macrocode}
 \RequirePackage{l3ref-tmp}
 %    \end{macrocode}
-% \end{macro}
+%
 % \section{Temporary code}
 % This is code which will be removed when proper support exists in LaTeX
 % \subsection{a LastPage label}
@@ -131,7 +130,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \section{Variables}
-% \begin{macro}
+% \begin{variable}
 %  {
 %    \l_@@_tmpa_tl,
 %    \l_@@_tmpa_str,
@@ -151,7 +150,7 @@
 \clist_new:N \l_@@_tmpa_clist
 \int_new:N   \l_@@_tmpa_int
 %    \end{macrocode}
-%
+% \end{variable}
 % Attribute lists for the label command. We have a list for
 % mc-related labels, and one for structures.
 % \begin{macro}{\c_@@_refmc_clist,\c_@@_refstruct_clist}
@@ -200,7 +199,7 @@
 %    \l_@@_active_mc_bool,
 %    \l_@@_active_struct_bool
 %  }
-% These booleans should help to control the \empht{local} behaviour of tagpdf.
+% These booleans should help to control the \emph{local} behaviour of tagpdf.
 % In some cases it could e.g. be necessary to stop tagging completely.
 % As local booleans they respect groups.
 % TODO: check if they are used everywhere as needed and as wanted.
