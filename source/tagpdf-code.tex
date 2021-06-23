@@ -27,7 +27,7 @@
 \DeclareDocumentMetadata{}
 \makeatletter
 \declare@file@substitution{doc.sty}{doc-v3beta.sty}
-\makeatother 
+\makeatother
 \documentclass{l3doc}
 
 % The next line is needed so that \GetFileInfo will be able to pick up
@@ -75,15 +75,15 @@
 \RenewDocumentCommand\PrintIndex{}{}
 
 % Load the source files in order
-%\DocInput{tagpdf.dtx}
+\DocInput{tagpdf.dtx}
 \DocInput{tagpdf-checks.dtx}
-%\DocInput{tagpdf-user.dtx}
-%\DocInput{tagpdf-tree.dtx}
-%\DocInput{tagpdf-mc.dtx}
-%\DocInput{tagpdf-struct.dtx}
-%\DocInput{tagpdf-backend.dtx}
-%\DocInput{tagpdf-roles.dtx}
-%\DocInput{tagpdf-space.dtx}
+\DocInput{tagpdf-user.dtx}
+\DocInput{tagpdf-tree.dtx}
+\DocInput{tagpdf-mc.dtx}
+\DocInput{tagpdf-struct.dtx}
+\DocInput{tagpdf-backend.dtx}
+\DocInput{tagpdf-roles.dtx}
+\DocInput{tagpdf-space.dtx}
 \clearpage
 
 \DelayPrintIndex

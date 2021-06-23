@@ -34,7 +34,7 @@ for those people who are interested.
 \let\MetaPrefix\relax
 \preamble
 
-Copyright (C) 2019 Ulrike Fischer
+Copyright (C) 2019-2021 Ulrike Fischer
 
 It may be distributed and/or modified under the conditions of
 the LaTeX Project Public License (LPPL), either version 1.3c of
@@ -68,35 +68,14 @@ and all files in that bundle must be distributed together.
         \from{tagpdf-space.dtx}{package}
       }
   }
-%\generate
-%  {\file{tagpdf-user.sty}      {\from{tagpdf-user.dtx}{user}}}
 
 \generate
   {\file{tagpdf-luatex.def}{\from{tagpdf-backend.dtx}{luatex}}}
-
-%\generate
-%  {\file{tagpdf-mc-code-shared.sty}{\from{tagpdf-mc.dtx}{shared}}}
 \generate
   {\file{tagpdf-mc-code-generic.sty}{\from{tagpdf-mc.dtx}{generic}}}
 \generate
   {\file{tagpdf-mc-code-lua.sty}{\from{tagpdf-mc.dtx}{luamode}}}
-%
-%\generate
-%  {\file{tagpdf-struct-code.sty}{\from{tagpdf-struct.dtx}{struct}}}
-%\generate
-%  {\file{tagpdf-attr-code.sty}{\from{tagpdf-struct.dtx}{attr}}}
-%
-%\generate
-%  {\file{tagpdf-checks-code.sty}{\from{tagpdf-checks.dtx}{checks}}}
-%
-%\generate
-%  {\file{tagpdf-roles-code.sty}{\from{tagpdf-roles.dtx}{roles}}}
-%
-%\generate
-%  {\file{tagpdf-space-code.sty}{\from{tagpdf-space.dtx}{space}}}
-%
-%\generate
-%  {\file{tagpdf-tree-code.sty}{\from{tagpdf-tree.dtx}{tree}}}
+
 
 \def\MetaPrefix{-- }
 \def\defaultpostamble{%
