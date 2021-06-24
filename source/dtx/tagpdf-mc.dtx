@@ -285,6 +285,17 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_mc_set_used:n}
+% Unlike with structures we can't check if a mc has been used by
+% looking at the P key, so we use a dedicated csname for the test
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_mc_set_used:n #1 %#1 labelname
+  {
+    \tl_new:c { g_@@_mc_label_\tl_to_str:n{#1}_tl }
+  }
+%    \end{macrocode}
+%
+% \end{macro}
 % \begin{macro}
 %   {
 %     \tag_mc_artifact_group_begin:n,
@@ -681,7 +692,7 @@
               {
                 \l_@@_tmpa_tl
               }
-            \@@_ref_clear:en {tagpdf-#1}{tagmcabs}
+            \@@_mc_set_used:e {tagpdf-#1}
           }
        }
   }
@@ -1004,7 +1015,8 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\tag_mc_end:,\tag_mc_use:n}
+% \begin{macro}{\tag_mc_end:}
+%
 % TODO: check how the use command must be guarded.
 %    \begin{macrocode}
 \cs_new_protected:Nn \tag_mc_end:
@@ -1019,7 +1031,9 @@
         \tl_gset:Nn \g_@@_mc_key_tag_tl { }
       }
   }
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_mc_use:n}
 \cs_new_protected:Nn \tag_mc_use:n %#1: label name
   {
     \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
@@ -1029,7 +1043,7 @@
       }
       {
         \@@_mc_handle_stash:o { \l_@@_tmpa_tl }
-        \@@_ref_clear:en {tagpdf-#1}{tagmcabs}
+        \@@_mc_set_used:e {tagpdf-#1}
       }
   }
 %    \end{macrocode}

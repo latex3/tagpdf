@@ -1,0 +1,481 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf-mc.dtx
+%
+% Copyright (C) 2019-2021 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-mc module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% \title{^^A
+%   The \pkg{tagpdf-mc-luacode} module\\ Code related to Marked Content (mc-chunks), luamode-specific  ^^A
+%   \\ part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.82, released 2021-06-14}
+% \maketitle
+
+% \begin{implementation}
+% The code is splitted into three parts: code shared by all engines,
+% code specific to luamode and code not used by luamode.
+%
+% \section{Marked content code -- luamode code}
+% luamode uses attributes to mark mc-chunks. The two attributes used are
+% defined in the backend file. The backend also load the lua file, as it can contain
+% functions needed elsewhere.
+% The attributes for mc are global (between 0.6 and 0.81 they were local but this
+% was reverted). The attributes are setup only in lua, and one should use
+% the lua functions to set and get them.\\
+% |g_@@_mc_type_attr|:  the value represent the type\\
+% |g_@@_mc_cnt_attr|:   will hold the |\c@g_@@_MCID_abs_int value|
+%
+% Handling attribute needs a different system to number the page wise mcid's:
+% a |\tagmcbegin ... \tagmcend| pair no longer surrounds exactly one mc chunk:
+% it can be split at page breaks.
+% We know the included mcid(s) only after the ship out.
+% So for the |struct -> mcid| mapping we
+% need to record |struct -> mc-cnt| (in |\g_@@_mc_parenttree_prop| and/or a lua table
+% and at shipout |mc-cnt-> {mcid, mcid, ...}|
+% and when building the trees connect both.
+%
+% Key definitions are overwritten for luatex to store that data in lua-tables.
+% The data for the mc are in |ltx.@@.mc[absnum]|.
+% The fields of the table are:\\
+% tag : the type (a string)\\
+% raw : more properties (string)\\
+% label: a string. \\
+% artifact: the presence indicates an artifact, the value (string) is the type.\\
+% kids: a array of tables\\
+% |{1={kid=num2,page=pagenum1}, 2={kid=num2,page=pagenum2},...}|,\\
+% this describes the chunks the mc has been split to by the traversing code\\
+% parent: the number of the structure it is in. Needed to build the parent tree.
+%
+%    \begin{macrocode}
+%<@@=tag>
+%<*luamode>
+\ProvidesExplPackage {tagpdf-mc-code-lua} {2021-06-14} {0.82}
+  {tagpdf - mc code only for the luamode }
+%</luamode>
+%    \end{macrocode}
+% The main function which wanders through the shipout box to inject the literals.
+% if the new callback is there, it is used.
+%    \begin{macrocode}
+%<*luamode>
+\hook_gput_code:nnn{begindocument}{tagpdf/mc}
+  {
+    \bool_if:NT\g__tag_active_mc_bool
+      {
+        \lua_now:e
+          {
+            if~luatexbase.callbacktypes.pre_shipout_filter~then~
+              luatexbase.add_to_callback("pre_shipout_filter", function(TAGBOX)~
+              ltx.@@.func.mark_shipout(TAGBOX)~return~true~
+              end, "tagpdf")~
+            end
+          }
+       \lua_now:e
+         {
+           if~luatexbase.callbacktypes.pre_shipout_filter~then~
+           token.get_next()~
+           end
+         }\@secondoftwo\@gobble
+           {
+             \hook_gput_code:nnn{shipout/before}{tagpdf/lua}
+               {
+                 \lua_now:e
+                   { ltx.@@.func.mark_shipout (tex.box["ShipoutBox"]) }
+               }
+           }
+      }
+  }
+%    \end{macrocode}
+% \subsection{Commands}
+% \begin{macro}{\@@_mc_if_in:,\tag_mc_if_in:}
+% This tests, if we are in an mc, for attributes
+% this means to check against a number.
+%    \begin{macrocode}
+\prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
+  {
+    \int_compare:nNnTF
+      { -2147483647 }
+      =
+      {\lua_now:e
+         {
+           tex.print(tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr))
+         }
+      }
+      { \prg_return_false:  }
+      { \prg_return_true: }
+  }
+
+\prg_new_eq_conditional:NNn \tag_mc_if_in: \@@_mc_if_in: {p,T,F,TF}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%  {
+%     \@@_mc_lua_set_mc_type_attr:n
+%    ,\@@_mc_lua_set_mc_type_attr:o
+%    ,\@@_mc_lua_unset_mc_type_attr:
+%  }
+% This takes a tag name, and sets the attributes to the related number.
+% It is not decided yet if this will be global or local, see the global-mc option.
+%    \begin{macrocode}
+\cs_new:Nn \@@_mc_lua_set_mc_type_attr:n % #1 is a tag name
+  {
+    %TODO ltx.@@.func.get_num_from("#1") seems not to return a suitable number??
+    \tl_set:Nx\l_@@_tmpa_tl{\lua_now:e{ltx.@@.func.output_num_from ("#1")} }
+    \lua_now:e
+      {
+        tex.setattribute
+         (
+          "global",
+          luatexbase.attributes.g_@@_mc_type_attr,
+          \l_@@_tmpa_tl
+         )
+      }
+    \lua_now:e
+      {
+        tex.setattribute
+         (
+           "global",
+           luatexbase.attributes.g_@@_mc_cnt_attr,
+           \@@_get_mc_abs_cnt:
+         )
+      }
+  }
+
+\cs_generate_variant:Nn\@@_mc_lua_set_mc_type_attr:n { o }
+
+\cs_new:Nn \@@_mc_lua_unset_mc_type_attr:
+  {
+    \lua_now:e
+      {
+        tex.setattribute
+          (
+            "global",
+            luatexbase.attributes.g_@@_mc_type_attr,
+            -2147483647
+          )
+      }
+     \lua_now:e
+      {
+        tex.setattribute
+          (
+            "global",
+            luatexbase.attributes.g_@@_mc_cnt_attr,
+            -2147483647
+          )
+      }
+  }
+
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}
+%  {
+%    \@@_mc_insert_mcid_kids:n
+%   ,\@@_mc_insert_mcid_single_kids:n
+%  }
+% These commands will in the finish code replace the dummy for a mc by the real mcid kids
+% we need a variant for the case that it is the only kid, to get the array right
+%    \begin{macrocode}
+\cs_new:Nn \@@_mc_insert_mcid_kids:n
+  {
+    \lua_now:e { ltx.@@.func.mc_insert_kids (#1,0) }
+  }
+
+\cs_new:Nn \@@_mc_insert_mcid_single_kids:n
+  {
+    \lua_now:e {ltx.@@.func.mc_insert_kids (#1,1) }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%\begin{macro}{\@@_mc_handle_stash:n,\@@_mc_handle_stash:o}
+% This is the lua variant for the command to
+% put an mcid absolute number in the current structure.
+%    \begin{macrocode}
+\cs_new:Nn \@@_mc_handle_stash:n %1 mcidnum
+  {
+    \@@_check_mc_used:n { #1 }
+    \seq_gput_right:cn % Don't fill a lua table due to the command in the item,
+                       % so use the kernel command
+      { g_@@_struct_kids_\g_@@_struct_stack_current_tl _seq }
+      {
+        \@@_mc_insert_mcid_kids:n {#1}%
+      }
+    \lua_now:e
+      {
+        ltx.@@.func.store_struct_mcabs
+          (
+            \g_@@_struct_stack_current_tl,#1
+          )
+      }
+    \prop_gput:Nxx
+      \g_@@_mc_parenttree_prop
+      { #1 }
+      { \g_@@_struct_stack_current_tl }
+  }
+
+\cs_generate_variant:Nn \@@_mc_handle_stash:n { o }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tag_mc_begin:n}
+% This is the lua version of the user command.
+% We currently don't check if there is nesting as it doesn't matter so
+% much in lua.
+%    \begin{macrocode}
+\cs_new_protected:Nn \tag_mc_begin:n
+  {
+    \@@_check_if_active_mc:T
+      {
+        \group_begin:
+        %\@@_check_mc_if_nested:
+        \bool_gset_true:N \g_@@_in_mc_bool
+        \bool_set_false:N\l_@@_mc_artifact_bool
+        \tl_clear:N \l_@@_mc_key_properties_tl
+        \int_gincr:N \c@g_@@_MCID_abs_int
+        \keys_set:nn { @@ / mc }{ label={}, #1 }
+        %check that a tag or artifact has been used
+        \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
+        %set the attributes:
+        \@@_mc_lua_set_mc_type_attr:o  { \l_@@_mc_key_tag_tl }
+        \bool_if:NF \l_@@_mc_artifact_bool
+          { % store the absolute num name in a label:
+            \tl_if_empty:NF {\l_@@_mc_key_label_tl}
+              {
+                \exp_args:NV
+                 \@@_mc_handle_mc_label:n  \l_@@_mc_key_label_tl
+              }
+           % if not stashed record the absolute number
+            \bool_if:NF \l_@@_mc_key_stash_bool
+              {
+                \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
+              }
+          }
+        \group_end:
+     }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_mc_end:}
+%
+% TODO: check how the use command must be guarded.
+%    \begin{macrocode}
+\cs_new_protected:Nn \tag_mc_end:
+  {
+    \@@_check_if_active_mc:T
+      {
+        %\@@_check_mc_if_open:
+        \bool_gset_false:N \g_@@_in_mc_bool
+        \bool_set_false:N\l_@@_mc_artifact_bool
+        \@@_mc_lua_unset_mc_type_attr:
+        \tl_set:Nn  \l_@@_mc_key_tag_tl { }
+        \tl_gset:Nn \g_@@_mc_key_tag_tl { }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_mc_use:n}
+\cs_new_protected:Nn \tag_mc_use:n %#1: label name
+  {
+    \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
+    \tl_if_empty:NTF\l_@@_tmpa_tl
+      {
+        \msg_warning:nnn {tag} {mc-label-unknown} { #1 }
+      }
+      {
+        \@@_mc_handle_stash:o { \l_@@_tmpa_tl }
+        \@@_mc_set_used:e {tagpdf-#1}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{ \@@_get_data_mc_tag: }
+% The command to retrieve the current mc tag.
+% TODO: Perhaps this should use the attribute instead.
+%    \begin{macrocode}
+\cs_new:Npn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
+%    \end{macrocode}
+% \end{macro}
+
+% \subsection{Key definitions}
+% \begin{macro}
+%   {
+%    tag,raw,
+%    alttext,alttext-o,
+%    actualtext,actualtext-o,
+%    label,artifact
+%   }
+%   TODO: check conversion, check if local/global setting is right.
+%    \begin{macrocode}
+\keys_define:nn { @@ / mc }
+  {
+    tag .code:n = %
+      {
+        \tl_set:Nx   \l_@@_mc_key_tag_tl { #1 }
+        \tl_gset:Nx  \g_@@_mc_key_tag_tl { #1 }
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","#1")
+          }
+      },
+    raw .code:n =
+      {
+        \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","#1")
+          }
+      },
+    alttext .code:n      = % Alt property
+      {
+        \str_set_convert:Nnon
+          \l_@@_tmpa_str
+          { #1 }
+          { default }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data
+              (
+                 \@@_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l_@@_tmpa_str>"
+              )
+          }
+      },
+    alttext-o .code:n      = % Alt property
+      {
+        \str_set_convert:Noon
+          \l_@@_tmpa_str
+          { #1 }
+          { default }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l_@@_tmpa_str>"
+              )
+          }
+      },
+    actualtext .code:n      = % Alt property
+      {
+        \str_set_convert:Nnon
+          \l_@@_tmpa_str
+          { #1 }
+          { default }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,"actualtext","/ActualText~<\str_use:N \l_@@_tmpa_str>"
+              )
+         }
+      },
+    actualtext-o .code:n      = % Alt property
+      {
+        \str_set_convert:Noon
+          \l_@@_tmpa_str
+          { #1 }
+          { default }
+          { utf16/hex }
+        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
+        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,
+                "actualtext",
+                "/ActualText~<\str_use:N \l_@@_tmpa_str>"
+              )
+          }
+      },
+    label .code:n =
+      {
+        \tl_set:Nn\l_@@_mc_key_label_tl { #1 }
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,"label","#1"
+              )
+          }
+      },
+    __artifact-store .code:n =
+      {
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data
+              (
+                \@@_get_mc_abs_cnt:,"artifact","#1"
+              )
+          }
+      },
+    artifact .code:n       =
+      {
+        \exp_args:Nnx
+          \keys_set:nn
+            { @@ / mc}
+            { __artifact-bool, __artifact-type=#1, tag=Artifact }
+        \exp_args:Nnx
+          \keys_set:nn
+            { @@ / mc }
+            { __artifact-store=\l_@@_mc_artifact_type_tl }
+      },
+    artifact .default:n    = { notype }
+  }
+
+%</luamode>
+%    \end{macrocode}
+% \end{macro}
+%
+% \end{implementation}
+% \PrintIndex

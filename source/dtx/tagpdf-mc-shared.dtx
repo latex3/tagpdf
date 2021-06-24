@@ -1,0 +1,411 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf-mc.dtx
+%
+% Copyright (C) 2019-2021 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-mc module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% \title{^^A
+%   The \pkg{tagpdf-mc} module\\ Code related to Marked Content (mc-chunks), code shared by all modes  ^^A
+%   \\ part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.82, released 2021-06-14}
+% \maketitle
+% \begin{documentation}
+% \section{Public Commands}
+%  \begin{function}{\tag_mc_begin:n,\tag_mc_end:}
+%   \begin{syntax}
+%     \cs{tag_mc_begin:n}\Arg{key-values}\\
+%     \cs{tag_mc_end:}
+%   \end{syntax}
+% These commands insert the end code of the marked content.
+% They don't end a group and in generic mode it doesn't matter
+% if they are in another group as the starting commands.
+% In generic mode both commands check if they are correctly nested
+% and issue a warning if not.
+% \end{function}
+%
+%  \begin{function}{\tag_mc_use:n}
+%   \begin{syntax}
+%     \cs{tag_mc_use:n}\Arg{label}
+%   \end{syntax}
+% These command allow to record a marked content that was stashed away before
+% into the current structure. A marked content can be used only once --
+% the command will issue a warning if an mc is use a second time.
+% \end{function}
+%
+%  \begin{function}[added = 2019-11-20]
+%   {
+%     \tag_mc_artifact_group_begin:n, \tag_mc_artifact_group_end:
+%   }
+%   \begin{syntax}
+%     \cs{tag_mc_artifact_group_begin:n} \Arg{name}\\
+%     \cs{tag_mc_artifact_group_end:}
+%   \end{syntax}
+%   This command pair creates a group with an artifact marker at the begin
+%   and the end. Inside the group the tagging commands are disabled.
+%   It allows to mark a complete region as artifact without having to worry
+%   about user commands with tagging commands.
+%   \meta{name} should be a value allowed also for the |artifact| key.
+%   It pushes and pops mc-chunks at the begin and end.
+%   TODO: document is in tagpdf.tex
+%   \end{function}
+%
+%  \begin{function}[added = 2021-04-22]
+%   {
+%     \tag_mc_end_push:, \tag_mc_begin_pop:n
+%   }
+%   \begin{syntax}
+%     \cs{tag_mc_end_push:} \\
+%     \cs{tag_mc_begin_pop:n}\Arg{key-values}
+%   \end{syntax}
+% If there is an open mc chunk,
+% \cs{tag_mc_end_push:} ends it and pushes its tag of the (global) stack.
+% If there is no open chunk, it puts $-1$ on the stack (for debugging)
+% \cs{tag_mc_begin_pop:n} removes a value from the stack. If it is different from
+% $-1$ it opens a tag with it.
+% The reopened mc chunk looses info like the alttext for now.
+% \end{function}
+%
+% \begin{function}[pTF, EXP]{\tag_mc_if_in:}
+%   \begin{syntax}
+%     \cs{tag_mc_if_in:TF} \Arg{true code} \Arg{false code}
+%   \end{syntax}
+%   Determines if a mc-chunk is open.
+% \end{function}
+
+%
+% \section{Public keys}
+% The following keys can be used with |\tag_mc_begin:n|, |\tagmcbegin|,
+% |\tag_mc_begin_pop:n|,
+%
+% \begin{function}{tag}
+% This key is required, unless artifact is used.
+% The value is a tag like |P| or |H1| without a slash at the begin,
+% this is added by the code.
+% It is possible to setup new tags.
+% The value of the key is expanded, so it can be a command.
+% The expansion is passed unchanged to the PDF,
+% so it should with a starting slash give a valid PDF name
+% (some ascii with numbers like \texttt{H4} is fine).
+% \end{function}
+%
+% \begin{function}{artifact}
+%  This will setup the marked content as an artifact. The key should be used
+%  for content that should be ignored.
+%  The key can take one of the values |pagination|,
+%  |layout|,  |page|,  |background| and |notype|
+%  (this is the default).
+% \end{function}
+%
+% \begin{function}{raw}
+% This key allows  to add more entries to the properties dictionary.
+% The value must be correct, low-level PDF. E.g.
+% \verb+raw=/Alt (Hello)+ will insert an alternative Text.
+% \end{function}
+%
+% \begin{function}{alttext,alttext-o}
+%  This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator.
+%  The value is handled as verbatim string, commands are not expanded. With |alttext-o|
+%  the value is expanded once.
+% \end{function}
+%
+% \begin{function}{actualtext,actualtext-o}
+%  This key inserts an \texttt{/ActualText} value in the property dictionary
+%  of the BDC operator. The value is handled as verbatim string,
+%  commands are not expanded.With |actualtext-o|
+%  the value is expanded once.
+% \end{function}
+%
+% \begin{function}{label}
+%  This key sets a label by which one can call the marked content
+%  later in another structure
+%  (if it has been stashed with the |stash| key).
+%  Internally the label name will start with \texttt{tagpdf-}.
+% \end{function}
+%
+% \begin{function}{stash}
+% This \enquote{stashes} an mc-chunk: it is not inserted into the current structure.
+% It should be normally be used along with a label to be able to use the mc-chunk
+% in another place.
+% \end{function}
+% \end{documentation}
+% \begin{implementation}
+% The code is splitted into three parts: code shared by all engines,
+% code specific to luamode and code not used by luamode.
+% \section{Marked content code -- shared}
+%    \begin{macrocode}
+%<@@=tag>
+%<*header>
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2021-06-14} {0.82}
+  {part of tagpdf - code related to marking chunks -
+   code shared by generic and luamode }
+%</header>
+%    \end{macrocode}
+%
+% \subsection{Variables and counters}
+% MC chunks must be counted.
+% I use a latex counter for the absolute count, so that it is added to
+% |\cl@@ckpt| and restored e.g. in tabulars and align.
+% |\int_new:N  \c@g_@@_MCID_int| and
+% |\tl_put_right:Nn\cl@@ckpt{\@elt{g_uf_test_int}}|
+% would work too, but as the name is not expl3 then too, why bother?
+% The absolute counter can be used to label and to check if the page
+% counter needs a reset.
+%
+% \begin{variable}{g_@@_MCID_abs_int}
+%    \begin{macrocode}
+%<*shared>
+\newcounter { g_@@_MCID_abs_int }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\_@@_get_mc_abs_cnt:}
+% A (expandable) function to get the current value of the cnt.
+%    \begin{macrocode}
+\cs_new:Npn \_@@_get_mc_abs_cnt: { \int_use:N \c@g_@@_MCID_abs_int }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\g_@@_MCID_tmp_bypage_int}
+% The following hold the temporary by page number assigned to a mc.
+% It must be defined in the shared code to avoid problems with labels.
+%    \begin{macrocode}
+\int_new:N \g_@@_MCID_tmp_bypage_int
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_mc_parenttree_prop}
+% For every chunk we need to know the structure it is in, to
+% record this in the parent tree. We store this in a property.\\
+% key:   absolute number of the mc (tagmcabs)\\
+% value: the structure number the mc is in
+%    \begin{macrocode}
+\@@_prop_new:N \g_@@_mc_parenttree_prop
+%    \end{macrocode}
+% \end{variable}
+%
+%\begin{variable}{\g_@@_mc_parenttree_prop}
+% Some commands (e.g. links) want to close a previous mc and reopen it after
+% they did their work. For this we create a stack:
+%    \begin{macrocode}
+\seq_new:N \g_@@_mc_stack_seq
+%    \end{macrocode}
+% \end{variable}
+%
+%\begin{variable}{\l_@@_mc_artifact_type_tl}
+% Artifacts can have various types like Pagination or Layout. This stored
+% in this variable.
+%    \begin{macrocode}
+\tl_new:N \l_@@_mc_artifact_type_tl
+%    \end{macrocode}
+% \end{variable}
+%
+%\begin{variable}{\l_@@_mc_key_stash_bool,\l_@@_mc_artifact_bool}
+%This booleans store the stash and artifact status of the mc-chunk.
+%    \begin{macrocode}
+\bool_new:N \l_@@_mc_key_stash_bool
+\bool_new:N \l_@@_mc_artifact_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}
+%  {
+%   \l_@@_mc_key_tag_tl,
+%   \g_@@_mc_key_tag_tl,
+%   \l_@@_mc_key_label_tl,
+%   \l_@@_mc_key_properties_tl
+%  }
+% Variables used by the keys. |\l_@@_mc_key_properties_tl|
+% will collect a number of values. TODO: should this be a pdfdict now?
+%    \begin{macrocode}
+\tl_new:N \l_@@_mc_key_tag_tl
+\tl_new:N \g_@@_mc_key_tag_tl
+\tl_new:N \l_@@_mc_key_label_tl
+\tl_new:N \l_@@_mc_key_properties_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{Functions}
+% \begin{macro}{\_@@_mc_handle_mc_label:n}
+% The commands labels a mc-chunk. It is used if the user explicitly
+% labels the mc-chunk with the |label| key. The argument is the
+% value provided by the user. It stores the attributes\\
+% |tagabspage|: the absolute page, |\g_shipout_readonly_int|,\\
+% |tagmcabs|: the absolute mc-counter |\c@g_@@_MCID_abs_int|,\\
+% |tagmcid|: the ID of the chunk on the page |\g_@@_MCID_tmp_bypage_int|, this
+%  typically settles down after a second compilation.
+%  The reference command is defined in tagpdf.dtx and is based on l3ref.
+%    \begin{macrocode}
+\cs_new:Nn \_@@_mc_handle_mc_label:n
+  {
+    \@@_ref_label:en{tagpdf-#1}{mc}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_mc_set_used:n}
+% Unlike with structures we can't check if a mc has been used by
+% looking at the P key, so we use a dedicated csname for the test
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_mc_set_used:n #1 %#1 labelname
+  {
+    \tl_new:c { g_@@_mc_label_\tl_to_str:n{#1}_tl }
+  }
+%    \end{macrocode}
+%
+% \end{macro}
+% \begin{macro}
+%   {
+%     \tag_mc_artifact_group_begin:n,
+%     \tag_mc_artifact_group_end:
+%   }
+% This opens an artifact of the type given in the argument,
+% and then stops all tagging. It creates a group.
+% It pushes and pops mc-chunks at the begin and end.
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_artifact_group_begin:n #1
+ {
+  \tag_mc_end_push:
+  \tag_mc_begin:n {artifact=#1}
+  \tag_stop_group_begin:
+ }
+
+\cs_new_protected:Npn \tag_mc_artifact_group_end:
+ {
+  \tag_stop_group_end:
+  \tag_mc_end:
+  \tag_mc_begin_pop:n{}
+ }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tag_mc_end_push:, \tag_mc_begin_pop:n}
+%
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_end_push:
+  {
+    \@@_check_if_active_mc:T
+      {
+        \@@_mc_if_in:TF
+          {
+            \seq_gpush:Nx \g_@@_mc_stack_seq { \tag_get:n {mc_tag} }
+            \@@_check_mc_pushed_popped:nn
+              { pushed }
+              { \tag_get:n {mc_tag} }
+            \tag_mc_end:
+          }
+          {
+            \seq_gpush:Nn \g_@@_mc_stack_seq {-1}
+            \@@_check_mc_pushed_popped:nn { pushed }{-1}
+          }
+      }
+  }
+
+\cs_new_protected:Npn \tag_mc_begin_pop:n #1
+  {
+    \@@_check_if_active_mc:T
+      {
+        \seq_gpop:NNTF \g_@@_mc_stack_seq \l_@@_tmpa_tl
+          {
+            \tl_if_eq:NnTF \l_@@_tmpa_tl {-1}
+              {
+                \@@_check_mc_pushed_popped:nn {popped}{-1}
+              }
+              {
+                \@@_check_mc_pushed_popped:nn {popped}{\l_@@_tmpa_tl}
+                \tag_mc_begin:n {tag=\l_@@_tmpa_tl,#1}
+              }
+          }
+          {
+            \@@_check_mc_pushed_popped:nn {popped}{empty~stack,~nothing}
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Keys}
+% This are the keys where the code can be shared between the modes.
+%
+% \begin{macro}{stash,__artifact-bool,__artifact-type}
+% the two internal artifact keys are use to define the public |artifact|.
+%    \begin{macrocode}
+\keys_define:nn { @@ / mc }
+  {
+    stash                    .bool_set:N    = \l_@@_mc_key_stash_bool,
+    __artifact-bool          .bool_set:N    = \l_@@_mc_artifact_bool,
+    __artifact-type          .choice:,
+    __artifact-type / pagination .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Pagination }
+      },
+    __artifact-type / layout     .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Layout }
+      },
+    __artifact-type / page       .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Page }
+      },
+    __artifact-type / background .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Background }
+      },
+    __artifact-type / notype     .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl {}
+      },
+    __artifact-type /      .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl {}
+      },
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</shared>
+%    \end{macrocode}
+% \end{implementation}
+% \PrintIndex
