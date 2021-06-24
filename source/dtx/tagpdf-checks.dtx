@@ -71,8 +71,8 @@
 % \section{log-levels}
 %
 %  \begin{tabular}{llll}
-%  command/message          & log-level   & type     & note\\
-%  \cs{showtagpdfmcdata}    & 0           & log/term & lua-only\\
+%  command/message             & log-level   & type     & note\\
+%  \cs{Showtagging}{mc-tag}    & 0           & log/term & lua-only\\
 %
 %  \end{tabular}
 % \end{documentation}
@@ -103,8 +103,11 @@
 % \end{macro}
 % \begin{macro}{mc-label-unknown}
 % If the label of a mc that is used in another place is not known (yet)
+% or has been undefined as the mc was already used.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-label-unknown} { label~#1~unknown~-~rerun }
+\msg_new:nnn { tag } {mc-label-unknown}
+  { label~#1~unknown~or~has~been~already~used.\\
+    Either~rerun~or~remove~one~of~the~uses. }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{mc-used-twice}
@@ -214,12 +217,6 @@
   {something~is~wrong~with~the~mcid--rerun}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{obj-write-num}
-% An info message, useful for reporting.
-%    \begin{macrocode}
-\msg_new:nnn { tag } {obj-write-num} {write~obj~#1~to~pdf}
-%    \end{macrocode}
-% \end{macro}
 % \begin{macro}{sys-no-interwordspace}
 % Currently only pdflatex and lualatex have some support for real spaces.
 %    \begin{macrocode}
@@ -327,7 +324,10 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_info_closing_struct:n #1 %#1 struct num
   {
-    \msg_info:nnn { tag } {struct-show-closing} {#1}
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+      {
+        \msg_info:nnn { tag } {struct-show-closing} {#1}
+      }
   }
 
 \cs_generate_variant:Nn \@@_check_info_closing_struct:n {o,x}
@@ -444,6 +444,7 @@
 % This variable holds the list of used mc. It will
 % hopefully be rather short, so checking the seq is not
 % to slow.
+% TODO does this really make sense to check? When can it happen??
 %    \begin{macrocode}
 \seq_new:N \g_@@_check_mc_used_seq
 %    \end{macrocode}
@@ -516,18 +517,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{Miscellaneous}
-%
-% \begin{macro}{\@@_check_record_pdfobj_num:n}
-% This writes the object numbers. Not sure if needed, currently unused.
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_check_record_pdfobj_num:n #1
-  {
-    \int_compare:nT { \l_@@_loglevel_int >= 3 }
-      {
-        \msg_info:nnx { tag } {obj-write-num} {#1}
-      }
-  }
 %</package>
 %    \end{macrocode}
 % \end{macro}

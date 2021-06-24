@@ -970,10 +970,7 @@
         \seq_gpop:NN   \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
         \seq_gpop:NNTF \g_@@_struct_stack_seq \l_@@_tmpa_tl
           {
-            \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-              {
-                \@@_check_info_closing_struct:o { \g_@@_struct_stack_current_tl }
-              }
+            \@@_check_info_closing_struct:o { \g_@@_struct_stack_current_tl }
           }
           { \@@_check_no_open_struct: }
         % get the previous one, shouldn't be empty as the root should be there

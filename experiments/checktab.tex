@@ -1,0 +1,83 @@
+  \begin{tabular}{llll}
+%  command/message                & log-level   & type     & note\\
+%  \cs{Showtagging}{mc-data}      & 0           & log+term & lua-only\\
+%  \cs{Showtagging}{mc-current}   & 0           & log+term & lua-only\\
+%  \cs{Showtagging}{struck-stack} & 0           & log or term-stop & with value\\
+%  |paratagging-show|             & 0           & document & \\
+% |\@@_check_mc_if_nested:|, mc-nested &
+%  \end{tabular}
+
+
+  |\@@_check_structure_has_tag:n| 
+& |struct-missing-tag| 
+& 0 
+& error 
+\\
+
+  |\@@_check_structure_tag:N|
+& |role-unknown-tag|  
+& 0
+& warning
+& 2 -> error ?
+
+
+  |\@@_check_info_closing_struct:n|
+& |struct-show-closing|
+& guarded > 0  (?) or better redirection?
+& info
+& used in struct,   
+
+
+  |\@@_check_no_open_struct:|
+& struct-faulty-nesting
+& -- 
+& error 
+& TODO: error only with 1?  
+
+
+  |\@@_check_struct_used:n|
+& |struct-used-twice|
+& --
+& warning
+
+
+|\@@_check_add_tag_role:nn|
+& |role-missing|, |role-tag|, |role-unknown|
+& --
+& warning, info, warning
+
+|\@@_check_mc_if_nested:|,
+& |mc-nested|
+& --
+& warning
+
+|\@@_check_mc_if_open:|
+& |mc-not-open|
+& --
+& warning 
+& only generic (?)
+
+
+|\@@_check_mc_pushed_popped:nn|
+& |mc-pushed|, |mc-popped|
+& guarded 
+& 2: info  >2: warning
+
+|\@@_check_mc_tag:N|
+& |mc-tag-missing|, |role-unknown-tag|
+& --
+& error (missing), warning unknown.
+TODO: make test consistent with structure?
+
+|\@@_check_mc_used:n|
+& |mc-used-twice|
+& ---
+& warning
+  
+|\@@_check_show_MCID_by_page:|
+& --
+& -- 
+& --
+& currently unused
+
+ 

@@ -129,6 +129,21 @@
    }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\ref_clear:nn}
+% This undefines a label/attribute combination.
+% See issue \#10 in Accessible-xref. It is used here to avoid that a mc or a
+% struct is used twice.
+% \begin{syntax}
+% \cs{ref_clear:nn} \Arg{label} \Arg{attribute}
+% \end{syntax}
+%    \begin{macrocode}
+\cs_new_protected:Npn \ref_clear:nn #1 #2
+  {
+    \tl_gclear:c { g__ref_label_ \tl_to_str:n {#1} _ \tl_to_str:n {#2} _tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+
 % \section{Variables}
 % \begin{variable}
 %  {
@@ -303,7 +318,19 @@
   }
 %    \end{macrocode}
 %\end{macro}
-%
+% \begin{macro}{\@@_ref_clear:nn}
+% A command to retrieve clear a label. This is used to avoid
+% to use a mc or a struct twice.
+%    \begin{macrocode}
+\cs_new:Npn \@@_ref_clear:nn #1 #2
+  {
+    \ref_clear:nn {#1}{#2}
+  }
+\cs_generate_variant:Nn \@@_ref_clear:nn {en}  
+%    \end{macrocode}
+%\end{macro}
+
+
 %\section{Commands to fill seq and prop}
 % With most engines these are simply copies of the expl3 commands,
 % but luatex will overwrite them, to store the data also in lua tables.

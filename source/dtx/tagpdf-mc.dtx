@@ -547,6 +547,7 @@
 % Beside storing the mc into the structure, it also has to record the
 % structure for the parent tree.
 % The name is a bit confusing, \ldots.
+% TODO: why does luamode use it for begin + use, but generic mode only for begin?
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_handle_stash:n #1 %1 mcidnum
   {
@@ -653,7 +654,6 @@
 % the command will issue a warning if an mc is use a second time.
 % The argument is a label name set with the |label| key.
 %
-% TODO: is the claim about the warning right???
 % TODO: is testing for struct the right test?
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_mc_use:n #1 %#1: label name
@@ -681,7 +681,8 @@
               {
                 \l_@@_tmpa_tl
               }
-           }
+            \@@_ref_clear:en {tagpdf-#1}{tagmcabs}
+          }
        }
   }
 %    \end{macrocode}
@@ -1028,6 +1029,7 @@
       }
       {
         \@@_mc_handle_stash:o { \l_@@_tmpa_tl }
+        \@@_ref_clear:en {tagpdf-#1}{tagmcabs}
       }
   }
 %    \end{macrocode}
