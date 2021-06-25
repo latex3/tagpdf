@@ -8,6 +8,8 @@ this project uses date-based 'snapshot' version identifiers.
 ## [unreleased]
 ### Changed
  - \tag_finish_structure: is no longer a public command.
+ - lua mc-attributes are now global again
+ 
 
 ### Removed
  - check-tags key. This is now done with the log-level. 
