@@ -285,13 +285,13 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_mc_set_used:n}
-% Unlike with structures we can't check if a mc has been used by
+% \begin{macro}{\@@_mc_set_label_used:n}
+% Unlike with structures we can't check if a labeled mc has been used by
 % looking at the P key, so we use a dedicated csname for the test
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_mc_set_used:n #1 %#1 labelname
+\cs_new_protected:Npn \@@_mc_set_label_used:n #1 %#1 labelname
   {
-    \tl_new:c { g_@@_mc_label_\tl_to_str:n{#1}_tl }
+    \tl_new:c { g_@@_mc_label_\tl_to_str:n{#1}_used_tl }
   }
 %    \end{macrocode}
 %

@@ -440,27 +440,45 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}{\g_@@_check_mc_used_seq}
-% This variable holds the list of used mc. It will
-% hopefully be rather short, so checking the seq is not
-% to slow.
+% \begin{variable}{\g_@@_check_mc_used_intarray, \@@_check_init_mc_used:}
+% This variable holds the list of used mc numbers.
+% Everytime we store a mc-number we will add one the relevant array index
+% If everything is right at the end there should be only 1 until the max count
+% of the mcid. 2 indicates that one mcid was used twice, 0 that we lost one.
+% In engines other than luatex the total number of all intarray entries
+% are restricted so we use only  a rather small value of 65536, and we initialize
+% the array only at first used, guarded by the log-level.
+% This check is probably only needed for debugging.
 % TODO does this really make sense to check? When can it happen??
 %    \begin{macrocode}
-\seq_new:N \g_@@_check_mc_used_seq
+\cs_new_protected:Npn \@@_check_init_mc_used:
+  {
+    \intarray_new:Nn \g_@@_check_mc_used_intarray { 65536 }
+    \cs_gset_eq:NN \@@_check_init_mc_used: \prg_do_nothing:
+  }
 %    \end{macrocode}
 % \end{variable}
 %
 % \begin{macro}{\@@_check_mc_used:n}
 % This checks if a mc is used twice.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_check_mc_used:n #1
+\cs_new_protected:Npn \@@_check_mc_used:n #1 %#1 mcid abscnt
   {
-    \seq_if_in:NnTF \g_@@_check_mc_used_seq {#1}
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 2 }
       {
-        \msg_warning:nnn { tag } {mc-used-twice} {#1}
-      }
-      {
-        \seq_gput_right:Nx \g_@@_check_mc_used_seq {#1}
+        \@@_check_init_mc_used:
+        \intarray_gset:Nnn \g_@@_check_mc_used_intarray
+          {#1}
+          { \intarray_item:Nn \g_@@_check_mc_used_intarray {#1} + 1 }
+        \int_compare:nNnT
+          {
+            \intarray_item:Nn \g_@@_check_mc_used_intarray {#1}
+          }
+          >
+          { 1 }
+          {
+            \msg_warning:nnn { tag } {mc-used-twice} {#1}
+          }
       }
   }
 %    \end{macrocode}

@@ -229,7 +229,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%\begin{macro}{\@@_mc_handle_stash:n,\@@_mc_handle_stash:o}
+%\begin{macro}{\@@_mc_handle_stash:n,\@@_mc_handle_stash:x}
 % This is the lua variant for the command to
 % put an mcid absolute number in the current structure.
 %    \begin{macrocode}
@@ -255,7 +255,7 @@
       { \g_@@_struct_stack_current_tl }
   }
 
-\cs_generate_variant:Nn \@@_mc_handle_stash:n { o }
+\cs_generate_variant:Nn \@@_mc_handle_stash:n { x }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -289,7 +289,7 @@
            % if not stashed record the absolute number
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
-                \exp_args:Nx \@@_mc_handle_stash:n { \@@_get_mc_abs_cnt: }
+                \@@_mc_handle_stash:x { \@@_get_mc_abs_cnt: }
               }
           }
         \group_end:
@@ -318,14 +318,24 @@
 % \begin{macro}{\tag_mc_use:n}
 \cs_new_protected:Nn \tag_mc_use:n %#1: label name
   {
+    \@@_check_if_active_struct:T
+      {
+
     \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:enn{tagpdf-#1}{tagmcabs}{} }
     \tl_if_empty:NTF\l_@@_tmpa_tl
       {
         \msg_warning:nnn {tag} {mc-label-unknown} { #1 }
       }
       {
-        \@@_mc_handle_stash:o { \l_@@_tmpa_tl }
-        \@@_mc_set_used:e {tagpdf-#1}
+        \cs_if_free:cTF { g_@@_mc_label_\tl_to_str:n{#1}_used_tl }
+           {
+             \@@_mc_handle_stash:x { \l_@@_tmpa_tl }
+             \@@_mc_set_label_used:n {#1}
+           }
+           {
+             \msg_warning:nnn {tag}{mc-used-twice}{#1}
+           }
+      }
       }
   }
 %    \end{macrocode}
