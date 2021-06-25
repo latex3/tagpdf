@@ -296,6 +296,37 @@
 %    \end{macrocode}
 %
 % \end{macro}
+% \begin{macro}{\tag_mc_use:n}
+% These command allow to record a marked content that was stashed away before
+% into the current structure. A marked content can be used only once --
+% the command will issue a warning if an mc is use a second time.
+% The argument is a label name set with the |label| key.
+%
+% TODO: is testing for struct the right test?
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_use:n #1 %#1: label name
+  {
+    \@@_check_if_active_struct:T
+      {
+        \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:nnn{tagpdf-#1}{tagmcabs}{} }
+        \tl_if_empty:NTF\l_@@_tmpa_tl
+          {
+            \msg_warning:nnn {tag} {mc-label-unknown} {#1}
+          }
+          {
+            \cs_if_free:cTF { g_@@_mc_label_\tl_to_str:n{#1}_used_tl }
+              {
+                \@@_mc_handle_stash:x { \l_@@_tmpa_tl }
+                \@@_mc_set_label_used:n {#1}
+              }
+              {
+                 \msg_warning:nnn {tag}{mc-used-twice}{#1}
+              }
+          }
+       }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}
 %   {
 %     \tag_mc_artifact_group_begin:n,
