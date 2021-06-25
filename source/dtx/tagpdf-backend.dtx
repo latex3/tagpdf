@@ -152,6 +152,7 @@
 %    \begin{macrocode}
 %</luatex>
 %    \end{macrocode}
+% The module declaration
 %    \begin{macrocode}
 %<*lua>
 -- tagpdf.lua
@@ -178,8 +179,9 @@ The code has quite probably a number of problems
  -
 --]]
 
-
-
+%    \end{macrocode}
+% Some comments about the lua structure.
+%    \begin{macrocode}
 --[[
 the main table is named ltx.@@. It contains the functions and also the data
 collected during the compilation.
@@ -209,6 +211,7 @@ functions
  ltx.@@.func.mark_shipout (): a wrapper around the core function which inserts the last EMC
  ltx.@@.func.fill_parent_tree_line (page): outputs the entries of the parenttree for this page
  ltx.@@.func.output_parenttree(): outputs the content of the parenttree
+ ltx.@@.func.pdf_object_ref(name): outputs the object reference for the object name
  ltx.@@.func.markspaceon(), ltx.@@.func.markspaceoff(): (de)activates the marking of positions for space chars
  ltx.@@.trace.show_mc_data (num,loglevel): shows ltx.@@.mc[num] is the current log level is >= loglevel
  ltx.@@.trace.show_all_mc_data (max,loglevel): shows a maximum about mc's if the current log level is >= loglevel
@@ -219,19 +222,34 @@ functions
  ltx.@@.trace.showspaces : boolean
 --]]
 
-
+%    \end{macrocode}
+% This set-ups the main attribute registers.
+% The mc_type attribute stores the type (P, Span etc) encoded as a num,
+% The mc_cnt attribute stores the absolute number and allows so to see
+% if a node belongs to the same mc-chunk.
+%
+% The interwordspace attr is set by the function |@@_mark_spaces|, and marks
+% the place where spaces should be inserted.
+% The interwordfont attr is set by the function |@@_mark_spaces| too and
+% stores the font, so that we can decide which font
+% to use for the real space char.
+%    \begin{macrocode}
 local mctypeattributeid  = luatexbase.new_attribute ("g_@@_mc_type_attr")
 local mccntattributeid   = luatexbase.new_attribute ("g_@@_mc_cnt_attr")
 local iwspaceattributeid = luatexbase.new_attribute ("g_@@_interwordspace_attr")
 local iwfontattributeid  = luatexbase.new_attribute ("g_@@_interwordfont_attr")
-
-local catlatex       = luatexbase.registernumber("catcodetable@latex")
+%    \end{macrocode}
+% with this token we can query the state of the boolean
+% and so detect if unmarked nodes should be marked as attributes
+%    \begin{macrocode}
 local tagunmarkedbool= token.create("g_@@_tagunmarked_bool")
 local truebool       = token.create("c_true_bool")
-
+%    \end{macrocode}
+% Now a number of local versions from global tables.
+% Not all is perhaps needed, most node variants were copied from lua-debug.
+%    \begin{macrocode}
+local catlatex       = luatexbase.registernumber("catcodetable@latex")
 local tableinsert    = table.insert
-
--- not all needed, copied from lua-visual-debug.
 local nodeid           = node.id
 local nodecopy         = node.copy
 local nodegetattribute = node.get_attribute
@@ -257,36 +275,28 @@ local KERN           = node.id("kern")
 local PENALTY        = node.id("penalty")
 local LOCAL_PAR      = node.id("local_par")
 local MATH           = node.id("math")
-
-local function @@_get_mathsubtype  (mathnode)
- if mathnode.subtype == 0 then
-  subtype = "beginmath"
- else
-  subtype = "endmath"
- end
- return subtype
-end
-
-
-
+%    \end{macrocode}
+% Now we setup the main table structure. ltx is used by other latex code too!
+%    \begin{macrocode}
 ltx             = ltx        or { }
 ltx.@@          = ltx.@@        or { }
-ltx.@@.mc             = ltx.@@.mc     or  { } -- mc data
-ltx.@@.struct         = ltx.@@.struct or  { } -- struct data
-ltx.@@.tables         = ltx.@@.tables or  { } -- tables created with new prop and new seq.
+ltx.@@.mc       = ltx.@@.mc     or  { } -- mc data
+ltx.@@.struct   = ltx.@@.struct or  { } -- struct data
+ltx.@@.tables   = ltx.@@.tables or  { } -- tables created with new prop and new seq.
                                             -- wasn't a so great idea ...
-ltx.@@.page           = ltx.@@.page   or  { } -- page data, currently only i->{0->mcnum,1->mcnum,...}
-ltx.@@.trace          = ltx.@@.trace  or  { } -- show commands
-ltx.@@.func           = ltx.@@.func   or  { } -- functions
-ltx.@@.conf           = ltx.@@.conf   or  { } -- configuration variables
-
-local function fakespace()
-   tex.setattribute(iwspaceattributeid,1)
-   tex.setattribute(iwfontattributeid,font.current())
-end
-ltx.@@.func.fakespace = fakespace
-
-
+ltx.@@.page     = ltx.@@.page   or  { } -- page data, currently only i->{0->mcnum,1->mcnum,...}
+ltx.@@.trace    = ltx.@@.trace  or  { } -- show commands
+ltx.@@.func     = ltx.@@.func   or  { } -- functions
+ltx.@@.conf     = ltx.@@.conf   or  { } -- configuration variables
+%    \end{macrocode}
+% \section{Logging functions}
+%
+% \begin{macro}{@@_log,ltx.@@.trace.log}
+% This rather simple log function takes as argument a
+% message (string) and a number and
+% will output the message to the log/terminal if the current loglevel
+% is greater or equal than num.
+%    \begin{macrocode}
 local @@_log =
  function (message,loglevel)
   if (loglevel or 3) <= tex.count["l_@@_loglevel_int"] then
@@ -295,16 +305,40 @@ local @@_log =
  end
 
 ltx.@@.trace.log = @@_log
-
-
+%    \end{macrocode}
+% \section{Helper functions}
+% \subsection{Retrieve data functions}
+% \begin{macro}{@@_get_mc_cnt_type_tag}
+% This takes a node as argument and returns the mc-cnt, the mc-type and
+% and the tag (calculated from the mc-cnt.
+%    \begin{macrocode}
 local @@_get_mc_cnt_type_tag = function (n)
   local mccnt      =  nodegetattribute(n,mccntattributeid)  or -1
   local mctype     =  nodegetattribute(n,mctypeattributeid)  or -1
   local tag        =  ltx.@@.func.get_tag_from(mctype)
   return mccnt,mctype,tag
 end
-
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{@@_get_mathsubtype}
+% This function allows to detect if we are at the begin or the end of math.
+% It takes as argument a mathnode.
+%    \begin{macrocode}
+local function @@_get_mathsubtype  (mathnode)
+ if mathnode.subtype == 0 then
+  subtype = "beginmath"
+ else
+  subtype = "endmath"
+ end
+ return subtype
+end
+%    \end{macrocode}
+% \end{macro}
+% \subsection{Functions to insert the pdf literals}
+% \begin{macro}{@@_insert_emc_node}
+% This insert the emc node.
+%    \begin{macrocode}
 local function @@_insert_emc_node (head,current)
  local emcnode = nodenew("whatsit","pdf_literal")
        emcnode.data = "EMC"
@@ -312,8 +346,11 @@ local function @@_insert_emc_node (head,current)
        head = node.insert_before(head,current,emcnode)
  return head
 end
-
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{@@_insert_bmc_node}
+% This inserts a simple bmc node
+%    \begin{macrocode}
 local function @@_insert_bmc_node (head,current,tag)
  local bmcnode = nodenew("whatsit","pdf_literal")
        bmcnode.data = "/"..tag.." BMC"
@@ -321,7 +358,12 @@ local function @@_insert_bmc_node (head,current,tag)
        head = node.insert_before(head,current,bmcnode)
  return head
 end
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{@@_insert_bdc_node}
+%  This inserts a bcd node with a fix dict.
+%  TODO: check if this is still used, now that we create properties.
+%    \begin{macrocode}
 local function @@_insert_bdc_node (head,current,tag,dict)
  local bdcnode = nodenew("whatsit","pdf_literal")
        bdcnode.data = "/"..tag.."<<"..dict..">> BDC"
@@ -329,15 +371,27 @@ local function @@_insert_bdc_node (head,current,tag,dict)
        head = node.insert_before(head,current,bdcnode)
  return head
 end
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{@@_pdf_object_ref,ltx.@@.func.pdf_object_ref}
+% This allows to reference a pdf object reserved with the l3pdf command by name.
+% The return value is |n 0 R|, if the object doesn't exist, n is 0.
+% TODO: is uses internal l3pdf commands, this should be properly supported by l3pdf
+%    \begin{macrocode}
 local function @@_pdf_object_ref (name)
    local tokenname = 'c__pdf_backend_object_'..name..'_int'
    local object = token.create(tokenname).index..' 0 R'
    return object
 end
 ltx.@@.func.pdf_object_ref=@@_pdf_object_ref
-
--- this is for debugging the space chars
+%    \end{macrocode}
+% \end{macro}
+% \section{Function for the real space chars}
+% \begin{macro}{@@_show_spacemark}
+% A debugging function, it is used to
+% inserts red color markers in the places where space chars can go, it can have
+% side effects so not always reliable, but ok.
+%    \begin{macrocode}
 local function @@_show_spacemark (head,current,color,height)
  local markcolor = color or "1 0 0"
  local markheight = height or 10
@@ -347,7 +401,20 @@ local function @@_show_spacemark (head,current,color,height)
        head = node.insert_after(head,current,pdfstring)
  return head
 end
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{@@_fakespace,ltx.@@.func.fakespace}
+% This is used to define a lua version of |\pdffakespace|
+%    \begin{macrocode}
+local function @@_fakespace()
+   tex.setattribute(iwspaceattributeid,1)
+   tex.setattribute(iwfontattributeid,font.current())
+end
+ltx.@@.func.fakespace = @@_fakespace
+%    \end{macrocode}
+% \end{macro}
+% Some comments about the lua structure.
+%    \begin{macrocode}
 --[[ a function to mark up places where real space chars should be inserted
      it only sets an attribute.
 --]]
