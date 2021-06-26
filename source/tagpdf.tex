@@ -694,10 +694,10 @@ This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
 
   \item
   The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page. This package uses in generic mode a label-ref-system to get around this problem. This sadly means that often at least three compilations are needed until everything has settled down.
-  
-  It can actually be worse: If the text is changed after the MCID-numbers have been assigned, and 
-  a new mc-chunk is inserted in the middle of the page, then all the numbers have to be recalculated 
-  and that requires again a number of compilations until it really settles down again. 
+
+  It can actually be worse: If the text is changed after the MCID-numbers have been assigned, and
+  a new mc-chunk is inserted in the middle of the page, then all the numbers have to be recalculated
+  and that requires again a number of compilations until it really settles down again.
   Internal references are especially problematic here, as the first compilation
   typically creates a non-link |??|, and only the second inserts the structure and the new mc.
   When the reference system in LaTeX will be extended, care will be taken to ensure that already the dummy text builds a chunk.
@@ -1532,7 +1532,9 @@ With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
 
 With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the \PDF{}: from the current font to the dummy-space font and back again. This will make the \PDF{} larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.
 
-With luatex (in luamode) interwordspace is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.
+With luatex (in luamode) |interwordspace| is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.
+|interwordspace| can be used without actually tagging a document. In luamode you should then use the settings
+|activate-mc|, |interwordspace| and |tagunmarked=false|. 
 
 The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.
 

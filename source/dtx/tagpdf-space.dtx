@@ -77,6 +77,7 @@
           {
             interwordspace .choices:nn = { true, on }  { \pdfinterwordspaceon },
             interwordspace .choices:nn = { false, off }{ \pdfinterwordspaceon },
+            interwordspace .default:n = true,
             show-spaces .bool_set:N = \l_@@_showspaces_bool
           }
       }
@@ -85,6 +86,7 @@
           {
             interwordspace .choices:nn = { true, on, false, off }
               { \msg_warning:nnn {tag}{sys-no-interwordspace}{dvi}  },
+            interwordspace .default:n = true,
             show-spaces .bool_set:N = \l_@@_showspaces_bool
           }
       }
@@ -101,6 +103,7 @@
         interwordspace .choices:nn =
                                  { false, off }
                                  {\lua_now:e{ltx.@@.func.markspaceoff()} },
+        interwordspace .default:n = true,
         show-spaces      .choice:,
         show-spaces  / true  .code:n =
                                  {\lua_now:e{ltx.@@.trace.showspaces=true}},
@@ -118,6 +121,7 @@
           { \msg_warning:nnn {tag}{sys-no-interwordspace}{xetex}  },
         interwordspace .choices:nn = { false, off }
           { \msg_warning:nnn {tag}{sys-no-interwordspace}{xetex}  },
+        interwordspace .default:n = true,  
         show-spaces .bool_set:N = \l_@@_showspaces_bool
       }
   }
