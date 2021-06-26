@@ -222,13 +222,13 @@
 %    \begin{macrocode}
 \NewDocumentCommand \tagmcbegin { m }
   {
-    \tag_mc_begin:n {#1}\ignorespaces
+    \tag_mc_begin:n {#1}%\ignorespaces
   }
 
 
 \NewDocumentCommand \tagmcend {  }
   {
-    \if_mode_horizontal: \unskip \fi: %
+    %\if_mode_horizontal: \unskip \fi: %
     \tag_mc_end:
   }
 
