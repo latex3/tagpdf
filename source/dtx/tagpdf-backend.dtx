@@ -413,7 +413,11 @@ end
 ltx.@@.func.fakespace = @@_fakespace
 %    \end{macrocode}
 % \end{macro}
-% Some comments about the lua structure.
+% \begin{macro}{@@_mark_spaces}
+% a function to mark up places where real space chars should be inserted.
+% It only sets attributes, these are then be used in a later traversing
+% which inserts the actual spaces.
+% When space handling is activated this function is inserted in some callbacks.
 %    \begin{macrocode}
 --[[ a function to mark up places where real space chars should be inserted
      it only sets an attribute.
@@ -444,7 +448,9 @@ local function @@_mark_spaces (head)
       end
      --  look also back
      if glyph.prev and (glyph.prev.id == GLUE)
-        and not inside_math  and (glyph.prev.width >0) and not nodehasattribute(glyph.prev,iwspaceattributeid)
+        and not inside_math
+        and (glyph.prev.width >0)
+        and not nodehasattribute(glyph.prev,iwspaceattributeid)
       then
         nodesetattribute(glyph.prev,iwspaceattributeid,1)
         nodesetattribute(glyph.prev,iwfontattributeid,glyph.font)
@@ -472,7 +478,18 @@ local function @@_mark_spaces (head)
   end
   return head
 end
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}
+%   {
+%    @@_activate_mark_space,
+%    ltx.@@.func.markspaceon,
+%    @@_activate_mark_space,
+%    ltx.@@.func.markspaceoff
+%    }
+% Theses functions add/remove the function which marks the spaces to the callbacks
+% |pre_linebreak_filter| and |hpack_filter|
+%    \begin{macrocode}
 local function @@_activate_mark_space ()
  if not luatexbase.in_callback ("pre_linebreak_filter","markspaces") then
   luatexbase.add_to_callback("pre_linebreak_filter",@@_mark_spaces,"markspaces")
@@ -488,14 +505,18 @@ local function @@_deactivate_mark_space ()
  luatexbase.remove_from_callback("hpack_filter","markspaces")
  end
 end
---
-ltx.@@.func.markspaceoff=@@_deactivate_mark_space
 
+ltx.@@.func.markspaceoff=@@_deactivate_mark_space
+%    \end{macrocode}
+% \end{macro}
+% Some comments about the lua structure.
+%    \begin{macrocode}
 local default_space_char = node.new(GLYPH)
 local default_fontid     = font.id("TU/lmr/m/n/10")
 default_space_char.char  = 32
 default_space_char.font  = default_fontid
 
+-- unused??
 local function @@_insert_space_char (head,n,fontid)
  if luaotfload.aux.slot_of_name(fontid,"space") then
   local space
