@@ -11,40 +11,40 @@
 \iftutex
   \usepackage{fontspec}
   \usepackage{luacode}
-\else  
+\else
   \usepackage[T1]{fontenc}
 \fi
 
 \tagpdfsetup{activate-all,log=vv,uncompress}
 \begin{document}
 \tagstructbegin{tag=Document}
-\tagmcbegin{tag=P}
-abc
+\tagmcbegin{tag=P}%
+abc%
 \tagmcend
 \START \showoutput
 
-\tagmcbegin{tag=P}
+\tagmcbegin{tag=P}%
 Cras egestas ipsum a nisl. Vivamus varius dolor
 Pellentesque scelerisque\ShowTagging{mc-current}
-augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,%
 \tagmcend
 
-\tagmcbegin{tag=P}
+\tagmcbegin{tag=P}%
 Cras egestas ipsum a nisl. Vivamus varius dolor
 Pellentesque scelerisque\ShowTagging{mc-current}
-augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,%
 \tagmcend
 
-\tagmcbegin{tag=H1}
+\tagmcbegin{tag=H1}%
 Cras egestas ipsum a nisl. Vivamus varius dolor
 Pellentesque scelerisque\ShowTagging{mc-current}
-augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,%
 \tagmcend
 
-\tagmcbegin{tag=Blub}
+\tagmcbegin{tag=Blub}%
 Cras egestas ipsum a nisl. Vivamus varius dolor
 Pellentesque scelerisque\ShowTagging{mc-current}
-augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,
+augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,%
 \tagmcend
 
 

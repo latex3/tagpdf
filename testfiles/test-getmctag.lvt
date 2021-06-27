@@ -11,9 +11,9 @@
 \START \showoutput
 x\tagpdfget{mc_tag}x
 
-{\tagmcbegin{tag=P}
+{\tagmcbegin{tag=P}%
  \tagpdfget{mc_tag}%
- abc}y\tagpdfget{mc_tag}y %with pdflatex P, with luatex empty
+ abc}y\tagpdfget{mc_tag}y%with pdflatex P, with luatex P
 \tagmcend
 
 x\tagpdfget{mc_tag}x
