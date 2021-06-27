@@ -23,17 +23,17 @@
 
 \textwidth=5cm
 \begin{document}
-\tagstructbegin{tag=Document}
+\tagstructbegin{tag=Document}%
 \leavevmode
 \tagstructbegin{tag=P}
-\tagmcbegin{tag=P}
-abc
+\tagmcbegin{tag=P}%
+abc%
 \tagmcend
-\tagmcbegin{tag=P}
-abc
+\tagmcbegin{tag=P}%
+abc%
 \tagmcend
 \tagstructbegin{tag=Link}
-\tagmcbegin{tag=Link}
+\tagmcbegin{tag=Link}%
 \ExplSyntaxOn\makeatletter
 \leavevmode\__pdf_backend_link_begin_user:nnw
      {/Border[0~0~1]}
@@ -58,7 +58,7 @@ abc
 \tagstructend
 
 \tagstructbegin{tag=Link}
-\tagmcbegin{tag=Link}
+\tagmcbegin{tag=Link}%
 \ExplSyntaxOn\makeatletter
 \leavevmode\__pdf_backend_link_begin_user:nnw
      {/Border[0~0~1]}
@@ -82,7 +82,7 @@ abc
 \tagstructend
 
 \tagstructbegin{tag=Link}
-\tagmcbegin{tag=Link}
+\tagmcbegin{tag=Link}%
 \ExplSyntaxOn\makeatletter
 \leavevmode\__pdf_backend_link_begin_user:nnw
     {/Border[0~0~1]}

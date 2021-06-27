@@ -12,25 +12,25 @@
 
 \tagstructbegin{tag=Document}
 \tagstructbegin{tag=P}
-\tagmcbegin{tag=P}
+\tagmcbegin{tag=P}%
 abc\\abc\\abc
-abc\\abc
+abc\\abc%
 \tagmcend
 \tagstructend
 
 \newpage
 \tagstructbegin{tag=P}
-\tagmcbegin{tag=P}
+\tagmcbegin{tag=P}%
 abc\tagmcend
-\tagmcbegin{tag=P}
+\tagmcbegin{tag=P}%
 abc\\abc\\abc
-abc\\abc
+abc\\abc%
 \tagmcend
 \tagstructend
 
 \newpage
 \tagstructbegin{tag=P}
-\tagmcbegin{tag=P}
+\tagmcbegin{tag=P}%
 abc\tagmcend
 \tagstructend
 

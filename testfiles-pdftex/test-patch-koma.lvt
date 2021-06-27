@@ -127,7 +127,7 @@
   \@hangfrom
    {
     \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
-    \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
+    \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}%
     #2
    }
    {#3\tagmcend\tagstructend}%
@@ -139,7 +139,7 @@
   \@hangfrom
    {\hskip #2
     \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
-    \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+    \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}%
     #3
    }
    {#4\tagmcend\tagstructend}%
@@ -166,8 +166,8 @@
 \subsubsection{subsubsection}
 \showoutput
  \tagstructbegin{tag=P}
-   \tagmcbegin{tag=P}
-    a paragraph\par x
+   \tagmcbegin{tag=P}%
+    a paragraph\par x%
    \tagmcend
  \tagstructend
 

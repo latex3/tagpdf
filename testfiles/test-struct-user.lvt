@@ -46,34 +46,34 @@
    \tagmcend
   \tagstructend
   \tagstructbegin{tag=P}
-   \tagmcbegin{tag=P}
-    a paragraph\par x
+   \tagmcbegin{tag=P}%
+    a paragraph\par x%
    \tagmcend
   \tagstructend
 
   \tagstructbegin{tag=L} %List
    \tagstructbegin{tag=LI}
     \tagstructbegin{tag=Lbl}
-     \tagmcbegin{tag=Lbl}
-     1.
+     \tagmcbegin{tag=Lbl}%
+     1.%
      \tagmcend
     \tagstructend
     \tagstructbegin{tag=LBody}
-     \tagmcbegin{tag=P}
-      List item body
+     \tagmcbegin{tag=P}%
+      List item body%
      \tagmcend
     \tagstructend %lbody
    \tagstructend %Li
 
    \tagstructbegin{tag=LI}
     \tagstructbegin{tag=Lbl}
-     \tagmcbegin{tag=Lbl}
-     2.
+     \tagmcbegin{tag=Lbl}%
+     2.%
      \tagmcend
     \tagstructend
     \tagstructbegin{tag=LBody}
-     \tagmcbegin{tag=P}
-     another List item body
+     \tagmcbegin{tag=P}%
+     another List item body%
      \tagmcend
     \tagstructend %lbody
    \tagstructend %Li

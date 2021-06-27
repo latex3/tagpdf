@@ -176,8 +176,8 @@
 \subsubsection{subsubsection}
 \showoutput
  \tagstructbegin{tag=P}
-   \tagmcbegin{tag=P}
-    a paragraph\par x
+   \tagmcbegin{tag=P}%
+    a paragraph\par x%
    \tagmcend
  \tagstructend
 

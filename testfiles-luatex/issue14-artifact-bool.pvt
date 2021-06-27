@@ -10,14 +10,14 @@
 \begin{document}
 \tagstructbegin{tag=Document}
 \tagstructbegin{tag=P}
-\tagmcbegin{tag=P}
-Some text
+\tagmcbegin{tag=P}%
+Some text%
 \tagmcend
-\tagmcbegin{artifact}
-with artifact
+\tagmcbegin{artifact}%
+with artifact%
 \tagmcend
-\tagmcbegin{tag=P}
-and more content
+\tagmcbegin{tag=P}%
+and more content%
 \tagmcend
 \tagstructend
 \tagstructend

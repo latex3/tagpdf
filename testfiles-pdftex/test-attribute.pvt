@@ -19,13 +19,13 @@
 \tagstructbegin{tag=THead}
  \tagstructbegin{tag=TR}
   \tagstructbegin{tag=TH,attribute= TH-row}
-   \tagmcbegin{tag=TH}
-   h1
+   \tagmcbegin{tag=TH}%
+   h1%
    \tagmcend
    \tagstructend &
   \tagstructbegin{tag=TH,attribute-class= TH-row}
-    \tagmcbegin{tag=TH}
-    h2
+    \tagmcbegin{tag=TH}%
+    h2%
     \tagmcend
   \tagstructend
  \tagstructend %TR
@@ -34,14 +34,14 @@
  \tagstructbegin{tag=TBody}
    \tagstructbegin{tag=TR}
     \tagstructbegin{tag=TD}
-    \tagmcbegin{tag=TD}
-    r1
+    \tagmcbegin{tag=TD}%
+    r1%
     \tagmcend
     \tagstructend %TD
 &
     \tagstructbegin{tag=TD}
-    \tagmcbegin{tag=TD}
-    h2
+    \tagmcbegin{tag=TD}%
+    h2%
     \tagmcend
     \tagstructend
   \tagstructend %TR
