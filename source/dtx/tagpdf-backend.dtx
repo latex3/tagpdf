@@ -94,28 +94,28 @@
 %     \@@_prop_show:N
 %   }
 %    \begin{macrocode}
-\cs_set_protected:Nn \@@_prop_new:N
+\cs_set_protected:Npn \@@_prop_new:N #1
   {
     \prop_new:N #1
     \lua_now:e { ltx.@@.tables.\cs_to_str:N#1 = {} }
   }
 
 
-\cs_set_protected:Nn \@@_seq_new:N
+\cs_set_protected:Npn \@@_seq_new:N #1
   {
     \seq_new:N #1
     \lua_now:e { ltx.@@.tables.\cs_to_str:N#1 = {} }
   }
 
 
-\cs_set_protected:Nn \@@_prop_gput:Nnn
+\cs_set_protected:Npn \@@_prop_gput:Nnn #1 #2 #3
   {
     \prop_gput:Nnn #1 { #2 } { #3 }
     \lua_now:e { ltx.@@.tables.\cs_to_str:N#1 ["#2"] = "#3" }
   }
 
 
-\cs_set_protected:Nn \@@_seq_gput_right:Nn
+\cs_set_protected:Npn \@@_seq_gput_right:Nn #1 #2
   {
     \seq_gput_right:Nn #1 { #2 }
     \lua_now:e { table.insert(ltx.@@.tables.\cs_to_str:N#1, "#2") }
@@ -134,14 +134,14 @@
   }
 
 %for debugging commands that show both the seq/prop and the lua tables
-\cs_set_protected:Nn \@@_seq_show:N
+\cs_set_protected:Npn \@@_seq_show:N #1
   {
     \seq_show:N #1
     \lua_now:e { ltx.@@.trace.log ("lua~sequence~array~\cs_to_str:N#1",1) }
     \lua_now:e { ltx.@@.trace.show_seq (ltx.@@.tables.\cs_to_str:N#1) }
   }
 
-\cs_set_protected:Nn \@@_prop_show:N
+\cs_set_protected:Npn \@@_prop_show:N #1
   {
     \prop_show:N #1
     \lua_now:e {ltx.@@.trace.log  ("lua~property~table~\cs_to_str:N#1",1) }
