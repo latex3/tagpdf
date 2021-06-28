@@ -103,6 +103,14 @@
   {
     \bool_if:NT\g__tag_active_mc_bool
       {
+       \lua_now:e
+          {
+           if~luatexbase.callbacktypes.pre_shipout_filter~then~
+              luatexbase.add_to_callback("pre_shipout_filter", function(TAGBOX)~
+              ltx.@@.func.space_chars_shipout(TAGBOX)~return~true~
+              end, "tagpdf")~
+            end
+          }   
         \lua_now:e
           {
             if~luatexbase.callbacktypes.pre_shipout_filter~then~
@@ -120,6 +128,8 @@
            {
              \hook_gput_code:nnn{shipout/before}{tagpdf/lua}
                {
+                \lua_now:e
+                   { ltx.@@.func.space_chars_shipout (tex.box["ShipoutBox"]) }
                  \lua_now:e
                    { ltx.@@.func.mark_shipout (tex.box["ShipoutBox"]) }
                }

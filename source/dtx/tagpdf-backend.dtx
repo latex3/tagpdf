@@ -515,6 +515,52 @@ local default_space_char = node.new(GLYPH)
 local default_fontid     = font.id("TU/lmr/m/n/10")
 default_space_char.char  = 32
 default_space_char.font  = default_fontid
+%    \end{macrocode}
+% \begin{macro}
+%   {
+%    @@_space_chars_shipout,
+%    ltx.@@.func.space_chars_shipout,
+%    }
+% These is the main function to insert real space chars. It inserts a
+% glyph before a glue which has been marked previously. The attributes
+% are copied from the glue, so it will be tag like it.
+%    \begin{macrocode}
+local function @@_space_chars_shipout (box)
+ local head = box.head --
+  if head then
+    for n in node.traverse(head) do
+      local spaceattr = nodegetattribute(n,iwspaceattributeid)  or -1
+      if n.id == HLIST  then -- enter the hlist
+         @@_space_chars_shipout (n)
+      elseif n.id == VLIST then -- enter the vlist
+         @@_space_chars_shipout (n)
+      elseif n.id == GLUE then
+        if ltx.@@.trace.showspaces and spaceattr==1  then
+          @@_show_spacemark (head,n,"0 1 0")
+        end
+        if spaceattr==1  then
+          local space
+          local space_char = node.copy(default_space_char)
+          local curfont    = nodegetattribute(n,iwfontattributeid)
+          ltx.@@.trace.log ("FONT ".. tostring(curfont),3)
+          if curfont and luaotfload.aux.slot_of_name(curfont,"space") then
+            space_char.font=curfont
+          end
+          head, space = node.insert_before(head, n, space_char) --
+          n.width     = n.width - space.width
+          space.attr  = n.attr
+        end
+      end
+    end
+  end
+end
+
+function ltx.@@.func.space_chars_shipout (box)
+  @@_space_chars_shipout (box)
+end
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 
 -- unused??
 local function @@_insert_space_char (head,n,fontid)
@@ -569,22 +615,22 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
      mcopen,mcpagecnt,mccntprev,mctypeprev=
       ltx.@@.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL VLIST",mctypeprev)
     elseif n.id == GLUE then       -- at glue real space chars are inserted, for the rest it is ignored
-     -- for debugging
-     if ltx.@@.trace.showspaces and spaceattr==1  then
-        @@_show_spacemark (head,n,"0 1 0")
-     end
-     if spaceattr==1  then
-        local space
-        local space_char = node.copy(default_space_char)
-        local curfont    = nodegetattribute(n,iwfontattributeid)
-        ltx.@@.trace.log ("FONT ".. tostring(curfont),3)
-        if curfont and luaotfload.aux.slot_of_name(curfont,"space") then
-          space_char.font=curfont
-        end
-        head, space = node.insert_before(head, n, space_char) --
-        n.width     = n.width - space.width
-        space.attr  = n.attr
-     end
+--      -- for debugging
+--      if ltx.@@.trace.showspaces and spaceattr==1  then
+--         @@_show_spacemark (head,n,"0 1 0")
+--      end
+--      if spaceattr==1  then
+--         local space
+--         local space_char = node.copy(default_space_char)
+--         local curfont    = nodegetattribute(n,iwfontattributeid)
+--         ltx.@@.trace.log ("FONT ".. tostring(curfont),3)
+--         if curfont and luaotfload.aux.slot_of_name(curfont,"space") then
+--           space_char.font=curfont
+--         end
+--         head, space = node.insert_before(head, n, space_char) --
+--         n.width     = n.width - space.width
+--         space.attr  = n.attr
+--      end
     elseif n.id == LOCAL_PAR then  -- local_par is ignored
     elseif n.id == PENALTY then    -- penalty is ignored
     elseif n.id == KERN then       -- kern is ignored

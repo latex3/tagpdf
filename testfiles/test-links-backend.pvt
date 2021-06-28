@@ -30,9 +30,9 @@
 abc%
 \tagmcend
 \tagmcbegin{tag=P}%
-abc%
+abc %
 \tagmcend
-\tagstructbegin{tag=Link}
+\tagstructbegin{tag=Link}%
 \tagmcbegin{tag=Link}%
 \ExplSyntaxOn\makeatletter
 \leavevmode\__pdf_backend_link_begin_user:nnw
@@ -57,7 +57,7 @@ abc%
 \tagmcend
 \tagstructend
 
-\tagstructbegin{tag=Link}
+\tagstructbegin{tag=Link}%
 \tagmcbegin{tag=Link}%
 \ExplSyntaxOn\makeatletter
 \leavevmode\__pdf_backend_link_begin_user:nnw
@@ -81,7 +81,7 @@ abc%
 \tagmcend
 \tagstructend
 
-\tagstructbegin{tag=Link}
+\tagstructbegin{tag=Link}%
 \tagmcbegin{tag=Link}%
 \ExplSyntaxOn\makeatletter
 \leavevmode\__pdf_backend_link_begin_user:nnw
