@@ -404,7 +404,26 @@
 % or do a first step to apply tagpdf commands to document commands.
 % This part should be regularly revisited to check if the code should go to a
 % better place or can be improved.
-%
+% \subsection{Document structure}
+% \begin{macro}{\@@_add_document_structure:n,activate}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_add_document_structure:n #1
+ {
+   \hook_gput_code:nnn{begindocument}{tagpdf}{\tagstructbegin{tag=#1}}
+   \hook_gput_code:nnn{tagpdf/finish/before}{tagpdf}{\tagstructend}
+ }
+\keys_define:nn { @@ / setup}
+ {
+   activate   .code:n =
+    {
+      \keys_set:nn { @@ / setup }
+        { activate-mc,activate-tree,activate-struct }
+      \@@_add_document_structure:n {#1}
+    },
+  activate .default:n = Document
+ }
+%    \end{macrocode}
+% \end{macro}
 % \subsection{Fake space}
 % \begin{macro}{\pdffakespace}
 % We need a luatex variant for |\pdffakespace|. This should probably go into

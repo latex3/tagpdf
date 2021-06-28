@@ -10,12 +10,16 @@ this project uses date-based 'snapshot' version identifiers.
  - \tag_finish_structure: is no longer a public command.
  - lua mc-attributes are now global again
  - \tagmcbegin and \tagmcend not longer ignore/remove spaces.
- 
+ - space code has been separated and can be used without active tagging
 
 ### Removed
  - check-tags key. This is now done with the log-level. 
  - global-mc key. No longer needed as attributes are global again.
  - user command \tagpdfget, probably unneeded. 
+ 
+### Added
+ - key activate which opens the main structure
+  
 ## [2021-06-14]
 ### Added
  - commands to add annotations to a structure

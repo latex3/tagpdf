@@ -405,6 +405,7 @@
   {
     \bool_if:NT\g_@@_active_tree_bool
       {
+        \hook_use:n {tagpdf/finish/before}
         \@@_tree_write_parenttree:
         \@@_tree_write_rolemap:
         \@@_tree_write_classmap:

@@ -370,7 +370,6 @@
 %    activate-tree,
 %    activate-struct,
 %    activate-all,
-%    activate
 %  }
 %  Keys to (globally) activate tagging.
 %  |activate-space| activates the additional parsing needed for
@@ -386,9 +385,7 @@
     activate-struct .bool_gset:N = \g_@@_active_struct_bool,
     activate-all    .meta:n =
       {activate-mc,activate-tree,activate-struct},
-    activate        .meta:n =
-      {activate-mc,activate-tree,activate-struct},
-%    \end{macrocode}
+ %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{log}
 % The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.

@@ -155,7 +155,7 @@ In this version lots of things have changed, but most of them are internal: the 
 a number of errors corrected, the code has been properly documented (and the code documentation can now be compiled and
 printed).
 
-There are nevertheless also a few changes for the public interface, including some breaking changes. Check the change section below for
+There are nevertheless also a number of changes for the public interface, including some breaking changes. Check the change section below for
 details.
 
 
@@ -378,6 +378,12 @@ users. See section~\ref{sec:global-local} for more details.
 \item |\tagpdfget| has been removed, use the expl3 version if needed.
 \item The show commands |\showtagpdfmcdata|, |\showtagpdfattributes|, |\showtagstack| have been removed and replaced
 by a more flexible command |\ShowTagging|.
+\item The commands |\tagmcbegin| and |\tagmcend| no longer ignore following spaces or remove earlier one. While this
+is nice in some places, it also ate spaces in places where this wanted expected. From now on both commands behave exactly
+like the expl3 versions.
+\item The lua-code to add real space glyphs has been separated from the tagging code. This means that |interwordspace| now
+works also if tagging is not active. 
+\item The key |activate| has been added, it open the first structure, see below. 
 \end{itemize}
 
 
@@ -444,8 +450,11 @@ The command should be normally used only in the preamble
 The key-val list understands the following keys:
 
 \begin{description}
-\item[\PrintKeyName{activate-all},\PrintKeyName{activate}]
+\item[\PrintKeyName{activate-all}]
  Boolean, initially false. Activates everything, that's normally the sensible thing to do.
+\item [\PrintKeyName{activate}] Like |activate-all|, \emph{additionally} is opens at begin document
+a structure with |\tagstructbegin| and closes it at end document. The key accepts as value a tag name which is used as the tag of the structure.
+The default value is |Document|. 
 \item[\PrintKeyName{activate-mc}]
  Boolean, initially false. Activates the code related to marked content.
 \item[\PrintKeyName{activate-struct}]
@@ -740,7 +749,7 @@ For strategies how to handle paragraphs that split over pages see subsection~\re
 \begin{docCommand}{tag_mc_begin:n}{\marg{key-val-list}}\end{docCommand}
 
 
-These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}. The user command additionally issues an \verb+\ignorespaces+ to suppress spaces after itself.
+These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}. 
 Such markers should not be nested. The command will warn you if this happens.
 
 The key-val list understands the following keys:
@@ -801,7 +810,7 @@ The key-val list understands the following keys:
 \begin{docCommand}{tagmcend}{}\end{docCommand}
 \begin{docCommand}{tag_mc:end}{}\end{docCommand}
 
-These commands insert the end code of the marked content. They don't end a group and it doesn't matter if they are in another group as the starting commands. The user command also issues in hmode at first an \verb+\unskip+. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends  with a new \verb+\tagmcbegin+ anyway.
+These commands insert the end code of the marked content. They don't end a group and it doesn't matter if they are in another group as the starting commands. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends  with a new \verb+\tagmcbegin+ anyway.
 
 
 % no longer relevant
@@ -1532,9 +1541,8 @@ With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
 
 With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the \PDF{}: from the current font to the dummy-space font and back again. This will make the \PDF{} larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.
 
-With luatex (in luamode) |interwordspace| is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process (when also the mc-markers are inserted) the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.
-|interwordspace| can be used without actually tagging a document. In luamode you should then use the settings
-|activate-mc|, |interwordspace| and |tagunmarked=false|. 
+With luatex (in luamode) |interwordspace| is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.
+|interwordspace| can be used without actually tagging a document. 
 
 The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.
 
