@@ -53,7 +53,7 @@
 %
 % \date{Version 0.82, released 2021-06-14}
 % \maketitle
-%
+% \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
 %<*luatex>
@@ -283,7 +283,8 @@ ltx.@@          = ltx.@@        or { }
 ltx.@@.mc       = ltx.@@.mc     or  { } -- mc data
 ltx.@@.struct   = ltx.@@.struct or  { } -- struct data
 ltx.@@.tables   = ltx.@@.tables or  { } -- tables created with new prop and new seq.
-                                            -- wasn't a so great idea ...
+                                        -- wasn't a so great idea ...
+                                        -- g_@@_role_tags_seq used by tag<-> is in this tables!
 ltx.@@.page     = ltx.@@.page   or  { } -- page data, currently only i->{0->mcnum,1->mcnum,...}
 ltx.@@.trace    = ltx.@@.trace  or  { } -- show commands
 ltx.@@.func     = ltx.@@.func   or  { } -- functions
@@ -306,6 +307,109 @@ local @@_log =
 
 ltx.@@.trace.log = @@_log
 %    \end{macrocode}
+% \end{macro}
+% \begin{macro}{ltx.@@.trace.show_seq}
+% This shows the content of a seq as stored in the tables table.
+% It is used by the |\@@_seq_show:N| function.
+%    \begin{macrocode}
+function ltx.@@.trace.show_seq (seq)
+ if (type(seq) == "table") then
+  for i,v in ipairs(seq) do
+   @@_log ("[" .. i .. "] => " .. tostring(v),1)
+  end
+  else
+   @@_log ("sequence " .. tostring(seq) .. " not found",1)
+  end
+end
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{ @@_pairs_prop,ltx.@@.trace.show_prop}
+% This shows the content of a prop as stored in the tables table.
+% It is used by the |\@@_prop_show:N| function.
+%    \begin{macrocode}
+local @@_pairs_prop =
+ function  (prop)
+      local a = {}
+      for n in pairs(prop) do tableinsert(a, n) end
+      table.sort(a)
+      local i = 0                -- iterator variable
+      local iter = function ()   -- iterator function
+        i = i + 1
+        if a[i] == nil then return nil
+        else return a[i], prop[a[i]]
+        end
+      end
+      return iter
+  end
+
+
+function ltx.@@.trace.show_prop (prop)
+ if (type(prop) == "table") then
+  for i,v in @@_pairs_prop (prop) do
+    @@_log ("[" .. i .. "] => " .. tostring(v),1)
+  end
+ else
+   @@_log ("prop " .. tostring(prop) .. " not found or not a table",1)
+ end
+ end
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{ltx.@@.trace.show_mc_data}
+% This shows some data for a mc given by |num|.
+% If something is shown depends on the log level.
+% The function is used by the following function and then in
+% |\ShowTagging|
+%    \begin{macrocode}
+function ltx.@@.trace.show_mc_data (num,loglevel)
+ if ltx.@@ and ltx.@@.mc and ltx.@@.mc[num] then
+  for k,v in pairs(ltx.@@.mc[num]) do
+   @@_log  ("mc"..num..": "..tostring(k).."=>"..tostring(v),loglevel)
+  end
+  if ltx.@@.mc[num]["kids"] then
+  @@_log ("mc" .. num .. " has " .. #ltx.@@.mc[num]["kids"] .. " kids",loglevel)
+   for k,v in ipairs(ltx.@@.mc[num]["kids"]) do
+    @@_log ("mc ".. num .. " kid "..k.." =>" .. v.kid.." on page " ..v.page,loglevel)
+   end
+  end
+ else
+  @@_log  ("mc"..num.." not found",3)
+ end
+end
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{ltx.@@.trace.show_all_mc_data}
+% This shows data for the mc's between |min| and |max| (numbers).
+% It is used by the |\ShowTagging| function.
+%    \begin{macrocode}
+function ltx.@@.trace.show_all_mc_data (min,max,loglevel)
+ for i = min, max do
+  ltx.@@.trace.show_mc_data (i,loglevel)
+ end
+ texio.write_nl("")
+end
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}
+%   {
+%    ltx.@@.trace.show_struct_data
+%   }
+% This function shows some struct data.
+% TODO currently unused, check if needed.
+%    \begin{macrocode}
+function ltx.@@.trace.show_struct_data (num)
+ if ltx.@@ and ltx.@@.struct and ltx.@@.struct[num] then
+  for k,v in ipairs(ltx.@@.struct[num]) do
+   @@_log  ("struct "..num..": "..tostring(k).."=>"..tostring(v))
+  end
+ else
+  @@_log   ("struct "..num.." not found ")
+ end
+end
+%    \end{macrocode}
+% \end{macro}
+
+%
 % \section{Helper functions}
 % \subsection{Retrieve data functions}
 % \begin{macro}{@@_get_mc_cnt_type_tag}
@@ -332,6 +436,129 @@ local function @@_get_mathsubtype  (mathnode)
   subtype = "endmath"
  end
  return subtype
+end
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}
+%   {
+%    @@_get_num_from,
+%    ltx.@@.func.get_num_from,
+%    ltx.@@.func.output_num_from
+%   }
+% These functions take as argument a string |tag|, and return the number
+% under which is it recorded (and so the attribute value).
+% The first function outputs the number for lua, while the |output| function
+% outputs to tex.
+%    \begin{macrocode}
+local @@_get_num_from =
+ function (tag)
+  if ltx.@@.tables["g_@@_role_tags_prop"][tag] then
+    a= ltx.@@.tables["g_@@_role_tags_prop"][tag]
+  else
+    a= -1
+  end
+  return a
+ end
+
+ltx.@@.func.get_num_from = @@_get_num_from
+
+function ltx.@@.func.output_num_from (tag)
+  local num = @@_get_num_from (tag)
+  tex.sprint(catlatex,num)
+  if num == -1 then
+   @@_log ("Unknown tag "..tag.." used")
+  end
+end
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%    @@_get_tag_from ,
+%    ltx.@@.func.get_tag_from,
+%    ltx.@@.func.output_tag_from
+%   }
+% These functions are the opposites to the previous function:
+% they take as argument a number (the attribute value) and return the string |tag|.
+% The first function outputs the number for lua, while the |output| function
+% outputs to tex.
+%    \begin{macrocode}
+local @@_get_tag_from =
+ function  (num)
+  if ltx.@@.tables["g_@@_role_tags_seq"][num] then
+   a = ltx.@@.tables["g_@@_role_tags_seq"][num]
+  else
+   a= "UNKNOWN"
+  end
+ return a
+end
+
+ltx.@@.func.get_tag_from = @@_get_tag_from
+
+function ltx.@@.func.output_tag_from (num)
+  tex.sprint(catlatex,@@_get_tag_from (num))
+end
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}
+%   {
+%    ltx.@@.func.store_mc_data
+%   }
+% This function stores for |key|=|data| for mc-chunk |num|. It is used in the
+% taggpdf-mc code, to store for example the tag string, and the raw options.
+%    \begin{macrocode}
+function ltx.@@.func.store_mc_data (num,key,data)
+ ltx.@@.mc[num] = ltx.@@.mc[num] or { }
+ ltx.@@.mc[num][key] = data
+ @@_log  ("storing mc"..num..": "..tostring(key).."=>"..tostring(data),3)
+end
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%    ltx.@@.func.store_mc_label
+%   }
+% This function stores the |label|=|num| relationship in the |labels| subtable.
+% TODO: this is probably unused and can go.
+%    \begin{macrocode}
+function ltx.@@.func.store_mc_label (label,num)
+ ltx.@@.mc["labels"] = ltx.@@.mc["labels"] or { }
+ ltx.@@.mc.labels[label] = num
+end
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}
+%   {
+%    ltx.@@.func.store_mc_kid
+%   }
+% This function is used in the traversing code. It stores
+% a sub-chunk of a mc |mcnum| into the |kids| table.
+%    \begin{macrocode}
+function ltx.@@.func.store_mc_kid (mcnum,kid,page)
+ ltx.@@.trace.log("MC"..mcnum.." STORING KID" .. kid.." on page " .. page,3)
+ ltx.@@.mc[mcnum]["kids"] = ltx.@@.mc[mcnum]["kids"] or { }
+ local kidtable = {kid=kid,page=page}
+ tableinsert(ltx.@@.mc[mcnum]["kids"], kidtable )
+end
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}
+%   {
+%    ltx.@@.func.mc_num_of_kids
+%   }
+% This function returns the number of kids a mc |mcnum| has. We need to account for
+% the case that a mc can have no kids.
+%    \begin{macrocode}
+function ltx.@@.func.mc_num_of_kids (mcnum)
+ local num = 0
+ if ltx.@@.mc[mcnum] and ltx.@@.mc[mcnum]["kids"] then
+   num = #ltx.@@.mc[mcnum]["kids"]
+ end
+ ltx.@@.trace.log ("MC" .. mcnum .. "has " .. num .. "KIDS",4)
+ return num
 end
 %    \end{macrocode}
 % \end{macro}
@@ -386,6 +613,7 @@ end
 ltx.@@.func.pdf_object_ref=@@_pdf_object_ref
 %    \end{macrocode}
 % \end{macro}
+%
 % \section{Function for the real space chars}
 % \begin{macro}{@@_show_spacemark}
 % A debugging function, it is used to
@@ -509,24 +737,31 @@ end
 ltx.@@.func.markspaceoff=@@_deactivate_mark_space
 %    \end{macrocode}
 % \end{macro}
-% Some comments about the lua structure.
+% \begin{macro}
+%  {
+%   default_space_char,
+%   default_fontid,
+%  }
+% We need two local variable to setup a default space char.
 %    \begin{macrocode}
 local default_space_char = node.new(GLYPH)
 local default_fontid     = font.id("TU/lmr/m/n/10")
 default_space_char.char  = 32
 default_space_char.font  = default_fontid
 %    \end{macrocode}
+% \end{macro}
 % \begin{macro}
 %   {
 %    @@_space_chars_shipout,
 %    ltx.@@.func.space_chars_shipout,
 %    }
 % These is the main function to insert real space chars. It inserts a
-% glyph before a glue which has been marked previously. The attributes
-% are copied from the glue, so it will be tag like it.
+% glyph before every glue which has been marked previously. The attributes
+% are copied from the glue, so if the tagging is done later,
+% it will be tagged like it.
 %    \begin{macrocode}
 local function @@_space_chars_shipout (box)
- local head = box.head --
+ local head = box.head
   if head then
     for n in node.traverse(head) do
       local spaceattr = nodegetattribute(n,iwspaceattributeid)  or -1
@@ -560,18 +795,86 @@ function ltx.@@.func.space_chars_shipout (box)
 end
 %    \end{macrocode}
 % \end{macro}
+%
+% \section{Function for the tagging}
+% \begin{macro}
+%   {
+%    ltx.@@.func.mc_insert_kids
+%   }
+% This is the main function to insert the
+% K entry into a StructElem object. It is used in tagpdf-mc-luacode module.
+% The |single| attribute allows to handle the case that a single
+% mc on the tex side can have more than one kid after the processing here,
+% and so we get the correct array/non array setup.
 %    \begin{macrocode}
-
--- unused??
-local function @@_insert_space_char (head,n,fontid)
- if luaotfload.aux.slot_of_name(fontid,"space") then
-  local space
-  -- head, space = node.insert_before(head, n, ) -- Set the right font
-  -- n.width = n.width - space.width
-  -- space.attr = n.attr
- end
+function ltx.@@.func.mc_insert_kids (mcnum,single)
+  if ltx.@@.mc[mcnum] then
+  ltx.@@.trace.log("MC-KIDS test " .. mcnum,4)
+   if ltx.@@.mc[mcnum]["kids"] then
+    if #ltx.@@.mc[mcnum]["kids"] > 1 and single==1 then
+     tex.sprint("[")
+    end
+    for i,kidstable in ipairs( ltx.@@.mc[mcnum]["kids"] ) do
+     local kidnum  = kidstable["kid"]
+     local kidpage = kidstable["page"]
+     local kidpageobjnum = pdfpageref(kidpage)
+     ltx.@@.trace.log("MC" .. mcnum ..
+                      " insert KID " ..i..
+                      " with num " .. kidnum ..
+                      " on page " .. kidpage.."/"..kidpageobjnum,3)
+     tex.sprint(catlatex,"<</Type /MCR /Pg "..kidpageobjnum .. " 0 R /MCID "..kidnum.. ">> " )
+    end
+    if #ltx.@@.mc[mcnum]["kids"] > 1 and single==1 then
+     tex.sprint("]")
+    end
+   else
+    -- this is typically not a problem, e.g. empty hbox in footer/header can
+    -- trigger this warning.
+    ltx.@@.trace.log("WARN! MC"..mcnum.." has no kids",2)
+    if single==1 then
+      tex.sprint("null")
+    end
+   end
+  else
+   ltx.@@.trace.log("WARN! MC"..mcnum.." doesn't exist",0)
+  end
+end
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{ltx.@@.func.store_struct_mcabs}
+% This function is used in the tagpdf-mc-luacode. It store the absolute count
+% of the mc into the current structure. This must be done ordered.
+%    \begin{macrocode}
+function ltx.@@.func.store_struct_mcabs (structnum,mcnum)
+ ltx.@@.struct[structnum]=ltx.@@.struct[structnum] or { }
+ ltx.@@.struct[structnum]["mc"]=ltx.@@.struct[structnum]["mc"] or { }
+ -- a structure can contain more than on mc chunk, the content should be ordered
+ tableinsert(ltx.@@.struct[structnum]["mc"],mcnum)
+ ltx.@@.trace.log("MCNUM "..mcnum.." insert in struct "..structnum,3)
+ -- but every mc can only be in one structure
+ ltx.@@.mc[mcnum]= ltx.@@.mc[mcnum] or { }
+ ltx.@@.mc[mcnum]["parent"] = structnum
 end
 
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{ltx.@@.func.store_mc_in_page}
+% This is used in the traversing code and stores the relation between
+% abs count and page count.
+%    \begin{macrocode}
+-- pay attention: lua counts arrays from 1, tex pages from one
+-- mcid and arrays in pdf count from 0.
+function ltx.@@.func.store_mc_in_page (mcnum,mcpagecnt,page)
+ ltx.@@.page[page] = ltx.@@.page[page] or {}
+ ltx.@@.page[page][mcpagecnt] = mcnum
+ ltx.@@.trace.log("PAGE " .. page .. ": inserting MCID " .. mcpagecnt .. " => " .. mcnum,3)
+end
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{ltx.@@.func.mark_page_elements}
+% This is the main traversing function. See the lua comment for more details.
+%    \begin{macrocode}
 --[[
     Now follows the core function
     It wades through the shipout box and checks the attributes
@@ -591,22 +894,32 @@ end
 function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mctypeprev)
   local name = name or ("SOMEBOX")
   local mctypeprev = mctypeprev or -1
-  local abspage = status.total_pages + 1  -- the real counter is increased inside the box so one off
-                                                                       -- if the callback is not used.
+  local abspage = status.total_pages + 1  -- the real counter is increased
+                                          -- inside the box so one off
+                                          -- if the callback is not used. (???)
   ltx.@@.trace.log ("PAGE " .. abspage,3)
-  ltx.@@.trace.log ("FUNC ARGS: pagecnt".. mcpagecnt.." prev "..mccntprev .. " type prev "..mctypeprev,4)
-  ltx.@@.trace.log ("TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
+  ltx.@@.trace.log ("FUNC ARGS: pagecnt".. mcpagecnt..
+                    " prev "..mccntprev ..
+                    " type prev "..mctypeprev,4)
+  ltx.@@.trace.log ("TRAVERSING BOX ".. tostring(name)..
+                    " TYPE ".. node.type(node.getid(box)),3)
   local head = box.head -- ShipoutBox is a vlist?
   if head then
     mccnthead, mctypehead,taghead = @@_get_mc_cnt_type_tag (head)
-    ltx.@@.trace.log ("HEAD " .. node.type(node.getid(head)).. " MC"..tostring(mccnthead).." => TAG "..tostring(mctypehead).." => "..tostring(taghead),3)
+    ltx.@@.trace.log ("HEAD " ..  node.type(node.getid(head))..
+                      " MC"..tostring(mccnthead)..
+                      " => TAG " .. tostring(mctypehead)..
+                      " => ".. tostring(taghead),3)
   else
     ltx.@@.trace.log ("HEAD is ".. tostring(head),3)
   end
   for n in node.traverse(head) do
     local mccnt, mctype, tag = @@_get_mc_cnt_type_tag (n)
     local spaceattr = nodegetattribute(n,iwspaceattributeid)  or -1
-    ltx.@@.trace.log ("NODE ".. node.type(node.getid(n)).." MC"..tostring(mccnt).." => TAG "..tostring(mctype).." => " .. tostring(tag),3)
+    ltx.@@.trace.log ("NODE ".. node.type(node.getid(n))..
+                      " MC".. tostring(mccnt)..
+                      " => TAG ".. tostring(mctype)..
+                      " => " ..  tostring(tag),3)
     if n.id == HLIST
     then -- enter the hlist
      mcopen,mcpagecnt,mccntprev,mctypeprev=
@@ -614,23 +927,8 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
     elseif n.id == VLIST then -- enter the vlist
      mcopen,mcpagecnt,mccntprev,mctypeprev=
       ltx.@@.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL VLIST",mctypeprev)
-    elseif n.id == GLUE then       -- at glue real space chars are inserted, for the rest it is ignored
---      -- for debugging
---      if ltx.@@.trace.showspaces and spaceattr==1  then
---         @@_show_spacemark (head,n,"0 1 0")
---      end
---      if spaceattr==1  then
---         local space
---         local space_char = node.copy(default_space_char)
---         local curfont    = nodegetattribute(n,iwfontattributeid)
---         ltx.@@.trace.log ("FONT ".. tostring(curfont),3)
---         if curfont and luaotfload.aux.slot_of_name(curfont,"space") then
---           space_char.font=curfont
---         end
---         head, space = node.insert_before(head, n, space_char) --
---         n.width     = n.width - space.width
---         space.attr  = n.attr
---      end
+    elseif n.id == GLUE then       -- at glue real space chars are inserted, but this has
+                                   -- been done if the previous shipout wandering, so here it is ignored
     elseif n.id == LOCAL_PAR then  -- local_par is ignored
     elseif n.id == PENALTY then    -- penalty is ignored
     elseif n.id == KERN then       -- kern is ignored
@@ -645,7 +943,9 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
      -- endmath
      ltx.@@.trace.log("CURRENT "..mccnt.." PREV "..mccntprev,3)
      if mccnt~=mccntprev then -- a new mc chunk
-      ltx.@@.trace.log ("NODE ".. node.type(node.getid(n)).." MC"..tostring(mccnt).." <=> PREVIOUS "..tostring(mccntprev),3)
+      ltx.@@.trace.log ("NODE ".. node.type(node.getid(n))..
+                        " MC"..tostring(mccnt)..
+                        " <=> PREVIOUS "..tostring(mccntprev),3)
       if mcopen~=0 then -- there is a chunk open, close it (hope there is only one ...
        box.list=@@_insert_emc_node (box.list,n)
        mcopen = mcopen - 1
@@ -656,7 +956,8 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
       end
       if ltx.@@.mc[mccnt] then
        if ltx.@@.mc[mccnt]["artifact"] then
-        ltx.@@.trace.log("THIS IS AN ARTIFACT of type "..tostring(ltx.@@.mc[mccnt]["artifact"]),3)
+        ltx.@@.trace.log("THIS IS AN ARTIFACT of type "..
+                          tostring(ltx.@@.mc[mccnt]["artifact"]),3)
         if ltx.@@.mc[mccnt]["artifact"] == "" then
          box.list = @@_insert_bmc_node (box.list,n,"Artifact")
         else
@@ -699,18 +1000,27 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
   end -- end for
   if head then
     mccnthead, mctypehead,taghead = @@_get_mc_cnt_type_tag (head)
-    ltx.@@.trace.log ("ENDHEAD " .. node.type(node.getid(head)).. " MC"..tostring(mccnthead).." => TAG "..tostring(mctypehead).." => "..tostring(taghead),3)
+    ltx.@@.trace.log ("ENDHEAD " .. node.type(node.getid(head))..
+                      " MC"..tostring(mccnthead)..
+                      " => TAG "..tostring(mctypehead)..
+                      " => "..tostring(taghead),3)
   else
     ltx.@@.trace.log ("ENDHEAD is ".. tostring(head),3)
   end
-  ltx.@@.trace.log ("QUITTING TRAVERSING BOX ".. tostring(name).." TYPE ".. node.type(node.getid(box)),3)
+  ltx.@@.trace.log ("QUITTING TRAVERSING BOX ".. tostring(name)..
+                    " TYPE ".. node.type(node.getid(box)),3)
  return mcopen,mcpagecnt,mccntprev,mctypeprev
 end
 
-
-
-function ltx.__tag.func.mark_shipout (box)
- mcopen = ltx.__tag.func.mark_page_elements (box,-1,-100,0,"Shipout",-1)
+%    \end{macrocode}
+% \end{macro}
+%  \begin{macro}{ltx.@@.func.mark_shipout}
+%  This is the function used in the callback. Beside calling the traversing
+%  function it also checks if there is an open MC-chunk from a page
+%  break and insert the needed EMC literal.
+%    \begin{macrocode}
+function ltx.@@.func.mark_shipout (box)
+ mcopen = ltx.@@.func.mark_page_elements (box,-1,-100,0,"Shipout",-1)
  if mcopen~=0 then -- there is a chunk open, close it (hope there is only one ...
   local emcnode = nodenew("whatsit","pdf_literal")
   local list = box.list
@@ -728,193 +1038,19 @@ function ltx.__tag.func.mark_shipout (box)
   end
  end
 end
+%    \end{macrocode}
+% \end{macro}
 
-
-function ltx.@@.trace.show_seq (seq)
- if (type(seq) == "table") then
-  for i,v in ipairs(seq) do
-   @@_log ("[" .. i .. "] => " .. tostring(v),1)
-  end
-  else
-   @@_log ("sequence " .. tostring(seq) .. " not found",1)
-  end
-end
-
-local @@_pairs_prop =
- function  (prop)
-      local a = {}
-      for n in pairs(prop) do tableinsert(a, n) end
-      table.sort(a)
-      local i = 0                -- iterator variable
-      local iter = function ()   -- iterator function
-        i = i + 1
-        if a[i] == nil then return nil
-        else return a[i], prop[a[i]]
-        end
-      end
-      return iter
-  end
-
-
-function ltx.@@.trace.show_prop (prop)
- if (type(prop) == "table") then
-  for i,v in @@_pairs_prop (prop) do
-    @@_log ("[" .. i .. "] => " .. tostring(v),1)
-  end
- else
-   @@_log ("prop " .. tostring(prop) .. " not found or not a table",1)
- end
- end
-
-
-local @@_get_num_from =
- function (tag)
-  if ltx.@@.tables["g_@@_role_tags_prop"][tag] then
-    a= ltx.@@.tables["g_@@_role_tags_prop"][tag]
-  else
-    a= -1
-  end
-  return a
- end
-
-ltx.@@.func.get_num_from = @@_get_num_from
-
-function ltx.@@.func.output_num_from (tag)
-  local num = @@_get_num_from (tag)
-  tex.sprint(catlatex,num)
-  if num == -1 then
-   @@_log ("Unknown tag "..tag.." used")
-  end
-end
-
-local @@_get_tag_from =
- function  (num)
-  if ltx.@@.tables["g_@@_role_tags_seq"][num] then
-   a = ltx.@@.tables["g_@@_role_tags_seq"][num]
-  else
-   a= "UNKNOWN"
-  end
- return a
-end
-
-ltx.@@.func.get_tag_from = @@_get_tag_from
-
-function ltx.@@.func.output_tag_from (num)
-  tex.sprint(catlatex,@@_get_tag_from (num))
-end
-
-function ltx.@@.func.store_mc_data (num,key,data)
- ltx.@@.mc[num] = ltx.@@.mc[num] or { }
- ltx.@@.mc[num][key] = data
- @@_log  ("storing mc"..num..": "..tostring(key).."=>"..tostring(data))
-end
-
-function ltx.@@.trace.show_mc_data (num,loglevel)
- if ltx.@@ and ltx.@@.mc and ltx.@@.mc[num] then
-  for k,v in pairs(ltx.@@.mc[num]) do
-   @@_log  ("mc"..num..": "..tostring(k).."=>"..tostring(v),loglevel)
-  end
-  if ltx.@@.mc[num]["kids"] then
-  @@_log ("mc" .. num .. " has " .. #ltx.@@.mc[num]["kids"] .. " kids",loglevel)
-   for k,v in ipairs(ltx.@@.mc[num]["kids"]) do
-    @@_log ("mc ".. num .. " kid "..k.." =>" .. v.kid.." on page " ..v.page,loglevel)
-   end
-  end
- else
-  @@_log  ("mc"..num.." not found",3)
- end
-end
-
-function ltx.@@.trace.show_all_mc_data (min,max,loglevel)
- for i = min, max do
-  ltx.@@.trace.show_mc_data (i,loglevel)
- end
- texio.write_nl("")
-end
-
-
-function ltx.@@.func.store_mc_label (label,num)
- ltx.@@.mc["labels"] = ltx.@@.mc["labels"] or { }
- ltx.@@.mc.labels[label] = num
-end
-
-function ltx.@@.func.store_mc_kid (mcnum,kid,page)
- ltx.@@.trace.log("MC"..mcnum.." STORING KID" .. kid.." on page " .. page,3)
- ltx.@@.mc[mcnum]["kids"] = ltx.@@.mc[mcnum]["kids"] or { }
- local kidtable = {kid=kid,page=page}
- tableinsert(ltx.@@.mc[mcnum]["kids"], kidtable )
-end
-
-
-function ltx.@@.func.mc_num_of_kids (mcnum)
- local num = 0
- if ltx.@@.mc[mcnum] and ltx.@@.mc[mcnum]["kids"] then
-   num = #ltx.@@.mc[mcnum]["kids"]
- end
- ltx.@@.trace.log ("MC" .. mcnum .. "has " .. num .. "KIDS",4)
- return num
-end
-
-function ltx.@@.func.mc_insert_kids (mcnum,single)
-  if ltx.@@.mc[mcnum] then
-  ltx.@@.trace.log("MC-KIDS test " .. mcnum,4)
-   if ltx.@@.mc[mcnum]["kids"] then
-    if #ltx.@@.mc[mcnum]["kids"] > 1 and single==1 then
-     tex.sprint("[")
-    end
-    for i,kidstable in ipairs( ltx.@@.mc[mcnum]["kids"] ) do
-     local kidnum  = kidstable["kid"]
-     local kidpage = kidstable["page"]
-     local kidpageobjnum = pdfpageref(kidpage)
-     ltx.@@.trace.log("MC" .. mcnum .. " insert KID " ..i.. " with num " .. kidnum .. " on page " .. kidpage.."/"..kidpageobjnum,3)
-     tex.sprint(catlatex,"<</Type /MCR /Pg "..kidpageobjnum .. " 0 R /MCID "..kidnum.. ">> " )
-    end
-    if #ltx.@@.mc[mcnum]["kids"] > 1 and single==1 then
-     tex.sprint("]")
-    end
-   else
-    -- this is typically not a problem, e.g. empty hbox in footer/header can
-    -- trigger this warning.
-    ltx.@@.trace.log("WARN! MC"..mcnum.." has no kids",2)
-    if single==1 then
-      tex.sprint("null")
-    end
-   end
-  else
-   ltx.@@.trace.log("WARN! MC"..mcnum.." doesn't exist",0)
-  end
-end
-
-
-function ltx.@@.func.store_struct_mcabs (structnum,mcnum)
- ltx.@@.struct[structnum]=ltx.@@.struct[structnum] or { }
- ltx.@@.struct[structnum]["mc"]=ltx.@@.struct[structnum]["mc"] or { }
- -- a structure can contain more than on mc chunk, the content should be ordered
- tableinsert(ltx.@@.struct[structnum]["mc"],mcnum)
- ltx.@@.trace.log("MCNUM "..mcnum.." insert in struct "..structnum,3)
- -- but every mc can only be in one structure
- ltx.@@.mc[mcnum]= ltx.@@.mc[mcnum] or { }
- ltx.@@.mc[mcnum]["parent"] = structnum
-end
-
-function ltx.@@.trace.show_struct_data (num)
- if ltx.@@ and ltx.@@.struct and ltx.@@.struct[num] then
-  for k,v in ipairs(ltx.@@.struct[num]) do
-   @@_log  ("struct "..num..": "..tostring(k).."=>"..tostring(v))
-  end
- else
-  @@_log   ("struct "..num.." not found ")
- end
-end
-
--- pay attention: lua counts arrays from 1, tex pages from one
--- mcid and arrays in pdf count from 0.
-function ltx.@@.func.store_mc_in_page (mcnum,mcpagecnt,page)
- ltx.@@.page[page] = ltx.@@.page[page] or {}
- ltx.@@.page[page][mcpagecnt] = mcnum
- ltx.@@.trace.log("PAGE " .. page .. ": inserting MCID " .. mcpagecnt .. " => " .. mcnum,3)
-end
-
+% \section{Parenttree}
+% \begin{macro}
+%   {
+%    ltx.@@.func.fill_parent_tree_line,
+%    ltx.@@.func.output_parenttree
+%   }
+% These functions create the parent tree. The second, main function
+% is used in the tagpdf-tree code.
+% TODO check if the tree code can move into the backend code.
+%    \begin{macrocode}
 function ltx.@@.func.fill_parent_tree_line (page)
      -- we need to get page-> i=kid -> mcnum -> structnum
      -- pay attention: the kid numbers and the page number in the parent tree start with 0!
@@ -961,7 +1097,10 @@ function ltx.@@.func.output_parenttree (abspage)
   tex.sprint(catlatex,line)
  end
 end
-
-
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 %</lua>
 %    \end{macrocode}
+% \end{implementation}
+% \PrintIndex

@@ -173,13 +173,15 @@
 %
 % \begin{variable}
 %  {
+%    \g_@@_active_space_bool,
 %    \g_@@_active_mc_bool,
 %    \g_@@_active_tree_bool,
 %    \g_@@_active_struct_bool
 %  }
 % These booleans should help to control the global behaviour of tagpdf.
 % Ideally it should more or less do nothing if all are false.
-% The mc-boolean activates \cs{tag_mc_begin:n},
+% The space-boolean controles the interword space code,
+% the mc-boolean activates \cs{tag_mc_begin:n},
 % the tree-boolean activates writing the finish code and the pdfmanagement related
 % commands, the struct-boolean activates the storing of the structure data.
 % In a normal document all should be active, the split is only there for
@@ -189,6 +191,7 @@
 % used in a document too.
 % TODO: check if they are used everywhere as needed and as wanted.
 %    \begin{macrocode}
+\bool_new:N \g_@@_active_space_bool
 \bool_new:N \g_@@_active_mc_bool
 \bool_new:N \g_@@_active_tree_bool
 \bool_new:N \g_@@_active_struct_bool
@@ -361,16 +364,30 @@
 % TODO: the log-levels must be sorted
 %
 % \begin{macro}
-%  {activate-mc,activate-tree,activate-struct,activate-all,activate}
+%  {
+%    activate-space,
+%    activate-mc,
+%    activate-tree,
+%    activate-struct,
+%    activate-all,
+%    activate
+%  }
 %  Keys to (globally) activate tagging.
+%  |activate-space| activates the additional parsing needed for
+%  interword spaces. It is not documented, the parsing is currently
+%  implicitly activated by the known key |interwordspace|, as the code will
+%  perhaps move to some other place, now that it is better separated.
 %    \begin{macrocode}
 \keys_define:nn { @@ / setup }
   {
+    activate-space  .bool_gset:N = \g_@@_active_space_bool,
     activate-mc     .bool_gset:N = \g_@@_active_mc_bool,
     activate-tree   .bool_gset:N = \g_@@_active_tree_bool,
     activate-struct .bool_gset:N = \g_@@_active_struct_bool,
-    activate-all    .meta:n = {activate-mc,activate-tree,activate-struct},
-    activate        .meta:n = {activate-mc,activate-tree,activate-struct},
+    activate-all    .meta:n =
+      {activate-mc,activate-tree,activate-struct},
+    activate        .meta:n =
+      {activate-mc,activate-tree,activate-struct},
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{log}

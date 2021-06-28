@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-space.dtx
 %
-% Copyright (C) 2019 Ulrike Fischer
+% Copyright (C) 2019-2021 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -99,10 +99,16 @@
       {
         interwordspace .choices:nn =
                                  { true, on }
-                                 { \lua_now:e{ltx.@@.func.markspaceon()} },
+                                 {
+                                   \bool_gset_true:N \g_@@_active_space_bool
+                                   \lua_now:e{ltx.@@.func.markspaceon()}
+                                 },
         interwordspace .choices:nn =
                                  { false, off }
-                                 {\lua_now:e{ltx.@@.func.markspaceoff()} },
+                                 {
+                                  \bool_gset_false:N \g_@@_active_space_bool
+                                  \lua_now:e{ltx.@@.func.markspaceoff()}
+                                 },
         interwordspace .default:n = true,
         show-spaces      .choice:,
         show-spaces  / true  .code:n =
@@ -121,7 +127,7 @@
           { \msg_warning:nnn {tag}{sys-no-interwordspace}{xetex}  },
         interwordspace .choices:nn = { false, off }
           { \msg_warning:nnn {tag}{sys-no-interwordspace}{xetex}  },
-        interwordspace .default:n = true,  
+        interwordspace .default:n = true,
         show-spaces .bool_set:N = \l_@@_showspaces_bool
       }
   }
