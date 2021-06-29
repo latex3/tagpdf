@@ -38,7 +38,7 @@
 % \fi
 % \title{^^A
 %   The \pkg{tagpdf-roles} module\\ Tags, roles and namesspace code   ^^A
-%   \\ part of the tagpdf package
+%   \\ Part of the tagpdf package
 % }
 %
 % \author{^^A
@@ -133,7 +133,6 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
   {
-    \msg_redirect_name:nnn { pdfdict } { empty-value } { none }
     \pdf_object_new:nn {tag/NS/#1}{dict}
     \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
     \pdf_object_new:nn {@@/RoleMapNS/#1}{dict}
@@ -143,15 +142,17 @@
       {Type}
       {/Namespace}
     \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_tmpa_str
-    \pdfdict_gput:nnx
-      {g_@@_role/Namespace_#1_dict}
-      {NS}
-      {\l_tmpa_str}
+    \tl_if_empty:NF \l_tmpa_str
+      {
+        \pdfdict_gput:nnx
+          {g_@@_role/Namespace_#1_dict}
+          {NS}
+          {\l_tmpa_str}
+      }
     %RoleMapNS is added in tree
     \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
       {Schema}{#3}
     \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{tag/NS/#1}~}
-    \msg_redirect_name:nnn { pdfdict } { empty-value } { warning }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -565,7 +566,10 @@
   {
     \prop_if_in:NnF \g_@@_role_tags_prop {#1}
       {
-         \msg_info:nnn { tag }{new-tag}{#1}
+        \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+          {
+            \msg_info:nnn { tag }{new-tag}{#1}
+          }
          \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
          \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
            {
@@ -600,7 +604,10 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_role_add_tag:nnnn %tag/namespace/role/namespace
   {
-    \msg_info:nnn { tag }{new-tag}{#1}
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+      {
+        \msg_info:nnn { tag }{new-tag}{#1}
+      }
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
        {

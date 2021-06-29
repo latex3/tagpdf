@@ -8,31 +8,31 @@
 %  \end{tabular}
 
 
-  |\@@_check_structure_has_tag:n| 
-& |struct-missing-tag| 
-& 0 
-& error 
+  |\@@_check_structure_has_tag:n|
+& |struct-missing-tag|
+& 
+& error
 \\
 
   |\@@_check_structure_tag:N|
-& |role-unknown-tag|  
-& 0
+& |role-unknown-tag|
+& 
 & warning
-& 2 -> error ?
+& 
 
 
   |\@@_check_info_closing_struct:n|
 & |struct-show-closing|
 & guarded > 0  (?) or better redirection?
 & info
-& used in struct,   
+& used in struct,
 
 
   |\@@_check_no_open_struct:|
 & struct-faulty-nesting
-& -- 
-& error 
-& TODO: error only with 1?  
+& --
+& error
+& TODO: error only with 1?
 
 
   |\@@_check_struct_used:n|
@@ -44,7 +44,7 @@
 |\@@_check_add_tag_role:nn|
 & |role-missing|, |role-tag|, |role-unknown|
 & --
-& warning, info, warning
+& warning, info (>0), warning
 
 |\@@_check_mc_if_nested:|,
 & |mc-nested|
@@ -54,31 +54,133 @@
 |\@@_check_mc_if_open:|
 & |mc-not-open|
 & --
-& warning 
+& warning
 & only generic (?)
 
-
+               
 |\@@_check_mc_pushed_popped:nn|
 & |mc-pushed|, |mc-popped|
-& guarded 
-& 2: info  >2: warning
+& guarded
+& 2: info  >2: info + seq_log
 
 |\@@_check_mc_tag:N|
 & |mc-tag-missing|, |role-unknown-tag|
 & --
-& error (missing), warning unknown.
-TODO: make test consistent with structure?
+& error (missing), warning (unknown).
 
 |\@@_check_mc_used:n|
 & |mc-used-twice|
 & ---
 & warning
 & TODO: review the sense of this test!
-  
+
 |\@@_check_show_MCID_by_page:|
 & --
-& -- 
+& --
 & --
 & currently unused
 
- 
+## in mc-shared:
+
+tag_mc_use:n:  mc-label-unknown: warning
+               mc-used-twice: warning
+
+## in roles
+role_add_tag:nn new-tag info>0
+
+## in space
+sys-no-interwordspace: warning in xetex/dvi
+
+## in struct
+struct-no-objnum: error
+
+in insert_annot:   struct-faulty-nesting: error 
+in tagstructbegin: struct-faulty-nesting: error 
+
+tag_struct_use:n struct-label-unknown warning
+
+attribute-class, attribute: attr-unknown: error
+
+## in tree
+parenttree: tree-mcid-index-wrong: warning TODO: should trigger a standard  rerun message.
+
+## in user
+ShowTagging{mc-current}: mc-current, note
+
+
+## backend/lua
+- all messages meant for debugging should require at least log-level 1
+
+ltx.@@.trace.show_seq, \@@_seq_show:N: 1
+ltx.@@.trace.show_prop, \@@_prop_show:N: 1
+ltx.@@.trace.show_struct_data: 1
+
+ltx.@@.trace.show_mc_data: log-level argument,
+ltx.@@.trace.show_all_mc_data, log-level argument, used
+by ShowTagging{mc-data} with log-level=0
+
+
+log in ltx.@@.func.store_mc_data: INFO STORE-MC-DATA: 3 
+ltx.@@.func.store_mc_kid: INFO STORE-MC-KID:  3
+
+INFO MC-KID-NUMBERS: 4
+
+INFO FONT: 3
+
+INFO MC-KIDS-TEST: 4
+
+INFO MC-INSERT-KID: 3
+
+WARN MC-NO-KIDS: 2 (e.g. empty hbox
+
+WARN MC-MISSING: 0
+
+INFO MC-INTO-STRUCT: 3
+INFO: MC-INTO-PAGE: 3
+
+INFO TAG-FUNCTION-ABSPAGE: 3
+
+INFO TAG-FUNCTION-ARGS:4
+TAG-FUNCTION-TRAVERSING-BOX 3
+INFO TAG-FUNCTION-HEAD: 3
+INFO TAG-FUNCTION-NO-HEAD: 3
+INFO TAG-FUNCTION-NODE: 3
+INFO TAG-FUNCTION-KERN-SUBTYPE: 4
+INFO TAG-FUNCTION-MATH-SUBTYPE: 4
+INFO TAG-FUNCTION-MC-COMPARE: 4
+INFO TAG-FUNCTION-NEW-MC-NODE: 4
+
+INFO TAG-FUNCTION-INSERT-EMC: 2
+
+WARN TAG-FUNCTION-OPEN-MC: 1
+
+INFO TAG-FUNCTION-INSERT-ARTIFACT: 3
+INFO TAG-FUNCTION-INSERT-TAG: 3
+
+INFO TAG-FUNCTION-INSERT-BDC: 2
+INFO TAG-FUNCTION-USE-RAW: 3
+INFO TAG-FUNCTION-USE-ALT: 3
+INFO TAG-FUNCTION-USE-ACTUALTEXT: 3
+
+INFO TAG-FUNCTION-NOT-TAGGED: 2 (artifact)
+WARN TAG-FUNCTION-NOT-TAGGED: 1 
+
+
+INFO TAG-FUNCTION-ENDHEAD: 4
+INFO TAG-FUNCTION-ENDHEAD: 4
+INFO TAG-FUNCTION-QUITTING-BOX: 4
+
+INFO TAG-SHIPOUT-INSERT-LAST-EMC: 2
+WARN TAG-SHIPOUT-UPS: 1
+WARN TAG-SHIPOUT-MC-OPEN: 1 
+
+INFO-TAG-PARENTTREE-NUM: 3
+INFO-TAG-PARENTTREE-CHUNKS:  3
+
+INFO-TAG-PARENTTREE-STRUCT-OBJREF: 5
+INFO-TAG-PARENTTREE-NUMENTRY: 3
+INFO-TAG-PARENTTREE-NO-DATA: 3
+
+
+
+

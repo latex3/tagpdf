@@ -40,7 +40,7 @@
 % \fi
 % \title{^^A
 %   The \pkg{tagpdf-checks} module\\ Messages and check code   ^^A
-%   \\ part of the tagpdf package
+%   \\ Part of the tagpdf package
 % }
 %
 % \author{^^A
@@ -295,6 +295,8 @@
 % \begin{macro}{\@@_check_structure_has_tag:n}
 % Structures must have a tag, so we check if the S entry is in the property.
 % It is an error if this is missing. The argument is a number.
+% The tests for existence and type is split in structures,
+% as the tags are stored differently to the mc case.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_structure_has_tag:n #1 %#1 struct num
   {
@@ -307,7 +309,8 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_check_structure_tag:N}
-% This checks if the name of the tag is known.
+% This checks if the name of the tag is known,
+% either because it is a standard type or has been rolemapped.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_structure_tag:N #1
   {
@@ -372,7 +375,10 @@
       {
         \prop_get:NnNTF \g_@@_role_tags_prop {#2} \l_tmpa_tl
           {
-            \msg_info:nnnn { tag } {role-tag} {#1} {#2}
+            \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+              {
+                \msg_info:nnnn { tag } {role-tag} {#1} {#2}
+              }
           }
           {
             \msg_warning:nnn { tag } {role-unknown} {#2}
@@ -385,7 +391,8 @@
 % \subsection{Check related to mc-chunks}
 %
 % \begin{macro}{\@@_check_mc_if_nested:,\@@_check_mc_if_open:}
-% Two tests if a mc is currently open.
+% Two tests if a mc is currently open. One for the true (for begin
+% code),  one for the false part (for end code).
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_mc_if_nested:
   {
@@ -417,8 +424,8 @@
     \int_compare:nNnT
       { \l_@@_loglevel_int } > { 2 }
       {
-       \msg_warning:nnx {tag}{mc-#1}{#2}
-       \seq_log:N \g_@@_mc_stack_seq
+        \msg_info:nnx {tag}{mc-#1}{#2}
+        \seq_log:N \g_@@_mc_stack_seq
       }
   }
 %    \end{macrocode}
