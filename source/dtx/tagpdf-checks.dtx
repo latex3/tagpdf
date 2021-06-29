@@ -68,13 +68,172 @@
 % the only sensible values for the argument \meta{keyword}
 % are |mc_tag| and |struct_tag|.
 % \end{function}
-% \section{log-levels}
 %
-%  \begin{tabular}{llll}
-%   command/message             & log-level   & type     & note\\
-%  \cs{Showtagging}{mc-tag}    & 0           & log/term & lua-only\\
-%
+% \section{Description of log messages}
+% \subsection{\cs{ShowTagging} command}
+%  \begin{tabular}{lll}
+%   Argument                          & type           & note\\
+%  \cs{ShowTagging}{mc-data = num}    & log+term       & lua-only\\
+%  \cs{ShowTagging}{mc-current} & log+term       & \\
+%  \cs{ShowTagging}{struck-stack= [log\verb+|+show]}  & log or term+stop \\
 %  \end{tabular}
+%
+% \subsection{Messages in checks and commands}
+% \scriptsize
+% \begin{tabular}{llll}
+%   command                & message  & action   & remark\\
+%   |\@@_check_structure_has_tag:n|
+% & |struct-missing-tag|
+% & error
+% \\
+%   |\@@_check_structure_tag:N|
+% & |role-unknown-tag|
+% & warning
+% \\
+%   |\@@_check_info_closing_struct:n|
+% & |struct-show-closing|
+% & info
+% & log-level>0
+% \\
+%   |\@@_check_no_open_struct:|
+% & struct-faulty-nesting
+% & error
+% & TODO: error only with 1?
+% \\
+%   |\@@_check_struct_used:n|
+% & |struct-used-twice|
+% & warning
+% \\
+%   |\@@_check_add_tag_role:nn|
+% & |role-missing|, |role-tag|, |role-unknown|
+% & warning, info (>0), warning
+% \\
+%   |\@@_check_mc_if_nested:|,
+% & |mc-nested|
+% & warning
+% \\
+%   |\@@_check_mc_if_open:|
+% & |mc-not-open|
+% & warning
+% & only generic (?)
+% \\
+%   |\@@_check_mc_pushed_popped:nn|
+% & |mc-pushed|, |mc-popped|
+% & info (2), info+|seq_log| (>2)
+% \\
+%   |\@@_check_mc_tag:N|
+% & |mc-tag-missing|, |role-unknown-tag|
+% & error (missing), warning (unknown).
+% \\
+%   |\@@_check_mc_used:n|
+% & |mc-used-twice|
+% & warning
+% & TODO: review the sense of this test!
+% \\
+%   |\@@_check_show_MCID_by_page:|
+% &
+% &
+% & currently unused
+% \\
+%   |\tag_mc_use:n|
+% & |mc-label-unknown|, |mc-used-twice|
+% & warning
+% & in mc-shared
+% \\
+%   |\role_add_tag:nn|
+% & |new-tag|
+% &  info (>0)
+% & in roles
+% \\
+% & |sys-no-interwordspace|
+% &  warning
+% & space module, only xetex/dvi
+% \\
+%   |\@@_struct_write_obj:n|
+% & |struct-no-objnum|
+% & error
+% & in struct module
+% \\
+%   |\tag_struct_begin:n|
+% & |struct-faulty-nesting|
+% & error
+% \\
+%   |\@@_struct_insert_annot:nn|
+% & |struct-faulty-nesting|
+% & error
+% \\
+%   |tag_struct_use:n|
+% & |struct-label-unknown|
+% &  warning
+% \\
+%   |attribute-class|, |attribute|
+% & |attr-unknown|
+% & error
+% \\
+%  |\@@_tree_fill_parenttree:|
+% & |tree-mcid-index-wrong|
+% & warning
+% TODO: should trigger a standard  rerun message.
+% \end{tabular}
+%
+% \normalsize
+% \subsection{Warning messages from the lua-code}
+% The messages are triggered if the log-level is at least equal to the number.
+%
+% \begin{tabular}[t]{>{\ttfamily}lll}
+% message & log-level & remark \\\hline
+% WARN TAG-NOT-TAGGED:       &1                   \\
+% WARN TAG-OPEN-MC:          &1                   \\
+% WARN SHIPOUT-MC-OPEN:      &1                    \\
+% WARN SHIPOUT-UPS:          &0 & shouldn't happen \\
+% WARN TEX-MC-INSERT-MISSING:&0 & shouldn't happen \\
+% WARN TEX-MC-INSERT-NO-KIDS:&2 & e.g. from empty hbox
+% \end{tabular}
+%
+% \subsection{Info messages from the lua-code}
+% The messages are triggered if the log-level is at least equal to the number.
+% |TAG| messages are from the traversing function, |TEX| from code used in the tagpdf-mc module.
+% |PARENTREE| is the code building the parenttree.
+%
+% \begin{longtable}{>{\ttfamily}lll}
+% message & log-level & remark \\\hline\endhead
+% INFO SHIPOUT-INSERT-LAST-EMC & 3 & finish of shipout code \\
+% INFO SPACE-FUNCTION-FONT     & 3 & interwordspace code \\
+% INFO TAG-ABSPAGE & 3  \\
+% INFO TAG-ARGS & 4     \\
+% INFO TAG-ENDHEAD & 4  \\
+% INFO TAG-ENDHEAD & 4  \\
+% INFO TAG-HEAD & 3     \\
+% INFO TAG-INSERT-ARTIFACT & 3  \\
+% INFO TAG-INSERT-BDC & 3  \\
+% INFO TAG-INSERT-EMC & 3  \\
+% INFO TAG-INSERT-TAG & 3  \\
+% INFO TAG-KERN-SUBTYPE & 4\\
+% INFO TAG-MATH-SUBTYPE & 4 \\
+% INFO TAG-MC-COMPARE & 4   \\
+% INFO TAG-MC-INTO-PAGE & 3 \\
+% INFO TAG-NEW-MC-NODE & 4  \\
+% INFO TAG-NODE & 3  \\
+% INFO TAG-NO-HEAD & 3 \\
+% INFO TAG-NOT-TAGGED & 2 & replaced by artifact\\
+% INFO TAG-QUITTING-BOX & 4 \\
+% INFO TAG-STORE-MC-KID & 4 \\
+% INFO TAG-TRAVERSING-BOX 3 \\
+% INFO TAG-USE-ACTUALTEXT & 3 \\
+% INFO TAG-USE-ALT & 3 \\
+% INFO TAG-USE-RAW & 3 \\
+% INFO TEX-MC-INSERT-KID & 3 \\
+% INFO TEX-MC-INSERT-KID-TEST & 4 \\
+% INFO TEX-MC-INTO-STRUCT & 3 \\
+% INFO TEX-STORE-MC-DATA & 3  \\
+% INFO TEX-STORE-MC-KID &  3  \\
+% INFO PARENTTREE-CHUNKS &  3 \\
+% INFO PARENTTREE-NO-DATA & 3\\
+% INFO PARENTTREE-NUM & 3 \\
+% INFO PARENTTREE-NUMENTRY & 3 \\
+% INFO PARENTTREE-STRUCT-OBJREF & 4
+% \end{longtable}
+
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}

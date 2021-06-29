@@ -26,14 +26,14 @@ Package tagpdf Info: closing structure 15 tagged /TOCI
 )
 \tf@toc=\write...
 Package tagpdf Info: closing structure 3 tagged /TOC
-tagpdf: THIS HAS NOT BEEN TAGGED [1
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [1
 ]
-tagpdf: THIS HAS NOT BEEN TAGGED [2
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [2
 ]
 chapter 1.
 Package tagpdf Info: closing structure 19 tagged /H1
-tagpdf: THIS HAS NOT BEEN TAGGED [3]
-tagpdf: THIS HAS NOT BEEN TAGGED [4
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [3]
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [4
 ]
 chapter without number
 Package tagpdf Info: closing structure 20 tagged /H1
@@ -42,10 +42,10 @@ Package tagpdf Info: closing structure 22 tagged /H3
 Package tagpdf Info: closing structure 23 tagged /H4
 Package tagpdf Info: closing structure 24 tagged /P
 Package tagpdf Info: closing structure 1 tagged /Document
-tagpdf: THIS HAS NOT BEEN TAGGED
-tagpdf: THIS HAS NOT BEEN TAGGED
-tagpdf: THIS HAS NOT BEEN TAGGED
-tagpdf: THIS HAS NOT BEEN TAGGED
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 Completed box being shipped out [5]
 \vbox(655.63496+0.0)x405.73636, direction TLT
 .\hbox(0.0+0.0)x0.0, direction TLT
@@ -290,3 +290,5 @@ Completed box being shipped out [5]
 .\kern655.63496
 .\pdfliteral page <lua data reference ...>
 (test-patch-koma.aux)
+tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 22 has no kids
+tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 22 has no kids
