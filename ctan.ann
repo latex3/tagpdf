@@ -1,5 +1,19 @@
-Version 0.82 
+Version 0.9
     
-### Added 
- - commands to add annotations to a structure (for links and form fields)
- - a command to test if tagging is active: \tag_if_active:TF
+### Changed
+ - |\tag_finish_structure:| is no longer a public command.
+ - lua mc-attributes are now global again
+ - |\tagmcbegin| and |\tagmcend| not longer ignore/remove spaces.
+ - space code has been separated and can be used without active tagging
+ - code has been reviewed and documented, many internal corrections.
+ - code is now in mostly one sty (with the exception of the mc-code)
+
+### Removed
+ - |check-tags| key. This is now done with the log-level. 
+ - |global-mc| key. No longer needed as attributes are global again.
+ - user command  |\tagpdfget|, probably unneeded. 
+ 
+### Added
+ - key |activate| which opens the main structure
+ - |\ShowTagging| command for debugging.
+ - code documentation

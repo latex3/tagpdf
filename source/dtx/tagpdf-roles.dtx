@@ -50,13 +50,13 @@
 %    }^^A
 % }
 %
-% \date{Version 0.82, released 2021-06-14}
+% \date{Version 0.9, released 2021-06-29}
 % \maketitle
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-roles-code} {2021-06-14} {0.82}
+\ProvidesExplPackage {tagpdf-roles-code} {2021-06-29} {0.9}
  {part of tagpdf - code related to roles and structure names}
 %</header>
 %    \end{macrocode}
@@ -150,8 +150,11 @@
           {\l_tmpa_str}
       }
     %RoleMapNS is added in tree
-    \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
-      {Schema}{#3}
+    \tl_if_empty:nF  {#3}
+     {
+       \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
+        {Schema}{#3}
+     }
     \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{tag/NS/#1}~}
   }
 %    \end{macrocode}

@@ -4,8 +4,8 @@
 
 
 \makeatletter
-\def\UlrikeFischer@package@version{0.82}
-\def\UlrikeFischer@package@date{2021-06-14}
+\def\UlrikeFischer@package@version{0.9}
+\def\UlrikeFischer@package@date{2021-06-29}
 \makeatother
 
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
@@ -382,8 +382,8 @@ by a more flexible command |\ShowTagging|.
 is nice in some places, it also ate spaces in places where this wanted expected. From now on both commands behave exactly
 like the expl3 versions.
 \item The lua-code to add real space glyphs has been separated from the tagging code. This means that |interwordspace| now
-works also if tagging is not active. 
-\item The key |activate| has been added, it open the first structure, see below. 
+works also if tagging is not active.
+\item The key |activate| has been added, it open the first structure, see below.
 \end{itemize}
 
 
@@ -454,7 +454,7 @@ The key-val list understands the following keys:
  Boolean, initially false. Activates everything, that's normally the sensible thing to do.
 \item [\PrintKeyName{activate}] Like |activate-all|, \emph{additionally} is opens at begin document
 a structure with |\tagstructbegin| and closes it at end document. The key accepts as value a tag name which is used as the tag of the structure.
-The default value is |Document|. 
+The default value is |Document|.
 \item[\PrintKeyName{activate-mc}]
  Boolean, initially false. Activates the code related to marked content.
 \item[\PrintKeyName{activate-struct}]
@@ -749,7 +749,7 @@ For strategies how to handle paragraphs that split over pages see subsection~\re
 \begin{docCommand}{tag_mc_begin:n}{\marg{key-val-list}}\end{docCommand}
 
 
-These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}. 
+These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}.
 Such markers should not be nested. The command will warn you if this happens.
 
 The key-val list understands the following keys:
@@ -1070,14 +1070,19 @@ Pellentesque scelerisque
 sit amet, lacus.\tagmcend
 \end{lstlisting}
 
-\subsubsection{Automatic tagging of paragraphs}
+\subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
 
 \begin{docCommand}{tagpdfparaOn}{}\end{docCommand}
 \begin{docCommand}{tagpdfparaOff}{}\end{docCommand}
 
 Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
 \pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with
-options of \cs{tagpdfsetup} or with the two commands above. \emph{This is very experimental and it requires a new latex-dev!}
+options of \cs{tagpdfsetup} or with the two commands above. \emph{This is very experimental and it requires a new \LaTeX!}
+
+The automatic tagging require that for every begin of a paragraph with the begin hook code 
+there a corresponding end with the closing hook code. This can fail, e.g if a |vbox| doesn't correctly issue a |\par| at the end.
+If this happens the tagging structure can get every confused. It is therefore needed to check the structure carefully as currently
+no checks are implemented to check this automatically. 
 
 \subsection{Task 2: Marking the structure}
 
@@ -1542,7 +1547,7 @@ With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
 With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the \PDF{}: from the current font to the dummy-space font and back again. This will make the \PDF{} larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.
 
 With luatex (in luamode) |interwordspace| is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.
-|interwordspace| can be used without actually tagging a document. 
+|interwordspace| can be used without actually tagging a document.
 
 The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.
 
