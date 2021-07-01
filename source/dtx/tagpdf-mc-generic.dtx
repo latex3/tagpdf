@@ -52,6 +52,29 @@
 %
 % \date{Version 0.9, released 2021-06-29}
 % \maketitle
+% \begin{documentation}
+% \begin{function}{\tag_mc_begin_single:nN}
+%  \begin{syntax}
+%   \cs{tag_mc_begin_single:nN} \Arg{tag}\meta{tl-var}\\
+%   \cs{tag_mc_end_single:}
+%  \end{syntax}
+% These two functions allow to inject an end and begin MC during the output
+% routine to close and reopen an mc from a page break.
+% \end{function}
+% \begin{function}{\tag_mc_store:nn}
+%  \begin{syntax}
+%  \cs{tag_mc_store:nn}\Arg{mc-num}\Arg{struct-num}
+%  \end{syntax}
+%  This inserts the mc-chunk \meta{mc-num} into the structure {struct-num}.
+%  The structure must already exist. The mc-chunk is added at the end.
+%  This is a preliminary minimal function and will change!
+%  TODO: this function must be expanded to allow to insert the chunk
+%  also in the middle, and perhaps also to insert by label.
+% \end{function}
+% \begin{function}{\tag_mc_topmarks,\tag_mc_firstmarks:,\tag_mc_botmarks:}
+%  These functions retrieve the marks set by the |\tag_mc|-commands.
+% \end{function}
+% \end{documentation}
 % \begin{implementation}
 % \section{Marked content code -- generic mode}
 %    \begin{macrocode}
@@ -96,8 +119,88 @@
 %    \end{macrocode}
 % \end{variable}
 
-% \subsection{Functions}
+% \begin{variable}{\g_@@_mc_marks}
+% a marks register
+%    \begin{macrocode}
+\newmarks \g_@@_mc_marks
+%    \end{macrocode}
+% \end{variable}
 
+% \subsection{Functions}
+%
+% \begin{macro}{\@@_mc_begin_mark:nn,\@@_mc_end_mark:}
+% Generic mode need to set marks for the page break handling
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_mc_begin_mark:nn #1 #2 %#1 tag, #2 label
+  {
+    \marks\g_@@_mc_marks
+      {
+        \int_use:N\c@g_@@_MCID_abs_int, %mc-num
+        \g_@@_struct_stack_current_tl,  %structure num
+        begin,
+        #1, %tag
+        \bool_if:NTF \l_@@_mc_key_stash_bool{true}{false}, % stash info
+        #2, %label
+      }
+  }
+
+\cs_new_protected:Npn \@@_mc_end_mark:
+  {
+    \marks\g_@@_mc_marks
+      {
+        \int_use:N\c@g_@@_MCID_abs_int, %mc-num
+        \g_@@_struct_stack_current_tl,  %structure num
+        end
+      }
+  }
+
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_mc_botmarks:,\tag_mc_firstmarks:,\tag_mc_topmarks:}
+%    \begin{macrocode}
+\cs_new:Npn\tag_mc_topmarks: {\topmarks\g__tag_mc_marks}
+\cs_new:Npn\tag_mc_botmarks: {\botmarks\g__tag_mc_marks}
+\cs_new:Npn\tag_mc_firstmarks: {\firstmarks\g__tag_mc_marks}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_mc_begin_single:n,\tag_mc_end_single:n}
+% We also need two functions to inject an end and begin MC during the output
+% routine to handle the page break.
+% They shouldn't set the booleans and do tests.
+% The begin command insert the literal and creates
+% the needed PDF objects, increases the absolute counter, and return its values.
+% The end command inserts only the literal.
+% TODO: should they get public names?
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_begin_single:nN #1 #2 %#1 tag, #2 return value
+  {
+    \__tag_mc_bdc_mcid:n{#1} %
+    \tl_set:Nx #2 {\int_eval:n{\c@g__tag_MCID_abs_int}}% store number
+  }
+
+\cs_new_protected:Npn \tag_mc_end_single:
+ {
+   \__tag_mc_emc:
+ }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_mc_store:nn}
+%  This inserts the mc-chunk \meta{mc-num} into the structure {struct-num}.
+%  The structure must already exist. The mc-chunk is added at the end.
+%  This is a preliminary minimal function and will change!
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_store:nn #1 #2 %#1 mc-num #2 structure-num
+  {
+    \__tag_struct_kid_mc_gput_right:nx
+      {#2}
+      {#1}
+    \prop_gput:Nxx \g__tag_mc_parenttree_prop
+      {#1}
+      {#2}
+  }
+\cs_generate_variant:Nn \tag_mc_store:nn {xx}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}[pTF]{\@@_mc_if_in:,\tag_mc_if_in:}
 % This is a test if a mc is open or not. It depends simply on a global boolean:
 % mc-chunks are added linearly so nesting should not be relevant.
@@ -282,6 +385,7 @@
             \@@_mc_handle_mcid:VV
                \l_@@_mc_key_tag_tl
                \l_@@_mc_key_properties_tl
+            \@@_mc_begin_mark:nn {\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
             \tl_if_empty:NF {\l_@@_mc_key_label_tl}
               {
                 \exp_args:NV
@@ -303,6 +407,7 @@
         \bool_gset_false:N \g_@@_in_mc_bool
         \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
         \@@_mc_emc:
+        \@@_mc_end_mark:
       }
   }
 %    \end{macrocode}

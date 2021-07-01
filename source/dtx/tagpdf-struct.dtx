@@ -426,7 +426,7 @@
 % Commands to store the kids. Kids in a structure can be a reference to a mc-chunk,
 % an object reference to another structure element, or a object reference to an
 % annotation (through an OBJR object).
-% \begin{macro}{\@@_struct_kid_mc_gput_right:nn}
+% \begin{macro}{\@@_struct_kid_mc_gput_right:nn,\@@_struct_kid_mc_gput_right:nx}
 % The command to store an mc-chunk, this is a dictionary of type MCR.
 % It would be possible to write out the content directly as unnamed object
 % and to store only the object reference, but probably this would be slower,
@@ -448,6 +448,8 @@
         >>
       }
   }
+\cs_generate_variant:Nn \@@_struct_kid_mc_gput_right:nn {nx}
+
 %    \end{macrocode}
 % \end{macro}
 %  \begin{macro}
