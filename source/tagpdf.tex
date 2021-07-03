@@ -1,4 +1,5 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+%\PassOptionsToPackage{check-declarations,enable-debug}{expl3}
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{pdfversion=2.0,lang=en-UK}
 
@@ -1079,10 +1080,10 @@ Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at t
 \pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with
 options of \cs{tagpdfsetup} or with the two commands above. \emph{This is very experimental and it requires a new \LaTeX!}
 
-The automatic tagging require that for every begin of a paragraph with the begin hook code 
+The automatic tagging require that for every begin of a paragraph with the begin hook code
 there a corresponding end with the closing hook code. This can fail, e.g if a |vbox| doesn't correctly issue a |\par| at the end.
 If this happens the tagging structure can get every confused. It is therefore needed to check the structure carefully as currently
-no checks are implemented to check this automatically. 
+no checks are implemented to check this automatically.
 
 \subsection{Task 2: Marking the structure}
 
