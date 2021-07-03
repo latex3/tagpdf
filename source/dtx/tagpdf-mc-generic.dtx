@@ -137,6 +137,16 @@
         \bool_if:NTF \l_@@_mc_key_stash_bool{true}{false}, % stash info
         #2, %label
       }
+    \marks\g_@@_mc_marks
+      {
+        \int_use:N\c@g_@@_MCID_abs_int, %mc-num
+        \g_@@_struct_stack_current_tl,  %structure num
+        begin,
+        #1, %tag
+        \bool_if:NTF \l_@@_mc_key_stash_bool{true}{false}, % stash info
+        #2, %label
+        b % second for empty marks test.
+      }
   }
 
 \cs_new_protected:Npn \@@_mc_end_mark:
@@ -146,6 +156,13 @@
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
         end
+      }
+    \marks\g_@@_mc_marks
+      {
+        \int_use:N\c@g_@@_MCID_abs_int, %mc-num
+        \g_@@_struct_stack_current_tl,  %structure num
+        end,
+        b % second for empty marks test.
       }
   }
 
