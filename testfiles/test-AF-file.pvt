@@ -22,6 +22,8 @@
 \tagstructbegin{tag=Document}
 
 \ExplSyntaxOn
+\pdfdict_put:nnn { l_pdffile/Params }
+  {ModDate}  {(D:20210223191518Z)} %to avoid problems across systems
 \pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
 \pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
 

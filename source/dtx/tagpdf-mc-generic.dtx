@@ -50,7 +50,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.9, released 2021-06-29}
+% \date{Version 0.91, released 2021-07-03}
 % \maketitle
 % \begin{documentation}
 % \begin{function}{\tag_mc_begin_single:nN}
@@ -80,24 +80,19 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*generic>
-\ProvidesExplPackage {tagpdf-mc-code-generic} {2021-06-29} {0.9}
+\ProvidesExplPackage {tagpdf-mc-code-generic} {2021-07-03} {0.91}
  {part of tagpdf - code related to marking chunks - generic mode}
 %</generic>
 %    \end{macrocode}
-% \subsection{Variables}
-% \begin{variable}{\g_@@_in_mc_bool}
-% This booleans records if a mc is open, to test nesting.
-%    \begin{macrocode}
-%<*generic>
-\bool_new:N \g_@@_in_mc_bool
-%    \end{macrocode}
-% \end{variable}
-
+%
+%\subsection{Variables}
+%
 % \begin{variable}{\g_@@_MCID_byabspage_prop}
 % This property will hold the current maximum on a page
 % it will contain key-value of type \meta{abspagenum}=\meta{max mcid}
 %
 %    \begin{macrocode}
+%<*generic>
 \@@_prop_new:N \g_@@_MCID_byabspage_prop
 %    \end{macrocode}
 % \end{variable}
