@@ -124,28 +124,29 @@
 % \subsection{Functions}
 %
 % \begin{macro}{\@@_mc_begin_mark:nn,\@@_mc_end_mark:}
-% Generic mode need to set marks for the page break handling
+% Generic mode need to set marks for the page break handling.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_begin_mark:nn #1 #2 %#1 tag, #2 label
   {
     \marks\g_@@_mc_marks
       {
+        b, %begin
+        -, %first of pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
-        begin,
         #1, %tag
         \bool_if:NTF \l_@@_mc_key_stash_bool{true}{false}, % stash info
         #2, %label
       }
     \marks\g_@@_mc_marks
       {
+        b, %begin
+        +, %second of pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
-        begin,
         #1, %tag
         \bool_if:NTF \l_@@_mc_key_stash_bool{true}{false}, % stash info
         #2, %label
-        b % second for empty marks test.
       }
   }
 
@@ -153,16 +154,17 @@
   {
     \marks\g_@@_mc_marks
       {
+        e, %end
+        -, %first of  pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
-        end
       }
     \marks\g_@@_mc_marks
       {
+        e, %end
+        +, %second of pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
-        end,
-        b % second for empty marks test.
       }
   }
 
