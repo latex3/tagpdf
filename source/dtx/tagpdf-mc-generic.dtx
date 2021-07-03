@@ -61,20 +61,15 @@
  {part of tagpdf - code related to marking chunks - generic mode}
 %</generic>
 %    \end{macrocode}
-% \subsection{Variables}
-% \begin{variable}{\g_@@_in_mc_bool}
-% This booleans records if a mc is open, to test nesting.
-%    \begin{macrocode}
-%<*generic>
-\bool_new:N \g_@@_in_mc_bool
-%    \end{macrocode}
-% \end{variable}
-
+%
+%\subsection{Variables}
+%
 % \begin{variable}{\g_@@_MCID_byabspage_prop}
 % This property will hold the current maximum on a page
 % it will contain key-value of type \meta{abspagenum}=\meta{max mcid}
 %
 %    \begin{macrocode}
+%<*generic>
 \@@_prop_new:N \g_@@_MCID_byabspage_prop
 %    \end{macrocode}
 % \end{variable}

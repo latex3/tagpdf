@@ -216,6 +216,12 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\g_@@_in_mc_bool}
+% This booleans records if a mc is open, to test nesting.
+%    \begin{macrocode}
+\bool_new:N \g_@@_in_mc_bool
+%    \end{macrocode}
+% \end{variable}
 % \begin{variable}{\g_@@_mc_parenttree_prop}
 % For every chunk we need to know the structure it is in, to
 % record this in the parent tree. We store this in a property.\\
