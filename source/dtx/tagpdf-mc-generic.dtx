@@ -148,8 +148,7 @@
   {
     \marks\l_@@_mc_current_marks_tl
       {
-        b, %begin
-        -, %first of pair
+        b-, %first of begin pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
         #1, %tag
@@ -158,8 +157,7 @@
       }
     \marks\l_@@_mc_current_marks_tl
       {
-        b, %begin
-        +, %second of pair
+        b+, % second of begin pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
         #1, %tag
@@ -172,15 +170,13 @@
   {
     \tex_marks:D\l_@@_mc_current_marks_tl
       {
-        e, %end
-        -, %first of  pair
+        e-, %first of end pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
       }
     \tex_marks:D\l_@@_mc_current_marks_tl
       {
-        e, %end
-        +, %second of pair
+        e+, %second of end pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
       }

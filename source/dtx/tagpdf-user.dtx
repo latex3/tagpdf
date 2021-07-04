@@ -396,14 +396,40 @@
     mc-marks / show .code:n =
       {
         \@@_mc_get_marks:
+        \@@_check_if_mc_in_galley:TF
+         {
+          \iow_term:n {Marks~from~this~page:~}
+         }
+         {
+           \iow_term:n {Marks~from~a~previous~page:~}
+         }
         \seq_show:N \l_@@_mc_firstmarks_seq
         \seq_show:N \l_@@_mc_botmarks_seq
+        \@@_check_if_mc_tmb_missing:T
+         {
+           \iow_term:n {BDC~missing~on~this~page!}
+         }
+        \@@_check_if_mc_tme_missing:T
+         {
+           \iow_term:n {EMC~missing~on~this~page!}
+         }
       },
     mc-marks / use .code:n =
       {
         \@@_mc_get_marks:
+        \@@_check_if_mc_in_galley:TF
+         { Marks~from~this~page:~}
+         { Marks~from~a~previous~page:~}
         \seq_use:Nn \l_@@_mc_firstmarks_seq {,~}
         \seq_use:Nn \l_@@_mc_botmarks_seq {,~}
+        \@@_check_if_mc_tmb_missing:T
+         {
+           BDC~missing~
+         }
+        \@@_check_if_mc_tme_missing:T
+         {
+           EMC~missing
+         }
       },
    mc-marks .default:n = show
   }

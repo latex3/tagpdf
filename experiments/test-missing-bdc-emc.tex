@@ -1,0 +1,36 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+% Xarara: pdflatexX
+% Xarara: pdflatexX: {draft: yes}
+%\ExplSyntaxOn\show\tex_latelua:D \show\latelua \ExplSyntaxOff
+%\show\languagename
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{uncompress}
+\documentclass[12pt,a4paper]{article}
+\usepackage{tagpdf}
+\tagpdfsetup{activate}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\ExplSyntaxOn
+\lhead{
+ \ShowTagging{mc-marks,mc-marks=use}
+  }
+\ExplSyntaxOff
+
+\begin{document}
+abc
+\newpage
+abc
+\tagmcbegin{tag=P}
+abc
+\newpage
+blub
+\newpage
+blub
+\tagmcend
+\newpage
+\tagmcbegin{tag=Span}blub
+\tagmcend
+\tagmcbegin{tag=Span}blub
+\tagmcend
+
+\end{document}

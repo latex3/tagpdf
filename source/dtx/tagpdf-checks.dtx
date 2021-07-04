@@ -700,6 +700,63 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsection{Checks related to the state of MC on a page or in a split stream}
+% The following checks are currently only usable in generic mode as they
+% rely on the marks defined in the mc-generic module. They are used to detect
+% if a mc-chunk has been split by a page break or similar and additional
+% end/begin commands are needed.
+%
+% \begin{macro}[pTF]{\@@_check_mc_in_galley:}
+% At first we need a test to decide if |\tag_mc_begin:n| (tmb) and |\tag_mc_end:|
+% (tme) has been used at all on the current galley. As each command issues
+% two slightly different marks we can do it by comparing firstmarks and botmarks.
+% The test assumes that the marks have been already mapped into the sequence with
+% |\@@_mc_get_marks:|. As |\seq_if_eq:NNTF| doesn't exist we use the tl-test.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_check_if_mc_in_galley: { T,F,TF }
+ {
+   \tl_if_eq:NNTF \l_@@_mc_firstmarks_seq \l_@@_mc_botmarks_seq
+    { \prg_return_false: }
+    { \prg_return_true: }
+ }
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}[pTF]{\@@_check_if_mc_tmb_missing:}
+% This checks if a extra top mark (\enquote{extra-tmb}) is needed.
+% According to the analysis this the case if the firstmarks start with
+% |e-| or |b+|.
+% Like above we assume that the marks content is already in the seq's.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_check_if_mc_tmb_missing: { T,F,TF }
+ {
+  \bool_if:nTF
+    {
+      \str_if_eq_p:ee {\seq_item:Nn \l_@@_mc_firstmarks_seq {1}}{e-}
+      ||
+      \str_if_eq_p:ee {\seq_item:Nn \l_@@_mc_firstmarks_seq {1}}{b+}
+    }
+    { \prg_return_true: }
+    { \prg_return_false: }
+ }
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}[pTF]{\@@_check_if_mc_tme_missing:}
+% This checks if a extra bottem mark (\enquote{extra-tme}) is needed.
+% According to the analysis this the case if the botmarks starts with
+% |b+|.
+% Like above we assume that the marks content is already in the seq's.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_check_if_mc_tme_missing: { T,F,TF }
+ {
+   \str_if_eq:eeTF {\seq_item:Nn \l_@@_mc_botmarks_seq {1}}{b+}
+    { \prg_return_true: }
+    { \prg_return_false: }
+ }
+%    \end{macrocode}
+% \end{macro}
 %    \begin{macrocode}
 %</package>
 %    \end{macrocode}
