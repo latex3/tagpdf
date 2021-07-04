@@ -385,7 +385,30 @@
   }
 %    \end{macrocode}
 % \end{macro}
-%
+% \begin{macro}{mc-marks}
+% It maps the mc-marks into the sequences and then shows them.
+% This allows to inspect the first and last mc-Mark on a page.
+% It should only be used in the shipout (header/footer).
+%    \begin{macrocode}
+\keys_define:nn { @@ / show }
+  {
+    mc-marks .choice: ,
+    mc-marks / show .code:n =
+      {
+        \@@_mc_get_marks:
+        \seq_show:N \l_@@_mc_firstmarks_seq
+        \seq_show:N \l_@@_mc_botmarks_seq
+      },
+    mc-marks / use .code:n =
+      {
+        \@@_mc_get_marks:
+        \seq_use:Nn \l_@@_mc_firstmarks_seq {,~}
+        \seq_use:Nn \l_@@_mc_botmarks_seq {,~}
+      },
+   mc-marks .default:n = show
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{struct-stack}
 %    \begin{macrocode}
 \keys_define:nn { @@ / show }

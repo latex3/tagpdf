@@ -114,21 +114,39 @@
 %    \end{macrocode}
 % \end{variable}
 
-% \begin{variable}{\g_@@_mc_marks}
-% a marks register
+% \begin{variable}{\g_@@_mc_main_marks,\l_@@_mc_current_marks_tl}
+% a marks register for the main galley. We probably will need more mc-marks
+% for other split streams, so the setup tries to be flexible and we
+% store the number of the current marks register in a tl var.
+%
 %    \begin{macrocode}
-\newmarks \g_@@_mc_marks
+\newmarks  \g_@@_mc_main_marks
+\tl_new:N  \l_@@_mc_current_marks_tl
+\tl_set:Nx \l_@@_mc_current_marks_tl { \g_@@_mc_main_marks }
 %    \end{macrocode}
 % \end{variable}
-
+% \begin{variable}{\l_@@_mc_firstmarks_seq,\l_@@_mc_botmarks_seq}
+% The marks content contains a number of data which we will have to access and
+% compare, so we will store it in two sequences.
+% topmarks is unusable in LaTeX so we ignore it.
+%
+%    \begin{macrocode}
+\seq_new:N  \l_@@_mc_firstmarks_seq
+\seq_new:N  \l_@@_mc_botmarks_seq
+%    \end{macrocode}
+% \end{variable}
+%
 % \subsection{Functions}
 %
 % \begin{macro}{\@@_mc_begin_mark:nn,\@@_mc_end_mark:}
-% Generic mode need to set marks for the page break handling.
+% Generic mode need to set marks for the page break and split stream handling.
+% We always set two marks to be able to detect the case when no mark is on a
+% page/galley. MC-begin commands will set (b,-,data) and (b,+,data),
+% MC-end commands will set (e,-,data) and (e,+,data).
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_begin_mark:nn #1 #2 %#1 tag, #2 label
   {
-    \marks\g_@@_mc_marks
+    \marks\l_@@_mc_current_marks_tl
       {
         b, %begin
         -, %first of pair
@@ -138,7 +156,7 @@
         \bool_if:NTF \l_@@_mc_key_stash_bool{true}{false}, % stash info
         #2, %label
       }
-    \marks\g_@@_mc_marks
+    \marks\l_@@_mc_current_marks_tl
       {
         b, %begin
         +, %second of pair
@@ -152,14 +170,14 @@
 
 \cs_new_protected:Npn \@@_mc_end_mark:
   {
-    \marks\g_@@_mc_marks
+    \tex_marks:D\l_@@_mc_current_marks_tl
       {
         e, %end
         -, %first of  pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
       }
-    \marks\g_@@_mc_marks
+    \tex_marks:D\l_@@_mc_current_marks_tl
       {
         e, %end
         +, %second of pair
@@ -170,11 +188,19 @@
 
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\tag_mc_botmarks:,\tag_mc_firstmarks:,\tag_mc_topmarks:}
+% \begin{macro}{\@@_mc_get_marks:}
+% This stores the current content of the marks in the sequences. It naturally
+% should only be used in places where it makes sense.
 %    \begin{macrocode}
-\cs_new:Npn\tag_mc_topmarks: {\topmarks\g__tag_mc_marks}
-\cs_new:Npn\tag_mc_botmarks: {\botmarks\g__tag_mc_marks}
-\cs_new:Npn\tag_mc_firstmarks: {\firstmarks\g__tag_mc_marks}
+\cs_new_protected:Npn \@@_mc_get_marks:
+ {
+   \exp_args:NNx
+   \seq_set_from_clist:Nn \l_@@_mc_firstmarks_seq
+     { \tex_firstmarks:D \l_@@_mc_current_marks_tl }
+   \exp_args:NNx
+   \seq_set_from_clist:Nn \l_@@_mc_botmarks_seq
+     { \tex_botmarks:D   \l_@@_mc_current_marks_tl }
+ }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\tag_mc_begin_single:n,\tag_mc_end_single:n}
