@@ -114,15 +114,29 @@
 %    \end{macrocode}
 % \end{variable}
 
-% \begin{variable}{\g_@@_mc_main_marks,\l_@@_mc_current_marks_tl}
+% \begin{variable}
+%   {
+%     \g_@@_mc_main_marks,
+%     \g_@@_mc_main_marks_seq,
+%     \l_@@_mc_current_galley_tl,
+%     \l_@@_mc_current_marks_tl
+%   }
 % a marks register for the main galley. We probably will need more mc-marks
 % for other split streams, so the setup tries to be flexible and we
-% store the number of the current marks register in a tl var.
+% store the name of the galley in a tl var.
+% The sequence will be used to store the data for the continuation
+% extra-tmb.
 %
 %    \begin{macrocode}
 \newmarks  \g_@@_mc_main_marks
+\seq_new:N \g_@@_mc_main_marks_seq
+\tl_new:N  \l_@@_mc_current_galley_tl
+\tl_set:Nn \l_@@_mc_current_galley_tl { main }
 \tl_new:N  \l_@@_mc_current_marks_tl
-\tl_set:Nx \l_@@_mc_current_marks_tl { \g_@@_mc_main_marks }
+\tl_set:Nn \l_@@_mc_current_marks_tl
+  {
+    \int_use:c {g_@@_mc_ \l_@@_mc_current_galley_tl   _marks}
+  }
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\l_@@_mc_firstmarks_seq,\l_@@_mc_botmarks_seq}
@@ -138,43 +152,43 @@
 %
 % \subsection{Functions}
 %
-% \begin{macro}{\@@_mc_begin_mark:nn,\@@_mc_end_mark:}
+% \begin{macro}{\@@_mc_begin_marks:nn,\@@_mc_end_marks:}
 % Generic mode need to set marks for the page break and split stream handling.
 % We always set two marks to be able to detect the case when no mark is on a
 % page/galley. MC-begin commands will set (b,-,data) and (b,+,data),
 % MC-end commands will set (e,-,data) and (e,+,data).
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_mc_begin_mark:nn #1 #2 %#1 tag, #2 label
+\cs_new_protected:Npn \@@_mc_begin_marks:nn #1 #2 %#1 tag, #2 label
   {
-    \marks\l_@@_mc_current_marks_tl
+    \tex_marks:D \l_@@_mc_current_marks_tl
       {
         b-, %first of begin pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
         #1, %tag
-        \bool_if:NTF \l_@@_mc_key_stash_bool{true}{false}, % stash info
+        \bool_if:NT \l_@@_mc_key_stash_bool{stash}, % stash info
         #2, %label
       }
-    \marks\l_@@_mc_current_marks_tl
+    \tex_marks:D \l_@@_mc_current_marks_tl
       {
         b+, % second of begin pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
         #1, %tag
-        \bool_if:NTF \l_@@_mc_key_stash_bool{true}{false}, % stash info
+        \bool_if:NT \l_@@_mc_key_stash_bool{stash}, % stash info
         #2, %label
       }
   }
 
-\cs_new_protected:Npn \@@_mc_end_mark:
+\cs_new_protected:Npn \@@_mc_end_marks:
   {
-    \tex_marks:D\l_@@_mc_current_marks_tl
+    \tex_marks:D \l_@@_mc_current_marks_tl
       {
         e-, %first of end pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
       }
-    \tex_marks:D\l_@@_mc_current_marks_tl
+    \tex_marks:D \l_@@_mc_current_marks_tl
       {
         e+, %second of end pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
@@ -199,42 +213,78 @@
  }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\tag_mc_begin_single:n,\tag_mc_end_single:n}
-% We also need two functions to inject an end and begin MC during the output
-% routine to handle the page break.
-% They shouldn't set the booleans and do tests.
-% The begin command insert the literal and creates
-% the needed PDF objects, increases the absolute counter, and return its values.
-% The end command inserts only the literal.
-% TODO: should they get public names?
+%
+% \begin{macro}{\@@_mc_store:nnn}
+%  This inserts the mc-chunk \meta{mc-num} into the structure {struct-num}
+%  after the \meta{mc-prev}.
+%  The structure must already exist.
+%  TODO the after part isn't implemented yet! currently it simply adds at the end.
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_mc_begin_single:nN #1 #2 %#1 tag, #2 return value
-  {
-    \__tag_mc_bdc_mcid:n{#1} %
-    \tl_set:Nx #2 {\int_eval:n{\c@g__tag_MCID_abs_int}}% store number
-  }
-
-\cs_new_protected:Npn \tag_mc_end_single:
- {
-   \__tag_mc_emc:
- }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\tag_mc_store:nn}
-%  This inserts the mc-chunk \meta{mc-num} into the structure {struct-num}.
-%  The structure must already exist. The mc-chunk is added at the end.
-%  This is a preliminary minimal function and will change!
-%    \begin{macrocode}
-\cs_new_protected:Npn \tag_mc_store:nn #1 #2 %#1 mc-num #2 structure-num
+\cs_new_protected:Npn \@@_mc_store:nnn #1 #2 #3 %#1 mc-prev, #2 mc-num #3 structure-num
   {
     \__tag_struct_kid_mc_gput_right:nx
+      {#3}
       {#2}
-      {#1}
     \prop_gput:Nxx \g__tag_mc_parenttree_prop
-      {#1}
       {#2}
+      {#3}
   }
-\cs_generate_variant:Nn \tag_mc_store:nn {xx}
+\cs_generate_variant:Nn \@@_mc_store:nnn {xxx}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\tag_mc_insert_extra_tmb:,\tag_mc_insert_extra_tme:}
+% These two functions should be used in the output routine at the place
+% where a mc-literal could be missing due to a page break or some other split.
+% They check (with the help of the marks) if a extra-tmb or extra-tme is needed.
+% The tmb command stores also the mc into the structure, the tme has to store
+% the data for a following extra-tmb.
+% TODO: should they get public names? For know they have, but it will depend on
+% the interface into the output routine and other split streams.
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_mc_insert_extra_tmb:
+  {
+     \@@_mc_get_marks:
+     \@@_check_if_mc_tmb_missing:T
+       {
+          \exp_args:Nx
+          \@@_mc_bdc_mcid:n
+            {
+              \seq_item:cn { g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq } {4}
+            }
+          \str_if_eq:eeTF
+            {
+              \seq_item:cn { g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq } {5}
+            }
+            {}
+            {
+              %store
+              \@@_mc_store:xxx
+                {
+                  \seq_item:cn { g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq } {2}
+                }
+                { \int_eval:n{\c@g__tag_MCID_abs_int} }
+                {
+                  \seq_item:cn { g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq } {3}
+                }
+            }
+            {
+               %stashed -> warning!!
+            }
+       }
+  }
+
+\cs_new_protected:Npn \tag_mc_insert_extra_tme:
+ {
+   \@@_mc_get_marks:
+   \@@_check_if_mc_tme_missing:T
+     {
+       \@@_mc_emc:
+       \seq_gset_eq:cN
+         {  g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq }
+         \l_@@_mc_botmarks_seq
+     }
+ }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}[pTF]{\@@_mc_if_in:,\tag_mc_if_in:}
@@ -421,7 +471,7 @@
             \@@_mc_handle_mcid:VV
                \l_@@_mc_key_tag_tl
                \l_@@_mc_key_properties_tl
-            \@@_mc_begin_mark:nn {\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
+            \@@_mc_begin_marks:nn {\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
             \tl_if_empty:NF {\l_@@_mc_key_label_tl}
               {
                 \exp_args:NV
@@ -443,7 +493,7 @@
         \bool_gset_false:N \g_@@_in_mc_bool
         \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
         \@@_mc_emc:
-        \@@_mc_end_mark:
+        \@@_mc_end_marks:
       }
   }
 %    \end{macrocode}
