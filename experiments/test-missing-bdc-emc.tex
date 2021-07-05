@@ -6,24 +6,95 @@
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{uncompress}
 \documentclass[12pt,a4paper]{article}
-\usepackage{tagpdf}
+\usepackage{tagpdf,etoolbox}
 \tagpdfsetup{activate}
+%\usepackage{ptagging}
+\makeatletter\ExplSyntaxOn
+\patchcmd\@outputpage
+{\hb@xt@\textwidth{\@thehead}}
+{
+ \hb@xt@\textwidth
+  {
+   \bool_set_false:N \l__tag_para_bool
+   \tag_mc_begin:n {artifact=pagination}
+   \tag_stop_group_begin:
+   \@thehead
+   \tag_stop_group_end:
+   \tag_mc_end:
+  }
+}
+{}{\fail}
+\patchcmd\@outputpage
+{\hb@xt@\textwidth{\@thefoot}}
+{
+ \hb@xt@\textwidth
+  {
+   \bool_set_false:N \l__tag_para_bool
+   \tag_mc_begin:n {artifact=pagination}
+   \tag_stop_group_begin:
+   \@thefoot
+   \tag_stop_group_end:
+   \tag_mc_end:
+  }
+}
+{}{\fail}
+ 
+\cs_new:Npn\tag_add_galley_hooks:Nn #1#2{%
+  \__tag_check_if_active_mc:T
+   {
+  \vbadness \@M
+  \vfuzz    \c_max_dim
+  %\__ptag_evaluate_box_marks:N #1 %???
+  \vbox_set_to_ht:Nnn #1 { \box_ht:N #1 } {
+    \hbox_set:Nn \l_tmpa_box { #2 \tag_mc_insert_extra_tmb: }
+    \hbox_set:Nn \l_tmpb_box { #2 \tag_mc_insert_extra_tme: }
+    \box_set_ht:Nn \l_tmpa_box \c_zero_dim
+    \box_set_dp:Nn \l_tmpa_box \c_zero_dim
+    \box_set_ht:Nn \l_tmpb_box \c_zero_dim
+    \box_set_dp:Nn \l_tmpb_box { \box_dp:N #1 }
+    \boxmaxdepth \@maxdepth
+    \box_use_drop:N      \l_tmpa_box
+    \vbox_unpack_drop:N  #1
+    \tex_kern:D -\box_dp:N \l_tmpb_box
+    \nointerlineskip
+    \box_use_drop:N \l_tmpb_box
+  }%
+   }
+} 
+ 
+\pretocmd\@makecol
+    {%
+      \tag_add_galley_hooks:Nn\@cclv{\kern-2cm}%
+    }
+    {\typeout{patching \string\@makecol}}
+    {\PATCHerror }
+ \makeatother\ExplSyntaxOff
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \ExplSyntaxOn
 \lhead{
  \ShowTagging{mc-marks,mc-marks=use}
- \tag_mc_insert_extra_tmb: %wrong place, only for testing
- \tag_mc_insert_extra_tme: %wrong place, only for testing
   }
+  
+
 \ExplSyntaxOff
 
 \begin{document}
-abc
+\tagmcbegin{tag=P}
+abc\footnote{\tagmcbegin{tag=note}blub\tagmcend}
 \newpage
 abc
+\tagmcend
 \tagmcbegin{tag=P}
 abc
+\tagmcend 
+\begin{figure}[b]
+\tagmcbegin{tag=figure}
+figure \rule{1cm}{0.2\textwidth}
+\tagmcend
+\end{figure}
+\tagmcbegin{tag=P}
+xxx
 \newpage
 blub
 \newpage
@@ -35,4 +106,4 @@ blub
 \tagmcbegin{tag=Span}blub
 \tagmcend
 
-\end{document}
+\end{document} 
