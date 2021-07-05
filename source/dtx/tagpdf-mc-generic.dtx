@@ -96,6 +96,13 @@
 % \begin{macro}[pTF]{\@@_mc_if_in:,\tag_mc_if_in:}
 % This is a test if a mc is open or not. It depends simply on a global boolean:
 % mc-chunks are added linearly so nesting should not be relevant.
+%
+% One exception are header and footer (perhaps they are more, but for now
+% it doesn't seem so, so there are no dedicated code to handle this situation):
+% When they are built and added to the page we could be both inside or outside a mc-chunk.
+% But header and footer should ignore this and not push/pop or warn about nested mc.
+% It is therefore important there to set and reset the boolean manually.
+% See the tagpddocu-patches.sty for an example.
 %    \begin{macrocode}
 \prg_new_conditional:Nnn \@@_mc_if_in: {p,T,F,TF}
   {
