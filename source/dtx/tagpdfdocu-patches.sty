@@ -17,9 +17,11 @@
   \hb@xt@\textwidth
    {
     \bool_set_false:N \l__tag_para_bool
-    \tag_mc_artifact_group_begin:n{pagination}
+    \tag_mc_begin:n {artifact=pagination}
+    \tag_stop_group_begin:
     \@thehead
-    \tag_mc_artifact_group_end:
+    \tag_stop_group_end:
+    \tag_mc_end:
    }
  }
  {}{\fail}
@@ -29,9 +31,11 @@
   \hb@xt@\textwidth
    {
     \bool_set_false:N \l__tag_para_bool
-    \tag_mc_artifact_group_begin:n{pagination}
+    \tag_mc_begin:n {artifact=pagination}
+    \tag_stop_group_begin:
     \@thefoot
-    \tag_mc_artifact_group_end:
+    \tag_stop_group_end:
+    \tag_mc_end:
    }
  }
  {}{\fail}
