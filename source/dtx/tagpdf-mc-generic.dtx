@@ -116,32 +116,23 @@
 
 % \begin{variable}
 %   {
-%     \g_@@_mc_main_marks,
+%     \g_@@_mc_marks,
 %     \g_@@_mc_main_marks_seq,
-%     \l_@@_mc_current_galley_tl,
-%     \l_@@_mc_current_marks_tl
+%     \l_@@_mc_current_galley_tl
 %   }
-% a marks register for the main galley. We probably will need more mc-marks
-% for other split streams, so the setup tries to be flexible and we
-% store the name of the galley in a tl var.
-% The sequence will be used to store the data for the continuation
-% extra-tmb.
+% a marks register to keep track of the mc's at page breaks and a sequence
+% to keep track of the data for the continuation
+% extra-tmb. We probably will need to track mc-marks
+% in more than one stream, so the seq contains the name of the stream.
 %
 %    \begin{macrocode}
-\newmarks  \g_@@_mc_main_marks
+\newmarks  \g_@@_mc_marks
 \seq_new:N \g_@@_mc_main_marks_seq
-\tl_new:N  \l_@@_mc_current_galley_tl
-\tl_set:Nn \l_@@_mc_current_galley_tl { main }
-\tl_new:N  \l_@@_mc_current_marks_tl
-\tl_set:Nn \l_@@_mc_current_marks_tl
-  {
-    \int_use:c {g_@@_mc_ \l_@@_mc_current_galley_tl   _marks}
-  }
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\l_@@_mc_firstmarks_seq,\l_@@_mc_botmarks_seq}
 % The marks content contains a number of data which we will have to access and
-% compare, so we will store it in two sequences.
+% compare, so we will store it locally in two sequences.
 % topmarks is unusable in LaTeX so we ignore it.
 %
 %    \begin{macrocode}
@@ -160,7 +151,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_begin_marks:nn #1 #2 %#1 tag, #2 label
   {
-    \tex_marks:D \l_@@_mc_current_marks_tl
+    \tex_marks:D \g_@@_mc_marks
       {
         b-, %first of begin pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
@@ -169,7 +160,7 @@
         \bool_if:NT \l_@@_mc_key_stash_bool{stash}, % stash info
         #2, %label
       }
-    \tex_marks:D \l_@@_mc_current_marks_tl
+    \tex_marks:D \g_@@_mc_marks
       {
         b+, % second of begin pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
@@ -182,13 +173,13 @@
 
 \cs_new_protected:Npn \@@_mc_end_marks:
   {
-    \tex_marks:D \l_@@_mc_current_marks_tl
+    \tex_marks:D \g_@@_mc_marks
       {
         e-, %first of end pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         \g_@@_struct_stack_current_tl,  %structure num
       }
-    \tex_marks:D \l_@@_mc_current_marks_tl
+    \tex_marks:D \g_@@_mc_marks
       {
         e+, %second of end pair
         \int_use:N\c@g_@@_MCID_abs_int, %mc-num
@@ -206,10 +197,10 @@
  {
    \exp_args:NNx
    \seq_set_from_clist:Nn \l_@@_mc_firstmarks_seq
-     { \tex_firstmarks:D \l_@@_mc_current_marks_tl }
+     { \tex_firstmarks:D \g_@@_mc_marks }
    \exp_args:NNx
    \seq_set_from_clist:Nn \l_@@_mc_botmarks_seq
-     { \tex_botmarks:D   \l_@@_mc_current_marks_tl }
+     { \tex_botmarks:D   \g_@@_mc_marks }
  }
 %    \end{macrocode}
 % \end{macro}
@@ -246,29 +237,29 @@
 % TODO: should they get public names? For know they have, but it will depend on
 % the interface into the output routine and other split streams.
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_mc_insert_extra_tmb:
+\cs_new_protected:Npn \tag_mc_insert_extra_tmb:n #1 % #1 stream: e.g. main or footnote
   {
      \@@_check_if_mc_tmb_missing:T
        {
           \exp_args:Nx
           \@@_mc_bdc_mcid:n
             {
-              \seq_item:cn { g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq } {4}
+              \seq_item:cn { g_@@_mc_#1_marks_seq } {4}
             }
           \str_if_eq:eeTF
             {
-              \seq_item:cn { g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq } {5}
+              \seq_item:cn { g_@@_mc_#1_marks_seq } {5}
             }
             {}
             {
               %store
               \@@_mc_store:xxx
                 {
-                  \seq_item:cn { g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq } {2}
+                  \seq_item:cn { g_@@_mc_#1_marks_seq } {2}
                 }
                 { \int_eval:n{\c@g__tag_MCID_abs_int} }
                 {
-                  \seq_item:cn { g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq } {3}
+                  \seq_item:cn { g_@@_mc_#1_marks_seq } {3}
                 }
             }
             {
@@ -277,13 +268,13 @@
        }
   }
 
-\cs_new_protected:Npn \tag_mc_insert_extra_tme:
+\cs_new_protected:Npn \tag_mc_insert_extra_tme:n #1 % #1 stream, eg. main or footnote
  {
    \@@_check_if_mc_tme_missing:T
      {
        \@@_mc_emc:
        \seq_gset_eq:cN
-         {  g_@@_mc_ \l_@@_mc_current_galley_tl _marks_seq }
+         {  g_@@_mc_#1_marks_seq }
          \l_@@_mc_botmarks_seq
      }
  }
