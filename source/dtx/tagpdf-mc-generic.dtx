@@ -239,12 +239,15 @@
 % They check (with the help of the marks) if a extra-tmb or extra-tme is needed.
 % The tmb command stores also the mc into the structure, the tme has to store
 % the data for a following extra-tmb.
+% The content of the marks must be stored before (with |\@@_mc_get_marks:|
+% or manually)
+% into |\l_@@_mc_firstmarks_seq| and |\l_@@_mc_botmarks_seq| so that the tests
+% can use them.
 % TODO: should they get public names? For know they have, but it will depend on
 % the interface into the output routine and other split streams.
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_mc_insert_extra_tmb:
   {
-     \@@_mc_get_marks:
      \@@_check_if_mc_tmb_missing:T
        {
           \exp_args:Nx
@@ -276,7 +279,6 @@
 
 \cs_new_protected:Npn \tag_mc_insert_extra_tme:
  {
-   \@@_mc_get_marks:
    \@@_check_if_mc_tme_missing:T
      {
        \@@_mc_emc:

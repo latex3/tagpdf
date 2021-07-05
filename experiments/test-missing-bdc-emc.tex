@@ -53,6 +53,7 @@
   \vfuzz    \c_max_dim
   %\__ptag_evaluate_box_marks:N #1 %???
   \vbox_set_to_ht:Nnn #1 { \box_ht:N #1 } {
+    \__tag_mc_get_marks:
     \hbox_set:Nn \l_tmpa_box { #2 \tag_mc_insert_extra_tmb: }
     \hbox_set:Nn \l_tmpb_box { #2 \tag_mc_insert_extra_tme: }
     \box_set_ht:Nn \l_tmpa_box \c_zero_dim
@@ -88,7 +89,7 @@
 
 \begin{document}
 \tagmcbegin{tag=P}
-abc\footnote{\tagmcbegin{tag=note}blub\tagmcend}
+abc\tagmcend\footnote{\tagmcbegin{tag=note}blub\tagmcend}\tagmcbegin{tag=P}aaa
 \newpage
 abc
 \tagmcend
