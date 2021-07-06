@@ -273,9 +273,12 @@
    \@@_check_if_mc_tme_missing:T
      {
        \@@_mc_emc:
-       \seq_gset_eq:cN
-         {  g_@@_mc_#1_marks_seq }
-         \l_@@_mc_botmarks_seq
+ %      \str_if_eq:eeT {\seq_item:Nn \l_@@_mc_botmarks_seq {1}}{b+}
+ %        {
+           \seq_gset_eq:cN
+            {  g_@@_mc_#1_marks_seq }
+            \l_@@_mc_botmarks_seq
+ %        }
      }
  }
 %    \end{macrocode}
@@ -465,6 +468,7 @@
         \bool_if:NTF \l_@@_mc_artifact_bool
           { %handle artifact
             \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
+            \@@_mc_begin_marks:nn {artifact}{\l_@@_mc_key_label_tl}
           }
           { %handle mcid type
             \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
