@@ -71,9 +71,6 @@
 %  TODO: this function must be expanded to allow to insert the chunk
 %  also in the middle, and perhaps also to insert by label.
 % \end{function}
-% \begin{function}{\tag_mc_topmarks,\tag_mc_firstmarks:,\tag_mc_botmarks:}
-%  These functions retrieve the marks set by the |\tag_mc|-commands.
-% \end{function}
 % \end{documentation}
 % \begin{implementation}
 % \section{Marked content code -- generic mode}
@@ -143,7 +140,7 @@
 %
 % \subsection{Functions}
 %
-% \begin{macro}{\@@_mc_begin_marks:nn,\@@_mc_end_marks:}
+% \begin{macro}{\@@_mc_begin_marks:nn,\@@_mc_artifact_begin_marks:n,\@@_mc_end_marks:}
 % Generic mode need to set marks for the page break and split stream handling.
 % We always set two marks to be able to detect the case when no mark is on a
 % page/galley. MC-begin commands will set (b,-,data) and (b,+,data),
@@ -168,6 +165,24 @@
         #1, %tag
         \bool_if:NT \l_@@_mc_key_stash_bool{stash}, % stash info
         #2, %label
+      }
+  }
+
+\cs_new_protected:Npn \@@_mc_artifact_begin_marks:n #1 %#1 type
+  {
+    \tex_marks:D \g_@@_mc_marks
+      {
+        b-, %first of begin pair
+        -1, %mc-num
+        -1, %structure num
+        #1 %type
+      }
+    \tex_marks:D \g_@@_mc_marks
+      {
+        b+, %first of begin pair
+        -1, %mc-num
+        -1,  %structure num
+        #1  %Type
       }
   }
 
@@ -224,12 +239,14 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\tag_mc_insert_extra_tmb:,\tag_mc_insert_extra_tme:}
+% \begin{macro}{\tag_mc_insert_extra_tmb:n,\tag_mc_insert_extra_tme:n}
 % These two functions should be used in the output routine at the place
 % where a mc-literal could be missing due to a page break or some other split.
 % They check (with the help of the marks) if a extra-tmb or extra-tme is needed.
 % The tmb command stores also the mc into the structure, the tme has to store
 % the data for a following extra-tmb.
+% The argument takes a stream name like main or footnote to allow different handling
+% there.
 % The content of the marks must be stored before (with |\@@_mc_get_marks:|
 % or manually)
 % into |\l_@@_mc_firstmarks_seq| and |\l_@@_mc_botmarks_seq| so that the tests
@@ -241,30 +258,38 @@
   {
      \@@_check_if_mc_tmb_missing:T
        {
-          \exp_args:Nx
-          \@@_mc_bdc_mcid:n
-            {
-              \seq_item:cn { g_@@_mc_#1_marks_seq } {4}
-            }
-          \str_if_eq:eeTF
-            {
-              \seq_item:cn { g_@@_mc_#1_marks_seq } {5}
-            }
-            {}
-            {
-              %store
-              \@@_mc_store:xxx
+         %test if artifact
+         \int_compare:nNnTF { \seq_item:cn { g_@@_mc_#1_marks_seq } {2} } = {-1}
+           {
+              \tl_set:Nx \l_@@_tmpa_tl { \seq_item:cn { g_@@_mc_#1_marks_seq } {4} }
+              \@@_mc_handle_artifact:N \l_@@_tmpa_tl
+           }
+           {
+              \exp_args:Nx
+              \@@_mc_bdc_mcid:n
                 {
-                  \seq_item:cn { g_@@_mc_#1_marks_seq } {2}
+                  \seq_item:cn { g_@@_mc_#1_marks_seq } {4}
                 }
-                { \int_eval:n{\c@g__tag_MCID_abs_int} }
+              \str_if_eq:eeTF
                 {
-                  \seq_item:cn { g_@@_mc_#1_marks_seq } {3}
+                  \seq_item:cn { g_@@_mc_#1_marks_seq } {5}
                 }
-            }
-            {
-               %stashed -> warning!!
-            }
+                {}
+                {
+                  %store
+                  \@@_mc_store:xxx
+                    {
+                      \seq_item:cn { g_@@_mc_#1_marks_seq } {2}
+                    }
+                    { \int_eval:n{\c@g__tag_MCID_abs_int} }
+                    {
+                      \seq_item:cn { g_@@_mc_#1_marks_seq } {3}
+                    }
+                }
+                {
+                   %stashed -> warning!!
+                }
+           }
        }
   }
 
@@ -468,7 +493,8 @@
         \bool_if:NTF \l_@@_mc_artifact_bool
           { %handle artifact
             \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
-            \@@_mc_begin_marks:nn {artifact}{\l_@@_mc_key_label_tl}
+            \exp_args:NV
+            \@@_mc_artifact_begin_marks:n \l_@@_mc_artifact_type_tl
           }
           { %handle mcid type
             \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
