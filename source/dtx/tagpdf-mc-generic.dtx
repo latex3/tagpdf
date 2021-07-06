@@ -173,14 +173,14 @@
     \tex_marks:D \g_@@_mc_marks
       {
         b-, %first of begin pair
-        -1, %mc-num
+        \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         -1, %structure num
         #1 %type
       }
     \tex_marks:D \g_@@_mc_marks
       {
         b+, %first of begin pair
-        -1, %mc-num
+        \int_use:N\c@g_@@_MCID_abs_int, %mc-num
         -1,  %structure num
         #1  %Type
       }
@@ -259,7 +259,7 @@
      \@@_check_if_mc_tmb_missing:T
        {
          %test if artifact
-         \int_compare:nNnTF { \seq_item:cn { g_@@_mc_#1_marks_seq } {2} } = {-1}
+         \int_compare:nNnTF { \seq_item:cn { g_@@_mc_#1_marks_seq } {3} } = {-1}
            {
               \tl_set:Nx \l_@@_tmpa_tl { \seq_item:cn { g_@@_mc_#1_marks_seq } {4} }
               \@@_mc_handle_artifact:N \l_@@_tmpa_tl
@@ -460,6 +460,7 @@
 \cs_new_protected:Npn \@@_mc_handle_artifact:N #1
    % #1 is a var containing the artifact type
   {
+    \int_gincr:N \c@g_@@_MCID_abs_int
     \tl_if_empty:NTF #1
       { \@@_mc_bmc_artifact: }
       { \exp_args:NV\@@_mc_bmc_artifact:n #1 }
