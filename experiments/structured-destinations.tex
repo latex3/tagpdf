@@ -18,13 +18,24 @@
 \AddToHook{hyp/anchor}{%
      \bool_if:NT\g__tag_active_struct_bool
      {
-        \tl_show:N \l_hyp_current_dest_name_tl
+        %\tl_show:N \l_hyp_current_dest_name_tl
         \pdf_object_unnamed_write:nx {dict}
         {/D [\pdf_object_ref:e{__tag/struct/\g__tag_struct_stack_current_tl} /Fit] }
         \edef\@currentstructref{\pdf_object_ref_last:}
-        \ref_label:en{__tag_dest_\l_hyp_current_dest_name_tl}{tagstructref}        
+        \ref_label:en{__tag_dest_\l_hyp_current_dest_name_tl}{tagstructref}
      }}
-
+     
+%This is wrong, it must go into the action dictionary.     
+\AddToHook{pdfannot/link/GoTo/before}
+ { \tl_show:N \l_hyp_current_dest_name_tl
+ %  \exp_args:Ne
+%   \ref_if_exist:nnT { __tag_dest_\l_hyp_current_dest_name_tl }{tagstructref}
+%     {
+%       \pdfannot_dict_put:nnn{link/GoTo}{SD}
+%         {\ref_value:en { __tag_dest_\l_hyp_current_dest_name_tl }{tagstructref}}
+%     }
+ }  
+   
 \makeatother\ExplSyntaxOff
 \begin{document}
 
@@ -35,6 +46,6 @@
 \tagpdfparaOn
 
 
-abc  blub
+abc\ref{abc}blub
 
-\end{document}
+\end{document} 
