@@ -152,6 +152,13 @@
   }
 %    \end{macrocode}
 % \subsection{Commands}
+%  \begin{macro}{\@@_add_missing_mcs_to_stream:Nn}
+%    This command is used in the output routine by the ptagging code.
+%    It should do nothing in luamode.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_add_missing_mcs_to_stream:Nn #1#2 {}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_mc_if_in:,\tag_mc_if_in:}
 % This tests, if we are in an mc, for attributes
 % this means to check against a number.

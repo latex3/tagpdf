@@ -252,17 +252,11 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_insert_extra_tmb:n #1 % #1 stream: e.g. main or footnote
   {
-     \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-      {
-        \iow_term:x {=>~ first~ \seq_use:Nn \l__tag_mc_firstmarks_seq {,~}}
-        \iow_term:x {=>~ bot~ \seq_use:Nn \l__tag_mc_botmarks_seq {,~}}
-      }
+     \@@_check_typeout_v:n {=>~ first~ \seq_use:Nn \l__tag_mc_firstmarks_seq {,~}}
+     \@@_check_typeout_v:n {=>~ bot~ \seq_use:Nn \l__tag_mc_botmarks_seq {,~}}
      \@@_check_if_mc_tmb_missing:TF
        {
-         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-           {
-             \iow_term:n {=>~ TMB~ ~ missing~ --~ inserted}
-           }
+         \@@_check_typeout_v:n {=>~ TMB~ ~ missing~ --~ inserted}
          %test if artifact
          \int_compare:nNnTF { \seq_item:cn { g_@@_mc_#1_marks_seq } {3} } = {-1}
            {
@@ -297,10 +291,7 @@
            }
        }
        {
-         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-           {
-             \iow_term:n {=>~ TMB~ not~ missing}
-           }
+         \@@_check_typeout_v:n {=>~ TMB~ not~ missing}
        }
   }
 
@@ -308,20 +299,14 @@
  {
    \@@_check_if_mc_tme_missing:TF
      {
-       \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-           {
-             \iow_term:n {=>~ TME~ ~ missing~ --~ inserted}
-           }
+       \@@_check_typeout_v:n {=>~ TME~ ~ missing~ --~ inserted}
        \@@_mc_emc:
        \seq_gset_eq:cN
          {  g_@@_mc_#1_marks_seq }
          \l_@@_mc_botmarks_seq
      }
      {
-       \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-         {
-           \iow_term:n {=>~ TME~ not~ missing}
-         }
+       \@@_check_typeout_v:n {=>~ TME~ not~ missing}
      }
  }
 %    \end{macrocode}
@@ -404,6 +389,7 @@
 %    artifically split it and then look at the split marks.
 %
 %    First argument is the box to update and the second is the \enquote{stream}.
+%    In lua mode the command is a no-op.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_add_missing_mcs_to_stream:Nn #1#2
   {
@@ -443,13 +429,10 @@
 %    \begin{macrocode}
     \seq_if_empty:NTF \l_@@_mc_firstmarks_seq
         {
-           \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+          \@@_check_typeout_v:n
             {
-              \iow_term:x
-                {
-                  No~ marks~ so~ use~ saved~ bot~ mark:~
-                  \seq_use:cn {g__tag_mc_#2_marks_seq} {,~} \iow_newline:
-                }
+              No~ marks~ so~ use~ saved~ bot~ mark:~
+              \seq_use:cn {g__tag_mc_#2_marks_seq} {,~} \iow_newline:
             }
            \seq_set_eq:Nc \l_@@_mc_firstmarks_seq {g_@@_mc_#2_marks_seq}
 %    \end{macrocode}
@@ -466,9 +449,9 @@
 %    \cs{l_@@_mc_botmarks_seq} from the bot mark.
 %    \begin{macrocode}
         {
-          \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+          \@@_check_typeout_v:n
             {
-              \iow_term:n { Pick~ up~ new~ bot~ mark! }
+              Pick~ up~ new~ bot~ mark!
             }
           \exp_args:NNx
           \seq_set_from_clist:Nn \l_@@_mc_botmarks_seq

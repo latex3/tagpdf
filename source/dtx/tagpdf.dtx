@@ -397,7 +397,11 @@
 %    \begin{macrocode}
     log             .choice:,
     log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
-    log / v         .code:n = {\int_set:Nn \l_@@_loglevel_int { 1 }},
+    log / v         .code:n =
+      {
+        \int_set:Nn \l_@@_loglevel_int { 1 }
+        \cs_set_protected:Nn \@@_check_typeout_v:n { \iow_term:x {##1} }
+      },
     log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
     log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
     log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},

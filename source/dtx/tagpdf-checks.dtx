@@ -391,6 +391,15 @@
   {engine/output~mode~#1~doesn't~support~the~interword~spaces}
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{\@@_check_typeout_v:n}
+% A simple logging function. By default is gobbles its argument, but
+% the log-keys sets it to typeout.
+%    \begin{macrocode}
+\cs_set_eq:NN \@@_check_typeout_v:n \use_none:n
+%    \end{macrocode}
+% \end{macro}
+%
 % \section{Retrieving data}
 % \begin{macro}[EXP]{\tag_get:n}
 % This retrieves some data.
