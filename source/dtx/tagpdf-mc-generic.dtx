@@ -114,8 +114,6 @@
 % \begin{variable}
 %   {
 %     \g_@@_mc_marks,
-%     \g_@@_mc_main_marks_seq,
-%     \l_@@_mc_current_galley_tl
 %   }
 % a marks register to keep track of the mc's at page breaks and a sequence
 % to keep track of the data for the continuation
@@ -124,9 +122,26 @@
 %
 %    \begin{macrocode}
 \newmarks  \g_@@_mc_marks
-\seq_new:N \g_@@_mc_main_marks_seq
 %    \end{macrocode}
 % \end{variable}
+%
+%  \begin{variable}
+%   {
+%    \g_@@_mc_main_marks_seq,
+%    \g_@@_mc_footnote_marks_seq,
+%    \g_@@_mc_multicol_marks_seq
+%   }
+%    Each stream has an associated global seq variable holding the
+%    bottom marks from the/a previous chunk in the stream.
+%    We provide three by default: main, footnote and multicol.
+%    TODO: perhaps an interface for more streams will be needed.
+%    \begin{macrocode}
+\seq_new:N \g_@@_mc_main_marks_seq
+\seq_new:N \g_@@_mc_footnote_marks_seq
+\seq_new:N \g_@@_mc_multicol_marks_seq
+%    \end{macrocode}
+%  \end{macro}
+
 % \begin{variable}{\l_@@_mc_firstmarks_seq,\l_@@_mc_botmarks_seq}
 % The marks content contains a number of data which we will have to access and
 % compare, so we will store it locally in two sequences.
@@ -251,8 +266,7 @@
 % or manually)
 % into |\l_@@_mc_firstmarks_seq| and |\l_@@_mc_botmarks_seq| so that the tests
 % can use them.
-% TODO: should they get public names? For know they have, but it will depend on
-% the interface into the output routine and other split streams.
+%
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_insert_extra_tmb:n #1 % #1 stream: e.g. main or footnote
   {
@@ -394,6 +408,98 @@
 %    \begin{macrocode}
     \nointerlineskip
     \box_use_drop:N \l_@@_tmpb_box
+  }
+}
+%    \end{macrocode}
+%  \end{macro}
+
+%  \begin{macro}{\@@_add_missing_mcs_to_stream:Nn}
+%    This is the main command to add mc to the stream. It is therefor
+%    guarded by the mc-boolean.
+%
+%    If we aren't in the main stream then processing is a bit more
+%    complicated because to get at the marks in the box we need to
+%    artifically split it and then look at the split marks.
+%
+%    First argument is the box to update and the second is the \enquote{stream}.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_add_missing_mcs_to_stream:Nn #1#2
+  {
+    \@@_check_if_active_mc:T {
+%    \end{macrocode}
+%    First set up a temp box for trial splitting.
+%    \begin{macrocode}
+    \vbadness\maxdimen
+    \box_set_eq:NN \l_@@_tmpa_box #1
+%    \end{macrocode}
+%    Split the box to the largest size available. This should give us
+%    all content (but to be sure that there is no issue we could test
+%    out test box is empty now (not done).
+%    \begin{macrocode}
+    \vbox_set_split_to_ht:NNn \l_@@_tmpa_box \l_@@_tmpa_box \c_max_dim
+%    \end{macrocode}
+%    As a side effect of this split we should now have the first and
+%    bottom split marks set up. We use this to set up
+%    \cs{l_@@_mc_firstmarks_seq}
+%    \begin{macrocode}
+    \exp_args:NNx
+    \seq_set_from_clist:Nn \l_@@_mc_firstmarks_seq
+        { \tex_splitfirstmarks:D \g_@@_mc_marks }
+%    \end{macrocode}
+%    Some debugging info:
+%    \begin{macrocode}
+%    \iow_term:n { First~ mark~ from~ this~ box: }
+%    \seq_log:N \l__tag_mc_firstmarks_seq
+%    \end{macrocode}
+%    If this mark was empty then clearly the bottom mark will too be
+%    empty. Thus in this case we make use of the saved bot mark from
+%    the previous chunk. Note that if this is the first chunk in the
+%    stream the global seq would contain a random value, but then we
+%    can't end in this branch because the basis assumption is that
+%    streams are properly marked up so the first chunk would always
+%    have a mark at the beginning!
+%    \begin{macrocode}
+    \seq_if_empty:NTF \l_@@_mc_firstmarks_seq
+        {
+           \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+            {
+              \iow_term:x
+                {
+                  No~ marks~ so~ use~ saved~ bot~ mark:~
+                  \seq_use:cn {g__tag_mc_#2_marks_seq} {,~} \iow_newline:
+                }
+            }
+           \seq_set_eq:Nc \l_@@_mc_firstmarks_seq {g_@@_mc_#2_marks_seq}
+%    \end{macrocode}
+%    We also update the bot mark to the same value so that we can
+%    later apply \cs{@@_add_missing_mcs:Nn} with the data
+%    structures in place (see assumptions made there).
+%    \begin{macrocode}
+          \seq_set_eq:NN \l_@@_mc_botmarks_seq \l_@@_mc_firstmarks_seq
+        }
+%    \end{macrocode}
+%    If there was a first mark then there is also a bot mark (and it
+%    can't be the same as our marks always come in pairs).
+%    So if that branch is chosen we update
+%    \cs{l_@@_mc_botmarks_seq} from the bot mark.
+%    \begin{macrocode}
+        {
+          \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+            {
+              \iow_term:n { Pick~ up~ new~ bot~ mark! }
+            }
+          \exp_args:NNx
+          \seq_set_from_clist:Nn \l_@@_mc_botmarks_seq
+              { \tex_splitbotmarks:D   \g_@@_mc_marks }
+        }
+%    \end{macrocode}
+%    Finally we call \cs{@@_add_missing_mcs:Nn} to add any missing
+%    tmb/tme as needed,
+%    \begin{macrocode}
+    \@@_add_missing_mcs:Nn #1 {#2}
+%%
+    \seq_gset_eq:cN  {g_@@_mc_#2_marks_seq} \l_@@_mc_botmarks_seq
+%%
   }
 }
 %    \end{macrocode}
