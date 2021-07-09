@@ -53,24 +53,6 @@
 % \date{Version 0.91, released 2021-07-03}
 % \maketitle
 % \begin{documentation}
-% \begin{function}{\tag_mc_begin_single:nN}
-%  \begin{syntax}
-%   \cs{tag_mc_begin_single:nN} \Arg{tag}\meta{tl-var}\\
-%   \cs{tag_mc_end_single:}
-%  \end{syntax}
-% These two functions allow to inject an end and begin MC during the output
-% routine to close and reopen an mc from a page break.
-% \end{function}
-% \begin{function}{\tag_mc_store:nn}
-%  \begin{syntax}
-%  \cs{tag_mc_store:nn}\Arg{mc-num}\Arg{struct-num}
-%  \end{syntax}
-%  This inserts the mc-chunk \meta{mc-num} into the structure {struct-num}.
-%  The structure must already exist. The mc-chunk is added at the end.
-%  This is a preliminary minimal function and will change!
-%  TODO: this function must be expanded to allow to insert the chunk
-%  also in the middle, and perhaps also to insert by label.
-% \end{function}
 % \end{documentation}
 % \begin{implementation}
 % \section{Marked content code -- generic mode}
