@@ -239,7 +239,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\tag_mc_insert_extra_tmb:n,\tag_mc_insert_extra_tme:n}
+% \begin{macro}{\@@_mc_insert_extra_tmb:n,\@@_mc_insert_extra_tme:n}
 % These two functions should be used in the output routine at the place
 % where a mc-literal could be missing due to a page break or some other split.
 % They check (with the help of the marks) if a extra-tmb or extra-tme is needed.
@@ -254,10 +254,19 @@
 % TODO: should they get public names? For know they have, but it will depend on
 % the interface into the output routine and other split streams.
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_mc_insert_extra_tmb:n #1 % #1 stream: e.g. main or footnote
+\cs_new_protected:Npn \@@_mc_insert_extra_tmb:n #1 % #1 stream: e.g. main or footnote
   {
-     \@@_check_if_mc_tmb_missing:T
+     \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+      {
+        \iow_term:x {=>~ first~ \seq_use:Nn \l__tag_mc_firstmarks_seq {,~}}
+        \iow_term:x {=>~ bot~ \seq_use:Nn \l__tag_mc_botmarks_seq {,~}}
+      }
+     \@@_check_if_mc_tmb_missing:TF
        {
+         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+           {
+             \iow_term:n {=>~ TMB~ ~ missing~ --~ inserted}
+           }
          %test if artifact
          \int_compare:nNnTF { \seq_item:cn { g_@@_mc_#1_marks_seq } {3} } = {-1}
            {
@@ -291,23 +300,105 @@
                 }
            }
        }
+       {
+         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+           {
+             \iow_term:n {=>~ TMB~ not~ missing}
+           }
+       }
   }
 
-\cs_new_protected:Npn \tag_mc_insert_extra_tme:n #1 % #1 stream, eg. main or footnote
+\cs_new_protected:Npn \@@_mc_insert_extra_tme:n #1 % #1 stream, eg. main or footnote
  {
-   \@@_check_if_mc_tme_missing:T
+   \@@_check_if_mc_tme_missing:TF
      {
+       \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+           {
+             \iow_term:n {=>~ TME~ ~ missing~ --~ inserted}
+           }
        \@@_mc_emc:
- %      \str_if_eq:eeT {\seq_item:Nn \l_@@_mc_botmarks_seq {1}}{b+}
- %        {
-           \seq_gset_eq:cN
-            {  g_@@_mc_#1_marks_seq }
-            \l_@@_mc_botmarks_seq
- %        }
+       \seq_gset_eq:cN
+         {  g_@@_mc_#1_marks_seq }
+         \l_@@_mc_botmarks_seq
+     }
+     {
+       \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+         {
+           \iow_term:n {=>~ TME~ not~ missing}
+         }
      }
  }
 %    \end{macrocode}
 % \end{macro}
+%
+%  \subsection{Looking at MC marks in boxes}
+%  \begin{macro}{\@@_add_missing_mcs:Nn}
+%    Assumptions:
+%    \begin{itemize}
+%    \item
+%       test for tagging active outside;
+%    \item
+%       mark retrieval also outside.
+%    \end{itemize}
+%
+%    This takes a box register as its first argument (or the register
+%    number in a count register, as used by \pkg{multicol}). It adds
+%    an extra tmb at the top of the box if necessary and similarly
+%    an extra tme at the end. This is done by adding hboxes in a way
+%    that the positioning and the baseline of the given box is not
+%    altered.  The result is written back to the box.
+%
+%    The second argument is the stream this box belongs to und is
+%    currently either \texttt{main} for the main galley,
+%    \texttt{footnote} for footnote note text, or \texttt{multicol}
+%    for boxes produced for columns in that environment. Other streams
+%    may follow over time.
+%    \begin{macrocode}
+\cs_new:Npn\@@_add_missing_mcs:Nn #1 #2 {
+  \vbadness \@M
+  \vfuzz    \c_max_dim
+  \vbox_set_to_ht:Nnn #1 { \box_ht:N #1 } {
+    \hbox_set:Nn \l_@@_tmpa_box { \@@_mc_insert_extra_tmb:n {#2} }
+    \hbox_set:Nn \l_@@_tmpb_box { \@@_mc_insert_extra_tme:n {#2} }
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+         {
+           \seq_log:c { g_@@_mc_#2_marks_seq}
+         }
+%    \end{macrocode}
+%    The box placed on the top gets zero size and thus will not affect
+%    the box dimensions of the box we are modifying.
+%    \begin{macrocode}
+    \box_set_ht:Nn \l_@@_tmpa_box \c_zero_dim
+    \box_set_dp:Nn \l_@@_tmpa_box \c_zero_dim
+%    \end{macrocode}
+%    The box added at the bottom will get the depth of the original
+%    box. This way we can arrange that from the outside everything
+%    looks as before.
+%    \begin{macrocode}
+    \box_set_ht:Nn \l_@@_tmpb_box \c_zero_dim
+    \box_set_dp:Nn \l_@@_tmpb_box { \box_dp:N #1 }
+%    \end{macrocode}
+%    We need to set \cs{boxmaxdepth} in case the original box has an
+%    unusually large depth, otherwise that depth is not preserved when
+%    we string things together.
+%    \begin{macrocode}
+    \boxmaxdepth \@maxdepth
+    \box_use_drop:N        \l_@@_tmpa_box
+    \vbox_unpack_drop:N     #1
+%    \end{macrocode}
+%    Back up by the depth of the box as we add that later again.
+%    \begin{macrocode}
+    \tex_kern:D -\box_dp:N \l_@@_tmpb_box
+%    \end{macrocode}
+%    And we don't want any glue added when we add the box.
+%    \begin{macrocode}
+    \nointerlineskip
+    \box_use_drop:N \l_@@_tmpb_box
+  }
+}
+%    \end{macrocode}
+%  \end{macro}
+%
 % \begin{macro}[pTF]{\@@_mc_if_in:,\tag_mc_if_in:}
 % This is a test if a mc is open or not. It depends simply on a global boolean:
 % mc-chunks are added linearly so nesting should not be relevant.
