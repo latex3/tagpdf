@@ -58,7 +58,13 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\write1{\newlabeldata{mcid-1}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+...\marks1{b-,1,-1,}
+...\marks1{b+,1,-1,}
+...\marks1{e-,1,0,}
+...\marks1{e+,1,0,}
+...\marks1{b-,1,0,P,,,}
+...\marks1{b+,1,0,P,,,}
+...\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
 ...\pdfliteral page{/P /l3pdf1 BDC}
 ...\write1{\newlabeldata{l3pdf1}{{abspage}{\__ref_attribute_abspage: }}}
 ...\glue(\parskip) 0.0 plus 1.0
@@ -75,6 +81,8 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
+...\marks1{e-,2,0,}
+...\marks1{e+,2,0,}
 ...\glue 0.0 plus 1.0fil
 ...\glue 0.0
 ...\glue 0.0 plus 0.0001fil
