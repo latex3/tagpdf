@@ -661,10 +661,10 @@
           }
           { %handle mcid type
             \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
-            \@@_mc_begin_marks:nn {\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
             \@@_mc_handle_mcid:VV
                \l_@@_mc_key_tag_tl
                \l_@@_mc_key_properties_tl
+            \@@_mc_begin_marks:nn {\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
             \tl_if_empty:NF {\l_@@_mc_key_label_tl}
               {
                 \exp_args:NV
