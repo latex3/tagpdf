@@ -5,6 +5,15 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [Unreleased]
+
+### Added 
+ - mc-commands issue now marks to support paratagging with pdftex
+ - commands to finish streams in pdftex 
+ 
+### Fixed
+ - numbering in paratagging-show
+
 ## [2021-07-03]
 ### Fixed
  - undeclared variable, issue #609 in latex2e
