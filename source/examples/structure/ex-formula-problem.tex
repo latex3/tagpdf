@@ -8,26 +8,22 @@
 \usepackage{tagpdf}
 
 \tagpdfsetup{tabsorder=structure,
-             activate-all}
-\tagpdfifpdftexT
- {
-  \usepackage[T1]{fontenc}
- }
-
-\tagpdfifluatexT
- {
+             activate}
+\usepackage{iftex}             
+\iftutex
   \usepackage{fontspec}
   \usepackage{unicode-math}
   \usepackage{luacode}
   \newfontface\zerowidthfont{freeserif}
- }
+\else
+  \usepackage[T1]{fontenc}
+\fi
 
 \usepackage{graphicx}
 % ndva doesn't read the alt text of the formulas
 \begin{document}
 \pagestyle{empty}
 
-\tagstructbegin{tag=Document}
 
 \tagstructbegin{tag=P}
   \tagmcbegin{tag=P}
@@ -55,5 +51,5 @@
  \tagmcend
 \tagstructend
 
-\tagstructend
+
 \end{document} 

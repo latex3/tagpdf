@@ -4,7 +4,7 @@
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
-\tagpdfsetup{activate-all}
+\tagpdfsetup{activate}
 
 \ExplSyntaxOn
 \pdfmanagement_add:nnn{Info}{Title}{(Title)}
@@ -20,7 +20,7 @@
 }
 \begin{document}
 \pagestyle{empty} %
-\tagstructbegin{tag=Document}
+
 
 \tagstructbegin{tag=Table}
 \begin{center}
@@ -61,5 +61,5 @@
 \end{center}
 \tagstructend
 
-\tagstructend
+
 \end{document} 

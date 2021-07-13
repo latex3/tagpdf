@@ -7,31 +7,28 @@
 \usepackage{tagpdf}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\tagpdfifpdftexT
- {
-  \usepackage[T1]{fontenc}
- }
 
-\tagpdfifluatexT
- {
+\usepackage{iftex}
+\iftutex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
+\else
+  \usepackage[T1]{fontenc}
+\fi
 
 
 \tagpdfsetup{tabsorder=structure,
-             activate-all,
-             uncompress
+             activate
              }
 \newsavebox\mybox
 
+% this works only as we have only one page. Footer/header must be handle in the output routine.
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
 
 \cfoot{\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \begin{document}
-\tagstructbegin{tag=Document}
 
  \tagstructbegin{tag=Sect}
   \tagstructbegin{tag=H}
@@ -74,5 +71,5 @@
   \tagstructend %L
 
   \tagstructend  %Sect
-\tagstructend   %Document
+
 \end{document} 

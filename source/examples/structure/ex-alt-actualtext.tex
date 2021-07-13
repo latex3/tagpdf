@@ -7,29 +7,27 @@
 
 \usepackage{tagpdf}
 \tagpdfsetup{tabsorder=structure,
-             uncompress,activate-all}
-\tagpdfifpdftexT
- {
-  \usepackage[T1]{fontenc}
- }
-
-\tagpdfifluatexT
- {
+             activate}
+\usepackage{iftex}             
+\iftutex
   \usepackage{fontspec}
   \usepackage{unicode-math}
   \usepackage{luacode}
   \newfontface\zerowidthfont{freeserif}
- }
+\else
+  \usepackage[T1]{fontenc}
+\fi
+
 
 \usepackage{graphicx}
 % This is not a perfectly tagged document!
+% It doesn't use paratagging!
 % one sentence is not marked (luatex will mark it as artifact)
 % with pdflatex there is a encoding problem with the math
 
 \begin{document}
 \pagestyle{empty}
 
-\tagstructbegin{tag=Document}
 
 %This isn't read by voice software
 Etwas unmarkierter Text.
@@ -175,5 +173,5 @@ Etwas unmarkierter Text.
  \includegraphics[width=1cm]{example-image-duck}
 \tagmcend
 
-\tagstructend
+
 \end{document}

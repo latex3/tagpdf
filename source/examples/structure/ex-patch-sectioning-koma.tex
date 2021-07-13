@@ -8,6 +8,10 @@
 
 %no page break involved. So the example works in lua and generic mode
 
+% unclear if everything still works. They have been some changes in koma
+% doesn't take paratagging into account. 
+
+
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{pdfversion=1.7,uncompress}
 
@@ -16,20 +20,18 @@
 
 \usepackage{tagpdf}
 
-\tagpdfifpdftexT
- {
-  \usepackage[T1]{fontenc}
- }
-
-\tagpdfifluatexT
- {
+\usepackage{iftex}
+\iftutex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
+\else
+  \usepackage[T1]{fontenc}
+\fi
+
 
 
 \tagpdfsetup{tabsorder=structure,
-             activate-all,
+             activate,
              }
 
 
@@ -158,7 +160,6 @@
 %I don't want to handle pagestyles, so set everything to empty:
 \pagestyle{empty}\renewcommand\chapterpagestyle{empty}
 
-\tagstructbegin{tag=Document}
 
 \tableofcontents
 
@@ -174,5 +175,4 @@
    \tagmcend
  \tagstructend
 
-\tagstructend   %Document
 \end{document} 

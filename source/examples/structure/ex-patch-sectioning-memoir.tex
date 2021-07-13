@@ -1,5 +1,9 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 %chapter not correct!!
+% 13.07.2021 doesn't use paratagging!
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=1.7,uncompress}
+
 \documentclass[a4paper,oneside]{memoir}
 \settocdepth{subsubsection}
 \setsecnumdepth{subsubsection}
@@ -9,25 +13,17 @@
 
 \usepackage{tagpdf}
 
-\tagpdfifpdftexT
- {
-  %set language / can also be done with hyperref
-  \pdfcatalog{/Lang (en-US)}
-  \usepackage[T1]{fontenc}
- }
-
-\tagpdfifluatexT
- {
-  %set language / can also be done with hyperref
-  \pdfextension catalog{/Lang (en-US)}
+\usepackage{iftex}
+\iftutex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
+\else
+  \usepackage[T1]{fontenc}
+\fi
 
 
 \tagpdfsetup{tabsorder=structure,
-             activate-all,
-             uncompress
+             activate,interwordspace
              }
 
 \usepackage{lipsum}%\textheight3cm
@@ -213,7 +209,6 @@
 %% missing yet: chapter titles
 \begin{document}
 
-\tagstructbegin{tag=Document}
 
 \tableofcontents*
 
@@ -246,7 +241,6 @@ test
 
 \section*{Starred section}
 
-\tagstructend
 \end{document}
 
 

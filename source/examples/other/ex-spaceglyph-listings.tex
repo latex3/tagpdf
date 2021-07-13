@@ -8,16 +8,15 @@
 \makeatletter
 %\def\lst@outputspace{\pdffakespace\ } %not so good
 % this here works fine with luatex, if the font has a space glyph:
+% the pdf then has four space glyphs. But this doesn't mean that they get copied&pasted!
 \def\lst@visiblespace{\lst@ttfamily{\char32}{\char32}}
 % with pdftex this could work
 %\def\lst@visiblespace{\lst@ttfamily{\pdffakespace\ }{\pdffakespace\ }}
-\tagpdfsetup{activate-all,interwordspace=on,show-spaces,log=v}
+\tagpdfsetup{activate,interwordspace=on,show-spaces,log=v}
 \begin{document}\pagestyle{empty}
-\tagstructbegin{tag=Document}
 \tagmcbegin{tag=P}
 \begin{lstlisting}[showspaces]
 aaa aaa    xxxx
 \end{lstlisting}
 \tagmcend
-\tagstructend
-\end{document} 
+\end{document}  

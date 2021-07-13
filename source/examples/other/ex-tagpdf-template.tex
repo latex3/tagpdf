@@ -3,33 +3,31 @@
 %this is more or less minimal template that can be used as starting point
 %it doesn't set everything that would be needed!
 \RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{lang=en-UK, uncompress}
+\DeclareDocumentMetadata
+ {
+  uncompress,
+  pdfversion=2.0
+ }
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
-
-\tagpdfifpdftexT
- {
-  \usepackage[T1]{fontenc}
- }
-
-\tagpdfifluatexT
- {
+\usepackage{iftex}
+\iftutex
   \usepackage{fontspec}
- }
+\else
+  \usepackage[T1]{fontenc}
+\fi
 
 \tagpdfsetup
     {
       tabsorder=structure,
-      activate-all,
+      activate, %adds Document structure
+      paratagging, %activates tagging of paragraphs.
+      interwordspace %actives interword spaces (lualatex, pdflatex)
     }
 \begin{document}
 \pagestyle{empty} %
-\tagstructbegin{tag=Document}
 
-\tagmcbegin{tag=P}
     a paragraph
-\tagmcend
 
-\tagstructend
 \end{document} 

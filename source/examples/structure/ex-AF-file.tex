@@ -7,20 +7,20 @@
 \documentclass{article}
 \usepackage{tagpdf}
 
+\usepackage{iftex}
 \tagpdfsetup{tabsorder=structure,
-             activate-all}
-\tagpdfifpdftexT
- {
-  \usepackage[T1]{fontenc}
- }
+             activate,
+             interwordspace
+             }
 
-\tagpdfifluatexT
- {
+\iftutex 
   \usepackage{fontspec}
   \usepackage{unicode-math}
   \usepackage{luacode}
   \newfontface\zerowidthfont{freeserif}
- }
+\else
+  \usepackage[T1]{fontenc}
+\fi  
 
 \usepackage{graphicx}
 \begin{filecontents}{example-input-file.tex}
@@ -29,8 +29,6 @@ Additional info!
 
 \begin{document}
 \pagestyle{empty}
-
-\tagstructbegin{tag=Document}
 
 \ExplSyntaxOn
 
@@ -59,5 +57,4 @@ Additional info!
   \tagmcend
 \tagstructend
 
-\tagstructend
 \end{document} 
