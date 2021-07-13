@@ -524,9 +524,9 @@
 %    \begin{macrocode}
 \AddToHook{para/begin}
   {
-   \int_gincr:N \g_@@_para_int
    \bool_if:NT \l__tag_para_bool
      {
+       \int_gincr:N \g_@@_para_int
        \tag_struct_begin:n {tag=P}
        \bool_if:NT \l_@@_para_show_bool
         { \tag_mc_begin:n{artifact}
