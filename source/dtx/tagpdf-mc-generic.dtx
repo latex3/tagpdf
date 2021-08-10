@@ -221,14 +221,21 @@
 %  This inserts the mc-chunk \meta{mc-num} into the structure {struct-num}
 %  after the \meta{mc-prev}.
 %  The structure must already exist.
-%  TODO the after part isn't implemented yet! currently it simply adds at the end.
+%  The additional mcid dictionary is stored in a property. The item is retrieved
+%  when the kid entry is built. We test if there is already
+%  an addition and append if needed.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_store:nnn #1 #2 #3 %#1 mc-prev, #2 mc-num #3 structure-num
   {
-    \__tag_struct_kid_mc_gput_right:nx
-      {#3}
-      {#2}
-    \prop_gput:Nxx \g__tag_mc_parenttree_prop
+    %\prop_show:N \g_@@_struct_cont_mc_prop
+    \prop_get:NnNTF \g_@@_struct_cont_mc_prop {#1} \l_@@_tmpa_tl
+      {
+        \prop_gput:Nnx \g_@@_struct_cont_mc_prop {#1}{ \l_@@_tmpa_tl \@@_struct_mcid_dict:n {#2}}
+      }
+      {
+        \prop_gput:Nnx \g_@@_struct_cont_mc_prop {#1}{ \@@_struct_mcid_dict:n {#2}}
+      }
+    \prop_gput:Nxx \g_@@_mc_parenttree_prop
       {#2}
       {#3}
   }

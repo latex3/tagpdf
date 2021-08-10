@@ -238,6 +238,16 @@
 \@@_seq_new:N  \g_@@_struct_objR_seq
 %    \end{macrocode}
 % \end{variable}
+
+% \begin{variable}{\g_@@_struct_cont_mc_prop}
+% in generic mode it can happen after
+% a page break that we have to inject into a structure
+% sequence an additional mc after. We will store this additional
+% info in a property. The key is the absolut mc num, the value the pdf directory.
+%    \begin{macrocode}
+\@@_prop_new:N  \g_@@_struct_cont_mc_prop
+%    \end{macrocode}
+% \end{variable}
 %
 % \begin{variable}{\g_@@_struct_stack_seq}
 % A stack sequence for the structure stack.
@@ -433,19 +443,33 @@
 % and the PDF is more readable like this.
 % The code doesn't try to avoid the use of the /Pg key by checking page numbers.
 % That imho only slows down without much gain.
+% In generic mode the page break code will perhaps to have to insert
+% an additional mcid after an existing one. For this we use a property list
+% At first an auxiliary to write the MCID dict. This should normally be expanded!
+%    \begin{macrocode}
+\cs_new:Npn \@@_struct_mcid_dict:n #1 %#1 MCID absnum
+  {
+     <<
+      /Type \c_space_tl /MCR \c_space_tl
+      /Pg
+        \c_space_tl
+      \pdf_pageobject_ref:n { \@@_ref_value:enn{mcid-#1}{tagabspage}{1} }
+       /MCID \c_space_tl \@@_ref_value:enn{mcid-#1}{tagmcid}{1}
+     >>
+  }
+%    \end{macrocode}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_kid_mc_gput_right:nn #1 #2 %#1 structure num, #2 MCID absnum%
   {
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
       {
-        <<
-        /Type \c_space_tl /MCR \c_space_tl
-        /Pg
-          \c_space_tl
-          \pdf_pageobject_ref:n { \@@_ref_value:enn{mcid-#2}{tagabspage}{1} }
-        /MCID \c_space_tl \@@_ref_value:enn{mcid-#2}{tagmcid}{1}
-        >>
+        \@@_struct_mcid_dict:n {#2}
+      }
+    \@@_seq_gput_right:cn
+      { g_@@_struct_kids_#1_seq }
+      {
+        \prop_item:Nn \g_@@_struct_cont_mc_prop {#2}
       }
   }
 \cs_generate_variant:Nn \@@_struct_kid_mc_gput_right:nn {nx}
@@ -524,6 +548,18 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_fill_kid_key:n #1 %#1 is the struct num
   {
+    \bool_if:NF\g_@@_mode_lua_bool
+     {
+        \seq_clear:N \l_@@_tmpa_seq
+        \seq_map_inline:cn { g_@@_struct_kids_#1_seq }
+         { \seq_put_right:Nx \l_@@_tmpa_seq { ##1 } }
+        %\seq_show:c { g_@@_struct_kids_#1_seq }
+        %\seq_show:N \l_@@_tmpa_seq
+        \seq_remove_all:Nn \l_@@_tmpa_seq {}
+        %\seq_show:N \l_@@_tmpa_seq
+        \seq_gset_eq:cN { g_@@_struct_kids_#1_seq } \l_@@_tmpa_seq
+     }
+
     \int_case:nnF
       {
         \seq_count:c

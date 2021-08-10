@@ -1,0 +1,21 @@
+\RequirePackage{pdfmanagement-testphase}
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{1000}
+\ExplSyntaxOff
+\DeclareDocumentMetadata{pdfversion=2.0,uncompress,testphase={tagpdf,ptagging},
+  activate=tagging,
+  }
+\RequirePackage{tagpdf-regressiontest}
+
+
+\documentclass[12pt]{article}
+\usepackage[paperheight=24\baselineskip,
+           height=19\baselineskip]{geometry}
+\usepackage{kantlipsum,multicol}
+
+
+\begin{document}
+
+xxx\kant*[2-30]yyy
+
+\end{document}
