@@ -1,0 +1,149 @@
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{
+%   pdfversion=2.0,
+   uncompress,
+   testphase={tagpdf,ptagging},
+   activate=tagging,
+   debug={para}
+  }
+
+
+\documentclass{article}
+
+\usepackage{iftex}
+\providecommand\pdfrunninglinkoff{}
+\providecommand\pdfrunninglinkon{}
+
+\ifxetex % works already
+\def\pdfrunninglinkoff{\special{pdf:nolink}}
+\def\pdfrunninglinkon{\special{pdf:link}}
+\fi
+\ifluatex  %no there yet, but planed for TL21
+ \protected\def\pdfrunninglinkoff{\pdfextension linkstate 1 }
+ \protected\def\pdfrunninglinkon {\pdfextension linkstate 0 }
+\fi
+
+%\usepackage{scrlayer-scrpage}
+%\pagestyle{scrheadings}
+%\lhead{HEADER}
+%\lfoot{FOOTER}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{HEADER}
+\lfoot{FOOTER}
+%\pagestyle{plain}
+
+\NewHook{head1/before}
+\NewHook{head2/before}
+\NewHook{head3/before}
+\NewHook{head1/after}
+\NewHook{head2/after}
+\NewHook{head3/after}
+
+\NewHook{foot1/before}
+\NewHook{foot2/before}
+\NewHook{foot3/before}
+\NewHook{foot1/after}
+\NewHook{foot2/after}
+\NewHook{foot3/after}
+
+\makeatletter
+\def\@outputpage{%
+\begingroup
+  \let \protect \noexpand
+  \language\document@default@language
+  \@resetactivechars
+  \global\let\@@if@newlist\if@newlist
+  \global\@newlistfalse
+  \@parboxrestore
+  \shipout \vbox{%
+    \set@typeset@protect
+    \aftergroup \endgroup
+    \aftergroup \set@typeset@protect
+  \if@specialpage
+    \global\@specialpagefalse\@nameuse{ps@\@specialstyle}%
+  \fi
+  \if@twoside
+    \ifodd\count\z@ \let\@thehead\@oddhead \let\@thefoot\@oddfoot
+         \let\@themargin\oddsidemargin
+    \else \let\@thehead\@evenhead
+       \let\@thefoot\@evenfoot \let\@themargin\evensidemargin
+    \fi
+  \fi
+  \reset@font
+  \normalsize
+  \normalsfcodes
+  \let\label\@gobble
+  \let\index\@gobble
+  \let\glossary\@gobble
+  \baselineskip\z@skip \lineskip\z@skip \lineskiplimit\z@
+    \@begindvi
+    \vskip \topmargin
+    \moveright\@themargin \vbox {%
+      \setbox\@tempboxa \vbox to\headheight{%
+        \vfil
+        \UseHook{head1/before}%
+        \color@hbox
+        \UseHook{head2/before}%
+          \normalcolor
+          \hb@xt@\textwidth{\UseHook{head3/before}\@thehead\UseHook{head3/after}}%
+        \UseHook{head2/after}%
+        \color@endbox
+        \UseHook{head1/after}%
+        }%
+      \dp\@tempboxa \z@
+      \box\@tempboxa
+      \vskip \headsep
+      \box\@outputbox
+      \baselineskip \footskip
+      \UseHook{foot1/before}%
+      \color@hbox
+        \UseHook{foot2/before}%
+        \normalcolor
+        \hb@xt@\textwidth{\UseHook{foot3/before}\@thefoot\UseHook{foot3/after}}%
+      \UseHook{foot2/after}%
+      \color@endbox
+      \UseHook{foot1/after}%
+      }%
+    }%
+  \global\let\if@newlist\@@if@newlist
+  \global \@colht \textheight
+  \stepcounter{page}%
+  \let\firstmark\botmark
+}
+
+\ExplSyntaxOn
+\newcommand\tagheaderbegin{%
+    \bool_set_false:N \l__tag_para_bool
+    \bool_gset_eq:NN  \g__ptagging__saved_in_mc_bool \g__tag_in_mc_bool
+    \bool_gset_false:N \g__tag_in_mc_bool
+%    \tagpdfparaOff
+    \tag_mc_begin:n {artifact=pagination}
+    \tag_stop_group_begin:}
+
+\newcommand\tagheaderend{%
+    \tag_stop_group_end:
+    \tag_mc_end:
+    \bool_gset_eq:NN \g__tag_in_mc_bool\g__ptagging_saved_in_mc_bool}
+\ExplSyntaxOff
+\usepackage{hyperref,kantlipsum}
+\textheight=2.5cm
+
+% the head needs hook head1 for \pdfrunninglinkoff
+% foot works with hook foot1 + foot2
+% tagging code can use all three hooks.
+\AddToHook{head1/before}{\pdfrunninglinkoff\tagheaderbegin}
+\AddToHook{head1/after}{\tagheaderend\pdfrunninglinkon}
+
+\AddToHook{foot1/before}{\pdfrunninglinkoff\tagheaderbegin}
+\AddToHook{foot1/after}{\tagheaderend\pdfrunninglinkon}
+
+\begin{document}
+
+\section{abc}
+x\\x\\x
+\href{https://www.latex-project.org}{Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.}\\x
+
+\kant[1-2]
+\end{document}
