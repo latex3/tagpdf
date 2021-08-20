@@ -524,7 +524,7 @@
 %    \begin{macrocode}
 \AddToHook{para/begin}
   {
-   \bool_if:NT \l__tag_para_bool
+   \bool_if:NT \l_@@_para_bool
      {
        \int_gincr:N \g_@@_para_int
        \tag_struct_begin:n {tag=P}
@@ -538,7 +538,7 @@
   }
 \AddToHook{para/end}
   {
-    \bool_if:NT \l__tag_para_bool
+    \bool_if:NT \l_@@_para_bool
       {
         \tag_mc_end:
         \bool_if:NT \l_@@_para_show_bool
@@ -558,11 +558,36 @@
 %  This two command switch para mode on and off. |\tagpdfsetup| could be used
 %  too but is longer.
 %    \begin{macrocode}
-\newcommand\tagpdfparaOn {\bool_set_true:N \l__tag_para_bool}
-\newcommand\tagpdfparaOff{\bool_set_false:N \l__tag_para_bool}
+\newcommand\tagpdfparaOn {\bool_set_true:N \l_@@_para_bool}
+\newcommand\tagpdfparaOff{\bool_set_false:N \l_@@_para_bool}
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{Header and footer}
+% Header and footer should normally be tagged as artifacts. The following code
+% requires the new hooks.
+%    \begin{macrocode}
+\keys_define:nn { @@ / setup }
+  {
+    exclude-header-footer    .bool_gset:N = \g_@@_headfoot_bool,
+  }
+\bool_new:N \g_@@_saved_in_mc_bool
+\cs_new_protected:Npn \@@_exclude_headfoot_begin:n #1
+ {
+    \bool_set_false:N \l_@@_para_bool
+    \bool_gset_eq:NN  \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
+    \bool_gset_false:N \g_@@_in_mc_bool
+    \tag_mc_begin:n {artifact=#1}
+    \tag_stop_group_begin:
+ }
+\cs_new_protected:Npn \@@_exclude_headfoot_end:n #1
+ {
+    \tag_stop_group_end:
+    \tag_mc_end:
+    \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
+ }
+%    \end{macrocode}
+
 % \subsection{Links}
 % We need to close and reopen mc-chunks around links.
 % Currently we handle URI and GoTo (internal) links.
