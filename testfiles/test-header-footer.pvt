@@ -1,4 +1,6 @@
-\RequirePackage{tagpdf-regressiontest}
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{1000} %needed because of name space
+\ExplSyntaxOff
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{
    pdfversion=2.0,
@@ -6,6 +8,7 @@
    activate=tagging,
    debug={para,uncompress}
   ,lang=de-DE}
+\RequirePackage{tagpdf-regressiontest}
 \documentclass{scrartcl}
 \usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
