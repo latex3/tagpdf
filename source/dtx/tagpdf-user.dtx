@@ -566,26 +566,62 @@
 % \subsection{Header and footer}
 % Header and footer should normally be tagged as artifacts. The following code
 % requires the new hooks.
+% For now we allow to disable this function, but probably the code should always there at
+% the end.
+% TODO check if Pagination should be changeable.
 %    \begin{macrocode}
-\keys_define:nn { @@ / setup }
-  {
-    exclude-header-footer    .bool_gset:N = \g_@@_headfoot_bool,
-  }
+\cs_new_protected:Npn\@@_hook_kernel_before_head:{}
+\cs_new_protected:Npn\@@_hook_kernel_after_head:{}
+\cs_new_protected:Npn\@@_hook_kernel_before_foot:{}
+\cs_new_protected:Npn\@@_hook_kernel_after_foot:{}
+
+\AddToHook{package/after/pdfmanagement-firstaid}
+ {
+  \cs_if_exist:NT \@kernel@before@head
+   {
+     \tl_put_right:Nn \@kernel@before@head {\@@_hook_kernel_before_head:}
+     \tl_put_left:Nn  \@kernel@after@head  {\@@_hook_kernel_after_head:}
+     \tl_put_right:Nn \@kernel@before@foot {\@@_hook_kernel_before_foot:}
+     \tl_put_left:Nn  \@kernel@after@foot  {\@@_hook_kernel_after_foot:}
+   }
+ }
+
 \bool_new:N \g_@@_saved_in_mc_bool
-\cs_new_protected:Npn \@@_exclude_headfoot_begin:n #1
+\cs_new_protected:Npn \@@_exclude_headfoot_begin:
  {
     \bool_set_false:N \l_@@_para_bool
     \bool_gset_eq:NN  \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
     \bool_gset_false:N \g_@@_in_mc_bool
-    \tag_mc_begin:n {artifact=#1}
+    \tag_mc_begin:n {artifact=pagination}
     \tag_stop_group_begin:
  }
-\cs_new_protected:Npn \@@_exclude_headfoot_end:n #1
+\cs_new_protected:Npn \@@_exclude_headfoot_end:
  {
     \tag_stop_group_end:
     \tag_mc_end:
     \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
  }
+
+\keys_define:nn { @@ / setup }
+  {
+    exclude-header-footer .choice:,
+    exclude-header-footer / true .code:n =
+     {
+       \cs_set_eq:NN \@@_hook_kernel_before_head: \@@_exclude_headfoot_begin:
+       \cs_set_eq:NN \@@_hook_kernel_before_foot: \@@_exclude_headfoot_begin:
+       \cs_set_eq:NN \@@_hook_kernel_after_head:  \@@_exclude_headfoot_end:
+       \cs_set_eq:NN \@@_hook_kernel_after_foot:  \@@_exclude_headfoot_end:
+     },
+    exclude-header-footer / false .code:n =
+     {
+       \cs_set_eq:NN \@@_hook_kernel_before_head: \prg_do_nothing:
+       \cs_set_eq:NN \@@_hook_kernel_before_foot: \prg_do_nothing:
+       \cs_set_eq:NN \@@_hook_kernel_after_head:  \prg_do_nothing:
+       \cs_set_eq:NN \@@_hook_kernel_after_foot:  \prg_do_nothing:
+     },
+   exclude-header-footer .default:n = true,
+   exclude-header-footer .initial:n = true
+  }
 %    \end{macrocode}
 
 % \subsection{Links}
