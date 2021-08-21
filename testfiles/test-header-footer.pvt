@@ -1,3 +1,4 @@
+\RequirePackage{tagpdf-regressiontest}
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{
    pdfversion=2.0,
@@ -5,7 +6,6 @@
    activate=tagging,
    debug={para,uncompress}
   ,lang=de-DE}
-\RequirePackage{tagpdf-regressiontest}
 \documentclass{scrartcl}
 \usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
