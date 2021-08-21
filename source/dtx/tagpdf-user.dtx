@@ -179,6 +179,18 @@
 % faster then |\tagpdfsetup|. But I'm not sure if the names are good.
 % \end{function}
 %
+% \subsection{Header and footer}
+% Header and footer are automatically excluded from tagging. This can for
+% now to allow debugging be disabled with the following key, but probably
+% this key will disappear again. If some real content is in the header and
+% footer, tagging must be restarted there explicitly.
+%
+% \begin{function}{exclude-header-footer}
+%  \begin{syntax}
+%    |exclude-header-footer| = |true|\verb+|+|false|
+%  \end{syntax}%
+% \end{function}
+
 % \subsection{Link tagging}
 % Links need a special structure and cross reference system.
 % This is added through hooks of the l3pdfannot module and will work
@@ -549,6 +561,29 @@
         \tag_struct_end:
       }
   }
+%    \end{macrocode}
+% In generic mode we need the additional code from the ptagging tests.
+%    \begin{macrocode}
+\AddToHook{begindocument/before}
+ {
+   \bool_if:NF \g_@@_mode_lua_bool
+     {
+        \cs_if_exist:NT \@kernel@before@footins
+         {
+           \tl_put_right:Nn \@kernel@before@footins
+             { \@@_add_missing_mcs_to_stream:Nn \footins {footnote} }
+           \tl_put_right:Nn \@kernel@before@cclv
+             {
+               \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
+               \@@_add_missing_mcs_to_stream:Nn \@cclv {main}
+             }
+           \tl_put_right:Nn \@mult@ptagging@hook
+             {
+               \@@_add_missing_mcs_to_stream:Nn \mult@rightbox {multicol}
+             }
+         }
+     }
+  }   
 %    \end{macrocode}
 % \begin{macro}
 %   {
