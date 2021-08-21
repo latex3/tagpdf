@@ -1,0 +1,18 @@
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{
+   pdfversion=2.0,
+   testphase={tagpdf},
+   activate=tagging,
+   debug={para,uncompress}
+  ,lang=de-DE}
+\RequirePackage{tagpdf-regressiontest}
+\documentclass{scrartcl}
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\begin{document}
+\START
+\section{abc}
+
+blub
+
+\end{document}
