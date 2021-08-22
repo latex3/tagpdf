@@ -115,6 +115,12 @@ Overfull \hbox (145.16354pt too wide) in paragraph at lines 21--43
 .\T1/cmr/m/n/10.95 A
 .\T1/cmr/m/n/10.95 s
 .\glue(\rightskip) 0.0
+The sequence \g__tag_mc_main_marks_seq contains the items (without outer
+braces):
+>  {b+}
+>  {8}
+>  {0}
+>  {P}.
 Completed box being shipped out [1]
 \vbox(655.63496+0.0)x435.61176
 .\hbox(0.0+0.0)x0.0
@@ -128,11 +134,14 @@ Completed box being shipped out [1]
 .\vbox(680.80028+0.0)x418.25555, shifted 17.3562
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil
 ...\glue 0.0 plus 1.0fil
+...\pdfrunninglinkoff
 ...\hbox(0.0+0.0)x418.25555
 ....\hbox(0.0+0.0)x418.25555
+...\pdfrunninglinkon
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set >20000.0fil
+...\hbox(0.0+0.0)x0.0
 ...\write-{}
 ...\write1{\babel@aux{english}{}}
 ...\glue(\topskip) 0.0
@@ -3611,8 +3620,12 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 s
 ....\T1/cmr/m/n/10.95 e
 ....\glue(\rightskip) 0.0
+...\kern -2.12863
+...\hbox(0.0+2.12863)x0.0
+....\pdfliteral page{EMC}
 ...\glue -2.12863
 ...\glue 0.0 plus 0.0001fil
+..\pdfrunninglinkoff
 ..\glue(\baselineskip) 40.51862
 ..\hbox(7.08139+0.0)x418.25555
 ...\hbox(7.08139+0.0)x418.25555
@@ -3623,8 +3636,15 @@ Completed box being shipped out [1]
 .......\T1/cmr/m/n/10.95 1
 .......\glue 0.0 plus 1.0fil
 ....\glue 0.0 plus 1.0fil minus 1.0fil
+..\pdfrunninglinkon
 .\kern 0.0
  <../example-image-duck.pdf>
+The sequence \g__tag_mc_main_marks_seq contains the items (without outer
+braces):
+>  {b+}
+>  {8}
+>  {0}
+>  {P}.
 Completed box being shipped out [2]
 \vbox(655.63496+0.0)x435.61176
 .\hbox(0.0+0.0)x0.0
@@ -3638,11 +3658,17 @@ Completed box being shipped out [2]
 .\vbox(680.80028+0.0)x418.25555, shifted 17.3562
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil
 ...\glue 0.0 plus 1.0fil
+...\pdfrunninglinkoff
 ...\hbox(0.0+0.0)x418.25555
 ....\hbox(0.0+0.0)x418.25555
+...\pdfrunninglinkon
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 258.37251fil
+...\hbox(0.0+0.0)x0.0
+....\write1{\newlabeldata{mcid-11}{{tagabspage}{\__ref_attribute_tagabspage: }{ta\ETC.}
+....\pdfliteral page{/P /l3pdf10 BDC}
+....\write1{\newlabeldata{l3pdf10}{{abspage}{\__ref_attribute_abspage: }}}
 ...\glue(\topskip) 3.45851
 ...\hbox(7.54149+2.12863)x418.25555, glue set - 0.73294
 ....\T1/cmr/m/n/10.95 c
@@ -5913,8 +5939,11 @@ Completed box being shipped out [2]
 ...\marks1{e+,10,0,}
 ...\glue -2.12863
 ...\glue 0.0 plus 1.0fil
+...\kern 0.0
+...\hbox(0.0+0.0)x0.0
 ...\glue 0.0
 ...\glue 0.0 plus 0.0001fil
+..\pdfrunninglinkoff
 ..\glue(\baselineskip) 40.51862
 ..\hbox(7.08139+0.0)x418.25555
 ...\hbox(7.08139+0.0)x418.25555
@@ -5925,6 +5954,7 @@ Completed box being shipped out [2]
 .......\T1/cmr/m/n/10.95 2
 .......\glue 0.0 plus 1.0fil
 ....\glue 0.0 plus 1.0fil minus 1.0fil
+..\pdfrunninglinkon
 .\kern 0.0
 .\kern -655.63496
 .\hbox(0.0+0.0)x0.0
