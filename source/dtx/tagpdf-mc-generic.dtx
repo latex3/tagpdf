@@ -164,7 +164,7 @@
         #2, %label
       }
   }
-
+\cs_generate_variant:Nn \@@_mc_begin_marks:nn {oo}
 \cs_new_protected:Npn \@@_mc_artifact_begin_marks:n #1 %#1 type
   {
     \tex_marks:D \g_@@_mc_marks
@@ -198,7 +198,18 @@
         \g_@@_struct_stack_current_tl,  %structure num
       }
   }
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_mc_disable_marks:}
+% This disables the marks. They can't be reenabled, so it should only
+% be used in groups. 
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_mc_disable_marks:
+ {
+   \cs_set_eq:NN \@@_mc_begin_marks:nn \use_none:nn
+   \cs_set_eq:NN \@@_mc_artifact_begin_marks:n \use_none:n
+   \cs_set_eq:NN \@@_mc_end_marks: \prg_do_nothing:
+ }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_mc_get_marks:}
@@ -671,7 +682,7 @@
             \@@_mc_handle_mcid:VV
                \l_@@_mc_key_tag_tl
                \l_@@_mc_key_properties_tl
-            \@@_mc_begin_marks:nn {\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
+            \@@_mc_begin_marks:oo{\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
             \tl_if_empty:NF {\l_@@_mc_key_label_tl}
               {
                 \exp_args:NV

@@ -583,7 +583,7 @@
              }
          }
      }
-  }   
+  }
 %    \end{macrocode}
 % \begin{macro}
 %   {
@@ -598,6 +598,28 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}
+%   {
+%    \tagpdfsuppressmarks
+%   }
+%  This command allows to suppress the creation of the marks. It takes an argument
+%  which should normally be one of the mc-commands, puts a group around it and
+%  suppress the marks creation in this group. This command should be used if
+%  the begin and end command are at different boxing levels. E.g.
+%  \begin{verbatim}
+%  \@hangfrom
+%   {
+%    \tagstructbegin{tag=H1}%
+%    \tagmcbegin    {tag=H1}%
+%    #2
+%   }
+%   {#3\tagpdfsuppressmarks{\tagmcend}\tagstructend}%
+%  \end{verbatim}
+%    \begin{macrocode}
+\NewDocumentCommand\tagpdfsuppressmarks{m}
+  {{\use:c{@@_mc_disable_marks:} #1}}
+%    \end{macrocode}
+% \end{macro}
 % \subsection{Header and footer}
 % Header and footer should normally be tagged as artifacts. The following code
 % requires the new hooks.
