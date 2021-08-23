@@ -129,7 +129,7 @@
     \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
     #2
    }
-   {#3\tagmcend\tagstructend}%
+   {#3\tagpdfsuppressmarks{\tagmcend}\tagstructend}%
  }
 
 
@@ -141,7 +141,7 @@
     \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
     #3
    }
-   {#4\tagmcend\tagstructend}%
+   {#4\tagpdfsuppressmarks{\tagmcend}\tagstructend}%
  }
 
 \ExplSyntaxOff

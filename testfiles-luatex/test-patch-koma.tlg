@@ -26,12 +26,14 @@ Package tagpdf Info: closing structure 15 tagged /TOCI
 )
 \tf@toc=\write...
 Package tagpdf Info: closing structure 3 tagged /TOC
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [1
 ]
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [2
 ]
 chapter 1.
 Package tagpdf Info: closing structure 19 tagged /H1
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [3]
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [4
 ]
@@ -42,6 +44,7 @@ Package tagpdf Info: closing structure 22 tagged /H3
 Package tagpdf Info: closing structure 23 tagged /H4
 Package tagpdf Info: closing structure 24 tagged /P
 Package tagpdf Info: closing structure 1 tagged /Document
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
@@ -61,8 +64,10 @@ Completed box being shipped out [5]
 .\vbox(680.80028+0.0)x418.25555, shifted -12.5192, direction TLT
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil, direction TLT
 ...\glue 0.0 plus 1.0fil
+...\pdflinkstate 1
 ...\hbox(0.0+0.0)x418.25555, direction TLT
 ....\hbox(0.0+0.0)x418.25555, direction TLT
+...\pdflinkstate 0
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 407.24701fil, direction TLT
@@ -281,9 +286,13 @@ Completed box being shipped out [5]
 ....\glue(\rightskip) 0.0
 ...\glue 0.0 plus 1.0fil
 ...\glue 0.0
+..\pdfliteral page <lua data reference ...>
+..\pdfliteral page <lua data reference ...>
+..\pdflinkstate 1
 ..\glue(\baselineskip) 47.6
 ..\hbox(0.0+0.0)x418.25555, direction TLT
 ...\hbox(0.0+0.0)x418.25555, direction TLT
+..\pdflinkstate 0
 .\kern0.0
 .\kern-655.63496
 .\hbox(0.0+0.0)x0.0, direction TLT
