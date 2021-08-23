@@ -1,0 +1,39 @@
+%% needs special styles:
+%%
+%%  tagpdf  "develop" branch
+%%  pdfresources "main"
+
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{uncompress,pdfversion=2.0}
+
+\RequirePackage{tagpdf-regressiontest}
+\documentclass{article}
+
+
+\usepackage{tagpdf}
+\tagpdfsetup
+ {
+   activate,interwordspace,
+   paratagging,paratagging-show,
+   log=v
+ }
+
+\usepackage{kantlipsum}
+
+\showoutput
+
+\START
+
+\SHOWFILE{\jobname.aux}
+
+\OMIT
+\begin{document}
+\TIMO
+
+AAAA
+
+BBBB
+
+CCCC
+
+\end{document}
