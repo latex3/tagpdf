@@ -579,6 +579,11 @@
              }
            \tl_put_right:Nn \@mult@ptagging@hook
              {
+               \@@_check_typeout_v:n {====>~In~\string\page@sofar}
+               \process@cols\mult@gfirstbox
+                {
+                  \@@_add_missing_mcs_to_stream:Nn \count@ {multicol}
+                }
                \@@_add_missing_mcs_to_stream:Nn \mult@rightbox {multicol}
              }
          }
@@ -632,7 +637,7 @@
 \cs_new_protected:Npn\@@_hook_kernel_before_foot:{}
 \cs_new_protected:Npn\@@_hook_kernel_after_foot:{}
 
-\AddToHook{package/after/pdfmanagement-firstaid}
+\AddToHook{begindocument}
  {
   \cs_if_exist:NT \@kernel@before@head
    {

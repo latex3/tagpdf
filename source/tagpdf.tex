@@ -150,15 +150,20 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 
 \tableofcontents
-\section{Preface to version 0.9}
+\section{Preface to version 0.91}
 
-In this version lots of things have changed, but most of them are internal: the code has been reviewed and cleaned up,
-a number of errors corrected, the code has been properly documented (and the code documentation can now be compiled and
-printed).
+In this version support for page breaks in pdftex has been added. As described in section~\ref{sec:splitpara},
+tagging markers must be added by \emph{page}. That means that a paragraph that goes over two pages must get an end
+marker at the end on the first page and a new begin marker on the next page. 
 
-There are nevertheless also a number of changes for the public interface, including some breaking changes. Check the change section below for
-details.
+With lualatex that is rather easy to ensure, with pdflatex it requires quite sophisticated code. 
+The method is described in Frank Mittelbach's talk at TUG~2021 
+\enquote{Taming the beast — Advances in paragraph tagging with pdfTeX and XeTeX}
+\url{https://youtu.be/SZHIeevyo3U?t=19551}. The new code requires a new version of the pdfmanagement-testphase package. 
 
+Please check also section~\ref{sec:splitpara} for possible pitfalls.
+
+Also new in this version is the handling of header and footer: they will now be tagged as artifacts automatically.
 
 
 \section{Preface to version 0.8 and newer}
@@ -1055,9 +1060,9 @@ See also section~\ref{sec:alttext} for some more remarks and tests.
 
 A\sidenote{Generic mode only} problem in generic mode are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
 
-So with pdflatex in generic mode one currently has to do the splitting manually.
+So with pdflatex in generic mode one until now had to do the splitting manually. 
 
-The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea is to use \verb+\vadjust+ in the right place:
+The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea was to use \verb+\vadjust+ in the right place:
 
 
 \begin{lstlisting}
@@ -1070,6 +1075,19 @@ Pellentesque scelerisque
 ...
 sit amet, lacus.\tagmcend
 \end{lstlisting}
+
+Starting with version 0.91 there is code which tries to resolve this problem. Basically it works like this: every mc-command
+issues a mark command (actually two slightly different). When the page is built in the output routine this mark commands are inspected
+and from them \LaTeX{} can deduce if there is a mc-chunk which must be closed or reopened. 
+
+Please note
+
+\begin{itemize}
+\item The code requires the pdfmanagement-testphase version v0.95i.
+\item Typically you will need more compilations than previously, don't rely on the rerun messages, but if something looks wrong
+rerun.
+\item The code relies on that related |\tagmcbegin| and |\tagmcend| are in the same boxing level. If one is in a box (which hides the marks) and the other in the main galley, things will go wrong.
+\end{itemize}    
 
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
 

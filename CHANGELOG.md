@@ -8,6 +8,8 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 ### Added 
+ - added code to close/reopen mc-chunks with pdftex over page breaks
+ - header and footer are artifacts
  - mc-commands issue now marks to support paratagging with pdftex
  - commands to finish streams in pdftex 
  
