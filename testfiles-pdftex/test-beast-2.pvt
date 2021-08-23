@@ -2,7 +2,7 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
-\DeclareDocumentMetadata{pdfversion=2.0,uncompress,testphase={tagpdf,ptagging},
+\DeclareDocumentMetadata{pdfversion=2.0,uncompress,testphase={tagpdf},
   activate=tagging,
   }
 \RequirePackage{tagpdf-regressiontest}
@@ -18,4 +18,4 @@
 
 xxx\kant*[2-30]yyy
 
-\end{document}
+\end{document} 
