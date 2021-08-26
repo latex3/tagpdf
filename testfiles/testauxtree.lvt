@@ -33,9 +33,8 @@
 \pagestyle{fancy}
 \fancyhf{}
 
-\cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
-
 \ExplSyntaxOn
+\cfoot{\leavevmode\tag_mc_end_push:\tagmcbegin{artifact=pagination}\thepage\tagmcend\tag_mc_begin_pop:n{artifact}}
 \pdfmanagement_add:nnn{Info}{Title}{(title)}
 \ExplSyntaxOff
 

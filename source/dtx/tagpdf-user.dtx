@@ -655,11 +655,11 @@
     \bool_gset_eq:NN  \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
     \bool_gset_false:N \g_@@_in_mc_bool
     \tag_mc_begin:n {artifact=pagination}
-    \tag_stop_group_begin:
+    %\tag_stop_group_begin:
  }
 \cs_new_protected:Npn \@@_exclude_headfoot_end:
  {
-    \tag_stop_group_end:
+    %\tag_stop_group_end:
     \tag_mc_end:
     \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
  }

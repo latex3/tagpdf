@@ -32,8 +32,10 @@
 \ExplSyntaxOn
 \pdfmanagement_add:nnn {Catalog} {Lang}{(en-UK)}
 \pdfmanagement_add:nnn {Info} {Title}{(Title)}
+
+\cfoot{\leavevmode\tag_mc_end_push:\tagmcbegin{artifact=pagination}\thepage\tagmcend\tag_mc_begin_pop:n{artifact}}
+
 \ExplSyntaxOff
-\cfoot{\leavevmode\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \textheight=3cm
 \begin{document}\showoutput
 \START\tagstructbegin{tag=Document}
