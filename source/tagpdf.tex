@@ -154,17 +154,17 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 In this version support for page breaks in pdftex has been added. As described in section~\ref{sec:splitpara},
 tagging markers must be added by \emph{page}. That means that a paragraph that goes over two pages must get an end
-marker at the end on the first page and a new begin marker on the next page. 
+marker at the end on the first page and a new begin marker on the next page.
 
-With lualatex that is rather easy to ensure, with pdflatex it requires quite sophisticated code. 
-The method is described in Frank Mittelbach's talk at TUG~2021 
+With lualatex that is rather easy to ensure, with pdflatex it requires quite sophisticated code.
+The method is described in Frank Mittelbach's talk at TUG~2021
 \enquote{Taming the beast — Advances in paragraph tagging with pdfTeX and XeTeX}
-\url{https://youtu.be/SZHIeevyo3U?t=19551}. The new code requires a new version of the pdfmanagement-testphase package. 
+\url{https://youtu.be/SZHIeevyo3U?t=19551}. The new code requires a new version of the pdfmanagement-testphase package.
 
 Please check also section~\ref{sec:splitpara} for possible pitfalls.
 
 Also new in this version is the handling of header and footer: they will now be tagged as artifacts automatically.
-
+See section~\ref{sec:header-footer}
 
 \section{Preface to version 0.8 and newer}
 
@@ -650,7 +650,7 @@ They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which 
 
 
 \item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\tagpdfparaOff\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}\tagpdfparaOn
-    Examples are \texttt{/P} (paragraph), \texttt{/H2} (header), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
+    Examples are \texttt{/P} (paragraph), \texttt{/H2} (heading), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
 
 In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:
 
@@ -935,8 +935,11 @@ like.
 
 It is therefore from now on important to correctly markup such code. Header and footer typically should be
 artifacts. The LaTeX kernel hasn't yet suitable hooks around header and footer to allow to automate
-this, but they will be added. With packages like \pkg{fancyhdr}  or \pkg{scrlayer-scrpage} it is quite easy to add
-the needed code too.
+this, but a first draft has been added with \pkg{pdfmanagement-testphase}. Starting with version 0.92
+header and footer are marked as (simple) artifacts. 
+If they contain code which needs a different markup it still must be added explicitly. 
+With packages like \pkg{fancyhdr}  or \pkg{scrlayer-scrpage} it is quite easy to add
+the needed code.
 
 
 \subsubsection{Tips}
@@ -971,6 +974,23 @@ the needed code too.
 
 \end{figure}
 
+\subsubsection{Header and Footer}\label{sec:header-footer}
+
+Starting with version 0.92 header and footer are automatically marked up as (simple) artifacts.
+
+If some additional markup (or even a structure) is wanted, something like this should be used (here with
+the syntax of the \pkg{fancyhdr} package) to close the open mc-chunk and restart if after the content:
+
+\begin{lstlisting}
+\ExplSyntaxOn
+\cfoot{\leavevmode
+  \tag_mc_end_push:
+   \tagmcbegin{artifact=pagination}
+     \thepage
+   \tagmcend
+  \tag_mc_begin_pop:n{artifact}}
+\ExplSyntaxOff
+\end{lstlisting}  
 
 \subsubsection{Links and other annotations}\label{sec:link+annot}
 
@@ -1060,7 +1080,7 @@ See also section~\ref{sec:alttext} for some more remarks and tests.
 
 A\sidenote{Generic mode only} problem in generic mode are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
 
-So with pdflatex in generic mode one until now had to do the splitting manually. 
+So with pdflatex in generic mode one until now had to do the splitting manually.
 
 The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea was to use \verb+\vadjust+ in the right place:
 
@@ -1078,7 +1098,7 @@ sit amet, lacus.\tagmcend
 
 Starting with version 0.91 there is code which tries to resolve this problem. Basically it works like this: every mc-command
 issues a mark command (actually two slightly different). When the page is built in the output routine this mark commands are inspected
-and from them \LaTeX{} can deduce if there is a mc-chunk which must be closed or reopened. 
+and from them \LaTeX{} can deduce if there is a mc-chunk which must be closed or reopened.
 
 Please note
 
@@ -1087,7 +1107,7 @@ Please note
 \item Typically you will need more compilations than previously, don't rely on the rerun messages, but if something looks wrong
 rerun.
 \item The code relies on that related |\tagmcbegin| and |\tagmcend| are in the same boxing level. If one is in a box (which hides the marks) and the other in the main galley, things will go wrong.
-\end{itemize}    
+\end{itemize}
 
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
 
@@ -1143,17 +1163,17 @@ The flat version creates a structure like this:
 \end{lstlisting}
 
 
-So here the headers are marked according their level with \texttt{H1}, \texttt{H2}, etc.
+So here the headings are marked according their level with \texttt{H1}, \texttt{H2}, etc.
 
-In the xml-like tree the complete text of a sectioning unit is surrounded with the \texttt{Sect} tag, and all headers with the tag \texttt{H}. Here the nesting defines the level of a sectioning header.
+In the xml-like tree the complete text of a sectioning unit is surrounded with the \texttt{Sect} tag, and all headers with the tag \texttt{H}. Here the nesting defines the level of a sectioning heading.
 
 
 \begin{lstlisting}
 <Sect>
- <H>section header</H>
+ <H>section heading</H>
  <P> text</p>
  <Sect>
-   <H>subsection header</H>
+   <H>subsection heading</H>
    ...
  </Sect>
 </Sect>
