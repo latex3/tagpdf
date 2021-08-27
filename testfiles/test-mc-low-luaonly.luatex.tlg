@@ -6,9 +6,10 @@ File: example-image-duck.pdf Graphic file (type pdf)
 Package luatex.def Info: example-image-duck.pdf  used on input line ....
 (luatex.def)             Requested size: 184.55002pt x 114.2104pt.
 tagpdf: mc-current: abscnt=4==4 =>tag=P=15
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
+Package tagpdf Info: P has been pushed to the mc stack
+Package tagpdf Info: P has been removed from the mc stack
+Package tagpdf Info: P has been pushed to the mc stack
+Package tagpdf Info: P has been removed from the mc stack
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 Completed box being shipped out [1]
@@ -37,6 +38,8 @@ Completed box being shipped out [1]
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set >20000.0fil, direction TLT
+...\pdfliteral page <lua data reference ...>
+...\pdfliteral page <lua data reference ...>
 ...\latelua0{ltx.__pdf.Page.Resources.ExtGState=true}
 ...\latelua0{ltx.pdf.Page_Resources_gpush(tex.count["g_shipout_readonly_int"])}
 ...\write-{}
@@ -3775,6 +3778,10 @@ Completed box being shipped out [1]
 .\kern0.0
 .\pdfliteral page <lua data reference ...>
 <../example-image-duck.pdf>
+Package tagpdf Info: -1 has been pushed to the mc stack
+Package tagpdf Info: -1 has been removed from the mc stack
+Package tagpdf Info: -1 has been pushed to the mc stack
+Package tagpdf Info: -1 has been removed from the mc stack
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
