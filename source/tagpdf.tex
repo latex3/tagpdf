@@ -6,7 +6,7 @@
 
 \makeatletter
 \def\UlrikeFischer@package@version{0.92}
-\def\UlrikeFischer@package@date{2021-07-03}
+\def\UlrikeFischer@package@date{2021-08-27}
 \makeatother
 
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
@@ -932,6 +932,7 @@ like.
 \tagstructbegin{tag=Figure,alttext=Show tags of examples,attribute=bbox}\tagmcbegin{tag=Figure}
 \includegraphics{global-ex}
 \tagmcend\tagstructend
+
 \tagpdfparaOn
 
 It is therefore from now on important to correctly markup such code. Header and footer typically should be
@@ -986,14 +987,14 @@ and can easily spill over.
 At second one has to decide about how to tag: in many cases header and footer can simply be ignored,
 they only contain information which are meant to visually guide the reader and so are not relevant for
 the structure. This means that normally they should be tagged as artifacts. The PDF reference offers
-here a rather large number of options here to describe different versions of \enquote{ignore this}. 
+here a rather large number of options here to describe different versions of \enquote{ignore this}.
 Typically the header and footer should get the type \texttt{Pagination} and this types has a number of subtypes like
 Header, Footer, PageNum. It is not yet known if any technology actually make use of this info.
 
 But they can also contain meaningful content, for example an address. In such cases the content
 should be added to the structure (where?) but even if this address is
 repeated on every page at best only once. All this need some thoughts both from the users and the packages and code
-providing support for header and footers. 
+providing support for header and footers.
 
 For now tagpdf added some first support for automatically tagging:
 Starting with version 0.92 header and footer are automatically marked up as (simple) artifacts.
