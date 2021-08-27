@@ -510,7 +510,8 @@
 %    \begin{macrocode}
 \bool_new:N \l_@@_para_bool
 \bool_new:N \l_@@_para_show_bool
-\int_new:N  \g_@@_para_int
+\int_new:N  \g_@@_para_begin_int
+\int_new:N  \g_@@_para_end_int
 %    \end{macrocode}
 % \end{macro}
 %
@@ -538,11 +539,11 @@
   {
    \bool_if:NT \l_@@_para_bool
      {
-       \int_gincr:N \g_@@_para_int
+       \int_gincr:N \g_@@_para_begin_int
        \tag_struct_begin:n {tag=P}
        \bool_if:NT \l_@@_para_show_bool
         { \tag_mc_begin:n{artifact}
-          \llap{\color_select:n{red}\tiny\int_use:N\g_@@_para_int\ }
+          \llap{\color_select:n{red}\tiny\int_use:N\g_@@_para_begin_int\ }
           \tag_mc_end:
         }
        \tag_mc_begin:n {tag=P}
@@ -552,13 +553,25 @@
   {
     \bool_if:NT \l_@@_para_bool
       {
+        \int_gincr:N \g_@@_para_end_int
         \tag_mc_end:
         \bool_if:NT \l_@@_para_show_bool
           { \tag_mc_begin:n{artifact}
-            \rlap{\color_select:n{red}\tiny\ \int_use:N\g_@@_para_int}
+            \rlap{\color_select:n{red}\tiny\ \int_use:N\g_@@_para_end_int}
             \tag_mc_end:
           }
         \tag_struct_end:
+      }
+  }
+\AddToHook{enddocument/info}
+  {
+    \int_compare:nNnF {\g__tag_para_begin_int}={\g__tag_para_end_int}
+      {
+        \msg_error:nnxx
+          {tag}
+          {para-hook-count-wrong}
+          {\int_use:N\g__tag_para_begin_int}
+          {\int_use:N\g__tag_para_end_int}
       }
   }
 %    \end{macrocode}
