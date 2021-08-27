@@ -409,6 +409,10 @@
 %
 % \begin{macro}{stash,__artifact-bool,__artifact-type}
 % the two internal artifact keys are use to define the public |artifact|.
+% For now we add support for the subtypes Header and Footer.
+% Watermark,PageNum, LineNum,Redaction,Bates will be added if some use case
+% emerges. If some use case for /BBox and /Attached emerges, it will be perhaps
+% necessary to adapt the code.
 %    \begin{macrocode}
 \keys_define:nn { @@ / mc }
   {
@@ -418,6 +422,14 @@
     __artifact-type / pagination .code:n    =
       {
         \tl_set:Nn \l_@@_mc_artifact_type_tl { Pagination }
+      },
+    __artifact-type / pagination/header .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Pagination/Subtype/Header }
+      },
+    __artifact-type / pagination/footer .code:n    =
+      {
+        \tl_set:Nn \l_@@_mc_artifact_type_tl { Pagination/Subtype/Footer }
       },
     __artifact-type / layout     .code:n    =
       {

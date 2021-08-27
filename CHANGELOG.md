@@ -9,9 +9,10 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Added 
  - added code to close/reopen mc-chunks with pdftex over page breaks
- - header and footer are artifacts
+ - header and footer are artifacts by default
  - mc-commands issue now marks to support paratagging with pdftex
  - commands to finish streams in pdftex 
+ - artifact accepts now also pagination/footer and pagination/header as value.
  
 ### Fixed
  - numbering in paratagging-show

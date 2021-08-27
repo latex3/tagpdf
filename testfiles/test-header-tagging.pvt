@@ -1,0 +1,21 @@
+%this tests if the tagging of the header has side-effect on the text.
+%this is mostly relevant for luatex where the global attributes can
+%spill over.
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{
+   uncompress,
+   testphase={tagpdf},
+   activate=tagging,
+  }
+\RequirePackage{tagpdf-regressiontest}
+\documentclass{article}
+\usepackage{lipsum}
+\begin{document}\tagpdfparaOff
+
+\tagmcbegin{tag=Span}
+\lipsum*[1-10]
+
+\lipsum*[1-10]
+\tagmcend
+
+\end{document}

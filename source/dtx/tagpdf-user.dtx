@@ -651,15 +651,27 @@
 \bool_new:N \g_@@_saved_in_mc_bool
 \cs_new_protected:Npn \@@_exclude_headfoot_begin:
  {
-    \bool_set_false:N \l_@@_para_bool
-    \bool_gset_eq:NN  \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
-    \bool_gset_false:N \g_@@_in_mc_bool
-    \tag_mc_begin:n {artifact}
+    \bool_set_false:N  \l_@@_para_bool
+    \bool_if:NTF \g_@@_mode_lua_bool
+     {
+      \tag_mc_end_push:
+     }
+     {
+       \bool_gset_eq:NN   \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
+       \bool_gset_false:N \g_@@_in_mc_bool
+     }
+    \tag_mc_begin:n {artifact=pagination}
  }
 \cs_new_protected:Npn \@@_exclude_headfoot_end:
  {
     \tag_mc_end:
-    \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
+    \bool_if:NTF \g_@@_mode_lua_bool
+     {
+      \tag_mc_begin_pop:n{}
+     }
+     {
+       \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
+     }
  }
 
 \keys_define:nn { @@ / setup }

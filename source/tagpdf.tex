@@ -765,7 +765,8 @@ The key-val list understands the following keys:
   This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the \PDF{}, so it should with a starting slash give a valid \PDF{} name  (some ascii with numbers like \texttt{H4} is fine).
 
   \item[\PrintKeyName{artifact}]
-  This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should be marked with \PrintKeyName{artifact=pagination}.
+  This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{pagination/header}, \PrintKeyName{pagination/footer}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should normally be marked with \PrintKeyName{artifact=pagination} or \PrintKeyName{pagination/header}, \PrintKeyName{pagination/footer} but
+  simply artifact (as it is now done automatically) should be ok too.
 
   It is not quite clear if rules and other decorative graphical objects needs to be marked up as artifacts. Acrobat seems not to mind if not, but PAC~3 complained.
 
@@ -936,8 +937,8 @@ like.
 It is therefore from now on important to correctly markup such code. Header and footer typically should be
 artifacts. The LaTeX kernel hasn't yet suitable hooks around header and footer to allow to automate
 this, but a first draft has been added with \pkg{pdfmanagement-testphase}. Starting with version 0.92
-header and footer are marked as (simple) artifacts. 
-If they contain code which needs a different markup it still must be added explicitly. 
+header and footer are marked as (simple) artifacts.
+If they contain code which needs a different markup it still must be added explicitly.
 With packages like \pkg{fancyhdr}  or \pkg{scrlayer-scrpage} it is quite easy to add
 the needed code.
 
@@ -976,6 +977,25 @@ the needed code.
 
 \subsubsection{Header and Footer}\label{sec:header-footer}
 
+Tagging header and footer is not trivial. At first on the technical side header and footer are
+typeset and attached to the page during the output routine and the exact timing is not really under
+control of the user. That means that when adding tagging there one has to be careful not to disturb
+the tagging of the main text---this is mostly important in luamode where the attributes are global
+and can easily spill over.
+
+At second one has to decide about how to tag: in many cases header and footer can simply be ignored,
+they only contain information which are meant to visually guide the reader and so are not relevant for
+the structure. This means that normally they should be tagged as artifacts. The PDF reference offers
+here a rather large number of options here to describe different versions of \enquote{ignore this}. 
+Typically the header and footer should get the type \texttt{Pagination} and this types has a number of subtypes like
+Header, Footer, PageNum. It is not yet known if any technology actually make use of this info.
+
+But they can also contain meaningful content, for example an address. In such cases the content
+should be added to the structure (where?) but even if this address is
+repeated on every page at best only once. All this need some thoughts both from the users and the packages and code
+providing support for header and footers. 
+
+For now tagpdf added some first support for automatically tagging:
 Starting with version 0.92 header and footer are automatically marked up as (simple) artifacts.
 
 If some additional markup (or even a structure) is wanted, something like this should be used (here with
@@ -985,12 +1005,12 @@ the syntax of the \pkg{fancyhdr} package) to close the open mc-chunk and restart
 \ExplSyntaxOn
 \cfoot{\leavevmode
   \tag_mc_end_push:
-   \tagmcbegin{artifact=pagination}
+   \tagmcbegin{artifact=pagination/footer}
      \thepage
    \tagmcend
   \tag_mc_begin_pop:n{artifact}}
 \ExplSyntaxOff
-\end{lstlisting}  
+\end{lstlisting}
 
 \subsubsection{Links and other annotations}\label{sec:link+annot}
 
