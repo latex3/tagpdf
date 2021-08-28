@@ -718,8 +718,8 @@
 % \begin{macro}
 %  {
 %   tag,raw,
-%   alttext,alttext-o,
-%   actualtext,actualtext-o,
+%   alttext,
+%   actualtext,
 %   label,artifact
 %  }
 %    \begin{macrocode}
@@ -734,17 +734,7 @@
       {
         \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
       },
-    alttext .code:n = % Alt property
-      {
-        \str_set_convert:Nnon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
-        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-      },
-    alttext-o .code:n      = % Alt property
+    alttext .code:n      = % Alt property
       {
         \str_set_convert:Noon
           \l_@@_tmpa_str
@@ -755,16 +745,6 @@
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
       },
     actualtext .code:n      = % ActualText property
-      {
-        \str_set_convert:Nnon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /ActualText~< }
-        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-      },
-    actualtext-o .code:n      = % ActualText property
       {
         \str_set_convert:Noon
           \l_@@_tmpa_str

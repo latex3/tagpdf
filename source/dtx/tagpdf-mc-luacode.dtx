@@ -359,8 +359,8 @@
 % \begin{macro}
 %   {
 %    tag,raw,
-%    alttext,alttext-o,
-%    actualtext,actualtext-o,
+%    alttext,
+%    actualtext,
 %    label,artifact
 %   }
 %   TODO: check conversion, check if local/global setting is right.
@@ -386,23 +386,6 @@
       },
     alttext .code:n      = % Alt property
       {
-        \str_set_convert:Nnon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
-        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-        \lua_now:e
-          {
-            ltx.@@.func.store_mc_data
-              (
-                 \@@_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l_@@_tmpa_str>"
-              )
-          }
-      },
-    alttext-o .code:n      = % Alt property
-      {
         \str_set_convert:Noon
           \l_@@_tmpa_str
           { #1 }
@@ -419,23 +402,6 @@
           }
       },
     actualtext .code:n      = % Alt property
-      {
-        \str_set_convert:Nnon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
-        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-        \lua_now:e
-          {
-            ltx.@@.func.store_mc_data
-              (
-                \@@_get_mc_abs_cnt:,"actualtext","/ActualText~<\str_use:N \l_@@_tmpa_str>"
-              )
-         }
-      },
-    actualtext-o .code:n      = % Alt property
       {
         \str_set_convert:Noon
           \l_@@_tmpa_str

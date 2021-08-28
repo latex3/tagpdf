@@ -123,15 +123,15 @@
 % Commands are not expanded. |title-o| will expand the value once.
 % \end{function}
 %
-% \begin{function}{alttext,alttext-o}
+% \begin{function}{alttext}
 % This key inserts an \texttt{/Alt} value in the dictionary of structure object.
 % The value is handled as verbatim string and hex encoded.
-% |alttext-o| will expand the value once.
+% The value will be expanded first once.
 % \end{function}
-% \begin{function}{actualtext,actualtext-o}
+% \begin{function}{actualtext}
 % This key inserts an \texttt{/ActualText} value in the dictionary of structure object.
 % The value is handled as verbatim string and hex encoded.
-% |actualtext-o| will expand the value once.
+% The value will be expanded first once.
 % \end{function}
 % \begin{function}{lang}
 % This key allows to set the language for a structure element. The value should be a bcp-identifier,
@@ -744,8 +744,8 @@
 %  {
 %    label,stash,tag,
 %    title,title-o,
-%    alttext,alttext-o,
-%    actualtext,actualtext-o
+%    alttext,
+%    actualtext,
 %    lang,ref,E
 %  }
 %    \begin{macrocode}
@@ -797,18 +797,6 @@
       },
     alttext .code:n      = % Alt property
       {
-        \str_set_convert:Nnon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-          { Alt }
-          { <\l_@@_tmpa_str> }
-      },
-    alttext-o .code:n      = % Alt property
-      {
         \str_set_convert:Noon
           \l_@@_tmpa_str
           { #1 }
@@ -820,18 +808,6 @@
           { <\l_@@_tmpa_str> }
       },
     actualtext .code:n  = % ActualText property
-      {
-        \str_set_convert:Nnon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-          { ActualText }
-          { <\l_@@_tmpa_str>}
-      },
-    actualtext-o .code:n  = % ActualText property
       {
         \str_set_convert:Noon
           \l_@@_tmpa_str
