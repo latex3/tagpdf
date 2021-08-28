@@ -17,6 +17,10 @@ this project uses date-based 'snapshot' version identifiers.
  
 ### Fixed
  - numbering in paratagging-show
+ 
+### Removed 
+ - keys alttext-o and actualtext-o, the keys alttext and actualtext will now expand the
+ value once. 
 
 ## [2021-07-03]
 ### Fixed
