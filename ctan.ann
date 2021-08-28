@@ -1,4 +1,16 @@
-Version 0.91
+Version 0.92
     
+### Added 
+ - code to close/reopen mc-chunks with pdftex over page breaks
+ - header and footer are artifacts by default
+ - mc-commands issue now marks to support paratagging with pdftex
+ - commands to finish streams in pdftex 
+ - artifact accepts now also pagination/footer and pagination/header as value.
+ - added a check with error if the begin and end para hooks don't match.
+ 
 ### Fixed
- - undeclared variable, issue #609 in latex2e
+ - numbering in paratagging-show
+ 
+### Removed 
+ - keys alttext-o and actualtext-o, the keys alttext and actualtext will now expand the
+ value once. 

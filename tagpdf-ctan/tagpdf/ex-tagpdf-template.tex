@@ -1,0 +1,33 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+%this is more or less minimal template that can be used as starting point
+%it doesn't set everything that would be needed!
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata
+ {
+  uncompress,
+  pdfversion=2.0
+ }
+\documentclass{scrartcl}
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+\usepackage{iftex}
+\iftutex
+  \usepackage{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+\fi
+
+\tagpdfsetup
+    {
+      tabsorder=structure,
+      activate, %adds Document structure
+      paratagging, %activates tagging of paragraphs.
+      interwordspace %actives interword spaces (lualatex, pdflatex)
+    }
+\begin{document}
+\pagestyle{empty} %
+
+    a paragraph
+
+\end{document} 

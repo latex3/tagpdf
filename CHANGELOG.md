@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [2021-08-27]
+## [2021-08-28]
 
 ### Added 
  - code to close/reopen mc-chunks with pdftex over page breaks

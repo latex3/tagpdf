@@ -1,0 +1,440 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf-tree.dtx
+%
+% Copyright (C) 2019-2021 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-tree module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% \title{^^A
+%   The \pkg{tagpdf-tree} module\\ Commands trees and main dictionaries   ^^A
+%   \\ Part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.92, released 2021-08-27}
+% \maketitle
+% \begin{implementation}
+%    \begin{macrocode}
+%<@@=tag>
+%<*header>
+\ProvidesExplPackage {tagpdf-tree-code} {2021-08-27} {0.92}
+ {part of tagpdf - code related to writing trees and dictionaries to the pdf}
+%</header>
+%    \end{macrocode}
+% \section{Trees, pdfmanagement and finalization code}
+%
+% The code to finish the structure is in a hook.
+% This will perhaps at the end be a kernel hook.
+% TODO check right place for the code
+% The pdfmanagement code is the kernel hook after
+% shipout/lastpage so all code affecting it should be before.
+% Objects can be written later, at least in pdf mode.
+%    \begin{macrocode}
+%<*package>
+\hook_gput_code:nnn{begindocument}{tagpdf}
+  {
+    \bool_if:NT \g_@@_active_tree_bool
+      {
+        \sys_if_output_pdf:TF
+          {
+            \AddToHook{enddocument/end} { \@@_finish_structure: }
+          }
+          {
+            \AddToHook{shipout/lastpage} { \@@_finish_structure: }
+          }
+      }
+  }
+%    \end{macrocode}
+% \subsection{Catalog: MarkInfo and StructTreeRoot}
+% The StructTreeRoot and the MarkInfo entry must be added to the catalog.
+% We do it late so that we can win, but before the pdfmanagement hook.
+% \begin{macro}{@@/struct/0}
+% This is the object for the root object, the StructTreeRoot
+%    \begin{macrocode}
+\pdf_object_new:nn { @@/struct/0 }{ dict }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+\hook_gput_code:nnn{shipout/lastpage}{tagpdf}
+  {
+    \bool_if:NT \g_@@_active_tree_bool
+      {
+        \pdfmanagement_add:nnn { Catalog / MarkInfo } { Marked } { true }
+        \pdfmanagement_add:nnx
+          { Catalog }
+          { StructTreeRoot }
+          { \pdf_object_ref:n { @@/struct/0 } }
+      }
+  }
+%    \end{macrocode}
+%
+% \subsection{Writing structure elements}
+% The following commands are needed to write out the structure.
+% \begin{macro}{\@@_tree_write_structtreeroot:}
+% This writes out the root object.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_structtreeroot:
+  {
+     \@@_prop_gput:cnx
+       { g_@@_struct_0_prop }
+       { ParentTree }
+       { \pdf_object_ref:n { @@/tree/parenttree } }
+     \@@_prop_gput:cnx
+       { g_@@_struct_0_prop }
+       { RoleMap }
+       { \pdf_object_ref:n { @@/tree/rolemap } }
+     \@@_struct_write_obj:n { 0 }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_tree_write_structelements:}
+% This writes out the other struct elems, the absolute number is in the counter
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_structelements:
+  {
+    \int_step_inline:nnnn {1}{1}{\c@g_@@_struct_abs_int}
+      {
+        \@@_struct_write_obj:n { ##1 }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{ParentTree}
+% \begin{macro}{@@/tree/parenttree}
+% The object which will hold the parenttree
+%    \begin{macrocode}
+\pdf_object_new:nn { @@/tree/parenttree }{ dict }
+%    \end{macrocode}
+% \end{macro}
+% The ParentTree maps numbers to objects or (if the number represents a page)
+% to arrays of objects. The numbers refer to two dictinct types of entries:
+% page streams and real objects like annotations.
+% The numbers must be distinct and ordered.
+% So we rely on abspage for the pages and put the real objects at the end.
+% We use a counter to have a chance to get the correct number
+% if code is processed twice.
+%
+% \begin{macro}{\c@g_@@_parenttree_obj_int}
+%  This is a counter for the real objects. It starts at the absolute last page
+%  value. It relies on l3ref.
+%    \begin{macrocode}
+\newcounter  { g_@@_parenttree_obj_int }
+\hook_gput_code:nnn{begindocument}{tagpdf}
+  {
+    \int_gset:Nn
+      \c@g_@@_parenttree_obj_int
+      { \@@_ref_value_lastpage:nn{abspage}{100}  }
+  }
+%    \end{macrocode}
+% \end{macro}
+% We store the number/object references in a tl-var. If more structure is needed
+% one could switch to a seq.
+%  \begin{variable}{ \g_@@_parenttree_objr_tl }
+%    \begin{macrocode}
+\tl_new:N \g_@@_parenttree_objr_tl
+%    \end{macrocode}
+% \end{variable}
+%
+%  \begin{macro}{ \@@_parenttree_add_objr:nn }
+%  This command stores a StructParent number and a objref into the tl var.
+%  This is only for objects like annotations, pages are handled elsewhere.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_parenttree_add_objr:nn #1 #2 %#1 StructParent number, #2 objref
+  {
+    \tl_gput_right:Nx \g_@@_parenttree_objr_tl
+      {
+        #1 \c_space_tl #2 ^^J
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\l_@@_parenttree_content_tl}
+% A tl-var which will get the page related parenttree content.
+%    \begin{macrocode}
+\tl_new:N \l_@@_parenttree_content_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_tree_fill_parenttree:}
+% This is the main command to assemble the page related entries of the parent tree.
+% It wanders through the pages and the mcid numbers and collects all mcid of one page.
+%    \begin{macrocode}
+
+\cs_new_protected:Npn \@@_tree_fill_parenttree:
+  {
+    \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{abspage}{-1}} %not quite clear if labels are needed. See lua code
+      { %page ##1
+        \prop_clear:N \l_@@_tmpa_prop
+        \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{tagmcabs}{-1}}
+          {
+            %mcid####1
+            \int_compare:nT
+              {\@@_ref_value:enn{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
+              {% yes
+                \prop_put:Nxx
+                  \l_@@_tmpa_prop
+                  {\@@_ref_value:enn{mcid-####1}{tagmcid}{-1}}
+                  {\prop_item:Nn \g_@@_mc_parenttree_prop {####1}}
+              }
+          }
+        \tl_put_right:Nx\l_@@_parenttree_content_tl
+          {
+            \int_eval:n {##1-1}\c_space_tl
+            [\c_space_tl %]
+          }
+        \int_step_inline:nnnn
+          {0}
+          {1}
+          { \prop_count:N \l_@@_tmpa_prop -1 }
+          {
+            \prop_get:NnNTF \l_@@_tmpa_prop {####1} \l_@@_tmpa_tl
+              {% page#1:mcid##1:\l_@@_tmpa_tl :content
+                \tl_put_right:Nx \l_@@_parenttree_content_tl
+                  {
+                    \pdf_object_if_exist:eT { @@/struct/\l_@@_tmpa_tl }
+                     {
+                       \pdf_object_ref:e { @@/struct/\l_@@_tmpa_tl }
+                     }
+                    \c_space_tl
+                  }
+              }
+              {
+                \msg_warning:nn { tag } {tree-mcid-index-wrong}
+              }
+          }
+        \tl_put_right:Nn
+          \l_@@_parenttree_content_tl
+          {%[
+            ]^^J
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_tree_lua_fill_parenttree:}
+% This is a special variant for luatex.
+% lua mode must/can do it differently.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_lua_fill_parenttree:
+  {
+    \tl_set:Nn \l_@@_parenttree_content_tl
+      {
+        \lua_now:e
+          {
+            ltx.@@.func.output_parenttree
+              (
+                \int_use:N\g_shipout_readonly_int
+              )
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_tree_write_parenttree:}
+% This combines the two parts and writes out the object.
+% TODO should the check for lua be moved into the backend code?
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_parenttree:
+  {
+    \bool_if:NTF \g_@@_mode_lua_bool
+      {
+        \@@_tree_lua_fill_parenttree:
+      }
+      {
+        \@@_tree_fill_parenttree:
+      }
+    \tl_put_right:NV \l_@@_parenttree_content_tl\g_@@_parenttree_objr_tl
+    \pdf_object_write:nx  { @@/tree/parenttree }
+      {
+        /Nums\c_space_tl [\l_@@_parenttree_content_tl]
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Rolemap dictionary}
+% The Rolemap dictionary describes relations between new tags and standard types.
+% The main part here is handled in the role module, here we only define the
+% command which writes it to the PDF.
+% \begin{variable}{@@/tree/rolemap}
+% At first we reserve again an object.
+%    \begin{macrocode}
+\pdf_object_new:nn { @@/tree/rolemap }{ dict }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_tree_write_rolemap:}
+% This writes out the rolemap, basically it simply pushes out
+% the dictionary which has been filled in the role module.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_rolemap:
+  {
+    \pdf_object_write:nx  { @@/tree/rolemap }
+      {
+        \pdfdict_use:n{g_@@_role/RoleMap_dict}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Classmap dictionary}
+% Classmap and attributes are setup in the struct module, here is only the
+% code to write it out. It should only done if values have been used.
+% \begin{macro}{\@@_tree_write_classmap:}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_classmap:
+  {
+    \tl_clear:N \l_@@_tmpa_tl
+    \seq_gremove_duplicates:N \g_@@_attr_class_used_seq
+    \seq_set_map:NNn \l_@@_tmpa_seq \g_@@_attr_class_used_seq
+      {
+        /##1\c_space_tl
+        <<
+          \prop_item:Nn
+            \g_@@_attr_entries_prop
+            {##1}
+        >>
+      }
+    \tl_set:Nx \l_@@_tmpa_tl
+      {
+        \seq_use:Nn
+          \l_@@_tmpa_seq
+          { \iow_newline: }
+      }
+    \tl_if_empty:NF
+      \l_@@_tmpa_tl
+      {
+        \pdf_object_new:nn { @@/tree/classmap }{ dict }
+        \pdf_object_write:nx
+          { @@/tree/classmap }
+          { \l_@@_tmpa_tl }
+        \@@_prop_gput:cnx
+          { g_@@_struct_0_prop }
+          { ClassMap }
+          { \pdf_object_ref:n { @@/tree/classmap }  }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{Namespaces}
+% Namespaces are handle in the role module, here is the code to write them out.
+% Namespaces are only relevant for pdf2.0 but we don't care, it doesn't harm.
+% \begin{variable}{@@/tree/namespaces}
+%    \begin{macrocode}
+\pdf_object_new:nn{ @@/tree/namespaces }{array}
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\@@_tree_write_namespaces:}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_write_namespaces:
+  {
+    \prop_map_inline:Nn \g_@@_role_NS_prop
+      {
+        \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
+          {
+            \pdf_object_write:nx {@@/RoleMapNS/##1}
+              {
+                \pdfdict_use:n {g_@@_role/RoleMapNS_##1_dict}
+              }
+            \pdfdict_gput:nnx{g_@@_role/Namespace_##1_dict}
+              {RoleMapNS}{\pdf_object_ref:n {@@/RoleMapNS/##1}}
+          }
+        \pdf_object_write:nx{tag/NS/##1}
+          {
+             \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
+          }
+      }
+    \pdf_object_write:nx {@@/tree/namespaces}
+      {
+        \prop_map_tokens:Nn \g_@@_role_NS_prop{\use_ii:nn}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{Finishing the structure}
+% This assembles the various parts.
+% TODO (when tabular are done or if someone requests it): IDTree
+%  \begin{macro}{ \@@_finish_structure: }
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_finish_structure:
+  {
+    \bool_if:NT\g_@@_active_tree_bool
+      {
+        \hook_use:n {tagpdf/finish/before}
+        \@@_tree_write_parenttree:
+        \@@_tree_write_rolemap:
+        \@@_tree_write_classmap:
+        \@@_tree_write_namespaces:
+        \@@_tree_write_structelements: %this is rather slow!!
+        \@@_tree_write_structtreeroot:
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{StructParents entry for Page}
+% We need to add to the Page resources the |StructParents| entry, this is simply the
+% absolute page number.
+%    \begin{macrocode}
+\hook_gput_code:nnn{begindocument}{tagpdf}
+  {
+    \bool_if:NT\g_@@_active_tree_bool
+      {
+       \hook_gput_code:nnn{shipout/before} { tagpdf/structparents }
+         {
+           \pdfmanagement_add:nnx
+             { Page }
+             { StructParents }
+             { \int_eval:n { \g_shipout_readonly_int} }
+         }
+      }
+  }
+%</package>
+%    \end{macrocode}
+% \end{implementation}
+% \PrintIndex

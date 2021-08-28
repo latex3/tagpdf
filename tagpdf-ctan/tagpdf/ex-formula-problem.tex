@@ -1,0 +1,55 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{
+   pdfversion=1.7
+  ,lang=de-DE
+  ,uncompress}
+\documentclass{article}
+\usepackage{tagpdf}
+
+\tagpdfsetup{tabsorder=structure,
+             activate}
+\usepackage{iftex}             
+\iftutex
+  \usepackage{fontspec}
+  \usepackage{unicode-math}
+  \usepackage{luacode}
+  \newfontface\zerowidthfont{freeserif}
+\else
+  \usepackage[T1]{fontenc}
+\fi
+
+\usepackage{graphicx}
+% ndva doesn't read the alt text of the formulas
+\begin{document}
+\pagestyle{empty}
+
+
+\tagstructbegin{tag=P}
+  \tagmcbegin{tag=P}
+   Ein Satz ohne Umlaute.
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=Formula}
+ \tagmcbegin {tag=Formula,alttext={Dies ist eine Formel}}
+  formula
+ \tagmcend
+\tagstructend
+
+\newpage
+
+\tagstructbegin{tag=P}
+  \tagmcbegin{tag=P}
+   Ein Satz ohne Umlaute.
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=Formula,alttext=Dies ist eine zweite Formel}
+ \tagmcbegin {tag=Formula}
+  formula
+ \tagmcend
+\tagstructend
+
+
+\end{document} 

@@ -1,0 +1,178 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+%This example shows how one can patch sectioning command and toc entries
+%to add tags.
+%The patches are layout/option dependant
+%With other document options (e.g. chapterprefix) or
+%if the sectioning commands are redefined more/different patches are perhaps needed
+
+%no page break involved. So the example works in lua and generic mode
+
+% unclear if everything still works. They have been some changes in koma
+% doesn't take paratagging into account. 
+
+
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{pdfversion=1.7,uncompress}
+
+\documentclass{scrbook}
+\usepackage[english]{babel}
+
+\usepackage{tagpdf}
+
+\usepackage{iftex}
+\iftutex
+  \usepackage{fontspec}
+  \usepackage{luacode}
+\else
+  \usepackage[T1]{fontenc}
+\fi
+
+
+
+\tagpdfsetup{tabsorder=structure,
+             activate,
+             }
+
+
+%%%%%%%%%%%%%%%
+%Marking the toc entries
+%around the whole entry so only structure:
+\newcommand\tagscrtocentry[1]{\tagstructbegin{tag=TOCI}#1\tagstructend}
+
+%leaf so structure and mc:
+\newcommand\tagscrtocpagenumber[1]{%
+ \tagstructbegin{tag=Reference}%
+ \tagmcbegin{tag=Reference}%
+ #1%
+ \tagmcend
+ \tagstructend}
+
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{chapter}
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{section}
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{subsection}
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{subsubsection}
+\DeclareTOCStyleEntry[
+   entryformat=\tagscrtocentry,
+   pagenumberformat=\tagscrtocpagenumber]{tocline}{paragraph}
+
+
+
+\renewcommand{\addtocentrydefault}[3]{%
+ \Ifstr{#3}{}{}
+   {%\
+   \Ifstr{#2}{}
+    {%
+     \addcontentsline{toc}{#1}
+      {%
+       \protect\nonumberline
+       \tagstructbegin{tag=P}%
+       \tagmcbegin{tag=P}%
+        #3%
+       \tagmcend
+       \tagstructend
+      }%
+    }%
+    {%
+    \addcontentsline{toc}{#1}{%
+     \tagstructbegin{tag=Lbl}%
+     \tagmcbegin{tag=Lbl}%
+     \protect\numberline{#2}%
+     \tagmcend\tagstructend
+     \tagstructbegin{tag=P}%
+     \tagmcbegin{tag=P}%
+      #3%
+     \tagmcend
+     \tagstructend
+     }%
+    }%
+   }}%
+
+% the dots must be marked too
+\makeatletter
+\renewcommand*{\TOCLineLeaderFill}[1][.]{%
+  \leaders\hbox{$\m@th
+    \mkern \@dotsep mu\hbox{\tagmcbegin{artifact}#1\tagmcend}\mkern \@dotsep
+    mu$}\hfill
+}
+
+%%%%%%%%%
+% Sectioning commands
+%%%%%%%%
+
+\ExplSyntaxOn
+\prop_new:N   \g_tag_section_level_prop
+\prop_gput:Nnn \g_tag_section_level_prop {chapter}{H1}
+\prop_gput:Nnn \g_tag_section_level_prop {section}{H2}
+\prop_gput:Nnn \g_tag_section_level_prop {subsection}{H3}
+\prop_gput:Nnn \g_tag_section_level_prop {subsubsection}{H4}
+\prop_gput:Nnn \g_tag_section_level_prop {paragraph}{H5}
+
+%new 0.6, as attributes are local we have to put \tagmcbegin everywhere.
+\renewcommand{\chapterlinesformat}[3]
+ {
+  \@hangfrom
+   {
+    \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
+    \tl_if_empty:nF{#2}
+     {
+      \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
+      #2
+      \tagmcend
+     }
+   }
+   {\tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{chapter}}
+    #3\tagmcend\tagstructend}%
+ }
+
+%unnumbered sections level give an empty mc, need to think about it.
+\renewcommand{\sectionlinesformat}[4]
+ {
+  \@hangfrom
+   {\hskip #2
+    \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+    \tl_if_empty:nF{#3}
+    {
+     \tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+     #3
+     \tagmcend
+    }
+   }
+   {\tagmcbegin    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
+    #4
+    \tagmcend\tagstructend}%
+ }
+
+\ExplSyntaxOff
+\AfterTOCHead{\tagstructbegin{tag=TOC}}
+\AfterStartingTOC{\tagstructend} %end TOC
+
+
+\begin{document}
+%I don't want to handle pagestyles, so set everything to empty:
+\pagestyle{empty}\renewcommand\chapterpagestyle{empty}
+
+
+\tableofcontents
+
+\chapter{chapter}
+\addchap{chapter}
+\section{section}
+\subsection{subsection}
+\subsubsection{subsubsection}
+
+ \tagstructbegin{tag=P,actualtext=abc!}
+   \tagmcbegin{tag=P}
+    a paragraph\par x
+   \tagmcend
+ \tagstructend
+
+\end{document} 

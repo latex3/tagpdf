@@ -1,0 +1,795 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf-checks.dtx
+%
+% Copyright (C) 2019-2021 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%
+%
+%<*driver>
+\RequirePackage{pdfmanagement-testphase}
+\DeclareDocumentMetadata{}
+\makeatletter
+\declare@file@substitution{doc.sty}{doc-v3beta.sty}
+\makeatother
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-checks module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% \title{^^A
+%   The \pkg{tagpdf-checks} module\\ Messages and check code   ^^A
+%   \\ Part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.92, released 2021-08-27}
+% \maketitle
+% \begin{documentation}
+% \section{Commands}
+% \begin{function}[pTF,EXP]{\tag_if_active:}
+% This command tests if tagging is active. It only gives true if all tagging has
+% been activated, \emph{and} if tagging hasn't been stopped locally.
+% \end{function}
+% \begin{function}[EXP]{\tag_get:n}
+%  \begin{syntax}
+%  \cs{tag_get:n}\Arg{keyword}
+%  \end{syntax}
+% This is a generic command to retrieve data. Currently
+% the only sensible values for the argument \meta{keyword}
+% are |mc_tag| and |struct_tag|.
+% \end{function}
+%
+% \section{Description of log messages}
+% \subsection{\cs{ShowTagging} command}
+%  \begin{tabular}{lll}
+%   Argument                          & type           & note\\
+%  \cs{ShowTagging}{mc-data = num}    & log+term       & lua-only\\
+%  \cs{ShowTagging}{mc-current} & log+term       & \\
+%  \cs{ShowTagging}{struck-stack= [log\verb+|+show]}  & log or term+stop \\
+%  \end{tabular}
+%
+% \subsection{Messages in checks and commands}
+% \scriptsize
+% \begin{tabular}{llll}
+%   command                & message  & action   & remark\\
+%   |\@@_check_structure_has_tag:n|
+% & |struct-missing-tag|
+% & error
+% \\
+%   |\@@_check_structure_tag:N|
+% & |role-unknown-tag|
+% & warning
+% \\
+%   |\@@_check_info_closing_struct:n|
+% & |struct-show-closing|
+% & info
+% & log-level>0
+% \\
+%   |\@@_check_no_open_struct:|
+% & struct-faulty-nesting
+% & error
+% & TODO: error only with 1?
+% \\
+%   |\@@_check_struct_used:n|
+% & |struct-used-twice|
+% & warning
+% \\
+%   |\@@_check_add_tag_role:nn|
+% & |role-missing|, |role-tag|, |role-unknown|
+% & warning, info (>0), warning
+% \\
+%   |\@@_check_mc_if_nested:|,
+% & |mc-nested|
+% & warning
+% \\
+%   |\@@_check_mc_if_open:|
+% & |mc-not-open|
+% & warning
+% & only generic (?)
+% \\
+%   |\@@_check_mc_pushed_popped:nn|
+% & |mc-pushed|, |mc-popped|
+% & info (2), info+|seq_log| (>2)
+% \\
+%   |\@@_check_mc_tag:N|
+% & |mc-tag-missing|, |role-unknown-tag|
+% & error (missing), warning (unknown).
+% \\
+%   |\@@_check_mc_used:n|
+% & |mc-used-twice|
+% & warning
+% & TODO: review the sense of this test!
+% \\
+%   |\@@_check_show_MCID_by_page:|
+% &
+% &
+% & currently unused
+% \\
+%   |\tag_mc_use:n|
+% & |mc-label-unknown|, |mc-used-twice|
+% & warning
+% & in mc-shared
+% \\
+%   |\role_add_tag:nn|
+% & |new-tag|
+% &  info (>0)
+% & in roles
+% \\
+% & |sys-no-interwordspace|
+% &  warning
+% & space module, only xetex/dvi
+% \\
+%   |\@@_struct_write_obj:n|
+% & |struct-no-objnum|
+% & error
+% & in struct module
+% \\
+%   |\tag_struct_begin:n|
+% & |struct-faulty-nesting|
+% & error
+% \\
+%   |\@@_struct_insert_annot:nn|
+% & |struct-faulty-nesting|
+% & error
+% \\
+%   |tag_struct_use:n|
+% & |struct-label-unknown|
+% &  warning
+% \\
+%   |attribute-class|, |attribute|
+% & |attr-unknown|
+% & error
+% \\
+%  |\@@_tree_fill_parenttree:|
+% & |tree-mcid-index-wrong|
+% & warning
+% TODO: should trigger a standard  rerun message.
+% \\
+%  in |enddocument/info|-hook
+% & |para-hook-count-wrong|
+% & error (warning?)
+% \end{tabular}
+%
+% \normalsize
+% \subsection{Messages from the ptagging code}
+% A few messages are issued in generic
+% mode from the code which reinserts missing TMB/TME.
+% This is currently done if log-level is larger than zero.
+% TODO: reconsider log-level and messages when this code
+% settles down.
+%
+%
+% \subsection{Warning messages from the lua-code}
+% The messages are triggered if the log-level is at least equal to the number.
+%
+% \begin{tabular}[t]{>{\ttfamily}lll}
+% message & log-level & remark \\\hline
+% WARN TAG-NOT-TAGGED:       &1                   \\
+% WARN TAG-OPEN-MC:          &1                   \\
+% WARN SHIPOUT-MC-OPEN:      &1                    \\
+% WARN SHIPOUT-UPS:          &0 & shouldn't happen \\
+% WARN TEX-MC-INSERT-MISSING:&0 & shouldn't happen \\
+% WARN TEX-MC-INSERT-NO-KIDS:&2 & e.g. from empty hbox
+% \end{tabular}
+%
+% \subsection{Info messages from the lua-code}
+% The messages are triggered if the log-level is at least equal to the number.
+% |TAG| messages are from the traversing function, |TEX| from code used in the tagpdf-mc module.
+% |PARENTREE| is the code building the parenttree.
+%
+% \begin{longtable}{>{\ttfamily}lll}
+% message & log-level & remark \\\hline\endhead
+% INFO SHIPOUT-INSERT-LAST-EMC & 3 & finish of shipout code \\
+% INFO SPACE-FUNCTION-FONT     & 3 & interwordspace code \\
+% INFO TAG-ABSPAGE & 3  \\
+% INFO TAG-ARGS & 4     \\
+% INFO TAG-ENDHEAD & 4  \\
+% INFO TAG-ENDHEAD & 4  \\
+% INFO TAG-HEAD & 3     \\
+% INFO TAG-INSERT-ARTIFACT & 3  \\
+% INFO TAG-INSERT-BDC & 3  \\
+% INFO TAG-INSERT-EMC & 3  \\
+% INFO TAG-INSERT-TAG & 3  \\
+% INFO TAG-KERN-SUBTYPE & 4\\
+% INFO TAG-MATH-SUBTYPE & 4 \\
+% INFO TAG-MC-COMPARE & 4   \\
+% INFO TAG-MC-INTO-PAGE & 3 \\
+% INFO TAG-NEW-MC-NODE & 4  \\
+% INFO TAG-NODE & 3  \\
+% INFO TAG-NO-HEAD & 3 \\
+% INFO TAG-NOT-TAGGED & 2 & replaced by artifact\\
+% INFO TAG-QUITTING-BOX & 4 \\
+% INFO TAG-STORE-MC-KID & 4 \\
+% INFO TAG-TRAVERSING-BOX 3 \\
+% INFO TAG-USE-ACTUALTEXT & 3 \\
+% INFO TAG-USE-ALT & 3 \\
+% INFO TAG-USE-RAW & 3 \\
+% INFO TEX-MC-INSERT-KID & 3 \\
+% INFO TEX-MC-INSERT-KID-TEST & 4 \\
+% INFO TEX-MC-INTO-STRUCT & 3 \\
+% INFO TEX-STORE-MC-DATA & 3  \\
+% INFO TEX-STORE-MC-KID &  3  \\
+% INFO PARENTTREE-CHUNKS &  3 \\
+% INFO PARENTTREE-NO-DATA & 3\\
+% INFO PARENTTREE-NUM & 3 \\
+% INFO PARENTTREE-NUMENTRY & 3 \\
+% INFO PARENTTREE-STRUCT-OBJREF & 4
+% \end{longtable}
+
+% \end{documentation}
+% \begin{implementation}
+%    \begin{macrocode}
+%<@@=tag>
+%<*header>
+\ProvidesExplPackage {tagpdf-checks-code} {2021-08-27} {0.92}
+ {part of tagpdf - code related to checks, conditionals, debugging and messages}
+%</header>
+%    \end{macrocode}
+% \section{Messages}
+% \subsection{Messages related to mc-chunks}
+% \begin{macro}{mc-nested}
+% This message is issue is a mc is opened before the previous has been closed.
+% This is not relevant for luamode, as the attributes don't care about this.
+% It is used in the |\@@_check_mc_if_nested:| test.
+%    \begin{macrocode}
+%<*package>
+\msg_new:nnn { tag } {mc-nested} { nested~marked~content~found~-~mcid~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-tag-missing}
+% If the tag is missing
+%    \begin{macrocode}
+\msg_new:nnn { tag } {mc-tag-missing} { required~tag~missing~-~mcid~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-label-unknown}
+% If the label of a mc that is used in another place is not known (yet)
+% or has been undefined as the mc was already used.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {mc-label-unknown}
+  { label~#1~unknown~or~has~been~already~used.\\
+    Either~rerun~or~remove~one~of~the~uses. }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-used-twice}
+% An mc-chunk can be inserted only in one structure. This indicates wrong coding
+% and so should at least give a warning.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {mc-used-twice} { mc~#1~has~been~already~used }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-not-open}
+% This is issued if a |\tag_mc_end:| is issued wrongly, wrong coding.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {mc-not-open} { there~is~no~mc~to~end~at~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-pushed,mc-popped}
+% Informational messages about mc-pushing.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {mc-pushed} { #1~has~been~pushed~to~the~mc~stack}
+\msg_new:nnn { tag } {mc-popped} { #1~has~been~removed~from~the~mc~stack }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{mc-current}
+% Informational messages about current mc state.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {mc-current}
+  { current~MC:~
+    \bool_if:NTF\g_@@_in_mc_bool
+      {abscnt=\@@_get_mc_abs_cnt:,~tag=\g_@@_mc_key_tag_tl}
+      {no~MC~open,~current~abscnt=\@@_get_mc_abs_cnt:"}
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{Messages related to mc-chunks}
+% \begin{macro}{struct-no-objnum}
+% Should not happen \ldots
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-no-objnum} { objnum~missing~for~structure~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-faulty-nesting}
+% This indicates that there is somewhere one |\tag_struct_end:| too much.
+% This should be normally an error.
+%    \begin{macrocode}
+\msg_new:nnn { tag }
+  {struct-faulty-nesting}
+  { there~is~no~open~structure~on~the~stack }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-missing-tag}
+% A structure must have a tag.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-missing-tag} { a~structure~must~have~a~tag! }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-used-twice}
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-used-twice}
+  { structure~with~label~#1~has~already~been~used}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-label-unknown}
+% label is unknown, typically needs a rerun.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-label-unknown}
+  { structure~with~label~#1~is~unknown~rerun}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-show-closing}
+% Informational message shown if log-mode is high enough
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-show-closing}
+  { closing~structure~#1~tagged~\prop_item:cn{g_@@_struct_#1_prop}{S} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Attributes}
+% Not much yet, as attributes aren't used so much.
+% \begin{macro}{attr-unknown}
+%    \begin{macrocode}
+\msg_new:nnn { tag } {attr-unknown}  { attribute~#1~is~unknown}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Roles}
+% \begin{macro}{role-missing,role-unknown,role-unknown-tag}
+% Warning message if either the tag or the role is missing
+%    \begin{macrocode}
+\msg_new:nnn { tag } {role-missing}     { tag~#1~has~no~role~assigned  }
+\msg_new:nnn { tag } {role-unknown}     { role~#1~is~not~known  }
+\msg_new:nnn { tag } {role-unknown-tag} { tag~#1~is~not~known  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{role-tag,new-tag}
+% Info messages.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {role-tag}         { mapping~tag~#1~to~role~#2  }
+\msg_new:nnn { tag } {new-tag}          { adding~new~tag~#1 }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Miscellaneous}
+% \begin{macro}{tree-mcid-index-wrong}
+% Used in the tree code, typically indicates the document must be rerun.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {tree-mcid-index-wrong}
+  {something~is~wrong~with~the~mcid--rerun}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{sys-no-interwordspace}
+% Currently only pdflatex and lualatex have some support for real spaces.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {sys-no-interwordspace}
+  {engine/output~mode~#1~doesn't~support~the~interword~spaces}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_check_typeout_v:n}
+% A simple logging function. By default is gobbles its argument, but
+% the log-keys sets it to typeout.
+%    \begin{macrocode}
+\cs_set_eq:NN \@@_check_typeout_v:n \use_none:n
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{para-hook-count-wrong}
+% At the end of the document we check if the count of para-begin and para-end is
+% identical. If not we issue a warning: this is normally a coding error and
+% and breaks the structure.
+%    \begin{macrocode}
+\msg_new:nnnn { tag } {para-hook-count-wrong}
+  {The~number~of~automatic~begin~(#1)~and~end~(#2)~para~hooks~differ!}
+  {This~quite~probably~a~coding~error~and~the~structure~will~be~wrong!}
+%    \end{macrocode}
+% \end{macro}
+% \section{Retrieving data}
+% \begin{macro}[EXP]{\tag_get:n}
+% This retrieves some data.
+% This is a generic command to retrieve data. Currently
+% the only sensible values for the argument are |mc_tag| and |struct_tag|.
+%    \begin{macrocode}
+\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{User conditionals}
+% \begin{macro}[pTF]{\tag_if_active:}
+% This is a test it tagging is active. This allows packages
+% to add conditional code.
+% The test is true if all booleans, the global and the two local one are true.
+%
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \tag_if_active: { p , T , TF, F }
+  {
+     \bool_lazy_all:nTF
+       {
+         {\g_@@_active_struct_bool}
+         {\g_@@_active_mc_bool}
+         {\g_@@_active_tree_bool}
+         {\l_@@_active_struct_bool}
+         {\l_@@_active_mc_bool}
+       }
+       {
+         \prg_return_true:
+       }
+       {
+         \prg_return_false:
+       }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{Internal checks}
+% These are checks used in various places in the code.
+%
+% \subsection{checks for active tagging}
+% \begin{macro}[TF]{\@@_check_if_active_mc:,\@@_check_if_active_struct:}
+% Structures must have a tag, so we check if the S entry is in the property.
+% It is an error if this is missing. The argument is a number.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_check_if_active_mc: {T,F,TF}
+  {
+    \bool_lazy_and:nnTF { \g_@@_active_mc_bool } { \l_@@_active_mc_bool }
+      {
+         \prg_return_true:
+      }
+      {
+         \prg_return_false:
+      }
+  }
+\prg_new_conditional:Npnn \@@_check_if_active_struct: {T,F,TF}
+  {
+    \bool_lazy_and:nnTF { \g_@@_active_struct_bool } { \l_@@_active_struct_bool }
+      {
+         \prg_return_true:
+      }
+      {
+         \prg_return_false:
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{Checks related to stuctures}
+% \begin{macro}{\@@_check_structure_has_tag:n}
+% Structures must have a tag, so we check if the S entry is in the property.
+% It is an error if this is missing. The argument is a number.
+% The tests for existence and type is split in structures,
+% as the tags are stored differently to the mc case.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_structure_has_tag:n #1 %#1 struct num
+  {
+    \prop_if_in:cnF { g_@@_struct_#1_prop }
+      {S}
+      {
+        \msg_error:nn { tag } {struct-missing-tag}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_structure_tag:N}
+% This checks if the name of the tag is known,
+% either because it is a standard type or has been rolemapped.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_structure_tag:N #1
+  {
+    \prop_if_in:NoF \g_@@_role_tags_prop {#1}
+      {
+        \msg_warning:nnx { tag } {role-unknown-tag} {#1}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_info_closing_struct:n}
+% This info message is issued at a closing structure, the use should be guarded by
+% log-level.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_info_closing_struct:n #1 %#1 struct num
+  {
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+      {
+        \msg_info:nnn { tag } {struct-show-closing} {#1}
+      }
+  }
+
+\cs_generate_variant:Nn \@@_check_info_closing_struct:n {o,x}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_no_open_struct:}
+% This checks if there is an open structure. It should be used when trying to
+% close a structure. It errors if false.%
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_no_open_struct:
+  {
+    \msg_error:nn { tag } {struct-faulty-nesting}
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_struct_used:n}
+% This checks if a stashed structure has already been used.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_struct_used:n #1 %#1 label
+  {
+    \prop_get:cnNT
+      {g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
+      {P}
+      \l_tmpa_tl
+      {
+        \msg_warning:nnn { tag } {struct-used-twice} {#1}
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Checks related to roles}
+% \begin{macro}{\@@_check_add_tag_role:nn}
+% This check is used when defining a new role mapping.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_add_tag_role:nn #1 #2 %#1 tag, #2 role
+  {
+    \tl_if_empty:nTF {#2}
+      {
+        \msg_warning:nnn { tag } {role-missing} {#1}
+      }
+      {
+        \prop_get:NnNTF \g_@@_role_tags_prop {#2} \l_tmpa_tl
+          {
+            \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+              {
+                \msg_info:nnnn { tag } {role-tag} {#1} {#2}
+              }
+          }
+          {
+            \msg_warning:nnn { tag } {role-unknown} {#2}
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Check related to mc-chunks}
+%
+% \begin{macro}{\@@_check_mc_if_nested:,\@@_check_mc_if_open:}
+% Two tests if a mc is currently open. One for the true (for begin
+% code),  one for the false part (for end code).
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_mc_if_nested:
+  {
+    \@@_mc_if_in:T
+      {
+        \msg_warning:nnx { tag } {mc-nested} { \@@_get_mc_abs_cnt: }
+      }
+  }
+
+\cs_new_protected:Npn \@@_check_mc_if_open:
+  {
+    \@@_mc_if_in:F
+      {
+        \msg_warning:nnx { tag } {mc-not-open} { \@@_get_mc_abs_cnt: }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_mc_pushed_popped:nn}
+% This creates an information message if mc's are pushed or popped.
+% The first argument is a word (pushed or popped), the second the tag name.
+% With larger log-level the stack is shown too.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_mc_pushed_popped:nn #1 #2
+  {
+    \int_compare:nNnT
+      { \l_@@_loglevel_int } ={ 2 }
+      { \msg_info:nnx {tag}{mc-#1}{#2} }
+    \int_compare:nNnT
+      { \l_@@_loglevel_int } > { 2 }
+      {
+        \msg_info:nnx {tag}{mc-#1}{#2}
+        \seq_log:N \g_@@_mc_stack_seq
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_mc_tag:N}
+% This checks if the mc has a (known) tag.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_mc_tag:N #1  %#1 is var with a tag name in it
+  {
+    \tl_if_empty:NT #1
+      {
+        \msg_error:nnx { tag } {mc-tag-missing} { \@@_get_mc_abs_cnt: }
+      }
+   \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
+     {
+       \msg_warning:nnx { tag } {role-unknown-tag} {#1}
+     }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\g_@@_check_mc_used_intarray, \@@_check_init_mc_used:}
+% This variable holds the list of used mc numbers.
+% Everytime we store a mc-number we will add one the relevant array index
+% If everything is right at the end there should be only 1 until the max count
+% of the mcid. 2 indicates that one mcid was used twice, 0 that we lost one.
+% In engines other than luatex the total number of all intarray entries
+% are restricted so we use only  a rather small value of 65536, and we initialize
+% the array only at first used, guarded by the log-level.
+% This check is probably only needed for debugging.
+% TODO does this really make sense to check? When can it happen??
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_init_mc_used:
+  {
+    \intarray_new:Nn \g_@@_check_mc_used_intarray { 65536 }
+    \cs_gset_eq:NN \@@_check_init_mc_used: \prg_do_nothing:
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_check_mc_used:n}
+% This checks if a mc is used twice.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_mc_used:n #1 %#1 mcid abscnt
+  {
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 2 }
+      {
+        \@@_check_init_mc_used:
+        \intarray_gset:Nnn \g_@@_check_mc_used_intarray
+          {#1}
+          { \intarray_item:Nn \g_@@_check_mc_used_intarray {#1} + 1 }
+        \int_compare:nNnT
+          {
+            \intarray_item:Nn \g_@@_check_mc_used_intarray {#1}
+          }
+          >
+          { 1 }
+          {
+            \msg_warning:nnn { tag } {mc-used-twice} {#1}
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_check_show_MCID_by_page:}
+% This allows to show the mc on a page. Currently unused.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_show_MCID_by_page:
+  {
+    \tl_set:Nx \l_@@_tmpa_tl
+      {
+        \@@_ref_value_lastpage:nn
+          {abspage}
+          {-1}
+      }
+    \int_step_inline:nnnn {1}{1}
+      {
+        \l_@@_tmpa_tl
+      }
+      {
+        \seq_clear:N \l_tmpa_seq
+        \int_step_inline:nnnn
+          {1}
+          {1}
+          {
+            \@@_ref_value_lastpage:nn
+              {tagmcabs}
+              {-1}
+          }
+          {
+            \int_compare:nT
+              {
+                \@@_ref_value:enn
+                  {mcid-####1}
+                  {tagabspage}
+                  {-1}
+                =
+                ##1
+             }
+             {
+               \seq_gput_right:Nx \l_tmpa_seq
+                 {
+                   Page##1-####1-
+                   \@@_ref_value:enn
+                     {mcid-####1}
+                     {tagmcid}
+                     {-1}
+                 }
+             }
+          }
+          \seq_show:N \l_tmpa_seq
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Checks related to the state of MC on a page or in a split stream}
+% The following checks are currently only usable in generic mode as they
+% rely on the marks defined in the mc-generic module. They are used to detect
+% if a mc-chunk has been split by a page break or similar and additional
+% end/begin commands are needed.
+%
+% \begin{macro}[pTF]{\@@_check_mc_in_galley:}
+% At first we need a test to decide if |\tag_mc_begin:n| (tmb) and |\tag_mc_end:|
+% (tme) has been used at all on the current galley. As each command issues
+% two slightly different marks we can do it by comparing firstmarks and botmarks.
+% The test assumes that the marks have been already mapped into the sequence with
+% |\@@_mc_get_marks:|. As |\seq_if_eq:NNTF| doesn't exist we use the tl-test.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_check_if_mc_in_galley: { T,F,TF }
+ {
+   \tl_if_eq:NNTF \l_@@_mc_firstmarks_seq \l_@@_mc_botmarks_seq
+    { \prg_return_false: }
+    { \prg_return_true: }
+ }
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}[pTF]{\@@_check_if_mc_tmb_missing:}
+% This checks if a extra top mark (\enquote{extra-tmb}) is needed.
+% According to the analysis this the case if the firstmarks start with
+% |e-| or |b+|.
+% Like above we assume that the marks content is already in the seq's.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_check_if_mc_tmb_missing: { T,F,TF }
+ {
+  \bool_if:nTF
+    {
+      \str_if_eq_p:ee {\seq_item:Nn \l_@@_mc_firstmarks_seq {1}}{e-}
+      ||
+      \str_if_eq_p:ee {\seq_item:Nn \l_@@_mc_firstmarks_seq {1}}{b+}
+    }
+    { \prg_return_true: }
+    { \prg_return_false: }
+ }
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}[pTF]{\@@_check_if_mc_tme_missing:}
+% This checks if a extra bottom mark (\enquote{extra-tme}) is needed.
+% According to the analysis this the case if the botmarks starts with
+% |b+|.
+% Like above we assume that the marks content is already in the seq's.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \@@_check_if_mc_tme_missing: { T,F,TF }
+ {
+   \str_if_eq:eeTF {\seq_item:Nn \l_@@_mc_botmarks_seq {1}}{b+}
+    { \prg_return_true: }
+    { \prg_return_false: }
+ }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+% \end{implementation}
+% \PrintIndex

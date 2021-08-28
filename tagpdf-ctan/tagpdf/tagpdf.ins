@@ -1,0 +1,87 @@
+\iffalse meta-comment
+
+File: tagpdf.ins
+
+Copyright (C) 2019-2021 Ulrike Fischer
+
+It may be distributed and/or modified under the conditions of the
+LaTeX Project Public License (LPPL), either version 1.3c of this
+license or (at your option) any later version.  The latest version
+of this license is in the file
+
+   https://www.latex-project.org/lppl.txt
+
+This file is part of the "tagpdf bundle" (The Work in LPPL)
+and all files in that bundle must be distributed together.
+
+The released version of this bundle is available from CTAN.
+
+-----------------------------------------------------------------------
+
+The development version of the bundle can be found at
+
+   https://github.com/u-fischer/tagpdf
+
+for those people who are interested.
+
+-----------------------------------------------------------------------
+
+\fi
+
+\input l3docstrip.tex
+\askforoverwritefalse
+
+\let\MetaPrefix\relax
+\preamble
+
+Copyright (C) 2019-2021 Ulrike Fischer
+
+It may be distributed and/or modified under the conditions of
+the LaTeX Project Public License (LPPL), either version 1.3c of
+this license or (at your option) any later version.  The latest
+version of this license is in the file:
+
+   https://www.latex-project.org/lppl.txt
+
+This file is part of the "tagpdf bundle" (The Work in LPPL)
+and all files in that bundle must be distributed together.
+
+\endpreamble
+\let\MetaPrefix\DoubleperCent
+% stop docstrip adding \endinput
+\postamble
+\endpostamble
+
+\keepsilent
+
+\generate
+  {\file{tagpdf.sty}
+      {
+        \from{tagpdf.dtx}{package}
+        \from{tagpdf-checks.dtx}{package}
+        \from{tagpdf-user.dtx}{package}
+        \from{tagpdf-mc-shared.dtx}{shared}
+        \from{tagpdf.dtx}{mcloading}
+        \from{tagpdf-tree.dtx}{package}
+        \from{tagpdf-roles.dtx}{package}
+        \from{tagpdf-struct.dtx}{package}%contains also the attr code.
+        \from{tagpdf-space.dtx}{package}
+      }
+  }
+
+\generate
+  {\file{tagpdf-luatex.def}{\from{tagpdf-backend.dtx}{luatex}}}
+\generate
+  {\file{tagpdf-mc-code-generic.sty}{\from{tagpdf-mc-generic.dtx}{generic}}}
+\generate
+  {\file{tagpdf-mc-code-lua.sty}{\from{tagpdf-mc-luacode.dtx}{luamode}}}
+
+
+\def\MetaPrefix{-- }
+\def\defaultpostamble{%
+  \MetaPrefix^^J%
+  \MetaPrefix\space End of File `\outFileName'.%
+}
+\def\currentpostamble{\defaultpostamble}%
+\generate{\file{tagpdf.lua}   {\from{tagpdf-backend.dtx}{lua}}}
+\endbatchfile
