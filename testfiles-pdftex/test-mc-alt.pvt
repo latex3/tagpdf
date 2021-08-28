@@ -1,21 +1,17 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{}
+\DeclareDocumentMetadata{lang=de-DE}
 \RequirePackage{tagpdf-regressiontest}
 \documentclass{article}
 \usepackage{tagpdf}
-\tagpdfsetup{uncompress,activate-all}
+\tagpdfsetup{activate}
 \tagpdfifpdftexT
  {
-  %set language / can also be done with hyperref
-  \pdfcatalog{/Lang (de-DE)}
   \usepackage[T1]{fontenc}
  }
 
 \tagpdfifluatexT
  {
-  %set language / can also be done with hyperref
-  \pdfextension catalog{/Lang (de-DE)}
   \usepackage{fontspec}
   \usepackage{luacode}
   \newfontface\zerowidthfont{freeserif}
@@ -27,7 +23,6 @@
 \showthe\pdfsuppressptexinfo
 \pagestyle{empty}
 
-\tagstructbegin{tag=Document}
 
 Etwas unmarkierter Text. %isn't read by voice software
 
@@ -45,7 +40,7 @@ Etwas unmarkierter Text. %isn't read by voice software
 \tagstructend
 
 \tagstructbegin{tag=Formula}
- \tagmcbegin {tag=Formula,alttext={\frac{a}{b}+c + \int_1^n f(x)}}
+ \tagmcbegin {tag=Formula,alttext={\empty\frac{a}{b}+c + \int_1^n f(x)}}
   $\frac{a}{b}+c + \int_1^n f(x)$
  \tagmcend
 \tagstructend
@@ -61,5 +56,5 @@ Etwas unmarkierter Text. %isn't read by voice software
  \includegraphics[width=1cm]{example-image-duck}
 \tagmcend
 
-\tagstructend
+
 \end{document}

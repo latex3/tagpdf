@@ -17,21 +17,13 @@
 
 \usepackage{tagpdf}
 
-\tagpdfifpdftexT
- {
-  %set language / can also be done with hyperref
-  \pdfcatalog{/Lang (en-US)}
-  \usepackage[T1]{fontenc}
- }
-
-\tagpdfifluatexT
- {
-  %set language / can also be done with hyperref
-  \pdfextension catalog{/Lang (en-US)}
+\usepackage{iftex}
+\iftutex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
-
+\else
+  \usepackage[T1]{fontenc}
+\fi
 
 \tagpdfsetup{tabsorder=structure,
              activate-all,
