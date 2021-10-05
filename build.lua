@@ -5,6 +5,12 @@ packagedate="2021-08-27"
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
 
+-- is that still needed??
+-- function checkinit_hook ()
+--  print("XXXXXXXXXXXXXX")
+--  return 0
+-- end
+
 local ok, mydata = pcall(require, "ulrikefischerdata.lua")
 if not ok then
   mydata= {email="XXX",github="XXX",name="XXX"}
