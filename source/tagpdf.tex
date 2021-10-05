@@ -318,7 +318,7 @@ utf8 is now the required encoding.
 \item The keys |lang|, |ref| and |E| have been added for structures.
 
 \item The new hooks of LaTeX are used to tagged many paragraphs automatically. The small red numbers around paragraphs in the documentation show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
-\end{itemize}    
+\end{itemize}
 
 \subsection{Changes in version 0.81}
 
@@ -424,7 +424,7 @@ activated like this:
  }
 \documentclass{article}
 \begin{document}
-some text 
+some text
 \end{document}
 \end{lstlisting}
 
@@ -432,7 +432,7 @@ some text
 \minisec{Activation needed!}
 
 
-When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DeclareDocumentMetadata+. 
+When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DeclareDocumentMetadata+.
 
 Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
 
@@ -794,7 +794,7 @@ The key-val list understands the following keys:
   This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
 
   \item[\PrintKeyName{alttext}]
-   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). 
+   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed).
   That means that you can do something like in the following listing
   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.
 
@@ -808,14 +808,17 @@ The key-val list understands the following keys:
 
   \item[\PrintKeyName{actualtext}]
   This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{actualtext-o} in previous versions which has been removed).
-
-   That means that you can do something like in the following listing and and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
+  
+  That means that you can do something like in the following listing and and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
 
 
   \begin{lstlisting}
    \newcommand\myactualtext{X}
-   \tagmcbegin{tag=P,actualtext=\myactualtext}
+   \tagmcbegin{tag=Span,actualtext=\myactualtext}
   \end{lstlisting}
+  
+  According to the PDF reference, \texttt{/ActualText} should only be used on marked content sequence of type Span. This is not enforced by the code currently. 
+
 
   \item[\PrintKeyName{raw}]
   This key allows you to add more entries to the properties dictionary. The value must be correct, low-level \PDF{}. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.
@@ -1589,7 +1592,7 @@ syntax |section/H1| should in most cases do the right thing.
 \item[\PrintKeyName{role}] This is type the tag should be mapped too. In a PDF 1.7 or earlier this is normally a type from the |pdf| set, in PDF 2.0 from the |pdf|, |pdf2| and |mathml| set. It can also be a user type, or a still unknown type. The PDF format allows mapping to be done transitively. But you should be aware that tagpdf can't (or more precisely won't) check such unusual role mapping. It lies in the responsability of the author to ensure here that every type is correctly role mapped.
 \item[\PrintKeyName{role-namespace}] If the role is a known type the default value is the default namespace: |pdf2| for all types in this set, |pdf| for the type which exist only in PDF 1.7,  |mathml| for the MathML types, and  for previously defined user types whatever namespace has been set there. If the role is unknown, |user| is used and the code hopes that the type will be defined later.
  \item[unknown key] An unknown key is interpreted as a |tag/role|, this preserves the old syntax. So this two calls are equivalent:
- 
+
    \begin{lstlisting}
     \tagpdfsetup{add-new-tag = section/H1}
     \tagpdfsetup{add-new-tag = {tag=section,role=H1}}
