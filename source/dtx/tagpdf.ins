@@ -76,6 +76,26 @@ and all files in that bundle must be distributed together.
 \generate
   {\file{tagpdf-mc-code-lua.sty}{\from{tagpdf-mc-luacode.dtx}{luamode}}}
 
+% check later if the mc-code uses debug guards too.
+\generate
+  {\file{tagpdf-debug.sty}
+      {
+        \from{tagpdf.dtx}{debug}
+        \from{tagpdf-checks.dtx}{debug}
+        \from{tagpdf-user.dtx}{debug}
+        \from{tagpdf-mc-shared.dtx}{debug}
+        \from{tagpdf-tree.dtx}{debug}
+        \from{tagpdf-roles.dtx}{debug}
+        \from{tagpdf-struct.dtx}{debug}%
+        \from{tagpdf-space.dtx}{debug}
+      }
+  }
+
+\generate
+  {\file{tagpdf-debug-generic.sty}{\from{tagpdf-mc-generic.dtx}{debug}}}
+
+\generate
+  {\file{tagpdf-debug-lua.sty}{\from{tagpdf-mc-luacode.dtx}{debug}}}
 
 \def\MetaPrefix{-- }
 \def\defaultpostamble{%

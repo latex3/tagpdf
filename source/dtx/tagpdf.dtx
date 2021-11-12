@@ -51,18 +51,31 @@
        before~\string\documentclass
      }
   }
+%</package>
 %    \end{macrocode}
+%<*debug>
+\ProvidesExplPackage {tagpdf-debug} {2021-08-27} {0.92}
+  { debug code for tagpdf }
+\@ifpackageloaded{tagpdf}{}{\PackageWarning{tagpdf-debug}{tagpdf~not~loaded,~quitting}\endinput}
+%</debug>
 % We map the internal module name \enquote{tag} to \enquote{tagpdf} in messages.
 %    \begin{macrocode}
-\prop_if_exist:NT \g_msg_module_name_prop
-  {
-    \prop_gput:Nnn \g_msg_module_name_prop { tag }{ tagpdf }
-  }
+%<*package>
+\prop_gput:Nnn \g_msg_module_name_prop { tag }{ tagpdf }
+%</package>
+%    \end{macrocode}
+% Debug mode has its special mapping:
+%    \begin{macrocode}
+%<*debug>
+\prop_gput:Nnn \g_msg_module_type_prop { tag / debug} {}
+\prop_gput:Nnn \g_msg_module_name_prop { tag / debug }{tagpdf~DEBUG}
+%</debug>
 %    \end{macrocode}
 %\section{Package options}
 % There are only two options to switch for luatex between generic and luamode,
 % TODO try to get rid of them.
 %    \begin{macrocode}
+%<*package>
 \bool_new:N\g_@@_mode_lua_bool
 \DeclareOption {luamode}    { \sys_if_engine_luatex:T { \bool_gset_true:N \g_@@_mode_lua_bool } }
 \DeclareOption {genericmode}{ \bool_gset_false:N\g_@@_mode_lua_bool }
@@ -452,6 +465,15 @@
    \RequirePackage {tagpdf-mc-code-generic} %
   }
 %</mcloading>
+%<*debug>
+\bool_if:NTF \g_@@_mode_lua_bool
+  {
+   \RequirePackage {tagpdf-debug-lua}
+  }
+  {
+   \RequirePackage {tagpdf-debug-generic} %
+  }
+%</debug>
 %    \end{macrocode}
 % \end{implementation}
 % \PrintIndex

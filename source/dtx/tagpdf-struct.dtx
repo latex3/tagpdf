@@ -908,6 +908,7 @@
        \group_end:
      }
  }
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -915,9 +916,12 @@
 %
 % \begin{macro}{\tag_struct_begin:n,\tag_struct_end:}
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_struct_begin:n #1 %#1 key-val
+%<*package|debug>
+%<package>\cs_new_protected:Npn \tag_struct_begin:n #1 %#1 key-val
+%<debug>\cs_set_protected:Npn \tag_struct_begin:n #1 %#1 key-val
   {
-    \@@_check_if_active_struct:T
+%<package>\@@_check_if_active_struct:T
+%<debug>\@@_check_if_active_struct:TF
       {
         \group_begin:
         \int_gincr:N \c@g_@@_struct_abs_int
@@ -970,16 +974,18 @@
           }
         %\prop_show:c { g_@@_struct_\g_@@_struct_stack_current_tl _prop }
         %\seq_show:c {g_@@_struct_kids_\l_@@_struct_stack_parent_tmpa_tl _seq}
+%<debug> \@@_debug_struct_begin_insert:n { #1 }
         \group_end:
      }
+%<debug>{ \@@_debug_struct_begin_ignore:n { #1 }}
   }
-
-
-\cs_new_protected:Nn \tag_struct_end:
+%<package>\cs_new_protected:Nn \tag_struct_end:
+%<debug>\cs_set_protected:Nn \tag_struct_end:
   { %take the current structure num from the stack:
     %the objects are written later, lua mode hasn't all needed info yet
     %\seq_show:N \g_@@_struct_stack_seq
-    \@@_check_if_active_struct:T
+%<package>\@@_check_if_active_struct:T
+%<debug>\@@_check_if_active_struct:TF
       {
         \seq_gpop:NN   \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
         \seq_gpop:NNTF \g_@@_struct_stack_seq \l_@@_tmpa_tl
@@ -999,14 +1005,18 @@
           {
             \tl_gset:NV \g_@@_struct_tag_tl \l_@@_tmpa_tl
           }
+%<debug>\@@_debug_struct_end_insert:
       }
+%<debug>{\@@_debug_struct_end_ignore:}
   }
+%</package|debug>
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\tag_struct_use:n}
 % This command allows to use a stashed structure in another place.
 % TODO: decide how it should be guarded. Probably by the struct-check.
 %    \begin{macrocode}
+%<*package>
 \cs_new_protected:Nn \tag_struct_use:n %#1 is the label
   {
     \@@_check_if_active_struct:T

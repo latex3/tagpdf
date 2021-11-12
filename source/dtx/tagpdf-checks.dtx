@@ -245,7 +245,18 @@
 % INFO PARENTTREE-NUMENTRY & 3 \\
 % INFO PARENTTREE-STRUCT-OBJREF & 4
 % \end{longtable}
-
+%
+% \subsection{Debug mode messages and code}
+% If the package tagpdf-debug is loaded a number of commands are redefined and
+% enhanced with additional commands which can be used to output debug messages or
+% collect statistics. The commands are present but do nothing if the log-level is zero.
+% \begin{tabular}{llll}
+%   command             & name     & action   & remark\\\hline
+%   |\tag_mc_begin:n|   & mc-begin-insert & msg   \\
+%                       & mc-begin-ignore & msg     & if inactive \\
+% \end{tabular}
+% \end{tabular}
+%
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -790,6 +801,89 @@
 % \end{macro}
 %    \begin{macrocode}
 %</package>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*debug>
+%    \end{macrocode}
+% Code for tagpdf-debug. This will probably change over time.
+% At first something for the mc commands.
+%    \begin{macrocode}
+\msg_new:nnn { tag / debug } {mc-begin} { MC~begin~#1~with~options:~\tl_to_str:n{#2}~[\msg_line_context:] }
+\msg_new:nnn { tag / debug } {mc-end}   { MC~end~#1~[\msg_line_context:] }
+
+\cs_new_protected:Npn \@@_debug_mc_begin_insert:n #1
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+     {
+        \msg_note:nnnn { tag / debug } {mc-begin} {inserted} { #1 }
+     }
+ }
+\cs_new_protected:Npn \@@_debug_mc_begin_ignore:n #1
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+     {
+        \msg_note:nnnn { tag / debug } {mc-begin } {ignored} { #1 }
+     }
+ }
+\cs_new_protected:Npn \@@_debug_mc_end_insert:
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+     {
+        \msg_note:nnn { tag / debug } {mc-end} {inserted}
+     }
+ }
+\cs_new_protected:Npn \@@_debug_mc_end_ignore:
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+     {
+        \msg_note:nnn { tag / debug } {mc-end } {ignored}
+     }
+ }
+%    \end{macrocode}
+% And now something for the structures
+%    \begin{macrocode}
+\msg_new:nnn { tag / debug } {struct-begin}
+  {
+    Struct~begin~#1~with~options:~\tl_to_str:n{#2}~[\msg_line_context:]
+  }
+\msg_new:nnn { tag / debug } {struct-end}
+  {
+    Struct~end~#1~[\msg_line_context:]
+  }
+
+\cs_new_protected:Npn \@@_debug_struct_begin_insert:n #1
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+     {
+        \msg_note:nnnn { tag / debug } {struct-begin} {inserted} { #1 }
+        \seq_log:N \g_@@_struct_tag_stack_seq
+     }
+ }
+\cs_new_protected:Npn \@@_debug_struct_begin_ignore:n #1
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+     {
+        \msg_note:nnnn { tag / debug } {struct-begin } {ignored} { #1 }
+     }
+ }
+\cs_new_protected:Npn \@@_debug_struct_end_insert:
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+     {
+        \msg_note:nnn { tag / debug } {struct-end} {inserted}
+        \seq_log:N \g_@@_struct_tag_stack_seq
+     }
+ }
+\cs_new_protected:Npn \@@_debug_struct_end_ignore:
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+     {
+        \msg_note:nnn { tag / debug } {struct-end } {ignored}
+     }
+ }
+%    \end{macrocode}
+%    \begin{macrocode}
+%</debug>
 %    \end{macrocode}
 % \end{implementation}
 % \PrintIndex

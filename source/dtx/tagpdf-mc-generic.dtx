@@ -62,6 +62,10 @@
 \ProvidesExplPackage {tagpdf-mc-code-generic} {2021-08-27} {0.92}
  {part of tagpdf - code related to marking chunks - generic mode}
 %</generic>
+%<*debug>
+\ProvidesExplPackage {tagpdf-debug-generic} {2021-08-27} {0.92}
+ {part of tagpdf - debugging code related to marking chunks - generic mode}
+%</debug>
 %    \end{macrocode}
 %
 %\subsection{Variables}
@@ -653,6 +657,7 @@
 % It is use by the get command.
 %    \begin{macrocode}
 \cs_new:Nn \@@_get_data_mc_tag: { \g_@@_mc_key_tag_tl }
+%</generic>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -663,10 +668,20 @@
 % the state is passed to the end command through a global var and
 % a global boolean.
 %    \begin{macrocode}
+%<*generic|debug>
+%<*generic>
 \cs_new_protected:Npn \tag_mc_begin:n #1 %#1 keyval
   {
     \@@_check_if_active_mc:T
       {
+%</generic>
+%<*debug>
+\cs_set_protected:Npn \tag_mc_begin:n #1 %#1 keyval
+  {
+    \@@_check_if_active_mc:TF
+      {
+        \@@_debug_mc_begin_insert:n { #1 }
+%</debug>
         \group_begin: %hm
         \@@_check_mc_if_nested:
         \bool_gset_true:N \g_@@_in_mc_bool
@@ -695,18 +710,38 @@
           }
         \group_end:
       }
+%<*debug>
+      {
+        \@@_debug_mc_begin_ignore:n { #1 }
+      }
+%</debug>
   }
+%<*generic>
 \cs_new_protected:Nn \tag_mc_end:
   {
     \@@_check_if_active_mc:T
       {
+%</generic>
+%<*debug>
+\cs_set_protected:Nn \tag_mc_end:
+  {
+    \@@_check_if_active_mc:TF
+      {
+        \@@_debug_mc_end_insert:
+%</debug>
         \@@_check_mc_if_open:
         \bool_gset_false:N \g_@@_in_mc_bool
         \tl_gset:Nn  \g_@@_mc_key_tag_tl { }
         \@@_mc_emc:
         \@@_mc_end_marks:
       }
+%<*debug>
+      {
+        \@@_debug_mc_end_ignore:
+      }
+%</debug>
   }
+%</generic|debug>
 %    \end{macrocode}
 % \end{macro}
 
@@ -723,6 +758,7 @@
 %   label,artifact
 %  }
 %    \begin{macrocode}
+%<*generic>
 \keys_define:nn { @@ / mc }
   {
     tag .code:n = % the name (H,P,Span) etc
