@@ -208,6 +208,14 @@
 % \end{verbatim}
 %
 % \end{function}
+% \begin{function}{root-AF}
+% \begin{syntax}
+% root-AF = \meta{object name}
+% \end{syntax}
+% This key can be used in the setup command \cs{tagpdfsetup} and allows
+% to add associated files to the root structure. Like |AF| it can be used more than
+% once to add more than one file.
+% \end{function}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -959,7 +967,34 @@
 %</package>
 %    \end{macrocode}
 % \end{macro}
-%
+% \begin{macro}{root-AF}
+% The root structure can take AF keys too, so we provide a key for it.
+% This key is used with |\tagpdfsetup|, not in a structure!
+%    \begin{macrocode}
+\keys_define:nn { @@ / setup }
+  {
+    root-AF .code:n =
+     {
+        \pdf_object_if_exist:nTF {#1}
+          {
+            \@@_struct_add_AF:en { 0 }{#1}
+            \@@_prop_gput:cnx
+             { g_@@_struct_0_prop }
+             { AF }
+             {
+               [
+                 \tl_use:c
+                   { g_@@_struct_0_AF_tl }
+               ]
+             }
+          }
+          {
+
+          }
+      },
+  }
+%    \end{macrocode}
+% \end{macro}
 % \section{User commands}
 %
 % \begin{macro}{\tag_struct_begin:n,\tag_struct_end:}
