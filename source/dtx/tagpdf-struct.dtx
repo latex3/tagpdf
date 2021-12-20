@@ -151,7 +151,7 @@
 % \begin{function}{AF,AFinline,AFinline-o}
 % \begin{syntax}
 % AF = \meta{object name}\\
-% AF-inline = \meta{text content}
+% AF-inline = \meta{text content}\\
 % \end{syntax}
 % These keys allows to reference an associated file in the structure element.
 % The value \meta{object name} should be the name of an object pointing
@@ -165,6 +165,8 @@
 % Future versions will perhaps extend this to more mime types, but it is
 % still a research task to find out what is really needed.
 %
+% |AF| can be used more than once, to associate more than one file. The inline
+% keys can be used only once per structure. Additional calls are ignored.
 % \end{function}
 %
 % \begin{function}{attribute}
@@ -860,17 +862,46 @@
 % The stream variants use txt as extension to get the mimetype.
 % TODO: check if this should be configurable. For math we will perhaps need another
 % extension.
+% AF is an array and can be used more than once, so we store it in a tl.
+% which is expanded.
+% AFinline can be use only once (more quite probably doesn't make sense).
 %    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_add_AF:nn #1 #2 % #1 struct num #2 object name
+  {
+     \tl_if_exist:cTF
+       {
+         g_@@_struct_#1_AF_tl
+       }
+       {
+         \tl_gput_right:cx
+           { g_@@_struct_#1_AF_tl }
+           {  ~ \pdf_object_ref:n {#2} }
+       }
+       {
+          \tl_new:c
+            { g_@@_struct_#1_AF_tl }
+          \tl_gset:cx
+            { g_@@_struct_#1_AF_tl }
+            { \pdf_object_ref:n {#2} }
+       }
+  }
+\cs_generate_variant:Nn \@@_struct_add_AF:nn {en,ee}
 \keys_define:nn { @@ / struct }
  {
     AF .code:n        = % AF property
       {
         \pdf_object_if_exist:nTF {#1}
           {
+            \@@_struct_add_AF:en { \int_eval:n {\c@g_@@_struct_abs_int} }{#1}
             \@@_prop_gput:cnx
              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
              { AF }
-             { \pdf_object_ref:n {#1} }
+             {
+               [
+                 \tl_use:c
+                   { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+               ]
+             }
           }
           {
 
@@ -880,16 +911,24 @@
      {
        \group_begin:
        \pdf_object_if_exist:eF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
-        {
-          \pdffile_embed_stream:nxx
-            {#1}
-            {tag-AFfile\int_use:N\c@g_@@_struct_abs_int.txt}
-            {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
-        }
-       \@@_prop_gput:cnx
-         { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
-         { AF }
-         { \pdf_object_ref:e {@@/fileobj\int_use:N\c@g_@@_struct_abs_int } }
+         {
+           \pdffile_embed_stream:nxx
+             {#1}
+             {tag-AFfile\int_use:N\c@g_@@_struct_abs_int.txt}
+             {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
+           \@@_struct_add_AF:ee
+             { \int_eval:n {\c@g_@@_struct_abs_int} }
+             { @@/fileobj\int_use:N\c@g_@@_struct_abs_int }
+           \@@_prop_gput:cnx
+             { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+             { AF }
+             {
+               [
+                 \tl_use:c
+                  { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+               ]
+             }
+         }
        \group_end:
      }
    ,AFinline-o .code:n =
@@ -901,11 +940,19 @@
             {#1}
             {tag-AFfile\int_use:N\c@g_@@_struct_abs_int.txt}
             {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
+          \@@_struct_add_AF:ee
+             { \int_eval:n {\c@g_@@_struct_abs_int} }
+             { @@/fileobj\int_use:N\c@g_@@_struct_abs_int }
+           \@@_prop_gput:cnx
+             { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+             { AF }
+             {
+               [
+                 \tl_use:c
+                  { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+               ]
+             }
         }
-       \@@_prop_gput:cnx
-         { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
-         { AF }
-         { \pdf_object_ref:e {@@/fileobj\int_use:N\c@g_@@_struct_abs_int } }
        \group_end:
      }
  }
