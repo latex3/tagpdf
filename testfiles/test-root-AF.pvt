@@ -1,3 +1,7 @@
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{10}
+\ExplSyntaxOff
+
 \RequirePackage[debug]{pdfmanagement-testphase}
 \DeclareDocumentMetadata{uncompress,pdfversion=2.0}
 
