@@ -808,7 +808,7 @@ The key-val list understands the following keys:
 
   \item[\PrintKeyName{actualtext}]
   This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{actualtext-o} in previous versions which has been removed).
-  
+
   That means that you can do something like in the following listing and and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
 
 
@@ -816,8 +816,8 @@ The key-val list understands the following keys:
    \newcommand\myactualtext{X}
    \tagmcbegin{tag=Span,actualtext=\myactualtext}
   \end{lstlisting}
-  
-  According to the PDF reference, \texttt{/ActualText} should only be used on marked content sequence of type Span. This is not enforced by the code currently. 
+
+  According to the PDF reference, \texttt{/ActualText} should only be used on marked content sequence of type Span. This is not enforced by the code currently.
 
 
   \item[\PrintKeyName{raw}]
