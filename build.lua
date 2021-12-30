@@ -40,11 +40,12 @@ specialformats["latex"] = specialformats["latex"] or
   {
     luatex     = {binary="luahbtex",format = "lualatex-dev"},
     pdftex     = {format = "pdflatex-dev"},
+    pdftexmain = {binary="pdftex",format = "pdflatex"},
     xetex      = {format = "xelatex-dev"},
     latexdvips = {binary="latex",format = "latex-dev"}
   }
 
-checkengines = {"pdftex","luatex"}
+checkengines = {"pdftex","luatex","pdftexmain"}
 checkconfigs = {"build",
                 "config-pdftex",
                 "config-nosyntax", -- tests with invalid pdf as result
