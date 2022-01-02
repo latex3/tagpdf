@@ -390,6 +390,19 @@ will now expand once.
 
 \end{itemize}
 
+\subsection{Changes in version 0.93}
+
+\begin{itemize}
+\item support for page breaks in pdftex has been added, see  section~\ref{sec:splitpara},
+This requires a new version of the pdfmanagement-testphase package.
+
+\item header and footer are tagged as artifacts automatically, see section~\ref{sec:header-footer}.
+
+\item keys \texttt{alttext-o} and \texttt{actualtext-o} has been removed. \texttt{alttext} and \texttt{actualtext}
+will now expand once.
+
+\end{itemize}
+
 \subsection{Proof of concept: the tagging of the documentation itself}
 
 Starting with version 0.6 the documentation itself has been tagged. The tagging wasn't (and isn't) in no way perfect. The validator from Adobe didn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnotes gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes were simply wrong \ldots

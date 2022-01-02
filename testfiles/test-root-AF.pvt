@@ -4,11 +4,10 @@
 \RequirePackage{tagpdf-regressiontest}
 \ExplSyntaxOn
 \group_begin:
-\prop_gput:Nnn \g_pdffile_mimetypes_prop {.css}{text/css}% will not be needed later
 \pdfdict_put:nnn{l_pdffile/Filespec}{AFRelationship}{/Supplement}
 \pdffile_embed_file:nnn{testcss.css}{}{tag/csstest}
 \pdffile_embed_file:nnn{testcss2.css}{}{tag/csstest2}
-%\pdfmanagement_add:nnx{Catalog}{AF}{[\pdf_object_ref:n{tag/csstest}]} 
+%\pdfmanagement_add:nnx{Catalog}{AF}{[\pdf_object_ref:n{tag/csstest}]}
 \group_end:
 \ExplSyntaxOff
 
@@ -33,4 +32,4 @@
 
 \tagstructbegin{tag=H1,attribute-class=font-bold}\tagmcbegin{tag=H1}Section\tagmcend\tagstructend
 \tagstructend
-\end{document}
+\end{document} 

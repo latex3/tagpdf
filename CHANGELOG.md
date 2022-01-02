@@ -15,7 +15,7 @@ this project uses date-based 'snapshot' version identifiers.
 ### Fixed
 
  - Value of /AF should be an array
- - meta key activate-all didn't set too false
+ - setting the meta key activate-all to false didn't work
  
 ## [2021-08-28]
 
