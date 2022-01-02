@@ -686,7 +686,40 @@
        \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
      }
  }
+%    \end{macrocode}
+% This version allows to use an Artifact structure
+%    \begin{macrocode}
+\@@_attr_new_entry:nn {@@/attr/pagination}{/O/Artifact/Type/Pagination}
+\cs_new_protected:Npn \@@_exclude_struct_headfoot_begin:n #1
+ {
+    \bool_set_false:N  \l_@@_para_bool
+    \bool_if:NTF \g_@@_mode_lua_bool
+     {
+      \tag_mc_end_push:
+     }
+     {
+       \bool_gset_eq:NN   \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
+       \bool_gset_false:N \g_@@_in_mc_bool
+     }
+    \tag_struct_begin:n{tag=Artifact,attribute-class=@@/attr/#1}
+    \tag_mc_begin:n {artifact=#1}
+ }
 
+\cs_new_protected:Npn \@@_exclude_struct_headfoot_end:
+ {
+    \tag_mc_end:
+    \tag_struct_end:
+    \bool_if:NTF \g_@@_mode_lua_bool
+     {
+      \tag_mc_begin_pop:n{}
+     }
+     {
+       \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
+     }
+ }
+%    \end{macrocode}
+% And now the keys
+%    \begin{macrocode}
 \keys_define:nn { @@ / setup }
   {
     exclude-header-footer .choice:,
@@ -696,6 +729,13 @@
        \cs_set_eq:NN \@@_hook_kernel_before_foot: \@@_exclude_headfoot_begin:
        \cs_set_eq:NN \@@_hook_kernel_after_head:  \@@_exclude_headfoot_end:
        \cs_set_eq:NN \@@_hook_kernel_after_foot:  \@@_exclude_headfoot_end:
+     },
+    exclude-header-footer / pagination .code:n =
+     {
+       \cs_set:Nn \@@_hook_kernel_before_head: { \@@_exclude_struct_headfoot_begin:n {pagination} }
+       \cs_set:Nn \@@_hook_kernel_before_foot: { \@@_exclude_struct_headfoot_begin:n {pagination} }
+       \cs_set_eq:NN \@@_hook_kernel_after_head:  \@@_exclude_struct_headfoot_end:
+       \cs_set_eq:NN \@@_hook_kernel_after_foot:  \@@_exclude_struct_headfoot_end:
      },
     exclude-header-footer / false .code:n =
      {
