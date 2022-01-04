@@ -151,7 +151,7 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 \tableofcontents
 \section{Preface to version 0.93}
-
+Support for associated files in the root element and for structure destinations (see section~\ref{sec:struct-dest} have been added.
 
 
 \section{Preface to version 0.92}
@@ -445,11 +445,23 @@ some text
 \end{document}
 \end{lstlisting}
 
+With  \LaTeX{} 2022-06-01 (or a current \LaTeX-dev) the call will be simpler
+
+\begin{lstlisting}
+\DocumentMetadata
+ {
+  testphase = tagpdf, % load + activate
+ }
+\documentclass{article}
+\begin{document}
+some text
+\end{document}
+\end{lstlisting}
 
 \minisec{Activation needed!}
 
 
-When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DeclareDocumentMetadata+.
+When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DeclareDocumentMetadata+/\verb+\DocumentMetadata+.
 
 Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
 
@@ -1654,7 +1666,7 @@ The key \PrintKeyName{show-spaces} will show lines at the places where in lua mo
 
 This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.
 
-\section{Structure destinations}
+\section{Structure destinations}\label{sec:struct-dest}
 
  Standard destinations (anchors for internal links)
  consist of a reference to a page in the pdf and instructions
