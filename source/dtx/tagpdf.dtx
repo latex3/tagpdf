@@ -193,7 +193,8 @@
 %    \g_@@_active_space_bool,
 %    \g_@@_active_mc_bool,
 %    \g_@@_active_tree_bool,
-%    \g_@@_active_struct_bool
+%    \g_@@_active_struct_bool,
+%    \g_@@_active_struct_dest_bool
 %  }
 % These booleans should help to control the global behaviour of tagpdf.
 % Ideally it should more or less do nothing if all are false.
@@ -203,6 +204,8 @@
 % commands, the struct-boolean activates the storing of the structure data.
 % In a normal document all should be active, the split is only there for
 % debugging purpose.
+% Structure destination will be activated automatically if pdf version 2.0 is detected,
+% but with the boolean struct-dest-boolean one can suppress them.
 % Also we assume currently that they are set only at begin document. But
 % if some control passing over groups are needed they could be perhaps
 % used in a document too.
@@ -212,6 +215,8 @@
 \bool_new:N \g_@@_active_mc_bool
 \bool_new:N \g_@@_active_tree_bool
 \bool_new:N \g_@@_active_struct_bool
+\bool_new:N \g_@@_active_struct_dest_bool
+\bool_gset_true:N \g_@@_active_struct_dest_bool
 %    \end{macrocode}
 % \end{variable}
 
@@ -387,12 +392,14 @@
 %    activate-tree,
 %    activate-struct,
 %    activate-all,
+%    no-struct-dest
 %  }
 %  Keys to (globally) activate tagging.
 %  |activate-space| activates the additional parsing needed for
 %  interword spaces. It is not documented, the parsing is currently
 %  implicitly activated by the known key |interwordspace|, as the code will
 %  perhaps move to some other place, now that it is better separated.
+%  |no-struct-dest| allows to suppress structure destinations.
 %    \begin{macrocode}
 \keys_define:nn { @@ / setup }
   {
@@ -403,6 +410,7 @@
     activate-all    .meta:n =
       {activate-mc={#1},activate-tree={#1},activate-struct={#1}},
     activate-all  .default:n = true,
+    no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,
  %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{log}

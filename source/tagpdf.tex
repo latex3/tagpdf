@@ -150,6 +150,10 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 
 \tableofcontents
+\section{Preface to version 0.93}
+
+
+
 \section{Preface to version 0.92}
 
 In this version support for page breaks in pdftex has been added. As described in section~\ref{sec:splitpara},
@@ -491,6 +495,9 @@ The default value is |Document|.
  Boolean, initially false. Activates the code related to marked content.
 \item[\PrintKeyName{activate-struct}]
  Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
+\item[\PrintKeyName{no-struct-dest}]
+ Starting with version 0.93 \pkg{tagpdf} will create automatically structure destinations (see section~\ref{sec:struct-dest} if \pkg{hyperref} is used, if
+ the engine supports it and if the pdf version is 2.0. With this key this can be suppressed. 
 \item[\PrintKeyName{activate-tree}]
 Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
 \item[\PrintKeyName{add-new-tag}]
@@ -1315,8 +1322,10 @@ The key-val list understands the following keys:
    For example:
 
    \begin{lstlisting}
+   \group_begin:
    \pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
    \pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
+   \group_end:
    \tagstructbegin{tag=P,AF=tag/AFtest}
    \end{lstlisting}
 
@@ -1327,6 +1336,12 @@ The key-val list understands the following keys:
    a concept new in PDF 2.0, but the code currently doesn't check the pdf version, it is your responsability
    to set it (this can be done with the \texttt{pdfversion} key in \verb+\DeclareDocumentMetadata+).
 
+   \item[\PrintKeyName{root-AF}]
+   This key allows to reference an associated file in the root structure element. Using the root
+   can be e.g. useful to add a css-file. When converting the pdf to a html with e.g. ngpdf this css-file is then
+   referenced in the head of the html. 
+   
+   
    \item[\PrintKeyName{AFinline}]
     This key allows to embed an associated file with inline content. The value is some text,
     which is embedded in the PDF as a text file with mime type text/plain.
@@ -1639,6 +1654,34 @@ The key \PrintKeyName{show-spaces} will show lines at the places where in lua mo
 
 This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.
 
+\section{Structure destinations}
+
+ Standard destinations (anchors for internal links)
+ consist of a reference to a page in the pdf and instructions
+ how to display it---typically they will put a specific location in the left top corner
+ of the viewer and so give the impression that a link jumped to the word in this place.
+ But in reality they are not connected to the content.
+
+ Starting with pdf~2.0 destinations can in a tagged PDF also point to a structure, to a \texttt{/StructElem} object.
+ GoTo links can then additionally to the \texttt{/D} key pointing to a
+ page destination also point to such a structure destination with an \texttt{/SD} key.
+ Programs that e.g. convert such a PDF to html can then create better links.
+ (According to the reference, PDF-viewer should prefer the structure destination
+ over the page destination, but as far as it is known this isn't done yet.)
+
+ Currently structure destinations and GoTo links making use of it could natively only
+ be created with the dvipdfmx backend. With pdftex and lualatex it was only possible to create
+ a restricted type which used only the \enquote{Fit} mode. Starting with
+ \TeX{}live 2022  (earlier in miktex) both engine will knew new keywords which allow
+ to create structure destination easily.
+ 
+ Support for the new keys have been added to the pdfmanagement and \pkg{tagpdf} will make
+ use of it if possible. In most cases it should simply work, but in some cases 
+ code that place destinations should be change to place them inside the structure they
+ belong too. It can also be necessary to surround 
+ destinations in the \enquote{middle} of a structure with a dummy structure (a Span or an Artifact) to
+ get the right page number. 
+ 
 
 
 \section{Accessibility is not only tagging}

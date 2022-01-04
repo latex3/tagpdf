@@ -10,7 +10,9 @@ this project uses date-based 'snapshot' version identifiers.
 ### Added 
 
   - key `root-AF` which allows to add associated files to StructTreeRoot
-  
+  - support for structure destination. They will be added automatically 
+    if the engine support it
+    and the pdf version is 2.0 unless they are actively suppressed.
   
 ### Fixed
 
