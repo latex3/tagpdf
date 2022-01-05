@@ -509,7 +509,7 @@ The default value is |Document|.
  Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
 \item[\PrintKeyName{no-struct-dest}]
  Starting with version 0.93 \pkg{tagpdf} will create automatically structure destinations (see section~\ref{sec:struct-dest} if \pkg{hyperref} is used, if
- the engine supports it and if the pdf version is 2.0. With this key this can be suppressed. 
+ the engine supports it and if the pdf version is 2.0. With this key this can be suppressed.
 \item[\PrintKeyName{activate-tree}]
 Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
 \item[\PrintKeyName{add-new-tag}]
@@ -1351,9 +1351,9 @@ The key-val list understands the following keys:
    \item[\PrintKeyName{root-AF}]
    This key allows to reference an associated file in the root structure element. Using the root
    can be e.g. useful to add a css-file. When converting the pdf to a html with e.g. ngpdf this css-file is then
-   referenced in the head of the html. 
-   
-   
+   referenced in the head of the html.
+
+
    \item[\PrintKeyName{AFinline}]
     This key allows to embed an associated file with inline content. The value is some text,
     which is embedded in the PDF as a text file with mime type text/plain.
@@ -1670,30 +1670,39 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
 
  Standard destinations (anchors for internal links)
  consist of a reference to a page in the pdf and instructions
- how to display it---typically they will put a specific location in the left top corner
+ how to display it---typically they will put a specific coordinate in the left top corner
  of the viewer and so give the impression that a link jumped to the word in this place.
  But in reality they are not connected to the content.
 
- Starting with pdf~2.0 destinations can in a tagged PDF also point to a structure, to a \texttt{/StructElem} object.
- GoTo links can then additionally to the \texttt{/D} key pointing to a
- page destination also point to such a structure destination with an \texttt{/SD} key.
+ Starting with pdf~2.0 destinations can in a tagged PDF also point 
+ to a structure (to a \texttt{/StructElem} object).
+ GoTo links can then additionally to the \texttt{/D} key which points to a
+ standard page destination also point to such a structure destination with an \texttt{/SD} key.
  Programs that e.g. convert such a PDF to html can then create better links.
  (According to the reference, PDF-viewer should prefer the structure destination
  over the page destination, but as far as it is known this isn't done yet.)
 
- Currently structure destinations and GoTo links making use of it could natively only
+ Currently structure destinations (and GoTo links making use of it) could natively only
  be created with the dvipdfmx backend. With pdftex and lualatex it was only possible to create
  a restricted type which used only the \enquote{Fit} mode. Starting with
- \TeX{}live 2022  (earlier in miktex) both engine will knew new keywords which allow
+ \TeX{}live 2022  (earlier in miktex) both engines will knew new keywords which allow
  to create structure destination easily.
- 
- Support for the new keys have been added to the pdfmanagement and \pkg{tagpdf} will make
- use of it if possible. In most cases it should simply work, but in some cases 
- code that place destinations should be change to place them inside the structure they
- belong too. It can also be necessary to surround 
- destinations in the \enquote{middle} of a structure with a dummy structure (a Span or an Artifact) to
- get the right page number. 
- 
+
+ Support for this has been already added to the pdfmanagement and \pkg{tagpdf} will make
+ use of it if possible. In most cases it should simply work, but one should be aware
+ that as one now has a destination that is actually tied to the content it gets more 
+ important to actually consider the context and the place where such destinations
+ are created. It now makes a difference if the destination is created before the 
+ structure is opened or after so in some cases
+ code that place destinations should be changed to place them inside the structure they
+ belong too. .
+ One also has to consider the pages connected to the destinations: The structure destination
+ is bound to the page where the structure \emph{begins}, if this differ from the page of the page destination
+ (e.g. if the destination is created by a \verb+\phantomsection+  in the middle of a longer paragraph)
+ then be necessary to surround
+ destinations with a dummy structure (a Span or an Artifact) to
+ get the right page number.
+
 
 
 \section{Accessibility is not only tagging}
