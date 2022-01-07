@@ -1,8 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 %\PassOptionsToPackage{check-declarations,enable-debug}{expl3}
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{pdfversion=2.0,lang=en-UK}
-
+%\RequirePackage{pdfmanagement-testphase}
+\DocumentMetadata{pdfversion=2.0,lang=en-UK}
 
 \makeatletter
 \def\UlrikeFischer@package@version{0.92}
@@ -16,6 +15,10 @@
 \usepackage{unicode-math}
 \setmainfont{Heuristica}
 \usepackage{microtype}
+\makeatletter
+% see https://github.com/schlcht/microtype/issues/8
+\patchcmd{\MT@get@prot}{\noindent}{\RawNoindent}{}{\fail}
+\makeatother
 
 \usepackage{scrlayer-scrpage}
 
@@ -150,6 +153,10 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 
 \tableofcontents
+\section{Preface to version 0.93}
+Support for associated files in the root element and for structure destinations (see section~\ref{sec:struct-dest} have been added.
+
+
 \section{Preface to version 0.92}
 
 In this version support for page breaks in pdftex has been added. As described in section~\ref{sec:splitpara},
@@ -318,7 +325,7 @@ utf8 is now the required encoding.
 \item The keys |lang|, |ref| and |E| have been added for structures.
 
 \item The new hooks of LaTeX are used to tagged many paragraphs automatically. The small red numbers around paragraphs in the documentation show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
-\end{itemize}    
+\end{itemize}
 
 \subsection{Changes in version 0.81}
 
@@ -390,6 +397,19 @@ will now expand once.
 
 \end{itemize}
 
+\subsection{Changes in version 0.93}
+
+\begin{itemize}
+\item support for page breaks in pdftex has been added, see  section~\ref{sec:splitpara},
+This requires a new version of the pdfmanagement-testphase package.
+
+\item header and footer are tagged as artifacts automatically, see section~\ref{sec:header-footer}.
+
+\item keys \texttt{alttext-o} and \texttt{actualtext-o} has been removed. \texttt{alttext} and \texttt{actualtext}
+will now expand once.
+
+\end{itemize}
+
 \subsection{Proof of concept: the tagging of the documentation itself}
 
 Starting with version 0.6 the documentation itself has been tagged. The tagging wasn't (and isn't) in no way perfect. The validator from Adobe didn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnotes gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes were simply wrong \ldots
@@ -424,15 +444,27 @@ activated like this:
  }
 \documentclass{article}
 \begin{document}
-some text 
+some text
 \end{document}
 \end{lstlisting}
 
+With  \LaTeX{} 2022-06-01 (or a current \LaTeX-dev) the call will be simpler
+
+\begin{lstlisting}
+\DocumentMetadata
+ {
+  testphase = tagpdf, % load + activate
+ }
+\documentclass{article}
+\begin{document}
+some text
+\end{document}
+\end{lstlisting}
 
 \minisec{Activation needed!}
 
 
-When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DeclareDocumentMetadata+. 
+When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DeclareDocumentMetadata+/\verb+\DocumentMetadata+.
 
 Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
 
@@ -478,6 +510,9 @@ The default value is |Document|.
  Boolean, initially false. Activates the code related to marked content.
 \item[\PrintKeyName{activate-struct}]
  Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
+\item[\PrintKeyName{no-struct-dest}]
+ Starting with version 0.93 \pkg{tagpdf} will create automatically structure destinations (see section~\ref{sec:struct-dest} if \pkg{hyperref} is used, if
+ the engine supports it and if the pdf version is 2.0. With this key this can be suppressed.
 \item[\PrintKeyName{activate-tree}]
 Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
 \item[\PrintKeyName{add-new-tag}]
@@ -794,7 +829,7 @@ The key-val list understands the following keys:
   This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
 
   \item[\PrintKeyName{alttext}]
-   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). 
+   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed).
   That means that you can do something like in the following listing
   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.
 
@@ -809,13 +844,16 @@ The key-val list understands the following keys:
   \item[\PrintKeyName{actualtext}]
   This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{actualtext-o} in previous versions which has been removed).
 
-   That means that you can do something like in the following listing and and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
+  That means that you can do something like in the following listing and and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
 
 
   \begin{lstlisting}
    \newcommand\myactualtext{X}
-   \tagmcbegin{tag=P,actualtext=\myactualtext}
+   \tagmcbegin{tag=Span,actualtext=\myactualtext}
   \end{lstlisting}
+
+  According to the PDF reference, \texttt{/ActualText} should only be used on marked content sequence of type Span. This is not enforced by the code currently.
+
 
   \item[\PrintKeyName{raw}]
   This key allows you to add more entries to the properties dictionary. The value must be correct, low-level \PDF{}. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.
@@ -1299,8 +1337,10 @@ The key-val list understands the following keys:
    For example:
 
    \begin{lstlisting}
+   \group_begin:
    \pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
    \pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
+   \group_end:
    \tagstructbegin{tag=P,AF=tag/AFtest}
    \end{lstlisting}
 
@@ -1310,6 +1350,12 @@ The key-val list understands the following keys:
    See the \texttt{l3pdffile} documentation for details.  Associated files are
    a concept new in PDF 2.0, but the code currently doesn't check the pdf version, it is your responsability
    to set it (this can be done with the \texttt{pdfversion} key in \verb+\DeclareDocumentMetadata+).
+
+   \item[\PrintKeyName{root-AF}]
+   This key allows to reference an associated file in the root structure element. Using the root
+   can be e.g. useful to add a css-file. When converting the pdf to a html with e.g. ngpdf this css-file is then
+   referenced in the head of the html.
+
 
    \item[\PrintKeyName{AFinline}]
     This key allows to embed an associated file with inline content. The value is some text,
@@ -1589,7 +1635,7 @@ syntax |section/H1| should in most cases do the right thing.
 \item[\PrintKeyName{role}] This is type the tag should be mapped too. In a PDF 1.7 or earlier this is normally a type from the |pdf| set, in PDF 2.0 from the |pdf|, |pdf2| and |mathml| set. It can also be a user type, or a still unknown type. The PDF format allows mapping to be done transitively. But you should be aware that tagpdf can't (or more precisely won't) check such unusual role mapping. It lies in the responsability of the author to ensure here that every type is correctly role mapped.
 \item[\PrintKeyName{role-namespace}] If the role is a known type the default value is the default namespace: |pdf2| for all types in this set, |pdf| for the type which exist only in PDF 1.7,  |mathml| for the MathML types, and  for previously defined user types whatever namespace has been set there. If the role is unknown, |user| is used and the code hopes that the type will be defined later.
  \item[unknown key] An unknown key is interpreted as a |tag/role|, this preserves the old syntax. So this two calls are equivalent:
- 
+
    \begin{lstlisting}
     \tagpdfsetup{add-new-tag = section/H1}
     \tagpdfsetup{add-new-tag = {tag=section,role=H1}}
@@ -1622,6 +1668,43 @@ The key \PrintKeyName{show-spaces} will show lines at the places where in lua mo
 
 
 This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.
+
+\section{Structure destinations}\label{sec:struct-dest}
+
+ Standard destinations (anchors for internal links)
+ consist of a reference to a page in the pdf and instructions
+ how to display it---typically they will put a specific coordinate in the left top corner
+ of the viewer and so give the impression that a link jumped to the word in this place.
+ But in reality they are not connected to the content.
+
+ Starting with pdf~2.0 destinations can in a tagged PDF also point
+ to a structure (to a \texttt{/StructElem} object).
+ GoTo links can then additionally to the \texttt{/D} key which points to a
+ standard page destination also point to such a structure destination with an \texttt{/SD} key.
+ Programs that e.g. convert such a PDF to html can then create better links.
+ (According to the reference, PDF-viewer should prefer the structure destination
+ over the page destination, but as far as it is known this isn't done yet.)
+
+ Currently structure destinations (and GoTo links making use of it) could natively only
+ be created with the dvipdfmx backend. With pdftex and lualatex it was only possible to create
+ a restricted type which used only the \enquote{Fit} mode. Starting with
+ \TeX{}live 2022  (earlier in miktex) both engines will knew new keywords which allow
+ to create structure destination easily.
+
+ Support for this has been already added to the pdfmanagement and \pkg{tagpdf} will make
+ use of it if possible. In most cases it should simply work, but one should be aware
+ that as one now has a destination that is actually tied to the content it gets more
+ important to actually consider the context and the place where such destinations
+ are created. It now makes a difference if the destination is created before the
+ structure is opened or after so in some cases
+ code that place destinations should be changed to place them inside the structure they
+ belong too. .
+ One also has to consider the pages connected to the destinations: The structure destination
+ is bound to the page where the structure \emph{begins}, if this differ from the page of the page destination
+ (e.g. if the destination is created by a \verb+\phantomsection+  in the middle of a longer paragraph)
+ then be necessary to surround
+ destinations with a dummy structure (a Span or an Artifact) to
+ get the right page number.
 
 
 

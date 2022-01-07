@@ -5,12 +5,6 @@ packagedate="2021-08-27"
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
 
--- is that still needed??
--- function checkinit_hook ()
---  print("XXXXXXXXXXXXXX")
---  return 0
--- end
-
 local ok, mydata = pcall(require, "ulrikefischerdata.lua")
 if not ok then
   mydata= {email="XXX",github="XXX",name="XXX"}
@@ -78,14 +72,20 @@ end
 --end
 --io.close(file)
 
-sourcefiledir = "./source"
+docfiledir = "./doc"
 
-tagfiles = {"source/*.md",
-            "source/**/tag*.sty",
-            "source/**/tag*.def",
-            "source/**/*.lua",
-            "source/*.tex",
-            "source/dtx/*dtx",
+--%docfiles     =
+--%  {
+--%    "./doc/tagpdfdocu-patches.sty",
+--%    "**/*.tex",
+--%    "**/*.png"
+--%  }
+tagfiles = {"*.md",
+            "tag*.sty",
+            "tag*.def",
+            "*.lua",
+            "*.tex",
+            "*.dtx",
             "Readme.md"}
 
 function update_tag (file,content,tagname,tagdate)
@@ -151,15 +151,16 @@ elseif string.match (file, "%.sty$" ) then
  end
 
 -- ctan setup
-docfiles = {"source/tagpdf.tex",
-            "source/tagpdf-code.tex",
-            "source/tagpdf.bib",
-            "source/link-figure-input.tex",
-            "source/pac3.PNG",
-            "source/global-ex.png",
-            "source/examples/**/*.tex",
-            "source/examples/**/*.pdf"}
-textfiles= {"source/CTANREADME.md"}
+docfiles = {"tagpdf.tex",
+            "tagpdf-code.tex",
+            "tagpdf.bib",
+            "link-figure-input.tex",
+            "pac3.PNG",
+            "global-ex.png",
+            "examples/**/*.tex",
+            "examples/**/*.pdf"}
+
+textfiles= {"doc/CTANREADME.md"}
 
 ctanreadme= "CTANREADME.md"
 
@@ -171,12 +172,14 @@ installfiles = {
                 "**/*.lua",
                }
 
-sourcefiles  = {"**/*.dtx",
-                "**/*.ins",
-                "**/*.sty",
+sourcefiles  = {"*.dtx",
+                "*.ins",
+                "*.sty",
                 --"**/*.def",
                 --"**/*.lua"
                }
+
+
 
 typesetfiles =
  {
