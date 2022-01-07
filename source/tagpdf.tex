@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 %\PassOptionsToPackage{check-declarations,enable-debug}{expl3}
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{pdfversion=2.0,lang=en-UK}
+%\RequirePackage{pdfmanagement-testphase}
+\DocumentMetadata{pdfversion=2.0,lang=en-UK}
 
 
 \makeatletter
@@ -16,6 +16,10 @@
 \usepackage{unicode-math}
 \setmainfont{Heuristica}
 \usepackage{microtype}
+\makeatletter
+% see https://github.com/schlcht/microtype/issues/8
+\patchcmd{\MT@get@prot}{\noindent}{\RawNoindent}{}{\fail}
+\makeatother
 
 \usepackage{scrlayer-scrpage}
 
@@ -1674,7 +1678,7 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
  of the viewer and so give the impression that a link jumped to the word in this place.
  But in reality they are not connected to the content.
 
- Starting with pdf~2.0 destinations can in a tagged PDF also point 
+ Starting with pdf~2.0 destinations can in a tagged PDF also point
  to a structure (to a \texttt{/StructElem} object).
  GoTo links can then additionally to the \texttt{/D} key which points to a
  standard page destination also point to such a structure destination with an \texttt{/SD} key.
@@ -1690,9 +1694,9 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
 
  Support for this has been already added to the pdfmanagement and \pkg{tagpdf} will make
  use of it if possible. In most cases it should simply work, but one should be aware
- that as one now has a destination that is actually tied to the content it gets more 
+ that as one now has a destination that is actually tied to the content it gets more
  important to actually consider the context and the place where such destinations
- are created. It now makes a difference if the destination is created before the 
+ are created. It now makes a difference if the destination is created before the
  structure is opened or after so in some cases
  code that place destinations should be changed to place them inside the structure they
  belong too. .
