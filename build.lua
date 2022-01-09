@@ -40,17 +40,19 @@ specialformats["latex"] = specialformats["latex"] or
   }
 
 checkengines = {"pdftex","luatex","pdftexmain"}
-checkconfigs = {"build",
-                "config-pdftex",
-                "config-nosyntax", -- tests with invalid pdf as result
-                "config-luatex",
+checkconfigs = {
+               "build",
+               "config-pdftex",
+               "config-nosyntax", -- tests with invalid pdf as result
+               "config-luatex",
+               ---
                -- "config-luatex-dev",
                -- "config-pdftex-dev",
                -- "config-dev"
                 }
 checkruns = 4
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
-excludetests = {"test-saveboxes-structure-dev"}
+excludetests = {"test-saveboxes-structure-dev","test-link"}
 
 sourcefiles =  {"*.dtx","*.ins","*.sty"}
 
@@ -153,12 +155,13 @@ elseif string.match (file, "%.sty$" ) then
 -- ctan setup
 docfiles = {"tagpdf.tex",
             "tagpdf-code.tex",
+            "tagpdfdocu-patches.sty",
             "tagpdf.bib",
             "link-figure-input.tex",
             "pac3.PNG",
             "global-ex.png",
-            "examples/**/*.tex",
-            "examples/**/*.pdf"}
+            "examples/**/ex-*.tex",
+            "examples/**/ex-*.pdf"}
 
 textfiles= {"doc/CTANREADME.md"}
 

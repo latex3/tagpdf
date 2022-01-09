@@ -10,29 +10,35 @@ The tagpdf package may be modified and distributed under the terms and condition
 
 ## Contents
 
-- Readme (this file)
-- tagpdf.sty (the sty)
-- tagpdf-roles-code.sty  (internal code)
-- tagpdf-mc-code-shared.sty  (internal code)
-- tagpdf-mc-code-generic.sty  (internal code)
-- tagpdf-mc-code-lua.sty  (internal code)
-- tagpdf-struct-code.sty  (internal code)
-- tagpdf-tree-code.sty   (internal code)
-- tagpdf-space-code.sty  (internal code)
-- tagpdf-attr-code.sty   (internal code)
-- tagpdf-checks-code.sty (internal code)
-- tagpdf-user.sty        (user commands) 
-- tagpdf-pdftex.def      (pdftex specific code)
-- tagpdf-luatex.def      (luatex specific code)
-- tagpdf.lua             (lua code for luatex)
-- tagpdf.tex, tagpdf.pdf, tagpdf.bib, tagpdfdocu-patches.sty,
-  link-figure-input.tex, pac3.png (the docu)
-- various examples       (part of the documentation)   
+- README.md (this file)
+- code files:
+     - tagpdf.ins
+     - tagpdf.dtx 
+     - tagpdf-roles.dtx 
+     - tagpdf-mc-shared.dtx
+     - tagpdf-mc-generic.dtx
+     - tagpdf-mc-lua.dtx
+     - tagpdf-struct.dtx 
+     - tagpdf-tree.dtx
+     - tagpdf-space.dtx
+     - tagpdf-checks.dtx
+     - tagpdf-user.dtx        
+- documentation:
+     - tagpdf.pdf 
+     - various examples       (part of the documentation)   
+- source files for the documentation:
+     - tagpdf.tex
+     - tagpdf.bib
+     - tagpdfdocu-patches.sty,
+     - link-figure-input.tex
+     - pac3.png, global-ex.png 
 
 ## Installation
 
-Put the styles (with the exception of the tagpdfdocu-patches.sty), 
-the .def and the lua-files where it can be found.
+At best use the package manager of your texsystem to install tagpdf.
+For a manual installation run the .ins-file with latex and put the 
+created .sty, .def and .lua-files 
+where they can be found.
 
 
 ## Issues, comments, etc
