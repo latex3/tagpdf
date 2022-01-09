@@ -256,6 +256,43 @@
 %                       & mc-begin-ignore & msg     & if inactive \\
 % \end{tabular}
 %
+% \subsection{Messages}
+% \begin{function}{
+%  mc-nested,
+%  mc-tag-missing,
+%  mc-label-unknown,
+%  mc-used-twice,
+%  mc-used-twice,
+%  mc-not-open,
+%  mc-pushed,
+%  mc-popped,
+%  mc-current}
+%  Various messages related to mc-chunks. TODO document their meaning.
+% \end{function}
+% \begin{function}{struct-no-objnum,struct-faulty-nesting,
+%  struct-missing-tag,struct-used-twice,struct-label-unknown,struct-show-closing}
+% Various messages related to structure. TODO document their meaning.
+% \end{function}
+%
+% \begin{function}{attr-unknown}
+% Message if an attribute i sunknown.
+% \end{function}
+%
+% \begin{function}{role-missing,role-unknown,role-unknown-tag,role-tag,new-tag}
+% Messages related to role mapping.
+% \end{function}
+%
+% \begin{function}{tree-mcid-index-wrong}
+% Used in the tree code, typically indicates the document must be rerun.
+% \end{function}
+%
+% \begin{function}{sys-no-interwordspace}
+% Message if an engine doesn't support inter word spaces
+% \end{function}
+%
+% \begin{function}{para-hook-count-wrong}
+% Message if the number of begin paragraph and end paragraph differ. This normally means faulty structure.
+% \end{function}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
