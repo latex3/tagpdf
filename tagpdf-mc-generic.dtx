@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-mc.dtx
 %
-% Copyright (C) 2019-2021 Ulrike Fischer
+% Copyright (C) 2019-2022 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -50,7 +50,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.92, released 2021-08-27}
+% \date{Version 0.93, released 2022-01-09}
 % \maketitle
 % \begin{documentation}
 % \end{documentation}
@@ -59,11 +59,11 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*generic>
-\ProvidesExplPackage {tagpdf-mc-code-generic} {2021-08-27} {0.92}
+\ProvidesExplPackage {tagpdf-mc-code-generic} {2022-01-09} {0.93}
  {part of tagpdf - code related to marking chunks - generic mode}
 %</generic>
 %<*debug>
-\ProvidesExplPackage {tagpdf-debug-generic} {2021-08-27} {0.92}
+\ProvidesExplPackage {tagpdf-debug-generic} {2022-01-09} {0.93}
  {part of tagpdf - debugging code related to marking chunks - generic mode}
 %</debug>
 %    \end{macrocode}
@@ -752,10 +752,12 @@
 % we assume that their values are safe.
 % \begin{macro}
 %  {
-%   tag,raw,
-%   alttext,
-%   actualtext,
-%   label,artifact
+%   tag (mc-key),
+%   raw (mc-key),
+%   alttext (mc-key),
+%   actualtext (mc-key),
+%   label (mc-key),
+%   artifact (mc-key)
 %  }
 %    \begin{macrocode}
 %<*generic>

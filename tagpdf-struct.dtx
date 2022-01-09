@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-struct.dtx
 %
-% Copyright (C) 2019-2021 Ulrike Fischer
+% Copyright (C) 2019-2022 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -50,7 +50,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.92, released 2021-08-27}
+% \date{Version 0.93, released 2022-01-09}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -94,7 +94,7 @@
 % \end{function}
 % \section{Public keys}
 % \subsection{Keys for the structure commands}
-% \begin{function}{tag}
+% \begin{function}{tag (struct-key)}
 % This is required. The value of the key is normally one of the
 % standard types listed in section \ref{sec:new-tag}.
 % It is possible to setup new tags/types.
@@ -104,51 +104,51 @@
 % This allows to use a different name space than
 % the one connected by default to the tag. But normally this should not be needed.
 % \end{function}
-% \begin{function}{stash}
+% \begin{function}{stash (struct-key)}
 %  Normally a new structure inserts itself as a kid
 %  into the currently active structure. This key prohibits this.
 %  The structure is nevertheless from now on
 %  \enquote{the current active structure}
 %  and parent for following  marked content and structures.
 % \end{function}
-% \begin{function}{label}
+% \begin{function}{label (struct-key)}
 % This key sets a label by which
 % one can use the structure later in another structure.
 % Internally the label name will start with \texttt{tagpdfstruct-}.
 % \end{function}
-% \begin{function}{title,title-o}
+% \begin{function}{title (struct-key),title-o (struct-key)}
 % This keys allows to set the dictionary entry
 % \texttt{/Title} in the structure object.
 % The value is handled as verbatim string and hex encoded.
 % Commands are not expanded. |title-o| will expand the value once.
 % \end{function}
 %
-% \begin{function}{alttext}
+% \begin{function}{alttext (struct-key)}
 % This key inserts an \texttt{/Alt} value in the dictionary of structure object.
 % The value is handled as verbatim string and hex encoded.
 % The value will be expanded first once.
 % \end{function}
-% \begin{function}{actualtext}
+% \begin{function}{actualtext (struct-key)}
 % This key inserts an \texttt{/ActualText} value in the dictionary of structure object.
 % The value is handled as verbatim string and hex encoded.
 % The value will be expanded first once.
 % \end{function}
-% \begin{function}{lang}
+% \begin{function}{lang (struct-key)}
 % This key allows to set the language for a structure element. The value should be a bcp-identifier,
 % e.g. |de-De|.
 % \end{function}
-% \begin{function}{ref}
+% \begin{function}{ref (struct-key)}
 %  This key allows to add references to other structure elements,
 %  it adds the |/Ref| array to the structure.
 % The value should be a comma separated list of structure labels
 % set with the |label| key. e.g. |ref={label1,label2}|.
 % \end{function}
-% \begin{function}{E}
+% \begin{function}{E (struct-key)}
 %  This key sets the |/E| key, the expanded form of an
 %  abbreviation or an acronym
 %  (I couldn't think of a better name, so I sticked to E).
 % \end{function}
-% \begin{function}{AF,AFinline,AFinline-o}
+% \begin{function}{AF (struct-key),AFinline (struct-key),AFinline-o (struct-key)}
 % \begin{syntax}
 % AF = \meta{object name}\\
 % AF-inline = \meta{text content}\\
@@ -169,7 +169,7 @@
 % keys can be used only once per structure. Additional calls are ignored.
 % \end{function}
 %
-% \begin{function}{attribute}
+% \begin{function}{attribute (struct-key)}
 %  This key takes as argument a comma list of attribute names
 %  (use braces to protect the commas from the external key-val parser)
 %  and allows to add one or more attribute dictionary entries in
@@ -181,7 +181,7 @@
 %
 %  \end{function}
 %
-% \begin{function}{attribute-class}
+% \begin{function}{attribute-class (struct-key)}
 %  This key takes as argument a comma list of attribute class names
 %  (use braces to protect the commas from the external key-val parser)
 %  and allows to add one or more attribute classes to the structure object.
@@ -190,7 +190,7 @@
 %  must be declared first in \cs{tagpdfsetup}.
 % \end{function}
 % \subsection{Setup keys}
-% \begin{function}{newattribute}
+% \begin{function}{newattribute (setup key)}
 % \begin{syntax}
 % newattribute = \Arg{name}\Arg{Content}
 % \end{syntax}
@@ -208,7 +208,7 @@
 % \end{verbatim}
 %
 % \end{function}
-% \begin{function}{root-AF}
+% \begin{function}{root-AF (setup key)}
 % \begin{syntax}
 % root-AF = \meta{object name}
 % \end{syntax}
@@ -221,7 +221,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-struct-code} {2021-08-27} {0.92}
+\ProvidesExplPackage {tagpdf-struct-code} {2022-01-09} {0.93}
  {part of tagpdf - code related to storing structure}
 %</header>
 %    \end{macrocode}
@@ -753,11 +753,16 @@
 % at the begin.
 % \begin{macro}
 %  {
-%    label,stash,tag,
-%    title,title-o,
-%    alttext,
-%    actualtext,
-%    lang,ref,E
+%    label (struct-key),
+%    stash (struct-key),
+%    tag (struct-key),
+%    title (struct-key),
+%    title-o (struct-key),
+%    alttext (struct-key),
+%    actualtext (struct-key),
+%    lang (struct-key),
+%    ref (struct-key),
+%    E (struct-key)
 %  }
 %    \begin{macrocode}
 \keys_define:nn { @@ / struct }
@@ -865,7 +870,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{AF,AFinline,AFinline-o}
+% \begin{macro}{AF (struct-key),AFinline (struct-key),AFinline-o (struct-key)}
 % keys for the AF keys (associated files). They use commands from l3pdffile!
 % The stream variants use txt as extension to get the mimetype.
 % TODO: check if this should be configurable. For math we will perhaps need another
@@ -967,7 +972,7 @@
 %</package>
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{root-AF}
+% \begin{macro}{root-AF (setup-key)}
 % The root structure can take AF keys too, so we provide a key for it.
 % This key is used with |\tagpdfsetup|, not in a structure!
 %    \begin{macrocode}
@@ -1166,7 +1171,7 @@
 % \section{Attributes and attribute classes}
 %    \begin{macrocode}
 %<*header>
-\ProvidesExplPackage {tagpdf-attr-code} {2021-08-27} {0.92}
+\ProvidesExplPackage {tagpdf-attr-code} {2022-01-09} {0.93}
   {part of tagpdf - code related to attributes and attribute classes}
 %</header>
 %    \end{macrocode}
@@ -1194,7 +1199,7 @@
 %    \end{macrocode}
 % \end{variable}
 % \subsection{Commands and keys}
-% \begin{macro}{\@@_attr_new_entry:nn,newattribute}
+% \begin{macro}{\@@_attr_new_entry:nn,newattribute (setup-key)}
 % This allows to define attributes. Defined attributes
 % are stored in a global property. |newattribute| expects
 % two brace group, the name and the content. The content typically
@@ -1225,7 +1230,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{attribute-class}
+% \begin{macro}{attribute-class (struct-key)}
 % attribute-class has to store the used attribute names so that
 % they can be added to the ClassMap later.
 %    \begin{macrocode}
@@ -1265,7 +1270,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{attribute}
+% \begin{macro}{attribute (struct-key)}
 %    \begin{macrocode}
 \keys_define:nn { @@ / struct }
   {

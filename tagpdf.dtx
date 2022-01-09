@@ -2,7 +2,7 @@
 %
 %% File: tagpdf.dtx
 %
-% Copyright (C) 2019-2021 Ulrike Fischer
+% Copyright (C) 2019-2022 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -23,13 +23,64 @@
 % for those people who are interested.
 %
 % \fi
+% \begin{documentation}
+% \begin{function}{\ref_value:nnn}
+% This is a temporary definition which will have to
+% move to l3ref. It allows to locally set a default value if the label or the attribute
+% doesn't exist. See issue \#4 in Accessible-xref.
+% \begin{syntax}
+% \cs{ref_value:nnn}\Arg{label}\Arg{attribute}\Arg{fallback default}
+% \end{syntax}
+% \end{function}
 %
+% \begin{function}{ \tag_stop_group_begin:, \tag_stop_group_end: }
+% We need a command to stop tagging in some places.
+% This simply switches the two local booleans.
+% \end{function}
+%
+% \begin{function}{activate-space (setup-key)}
+%  |activate-space| activates the additional parsing needed for
+%  interword spaces. It is not documented, the parsing is currently
+%  implicitly activated by the known key |interwordspace|, as the code will
+%  perhaps move to some other place, now that it is better separated.
+% \end{function}
+%
+% \begin{function}{activate-mc (setup-key),
+%    activate-tree (setup-key),
+%    activate-struct (setup-key),
+%    activate-all (setup-key)}
+% Keys to activate the various tagging steps
+% \end{function}
+%\begin{function}{no-struct-dest (setup-key)}
+% The key allows to suppress the creation of structure destinations
+% \end{function}
+%
+% \begin{function}{log (setup-key)}
+% The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
+% More details are in \texttt{tagpdf-checks}.
+% \end{function}
+%
+% \begin{function}{tagunmarked (setup-key)}
+% This key allows to set if (in luamode) unmarked text should be
+% marked up as artifact. The initial value is true.
+% \end{function}
+%
+% \begin{function}{tabsorder (setup-key)}
+% This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
+% or |none|. Currently this is set more or less globally. More finer control can be
+% added if needed.
+% \end{function}
+%
+% \begin{function}{tagstruct,tagstructobj,tagabspage,tagmcabs,tagmcid}
+% These are attributes used by the label/ref system.
+% \end{function}
+% \end{documentation}
 % \begin{implementation}
 % \section{Initialization and test if pdfmanagement is active.}
 %    \begin{macrocode}
 %<@@=tag>
 %<*package>
-\ProvidesExplPackage {tagpdf} {2021-08-27} {0.92}
+\ProvidesExplPackage {tagpdf} {2022-01-09} {0.93}
   { A package to experiment with pdf tagging }
 
 \bool_if:nF
@@ -55,7 +106,7 @@
 %    \end{macrocode}
 %<*debug>
 %    \begin{macrocode}
-\ProvidesExplPackage {tagpdf-debug} {2021-08-27} {0.92}
+\ProvidesExplPackage {tagpdf-debug} {2022-01-09} {0.93}
   { debug code for tagpdf }
 \@ifpackageloaded{tagpdf}{}{\PackageWarning{tagpdf-debug}{tagpdf~not~loaded,~quitting}\endinput}
     \end{macrocode}
@@ -120,10 +171,6 @@
 % \begin{macro}{\ref_value:nnn}
 % This allows to locally set a default value if the label or the attribute
 % doesn't exist.
-% See issue \#4 in Accessible-xref.
-% \begin{syntax}
-% \cs{ref_value:nnn}\Arg{label}\Arg{attribute}\Arg{Fallback default}
-% \end{syntax}
 %    \begin{macrocode}
  \cs_if_exist:NF \ref_value:nnn
    {
@@ -389,12 +436,12 @@
 %
 % \begin{macro}
 %  {
-%    activate-space,
-%    activate-mc,
-%    activate-tree,
-%    activate-struct,
-%    activate-all,
-%    no-struct-dest
+%    activate-space (setup-key),
+%    activate-mc (setup-key),
+%    activate-tree (setup-key),
+%    activate-struct (setup-key),
+%    activate-all (setup-key),
+%    no-struct-dest (setup-key)
 %  }
 %  Keys to (globally) activate tagging.
 %  |activate-space| activates the additional parsing needed for
@@ -415,7 +462,7 @@
     no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,
  %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{log}
+% \begin{macro}{log (setup-key)}
 % The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
 % The description of the log levels is in tagpdf-checks.
 %    \begin{macrocode}
@@ -431,7 +478,7 @@
     log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{tagunmarked}
+% \begin{macro}{tagunmarked (setup-key)}
 % This key allows to set if (in luamode) unmarked text should be
 % marked up as artifact. The initial value is true.
 %    \begin{macrocode}
@@ -439,9 +486,9 @@
     tagunmarked     .initial:n  = true,
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{tabsorder}
-% This sets the tabsorder one a page. The values are |row|, |column|, |structure| (default)
-% or |none|. Currently this is set more or less globally. More finer controll can be
+% \begin{macro}{tabsorder (setup-key)}
+% This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
+% or |none|. Currently this is set more or less globally. More finer control can be
 % added if needed.
 %    \begin{macrocode}
     tabsorder       .choice:,

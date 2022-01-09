@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.92"
-packagedate="2021-08-27"
+packageversion="0.93"
+packagedate="2022-01-09"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -177,7 +177,7 @@ installfiles = {
 
 sourcefiles  = {"*.dtx",
                 "*.ins",
-                "*.sty",
+                --"*.sty",
                 --"**/*.def",
                 --"**/*.lua"
                }

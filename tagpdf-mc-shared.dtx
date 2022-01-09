@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-mc.dtx
 %
-% Copyright (C) 2019-2021 Ulrike Fischer
+% Copyright (C) 2019-2022 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -50,7 +50,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.92, released 2021-08-27}
+% \date{Version 0.93, released 2022-01-09}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -120,7 +120,7 @@
 % The following keys can be used with |\tag_mc_begin:n|, |\tagmcbegin|,
 % |\tag_mc_begin_pop:n|,
 %
-% \begin{function}{tag}
+% \begin{function}{tag (mc-key)}
 % This key is required, unless artifact is used.
 % The value is a tag like |P| or |H1| without a slash at the begin,
 % this is added by the code.
@@ -131,7 +131,7 @@
 % (some ascii with numbers like \texttt{H4} is fine).
 % \end{function}
 %
-% \begin{function}{artifact}
+% \begin{function}{artifact (mc-key)}
 %  This will setup the marked content as an artifact. The key should be used
 %  for content that should be ignored.
 %  The key can take one of the values |pagination|,
@@ -139,33 +139,33 @@
 %  (this is the default).
 % \end{function}
 %
-% \begin{function}{raw}
+% \begin{function}{raw (mc-key)}
 % This key allows  to add more entries to the properties dictionary.
 % The value must be correct, low-level PDF. E.g.
 % \verb+raw=/Alt (Hello)+ will insert an alternative Text.
 % \end{function}
 %
-% \begin{function}{alttext}
+% \begin{function}{alttext (mc-key)}
 %  This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator.
 %  The value is handled as verbatim string, commands are not expanded.
 %  The value will be expanded first once.
 % \end{function}
 %
-% \begin{function}{actualtext}
+% \begin{function}{actualtext (mc-key)}
 %  This key inserts an \texttt{/ActualText} value in the property dictionary
 %  of the BDC operator. The value is handled as verbatim string,
 %  commands are not expanded.
 %  The value will be expanded first once.
 % \end{function}
 %
-% \begin{function}{label}
+% \begin{function}{label (mc-key)}
 %  This key sets a label by which one can call the marked content
 %  later in another structure
 %  (if it has been stashed with the |stash| key).
 %  Internally the label name will start with \texttt{tagpdf-}.
 % \end{function}
 %
-% \begin{function}{stash}
+% \begin{function}{stash (mc-key)}
 % This \enquote{stashes} an mc-chunk: it is not inserted into the current structure.
 % It should be normally be used along with a label to be able to use the mc-chunk
 % in another place.
@@ -178,7 +178,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-mc-code-shared} {2021-08-27} {0.92}
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2022-01-09} {0.93}
   {part of tagpdf - code related to marking chunks -
    code shared by generic and luamode }
 %</header>
@@ -407,7 +407,7 @@
 % \subsection{Keys}
 % This are the keys where the code can be shared between the modes.
 %
-% \begin{macro}{stash,__artifact-bool,__artifact-type}
+% \begin{macro}{stash (mc-key),__artifact-bool,__artifact-type}
 % the two internal artifact keys are use to define the public |artifact|.
 % For now we add support for the subtypes Header and Footer.
 % Watermark,PageNum, LineNum,Redaction,Bates will be added if some use case

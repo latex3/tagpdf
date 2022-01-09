@@ -34,8 +34,15 @@
 % version data.
 \usepackage{longtable}
 \usepackage{tagpdf}
-
-
+\makeatletter
+%\def\@setupverbvisiblespace{}
+%\def\verb{\relax\ifmmode\hbox\else\leavevmode\null\fi
+%  \bgroup
+%    \verb@eol@error \let\do\@makeother \dospecials
+%    \verbatim@font\@noligs
+%    \language\l@nohyphenation
+%    \@ifstar\@verb\@verb}
+\makeatother
 \begin{document}
 
 \GetFileInfo{tagpdf.sty}
@@ -78,15 +85,15 @@
 % Load the source files in order
 \DocInput{tagpdf.dtx}
 \DocInput{tagpdf-checks.dtx}
-\DocInput{tagpdf-user.dtx}
-\DocInput{tagpdf-tree.dtx}
-\DocInput{tagpdf-mc-shared.dtx}
-\DocInput{tagpdf-mc-generic.dtx}
-\DocInput{tagpdf-mc-luacode.dtx}
-\DocInput{tagpdf-struct.dtx}
-\DocInput{tagpdf-backend.dtx}
-\DocInput{tagpdf-roles.dtx}
-\DocInput{tagpdf-space.dtx}
+%\DocInput{tagpdf-user.dtx}
+%\DocInput{tagpdf-tree.dtx}
+%\DocInput{tagpdf-mc-shared.dtx}
+%\DocInput{tagpdf-mc-generic.dtx}
+%\DocInput{tagpdf-mc-luacode.dtx}
+%\DocInput{tagpdf-struct.dtx}
+%\DocInput{tagpdf-backend.dtx}
+%\DocInput{tagpdf-roles.dtx}
+%\DocInput{tagpdf-space.dtx}
 \clearpage
 
 \DelayPrintIndex
