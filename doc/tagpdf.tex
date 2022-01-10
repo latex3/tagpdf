@@ -1043,7 +1043,11 @@ repeated on every page at best only once. All this need some thoughts both from 
 providing support for header and footers.
 
 For now tagpdf added some first support for automatically tagging:
-Starting with version 0.92 header and footer are automatically marked up as (simple) artifacts.
+Starting with version 0.92 header and footer are by default automatically marked up as (simple) artifacts.
+
+With the key \PrintKeyName{exclude-header-footer} the behaviour can be changed: The value \texttt{false} disables the
+automatic tagging, the value \texttt{pagination} add additionally an \texttt{/Artifact} structure with the attribute \texttt{/Pagination}.
+
 
 If some additional markup (or even a structure) is wanted, something like this should be used (here with
 the syntax of the \pkg{fancyhdr} package) to close the open mc-chunk and restart if after the content:

@@ -62,7 +62,7 @@
 % It can be used in the preamble and in the document (but not all keys make sense there).
 % \end{function}
 %
-% \begin{function}{activate (setup key)}
+% \begin{function}{activate (setup-key)}
 % And additional setup key which combine the other activate keys
 % |activate-mc|, |activate-tree|, |activate-struct| and additionally
 % add a document structure.
@@ -123,7 +123,7 @@
 % necessarly stops the compilation. The keys and their function are described below.
 % \end{function}
 %
-% \begin{function}{mc-data}
+% \begin{function}{mc-data (show-key)}
 %  \begin{syntax}
 %    |mc-data| = \meta{number}
 %  \end{syntax}
@@ -134,7 +134,7 @@
 % newpage. The value is a positive integer and sets the first mc-shown. If no value
 % is given, 1 is used and so all mc-chunks created so far are shown.
 % \end{function}
-% \begin{function}{mc-current}
+% \begin{function}{mc-current (show-key)}
 %  \begin{syntax}
 %    |mc-current|
 %  \end{syntax}
@@ -142,14 +142,14 @@
 % chunk is open it shows only the state of the abs count. It works in all mode,
 % but the output in luamode looks different.
 % \end{function}
-% \begin{function}{mc-marks}
+% \begin{function}{mc-marks (show-key)}
 %  \begin{syntax}
-%    |mc-marks| = |show|||use|
+%    |mc-marks| = |show|\verb+|+|use|
 %  \end{syntax}
 % This key helps to debug the page marks. It should only be used at shipout in
 % header or footer.
 % \end{function}
-% \begin{function}{struct-stack}
+% \begin{function}{struct-stack (show-key)}
 %  \begin{syntax}
 %    |struct-stack| = |log|\verb+|+|show|
 %  \end{syntax}
@@ -181,7 +181,7 @@
 % faulty code, e.g. a missing |\par| at the end of a low-level vbox can highly
 % confuse the tagging. The tags should be carefully checked if this is used.
 %
-% \begin{function}{paratagging,paratagging-show}
+% \begin{function}{paratagging (setup-key),paratagging-show (setup-key)}
 %  \begin{syntax}
 %    |paratagging| = |true|\verb+|+|false|\\
 %    |paratagging-show| = |true|\verb+|+|false|\\
@@ -197,15 +197,34 @@
 % faster then |\tagpdfsetup|. But I'm not sure if the names are good.
 % \end{function}
 %
-% \subsection{Header and footer}
-% Header and footer are automatically excluded from tagging. This can for
-% now to allow debugging be disabled with the following key, but probably
-% this key will disappear again. If some real content is in the header and
-% footer, tagging must be restarted there explicitly.
+% \begin{function}{\tagpdfsuppressmarks}
+%  This command allows to suppress the creation of the marks. It takes an argument
+%  which should normally be one of the mc-commands, puts a group around it and
+%  suppress the marks creation in this group. This command should be used if
+%  the begin and end command are at different boxing levels. E.g.
+%  \begin{verbatim}
+%  \@hangfrom
+%   {
+%    \tagstructbegin{tag=H1}%
+%    \tagmcbegin    {tag=H1}%
+%    #2
+%   }
+%   {#3\tagpdfsuppressmarks{\tagmcend}\tagstructend}%
+%  \end{verbatim}
+% \end{function}
 %
-% \begin{function}{exclude-header-footer}
+% \subsection{Header and footer}
+% Header and footer are automatically excluded from tagging. This can
+% be disabled with the following key.
+% If some real content is in the header and
+% footer, tagging must be restarted there explicitly.
+% The key accepts the values |true| which surrounds the header with an artifact
+% mc-chunk, |false| which disables the automatic tagging, and |pagination| which
+% additionally adds an artifact structure with an pagination attribute.
+%
+% \begin{function}{exclude-header-footer (setup-key)}
 %  \begin{syntax}
-%    |exclude-header-footer| = |true|\verb+|+|false|
+%    |exclude-header-footer| = |true|\verb+|+|false|\verb+|+pagination
 %  \end{syntax}%
 % \end{function}
 
@@ -328,7 +347,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{mc-data}
+% \begin{macro}{mc-data (show-key)}
 % This key is (currently?) relevant for lua mode only.
 % It shows the data of all mc-chunks created so far.
 % It is accurate only after shipout, so typically should be issued after a
@@ -348,7 +367,7 @@
 
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{mc-current}
+% \begin{macro}{mc-current (show-key)}
 % This shows some info about the current mc-chunk. It works in generic and lua-mode.
 %    \begin{macrocode}
 \keys_define:nn { @@ / show }
@@ -415,7 +434,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{mc-marks}
+% \begin{macro}{mc-marks (show-key)}
 % It maps the mc-marks into the sequences and then shows them.
 % This allows to inspect the first and last mc-Mark on a page.
 % It should only be used in the shipout (header/footer).
@@ -465,7 +484,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{struct-stack}
+% \begin{macro}{struct-stack (show-key)}
 %    \begin{macrocode}
 \keys_define:nn { @@ / show }
   {
@@ -558,8 +577,8 @@
 %
 %\begin{macro}
 % {
-%  paratagging,
-%  paratagging-show,
+%  paratagging (setup-key),
+%  paratagging-show (setup-key),
 %  }
 % These keys enable/disable locally paratagging, and the debug modus.
 % It can affect the typesetting if |paratagging-show| is used. The small numbers
@@ -759,6 +778,7 @@
  }
 %    \end{macrocode}
 % And now the keys
+% \begin{macro}{exclude-header-footer (setup-key)}
 %    \begin{macrocode}
 \keys_define:nn { @@ / setup }
   {
@@ -788,7 +808,7 @@
    exclude-header-footer .initial:n = true
   }
 %    \end{macrocode}
-
+% \end{macro}
 % \subsection{Links}
 % We need to close and reopen mc-chunks around links.
 % Currently we handle URI and GoTo (internal) links.
