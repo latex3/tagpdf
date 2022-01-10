@@ -2,55 +2,6 @@
 \ProvidesExplPackage {tagpdfdocu-patches} {2022-01-09} {0.93}
  {patches/commands for the tagpdf documentation}
 \RequirePackage{etoolbox}
-%%%%
-% header and footer (now needed as attributes are global again)
-% 21.09.2021 removed as not in pdf resources
-%%%%
-%% patching \@oddfoot/\@oddhead is nonsense, that is redefined all the time.
-%% Using the scrlayer interfaces would probably work
-%% but we will need a core latex solution anyway
-%% so let's test it here and patch \@outputpage
-%% we also disable paratagging, not for the tagging but to avoid that the small
-%% numbers gives overfull vbox messages ...
-%\bool_new:N \g__tag_docu_saved_in_mc_bool
-%\patchcmd\@outputpage
-% {\hb@xt@\textwidth{\@thehead}}
-% {
-%  \hb@xt@\textwidth
-%   {
-%    \bool_set_false:N \l__tag_para_bool
-%    \bool_gset_eq:NN  \g__tag_docu_saved_in_mc_bool \g__tag_in_mc_bool
-%    \bool_gset_false:N \g__tag_in_mc_bool
-%    \hfil
-%    \tag_mc_begin:n {artifact=pagination}
-%    \tag_stop_group_begin:
-%    \@thehead
-%    \tag_stop_group_end:
-%    \tag_mc_end:
-%    \bool_gset_eq:NN \g__tag_in_mc_bool\g__tag_docu_saved_in_mc_bool
-%    \hfil
-%   }
-% }
-% {}{\fail}
-%\patchcmd\@outputpage
-% {\hb@xt@\textwidth{\@thefoot}}
-% {
-%  \hb@xt@\textwidth
-%   {
-%    \bool_set_false:N \l__tag_para_bool
-%    \bool_gset_eq:NN   \g__tag_docu_saved_in_mc_bool \g__tag_in_mc_bool
-%    \bool_gset_false:N \g__tag_in_mc_bool
-%    \hfil
-%    \tag_mc_begin:n {artifact=pagination}
-%    \tag_stop_group_begin:
-%    \@thefoot
-%    \tag_stop_group_end:
-%    \tag_mc_end:
-%    \bool_gset_eq:NN \g__tag_in_mc_bool\g__tag_docu_saved_in_mc_bool
-%    \hfil
-%   }
-% }
-% {}{\fail}
 
 %%%%%
 % tableofcontents

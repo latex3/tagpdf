@@ -154,7 +154,18 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 \tableofcontents
 \section{Preface to version 0.93}
-Support for associated files in the root element and for structure destinations (see section~\ref{sec:struct-dest} have been added.
+The main change in the package itself in this version is the support for structure destinations.
+This is a new type of destinations in \PDF~2.0.
+For pdftex and luatex this requires new binaries. They will be included
+in texlive 2022, miktex already has the new pdftex, the new luatex will probably follow soon.
+
+Beside this mostly some clean up and bug fixes has been done. 
+
+A more important step will be done in \LaTeX{} itself in the next dev-release: The command \cs{DocumentMetadata} will be
+added to the format and will take over the role of \cs{DeclareDocumentMetadata} from \pkg{pdfmanagement-testphase} and additionally
+will also load the pdf management code. This will simplify the documents as it will no longer be needed to load 
+a package. 
+
 
 
 \section{Preface to version 0.92}
@@ -400,13 +411,19 @@ will now expand once.
 \subsection{Changes in version 0.93}
 
 \begin{itemize}
-\item support for page breaks in pdftex has been added, see  section~\ref{sec:splitpara},
-This requires a new version of the pdfmanagement-testphase package.
+\item Support for associated files in the root element (key \texttt{root-AF})
+has been added. This allow e.g. to add a css-file which is be used if the \PDF\ is converted to
+html.
 
-\item header and footer are tagged as artifacts automatically, see section~\ref{sec:header-footer}.
+\item First steps have been done to adapt the package to planed changes in \LaTeX{}: The command \cs{DocumentMetadata} will be
+added to the format and will take over the role of \cs{DeclareDocumentMetadata} from \pkg{pdfmanagement-testphase}.
 
-\item keys \texttt{alttext-o} and \texttt{actualtext-o} has been removed. \texttt{alttext} and \texttt{actualtext}
-will now expand once.
+\item The package has now support for \enquote{structure destinations}.
+This is a new type of destinations in \PDF~2.0.
+For pdftex and luatex this requires new binaries. They will be included
+in texlive 2022, miktex already has the new pdftex, the new luatex will probably follow soon.
+
+\item The commands \cs{tagpdfifluatexT}, \cs{tagpdfifluatexTF} has been removed \cs{tagpdfifpdftexT}, 
 
 \end{itemize}
 

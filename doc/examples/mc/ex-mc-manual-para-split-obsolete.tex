@@ -1,10 +1,16 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 
 % !!!!!!!!!!!!!!!!!
+% Obsolete example!
+% !!!!!!!!!!!!!!!!
 % This test files shows how to add a manual page split.
 % It *only* handles the mc-step in the page stream.
 % Structure commands and all the related management are not
 % involved. So it also only uses activate-mc.
+
+% It is obsolete as the current tagpdf version now handles the
+% page split automatically. To keep the example working this is disabled
+% below with \csname __tag_mc_disable_marks:\endcsname
 
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{pdfversion=1.7,uncompress}
@@ -17,7 +23,7 @@
 \iftutex
    \usepackage{fontspec}
   \usepackage{luacode}
-\else 
+\else
   \usepackage[T1]{fontenc}
 \fi
 
@@ -31,8 +37,10 @@
 \pagestyle{fancy}
 \fancyhf{}
 
-\cfoot{\tagmcbegin{artifact=pagination}\thepage\tagmcend}
 \begin{document}
+%disable the automatic page break handler:
+\csname __tag_mc_disable_marks:\endcsname
+
 \tagmcbegin{tag=P}
 Cras egestas ipsum a nisl. Vivamus varius dolor
 ut dolor. Fusce vel enim. Pellentesque accumsan ligula et eros. Cras
