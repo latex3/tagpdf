@@ -19,6 +19,10 @@ this project uses date-based 'snapshot' version identifiers.
  - Value of /AF should be an array
  - setting the meta key activate-all to false didn't work
  
+### Removed 
+ - `\tagpdfifluatexT`, `\tagpdfifluatexTF`, `\tagpdfifpdftexT`. 
+    Use iftex or the expl3 commands instead.  
+ 
 ## [2021-08-28]
 
 ### Added 
