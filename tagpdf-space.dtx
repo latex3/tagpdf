@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-space.dtx
 %
-% Copyright (C) 2019-2021 Ulrike Fischer
+% Copyright (C) 2019-2022 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -52,6 +52,18 @@
 %
 % \date{Version 0.93, released 2022-01-09}
 % \maketitle
+% \begin{documentation}
+% \begin{function}{interwordspace (setup-key)}
+% This key allows to activate/deactivate the real space chars if the engine supports
+% it. The allowed values are |true|, |on|, |false|, |off|.
+% \end{function}
+% \begin{function}{show-spaces (setup-key)}
+% This key works only with luatex and shows with small red
+% bars where spaces have been inserted. This is only for debugging and
+% is not completly reliable (and change affect other literals and tagging), so it
+% should be used with care.
+% \end{function}
+% \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
@@ -65,7 +77,7 @@
 % support real space chars. Most of the code for luatex which uses attributes
 % is in the lua code, here are only the keys.
 %
-% \begin{macro}{interwordspace,show-spaces}
+% \begin{macro}{interwordspace (setup-key),show-spaces (setup-key)}
 %    \begin{macrocode}
 %<*package>
 \sys_if_engine_pdftex:T

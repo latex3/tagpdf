@@ -8,7 +8,7 @@
 \usepackage{tagpdf}
 \tagpdfsetup{tabsorder=structure,
              activate}
-\usepackage{iftex}             
+\usepackage{iftex}
 \iftutex
   \usepackage{fontspec}
   \usepackage{unicode-math}
@@ -155,9 +155,9 @@ Etwas unmarkierter Text.
  actualtext=Ente,
  alttext=Dies ist eine Ente}
  %% a char is needed so that actualtext works,
- \tagpdfifluatexTF
+ \ifluatex
   {{\zerowidthfont^^^^200c}}%
-  {\makebox[0pt][l]{.}}%
+ \else {\makebox[0pt][l]{.}} \fi%
  %it seems not to be needed for alttext and voice software ....
  \includegraphics[width=1cm]{example-image-duck}
 \tagmcend

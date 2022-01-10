@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-backend.dtx
 %
-% Copyright (C) 2019-2021 Ulrike Fischer
+% Copyright (C) 2019-2022 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -739,11 +739,6 @@ end
 ltx.@@.func.markspaceoff=@@_deactivate_mark_space
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}
-%  {
-%   default_space_char,
-%   default_fontid,
-%  }
 % We need two local variable to setup a default space char.
 %    \begin{macrocode}
 local default_space_char = node.new(GLYPH)
@@ -751,7 +746,6 @@ local default_fontid     = font.id("TU/lmr/m/n/10")
 default_space_char.char  = 32
 default_space_char.font  = default_fontid
 %    \end{macrocode}
-% \end{macro}
 % \begin{macro}
 %   {
 %    @@_space_chars_shipout,

@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-mc.dtx
 %
-% Copyright (C) 2019-2021 Ulrike Fischer
+% Copyright (C) 2019-2022 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -52,7 +52,6 @@
 %
 % \date{Version 0.93, released 2022-01-09}
 % \maketitle
-
 % \begin{implementation}
 % The code is splitted into three parts: code shared by all engines,
 % code specific to luamode and code not used by luamode.
@@ -159,7 +158,7 @@
 \cs_new_protected:Npn \@@_add_missing_mcs_to_stream:Nn #1#2 {}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_mc_if_in:,\tag_mc_if_in:}
+% \begin{macro}[pTF]{\@@_mc_if_in:,\tag_mc_if_in:}
 % This tests, if we are in an mc, for attributes
 % this means to check against a number.
 %    \begin{macrocode}
@@ -358,10 +357,12 @@
 % \subsection{Key definitions}
 % \begin{macro}
 %   {
-%    tag,raw,
-%    alttext,
-%    actualtext,
-%    label,artifact
+%    tag (mc-key),
+%    raw (mc-key),
+%    alttext (mc-key),
+%    actualtext (mc-key),
+%    label (mc-key),
+%    artifact (mc-key)
 %   }
 %   TODO: check conversion, check if local/global setting is right.
 %    \begin{macrocode}

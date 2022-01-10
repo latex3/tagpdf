@@ -2,7 +2,7 @@
 %
 %% File: tagpdf-roles.dtx
 %
-% Copyright (C) 2019-2021 Ulrike Fischer
+% Copyright (C) 2019-2022 Ulrike Fischer
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -52,6 +52,41 @@
 %
 % \date{Version 0.93, released 2022-01-09}
 % \maketitle
+% \begin{documentation}
+% \begin{function}
+%  {
+%    add-new-tag (setup-key),
+%    tag (rolemap-key),
+%    namespace (rolemap-key),
+%    role (rolemap-key),
+%    role-namespace (rolemap-key)
+%  }
+% This key can be used in \cs{tagpdfsetup} to declare and rolemap new tags.
+% It takes as value a key-value list or a simple |new-tag/old-tag|.
+%
+% The key-value list knows the following keys:
+% \begin{description}
+% \item[\texttt{tag}] This is the name of the new type as it should then be used in \cs{tagstructbegin}.
+% \item[\texttt{namespace}] This is the namespace of the new type.
+%   The value should be a shorthand of a namespace.
+%   The allowed values are currently |pdf|, |pdf2|, |mathml| and |user|.
+%   The default value (and recommended value for a new tag) is |user|.
+%   The public name of the user namespace is |tag/NS/user|. This can be used to reference
+%   the namespace e.g. in attributes.
+% \item[\texttt{role}] This is the type the tag should be mapped too.
+%  In a PDF 1.7 or earlier this is normally a type from the |pdf| set,
+%  in PDF 2.0 from the |pdf|, |pdf2| and |mathml| set.
+%  It can also be a user type, or a still unknown type.
+%  The PDF format allows mapping to be done transitively.
+%  But tagpdf can't/won't check such unusual role mapping.
+% \item[\texttt{role-namespace}] If the role is a known type
+%  the default value is the default namespace of this type.
+%  If the role is unknown, |user| is used and
+%  the code hopes that the type will be defined later. With this key a specific
+%  namespace can be forced.
+% \end{description}
+% \end{function}
+% \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
@@ -631,9 +666,15 @@
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Key-val user interface}
-%  The user interface use the key |add-new-tag|, which takes either a
+%  The user interface uses the key |add-new-tag|, which takes either a
 %  keyval list as argument, or a tag/role.
-%  \begin{macro}{tag,tag-namespace,role,role-namespace,add-new-tag}
+%  \begin{macro}
+%    {
+%     tag (rolemap-key),
+%     tag-namespace (rolemap-key),
+%     role (rolemap-key),
+%     role-namespace (rolemap-key),
+%     add-new-tag (setup-key)}
 %    \begin{macrocode}
 \keys_define:nn { @@ / tag-role }
   {
