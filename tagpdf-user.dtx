@@ -60,7 +60,18 @@
 % \end{syntax}
 % This is the main setup command to adapt the behaviour of tagpdf.
 % It can be used in the preamble and in the document (but not all keys make sense there).
+% \end{function}
 %
+% \begin{function}{activate (setup key)}
+% And additional setup key which combine the other activate keys
+% |activate-mc|, |activate-tree|, |activate-struct| and additionally
+% add a document structure.
+% \end{function}
+%
+%
+% \begin{function}{\tagpdfifluatexTF,\tagpdfifluatexT,\tagpdfifpdftexT}
+% small wrappers around engine tests. This functions should not be used and will be removed
+% in one of the next versions.
 % \end{function}
 %
 % \section{Commands related to mc-chunks}
@@ -76,7 +87,7 @@
 % and \cs{tagmcend} will issue in horizontal mode an \cs{unskip}.
 % \end{function}
 %
-% \begin{function}{\tagmcifin}
+% \begin{function}{\tagmcifinTF}
 % \begin{syntax}
 % \cs{tagmcifin} \Arg{true code}\Arg{false code}
 % \end{syntax}
@@ -130,6 +141,13 @@
 % This key shows the number and the tag of the currently open mc-chunk. If no
 % chunk is open it shows only the state of the abs count. It works in all mode,
 % but the output in luamode looks different.
+% \end{function}
+% \begin{function}{mc-marks}
+%  \begin{syntax}
+%    |mc-marks| = |show|||use|
+%  \end{syntax}
+% This key helps to debug the page marks. It should only be used at shipout in
+% header or footer.
 % \end{function}
 % \begin{function}{struct-stack}
 %  \begin{syntax}
@@ -288,7 +306,7 @@
 % \end{macro}
 %
 %
-% \begin{macro}{\tagpdfifluatexTF,\tagpdfifluatexT,\tagpdfifpdftexTF}
+% \begin{macro}{\tagpdfifluatexTF,\tagpdfifluatexT,\tagpdfifpdftexT}
 % I should deprecate them ...
 %    \begin{macrocode}
 \cs_set_eq:NN\tagpdfifluatexTF \sys_if_engine_luatex:TF
@@ -466,7 +484,7 @@
 % This part should be regularly revisited to check if the code should go to a
 % better place or can be improved.
 % \subsection{Document structure}
-% \begin{macro}{\@@_add_document_structure:n,activate}
+% \begin{macro}{\@@_add_document_structure:n,activate (setup-key)}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_add_document_structure:n #1
  {
@@ -508,7 +526,8 @@
 %    \end{macrocode}
 
 % \subsection{Fake space}
-% \begin{macro}t% We need a luatex variant for |\pdffakespace|. This should probably go into
+% \begin{macro}{\pdffakespace}
+% We need a luatex variant for |\pdffakespace|. This should probably go into
 % the kernel at some time.
 %    \begin{macrocode}
 \sys_if_engine_luatex:T
