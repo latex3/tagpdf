@@ -4,7 +4,7 @@
 \DocumentMetadata{}
 \RequirePackage{tagpdf-regressiontest}
 \documentclass{article}
-\usepackage{tagpdf}
+\usepackage{iftex,tagpdf}
 \tagpdfsetup{uncompress}
 
 \begin{document}
@@ -20,7 +20,7 @@ Goal: I need utf16 (so chars/numbers  for every char)
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
 \tl_new:N \l_uf_content_tl
 
-\tagpdfifpdftexT
+\sys_if_engine_pdftex:T
  {
   \iow_log:n {ASCII GLYPHS}
   \tl_set:Nn \l_uf_content_tl { abc! }
@@ -85,7 +85,7 @@ Goal: I need utf16 (so chars/numbers  for every char)
  }
 
 
-\tagpdfifluatexT
+\sys_if_engine_luatex:T
  {
   \iow_log:n {ASCII GLYPHS}
   \tl_set:Nn \l_uf_content_tl {abc!}

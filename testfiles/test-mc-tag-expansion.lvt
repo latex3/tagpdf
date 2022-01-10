@@ -7,18 +7,18 @@
 
 \usepackage[english]{babel}
 \usepackage{tagpdf}
-\usepackage{graphicx}
-\tagpdfifpdftexT
- {
-  \usepackage[utf8]{inputenc}
+\usepackage{graphicx,iftex}
+\ifpdftex
   \usepackage[T1]{fontenc}
- }
+\fi
 
-\tagpdfifluatexT
- {
+\ifluatex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
+\fi
+
+
+
 
 
 \tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then

@@ -1,21 +1,21 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{lang=de-DE}
+\IfFormatAtLeastTF{2022-06-01}{}
+  {\RequirePackage{pdfmanagement-testphase}}
+\DocumentMetadata{lang=de-DE}
 \RequirePackage{tagpdf-regressiontest}
 \documentclass{article}
-\usepackage{tagpdf}
+\usepackage{tagpdf,iftex}
 \tagpdfsetup{activate}
-\tagpdfifpdftexT
- {
+\ifpdftex
   \usepackage[T1]{fontenc}
- }
+\fi
 
-\tagpdfifluatexT
- {
+\ifluatex
   \usepackage{fontspec}
   \usepackage{luacode}
-  \newfontface\zerowidthfont{freeserif}
- }
+   \newfontface\zerowidthfont{freeserif}
+\fi
+
 
 \usepackage{graphicx}
 \showthe\pdfsuppressptexinfo
@@ -49,9 +49,11 @@ Etwas unmarkierter Text. %isn't read by voice software
  actualtext=Ente,
  alttext=Dies ist eine Ente}
  %% a char is needed so that actualtext works,
- \tagpdfifluatexTF
+ \ifluatex
   {{\zerowidthfont^^^^200c}}%
+ \else 
   {\makebox[0pt][l]{.}}%
+ \fi 
  %it seems not to be needed for alttext and voice software ....
  \includegraphics[width=1cm]{example-image-duck}
 \tagmcend

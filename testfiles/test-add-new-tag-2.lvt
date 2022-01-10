@@ -7,18 +7,18 @@
 
 \usepackage[english]{babel}
 \usepackage{tagpdf}
-\usepackage{graphicx}
-\tagpdfifpdftexT
- {
-  \usepackage[utf8]{inputenc}
+\usepackage{graphicx,iftex}
+\ifpdftex
   \usepackage[T1]{fontenc}
- }
+\fi
 
-\tagpdfifluatexT
- {
+\ifluatex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
+\fi
+
+
+
 
 
 \tagpdfsetup{activate-all,log=all,uncompress}

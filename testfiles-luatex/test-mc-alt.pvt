@@ -1,6 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{}
+\IfFormatAtLeastTF{2022-06-01}{}
+  {\RequirePackage{pdfmanagement-testphase}}
+\DocumentMetadata{}
 \RequirePackage{tagpdf-regressiontest}
 \pdfvariable suppressoptionalinfo 99
 \pdfvariable trailerid {[<4BA7B731D5161E09D9F03EC6625961CE> <4BA7B731D5161E09D9F03EC6625961CE>]}
@@ -46,9 +47,9 @@ Etwas unmarkierter Text. %isn't read by voice software
  actualtext=Ente,
  alttext=Dies ist eine Ente}
  %% a char is needed so that actualtext works,
-% \tagpdfifluatexTF
-%  {{\zerowidthfont^^^^200c}}%
-%  {\makebox[0pt][l]{.}}%
+% \ifluatex 
+%  {{\zerowidthfont^^^^200c}} \else
+%  {\makebox[0pt][l]{.}} \fi%
 % %it seems not to be needed for alttext and voice software ....
 % \includegraphics[width=1cm]{example-image-duck}
  image

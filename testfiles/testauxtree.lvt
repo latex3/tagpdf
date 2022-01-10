@@ -9,18 +9,18 @@
 
 \usepackage[english]{babel}
 \usepackage[genericmode]{tagpdf}
-\usepackage{graphicx}
-\tagpdfifpdftexT
- {
-  \usepackage[utf8]{inputenc}
+\usepackage{graphicx,iftex}
+\ifpdftex
   \usepackage[T1]{fontenc}
- }
+\fi
 
-\tagpdfifluatexT
- {
+\ifluatex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
+\fi
+
+
+
 
 
 \tagpdfsetup{add-new-tag = TAB/P,
@@ -41,10 +41,10 @@
 
 \begin{document}\showoutput
 \START
-\tagpdfifluatexT
- {
+\ifluatex
    \directlua{print(kpse.var_value("TEXMFAUXTREES"))}
- }
+\fi 
+
 %\end{document}
 \tagstructbegin{tag=Document}
  \tagstructbegin{tag=Sect}

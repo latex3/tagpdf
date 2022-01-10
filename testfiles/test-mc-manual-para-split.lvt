@@ -7,18 +7,18 @@
 
 \usepackage[english]{babel}
 \usepackage[genericmode]{tagpdf}
-\usepackage{graphicx}
-\tagpdfifpdftexT
- {
-  \usepackage[utf8]{inputenc}
+\usepackage{iftex,graphicx}
+\ifpdftex
   \usepackage[T1]{fontenc}
- }
+\fi
 
-\tagpdfifluatexT
- {
+\ifluatex
   \usepackage{fontspec}
   \usepackage{luacode}
- }
+\fi
+
+
+
 
 
 \tagpdfsetup{add-new-tag = TAB/P,
