@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 %\PassOptionsToPackage{check-declarations,enable-debug}{expl3}
 %\RequirePackage{pdfmanagement-testphase}
-\DocumentMetadata{pdfversion=2.0,lang=en-UK}
+\DocumentMetadata{pdfversion=2.0,lang=en-UK,testphase=phase-II}
 
 \makeatletter
 \def\UlrikeFischer@package@version{0.93}
@@ -49,12 +49,9 @@
         commentstyle=\color{green!50!black}\bfseries}
 
 
-\usepackage{tagpdf}
+
 \tagpdfsetup{
- activate-all,
- uncompress,
  tabsorder=structure,
- interwordspace=true,
  %log=v
  %show-spaces
  }
@@ -159,12 +156,12 @@ This is a new type of destinations in \PDF~2.0.
 For pdftex and luatex this requires new binaries. They will be included
 in texlive 2022, miktex already has the new pdftex, the new luatex will probably follow soon.
 
-Beside this mostly some clean up and bug fixes has been done. 
+Beside this mostly some clean up and bug fixes has been done.
 
 A more important step will be done in \LaTeX{} itself in the next dev-release: The command \cs{DocumentMetadata} will be
 added to the format and will take over the role of \cs{DeclareDocumentMetadata} from \pkg{pdfmanagement-testphase} and additionally
-will also load the pdf management code. This will simplify the documents as it will no longer be needed to load 
-a package. 
+will also load the pdf management code. This will simplify the documents as it will no longer be needed to load
+a package.
 
 
 
@@ -423,7 +420,7 @@ This is a new type of destinations in \PDF~2.0.
 For pdftex and luatex this requires new binaries. They will be included
 in texlive 2022, miktex already has the new pdftex, the new luatex will probably follow soon.
 
-\item The commands \cs{tagpdfifluatexT}, \cs{tagpdfifluatexTF} has been removed \cs{tagpdfifpdftexT}, 
+\item The commands \cs{tagpdfifluatexT}, \cs{tagpdfifluatexTF} has been removed \cs{tagpdfifpdftexT},
 
 \end{itemize}
 
