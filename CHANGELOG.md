@@ -5,14 +5,15 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [XXXX-XX-XX]
+## [Unreleased]
+
+## [2022-01-13]
 
 ### Added 
 
   - key `root-AF` which allows to add associated files to StructTreeRoot
   - support for structure destination. They will be added automatically 
-    if the engine support it
-    and the pdf version is 2.0 unless they are actively suppressed.
+    if the engine supports them and the pdf version is 2.0 (unless they are actively suppressed).
   
 ### Fixed
 

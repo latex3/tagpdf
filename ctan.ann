@@ -1,16 +1,17 @@
-Version 0.92
-    
-### Added 
- - code to close/reopen mc-chunks with pdftex over page breaks
- - header and footer are artifacts by default
- - mc-commands issue now marks to support paratagging with pdftex
- - commands to finish streams in pdftex 
- - artifact accepts now also pagination/footer and pagination/header as value.
- - added a check with error if the begin and end para hooks don't match.
+Version 0.93 [2022-01-13]
+
+## Added 
+
+  - key `root-AF` which allows to add associated files to StructTreeRoot
+  - support for structure destination. They will be added automatically 
+    if the engine supports them and the pdf version is 2.0 (unless they are actively suppressed).
+  
+## Fixed
+
+ - Value of /AF should be an array
+ - setting the meta key activate-all to false didn't work
  
-### Fixed
- - numbering in paratagging-show
- 
-### Removed 
- - keys alttext-o and actualtext-o, the keys alttext and actualtext will now expand the
- value once. 
+## Removed 
+ - `\tagpdfifluatexT`, `\tagpdfifluatexTF`, `\tagpdfifpdftexT`. 
+    Use iftex or the expl3 commands instead.  
+  

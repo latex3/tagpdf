@@ -23,11 +23,7 @@
 % for those people who are interested.
 %
 %<*driver>
-\RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{}
-\makeatletter
-\declare@file@substitution{doc.sty}{doc-v3beta.sty}
-\makeatother
 \documentclass{l3doc}
 \usepackage{array,booktabs,caption}
 \hypersetup{pdfauthor=Ulrike Fischer,
@@ -51,13 +47,13 @@
 %    }^^A
 % }
 %
-% \date{Version 0.93, released 2022-01-12}
+% \date{Version 0.93, released 2022-01-13}
 % \maketitle
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
 %<*luatex>
-\ProvidesExplFile {tagpdf-luatex.def} {2022-01-12} {0.93}
+\ProvidesExplFile {tagpdf-luatex.def} {2022-01-13} {0.93}
   {tagpdf~driver~for~luatex}
 %    \end{macrocode}
 % \section{Loading the lua}
@@ -162,7 +158,7 @@
 local ProvidesLuaModule = {
     name          = "tagpdf",
     version       = "0.93",       --TAGVERSION
-    date          = "2022-01-12", --TAGDATE
+    date          = "2022-01-13", --TAGDATE
     description   = "tagpdf lua code",
     license       = "The LATEX Project Public License 1.3c"
 }
