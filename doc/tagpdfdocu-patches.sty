@@ -86,7 +86,11 @@
 % no internal patches, but KOMA-only solution
 %%%%%%%%
 
+% the structure should be opened rather early to catch the refstepcounter!
 \AddtoDoHook{heading/begingroup}{\tagpdfparaOff\use_none:n}
+\cs_new_protected:Npn \__tag_struct_section_begin:n #1 {\tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}}
+\AddtoDoHook{heading/postinit}{\__tag_struct_section_begin:n}
+\AddtoDoHook{heading/endgroup}{\tagstructend\use_none:n}
 
 \prop_new:N    \g_tag_section_level_prop
 \prop_gput:Nnn \g_tag_section_level_prop {section}{H1}
@@ -98,7 +102,6 @@
  {
   \@hangfrom
    {\hskip #2
-    \tagstructbegin{tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
     %\tl_if_empty:nF{#3}
     \tl_if_in:nnF{\@empty}{#3}
     {
@@ -109,7 +112,7 @@
    }
    {\tag_mc_begin:n    {tag=\prop_item:Nn\g_tag_section_level_prop{#1}}
     #4
-    \tag_mc_end:\tagstructend}%
+    \tag_mc_end:}%
  }
 
 % minisec is simply P,  so we let paratagging handle this.
