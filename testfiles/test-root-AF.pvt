@@ -4,6 +4,7 @@
 \RequirePackage{tagpdf-regressiontest}
 \ExplSyntaxOn
 \group_begin:
+\pdfdict_put:nnn{l_pdffile/Params}{ModDate}{(D:20211230160943Z)}
 \pdfdict_put:nnn{l_pdffile/Filespec}{AFRelationship}{/Supplement}
 \pdffile_embed_file:nnn{testcss.css}{}{tag/csstest}
 \pdffile_embed_file:nnn{testcss2.css}{}{tag/csstest2}
