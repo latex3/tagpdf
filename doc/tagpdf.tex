@@ -57,7 +57,7 @@
  }
 
 \usepackage{hyperxmp}
-\usepackage[pdfdisplaydoctitle=true,hyperfootnotes=false,
+\usepackage[pdfdisplaydoctitle=true,%hyperfootnotes=false,
             ]{hyperref}
 
  \hypersetup{
@@ -189,7 +189,7 @@ Since many year the creation of accessible \PDF{}-files with \LaTeX\ which confo
 But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
 This package tries to close this gap by offering \emph{core} commands to tag a \PDF{}%
-\tagpdfparaOff\footnote{In case you don't know what this means: there will be some explanations later on.}\tagpdfparaOn.
+\footnote{In case you don't know what this means: there will be some explanations later on.}.
 
 My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
@@ -566,7 +566,7 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
 \section{Tagging}
 
 
-pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\tagpdfparaOff\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}\tagpdfparaOn:
+pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}:
 
 \begin{lstlisting}[columns=fixed]
 stream
@@ -711,7 +711,7 @@ They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which 
 
 
 
-\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\tagpdfparaOff\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}\tagpdfparaOn
+\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
     Examples are \texttt{/P} (paragraph), \texttt{/H2} (heading), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
 
 In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:

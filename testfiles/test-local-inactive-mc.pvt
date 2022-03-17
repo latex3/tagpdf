@@ -1,7 +1,7 @@
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata
- {uncompress}
-\RequirePackage{tagpdf-regressiontest}
+\IfFormatAtLeastTF{2022-06-01}{}
+  {\RequirePackage{pdfmanagement-testphase}}
+\DocumentMetadata{}
+\input{regression-test}
 \documentclass{article}
 \usepackage{tagpdf}
 \tagpdfsetup{activate-all}
@@ -17,4 +17,4 @@
 
 \ExplSyntaxOff
 
-\end{document}
+\end{document} 
