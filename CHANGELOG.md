@@ -7,6 +7,10 @@ this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
 
+### Changed
+ - attribute names are now passed through \pdf_name_from_unicode_e:n. This means slashes
+   and spaces are allowed in the name.
+   
 ## [2022-01-13]
 
 ### Added 
