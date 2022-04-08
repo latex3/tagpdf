@@ -173,6 +173,7 @@ installfiles = {
                 "**/*.sty",
                 "**/*.def",
                 "**/*.lua",
+                "**/*.ltx"
                }
 
 sourcefiles  = {"*.dtx",
