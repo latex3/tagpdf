@@ -4,28 +4,36 @@ rem l3build save -cconfig-pdftex -e\2 \1
 rem l3build save -cconfig-luatex -e\2 \1
 
 
-l3build save -epdftex test-AF-file
-l3build save -epdftex test-alttext
-l3build save -epdftex test-artifact-group
-l3build save -epdftex test-empty-mc
-l3build save -epdftex test-header-footer
-l3build save -epdftexmain test-header-footer
-l3build save -epdftex test-header-tagging
-l3build save -epdftex test-links-backend
-l3build save -epdftex test-local-inactive-mc
-l3build save -epdftex test-mc-used-twice-b
-l3build save -epdftex test-ref
+REM   Check failed with difference files
+l3build save -epdftex test-getmctag
+l3build save -epdftex test-mc-ifinartifact
+l3build save -epdftex test-mc-low-luaonly
+l3build save -eluatex test-mc-manual-para-split
+l3build save -epdftex test-mc-manual-para-split
+l3build save -epdftex test-mc-tag-expansion
 l3build save -epdftex test-root-AF
-l3build save -epdftex test-saveboxes-structure
-l3build save -epdftex test-struct-OBJR
-
-l3build save -cconfig-pdftex -epdftex ptagging-004-p
-l3build save -cconfig-pdftex -epdftex ptagging-006-p
-l3build save -cconfig-pdftex -epdftex ptagging-007-p
-l3build save -cconfig-pdftex -epdftex test-attribute
-l3build save -cconfig-pdftex -epdftex test-beast-1
-l3build save -cconfig-pdftex -epdftex test-beast-2
-l3build save -cconfig-pdftex -epdftex test-fakespace-tagpdf
-l3build save -cconfig-pdftex -epdftex test-mc-alt
-l3build save -cconfig-pdftex -epdftex test-pdf
-l3build save -cconfig-pdftex -epdftex test-sectioning-koma
+l3build save -epdftexmain test-root-AF
+l3build save -epdftex test-showattributes
+l3build save -eluatex test-struct-user
+l3build save -epdftex test-struct-user
+l3build save -eluatex testauxtree
+l3build save -epdftex testauxtree
+REM
+REM Failed tests for configuration config-pdftex:
+REM
+REM   Check failed with difference files
+l3build save -cconfig-pdftex -epdftex ptagging-002
+l3build save -cconfig-pdftex -epdftex test-patch-koma
+REM
+REM Failed tests for configuration config-nosyntax:
+REM
+REM   Check failed with difference files
+l3build save -cconfig-nosyntax -eluatex test-mc-low-bdc-emc
+l3build save -cconfig-nosyntax -epdftex test-mc-low-bdc-emc
+l3build save -cconfig-nosyntax -eluatex test-mcid-cnt
+l3build save -cconfig-nosyntax -epdftex test-mcid-cnt
+REM
+REM Failed tests for configuration config-luatex:
+REM
+REM   Check failed with difference files
+l3build save -cconfig-luatex -eluatex test-patch-koma

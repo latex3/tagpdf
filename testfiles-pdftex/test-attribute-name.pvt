@@ -1,15 +1,13 @@
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-II}
 \input{regression-test}
 \documentclass{scrartcl}
 \usepackage[english]{babel}
-\usepackage{tagpdf}
-\tagpdfsetup{activate-all,uncompress}
 \tagpdfsetup{
- newattribute= {TH-row}{<</O/Table /Scope/Row>>}
+ newattribute= {tag/TH row}{<</O/Table /Scope/Row>>}
  }
 \begin{document}\START
 \pagestyle{empty} %
-\tagstructbegin{tag=Document}
+\tagpdfparaOff
 
 \tagstructbegin{tag=Table}
 \begin{center}
@@ -17,12 +15,12 @@
 \hline
 \tagstructbegin{tag=THead}
  \tagstructbegin{tag=TR}
-  \tagstructbegin{tag=TH,attribute= TH-row}
+  \tagstructbegin{tag=TH,attribute= tag/TH row}
    \tagmcbegin{tag=TH}
    h1
    \tagmcend
    \tagstructend &
-  \tagstructbegin{tag=TH,attribute-class= TH-row}
+  \tagstructbegin{tag=TH,attribute-class= tag/TH row}
     \tagmcbegin{tag=TH}
     h2
     \tagmcend
@@ -50,5 +48,4 @@
 \end{center}
 \tagstructend
 
-\tagstructend
 \end{document} 
