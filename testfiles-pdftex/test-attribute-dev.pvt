@@ -1,16 +1,13 @@
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-II}
 \input{regression-test}
 \documentclass{scrartcl}
 \usepackage[english]{babel}
-\usepackage{tagpdf}
-\tagpdfsetup{activate-all,uncompress}
 \tagpdfsetup{
- newattribute= {TH-row}{<</O/Table /Scope/Row>>}
+ newattribute= {TH-row}{/O/Table /Scope/Row}
  }
 \begin{document}\START
 \pagestyle{empty} %
-\tagstructbegin{tag=Document}
-
+\tagpdfparaOff
 \tagstructbegin{tag=Table}
 \begin{center}
 \begin{tabular}{ l | c | }
@@ -50,5 +47,4 @@
 \end{center}
 \tagstructend
 
-\tagstructend
 \end{document} 

@@ -3,7 +3,7 @@
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \tagpdfsetup{
- newattribute= {tag/TH row}{<</O/Table /Scope/Row>>}
+ newattribute= {tag/TH row}{/O/Table /Scope/Row}
  }
 \begin{document}\START
 \pagestyle{empty} %
