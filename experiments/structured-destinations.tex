@@ -1,47 +1,43 @@
 % !Mode:: "TeX:UTF-8:Main"
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{uncompress}
+\DocumentMetadata{pdfversion=2.0,uncompress,testphase=phase-II}
 \documentclass{article}
-
-\usepackage{tagpdf}
-\tagpdfsetup{activate,paratagging}
 \usepackage{hyperref}
-\usepackage{l3ref-tmp}
-\makeatletter\ExplSyntaxOn
-\ref_attribute_gset:nnnn { tagstructref } {0~0~R} { now }
-  { \@currentstructref }
-%\ref_attribute_gset:nnnn { tagHref } {} { now }
-%  { \@currentHref }
-
-\newcommand\@currentstructref{} %something similar to doc-start should be the default
-\cs_new_protected:Npn\structlabel #1 {\ref_label:nn{#1}{tagstructref}}
-\AddToHook{hyp/anchor}{%
-     \bool_if:NT\g__tag_active_struct_bool
-     {
-        %\tl_show:N \l_hyp_current_dest_name_tl
-        \pdf_object_unnamed_write:nx {dict}
-        {/D [\pdf_object_ref:e{__tag/struct/\g__tag_struct_stack_current_tl} /Fit] }
-        \edef\@currentstructref{\pdf_object_ref_last:}
-        \ref_label:en{__tag_dest_\l_hyp_current_dest_name_tl}{tagstructref}
-     }}
-     
-%This is wrong, it must go into the action dictionary.     
-\AddToHook{pdfannot/link/GoTo/before}
- { \tl_show:N \l_hyp_current_dest_name_tl
- %  \exp_args:Ne
-%   \ref_if_exist:nnT { __tag_dest_\l_hyp_current_dest_name_tl }{tagstructref}
+%\usepackage{l3ref-tmp}
+%\makeatletter\ExplSyntaxOn
+%\ref_attribute_gset:nnnn { tagstructref } {0~0~R} { now }
+%  { \@currentstructref }
+%%\ref_attribute_gset:nnnn { tagHref } {} { now }
+%%  { \@currentHref }
+%
+%\newcommand\@currentstructref{} %something similar to doc-start should be the default
+%\cs_new_protected:Npn\structlabel #1 {\ref_label:nn{#1}{tagstructref}}
+%\AddToHook{hyp/anchor}{%
+%     \bool_if:NT\g__tag_active_struct_bool
 %     {
-%       \pdfannot_dict_put:nnn{link/GoTo}{SD}
-%         {\ref_value:en { __tag_dest_\l_hyp_current_dest_name_tl }{tagstructref}}
-%     }
- }  
-   
-\makeatother\ExplSyntaxOff
+%        %\tl_show:N \l_hyp_current_dest_name_tl
+%        \pdf_object_unnamed_write:nx {dict}
+%        {/D [\pdf_object_ref:e{__tag/struct/\g__tag_struct_stack_current_tl} /Fit] }
+%        \edef\@currentstructref{\pdf_object_ref_last:}
+%        \ref_label:en{__tag_dest_\l_hyp_current_dest_name_tl}{tagstructref}
+%     }}
+%
+%%This is wrong, it must go into the action dictionary.
+%\AddToHook{pdfannot/link/GoTo/before}
+% { \tl_show:N \l_hyp_current_dest_name_tl
+% %  \exp_args:Ne
+%%   \ref_if_exist:nnT { __tag_dest_\l_hyp_current_dest_name_tl }{tagstructref}
+%%     {
+%%       \pdfannot_dict_put:nnn{link/GoTo}{SD}
+%%         {\ref_value:en { __tag_dest_\l_hyp_current_dest_name_tl }{tagstructref}}
+%%     }
+% }
+%
+%\makeatother\ExplSyntaxOff
 \begin{document}
 
 \tagpdfparaOff
 \tagstructbegin{tag=H1}\tagmcbegin{tag=H1}%
-\section{abc}\structlabel{abc}\label{abc}
+\section{abc}\label{abc}
 \tagmcend\tagstructend
 \tagpdfparaOn
 
