@@ -1,0 +1,17 @@
+\DocumentMetadata{ pdfversion=2.0,testphase=phase-II,uncompress}
+\documentclass[english]{article}
+
+\usepackage{hyperref}
+
+\begin{document}
+
+some text
+
+\tagpdfparaOff
+\tagstructbegin{tag=H1}\tagmcbegin{tag=H1}\refstepcounter{section}\label{h1} section\tagmcend\tagstructend
+
+\tagpdfparaOn
+
+abc\ref{h1}
+
+\end{document}

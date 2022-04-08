@@ -2,8 +2,8 @@
 \IfFormatAtLeastTF{2022-06-01}{}
   {\RequirePackage{pdfmanagement-testphase}}
 \DocumentMetadata{}
+\input{regression-test}
 \documentclass{scrartcl}
-\RequirePackage{tagpdf-regressiontest}
 
 \usepackage[english]{babel}
 \usepackage{tagpdf}

@@ -1,7 +1,7 @@
 
 \RequirePackage[debug]{pdfmanagement-testphase}
 \DeclareDocumentMetadata{uncompress,pdfversion=2.0}
-\RequirePackage{tagpdf-regressiontest}
+\input{regression-test}
 \ExplSyntaxOn
 \group_begin:
 \pdfdict_put:nnn{l_pdffile/Params}{ModDate}{(D:20211230160943Z)}
