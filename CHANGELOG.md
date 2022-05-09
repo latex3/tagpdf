@@ -13,6 +13,7 @@ this project uses date-based 'snapshot' version identifiers.
    
 ### Added
   - \tag_stop: as companion to \tag_stop_group_begin:
+  - tagpdf-dummy.sty with dummy versions of main commands.
 
 ## [2022-01-13]
 

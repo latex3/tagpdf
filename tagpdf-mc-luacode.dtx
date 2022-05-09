@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-%% File: tagpdf-mc.dtx
+%% File: tagpdf-mc-luacode.dtx
 %
 % Copyright (C) 2019-2022 Ulrike Fischer
 %
@@ -290,7 +290,7 @@
 % We currently don't check if there is nesting as it doesn't matter so
 % much in lua.
 %    \begin{macrocode}
-\cs_new_protected:Nn \tag_mc_begin:n
+\cs_set_protected:Nn \tag_mc_begin:n
   {
     \@@_check_if_active_mc:T
       {
@@ -327,7 +327,7 @@
 %
 % TODO: check how the use command must be guarded.
 %    \begin{macrocode}
-\cs_new_protected:Nn \tag_mc_end:
+\cs_set_protected:Nn \tag_mc_end:
   {
     \@@_check_if_active_mc:T
       {

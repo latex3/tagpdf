@@ -147,6 +147,13 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 
 \tableofcontents
+\section{Preface to version 0.94}
+
+In this version a small package, \pkg{tagpdf-dummy} has been added. It contains
+dummy versions of the main expl3 user commands for packages which wants to support
+tagging but can't be sure if the \pkg{tagpdf} package has been loaded. 
+
+
 \section{Preface to version 0.93}
 The main change in the package itself in this version is the support for structure destinations.
 This is a new type of destinations in \PDF~2.0.
@@ -1433,7 +1440,7 @@ As an example here an attribute that can be attached to tabular header (type TH)
 One or more such attributes can be attached to a structure element. It is also possible to store such an attribute under a symbolic name in a so-called \enquote{ClassedMap} and then to attach references to such classes to a structure.
 
 To use such attributes you must at first declare it in \verb+\tagpdfsetup+ with the key \texttt{newattribute}. This key takes two argument, a name and the content of the attribute.
-The name should be a sensible key name, it is converted to a pdf name with 
+The name should be a sensible key name, it is converted to a pdf name with
 \verb+\pdf_name_from_unicode_e:n+, so slashes and spaces are allow. The content should be a dictionary without the braket.
 
 

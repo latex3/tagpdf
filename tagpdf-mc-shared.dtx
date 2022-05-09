@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-%% File: tagpdf-mc.dtx
+%% File: tagpdf-mc-shared.dtx
 %
 % Copyright (C) 2019-2022 Ulrike Fischer
 %
@@ -296,6 +296,7 @@
   {
     \tl_new:c { g_@@_mc_label_\tl_to_str:n{#1}_used_tl }
   }
+%</shared>
 %    \end{macrocode}
 %
 % \end{macro}
@@ -307,7 +308,9 @@
 %
 % TODO: is testing for struct the right test?
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_mc_use:n #1 %#1: label name
+%<dummy>\cs_new_protected:Npn \tag_mc_use:n #1 {}
+%<*shared>
+\cs_set_protected:Npn \tag_mc_use:n #1 %#1: label name
   {
     \@@_check_if_active_struct:T
       {
@@ -328,6 +331,7 @@
           }
        }
   }
+%</shared>
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}
@@ -339,26 +343,33 @@
 % and then stops all tagging. It creates a group.
 % It pushes and pops mc-chunks at the begin and end.
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_mc_artifact_group_begin:n #1
+%<dummy>\cs_new_protected:Npn \tag_mc_artifact_group_begin:n #1 {}
+%<dummy>\cs_new_protected:Npn \tag_mc_artifact_group_end:{}
+%<*shared>
+\cs_set_protected:Npn \tag_mc_artifact_group_begin:n #1
  {
   \tag_mc_end_push:
   \tag_mc_begin:n {artifact=#1}
   \tag_stop_group_begin:
  }
 
-\cs_new_protected:Npn \tag_mc_artifact_group_end:
+\cs_set_protected:Npn \tag_mc_artifact_group_end:
  {
   \tag_stop_group_end:
   \tag_mc_end:
   \tag_mc_begin_pop:n{}
  }
+%</shared>
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\tag_mc_end_push:, \tag_mc_begin_pop:n}
 %
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_mc_end_push:
+%<dummy>\cs_new_protected:Npn \tag_mc_end_push: {}
+%<dummy>\cs_new_protected:Npn \tag_mc_begin_pop:n #1 {}
+%<*shared>
+\cs_set_protected:Npn \tag_mc_end_push:
   {
     \@@_check_if_active_mc:T
       {
@@ -377,7 +388,7 @@
       }
   }
 
-\cs_new_protected:Npn \tag_mc_begin_pop:n #1
+\cs_set_protected:Npn \tag_mc_begin_pop:n #1
   {
     \@@_check_if_active_mc:T
       {

@@ -141,13 +141,24 @@
 %    \begin{macrocode}
 \RequirePackage{l3ref-tmp}
 %    \end{macrocode}
-%
+% To be on the safe side for now, load also the dummy definitions
+%    \begin{macrocode}
+\RequirePackage{tagpdf-dummy}
+%</package>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*dummy>
+\ProvidesExplPackage {tagpdf-dummy} {2022-01-13} {0.93}
+  {part of tagpdf - dummy versions of the user commands }
+%</dummy>
+%    \end{macrocode}
 % \section{Temporary code}
 % This is code which will be removed when proper support exists in LaTeX
 % \subsection{a LastPage label}
 % See also issue \#2 in Accessible-xref
 % \begin{macro}{\@@_lastpagelabel:}
 %    \begin{macrocode}
+%<*package>
  \cs_new_protected:Npn \@@_lastpagelabel:
    {
      \legacy_if:nT { @filesw }

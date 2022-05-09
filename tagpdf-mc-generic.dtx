@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-%% File: tagpdf-mc.dtx
+%% File: tagpdf-mc-generic.dtx
 %
 % Copyright (C) 2019-2022 Ulrike Fischer
 %
@@ -664,9 +664,11 @@
 % the state is passed to the end command through a global var and
 % a global boolean.
 %    \begin{macrocode}
+%<dummy>\cs_new_protected:Npn \tag_mc_begin:n #1 {}
+%<dummy>\cs_new_protected:Nn \tag_mc_end:{}
 %<*generic|debug>
 %<*generic>
-\cs_new_protected:Npn \tag_mc_begin:n #1 %#1 keyval
+\cs_set_protected:Npn \tag_mc_begin:n #1 %#1 keyval
   {
     \@@_check_if_active_mc:T
       {
@@ -713,7 +715,7 @@
 %</debug>
   }
 %<*generic>
-\cs_new_protected:Nn \tag_mc_end:
+\cs_set_protected:Nn \tag_mc_end:
   {
     \@@_check_if_active_mc:T
       {

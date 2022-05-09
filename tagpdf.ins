@@ -70,6 +70,16 @@ and all files in that bundle must be distributed together.
   }
 
 \generate
+ {\file{tagpdf-dummy.sty}
+   {
+    \from{tagpdf.dtx}{dummy}
+    \from{tagpdf-mc-generic.dtx}{dummy}
+    \from{tagpdf-mc-shared.dtx}{dummy}
+    \from{tagpdf-struct.dtx}{dummy}
+   }
+ }
+
+\generate
   {\file{tagpdf-luatex.def}{\from{tagpdf-backend.dtx}{luatex}}}
 \generate
   {\file{tagpdf-mc-code-generic.sty}{\from{tagpdf-mc-generic.dtx}{generic}}}
