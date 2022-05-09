@@ -464,6 +464,7 @@
 % the only sensible values for the argument are |mc_tag| and |struct_tag|.
 %    \begin{macrocode}
 \cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -474,7 +475,12 @@
 % The test is true if all booleans, the global and the two local one are true.
 %
 %    \begin{macrocode}
+%<*dummy>
 \prg_new_conditional:Npnn \tag_if_active: { p , T , TF, F }
+  { \prg_return_false: }
+%</dummy>
+%<*package>
+\prg_set_conditional:Npnn \tag_if_active: { p , T , TF, F }
   {
      \bool_lazy_all:nTF
        {
@@ -524,7 +530,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsection{Checks related to stuctures}
+% \subsection{Checks related to structures}
 % \begin{macro}{\@@_check_structure_has_tag:n}
 % Structures must have a tag, so we check if the S entry is in the property.
 % It is an error if this is missing. The argument is a number.
