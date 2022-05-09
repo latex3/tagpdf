@@ -11,6 +11,9 @@ this project uses date-based 'snapshot' version identifiers.
  - attribute names are now passed through \pdf_name_from_unicode_e:n. This means slashes
    and spaces are allowed in the name.
    
+### Added
+  - \tag_stop: as companion to \tag_stop_group_begin:
+
 ## [2022-01-13]
 
 ### Added 
