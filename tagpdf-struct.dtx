@@ -1000,8 +1000,8 @@
 %
 % \begin{macro}{\tag_struct_begin:n,\tag_struct_end:}
 %    \begin{macrocode}
-%<dummy>\cs_new_protected:Npn \tag_struct_begin:n #1 {}
-%<dummy>\cs_new_protected:Npn \tag_struct_end:{}
+%<base>\cs_new_protected:Npn \tag_struct_begin:n #1 {}
+%<base>\cs_new_protected:Npn \tag_struct_end:{}
 %<*package|debug>
 %<package>\cs_set_protected:Npn \tag_struct_begin:n #1 %#1 key-val
 %<debug>\cs_set_protected:Npn \tag_struct_begin:n #1 %#1 key-val
@@ -1102,7 +1102,7 @@
 % This command allows to use a stashed structure in another place.
 % TODO: decide how it should be guarded. Probably by the struct-check.
 %    \begin{macrocode}
-%<dummy>\cs_new_protected:Npn \tag_struct_use:n #1 {}
+%<base>\cs_new_protected:Npn \tag_struct_use:n #1 {}
 %<*package>
 \cs_set_protected:Npn \tag_struct_use:n #1 %#1 is the label
   {

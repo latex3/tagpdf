@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.93"
-packagedate="2022-01-13"
+packageversion="0.94"
+packagedate="2022-05-11"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -28,7 +28,7 @@ uploadconfig = {
   description=[[The package offers tools to experiment with tagging and accessibility using pdfLATEX and LuaTEX. It isn't meant for production but allows the user to try out how difficult it is to tag some structures; to try out how much tagging is really needed; to test what else is needed so that a pdf works e.g. with a screen reader. Its goal is to get a feeling for what has to be done, which kernel changes are needed, how packages should be adapted.]],
   announcement_file="ctan.ann"
 }
--- tests are done with dev-format always
+-- tests are mostly with dev-format always
 specialformats = specialformats or {}
 specialformats["latex"] = specialformats["latex"] or
   {

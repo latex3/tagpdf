@@ -308,7 +308,7 @@
 %
 % TODO: is testing for struct the right test?
 %    \begin{macrocode}
-%<dummy>\cs_new_protected:Npn \tag_mc_use:n #1 {}
+%<base>\cs_new_protected:Npn \tag_mc_use:n #1 {}
 %<*shared>
 \cs_set_protected:Npn \tag_mc_use:n #1 %#1: label name
   {
@@ -343,8 +343,8 @@
 % and then stops all tagging. It creates a group.
 % It pushes and pops mc-chunks at the begin and end.
 %    \begin{macrocode}
-%<dummy>\cs_new_protected:Npn \tag_mc_artifact_group_begin:n #1 {}
-%<dummy>\cs_new_protected:Npn \tag_mc_artifact_group_end:{}
+%<base>\cs_new_protected:Npn \tag_mc_artifact_group_begin:n #1 {}
+%<base>\cs_new_protected:Npn \tag_mc_artifact_group_end:{}
 %<*shared>
 \cs_set_protected:Npn \tag_mc_artifact_group_begin:n #1
  {
@@ -366,8 +366,8 @@
 % \begin{macro}{\tag_mc_end_push:, \tag_mc_begin_pop:n}
 %
 %    \begin{macrocode}
-%<dummy>\cs_new_protected:Npn \tag_mc_end_push: {}
-%<dummy>\cs_new_protected:Npn \tag_mc_begin_pop:n #1 {}
+%<base>\cs_new_protected:Npn \tag_mc_end_push: {}
+%<base>\cs_new_protected:Npn \tag_mc_begin_pop:n #1 {}
 %<*shared>
 \cs_set_protected:Npn \tag_mc_end_push:
   {
