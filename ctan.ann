@@ -1,17 +1,10 @@
-Version 0.93 [2022-01-13]
+Version 0.94 [2022-05-11]
 
-## Added 
+### Changed
+ - attribute names are now passed through \pdf_name_from_unicode_e:n. This means slashes
+   and spaces are allowed in the name.
+   
+### Added
+  - \tag_stop: as companion to \tag_stop_group_begin:
+  - tagpdf-base.sty with no-op versions of the main commands.
 
-  - key `root-AF` which allows to add associated files to StructTreeRoot
-  - support for structure destination. They will be added automatically 
-    if the engine supports them and the pdf version is 2.0 (unless they are actively suppressed).
-  
-## Fixed
-
- - Value of /AF should be an array
- - setting the meta key activate-all to false didn't work
- 
-## Removed 
- - `\tagpdfifluatexT`, `\tagpdfifluatexTF`, `\tagpdfifpdftexT`. 
-    Use iftex or the expl3 commands instead.  
-  
