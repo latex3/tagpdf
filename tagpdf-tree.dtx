@@ -125,10 +125,13 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_tree_write_structelements:}
-% This writes out the other struct elems, the absolute number is in the counter
+% This writes out the other struct elems, the absolute number is in the counter.
+% The hook allows us to do some late adjustments to the structelem properties.
 %    \begin{macrocode}
+\hook_new:n {tagpdf/tree/structelem}
 \cs_new_protected:Npn \@@_tree_write_structelements:
   {
+    \hook_use:n { tagpdf/tree/structelem }
     \int_step_inline:nnnn {1}{1}{\c@g_@@_struct_abs_int}
       {
         \@@_struct_write_obj:n { ##1 }
