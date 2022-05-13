@@ -125,7 +125,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_tree_write_structelements:}
-% This writes out the other struct elems, the absolute number is in the counter
+% This writes out the other struct elems, the absolute number is in the counter.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_structelements:
   {
@@ -397,6 +397,7 @@
 % TODO (when tabular are done or if someone requests it): IDTree
 %  \begin{macro}{ \@@_finish_structure: }
 %    \begin{macrocode}
+\hook_new:n {tagpdf/finish/before}
 \cs_new_protected:Npn \@@_finish_structure:
   {
     \bool_if:NT\g_@@_active_tree_bool
