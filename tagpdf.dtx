@@ -152,6 +152,23 @@
   {part of tagpdf - provide base, no-op versions of the user commands }
 %</base>
 %    \end{macrocode}
+% The no-op version should behave a near enough to the real code as
+% possible, so we define a command which a special in the relevant backends:
+%    \begin{macrocode}
+%<*base>
+\AddToHook{begindocument}
+ {
+  \str_case:VnF \c_sys_backend_str
+   {
+    { luatex  } { \cs_new_protected:Npn \@@_whatsits: {} }
+    { dvisvgm } { \cs_new_protected:Npn \@@_whatsits: {} }
+   }
+   {
+     \cs_new_protected:Npn \@@_whatsits: {\tex_special:D {} }
+   }
+ }
+%</base>
+%    \end{macrocode}
 % \section{Temporary code}
 % This is code which will be removed when proper support exists in LaTeX
 % \subsection{a LastPage label}

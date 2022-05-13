@@ -308,7 +308,7 @@
 %
 % TODO: is testing for struct the right test?
 %    \begin{macrocode}
-%<base>\cs_new_protected:Npn \tag_mc_use:n #1 {}
+%<base>\cs_new_protected:Npn \tag_mc_use:n #1 { \@@_whatsits: }
 %<*shared>
 \cs_set_protected:Npn \tag_mc_use:n #1 %#1: label name
   {
