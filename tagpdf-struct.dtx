@@ -503,18 +503,21 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}
-%  {\@@_struct_kid_OBJR_gput_right:nn,\@@_struct_kid_OBJR_gput_right:xx}
+%  {\@@_struct_kid_OBJR_gput_right:nnn,\@@_struct_kid_OBJR_gput_right:xxx}
 % At last the command to add an OBJR object. This has to write an object first.
 % The first argument is the number of the parent structure, the second the
-% (expanded) object reference of the annotation.
+% (expanded) object reference of the annotation. The last argument is the page
+% object reference
+%
 %    \begin{macrocode}
-\cs_new_protected:Npn\@@_struct_kid_OBJR_gput_right:nn #1 #2 %#1 num of parent struct,
+\cs_new_protected:Npn\@@_struct_kid_OBJR_gput_right:nnn #1 #2 #3 %#1 num of parent struct,
                                                              %#2 obj reference
+                                                             %#3 page object reference
   {
     \pdf_object_unnamed_write:nn
       { dict }
       {
-        /Type/OBJR/Obj~#2
+        /Type/OBJR/Obj~#2/Pg~#3
       }
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
@@ -523,7 +526,7 @@
       }
   }
 
-\cs_generate_variant:Nn\@@_struct_kid_OBJR_gput_right:nn { xx }
+\cs_generate_variant:Nn\@@_struct_kid_OBJR_gput_right:nnn { xxx }
 
 %    \end{macrocode}
 % \end{macro}
@@ -705,12 +708,16 @@
           }
         %put the obj number of the annot in the kid entry, this also creates
         %the OBJR object
-        \@@_struct_kid_OBJR_gput_right:xx
+        \ref_label:nn {__tag_objr_page_#2 }{ tagabspage }
+        \@@_struct_kid_OBJR_gput_right:xxx
           {
             \l_@@_struct_stack_parent_tmpa_tl
           }
           {
             #1 %
+          }
+          {
+            \pdf_pageobject_ref:n { \@@_ref_value:nnn {__tag_objr_page_#2 }{ tagabspage }{1} }
           }
         % add the parent obj number to the parent tree:
         \exp_args:Nnx
