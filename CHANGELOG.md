@@ -5,6 +5,12 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+##[Unreleased]
+
+### Fixed
+ - missing /Pg in /OBJR object (issue #53)
+ - a hook was undeclared which didn't close the last structure.
+
 ## [2022-05-11]
 
 ### Changed
