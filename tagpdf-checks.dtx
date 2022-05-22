@@ -455,16 +455,17 @@
 \msg_new:nnnn { tag } {para-hook-count-wrong}
   {The~number~of~automatic~begin~(#1)~and~end~(#2)~para~hooks~differ!}
   {This~quite~probably~a~coding~error~and~the~structure~will~be~wrong!}
+%</package>
 %    \end{macrocode}
 % \end{macro}
 % \section{Retrieving data}
 % \begin{macro}[EXP]{\tag_get:n}
 % This retrieves some data.
 % This is a generic command to retrieve data. Currently
-% the only sensible values for the argument are |mc_tag| and |struct_tag|.
+% the only sensible values for the argument are |mc_tag|, |struct_tag|
+% and |struct-num|.
 %    \begin{macrocode}
-\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
-%</package>
+%<base>\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
 %    \end{macrocode}
 % \end{macro}
 %

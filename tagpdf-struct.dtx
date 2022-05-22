@@ -228,9 +228,8 @@
 % to have a chance to avoid double structures in align etc.
 %
 %    \begin{macrocode}
-%<*package>
-\newcounter  { g_@@_struct_abs_int }
-\int_gzero:N \c@g_@@_struct_abs_int
+%<base>\newcounter  { g_@@_struct_abs_int }
+%<base>\int_gzero:N \c@g_@@_struct_abs_int
 %    \end{macrocode}
 % \end{variable}
 %
@@ -241,6 +240,7 @@
 % consecutively and so the index of the seq can be used.
 % A seq allows easy mapping over the structures.
 %    \begin{macrocode}
+%<*package>
 \@@_seq_new:N  \g_@@_struct_objR_seq
 %    \end{macrocode}
 % \end{variable}
@@ -747,6 +747,20 @@
        \prop_item:cn {g_@@_struct_\g__tag_struct_stack_current_tl _prop}{S}
      }
   }
+%</package>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_get_data_struct_num:}
+% this command allows \cs{tag_get:n} to get the current
+% structure number with the keyword |struct_num|. We will need to handle nesting
+%    \begin{macrocode}
+%<*base>
+\cs_new:Npn \@@_get_data_struct_num:
+  {
+    \int_use:N\c@g_@@_struct_abs_int
+  }
+%</base>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -768,6 +782,7 @@
 %    E (struct-key)
 %  }
 %    \begin{macrocode}
+%<*package>
 \keys_define:nn { @@ / struct }
   {
     label .tl_set:N      = \l_@@_struct_key_label_tl,
@@ -1007,7 +1022,7 @@
 %
 % \begin{macro}{\tag_struct_begin:n,\tag_struct_end:}
 %    \begin{macrocode}
-%<base>\cs_new_protected:Npn \tag_struct_begin:n #1 {}
+%<base>\cs_new_protected:Npn \tag_struct_begin:n #1 {\int_gincr:N \c@g_@@_struct_abs_int}
 %<base>\cs_new_protected:Npn \tag_struct_end:{}
 %<*package|debug>
 %<package>\cs_set_protected:Npn \tag_struct_begin:n #1 %#1 key-val
