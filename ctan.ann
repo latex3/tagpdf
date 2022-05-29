@@ -1,10 +1,10 @@
-Version 0.94 [2022-05-11]
+Version 0.95 [2022-05-29]
+
+### Fixed
+ - missing /Pg in /OBJR object (issue #53)
+ - a hook was undeclared which didn't close the last structure.
+ - interwordspace key not defined for all engines (issue #54) 
 
 ### Changed
- - attribute names are now passed through \pdf_name_from_unicode_e:n. This means slashes
-   and spaces are allowed in the name.
-   
-### Added
-  - \tag_stop: as companion to \tag_stop_group_begin:
-  - tagpdf-base.sty with no-op versions of the main commands.
-
+ - structure number is updated also in base 
+ - allow to access the current structure number
