@@ -76,6 +76,15 @@
 % \begin{macro}{interwordspace (setup-key),show-spaces (setup-key)}
 %    \begin{macrocode}
 %<*package>
+\keys_define:nn { @@ / setup }
+  {
+    interwordspace .choices:nn = { true, on }
+      { \msg_warning:nnx {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
+    interwordspace .choices:nn = { false, off }
+      { \msg_warning:nnx {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
+    interwordspace .default:n = true,
+    show-spaces .bool_set:N = \l_@@_showspaces_bool
+  }
 \sys_if_engine_pdftex:T
   {
     \sys_if_output_pdf:TF
@@ -124,19 +133,6 @@
         show-spaces  / false .code:n =
                                  {\lua_now:e{ltx.@@.trace.showspaces=nil}},
         show-spaces .default:n = true
-      }
-  }
-
-\sys_if_engine_xetex:T
-  {
-    \keys_define:nn { @@ / setup }
-      {
-        interwordspace .choices:nn = { true, on }
-          { \msg_warning:nnn {tag}{sys-no-interwordspace}{xetex}  },
-        interwordspace .choices:nn = { false, off }
-          { \msg_warning:nnn {tag}{sys-no-interwordspace}{xetex}  },
-        interwordspace .default:n = true,
-        show-spaces .bool_set:N = \l_@@_showspaces_bool
       }
   }
 %    \end{macrocode}

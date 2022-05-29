@@ -10,6 +10,7 @@ this project uses date-based 'snapshot' version identifiers.
 ### Fixed
  - missing /Pg in /OBJR object (issue #53)
  - a hook was undeclared which didn't close the last structure.
+ - interwordspace key not defined for all engines (issue #54) 
 
 ## [2022-05-11]
 
