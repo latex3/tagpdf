@@ -164,6 +164,7 @@ docfiles = {"tagpdf.tex",
             "examples/**/ex-*.pdf"}
 
 textfiles= {"doc/CTANREADME.md"}
+binaryfiles = {"*.pdf", "*.png", "*.zip"}
 
 ctanreadme= "CTANREADME.md"
 
