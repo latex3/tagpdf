@@ -67,6 +67,18 @@
 % A structure should be used only once,
 % if the structure already has a parent a warning is issued.
 % \end{function}
+%  \begin{function}{\tag_struct_object_ref:n,\tag_struct_object_ref:e}
+%   \begin{syntax}
+%     \cs{tag_struct_object_ref:n}\Arg{struct number}
+%   \end{syntax}
+%   This is a small wrapper around |\pdf_object_ref:n| to retrieve the
+%   object reference of the structure with the number \meta{struct number}.
+%   This number can be retrieved and stored for the current structure
+%   for example with \cs{tag_get:n}\Arg{struct_num}. Be aware that it can only
+%   be used if the structure has already been created and that it doesn't check
+%   if the object actually exists!
+%  \end{function}
+%
 % The following two functions are used to add annotations. They must be used
 % together and with care to get the same numbers. Perhaps some improvements are needed
 % here.
@@ -1151,9 +1163,24 @@
           }
       }
   }
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[EXP]{\tag_struct_object_ref:n}
+% This is a command that allows to reference a structure. The argument is the
+% number which can be get for the current structure with |\tag_get:n{struct_num}|
+% TODO check if it should be in base too.
+%    \begin{macrocode}
+%<*package>
+\cs_new:Npn \tag_struct_object_ref:n #1
+ {
+   \pdf_object_ref:n {@@/struct/#1}
+ }
+\cs_generate_variant:Nn \tag_struct_object_ref:n {e}
+%    \end{macrocode}
+%
+% \end{macro}
 % \begin{macro}
 %   {
 %     \tag_struct_insert_annot:nn,

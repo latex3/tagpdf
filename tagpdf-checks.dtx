@@ -60,9 +60,10 @@
 %  \begin{syntax}
 %  \cs{tag_get:n}\Arg{keyword}
 %  \end{syntax}
-% This is a generic command to retrieve data. Currently
+% This is a generic command to retrieve data for the current structure or
+% mc-chunk. Currently
 % the only sensible values for the argument \meta{keyword}
-% are |mc_tag| and |struct_tag|.
+% are |mc_tag| and |struct_tag| and |struct_num|.
 % \end{function}
 %
 % \section{Description of log messages}
@@ -463,7 +464,7 @@
 % This retrieves some data.
 % This is a generic command to retrieve data. Currently
 % the only sensible values for the argument are |mc_tag|, |struct_tag|
-% and |struct-num|.
+% and |struct_num|.
 %    \begin{macrocode}
 %<base>\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
 %    \end{macrocode}

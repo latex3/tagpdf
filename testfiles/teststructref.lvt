@@ -1,0 +1,14 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\DocumentMetadata{lang=de-DE,testphase=phase-II}
+\input{regression-test}
+
+\documentclass{article}
+
+\begin{document}
+\START
+\showoutput
+blbl \ExplSyntaxOn\tag_struct_object_ref:e{\tag_get:n{struct_num}}\ExplSyntaxOff
+
+
+\end{document}
+

@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [2022-05-29]
+## [Unreleased]
 
 ### Fixed
  - missing /Pg in /OBJR object (issue #53)
@@ -15,6 +15,9 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed
  - structure number is updated also in base 
  - allow to access the current structure number
+
+### Added
+ - \tag_struct_object_ref:n to reference the object ref of a structure.
 
 ## [2022-05-11]
 
