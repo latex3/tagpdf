@@ -121,8 +121,13 @@
 % \end{function}
 % \begin{function}{label (struct-key)}
 % This key sets a label by which
-% one can use the structure later in another structure.
-% Internally the label name will start with \texttt{tagpdfstruct-}.
+% one can refer to the structure. It is e.g.
+% used by \cs{tag_struct_use:n} (where a real label is actually not
+% needed as you can only use structures already defined), and by the
+% |ref| key (which can refer to future structures).
+% Internally the label name will start with \texttt{tagpdfstruct-} and it stores
+% the two attributs |tagstruct| (the structure number) and |tagstructobj| (the
+% object reference).
 % \end{function}
 % \begin{function}{title (struct-key),title-o (struct-key)}
 % This keys allows to set the dictionary entry
@@ -874,7 +879,7 @@
           { Lang }
           { (#1) }
       },
-    ref .code:n        = % Lang property
+    ref .code:n        = % ref property
       {
         \tl_clear:N\l_@@_tmpa_tl
         \clist_map_inline:nn {#1}

@@ -1296,7 +1296,13 @@ The key-val list understands the following keys:
    Normally a new structure inserts itself as a kid into the currently active structure. This key prohibits this. The structure is nevertheless from now on \enquote{the current active structure} and parent for following  marked content and structures.
 
   \item[\PrintKeyName{label}]
-   This key sets a label by which you can use the structure later in another structure. Internally the label name will start with \texttt{tagpdfstruct-}.
+   This key sets a label by which one can refer to the structure. It is e.g.
+   used by \cs{tag_struct_use:n} (where a real label is actually not
+   needed as you can only use structures already defined), and by the
+   |ref| key (which can refer to future structures).
+   Internally the label name will start with \texttt{tagpdfstruct-} and it stores
+   the two attributes \texttt{tagstruct} (the structure number) and \texttt{tagstructobj} (the
+   object reference).
 
 
   \item[\PrintKeyName{alttext}]
