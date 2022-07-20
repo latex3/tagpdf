@@ -799,6 +799,8 @@
   {
     label .tl_set:N      = \l_@@_struct_key_label_tl,
     stash .bool_set:N    = \l_@@_struct_elem_stash_bool,
+    parent .tl_set:N     = \l_@@_struct_stack_parent_tmpa_tl,
+    parent .default:n    = {-1},
     tag   .code:n        = % S property
       {
         \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:Nn\g__tag_role_tags_NS_prop{#1}}
@@ -1056,6 +1058,7 @@
           { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
           { Type }
           { /StructElem }
+        \tl_set:Nn \l_@@_struct_stack_parent_tmpa_tl {-1}
         \keys_set:nn { @@ / struct} { #1 }
         \@@_check_structure_has_tag:n { \int_eval:n {\c@g_@@_struct_abs_int} }
         \tl_if_empty:NF
@@ -1063,13 +1066,16 @@
           {
             \@@_ref_label:en{tagpdfstruct-\l_@@_struct_key_label_tl}{struct}
           }
-        %get the potential parent from the stack:
-        \seq_get:NNF
-          \g_@@_struct_stack_seq
-          \l_@@_struct_stack_parent_tmpa_tl
+        %get the potential parent from the stack unless it has been set explicitly:
+        \int_compare:nNnT { \l_@@_struct_stack_parent_tmpa_tl } = { -1 }
           {
-            \msg_error:nn { tag } { struct-faulty-nesting }
-          }
+            \seq_get:NNF
+              \g_@@_struct_stack_seq
+              \l_@@_struct_stack_parent_tmpa_tl
+              {
+                \msg_error:nn { tag } { struct-faulty-nesting }
+              }
+           }
         \seq_gpush:NV \g_@@_struct_stack_seq        \c@g_@@_struct_abs_int
         \seq_gpush:NV \g_@@_struct_tag_stack_seq    \g_@@_struct_tag_tl
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
