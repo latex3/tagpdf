@@ -817,15 +817,15 @@
       {
         \bool_lazy_and:nnTF
           {
-            \prop_if_exist_p:c { g_@@_struct_#1_prop }
+            \prop_if_exist_p:c { g_@@_struct_\int_eval:n {#1}_prop }
           }
           {
             \int_compare_p:nNn {#1}<{\c@g_@@_struct_abs_int}
           }
-          { \tl_set:Nn \l_@@_struct_stack_parent_tmpa_tl {#1} }
+          { \tl_set:Nx \l_@@_struct_stack_parent_tmpa_tl { \int_eval:n {#1} } }
           {
             \msg_warning:nnxx { tag } { struct-unknown }
-              { #1 }
+              { \int_eval:n {#1} }
               { parent~key~ignored }
           }
       },
