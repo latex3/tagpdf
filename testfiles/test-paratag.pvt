@@ -1,0 +1,15 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\DocumentMetadata{testphase=phase-II}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+
+
+abc
+
+\tagpdfsetup{paratag=NonStruct}
+
+abc
+
+\end{document}

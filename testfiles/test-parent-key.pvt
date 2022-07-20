@@ -1,0 +1,32 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\DocumentMetadata{testphase=phase-II}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+
+\tagstructbegin{tag=H1,label=h1}%
+\ExplSyntaxOn
+\tl_set:Nx\mycurrentstruct{\tag_get:n{struct_num}}
+\ExplSyntaxOff
+
+abc
+
+\tagstructbegin{tag=H2}
+    h2
+
+     \ExplSyntaxOn
+      \tagstructbegin{tag=H3,parent=\ref_value:nn{tagpdfstruct-h1}{tagstruct}}
+     \ExplSyntaxOff 
+      h3 \par
+     \tagstructend
+     
+     \tagstructbegin{tag=H3,parent=\mycurrentstruct}
+      h3 \par
+     \tagstructend
+
+ \tagstructend
+\tagstructend
+
+
+\end{document}

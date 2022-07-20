@@ -544,6 +544,8 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
 
 \item[\PrintKeyName{paratagging-show}] Boolean. This activate/deactivates small red numbers in the places where the paratagging hook code is used.
 
+\item[\PrintKeyName{paratag}] String. This key changes the tag used by the paratagging code. The default tag is \texttt{P}. A useful local setting here can be \texttt{NonStruct}, which creates a structure \enquote{without meaning}.
+
 
 \item[\PrintKeyName{tabsorder}]
  Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
@@ -1195,12 +1197,16 @@ rerun.
 
 Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
 \pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with
-options of \cs{tagpdfsetup} or with the two commands above. \emph{This is very experimental and it requires a new \LaTeX!}
+options of \cs{tagpdfsetup} or with the two commands above. 
 
 The automatic tagging require that for every begin of a paragraph with the begin hook code
 there a corresponding end with the closing hook code. This can fail, e.g if a |vbox| doesn't correctly issue a |\par| at the end.
-If this happens the tagging structure can get every confused. It is therefore needed to check the structure carefully as currently
-no checks are implemented to check this automatically.
+If this happens the tagging structure can get every confused. At the end of the document \pkg{tagpdf} checks if 
+the number of start and end paragraph structures created here are equal and it will error if not. 
+
+Nesting the activation and deactivation of the tagging of paragraphs can be quite difficult. For example if it is unclear if the inner code issues a |\par| or not it is not trivial to exclude an end hook for every excluded begin hook.
+In such cases it can be easier to use the new |paratag| key with the value |NonStruct| to convert some |P|-structures
+into |NonStruct|-structures without real meaning.
 
 \subsection{Task 2: Marking the structure}
 

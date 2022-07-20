@@ -559,6 +559,8 @@
 \bool_new:N \l_@@_para_show_bool
 \int_new:N  \g_@@_para_begin_int
 \int_new:N  \g_@@_para_end_int
+\tl_new:N   \l_@@_para_tag_tl
+\tl_set:Nn  \l_@@_para_tag_tl { P }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -576,6 +578,7 @@
   {
     paratagging      .bool_set:N = \l_@@_para_bool,
     paratagging-show .bool_set:N = \l_@@_para_show_bool,
+    paratag          .tl_set:N   = \l_@@_para_tag_tl
   }
 
 %    \end{macrocode}
@@ -587,13 +590,13 @@
    \bool_if:NT \l_@@_para_bool
      {
        \int_gincr:N \g_@@_para_begin_int
-       \tag_struct_begin:n {tag=P}
+       \tag_struct_begin:n {tag=\l_@@_para_tag_tl}
        \bool_if:NT \l_@@_para_show_bool
         { \tag_mc_begin:n{artifact}
           \llap{\color_select:n{red}\tiny\int_use:N\g_@@_para_begin_int\ }
           \tag_mc_end:
         }
-       \tag_mc_begin:n {tag=P}
+       \tag_mc_begin:n {tag=\l_@@_para_tag_tl}
      }
   }
 \AddToHook{para/end}
