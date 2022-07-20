@@ -356,7 +356,14 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsection{Messages related to mc-chunks}
+% \subsection{Messages related to structures}
+% \begin{macro}{struct-unknown}
+% if for example a parent key value points to structure that doesn't exist (yet)
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-unknown}
+   { structure~with~number~#1~doesn't~exist\\ #2 }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{struct-no-objnum}
 % Should not happen \ldots
 %    \begin{macrocode}

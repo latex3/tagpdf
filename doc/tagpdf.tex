@@ -451,28 +451,17 @@ Be aware that to create the tagged version a current lualatex-dev and a current 
 
 \section{Setup}
 
-The package requires the new PDF management. With a current version of \pkg{pdfmanagement-testphase} it can be loaded and
-activated like this:
-
-\begin{lstlisting}
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata
- {
-  testphase = tagpdf, % load
-  activate  = tagging % activate and create the document structure
- }
-\documentclass{article}
-\begin{document}
-some text
-\end{document}
-\end{lstlisting}
-
-With  \LaTeX{} 2022-06-01 (or a current \LaTeX-dev) the call will be simpler
+The package requires the new PDF management. With a current \LaTeX{} (2022-06-01 or newer) 
+the PDF management is loaded if you use the \cs{DocumentMetadata} command. 
+Tagging can then be activated by using the \texttt{testphase} key. The exact behaviour of 
+the \texttt{testphase} key is documented in \texttt{documentmetadata-support-doc.pdf} which
+is part of the \texttt{latex-lab} bundle.
 
 \begin{lstlisting}
 \DocumentMetadata
  {
-  testphase = tagpdf, % load + activate
+  % testphase = phase-I, % tagging without paragraph tagging
+  testphase = phase-II % tagging with paragraph tagging and other new stuff.
  }
 \documentclass{article}
 \begin{document}
@@ -483,7 +472,7 @@ some text
 \minisec{Activation needed!}
 
 
-When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DeclareDocumentMetadata+/\verb+\DocumentMetadata+.
+When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DocumentMetadata+.
 
 Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
 
@@ -936,7 +925,7 @@ In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't te
 
 \begin{docCommand}{tag_get:n}{\marg{key word}}\end{docCommand}
 
-This command give back some variables. Currently the only working key words are \verb+mc\_tag+, \verb+struct\_tag+ and \verb+struct\_num+. The last returns a number works also if only \pkg{tagpdf-base} has been loaded.
+This command give back some variables. Currently the only working key words are \verb+mc_tag+, \verb+struct_tag+ and \verb+struct_num+. The last returns a number works also if only \pkg{tagpdf-base} has been loaded.
 
 \subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}
 
@@ -1304,6 +1293,13 @@ The key-val list understands the following keys:
    the two attributes \texttt{tagstruct} (the structure number) and \texttt{tagstructobj} (the
    object reference).
 
+  \item[\PrintKeyName{parent}]
+  % By default a structure is added as kid to the currently active structure.
+   With the parent key one can choose another parent. The value is a structure number which
+   must refer to an already existing, previously created structure. Such a structure
+   number can for example be have been stored with \cs{tag_get:n}, but one can also use
+   a label on the parent structure and then use   
+   \cs{ref_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve it.
 
   \item[\PrintKeyName{alttext}]
    This key inserts an \texttt{/Alt} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string and hex encoded. The value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). That means that you can do something like this:
