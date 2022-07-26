@@ -33,10 +33,21 @@
 % \end{syntax}
 % \end{function}
 %
-% \begin{function}{ \tag_stop_group_begin:, \tag_stop_group_end:, \tag_stop: }
-% We need a command to stop tagging in some places.
-% This simply switches the two local booleans. The grouping commands
+% \begin{function}{ \tag_stop_group_begin:, \tag_stop_group_end:,
+%  \tag_stop:, \tag_start:, \tag_stop:n, \tag_start:n }
+% We need commands to stop tagging in some places.
+% There simply switches the two local booleans. The grouping commands
 % can be used to group the effect.
+% \end{function}
+%
+% \begin{function}{\tag_stop:n, \tag_start:n }%
+% \begin{syntax}
+% \cs{tag_stop:n}\Arg{label}
+% \cs{tag_start:n}\Arg{label}\\
+% \end{syntax}
+% This commands are intended as a pair. The start command
+% will only restart tagging if the previous stop command
+% with the same label actually stopped tagging. 
 % \end{function}
 %
 % \begin{function}{activate-space (setup-key)}
@@ -447,10 +458,16 @@
 % \end{macro}
 %
 % \section{General tagging commands}
-
-% \begin{macro}{ \tag_stop_group_begin:, \tag_stop_group_end: }
-% We need a command to stop tagging in some places.
+%
+% \begin{macro}{\tag_stop_group_begin:,
+%   \tag_stop_group_end:,
+%   \tag_stop:,\tag_start:,
+%   \tag_stop:n,\tag_start:n}
+% We need commands to stop tagging in some places.
 % This simply switches the two local booleans.
+% In some cases tagging should only restart, if
+% it actually was stopped before. For this it is possible
+% to label a stop.
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_stop_group_begin:
   {
@@ -459,13 +476,48 @@
     \bool_set_false:N \l_@@_active_mc_bool
   }
 \cs_set_eq:NN \tag_stop_group_end: \group_end:
-\cs_new_protected:Npn \tag_stop:
+\cs_set_protected:Npn \tag_stop:
   {
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
   }
+\cs_set_protected:Npn \tag_start:
+  {
+    \bool_set_true:N \l_@@_active_struct_bool
+    \bool_set_true:N \l_@@_active_mc_bool
+  }
+\prop_new:N\g_@@_state_prop
+\cs_set_protected:Npn \tag_stop:n #1
+  {
+    \tag_if_active:TF
+      {
+        \bool_set_false:N \l_@@_active_struct_bool
+        \bool_set_false:N \l_@@_active_mc_bool
+        \prop_gput:Nnn \g_@@_state_prop { #1 }{ 1 }
+      }
+      {
+        \prop_gremove:Nn \g_@@_state_prop { #1 }
+      }
+  }
+\cs_set_protected:Npn \tag_start:n #1
+  {
+    \prop_gpop:NnN \g_@@_state_prop {#1}\l_@@_tmpa_tl
+     \quark_if_no_value:NF \l_@@_tmpa_tl
+      {
+        \bool_set_true:N \l_@@_active_struct_bool
+        \bool_set_true:N \l_@@_active_mc_bool
+      }
+  }
+%</package>
+%<*base>
+\cs_new_protected:Npn \tag_stop:{}
+\cs_new_protected:Npn \tag_start:{}
+\cs_new_protected:Npn \tag_stop:n{}
+\cs_new_protected:Npn \tag_start:n{}
+%</base>
 %    \end{macrocode}
 % \end{macro}
+%
 %
 % \section{Keys for tagpdfsetup}
 
@@ -487,6 +539,7 @@
 %  perhaps move to some other place, now that it is better separated.
 %  |no-struct-dest| allows to suppress structure destinations.
 %    \begin{macrocode}
+%<*package>
 \keys_define:nn { @@ / setup }
   {
     activate-space  .bool_gset:N = \g_@@_active_space_bool,

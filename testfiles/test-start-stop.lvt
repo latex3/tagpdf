@@ -1,0 +1,56 @@
+\DocumentMetadata{testphase=phase-II}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+\START
+\ExplSyntaxOn
+\cs_new:Npn \tag_status:
+ {
+   \tag_if_active:TF{ACTIVE}{NOT~ACTIVE}
+ }
+
+\TEST{tag-active}
+ {
+   \ASSERTSTR{\tag_status:}{ACTIVE}
+ }
+
+\TEST{tag-stop}
+ {
+   \tag_stop:
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_start:
+   \ASSERTSTR{\tag_status:}{ACTIVE}
+ }
+
+\TEST{tag-stop-label1}
+ {
+   \ASSERTSTR{\tag_status:}{ACTIVE}
+   \tag_stop:n{L1}
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_start:n{L1}
+   \ASSERTSTR{\tag_status:}{ACTIVE}
+ }
+
+\TEST{tag-stop-label2}
+ {
+   \ASSERTSTR{\tag_status:}{ACTIVE}
+   \tag_stop:n{L1}
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_start:n{LXX}
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+ }
+
+\tag_stop:
+
+\TEST{tag-stop-label2}
+ {
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_stop:n{L1}
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_start:n{L1}
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+ }
+\ExplSyntaxOff
+
+\END

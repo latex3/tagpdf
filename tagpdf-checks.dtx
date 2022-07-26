@@ -891,7 +891,7 @@
 %    \begin{macrocode}
 \msg_new:nnn { tag / debug } {struct-begin}
   {
-    Struct~begin~#1~with~options:~\tl_to_str:n{#2}~[\msg_line_context:]
+    Struct~\tag_get:n{struct_num}~begin~#1~with~options:~\tl_to_str:n{#2}~[\msg_line_context:]
   }
 \msg_new:nnn { tag / debug } {struct-end}
   {
