@@ -1,0 +1,76 @@
+\DocumentMetadata{testphase=phase-II}
+\documentclass{article}
+\usepackage{tabularx}
+%\usepackage{array}
+\usepackage{tagpdf-debug}
+\tagpdfsetup{log=vvv}
+
+%changes to pbox to avoid wrongly nested mc
+\makeatletter\ExplSyntaxOn
+
+\def\@startpbox#1{\bgroup\tag_mc_end_push:
+  \color@begingroup
+  \setlength\hsize{#1}\@arrayparboxrestore
+   \everypar{%
+      \vrule \@height \ht\@arstrutbox \@width \z@
+      \everypar{}}%
+   }
+\def\@endpbox{\@finalstrut\@arstrutbox \par \color@endgroup\tag_mc_begin_pop:n{}\egroup\hfil}
+
+\ExplSyntaxOn
+\IfDocumentMetadataTF
+ {
+   \cs_set_eq:NN \TX@tagstop \tag_stop:n
+   \cs_set_eq:NN \TX@tagstart \tag_start:n
+ }
+\ExplSyntaxOff
+
+\def\TX@endtabularx{%
+   \expandafter\expandafter\expandafter
+     \TX@find@endtabularxa\csname end\TX@\endcsname
+     \endtabularx\TX@\endtabularx\TX@find@endtabularxa
+  \expandafter\TX@newcol\expandafter{\tabularxcolumn{\TX@col@width}}%
+  \let\verb\TX@verb
+  \def\@elt##1{\global\value{##1}\the\value{##1}\relax}%
+  \edef\TX@ckpt{\cl@@ckpt}%
+  \let\@elt\relax
+  \TX@old@table\maxdimen
+  \TX@col@width\TX@target
+  \global\TX@cols\@ne
+  \TX@typeout@
+    {\@spaces Table Width\@spaces Column Width\@spaces X Columns}%
+  \TX@tagstop{tabularx}% new
+  \TX@trial{\def\NC@rewrite@X{%
+          \global\advance\TX@cols\@ne\NC@find p{\TX@col@width}}}%
+  \loop
+    \TX@arith
+    \ifTX@
+    \TX@trial{}%
+  \repeat
+  \TX@tagstart{tabularx}% new
+  {\let\@footnotetext\TX@ftntext\let\@xfootnotenext\TX@xftntext
+    \csname tabular*\expandafter\endcsname\expandafter\TX@target
+      \the\toks@
+    \csname endtabular*\endcsname}%
+  \global\TX@ftn\expandafter{\expandafter}\the\TX@ftn
+  \ifnum0=`{\fi}%
+   \expandafter\expandafter\expandafter
+   \TX@find@endtabularxbb
+    \expandafter\end\expandafter{\TX@}%
+    \endtabularx\TX@\endtabularx\TX@find@endtabularxb
+}
+\begin{document}
+
+
+
+\begin{tabular}[t]{p{4cm}}\hline
+name \\
+\hline
+\end{tabular}
+
+
+\begin{tabularx}{\linewidth}[t]{X}\hline
+name \\
+\hline
+\end{tabularx}
+\end{document}
