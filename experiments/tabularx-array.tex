@@ -17,12 +17,13 @@
    }
 \def\@endpbox{\@finalstrut\@arstrutbox \par \color@endgroup\tag_mc_begin_pop:n{}\egroup\hfil}
 
-\ExplSyntaxOn
 \IfDocumentMetadataTF
  {
    \cs_set_eq:NN \TX@tagstop \tag_stop:n
    \cs_set_eq:NN \TX@tagstart \tag_start:n
  }
+ {}
+ 
 \ExplSyntaxOff
 
 \def\TX@endtabularx{%
@@ -59,8 +60,9 @@
     \expandafter\end\expandafter{\TX@}%
     \endtabularx\TX@\endtabularx\TX@find@endtabularxb
 }
-\begin{document}
 
+\makeatother
+\begin{document}
 
 
 \begin{tabular}[t]{p{4cm}}\hline
@@ -73,4 +75,12 @@ name \\
 name \\
 \hline
 \end{tabularx}
+
+\begin{tabularx}{\linewidth}[t]{lllX}\hline
+name & type & access & description\\\hline\hline
+a & b & c & d\\
+\hline
+\end{tabularx}
+
+
 \end{document}
