@@ -299,10 +299,14 @@
 % \end{variable}
 %
 % \begin{variable}{\g_@@_struct_stack_current_tl,\l_@@_struct_stack_parent_tmpa_tl}
-% The global variable will hold the current structure number.
+% The global variable will hold the current structure number. It is already
+% defined in \texttt{tagpdf-base}.
 % The local temporary variable will hold the parent when we fetch it from the stack.
 %    \begin{macrocode}
-\tl_new:N     \g_@@_struct_stack_current_tl
+%</package>
+%<base>\tl_new:N  \g_@@_struct_stack_current_tl
+%<base>\tl_set:Nn \g_@@_struct_stack_current_tl {\int_use:N\c@g_@@_struct_abs_int}
+%<*package>
 \tl_new:N     \l_@@_struct_stack_parent_tmpa_tl
 %    \end{macrocode}
 % \end{variable}
@@ -789,7 +793,7 @@
     \exp_args:Ne
     \tl_tail:n
      {
-       \prop_item:cn {g_@@_struct_\g__tag_struct_stack_current_tl _prop}{S}
+       \prop_item:cn {g_@@_struct_\g_@@_struct_stack_current_tl _prop}{S}
      }
   }
 %</package>
@@ -803,7 +807,7 @@
 %<*base>
 \cs_new:Npn \@@_get_data_struct_num:
   {
-    \int_use:N\c@g_@@_struct_abs_int
+    \g_@@_struct_stack_current_tl
   }
 %</base>
 %    \end{macrocode}

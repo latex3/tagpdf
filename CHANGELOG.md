@@ -11,13 +11,21 @@ this project uses date-based 'snapshot' version identifiers.
  - missing /Pg in /OBJR object (issue #53)
  - a hook was undeclared which didn't close the last structure.
  - interwordspace key not defined for all engines (issue #54) 
-
+ - \tag_get:n{struct_num} works now correctly in nested structures, and
+   can be used if only tagpdf-base has been loaded.
+   
 ### Changed
  - structure number is updated also in base 
  - allow to access the current structure number
+ - ref key can be used more than once and collect the values
 
 ### Added
  - \tag_struct_object_ref:n to reference the object ref of a structure.
+ - a key parent to allow structures to choose their parent structure. 
+ - setup option paratag, which allows to change the tag name used for the 
+   automatically tagged paragraphs.
+ - \tag_start:, \tag_stop:n and \tag_start:n to stop and start tagging for
+   example is trial typesetting.   
 
 ## [2022-05-11]
 

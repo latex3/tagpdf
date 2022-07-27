@@ -451,9 +451,9 @@ Be aware that to create the tagged version a current lualatex-dev and a current 
 
 \section{Setup}
 
-The package requires the new PDF management. With a current \LaTeX{} (2022-06-01 or newer) 
-the PDF management is loaded if you use the \cs{DocumentMetadata} command. 
-Tagging can then be activated by using the \texttt{testphase} key. The exact behaviour of 
+The package requires the new PDF management. With a current \LaTeX{} (2022-06-01 or newer)
+the PDF management is loaded if you use the \cs{DocumentMetadata} command.
+Tagging can then be activated by using the \texttt{testphase} key. The exact behaviour of
 the \texttt{testphase} key is documented in \texttt{documentmetadata-support-doc.pdf} which
 is part of the \texttt{latex-lab} bundle.
 
@@ -927,7 +927,10 @@ In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't te
 
 \begin{docCommand}{tag_get:n}{\marg{key word}}\end{docCommand}
 
-This command give back some variables. Currently the only working key words are \verb+mc_tag+, \verb+struct_tag+ and \verb+struct_num+. The last returns a number works also if only \pkg{tagpdf-base} has been loaded.
+This command give back some variables. Currently the only working key words are \verb+mc_tag+, \verb+struct_tag+ and \verb+struct_num+. The last returns a number and works also if only \pkg{tagpdf-base} has been loaded, but then doesn't give the same output: if \pkg{tagpdf} is loaded and tagging is active, \verb+struct_num+ gives the number of currently
+active structure, so it reverts to the parent number if a structure is closed. If only \pkg{tagpdf-base} is loaded
+nesting of structure is not tracked and so the command gives back the number of the last structure that has been created.
+
 
 \subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}
 
@@ -1197,12 +1200,12 @@ rerun.
 
 Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
 \pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with
-options of \cs{tagpdfsetup} or with the two commands above. 
+options of \cs{tagpdfsetup} or with the two commands above.
 
 The automatic tagging require that for every begin of a paragraph with the begin hook code
 there a corresponding end with the closing hook code. This can fail, e.g if a |vbox| doesn't correctly issue a |\par| at the end.
-If this happens the tagging structure can get every confused. At the end of the document \pkg{tagpdf} checks if 
-the number of start and end paragraph structures created here are equal and it will error if not. 
+If this happens the tagging structure can get every confused. At the end of the document \pkg{tagpdf} checks if
+the number of start and end paragraph structures created here are equal and it will error if not.
 
 Nesting the activation and deactivation of the tagging of paragraphs can be quite difficult. For example if it is unclear if the inner code issues a |\par| or not it is not trivial to exclude an end hook for every excluded begin hook.
 In such cases it can be easier to use the new |paratag| key with the value |NonStruct| to convert some |P|-structures
@@ -1304,7 +1307,7 @@ The key-val list understands the following keys:
    With the parent key one can choose another parent. The value is a structure number which
    must refer to an already existing, previously created structure. Such a structure
    number can for example be have been stored with \cs{tag_get:n}, but one can also use
-   a label on the parent structure and then use   
+   a label on the parent structure and then use
    \cs{ref_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve it.
 
   \item[\PrintKeyName{alttext}]
@@ -1406,7 +1409,8 @@ The key-val list understands the following keys:
    \item[\PrintKeyName{ref}]
      This key allows to add references to other structure elements, it adds the |/Ref| array to the structure.
        The value should be a comma separated list of structure labels set with the |label| key.
-     e.g. |ref={label1,label2}|.
+     e.g. |ref={label1,label2}|. It can be used more than once in the key/value argument and combines the 
+     references.
 
    \item[\PrintKeyName{E}]
      This key sets the |/E| key, the expanded form of an abbreviation or an acronym (I couldn't think of a better name, so I sticked to E).
