@@ -17,7 +17,7 @@
 \usepackage{microtype}
 \makeatletter
 % see https://github.com/schlcht/microtype/issues/8
-\patchcmd{\MT@get@prot}{\noindent}{\RawNoindent}{}{\fail}
+%\patchcmd{\MT@get@prot}{\noindent}{\RawNoindent}{}{\fail}
 \makeatother
 
 \usepackage{scrlayer-scrpage}
@@ -290,7 +290,7 @@ All examples should use the \cs{tagpdfsetup} key \PrintKeyName{uncompress} descr
 \subsection{Changes in 0.3}
 
 
-In this version I improved the handling of alternative and actual text. See section~\ref{sec:alttext}. This change meant that the package relied on the module \texttt{l3str-convert}.
+In this version I improved the handling of alternative and actual text. See section~\ref{sec:alt}. This change meant that the package relied on the module \texttt{l3str-convert}.
 
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
@@ -429,6 +429,12 @@ in texlive 2022, miktex already has the new pdftex, the new luatex will probably
 
 \end{itemize}
 
+\subsection{Changes in version 0.96}
+
+\begin{itemize}
+\item The \texttt{alttext} key has been renamed to \texttt{alt}, the other key name exists as alias.
+\end{itemize}
+
 \subsection{Proof of concept: the tagging of the documentation itself}
 
 Starting with version 0.6 the documentation itself has been tagged. The tagging wasn't (and isn't) in no way perfect. The validator from Adobe didn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnotes gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes were simply wrong \ldots
@@ -443,7 +449,7 @@ Be aware that to create the tagged version a current lualatex-dev and a current 
 
 \tagpdfparaOff
 
-\tagstructbegin{tag=Figure,alttext=PAC3 report,attribute=bbox}\tagmcbegin{tag=Figure}
+\tagstructbegin{tag=Figure,alt=PAC3 report,attribute=bbox}\tagmcbegin{tag=Figure}
 \includegraphics{pac3}
 \tagmcend\tagstructend
 
@@ -616,7 +622,7 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \tagpdfparaOff
 
-\tagstructbegin{tag=Figure,alttext={Illustration of page stream with marked content},attribute=bbox}%
+\tagstructbegin{tag=Figure,alt={Illustration of page stream with marked content},attribute=bbox}%
 \tagmcbegin{tag=Figure}%
 \begin{tikzpicture}[baseline=(a.north),node distance=2pt,remember picture]
 \node(start){\ldots~\ldots~\ldots};
@@ -636,7 +642,7 @@ To tag a \PDF{} three tasks must be  carried out:
 \tagpdfparaOff
 
 \newlength\ydistance\setlength\ydistance{-0.8cm}
-\tagstructbegin{tag=Figure,alttext={Illustration of structure},attribute=bbox}%
+\tagstructbegin{tag=Figure,alt={Illustration of structure},attribute=bbox}%
 \tagmcbegin{tag=Figure}%
 \begin{tikzpicture}[remember picture,baseline=(root.north)]
 
@@ -838,21 +844,21 @@ The key-val list understands the following keys:
   \item[\PrintKeyName{label}]
   This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
 
-  \item[\PrintKeyName{alttext}]
-   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed).
+  \item[\PrintKeyName{alt}]
+   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alt}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed).
   That means that you can do something like in the following listing
   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.
 
   \begin{lstlisting}
   \newcommand\myalttext{\frac{a}{b}}
-  \tagmcbegin{tag=P,alttext=\myalttext}
+  \tagmcbegin{tag=P,alt=\myalttext}
   \end{lstlisting}
 
 
 
 
   \item[\PrintKeyName{actualtext}]
-  This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alttext}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{actualtext-o} in previous versions which has been removed).
+  This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alt}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{actualtext-o} in previous versions which has been removed).
 
   That means that you can do something like in the following listing and and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
 
@@ -988,7 +994,7 @@ the \emph{second} page will be marked as artifact. The following figure shows ho
 like.
 
 \tagpdfparaOff
-\tagstructbegin{tag=Figure,alttext=Show tags of examples,attribute=bbox}\tagmcbegin{tag=Figure}
+\tagstructbegin{tag=Figure,alt=Show tags of examples,attribute=bbox}\tagmcbegin{tag=Figure}
 \includegraphics{global-ex}
 \tagmcend\tagstructend
 
@@ -1019,7 +1025,7 @@ the needed code.
 \begin{figure}
 \tagpdfparaOff
 
-\tagstructbegin{tag=Figure,alttext={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
+\tagstructbegin{tag=Figure,alt={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
 \ExplSyntaxOn
 \tag_stop_group_begin:
 \ExplSyntaxOff
@@ -1155,7 +1161,7 @@ If this is really the way to go one would need some script to add the mark-up as
 
 But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the \PDF{} and the task how to read this aloud delegated to the screen reader. As \PDF{}~2.0 introduced associated files it is probable that this will be the way to go but more investigations are needed here.
 
-See also section~\ref{sec:alttext} for some more remarks and tests.
+See also section~\ref{sec:alt} for some more remarks and tests.
 
 
 \subsubsection{Split paragraphs}\label{sec:splitpara}
@@ -1295,7 +1301,7 @@ The key-val list understands the following keys:
 
   \item[\PrintKeyName{label}]
    This key sets a label by which one can refer to the structure. It is e.g.
-   used by \cs{tag_struct_use:n} (where a real label is actually not
+   used by \cs{tag\_struct\_use:n} (where a real label is actually not
    needed as you can only use structures already defined), and by the
    |ref| key (which can refer to future structures).
    Internally the label name will start with \texttt{tagpdfstruct-} and it stores
@@ -1306,17 +1312,17 @@ The key-val list understands the following keys:
   % By default a structure is added as kid to the currently active structure.
    With the parent key one can choose another parent. The value is a structure number which
    must refer to an already existing, previously created structure. Such a structure
-   number can for example be have been stored with \cs{tag_get:n}, but one can also use
+   number can for example be have been stored with \cs{tag\_get:n}, but one can also use
    a label on the parent structure and then use
-   \cs{ref_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve it.
+   \cs{ref\_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve it.
 
-  \item[\PrintKeyName{alttext}]
-   This key inserts an \texttt{/Alt} value in the dictionary of structure object, see section~\ref{sec:alttext}. The value is handled as verbatim string and hex encoded. The value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). That means that you can do something like this:
+  \item[\PrintKeyName{alt}]
+   This key inserts an \texttt{/Alt} value in the dictionary of structure object, see section~\ref{sec:alt}. The value is handled as verbatim string and hex encoded. The value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). That means that you can do something like this:
 
 
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
-      \tagstructbegin{tag=P,alttext=\myalttext}
+      \tagstructbegin{tag=P,alt=\myalttext}
       \end{lstlisting}
 
 
@@ -1326,7 +1332,7 @@ The key-val list understands the following keys:
 
 
   \item[\PrintKeyName{actualtext}]
-   This key inserts an \texttt{/ActualText} value in the dictionary of structure object,  see section~\ref{sec:alttext}. The value is handled as verbatim string, The value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). That means that you can do something like this:
+   This key inserts an \texttt{/ActualText} value in the dictionary of structure object,  see section~\ref{sec:alt}. The value is handled as verbatim string, The value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). That means that you can do something like this:
 
       \begin{lstlisting}
       \newcommand\myactualtext{X}
@@ -1409,7 +1415,7 @@ The key-val list understands the following keys:
    \item[\PrintKeyName{ref}]
      This key allows to add references to other structure elements, it adds the |/Ref| array to the structure.
        The value should be a comma separated list of structure labels set with the |label| key.
-     e.g. |ref={label1,label2}|. It can be used more than once in the key/value argument and combines the 
+     e.g. |ref={label1,label2}|. It can be used more than once in the key/value argument and combines the
      references.
 
    \item[\PrintKeyName{E}]
@@ -1560,7 +1566,7 @@ The following shows the marking needed for a section, a sentence and a list with
 \subsection{Lazy and automatic tagging}\label{sec:lazy}
 
 
-A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alttext}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged.
+A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alt}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged.
 
 This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside it rather large mc-chunks. This minimizes the needed work.
 
@@ -1588,7 +1594,7 @@ This is quite workable as long as you mark everything manually. But how to write
 
 
 
-\section{Alternative text, ActualText and text-to-speech software}\label{sec:alttext}
+\section{Alternative text, ActualText and text-to-speech software}\label{sec:alt}
 
 
 
@@ -1598,7 +1604,7 @@ Both can be added either to the marked content in the page stream or to the obje
 
 The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the \PDF{} reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.
 
-\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with \PrintKeyName{alttext}) is a key to improve accessibility: with it one can add to a picture or something else an alternative text.
+\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with \PrintKeyName{alt}) is a key to improve accessibility: with it one can add to a picture or something else an alternative text.
 
 The file \texttt{ex-alt-actualtext.tex} shows some experiments I made with with both keys and text-to-speech software (the in-built of adobe and nvda).
 To sum them up:
@@ -1851,7 +1857,7 @@ This is not meant as a full reference only as a background to make the examples 
 
 \tagpdfparaOff
 
-\tagstructbegin{tag=Figure,alttext={Illustration of postfix notation},attribute=bbox}\tagmcbegin{tag=Figure}
+\tagstructbegin{tag=Figure,alt={Illustration of postfix notation},attribute=bbox}\tagmcbegin{tag=Figure}
 \begin{tikzpicture}[baseline=(c.base)]
 \node[arg](a1) {18};
 \node[arg,right=of a1.east](a2) {0};
@@ -1924,7 +1930,7 @@ This is not meant as a full reference only as a background to make the examples 
 
 \tagpdfparaOff
 
-    \tagstructbegin{tag=Figure,alttext={Illustration of array},attribute=bbox}\tagmcbegin{tag=Figure}
+    \tagstructbegin{tag=Figure,alt={Illustration of array},attribute=bbox}\tagmcbegin{tag=Figure}
     \begin{tikzpicture}[baseline=(c.base)]
     \node[arg](a1) {0};
     \node[arg,right = of a1.east](a2) {15 0 R};

@@ -1,6 +1,4 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\IfFormatAtLeastTF{2022-06-01}{}
-  {\RequirePackage{pdfmanagement-testphase}}
 \DocumentMetadata{}
 \input{regression-test}
 \documentclass{article}
@@ -20,8 +18,8 @@
 
 Etwas unmarkierter Text. %isn't read by voice software
 
-%alttext is read, actualtext copy & pasted
-\tagstructbegin{tag=P,alttext=Dies ist ein Text,actualtext=Copy}
+%alt is read, actualtext copy & pasted
+\tagstructbegin{tag=P,alt=Dies ist ein Text,actualtext=Copy}
   \tagmcbegin{tag=P}
    Test
   \tagmcend
@@ -29,20 +27,20 @@ Etwas unmarkierter Text. %isn't read by voice software
 
 \newcommand\myalttext{Dies ist ein Text}
 \newcommand\myactualtext{Copy}
-\tagstructbegin{tag=P,alttext=\myalttext,actualtext=\myactualtext}
+\tagstructbegin{tag=P,alt=\myalttext,actualtext=\myactualtext}
   \tagmcbegin{tag=P}
    Test
   \tagmcend
 \tagstructend
 
 \tagstructbegin{tag=P}
- \tagmcbegin{tag=P,alttext=Dies ist ein Text,actualtext=Copy}
+ \tagmcbegin{tag=P,alt=Dies ist ein Text,actualtext=Copy}
   Test
  \tagmcend
 \tagstructend
 
 \tagstructbegin{tag=P}
- \tagmcbegin{tag=P,alttext=\myalttext,actualtext=\myactualtext}
+ \tagmcbegin{tag=P,alt=\myalttext,actualtext=\myactualtext}
   Test
  \tagmcend
 \tagstructend

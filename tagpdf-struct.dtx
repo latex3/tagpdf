@@ -144,7 +144,7 @@
 % Commands are not expanded. |title-o| will expand the value once.
 % \end{function}
 %
-% \begin{function}{alttext (struct-key)}
+% \begin{function}{alt (struct-key)}
 % This key inserts an \texttt{/Alt} value in the dictionary of structure object.
 % The value is handled as verbatim string and hex encoded.
 % The value will be expanded first once.
@@ -825,7 +825,7 @@
 %    tag (struct-key),
 %    title (struct-key),
 %    title-o (struct-key),
-%    alttext (struct-key),
+%    alt (struct-key),
 %    actualtext (struct-key),
 %    lang (struct-key),
 %    ref (struct-key),
@@ -896,7 +896,7 @@
           { T }
           { <\l_@@_tmpa_str> }
       },
-    alttext .code:n      = % Alt property
+    alt .code:n      = % Alt property
       {
         \str_set_convert:Noon
           \l_@@_tmpa_str
@@ -908,6 +908,7 @@
           { Alt }
           { <\l_@@_tmpa_str> }
       },
+    alttext .meta:n = {alt=#1},
     actualtext .code:n  = % ActualText property
       {
         \str_set_convert:Noon

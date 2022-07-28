@@ -355,7 +355,7 @@
 %   {
 %    tag (mc-key),
 %    raw (mc-key),
-%    alttext (mc-key),
+%    alt (mc-key),
 %    actualtext (mc-key),
 %    label (mc-key),
 %    artifact (mc-key)
@@ -381,7 +381,7 @@
             ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","#1")
           }
       },
-    alttext .code:n      = % Alt property
+    alt .code:n      = % Alt property
       {
         \str_set_convert:Noon
           \l_@@_tmpa_str
@@ -398,6 +398,7 @@
               )
           }
       },
+    alttext .meta:n = {alt=#1},  
     actualtext .code:n      = % Alt property
       {
         \str_set_convert:Noon

@@ -752,7 +752,7 @@
 %  {
 %   tag (mc-key),
 %   raw (mc-key),
-%   alttext (mc-key),
+%   alt (mc-key),
 %   actualtext (mc-key),
 %   label (mc-key),
 %   artifact (mc-key)
@@ -770,7 +770,7 @@
       {
         \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
       },
-    alttext .code:n      = % Alt property
+    alt .code:n      = % Alt property
       {
         \str_set_convert:Noon
           \l_@@_tmpa_str
@@ -780,6 +780,7 @@
         \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
       },
+    alttext .meta:n = {alt=#1},  
     actualtext .code:n      = % ActualText property
       {
         \str_set_convert:Noon

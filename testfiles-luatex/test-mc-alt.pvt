@@ -1,10 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\IfFormatAtLeastTF{2022-06-01}{}
-  {\RequirePackage{pdfmanagement-testphase}}
 \DocumentMetadata{}
-\RequirePackage{tagpdf-regressiontest}
-\pdfvariable suppressoptionalinfo 99
-\pdfvariable trailerid {[<4BA7B731D5161E09D9F03EC6625961CE> <4BA7B731D5161E09D9F03EC6625961CE>]}
+\input{regression-test}
 \documentclass{article}
 \usepackage{tagpdf,iftex}
 \tagpdfsetup{uncompress,activate}
@@ -24,33 +20,33 @@
 
 Etwas unmarkierter Text. %isn't read by voice software
 
-%alttext is read, actualtext copy & pasted
-\tagstructbegin{tag=P,alttext=Dies ist ein Text,actualtext=Copy}
+%alt is read, actualtext copy & pasted
+\tagstructbegin{tag=P,alt=Dies ist ein Text,actualtext=Copy}
   \tagmcbegin{tag=P}
    Test
   \tagmcend
 \tagstructend
 
 \tagstructbegin{tag=P}
- \tagmcbegin{tag=P,alttext=Dies ist ein Text,actualtext=Copy}
+ \tagmcbegin{tag=P,alt=Dies ist ein Text,actualtext=Copy}
   Test
  \tagmcend
 \tagstructend
 
 \tagstructbegin{tag=Formula}
- \tagmcbegin {tag=Formula,alttext={\empty\frac{a}{b}+c + \int_1^n f(x)}}
+ \tagmcbegin {tag=Formula,alt={\empty\frac{a}{b}+c + \int_1^n f(x)}}
   $\frac{a}{b}+c + \int_1^n f(x)$
  \tagmcend
 \tagstructend
 
 \tagmcbegin{tag=P,
  actualtext=Ente,
- alttext=Dies ist eine Ente}
+ alt=Dies ist eine Ente}
  %% a char is needed so that actualtext works,
-% \ifluatex 
+% \ifluatex
 %  {{\zerowidthfont^^^^200c}} \else
 %  {\makebox[0pt][l]{.}} \fi%
-% %it seems not to be needed for alttext and voice software ....
+% %it seems not to be needed for alt and voice software ....
 % \includegraphics[width=1cm]{example-image-duck}
  image
 \tagmcend

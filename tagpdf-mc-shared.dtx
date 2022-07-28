@@ -101,7 +101,7 @@
 % If there is no open chunk, it puts $-1$ on the stack (for debugging)
 % \cs{tag_mc_begin_pop:n} removes a value from the stack. If it is different from
 % $-1$ it opens a tag with it.
-% The reopened mc chunk looses info like the alttext for now.
+% The reopened mc chunk looses info like the alt text for now.
 % \end{function}
 %
 % \begin{function}[pTF, EXP]{\tag_mc_if_in:}
@@ -141,7 +141,7 @@
 % \verb+raw=/Alt (Hello)+ will insert an alternative Text.
 % \end{function}
 %
-% \begin{function}{alttext (mc-key)}
+% \begin{function}{alt (mc-key)}
 %  This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator.
 %  The value is handled as verbatim string, commands are not expanded.
 %  The value will be expanded first once.
