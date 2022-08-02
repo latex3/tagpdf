@@ -353,7 +353,7 @@
 %    for boxes produced for columns in that environment. Other streams
 %    may follow over time.
 %    \begin{macrocode}
-\cs_new:Npn\@@_add_missing_mcs:Nn #1 #2 {
+\cs_new_protected:Npn\@@_add_missing_mcs:Nn #1 #2 {
   \vbadness \@M
   \vfuzz    \c_max_dim
   \vbox_set_to_ht:Nnn #1 { \box_ht:N #1 } {
@@ -780,7 +780,7 @@
         \tl_put_right:Nn \l_@@_mc_key_properties_tl { /Alt~< }
         \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
       },
-    alttext .meta:n = {alt=#1},  
+    alttext .meta:n = {alt=#1},
     actualtext .code:n      = % ActualText property
       {
         \str_set_convert:Noon
