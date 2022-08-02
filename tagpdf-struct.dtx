@@ -934,19 +934,12 @@
     ref .code:n        = % ref property
       {
         \tl_clear:N\l_@@_tmpa_tl
-        \clist_map_inline:nn {#1}
+        \clist_map_inline:on {#1}
           {
             \tl_put_right:Nx \l_@@_tmpa_tl
               {~\ref_value:nn{tagpdfstruct-##1}{tagstructobj} }
           }
-        \prop_get:cnN
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-          {Ref}
-          \l_@@_tmpb_tl
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-          { Ref }
-          { \quark_if_no_value:NF\l_@@_tmpb_tl { \l_@@_tmpb_tl~ }\l_@@_tmpa_tl }
+        \@@_struct_gput_data_ref:ee { \int_eval:n {\c@g_@@_struct_abs_int} } {\l_@@_tmpa_tl}
       },
     E .code:n        = % E property
       {
@@ -1251,6 +1244,43 @@
 %    \end{macrocode}
 %
 % \end{macro}
+%
+% \begin{macro}{\tag_struct_gput:nnn}
+% This is a command that allows to update the data of a structure.
+% The first argument is the
+% number of the structure, the second a keyword referring to a function,
+% the third the value. Currently the only keyword is \texttt{ref}
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3
+ {
+   \cs_if_exist_use:cF {@@_struct_gput_data_#2:nn}
+    { %warning??
+      \use_none:nn
+    }
+    {#1}{#3}
+ }
+\cs_generate_variant:Nn \tag_struct_gput:nnn {ene,nne}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_struct_gput_data_ref:nn}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_gput_data_ref:nn #1 #2
+   % #1 receiving struct num, #2 list of object ref
+   {
+     \prop_get:cnN
+        { g_@@_struct_#1_prop }
+        {Ref}
+        \l_@@_tmpb_tl
+     \@@_prop_gput:cnx
+        { g_@@_struct_#1_prop }
+        { Ref }
+        { \quark_if_no_value:NF\l_@@_tmpb_tl { \l_@@_tmpb_tl\c_space_tl }#2 }
+    }
+\cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee}
+%    \end{macrocode}
+% \end{macro}
+
 % \begin{macro}
 %   {
 %     \tag_struct_insert_annot:nn,
