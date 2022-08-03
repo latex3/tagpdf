@@ -253,11 +253,13 @@
 % \section{Setup and preamble commands}
 % \begin{macro}{\tagpdfsetup}
 %    \begin{macrocode}
+%<base>\NewDocumentCommand \tagpdfsetup { m }{}
 %<*package>
-\NewDocumentCommand \tagpdfsetup { m }
+\RenewDocumentCommand \tagpdfsetup { m }
   {
     \keys_set:nn { @@ / setup } { #1 }
   }
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -265,15 +267,15 @@
 % \section{Commands for the mc-chunks}
 % \begin{macro}{\tagmcbegin,\tagmcend,\tagmcuse  }
 %    \begin{macrocode}
+%<*base>
 \NewDocumentCommand \tagmcbegin { m }
   {
-    \tag_mc_begin:n {#1}%\ignorespaces
+    \tag_mc_begin:n {#1}
   }
 
 
 \NewDocumentCommand \tagmcend {  }
   {
-    %\if_mode_horizontal: \unskip \fi: %
     \tag_mc_end:
   }
 
@@ -281,7 +283,7 @@
   {
     \tag_mc_use:n {#1}
   }
-
+%</base>
 %    \end{macrocode}
 % \end{macro}
 
@@ -290,10 +292,12 @@
 % importance for pdflatex as lualatex doesn't mind much if a mc tag is not
 % correctly closed. Unlike the expl3 command it is not expandable.
 %    \begin{macrocode}
+%<*package>
 \NewDocumentCommand \tagmcifinTF { m m }
   {
     \tag_mc_if_in:TF { #1 } { #2 }
   }
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -303,6 +307,7 @@
 % These are structure related user commands. There are direct wrapper around the
 % expl3 variants.
 %    \begin{macrocode}
+%<*base>
 \NewDocumentCommand \tagstructbegin { m }
   {
     \tag_struct_begin:n {#1}
@@ -317,6 +322,7 @@
   {
     \tag_struct_use:n {#1}
   }
+%</base>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -327,6 +333,7 @@
 % This is a generic command for various show commands.
 % It takes a keyval list, the various keys are implemented below.
 %    \begin{macrocode}
+%<*package>
 \NewDocumentCommand\ShowTagging { m }
   {
     \keys_set:nn { @@ / show }{ #1}
@@ -652,6 +659,7 @@
          }
      }
   }
+%</package>
 %    \end{macrocode}
 % \begin{macro}
 %   {
@@ -661,8 +669,11 @@
 %  This two command switch para mode on and off. |\tagpdfsetup| could be used
 %  too but is longer.
 %    \begin{macrocode}
-\newcommand\tagpdfparaOn {\bool_set_true:N \l_@@_para_bool}
-\newcommand\tagpdfparaOff{\bool_set_false:N \l_@@_para_bool}
+%<base>\newcommand\tagpdfparaOn {}
+%<base>\newcommand\tagpdfparaOff{}
+%<*package>
+\renewcommand\tagpdfparaOn {\bool_set_true:N \l_@@_para_bool}
+\renewcommand\tagpdfparaOff{\bool_set_false:N \l_@@_para_bool}
 %    \end{macrocode}
 % \end{macro}
 %
