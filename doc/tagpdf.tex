@@ -147,44 +147,6 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 
 \tableofcontents
-\section{Preface to version 0.94}
-
-In this version a small package, \pkg{tagpdf-base} has been added. It provides
-no-op versions of the main expl3 user commands for packages that want to support
-tagging but can't be sure if the \pkg{tagpdf} package has been loaded.
-
-
-
-\section{Preface to version 0.93}
-The main change in the package itself in this version is the support for structure destinations.
-This is a new type of destinations in \PDF~2.0.
-For pdftex and luatex this requires new binaries. They will be included
-in texlive 2022, miktex already has the new pdftex, the new luatex will probably follow soon.
-
-Beside this mostly some clean up and bug fixes has been done.
-
-A more important step will be done in \LaTeX{} itself in the next dev-release: The command \cs{DocumentMetadata} will be
-added to the format and will take over the role of \cs{DeclareDocumentMetadata} from \pkg{pdfmanagement-testphase} and additionally
-will also load the pdf management code. This will simplify the documents as it will no longer be needed to load
-a package.
-
-
-
-\section{Preface to version 0.92}
-
-In this version support for page breaks in pdftex has been added. As described in section~\ref{sec:splitpara},
-tagging markers must be added by \emph{page}. That means that a paragraph that goes over two pages must get an end
-marker at the end on the first page and a new begin marker on the next page.
-
-With lualatex that is rather easy to ensure, with pdflatex it requires quite sophisticated code.
-The method is described in Frank Mittelbach's talk at TUG~2021
-\enquote{Taming the beast — Advances in paragraph tagging with pdfTeX and XeTeX}
-\url{https://youtu.be/SZHIeevyo3U?t=19551}. The new code requires a new version of the pdfmanagement-testphase package.
-
-Please check also section~\ref{sec:splitpara} for possible pitfalls.
-
-Also new in this version is the handling of header and footer: they will now be tagged as artifacts automatically.
-See section~\ref{sec:header-footer}.
 
 
 \section{Introduction}
@@ -401,7 +363,7 @@ works also if tagging is not active.
 
 \begin{itemize}
 \item support for page breaks in pdftex has been added, see  section~\ref{sec:splitpara},
-This requires a new version of the pdfmanagement-testphase package.
+
 
 \item header and footer are tagged as artifacts automatically, see section~\ref{sec:header-footer}.
 
@@ -410,6 +372,9 @@ will now expand once.
 
 \end{itemize}
 
+
+
+
 \subsection{Changes in version 0.93}
 
 \begin{itemize}
@@ -417,8 +382,12 @@ will now expand once.
 has been added. This allow e.g. to add a css-file which is be used if the \PDF\ is converted to
 html.
 
-\item First steps have been done to adapt the package to planed changes in \LaTeX{}: The command \cs{DocumentMetadata} will be
-added to the format and will take over the role of \cs{DeclareDocumentMetadata} from \pkg{pdfmanagement-testphase}.
+\item First steps have been done to adapt the package to planed changes in \LaTeX{}: 
+The command \cs{DocumentMetadata} will be
+added to the format and will take over the role of \cs{DeclareDocumentMetadata} 
+from \pkg{pdfmanagement-testphase} and additionally
+will also load the pdf management code. This will simplify the documents 
+as it will no longer be needed to load the package.
 
 \item The package has now support for \enquote{structure destinations}.
 This is a new type of destinations in \PDF~2.0.
@@ -428,6 +397,13 @@ in texlive 2022, miktex already has the new pdftex, the new luatex will probably
 \item The commands \cs{tagpdfifluatexT}, \cs{tagpdfifluatexTF} has been removed \cs{tagpdfifpdftexT},
 
 \end{itemize}
+
+\subsection{Changes in version 0.94}
+
+In this version a small package, \pkg{tagpdf-base} has been added. It provides
+no-op versions of the main expl3 user commands for packages that want to support
+tagging but can't be sure if the \pkg{tagpdf} package has been loaded.
+
 
 \subsection{Changes in version 0.96}
 
@@ -1186,14 +1162,18 @@ Pellentesque scelerisque
 sit amet, lacus.\tagmcend
 \end{lstlisting}
 
-Starting with version 0.91 there is code which tries to resolve this problem. Basically it works like this: every mc-command
+Starting with version 0.92 there is code which tries to resolve this problem. Basically it works like this: every mc-command
 issues a mark command (actually two slightly different). When the page is built in the output routine this mark commands are inspected
 and from them \LaTeX{} can deduce if there is a mc-chunk which must be closed or reopened.
+The method is described in Frank Mittelbach's talk at TUG~2021
+\enquote{Taming the beast — Advances in paragraph tagging with pdfTeX and XeTeX}
+\url{https://youtu.be/SZHIeevyo3U?t=19551}. 
+
 
 Please note
 
 \begin{itemize}
-\item The code requires the pdfmanagement-testphase version v0.95i.
+\item The code requires a pdfmanagement-testphase version v0.95i or newer.
 \item Typically you will need more compilations than previously, don't rely on the rerun messages, but if something looks wrong
 rerun.
 \item The code relies on that related |\tagmcbegin| and |\tagmcend| are in the same boxing level. If one is in a box (which hides the marks) and the other in the main galley, things will go wrong.
