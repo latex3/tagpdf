@@ -22,7 +22,7 @@ this project uses date-based 'snapshot' version identifiers.
  - setup option paratag, which allows to change the tag name used for the
    automatically tagged paragraphs.
  - \tag_start:, \tag_stop:n and \tag_start:n to stop and start tagging for
-   example is trial typesetting.
+   example in trial typesetting.
 
 ## [2022-05-29]
 
