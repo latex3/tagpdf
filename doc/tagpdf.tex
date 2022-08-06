@@ -14,7 +14,7 @@
 
 \usepackage{unicode-math}
 \setmainfont{Heuristica}
-\usepackage{microtype}
+\usepackage[nopatch]{microtype}
 \makeatletter
 % see https://github.com/schlcht/microtype/issues/8
 %\patchcmd{\MT@get@prot}{\noindent}{\RawNoindent}{}{\fail}
@@ -99,7 +99,7 @@
 \tagstructbegin{tag=Title}
 \tagmcbegin{tag=Title}
 
-\begin{center}\let\thanks\par
+\begin{center}%\let\thanks\par
 \makeatletter
   \usekomafont{title}{\huge \@title \par}
 
