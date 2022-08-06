@@ -1,0 +1,64 @@
+\DocumentMetadata{testphase=phase-II,pdfversion=1.7}
+
+\documentclass{article}
+\newcommand\taggedline[1]{%
+     \tagstructbegin{tag=TR}%
+     \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+     & \tagstructbegin{tag=#1}\tagmcbegin{tag=#1}#1\tagmcend\tagstructend
+    \tagstructend%TR
+    }
+
+\ExplSyntaxOn
+\newcommand\taggedtable{%
+    \tagstructbegin{tag=Table}%
+    \begin{tabular}{llllllllll}
+    \tagstructbegin{tag=THead}\tagstructbegin{tag=TR}%
+    \taggedline{TH}
+    \tagstructend%TR
+    \tagstructend%THead
+    \\
+    \tagstructbegin{tag=TBody}%
+    \prg_replicate:nn {16}{\taggedline{TD}\\}
+    \tagstructend%TBody
+    \end{tabular}
+    \tagstructend%Table
+    \clearpage
+    }
+    
+% \cs_set_protected:Npn \__tag_struct_write_obj:n #1 % #1 is the struct num
+%   {
+%     \pdf_object_if_exist:nTF { __tag/struct/#1 }
+%       {
+%         \__tag_struct_fill_kid_key:n { #1 }
+%         \__tag_struct_get_dict_content:nN { #1 } \l__tag_tmpa_tl
+% %        \exp_args:Nx
+% %          \pdf_object_write:nx
+% %            { __tag/struct/#1 }
+% %            {
+% %              \l__tag_tmpa_tl
+% %            }
+%       }
+%       {
+%         \msg_error:nnn { tag } { struct-no-objnum } { #1}
+%       }
+%   }
+\ExplSyntaxOff
+
+\begin{document}
+\tagpdfparaOff
+\pagestyle{empty} %
+
+\ExplSyntaxOn
+\int_step_inline:nn {32}{ \taggedtable } %enlarge for time tests
+\ExplSyntaxOff
+
+
+\end{document}
