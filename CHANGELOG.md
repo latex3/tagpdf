@@ -19,6 +19,7 @@ this project uses date-based 'snapshot' version identifiers.
  - allow to access the current structure number
  - ref key can be used more than once and collect the values
  - alttext key has been renamed to alt, the older name is provided as alias
+ - faster processing by avoiding type look up in pdftex and luatex
 
 ### Added
  - \tag_struct_object_ref:n to reference the object ref of a structure.

@@ -285,7 +285,7 @@
         \@@_tree_fill_parenttree:
       }
     \tl_put_right:NV \l_@@_parenttree_content_tl\g_@@_parenttree_objr_tl
-    \pdf_object_write:nx  { @@/tree/parenttree }
+    \pdf_object_write_dict:nx  { @@/tree/parenttree }
       {
         /Nums\c_space_tl [\l_@@_parenttree_content_tl]
       }
@@ -310,7 +310,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_rolemap:
   {
-    \pdf_object_write:nx  { @@/tree/rolemap }
+    \pdf_object_write_dict:nx  { @@/tree/rolemap }
       {
         \pdfdict_use:n{g_@@_role/RoleMap_dict}
       }
@@ -346,7 +346,7 @@
       \l_@@_tmpa_tl
       {
         \pdf_object_new:nn { @@/tree/classmap }{ dict }
-        \pdf_object_write:nx
+        \pdf_object_write_dict:nx
           { @@/tree/classmap }
           { \l_@@_tmpa_tl }
         \@@_prop_gput:cnx
@@ -373,19 +373,19 @@
       {
         \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
           {
-            \pdf_object_write:nx {@@/RoleMapNS/##1}
+            \pdf_object_write_dict:nx {@@/RoleMapNS/##1}
               {
                 \pdfdict_use:n {g_@@_role/RoleMapNS_##1_dict}
               }
             \pdfdict_gput:nnx{g_@@_role/Namespace_##1_dict}
               {RoleMapNS}{\pdf_object_ref:n {@@/RoleMapNS/##1}}
           }
-        \pdf_object_write:nx{tag/NS/##1}
+        \pdf_object_write_dict:nx{tag/NS/##1}
           {
              \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
           }
       }
-    \pdf_object_write:nx {@@/tree/namespaces}
+    \pdf_object_write:nx {@@/tree/namespaces} %array
       {
         \prop_map_tokens:Nn \g_@@_role_NS_prop{\use_ii:nn}
       }

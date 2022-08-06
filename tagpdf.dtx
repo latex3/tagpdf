@@ -182,6 +182,50 @@
 %    \end{macrocode}
 % \section{Temporary code}
 % This is code which will be removed when proper support exists in LaTeX
+% \subsection{Faster object writing}
+%
+%    \begin{macrocode}
+%<*package>
+\cs_if_free:NT \pdf_object_write_dict:nn
+ {
+   \cs_set_eq:NN \pdf_object_write_dict:nn \pdf_object_write:nn
+ }
+\cs_generate_variant:Nn \pdf_object_write_dict:nn {nx}
+
+\str_if_eq:VnT \c_sys_backend_str {pdftex}
+ {
+   \cs_if_free:NT \__pdf_backend_object_write_dict:nn
+    {
+      \cs_new_protected:Npn \__pdf_backend_object_write_dict:nn #1#2
+       {
+         \tex_immediate:D \tex_pdfobj:D
+         useobjnum ~
+         \int_use:c
+          { c__pdf_backend_object_ \tl_to_str:n {#1} _int }
+          { << ~ \exp_not:n {#2} ~ >> }
+      }
+     \cs_set_eq:NN \pdf_object_write_dict:nn \__pdf_backend_object_write_dict:nn
+    }
+ }
+
+\str_if_eq:VnT \c_sys_backend_str {luatex}
+ {
+   \cs_if_free:NT \__pdf_backend_object_write_dict:nn
+    {
+      \cs_new_protected:Npn \__pdf_backend_object_write_dict:nn #1#2
+        {
+          \tex_immediate:D \tex_pdfextension:D obj ~
+            useobjnum ~
+            \int_use:c
+            { c__pdf_backend_object_ \tl_to_str:n {#1} _int }
+            { << ~ \exp_not:n {#2} ~ >> }
+        }
+      \cs_set_eq:NN \pdf_object_write_dict:nn \__pdf_backend_object_write_dict:nn
+    }
+ }
+%</package>
+%    \end{macrocode}
+
 % \subsection{a LastPage label}
 % See also issue \#2 in Accessible-xref
 % \begin{macro}{\@@_lastpagelabel:}
