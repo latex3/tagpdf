@@ -382,11 +382,11 @@ will now expand once.
 has been added. This allow e.g. to add a css-file which is be used if the \PDF\ is converted to
 html.
 
-\item First steps have been done to adapt the package to planed changes in \LaTeX{}: 
+\item First steps have been done to adapt the package to planed changes in \LaTeX{}:
 The command \cs{DocumentMetadata} will be
-added to the format and will take over the role of \cs{DeclareDocumentMetadata} 
+added to the format and will take over the role of \cs{DeclareDocumentMetadata}
 from \pkg{pdfmanagement-testphase} and additionally
-will also load the pdf management code. This will simplify the documents 
+will also load the pdf management code. This will simplify the documents
 as it will no longer be needed to load the package.
 
 \item The package has now support for \enquote{structure destinations}.
@@ -404,6 +404,9 @@ In this version a small package, \pkg{tagpdf-base} has been added. It provides
 no-op versions of the main expl3 user commands for packages that want to support
 tagging but can't be sure if the \pkg{tagpdf} package has been loaded.
 
+\subsection{Changes in version 0.95}
+
+Small bug fixes.
 
 \subsection{Changes in version 0.96}
 
@@ -1167,7 +1170,7 @@ issues a mark command (actually two slightly different). When the page is built 
 and from them \LaTeX{} can deduce if there is a mc-chunk which must be closed or reopened.
 The method is described in Frank Mittelbach's talk at TUG~2021
 \enquote{Taming the beast — Advances in paragraph tagging with pdfTeX and XeTeX}
-\url{https://youtu.be/SZHIeevyo3U?t=19551}. 
+\url{https://youtu.be/SZHIeevyo3U?t=19551}.
 
 
 Please note
