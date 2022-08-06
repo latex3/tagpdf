@@ -4,8 +4,8 @@
 \DocumentMetadata{pdfversion=2.0,lang=en-UK,testphase=phase-II}
 
 \makeatletter
-\def\UlrikeFischer@package@version{0.95}
-\def\UlrikeFischer@package@date{2022-05-29}
+\def\UlrikeFischer@package@version{0.96}
+\def\UlrikeFischer@package@date{2022-08-06}
 \makeatother
 
 \documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
@@ -127,7 +127,8 @@ You need a very current \LaTeX{} format.
       You need a very current L3 programming layer.
       You need the new \LaTeX{} PDF management bundle.
 
-This package is incomplete, experimental and quite probably contains bugs.
+This package is incomplete, experimental and quite probably contains bugs. It is in parts
+quite slow as the code prefers readability over speed.
       At some time it will disappear when the code has been integrated into the \LaTeX{} format.
 
 This package can change in an incompatible way.
@@ -151,20 +152,26 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 \section{Introduction}
 
-Since many year the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
+Since many years the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
 
-But in my opinion missing are means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
+But in my opinion missing were means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
-This package tries to close this gap by offering \emph{core} commands to tag a \PDF{}%
+
+This package were developped to close this gap by offering \emph{core} commands to tag a \PDF{}%
 \footnote{In case you don't know what this means: there will be some explanations later on.}.
+My hope was that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
-My hope is that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
-The package does not patch commands from other packages. It is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged \PDF{} files -- and the examples accompanying the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
+The code has been written with the goal to extend \LaTeX{} itself.
+It therefore quite does not patch commands from other packages and is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged \PDF{} files -- and the examples accompanying the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
 
-So this package deliberately concentrates on the basics -- and this already quite a lot, there are much more details involved as I expected when I started.
 
-I'm sure that it has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
+The package is now a part of the Tagged PDF project and triggered already various changes in the LaTeX kernel and the engines: There is a new PDF management,
+the new para hooks allows to automatically tag paragraphs, after changes in the output routine
+page breaks and header and footer are handled correctly, the engines support
+now structure destinations.
+
+I'm sure that it still has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
 
 Please also check the github site for new examples and improvements.
 
@@ -177,7 +184,9 @@ So the name of the package is a bit wrong. As excuse I can only say that it is s
 
 \subsection{Engines and modes}
 
-The package works currently with pdflatex and lualatex. First steps have been done to also enable support for xelatex and the latex-dvips-route; but this isn't yet much tested.
+The package theoretically with all engines, 
+But the xelatex and the latex-dvips-route are not much tested and they also don't support 
+real space glyphs. lualatex is the most powerful and safe modus, but pdflatex works ok too.
 
 The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
 
@@ -185,7 +194,8 @@ I implemented the generic mode first. Mostly because my tex skills are much bett
 
 While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode.
 
-The package uses quite a lot labels (in generic mode more than with luamode). At the begin it relied on the \pkg{zref} package, but switched now to a new experimental implementation for labels. The drawback of the new method is that they don't give yet good rerun messages if they have changed. I advise to use the \pkg{rerunfilecheck} package as a intermediate work-around.
+The package uses quite a lot labels (in generic mode more than with luamode). At the begin it relied on the \pkg{zref} package, but switched now to a new experimental implementation for labels. The drawback of the new method is that they don't give yet good rerun messages if they have changed. I advise to use the \pkg{rerunfilecheck} package as a intermediate work-around and when using pdflatex compile
+at best at least once or twice more often then normal. 
 
 
 \subsection{References and target PDF version}
@@ -245,14 +255,15 @@ Feedback, contribuations and corrections are welcome!
 \end{tcolorbox}
 
 
-All examples should use the \cs{tagpdfsetup} key \PrintKeyName{uncompress} described in the next section so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
+All examples should use the \cs{DocumentMetadata} key \PrintKeyName{uncompress} 
+so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
 
 
 \section{Changes}
 \subsection{Changes in 0.3}
 
 
-In this version I improved the handling of alternative and actual text. See section~\ref{sec:alt}. This change meant that the package relied on the module \texttt{l3str-convert}.
+In this version I improved the handling of alternative and actual text. See section~\ref{sec:alt}. This change meant that the package relies on the module \texttt{l3str-convert}.
 
 I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
 
@@ -269,7 +280,7 @@ I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{
 \subsection{Changes in 0.6}
 
 
-\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attribute would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.
+\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attributes would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.
 
 
 \subsection{Changes in version 0.61}
@@ -412,6 +423,16 @@ Small bug fixes.
 
 \begin{itemize}
 \item The \texttt{alttext} key has been renamed to \texttt{alt}, the other key name exists as alias.
+
+\item The new command \|tag_struct_object_ref:n| allows to 
+   create the object reference of a structure.
+ \item a new key \texttt{parent} has been added 
+   to allow structures to choose their parent structure.
+ \item a new option \texttt{paratag} allows to change the tag name used for the
+   automatically tagged paragraphs.
+ \item the commands |\tag_start:|, |\tag_stop:n| and |\tag_start:n| alloq 
+    to stop and start tagging for example in trial typesetting.
+\item Small bug fixes.    
 \end{itemize}
 
 \subsection{Proof of concept: the tagging of the documentation itself}
@@ -434,11 +455,11 @@ Be aware that to create the tagged version a current lualatex-dev and a current 
 
 \tagpdfparaOn
 
-\section{Setup}
+\section{Loading}
 
 The package requires the new PDF management. With a current \LaTeX{} (2022-06-01 or newer)
-the PDF management is loaded if you use the \cs{DocumentMetadata} command.
-Tagging can then be activated by using the \texttt{testphase} key. The exact behaviour of
+the PDF management is loaded if you use the \cs{DocumentMetadata} command before \cs{documentclass}.
+The \texttt{tagpdf} package can then be loaded and activated by using the \texttt{testphase} key. The exact behaviour of
 the \texttt{testphase} key is documented in \texttt{documentmetadata-support-doc.pdf} which
 is part of the \texttt{latex-lab} bundle.
 
@@ -456,14 +477,18 @@ some text
 
 \minisec{Activation needed!}
 
+The package can also be loaded normally with |\usepackage| (but it is 
+still required to use \cs{DocumentMetadata} to load the pdfmanagement) but
+it will then -- apart from loading more packages and defining a lot of things -- not do much. You will have to \emph{activate} it with \verb+\tagpdfsetup+.
 
-When the package is loaded it will -- apart from loading more packages and defining a lot of things -- not do much. You will have to activate it with \verb+\tagpdfsetup+ or as shown above in \verb+\DocumentMetadata+.
+The pdfmanagement loaded with \cs{DocumentMetadata} will in any case load \texttt{tagpdf-base} a
+small package that provides no-op versions of the main tagging commands. 
 
 Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
 
 \begin{docCommand}{tag_if_active:TF}{}\end{docCommand}
 
-The check is true only if \emph{everything} is activated. In all other cases (also if tagging has been stopped locally) it will be false.
+The check is true only if \emph{everything} is activated. In all other cases (including if tagging has been stopped locally) it will be false.
 
 \subsection{Modes and package options}
 
