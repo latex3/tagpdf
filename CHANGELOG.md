@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2022-08-06]
 
 ### Fixed
  - \tag_get:n{struct_num} works now correctly in nested structures, and
@@ -15,6 +15,7 @@ this project uses date-based 'snapshot' version identifiers.
  - ref key can be used more than once and collect the values
  - alttext key has been renamed to alt, the older name is provided as alias
  - faster processing by avoiding type look up in pdftex and luatex
+ - more commands are now provided by tagpdf-base.sty
 
 ### Added
  - \tag_struct_object_ref:n to reference the object ref of a structure.
@@ -23,6 +24,7 @@ this project uses date-based 'snapshot' version identifiers.
    automatically tagged paragraphs.
  - \tag_start:, \tag_stop:n and \tag_start:n to stop and start tagging for
    example in trial typesetting.
+  
 
 ## [2022-05-29]
 
