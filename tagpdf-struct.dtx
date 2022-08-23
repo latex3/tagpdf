@@ -707,8 +707,9 @@
         \@@_struct_fill_kid_key:n { #1 }
         \@@_struct_get_dict_content:nN { #1 } \l_@@_tmpa_tl
         \exp_args:Nx
-          \pdf_object_write_dict:nx
+          \pdf_object_write:nnx
             { @@/struct/#1 }
+            {dict}
             {
               \l_@@_tmpa_tl
             }
@@ -1105,9 +1106,8 @@
         \@@_new_output_prop_handler:n {\int_eval:n { \c@g_@@_struct_abs_int }}
         \@@_seq_new:c  { g_@@_struct_kids_\int_eval:n { \c@g_@@_struct_abs_int }_seq}
         \exp_args:Ne
-          \pdf_object_new:nn
+          \pdf_object_new:n
             { @@/struct/\int_eval:n { \c@g_@@_struct_abs_int } }
-            { dict }
         \@@_prop_gput:cno
           { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
           { Type }

@@ -164,9 +164,9 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
   {
-    \pdf_object_new:nn {tag/NS/#1}{dict}
+    \pdf_object_new:n {tag/NS/#1}
     \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
-    \pdf_object_new:nn {@@/RoleMapNS/#1}{dict}
+    \pdf_object_new:n {@@/RoleMapNS/#1}
     \pdfdict_new:n     {g_@@_role/RoleMapNS_#1_dict}
     \pdfdict_gput:nnn
       {g_@@_role/Namespace_#1_dict}
@@ -221,7 +221,7 @@
     \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
     \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
     \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
-    \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/2022}{}
+    %\@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/2022}{}
     \exp_args:Nnx
     \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
   }

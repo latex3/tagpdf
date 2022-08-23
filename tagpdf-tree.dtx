@@ -87,7 +87,7 @@
 % \begin{macro}{@@/struct/0}
 % This is the object for the root object, the StructTreeRoot
 %    \begin{macrocode}
-\pdf_object_new:nn { @@/struct/0 }{ dict }
+\pdf_object_new:n { @@/struct/0 }
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
@@ -141,7 +141,7 @@
 % \begin{macro}{@@/tree/parenttree}
 % The object which will hold the parenttree
 %    \begin{macrocode}
-\pdf_object_new:nn { @@/tree/parenttree }{ dict }
+\pdf_object_new:n { @@/tree/parenttree }
 %    \end{macrocode}
 % \end{macro}
 % The ParentTree maps numbers to objects or (if the number represents a page)
@@ -285,7 +285,7 @@
         \@@_tree_fill_parenttree:
       }
     \tl_put_right:NV \l_@@_parenttree_content_tl\g_@@_parenttree_objr_tl
-    \pdf_object_write_dict:nx  { @@/tree/parenttree }
+    \pdf_object_write:nnx  { @@/tree/parenttree }{dict}
       {
         /Nums\c_space_tl [\l_@@_parenttree_content_tl]
       }
@@ -300,7 +300,7 @@
 % \begin{variable}{@@/tree/rolemap}
 % At first we reserve again an object.
 %    \begin{macrocode}
-\pdf_object_new:nn { @@/tree/rolemap }{ dict }
+\pdf_object_new:n { @@/tree/rolemap }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -310,7 +310,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_rolemap:
   {
-    \pdf_object_write_dict:nx  { @@/tree/rolemap }
+    \pdf_object_write:nnx  { @@/tree/rolemap }{dict}
       {
         \pdfdict_use:n{g_@@_role/RoleMap_dict}
       }
@@ -345,9 +345,10 @@
     \tl_if_empty:NF
       \l_@@_tmpa_tl
       {
-        \pdf_object_new:nn { @@/tree/classmap }{ dict }
-        \pdf_object_write_dict:nx
+        \pdf_object_new:n { @@/tree/classmap }
+        \pdf_object_write:nnx
           { @@/tree/classmap }
+          {dict}
           { \l_@@_tmpa_tl }
         \@@_prop_gput:cnx
           { g_@@_struct_0_prop }
@@ -373,14 +374,14 @@
       {
         \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
           {
-            \pdf_object_write_dict:nx {@@/RoleMapNS/##1}
+            \pdf_object_write:nnx {@@/RoleMapNS/##1}{dict}
               {
                 \pdfdict_use:n {g_@@_role/RoleMapNS_##1_dict}
               }
             \pdfdict_gput:nnx{g_@@_role/Namespace_##1_dict}
               {RoleMapNS}{\pdf_object_ref:n {@@/RoleMapNS/##1}}
           }
-        \pdf_object_write_dict:nx{tag/NS/##1}
+        \pdf_object_write:nnx{tag/NS/##1}{dict}
           {
              \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
           }

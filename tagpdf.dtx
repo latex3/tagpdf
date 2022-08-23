@@ -182,47 +182,43 @@
 %    \end{macrocode}
 % \section{Temporary code}
 % This is code which will be removed when proper support exists in LaTeX
+% It writes only dictionaries!
 % \subsection{Faster object writing}
-%
 %    \begin{macrocode}
 %<*package>
-\cs_if_free:NT \pdf_object_write_dict:nn
+\cs_if_free:NT \pdf_object_write:nnn
  {
-   \cs_set_eq:NN \pdf_object_write_dict:nn \pdf_object_write:nn
- }
-\cs_generate_variant:Nn \pdf_object_write_dict:nn {nx}
-
-\str_if_eq:VnT \c_sys_backend_str {pdftex}
- {
-   \cs_if_free:NT \__pdf_backend_object_write_dict:nn
+   \cs_new_protected:Npn \pdf_object_new:n #1
+     { \pdf_object_new:nn{#1}{dict} }
+   \cs_new_protected:Npn \pdf_object_write:nnn #1#2#3
+     {
+       \pdf_object_write:nn {#1}{#3}
+     }
+  \str_if_eq:VnT \c_sys_backend_str {pdftex}
     {
-      \cs_new_protected:Npn \__pdf_backend_object_write_dict:nn #1#2
-       {
+      \cs_set_protected:Npn \pdf_object_write:nnn #1#2#3
+        {
          \tex_immediate:D \tex_pdfobj:D
-         useobjnum ~
+          useobjnum ~
          \int_use:c
           { c__pdf_backend_object_ \tl_to_str:n {#1} _int }
-          { << ~ \exp_not:n {#2} ~ >> }
-      }
-     \cs_set_eq:NN \pdf_object_write_dict:nn \__pdf_backend_object_write_dict:nn
+          { << ~ \exp_not:n {#3} ~ >> }
+        }
     }
- }
-
-\str_if_eq:VnT \c_sys_backend_str {luatex}
- {
-   \cs_if_free:NT \__pdf_backend_object_write_dict:nn
+  \str_if_eq:VnT \c_sys_backend_str {luatex}
     {
-      \cs_new_protected:Npn \__pdf_backend_object_write_dict:nn #1#2
+      \cs_set_protected:Npn \pdf_object_write:nnn #1#2#3
         {
           \tex_immediate:D \tex_pdfextension:D obj ~
             useobjnum ~
             \int_use:c
             { c__pdf_backend_object_ \tl_to_str:n {#1} _int }
-            { << ~ \exp_not:n {#2} ~ >> }
+            { << ~ \exp_not:n {#3} ~ >> }
         }
-      \cs_set_eq:NN \pdf_object_write_dict:nn \__pdf_backend_object_write_dict:nn
-    }
+     }
  }
+\cs_generate_variant:Nn \pdf_object_write:nnn {nnx}
+
 %</package>
 %    \end{macrocode}
 
