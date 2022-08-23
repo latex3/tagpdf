@@ -184,8 +184,8 @@ So the name of the package is a bit wrong. As excuse I can only say that it is s
 
 \subsection{Engines and modes}
 
-The package theoretically with all engines, 
-But the xelatex and the latex-dvips-route are not much tested and they also don't support 
+The package theoretically with all engines,
+But the xelatex and the latex-dvips-route are not much tested and they also don't support
 real space glyphs. lualatex is the most powerful and safe modus, but pdflatex works ok too.
 
 The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
@@ -195,7 +195,7 @@ I implemented the generic mode first. Mostly because my tex skills are much bett
 While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode.
 
 The package uses quite a lot labels (in generic mode more than with luamode). At the begin it relied on the \pkg{zref} package, but switched now to a new experimental implementation for labels. The drawback of the new method is that they don't give yet good rerun messages if they have changed. I advise to use the \pkg{rerunfilecheck} package as a intermediate work-around and when using pdflatex compile
-at best at least once or twice more often then normal. 
+at best at least once or twice more often then normal.
 
 
 \subsection{References and target PDF version}
@@ -255,7 +255,7 @@ Feedback, contribuations and corrections are welcome!
 \end{tcolorbox}
 
 
-All examples should use the \cs{DocumentMetadata} key \PrintKeyName{uncompress} 
+All examples should use the \cs{DocumentMetadata} key \PrintKeyName{uncompress}
 so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
 
 
@@ -424,10 +424,10 @@ Small bug fixes.
 \begin{itemize}
 \item The \texttt{alttext} key has been renamed to \texttt{alt}, the other key name exists as alias.
 
-\item The new command |\tag_struct_object_ref:n| allows to 
+\item The new command |\tag_struct_object_ref:n| allows to
    create the object reference of a structure.
- 
-\item a new key \texttt{parent} has been added 
+
+\item a new key \texttt{parent} has been added
    to allow structures to choose their parent structure.
 
 \item a new option \texttt{paratag} allows to change the tag name used for the
@@ -436,7 +436,7 @@ Small bug fixes.
 \item the commands |\tag_start:|, |\tag_stop:n| and |\tag_start:n| allow
     to stop and start tagging for example in trial typesetting.
 
-\item Small bug fixes.    
+\item Small bug fixes.
 \end{itemize}
 
 \subsection{Proof of concept: the tagging of the documentation itself}
@@ -481,12 +481,12 @@ some text
 
 \minisec{Activation needed!}
 
-The package can also be loaded normally with |\usepackage| (but it is 
+The package can also be loaded normally with |\usepackage| (but it is
 still required to use \cs{DocumentMetadata} to load the pdfmanagement) but
 it will then -- apart from loading more packages and defining a lot of things -- not do much. You will have to \emph{activate} it with \verb+\tagpdfsetup+.
 
 The pdfmanagement loaded with \cs{DocumentMetadata} will in any case load \texttt{tagpdf-base} a
-small package that provides no-op versions of the main tagging commands. 
+small package that provides no-op versions of the main tagging commands.
 
 Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
 
@@ -1376,10 +1376,10 @@ The key-val list understands the following keys:
   See also section~\ref{sec:attributes}.
 
   \item[\PrintKeyName{title}]
-  This key allows to set the dictionary entry \texttt{/Title} in the structure object. The value is handled as verbatim string and hex encoded. Commands are not expanded.
+  This key allows to set the dictionary entry \texttt{/T} (for a title) in the structure object. The value is handled as verbatim string and hex encoded. Commands are not expanded.
 
   \item[\PrintKeyName{title-o}]
-  This key allows to set the dictionary entry \texttt{/Title} in the structure object.
+  This key allows to set the dictionary entry \texttt{/T} in the structure object.
   The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.
 
    \item[\PrintKeyName{AF}]
