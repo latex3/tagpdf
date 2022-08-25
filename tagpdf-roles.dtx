@@ -221,7 +221,8 @@
     \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
     \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
     \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
-    %\@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/2022}{}
+    \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
+    \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
     \exp_args:Nnx
     \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
   }
@@ -539,6 +540,57 @@
   }
 %    \end{macrocode}
 % \end{variable}
+
+% \begin{variable}
+%   {
+%     \c_@@_role_sttags_latex_dflt_clist,
+%     \c_@@_role_sttags_latex_book_clist,
+%     \c_@@_role_sttags_latex_dflt_to_pdfII_prop,
+%     \c_@@_role_sttags_latex_book_to_pdfII_prop,
+%   }
+% This will define the \LaTeX{} namespaces. This is work in progress
+% and can still change. The default namespace will contain most
+% of the mappings. The book namespace will contain needed extras like chapter.
+% A book class can then exchange the default name space of the relevant tags.
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_role_sttags_latex_dflt_clist
+ {
+   part,
+   section,
+   subsection,
+   subsubsection,
+   paragraph,
+   subparagraph
+ }
+\prop_const_from_keyval:Nn \c_@@_role_sttags_latex_dflt_to_pdfII_prop
+  {
+    part         = Part,
+    section      = H1,
+    subsection   = H2,
+    subsubsection= H3,
+    paragraph    = H4,
+    subparagraph = H5
+  }
+\clist_const:Nn \c_@@_role_sttags_latex_book_clist
+ {
+   chapter,
+   section,
+   subsection,
+   subsubsection,
+   paragraph,
+   subparagraph
+ }
+\prop_const_from_keyval:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
+  {
+    chapter      = H1,
+    section      = H2,
+    subsection   = H3,
+    subsubsection= H4,
+    paragraph    = H5,
+    subparagraph = H6
+  }
+%    \end{macrocode}
+% \end{variable}
 % We fill the structure tags in to the seq. We allow all pdf1.7 and pdf2.0,
 % and role map if needed the 2.0 tags.
 %    \begin{macrocode}
@@ -560,6 +612,18 @@
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
+%first book, so only chapter has default names space book.  
+\clist_map_inline:Nn \c_@@_role_sttags_latex_book_clist
+  {
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
+  }
+\clist_map_inline:Nn \c_@@_role_sttags_latex_dflt_clist
+  {
+    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex }
+  }
+
 \pdf_version_compare:NnT > {1.9}
   {
      \clist_map_inline:Nn \c_@@_role_sttags_mathml_clist
