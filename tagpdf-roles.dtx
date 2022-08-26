@@ -65,7 +65,7 @@
 % \item[\texttt{tag}] This is the name of the new type as it should then be used in \cs{tagstructbegin}.
 % \item[\texttt{namespace}] This is the namespace of the new type.
 %   The value should be a shorthand of a namespace.
-%   The allowed values are currently |pdf|, |pdf2|, |mathml| and |user|.
+%   The allowed values are currently |pdf|, |pdf2|, |mathml|,|latex|, |latex-book| and |user|.
 %   The default value (and recommended value for a new tag) is |user|.
 %   The public name of the user namespace is |tag/NS/user|. This can be used to reference
 %   the namespace e.g. in attributes.
@@ -543,9 +543,9 @@
 
 % \begin{variable}
 %   {
-%     \c_@@_role_sttags_latex_dflt_clist,
+%     \c_@@_role_sttags_latex_clist,
 %     \c_@@_role_sttags_latex_book_clist,
-%     \c_@@_role_sttags_latex_dflt_to_pdfII_prop,
+%     \c_@@_role_sttags_latex_to_pdfII_prop,
 %     \c_@@_role_sttags_latex_book_to_pdfII_prop,
 %   }
 % This will define the \LaTeX{} namespaces. This is work in progress
@@ -553,7 +553,7 @@
 % of the mappings. The book namespace will contain needed extras like chapter.
 % A book class can then exchange the default name space of the relevant tags.
 %    \begin{macrocode}
-\clist_const:Nn \c_@@_role_sttags_latex_dflt_clist
+\clist_const:Nn \c_@@_role_sttags_latex_clist
  {
    part,
    section,
@@ -562,7 +562,7 @@
    paragraph,
    subparagraph
  }
-\prop_const_from_keyval:Nn \c_@@_role_sttags_latex_dflt_to_pdfII_prop
+\prop_const_from_keyval:Nn \c_@@_role_sttags_latex_to_pdfII_prop
   {
     part         = Part,
     section      = H1,
@@ -612,13 +612,13 @@
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
-%first book, so only chapter has default names space book.  
+%first book, so only chapter has default names space book.
 \clist_map_inline:Nn \c_@@_role_sttags_latex_book_clist
   {
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
   }
-\clist_map_inline:Nn \c_@@_role_sttags_latex_dflt_clist
+\clist_map_inline:Nn \c_@@_role_sttags_latex_clist
   {
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex }
