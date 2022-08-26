@@ -1,0 +1,15 @@
+\DocumentMetadata{uncompress,testphase=phase-II,pdfversion=2.0}
+\input{regression-test}
+\documentclass{book}
+\begin{document}
+\START
+\tagpdfparaOff
+\tagstructbegin{tag=chapter}\tagmcbegin{tag=chapter}Chapter\tagmcend\tagstructend
+
+\tagstructbegin{tag=section}\tagmcbegin{tag=section}Section\tagmcend\tagstructend
+
+\tagstructbegin{tag=subsection}\tagmcbegin{tag=subsection}Subsection\tagmcend\tagstructend
+
+\tagstructbegin{tag=subsubsection}\tagmcbegin{tag=subsubsection}Subsubsection\tagmcend\tagstructend
+
+\end{document}

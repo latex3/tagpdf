@@ -562,6 +562,10 @@
    paragraph,
    subparagraph
  }
+\clist_const:Nn \c_@@_role_sttags_latex_book_clist
+ {
+   chapter
+ }
 \prop_const_from_keyval:Nn \c_@@_role_sttags_latex_to_pdfII_prop
   {
     part         = Part,
@@ -571,15 +575,6 @@
     paragraph    = H4,
     subparagraph = H5
   }
-\clist_const:Nn \c_@@_role_sttags_latex_book_clist
- {
-   chapter,
-   section,
-   subsection,
-   subsubsection,
-   paragraph,
-   subparagraph
- }
 \prop_const_from_keyval:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
   {
     chapter      = H1,
@@ -612,7 +607,6 @@
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
-%first book, so only chapter has default names space book.
 \clist_map_inline:Nn \c_@@_role_sttags_latex_book_clist
   {
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
@@ -692,6 +686,20 @@
        {
          \@@_role_add_tag:nn {#1}{#2}
        }
+     \prop_map_inline:Nn \c_@@_role_sttags_latex_to_pdfII_prop
+       {
+         \@@_role_add_tag:nn {#1}{#2}
+       }
+     \hook_gput_code:nnn {begindocument}{tagpdf}
+      {
+        \cs_if_exist:NT \chapter
+         {
+           \prop_map_inline:Nn\c_@@_role_sttags_latex_book_to_pdfII_prop
+             {
+               \@@_role_add_tag:nn {#1}{#2}
+             }
+         }
+      }
   }
 
 %    \end{macrocode}
@@ -726,6 +734,33 @@
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
 %    \end{macrocode}
 % \end{macro}
+% \subsection{Rolemap the latex namespace}
+% We setup both namespaces directly. The |latex| namespace is the default.
+% If \cs{chapter} is detected we switch the default name space for the relevant
+% tags.
+%    \begin{macrocode}
+\pdf_version_compare:NnT = {2.0}
+  {
+    \prop_map_inline:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
+     {
+        \@@_role_add_tag:nnnn { #1 }{latex-book}{#2}{pdf2}
+     }
+   \prop_map_inline:Nn \c_@@_role_sttags_latex_to_pdfII_prop
+     {
+       \@@_role_add_tag:nnnn { #1 }{latex}{#2}{pdf2}
+     }
+    \hook_gput_code:nnn {begindocument}{tagpdf}
+      {
+        \cs_if_exist:NT \chapter
+         {
+           \prop_map_inline:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
+             {
+               \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
+             }
+         }
+      }
+  }
+%    \end{macrocode}
 % \subsection{Key-val user interface}
 %  The user interface uses the key |add-new-tag|, which takes either a
 %  keyval list as argument, or a tag/role.
