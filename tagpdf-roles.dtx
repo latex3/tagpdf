@@ -555,12 +555,25 @@
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_role_sttags_latex_clist
  {
+%sectioning
    part,
    section,
    subsection,
    subsubsection,
    paragraph,
-   subparagraph
+   subparagraph,
+%lists
+   tableofcontents,
+   itemize,
+   enumerate,
+   description,
+   item,
+   itemlabel,
+   itembody,
+%footnotes
+   footnote,
+   footnotemark,
+   footnotelabel
  }
 \clist_const:Nn \c_@@_role_sttags_latex_book_clist
  {
@@ -573,7 +586,16 @@
     subsection   = H2,
     subsubsection= H3,
     paragraph    = H4,
-    subparagraph = H5
+    subparagraph = H5,
+    itemize      = L,
+    enumerate    = L,
+    description  = L,
+    item         = LI,
+    itemlabel    = Lbl,
+    itembody     = LBody,
+    footnote     = FENote,
+    footnotemark = Lbl,
+    footnotelabel= Lbl
   }
 \prop_const_from_keyval:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
   {
