@@ -363,7 +363,7 @@
 % Namespaces are only relevant for pdf2.0 but we don't care, it doesn't harm.
 % \begin{variable}{@@/tree/namespaces}
 %    \begin{macrocode}
-\pdf_object_new:nn{ @@/tree/namespaces }{array}
+\pdf_object_new:n { @@/tree/namespaces }
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\@@_tree_write_namespaces:}
@@ -386,7 +386,7 @@
              \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
           }
       }
-    \pdf_object_write:nx {@@/tree/namespaces} %array
+    \pdf_object_write:nnx {@@/tree/namespaces}{array}
       {
         \prop_map_tokens:Nn \g_@@_role_NS_prop{\use_ii:nn}
       }
