@@ -924,7 +924,7 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
     elseif n.id == VLIST then -- enter the vlist
      mcopen,mcpagecnt,mccntprev,mctypeprev=
       ltx.@@.func.mark_page_elements (n,mcpagecnt,mccntprev,mcopen,"INTERNAL VLIST",mctypeprev)
-    elseif n.id == GLUE then       -- at glue real space chars are inserted, but this has
+    elseif n.id == GLUE and not n.leader then -- at glue real space chars are inserted, but this has
                                    -- been done if the previous shipout wandering, so here it is ignored
     elseif n.id == LOCAL_PAR then  -- local_par is ignored
     elseif n.id == PENALTY then    -- penalty is ignored
