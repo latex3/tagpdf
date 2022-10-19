@@ -1,0 +1,16 @@
+% !Mode:: "TeX:UTF-8:Main"
+
+\DocumentMetadata{testphase=phase-II,pdfversion=2.0}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+\START
+some text\tagmcend 
+ \tagstructbegin{tag=Span} 
+   \tagstructbegin{tag = L}
+     \tagmcbegin{tag=Span}
+      more text
+
+\AddToHook{tagpdf/finish/before}{\ShowTagging{struct-stack}}
+\end{document}

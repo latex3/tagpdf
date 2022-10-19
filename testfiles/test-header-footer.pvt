@@ -1,13 +1,11 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
-\ExplSyntaxOff
-\IfFormatAtLeastTF{2022-06-01}{}
-  {\RequirePackage{pdfmanagement-testphase}}
-\DocumentMetadata{
+\ExplSyntaxOff 
+\DocumentMetadata{ 
    pdfversion=2.0,
    testphase={tagpdf},
    debug={para,uncompress}
-  ,lang=de-DE}
+  ,lang=de-DE,xmp=false}
 \input{regression-test}
 \documentclass{scrartcl}
 \usepackage{scrlayer-scrpage}
