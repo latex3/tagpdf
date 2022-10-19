@@ -2,6 +2,8 @@
 \DocumentMetadata{xmp=false}
 \input{regression-test}
 \documentclass{article}
+\stockheight   = 297mm
+\stockwidth    = 210mm
 \usepackage{tagpdf,iftex}
 \tagpdfsetup{activate}
 \iftutex
@@ -43,5 +45,6 @@ Etwas unmarkierter Text. %isn't read by voice software
  \tagmcbegin{tag=P,alt=\myalttext,actualtext=\myactualtext}
   Test
  \tagmcend
+\tagstructend
 \tagstructend
 \end{document}

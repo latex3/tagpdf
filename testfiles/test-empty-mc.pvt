@@ -1,6 +1,13 @@
 \DocumentMetadata{xmp=false}
 \input{regression-test}
 \documentclass{book}
+\makeatletter
+\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
+\@ifundefined{stockheight}{\newdimen\stockheight}{}
+\stockheight   = 297mm
+\stockwidth    = 210mm
+\makeatother
+
 \usepackage{tagpdf}
 \pagestyle{empty}
 \tagpdfsetup{tabsorder=structure,uncompress,activate-all,interwordspace=true}
