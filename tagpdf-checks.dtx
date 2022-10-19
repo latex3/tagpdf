@@ -405,6 +405,19 @@
   { closing~structure~#1~tagged~\prop_item:cn{g_@@_struct_#1_prop}{S} }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{tree-struct-still-open}
+% Message issued at the end if there are beside Root other
+% open structures on the stack.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {tree-struct-still-open}
+  { 
+    There~are~still~open~structures~on~the~stack!\\
+    The~stack~contains~\seq_use:Nn\g_@@_struct_tag_stack_seq{,}.\\
+    The~structures~are~automatically~closed,\\
+    but~their~nesting~can~be~wrong.  
+  }
+%    \end{macrocode}
+% \end{macro} 
 %
 % \subsection{Attributes}
 % Not much yet, as attributes aren't used so much.

@@ -81,6 +81,21 @@
       }
   }
 %    \end{macrocode}
+% \subsection{Check structure}
+% \begin{macro}{\@@_tree_final_checks:}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_final_checks:
+ {
+   \int_compare:nNnF {\seq_count:N\g_@@_struct_stack_seq}={1}
+    {
+      \msg_warning:nn {tag}{tree-struct-still-open}
+      \int_step_inline:nnn{2}{\seq_count:N\g_@@_struct_stack_seq}
+       {\tag_struct_end:}
+    }
+ }
+%    \end{macrocode}
+% \end{macro}
+% 
 % \subsection{Catalog: MarkInfo and StructTreeRoot}
 % The StructTreeRoot and the MarkInfo entry must be added to the catalog.
 % We do it late so that we can win, but before the pdfmanagement hook.
@@ -404,6 +419,7 @@
     \bool_if:NT\g_@@_active_tree_bool
       {
         \hook_use:n {tagpdf/finish/before}
+        \@@_tree_final_checks:
         \@@_tree_write_parenttree:
         \@@_tree_write_rolemap:
         \@@_tree_write_classmap:
