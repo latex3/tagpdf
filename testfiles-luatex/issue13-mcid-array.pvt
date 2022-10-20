@@ -1,6 +1,12 @@
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{}
-\RequirePackage{tagpdf-regressiontest}
+\DocumentMetadata{xmp=false} 
+\input{regression-test} 
+\makeatletter
+\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
+\@ifundefined{stockheight}{\newdimen\stockheight}{}
+\stockheight   = 297mm
+\stockwidth    = 210mm
+\makeatother
+
 \documentclass{article}
 \usepackage{tagpdf}
 
