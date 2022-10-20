@@ -63,7 +63,25 @@ The sequence \g__tag_role_tags_seq contains the items (without outer braces):
 >  {Sub}
 >  {Em}
 >  {Strong}
->  {Artifact}.
+>  {Artifact}
+>  {chapter}
+>  {part}
+>  {section}
+>  {subsection}
+>  {subsubsection}
+>  {paragraph}
+>  {subparagraph}
+>  {tableofcontents}
+>  {itemize}
+>  {enumerate}
+>  {description}
+>  {item}
+>  {itemlabel}
+>  {itembody}
+>  {footnote}
+>  {footnotemark}
+>  {footnotelabel}
+>  {title}.
 <recently read> }
 l. ...\__tag_seq_show:N \g__tag_role_tags_seq
 tagpdf: lua sequence array g__tag_role_tags_seq
@@ -129,6 +147,24 @@ tagpdf: [59] => Sub
 tagpdf: [60] => Em
 tagpdf: [61] => Strong
 tagpdf: [62] => Artifact
+tagpdf: [63] => chapter
+tagpdf: [64] => part
+tagpdf: [65] => section
+tagpdf: [66] => subsection
+tagpdf: [67] => subsubsection
+tagpdf: [68] => paragraph
+tagpdf: [69] => subparagraph
+tagpdf: [70] => tableofcontents
+tagpdf: [71] => itemize
+tagpdf: [72] => enumerate
+tagpdf: [73] => description
+tagpdf: [74] => item
+tagpdf: [75] => itemlabel
+tagpdf: [76] => itembody
+tagpdf: [77] => footnote
+tagpdf: [78] => footnotemark
+tagpdf: [79] => footnotelabel
+tagpdf: [80] => title
 The property list \g__tag_role_tags_prop contains the pairs (without outer
 braces):
 >  {Document}  =>  {1}
@@ -190,7 +226,25 @@ braces):
 >  {FENote}  =>  {58}
 >  {Sub}  =>  {59}
 >  {Em}  =>  {60}
->  {Strong}  =>  {61}.
+>  {Strong}  =>  {61}
+>  {chapter}  =>  {63}
+>  {part}  =>  {64}
+>  {section}  =>  {65}
+>  {subsection}  =>  {66}
+>  {subsubsection}  =>  {67}
+>  {paragraph}  =>  {68}
+>  {subparagraph}  =>  {69}
+>  {tableofcontents}  =>  {70}
+>  {itemize}  =>  {71}
+>  {enumerate}  =>  {72}
+>  {description}  =>  {73}
+>  {item}  =>  {74}
+>  {itemlabel}  =>  {75}
+>  {itembody}  =>  {76}
+>  {footnote}  =>  {77}
+>  {footnotemark}  =>  {78}
+>  {footnotelabel}  =>  {79}
+>  {title}  =>  {80}.
 <recently read> }
 l. ...\__tag_prop_show:N \g__tag_role_tags_prop
 tagpdf: lua property table g__tag_role_tags_prop
@@ -254,6 +308,24 @@ tagpdf: [Title] => 57
 tagpdf: [WP] => 38
 tagpdf: [WT] => 37
 tagpdf: [Warichu] => 36
+tagpdf: [chapter] => 63
+tagpdf: [description] => 73
+tagpdf: [enumerate] => 72
+tagpdf: [footnote] => 77
+tagpdf: [footnotelabel] => 79
+tagpdf: [footnotemark] => 78
+tagpdf: [item] => 74
+tagpdf: [itembody] => 76
+tagpdf: [itemize] => 71
+tagpdf: [itemlabel] => 75
+tagpdf: [paragraph] => 68
+tagpdf: [part] => 64
+tagpdf: [section] => 65
+tagpdf: [subparagraph] => 69
+tagpdf: [subsection] => 66
+tagpdf: [subsubsection] => 67
+tagpdf: [tableofcontents] => 70
+tagpdf: [title] => 80
 > \test=macro:
 ->H5.
 l. ...\show\test

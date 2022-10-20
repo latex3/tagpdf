@@ -2,8 +2,13 @@
 \DocumentMetadata{xmp=false}
 \input{regression-test}
 \documentclass{article}
+\makeatletter
+\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
+\@ifundefined{stockheight}{\newdimen\stockheight}{}
 \stockheight   = 297mm
 \stockwidth    = 210mm
+\makeatother
+
 \usepackage{tagpdf,iftex}
 \tagpdfsetup{activate}
 \iftutex
