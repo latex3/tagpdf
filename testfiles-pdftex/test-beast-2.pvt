@@ -1,12 +1,7 @@
-\RequirePackage{pdfmanagement-testphase}
-\ExplSyntaxOn
-\sys_gset_rand_seed:n{1000}
-\ExplSyntaxOff
-\DeclareDocumentMetadata{pdfversion=2.0,uncompress,testphase={tagpdf},
-  activate=tagging,
-  }
-\RequirePackage{tagpdf-regressiontest}
+\ExplSyntaxOn \sys_gset_rand_seed:n{1000} \ExplSyntaxOff 
 
+\DocumentMetadata{pdfversion=2.0,testphase={phase-II},xmp=false}  
+\input{regression-test}
 
 \documentclass[12pt]{article}
 \usepackage[paperheight=24\baselineskip,

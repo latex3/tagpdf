@@ -1,6 +1,15 @@
-\DocumentMetadata{uncompress,testphase=phase-II,pdfversion=2.0}
+\ExplSyntaxOn \sys_gset_rand_seed:n{1000} \ExplSyntaxOff 
+
+\DocumentMetadata{xmp=false,testphase=phase-II,pdfversion=2.0}
 \input{regression-test}
 \documentclass{article}
+\makeatletter
+\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
+\@ifundefined{stockheight}{\newdimen\stockheight}{}
+\stockheight   = 297mm
+\stockwidth    = 210mm
+\makeatother
+
 \begin{document}
 \START
 \tagpdfparaOff

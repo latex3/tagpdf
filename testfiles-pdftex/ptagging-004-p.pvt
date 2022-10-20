@@ -1,6 +1,6 @@
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{uncompress}
-\RequirePackage{tagpdf-regressiontest}
+\DocumentMetadata{xmp=false} 
+\input{regression-test}
+
 \documentclass[12pt,a4paper,twocolumn]{article}
 
 
@@ -66,4 +66,3 @@ Hello Hello and a few more hellos to fill the line.\footnote{AAA
 halli hallo
 
 \end{document}
-

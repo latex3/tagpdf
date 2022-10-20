@@ -1,6 +1,6 @@
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{}
-\RequirePackage{tagpdf-regressiontest}
+\DocumentMetadata{xmp=false} 
+\input{regression-test}
+
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
