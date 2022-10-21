@@ -1684,8 +1684,12 @@ syntax |section/H1| should in most cases do the right thing.
 
 \begin{description}
 \item[\PrintKeyName{tag}] This is the name of the new type as it should then be used in \cs{tagstructbegin}.
-\item[\PrintKeyName{namespace}] This is the namespace of the new type. The value should be a shorthand of a namespace. The allowed values are currently |pdf|, |pdf2|, |mathml| and |user|. The default value (and recommended value for a new tag) is |user|. The public name of the user namespace is |tag/NS/user|. This can be used to reference
-    the namespace e.g. in attributes.
+\item[\PrintKeyName{tag-namespace}] This is the namespace of the new type. 
+    The value should be a shorthand of a namespace. The allowed values are 
+    currently |pdf|, |pdf2|, |mathml| and |user|. The default value (and 
+    recommended value for a new tag) is |user|. The public name of the user 
+    namespace is |tag/NS/user|. This can be used to reference the namespace 
+    e.g. in attributes. 
 \item[\PrintKeyName{role}] This is the type the tag should be mapped too. In a PDF 1.7 or earlier this is normally a type from the |pdf| set, in PDF 2.0 from the |pdf|, |pdf2| or |mathml| set. It can also be a user type, or a still unknown type. The PDF format allows mapping to be done transitively. But you should be aware that tagpdf can't (or more precisely won't) check such unusual role mapping. It lies in the responsability of the author to ensure here that every type is correctly role mapped.
 \item[\PrintKeyName{role-namespace}] If the role is a known type the default value is the default namespace: |pdf2| for all types in this set, |pdf| for the type which exist only in PDF 1.7,  |mathml| for the MathML types, and  for previously defined user types whatever namespace has been set there. If the role is unknown, |user| is used and the code hopes that the type will be defined later.
  \item[unknown key] An unknown key is interpreted as a |tag/role|, this preserves the old syntax. So this two calls are equivalent:
@@ -2025,4 +2029,3 @@ This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number tr
 
 \end{document}
 %http://msf.mathmlcloud.org/file_formats/8 %sample \PDF{} for math
-
