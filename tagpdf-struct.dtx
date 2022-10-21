@@ -857,7 +857,7 @@
     parent .default:n    = {-1},
     tag   .code:n        = % S property
       {
-        \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:No\g__tag_role_tags_NS_prop{#1}}
+        \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:Ne\g__tag_role_tags_NS_prop{#1}}
         \tl_gset:Nx \g_@@_struct_tag_tl    { \seq_item:Nn\l_@@_tmpa_seq {1} }
         \tl_gset:Nx \g_@@_struct_tag_NS_tl { \seq_item:Nn\l_@@_tmpa_seq {2} }
         \@@_check_structure_tag:N \g_@@_struct_tag_tl
