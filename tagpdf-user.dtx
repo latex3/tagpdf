@@ -559,15 +559,17 @@
 %  Probably one should add some checks if we are already in a paragraph.
 %
 %
-%  \begin{macro}{\l_@@_para_bool,\l_@@_para_show_bool,\g_@@_para_int}
+%  \begin{macro}{\l_@@_para_bool,\l_@@_para_show_bool,\g_@@_para_int,\l_@@_para_tag_default_tl}
 %  At first some variables.
 %    \begin{macrocode}
 \bool_new:N \l_@@_para_bool
 \bool_new:N \l_@@_para_show_bool
 \int_new:N  \g_@@_para_begin_int
 \int_new:N  \g_@@_para_end_int
+\tl_new:N   \l_@@_para_tag_default_tl
+\tl_set:Nn  \l_@@_para_tag_default_tl { P }
 \tl_new:N   \l_@@_para_tag_tl
-\tl_set:Nn  \l_@@_para_tag_tl { P }
+\tl_set:Nn  \l_@@_para_tag_tl { \l_@@_para_tag_default_tl }
 %    \end{macrocode}
 % \end{macro}
 %
