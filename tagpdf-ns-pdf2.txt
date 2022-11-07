@@ -1,53 +1,51 @@
 %  {pdf2}  {http://iso.org/pdf2/ssn}{}
-Document,   %A complete document. This is the root element of any structure tree containing multiple parts or multiple articles.
-Part,       %A large-scale division of a document.
-Sect,       %A container for grouping related content elements.
-Div,        %A generic block-level element or group of elements
-Caption,    %A brief portion of text describing a table or figure.
-Index,
-NonStruct,  %
-H,
-H1,
-H2,
-H3,
-H4,
-H5,
-H6,
-P,
-L,           %list
-LI,          %list item (around label and list item body)
-Lbl,         %list label
-LBody,       %list item body
-Table,
-TR,          %table row
-TH,          %table header cell
-TD,          %table data cell
-THead,       %table header (n rows)
-TBody,       %table rows
-TFoot,       %table footer
-Span,        %generic inline marker
-Link,        %
-Annot,
-Figure,
-Formula,
-Form,
-Ruby,
-RB,
-RT,
-Warichu,
-WT,
-WP,
-Artifact, 
-% only pdf2
-DocumentFragment = Art
-,Aside = Note
-,H7 = H6
-,H8 = H6
-,H9 = H6
-,H10 = H6
-,Title = P
-,FENote = Note
-,Sub = Span
-,Em = Span
-,Strong = Span
-,Artifact = Span
+Document,,,   
+Part,,,       
+Sect,,,       
+Div,,,        
+Caption,,,    
+Index,,,
+NonStruct,,,  
+H,,,
+H1,,,
+H2,,,
+H3,,,
+H4,,,
+H5,,,
+H6,,,
+P,,,
+L,,,           
+LI,,,          
+Lbl,,,         
+LBody,,,       
+Table,,,
+TR,,,          
+TH,,,          
+TD,,,          
+THead,,,       
+TBody,,,       
+TFoot,,,       
+Span,,,        
+Link,,,        
+Annot,,,
+Figure,,,
+Formula,,,
+Form,,,
+Ruby,,,
+RB,,,
+RT,,,
+Warichu,,,
+WT,,,
+WP,,,
+Artifact,,, 
+DocumentFragment,Art,    pdf, %rest only pdf2
+Aside,           Note,   pdf,
+H7,              H6,     pdf,
+H8,              H6,     pdf, 
+H9,              H6,     pdf,
+H10,             H6,     pdf,
+Title,           P,      pdf,
+FENote,          Note,   pdf,
+Sub,             Span,   pdf,
+Em,              Span,   pdf,
+Strong,          Span,   pdf, 

@@ -1,0 +1,16 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\documentclass{article}
+
+\begin{document}
+
+\ExplSyntaxOn 
+\cs_new_protected:Npn \__tag_read_ns:n #1 {} 
+
+\ior_open:Nn \g_tmpa_ior {tagpdf-ns-pdf2.txt} 
+
+\ior_map_inline:Nn \g_tmpa_ior {\tl_show:n{#1}} 
+
+
+\ExplSyntaxOff 
+ 
+\end{document}
