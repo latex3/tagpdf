@@ -3,8 +3,10 @@ Don't change this file in any respect.
 luatex
 Package tagpdf Info: mapping tag section to role H1
 Package tagpdf Info: adding new tag mn
+tagpdf: Add mn 79
 Package tagpdf Warning: tag mn has no role assigned
 Package tagpdf Info: adding new tag wrongtag
+tagpdf: Add wrongtag 80
 Package tagpdf Warning: role HX is not known
 The global dictionary 'g__tag_role/RoleMap_dict' contains the pairs (without
 outer braces):
@@ -39,8 +41,6 @@ outer braces):
 <recently read> }
 l. ...\pdfdict_show:n {g__tag_role/RoleMap_dict}
 > \testname=macro:
-->81.
+->.
 l. ...\show\testname
-> \testnum=macro:
-->mn.
-l. ...\show\testnum
+79

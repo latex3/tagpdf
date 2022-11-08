@@ -3,12 +3,15 @@ Don't change this file in any respect.
 Package tagpdf Info: adding new tag section
 Package tagpdf Info: mapping tag section to role H1
 Package tagpdf Info: adding new tag wrongsection
+tagpdf: Add wrongsection 270
 Package tagpdf Info: mapping tag wrongsection to role H1
 Package tagpdf Info: adding new tag var
+tagpdf: Add var 271
 Package tagpdf Info: mapping tag var to role mo
 Package tagpdf Info: adding new tag mn
 Package tagpdf Warning: role blub is not known
 Package tagpdf Info: adding new tag space
+tagpdf: Add space 272
 Package tagpdf Warning: role x space is not known
 luatex
 The global dictionary 'g__tag_role/RoleMap_dict' is empty
@@ -29,8 +32,6 @@ The global dictionary 'g__tag_role/RoleMapNS_mathml_dict' contains the pairs
 <recently read> }
 l. ......t_show:n {g__tag_role/RoleMapNS_mathml_dict}
 > \testname=macro:
-->296.
+->.
 l. ...\show\testname
-> \testnum=macro:
-->mn.
-l. ...\show\testnum
+186

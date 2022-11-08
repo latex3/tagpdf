@@ -474,8 +474,8 @@ ltx.@@.func.alloctag = @@_alloctag
 %    \begin{macrocode}
 local @@_get_num_from =
  function (tag)
-  if ltx.@@.tables["g_@@_role_tags_prop"][tag] then
-    a= ltx.@@.tables["g_@@_role_tags_prop"][tag]
+  if ltx.@@.tables.role_tag_attribute[tag] then
+    a= ltx.@@.tables.role_tag_attribute[tag]
   else
     a= -1
   end
@@ -507,8 +507,8 @@ end
 %    \begin{macrocode}
 local @@_get_tag_from =
  function  (num)
-  if ltx.@@.tables["g_@@_role_tags_seq"][num] then
-   a = ltx.@@.tables["g_@@_role_tags_seq"][num]
+  if ltx.@@.tables.role_attribute_tag[num] then
+   a = ltx.@@.tables.role_attribute_tag[num]
   else
    a= "UNKNOWN"
   end

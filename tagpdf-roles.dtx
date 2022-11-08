@@ -108,11 +108,14 @@
    \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
     {
       \lua_now:e { ltx.@@.func.alloctag ('#1') }
-    }   
+      \prop_gput:Nnn \g_@@_role_tags_prop {#1}{}
+    }      
  }
  {   
   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
-    {}
+    {
+      \prop_gput:Nnn \g_@@_role_tags_prop {#1}{} 
+    }
  }      
 %    \end{macrocode}
 % \end{macro}
@@ -123,7 +126,7 @@
 % \begin{variable}{\g_@@_role_tags_seq,\g_@@_role_tags_prop}
 %    \begin{macrocode}
 %<*package>
-\@@_seq_new:N  \g_@@_role_tags_seq  %to get names (type/NS) from numbers
+%\@@_seq_new:N  \g_@@_role_tags_seq  %to get names (type/NS) from numbers
 \@@_prop_new:N \g_@@_role_tags_prop %to get numbers  from names (type/NS)
 %    \end{macrocode}
 % \end{variable}
@@ -640,31 +643,31 @@
 \clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
   {
     \@@_role_alloctag:n {#1}
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_only_pdf_clist
   {
     \@@_role_alloctag:n {#1}
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_only_pdfII_clist
   {
     \@@_role_alloctag:n {#1}
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_latex_book_clist
   {
     \@@_role_alloctag:n {#1}
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_latex_clist
   {
     \@@_role_alloctag:n {#1}
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex }
   }
 
@@ -673,7 +676,7 @@
      \clist_map_inline:Nn \c_@@_role_sttags_mathml_clist
        {
          \@@_role_alloctag:n {#1}
-         \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+         %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ mathml }
        }
   }
@@ -681,14 +684,14 @@
 % For luatex and the MC we need a name/number relation.
 % The name space is not relevant.
 %    \begin{macrocode}
-\int_step_inline:nnnn { 1 }{ 1 }{ \seq_count:N \g_@@_role_tags_seq }
-  {
-    \@@_prop_gput:Nxn \g_@@_role_tags_prop
-      {
-        \seq_item:Nn \g_@@_role_tags_seq  { #1 }
-      }
-      { #1 }
-  }
+%\int_step_inline:nnnn { 1 }{ 1 }{ \seq_count:N \g_@@_role_tags_seq }
+%  {
+%    \@@_prop_gput:Nxn \g_@@_role_tags_prop
+%      {
+%        \seq_item:Nn \g_@@_role_tags_seq  { #1 }
+%      }
+%      { #1 }
+%  }
 %    \end{macrocode}
 %
 % \subsection{Adding new tags and rolemapping}
@@ -715,10 +718,10 @@
             \msg_info:nnn { tag }{new-tag}{#1}
           }
          \@@_role_alloctag:n {#1}  
-         \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+         %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
          \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
            {
-             \seq_count:N \g_@@_role_tags_seq
+             %\seq_count:N \g_@@_role_tags_seq
            }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ user }
       }
@@ -767,11 +770,11 @@
       {
         \msg_info:nnn { tag }{new-tag}{#1}
       }
-    \@@_role_alloctag:n {#1}  
-    \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+    \@@_role_alloctag:n {#1}
+    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
        {
-         \seq_count:N \g_@@_role_tags_seq
+         %\seq_count:N \g_@@_role_tags_seq
        }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ #2 }
     \@@_check_add_tag_role:nn {#1}{#3}
