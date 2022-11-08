@@ -98,7 +98,24 @@
 % to know the default name space. 
 % The number is only relevant in lua and only for the MC type, 
 % tags with the same name from different names spaces can have the same number.
-% So we store this only in 
+% So we store this only in lua.
+% \begin{macro}{\@@_role_alloctag:n}
+% By default this command does current nothing. In the 
+% lua backend it will record the attribute value.
+%    \begin{macrocode}
+\sys_if_engine_luatex:TF
+ {
+   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
+    {
+      \lua_now:e { ltx.@@.func.alloctag ('#1') }
+    }   
+ }
+ {   
+  \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
+    {}
+ }      
+%    \end{macrocode}
+% \end{macro}
 % 
 % Testing a name is easier with a prop, while accessing with a number is
 % better done with a seq. So both are used and must be kept in sync if a new
@@ -622,26 +639,31 @@
 
 \clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
   {
+    \@@_role_alloctag:n {#1}
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_only_pdf_clist
   {
+    \@@_role_alloctag:n {#1}
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_only_pdfII_clist
   {
+    \@@_role_alloctag:n {#1}
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_latex_book_clist
   {
+    \@@_role_alloctag:n {#1}
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
   }
 \clist_map_inline:Nn \c_@@_role_sttags_latex_clist
   {
+    \@@_role_alloctag:n {#1}
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex }
   }
@@ -650,6 +672,7 @@
   {
      \clist_map_inline:Nn \c_@@_role_sttags_mathml_clist
        {
+         \@@_role_alloctag:n {#1}
          \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ mathml }
        }
@@ -691,6 +714,7 @@
           {
             \msg_info:nnn { tag }{new-tag}{#1}
           }
+         \@@_role_alloctag:n {#1}  
          \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
          \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
            {
@@ -743,6 +767,7 @@
       {
         \msg_info:nnn { tag }{new-tag}{#1}
       }
+    \@@_role_alloctag:n {#1}  
     \@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
     \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
        {

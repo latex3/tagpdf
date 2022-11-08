@@ -146,6 +146,7 @@
  }
 %    \end{macrocode}
 % \end{macro}
+% 
 %    \begin{macrocode}
 %</luatex>
 %    \end{macrocode}
@@ -282,6 +283,7 @@ ltx.@@.struct   = ltx.@@.struct or  { } -- struct data
 ltx.@@.tables   = ltx.@@.tables or  { } -- tables created with new prop and new seq.
                                         -- wasn't a so great idea ...
                                         -- g_@@_role_tags_seq used by tag<-> is in this tables!
+                                        -- used for pure lua tables too now!
 ltx.@@.page     = ltx.@@.page   or  { } -- page data, currently only i->{0->mcnum,1->mcnum,...}
 ltx.@@.trace    = ltx.@@.trace  or  { } -- show commands
 ltx.@@.func     = ltx.@@.func   or  { } -- functions
@@ -437,7 +439,28 @@ local function @@_get_mathsubtype  (mathnode)
 end
 %    \end{macrocode}
 % \end{macro}
-
+%
+% \begin{variable}{ltx.@@.tables.role_tag_attribute,ltx.@@.tables.role_tag_attribute}
+% The first is a table with key a tag and value a number (the attribute)
+% The second is an array with the attribute value as key.
+%    \begin{macrocode}
+ltx.@@.tables.role_tag_attribute = {}
+ltx.@@.tables.role_attribute_tag = {}
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{ltx.@@.func.alloctag}
+%    \begin{macrocode}
+local @@_alloctag = 
+ function (tag)
+   if not ltx.@@.tables.role_tag_attribute[tag] then    
+    table.insert(ltx.@@.tables.role_attribute_tag,tag)
+    ltx.@@.tables.role_tag_attribute[tag]=#ltx.@@.tables.role_attribute_tag
+    @@_log  ("Add "..tag.." "..ltx.@@.tables.role_tag_attribute[tag],3)    
+   end 
+ end
+ltx.@@.func.alloctag = @@_alloctag
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}
 %   {
 %    @@_get_num_from,
@@ -479,7 +502,7 @@ end
 %   }
 % These functions are the opposites to the previous function:
 % they take as argument a number (the attribute value) and return the string |tag|.
-% The first function outputs the number for lua, while the |output| function
+% The first function outputs the string for lua, while the |output| function
 % outputs to tex.
 %    \begin{macrocode}
 local @@_get_tag_from =
