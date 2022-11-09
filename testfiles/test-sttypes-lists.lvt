@@ -1,6 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\IfFormatAtLeastTF{2022-06-01}{}
-  {\RequirePackage{pdfmanagement-testphase}}
+
+
 \DocumentMetadata{}
 \input{regression-test}
 \documentclass{scrartcl}
@@ -26,12 +26,11 @@
 \ExplSyntaxOn
 \iow_log:x { \c_sys_engine_str }
 
-\__tag_prop_show:N \g__tag_role_tags_prop
+\__tag_prop_show:N \g__tag_role_tags_NS_prop
 
 
-\edef\test{\prop_item:cn {g__tag_role_tags_prop}{H1}}
+\edef\test{\prop_item:cn {g__tag_role_tags_NS_prop}{H1}}
 \show\test
 \ExplSyntaxOff
 
 \END
-

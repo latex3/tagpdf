@@ -108,13 +108,13 @@
    \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
     {
       \lua_now:e { ltx.@@.func.alloctag ('#1') }
-      \prop_gput:Nnn \g_@@_role_tags_prop {#1}{}
+      %\prop_gput:Nnn \g_@@_role_tags_prop {#1}{}
     }      
  }
  {   
   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
     {
-      \prop_gput:Nnn \g_@@_role_tags_prop {#1}{} 
+      %\prop_gput:Nnn \g_@@_role_tags_prop {#1}{} 
     }
  }      
 %    \end{macrocode}
@@ -127,7 +127,7 @@
 %    \begin{macrocode}
 %<*package>
 %\@@_seq_new:N  \g_@@_role_tags_seq  %to get names (type/NS) from numbers
-\@@_prop_new:N \g_@@_role_tags_prop %to get numbers  from names (type/NS)
+% \@@_prop_new:N \g_@@_role_tags_prop %to get numbers  from names (type/NS)
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\g_@@_role_tags_NS_prop}
@@ -711,7 +711,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
   {
-    \prop_if_in:NnF \g_@@_role_tags_prop {#1}
+    \prop_if_in:NnF \g_@@_role_tags_NS_prop {#1}
       {
         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
           {
@@ -719,10 +719,10 @@
           }
          \@@_role_alloctag:n {#1}  
          %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-         \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
-           {
-             %\seq_count:N \g_@@_role_tags_seq
-           }
+%         \@@_prop_gput:Nnx \g_@@_role_tags_NS_prop    { #1 }
+%           {
+%             %\seq_count:N \g_@@_role_tags_seq
+%           }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ user }
       }
     \@@_check_add_tag_role:nn {#1}{#2}
@@ -772,10 +772,10 @@
       }
     \@@_role_alloctag:n {#1}
     %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-    \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
-       {
-         %\seq_count:N \g_@@_role_tags_seq
-       }
+%    \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
+%       {
+%         %\seq_count:N \g_@@_role_tags_seq
+%       }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ #2 }
     \@@_check_add_tag_role:nn {#1}{#3}
     \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}

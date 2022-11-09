@@ -575,7 +575,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_structure_tag:N #1
   {
-    \prop_if_in:NoF \g_@@_role_tags_prop {#1}
+    \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
       {
         \msg_warning:nnx { tag } {role-unknown-tag} {#1}
       }
@@ -634,7 +634,7 @@
         \msg_warning:nnn { tag } {role-missing} {#1}
       }
       {
-        \prop_get:NnNTF \g_@@_role_tags_prop {#2} \l_tmpa_tl
+        \prop_get:NnNTF \g_@@_role_tags_NS_prop {#2} \l_tmpa_tl
           {
             \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
               {

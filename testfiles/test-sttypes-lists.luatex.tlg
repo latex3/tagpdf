@@ -1,334 +1,90 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 luatex
-The sequence \g__tag_role_tags_seq contains the items (without outer braces):
->  {Document}
->  {Part}
->  {Sect}
->  {Div}
->  {Caption}
->  {Index}
->  {NonStruct}
->  {H}
->  {H1}
->  {H2}
->  {H3}
->  {H4}
->  {H5}
->  {H6}
->  {P}
->  {L}
->  {LI}
->  {Lbl}
->  {LBody}
->  {Table}
->  {TR}
->  {TH}
->  {TD}
->  {THead}
->  {TBody}
->  {TFoot}
->  {Span}
->  {Link}
->  {Annot}
->  {Figure}
->  {Formula}
->  {Form}
->  {Ruby}
->  {RB}
->  {RT}
->  {Warichu}
->  {WT}
->  {WP}
->  {Artifact}
->  {Art}
->  {BlockQuote}
->  {TOC}
->  {TOCI}
->  {Index}
->  {Private}
->  {Quote}
->  {Note}
->  {Reference}
->  {BibEntry}
->  {Code}
->  {DocumentFragment}
->  {Aside}
->  {H7}
->  {H8}
->  {H9}
->  {H10}
->  {Title}
->  {FENote}
->  {Sub}
->  {Em}
->  {Strong}
->  {Artifact}
->  {chapter}
->  {part}
->  {section}
->  {subsection}
->  {subsubsection}
->  {paragraph}
->  {subparagraph}
->  {tableofcontents}
->  {itemize}
->  {enumerate}
->  {description}
->  {item}
->  {itemlabel}
->  {itembody}
->  {footnote}
->  {footnotemark}
->  {footnotelabel}
->  {title}.
-<recently read> }
-l. ...\__tag_seq_show:N \g__tag_role_tags_seq
-tagpdf: lua sequence array g__tag_role_tags_seq
-tagpdf: [1] => Document
-tagpdf: [2] => Part
-tagpdf: [3] => Sect
-tagpdf: [4] => Div
-tagpdf: [5] => Caption
-tagpdf: [6] => Index
-tagpdf: [7] => NonStruct
-tagpdf: [8] => H
-tagpdf: [9] => H1
-tagpdf: [10] => H2
-tagpdf: [11] => H3
-tagpdf: [12] => H4
-tagpdf: [13] => H5
-tagpdf: [14] => H6
-tagpdf: [15] => P
-tagpdf: [16] => L
-tagpdf: [17] => LI
-tagpdf: [18] => Lbl
-tagpdf: [19] => LBody
-tagpdf: [20] => Table
-tagpdf: [21] => TR
-tagpdf: [22] => TH
-tagpdf: [23] => TD
-tagpdf: [24] => THead
-tagpdf: [25] => TBody
-tagpdf: [26] => TFoot
-tagpdf: [27] => Span
-tagpdf: [28] => Link
-tagpdf: [29] => Annot
-tagpdf: [30] => Figure
-tagpdf: [31] => Formula
-tagpdf: [32] => Form
-tagpdf: [33] => Ruby
-tagpdf: [34] => RB
-tagpdf: [35] => RT
-tagpdf: [36] => Warichu
-tagpdf: [37] => WT
-tagpdf: [38] => WP
-tagpdf: [39] => Artifact
-tagpdf: [40] => Art
-tagpdf: [41] => BlockQuote
-tagpdf: [42] => TOC
-tagpdf: [43] => TOCI
-tagpdf: [44] => Index
-tagpdf: [45] => Private
-tagpdf: [46] => Quote
-tagpdf: [47] => Note
-tagpdf: [48] => Reference
-tagpdf: [49] => BibEntry
-tagpdf: [50] => Code
-tagpdf: [51] => DocumentFragment
-tagpdf: [52] => Aside
-tagpdf: [53] => H7
-tagpdf: [54] => H8
-tagpdf: [55] => H9
-tagpdf: [56] => H10
-tagpdf: [57] => Title
-tagpdf: [58] => FENote
-tagpdf: [59] => Sub
-tagpdf: [60] => Em
-tagpdf: [61] => Strong
-tagpdf: [62] => Artifact
-tagpdf: [63] => chapter
-tagpdf: [64] => part
-tagpdf: [65] => section
-tagpdf: [66] => subsection
-tagpdf: [67] => subsubsection
-tagpdf: [68] => paragraph
-tagpdf: [69] => subparagraph
-tagpdf: [70] => tableofcontents
-tagpdf: [71] => itemize
-tagpdf: [72] => enumerate
-tagpdf: [73] => description
-tagpdf: [74] => item
-tagpdf: [75] => itemlabel
-tagpdf: [76] => itembody
-tagpdf: [77] => footnote
-tagpdf: [78] => footnotemark
-tagpdf: [79] => footnotelabel
-tagpdf: [80] => title
-The property list \g__tag_role_tags_prop contains the pairs (without outer
+The property list \g__tag_role_tags_NS_prop contains the pairs (without outer
 braces):
->  {Document}  =>  {1}
->  {Part}  =>  {2}
->  {Sect}  =>  {3}
->  {Div}  =>  {4}
->  {Caption}  =>  {5}
->  {Index}  =>  {44}
->  {NonStruct}  =>  {7}
->  {H}  =>  {8}
->  {H1}  =>  {9}
->  {H2}  =>  {10}
->  {H3}  =>  {11}
->  {H4}  =>  {12}
->  {H5}  =>  {13}
->  {H6}  =>  {14}
->  {P}  =>  {15}
->  {L}  =>  {16}
->  {LI}  =>  {17}
->  {Lbl}  =>  {18}
->  {LBody}  =>  {19}
->  {Table}  =>  {20}
->  {TR}  =>  {21}
->  {TH}  =>  {22}
->  {TD}  =>  {23}
->  {THead}  =>  {24}
->  {TBody}  =>  {25}
->  {TFoot}  =>  {26}
->  {Span}  =>  {27}
->  {Link}  =>  {28}
->  {Annot}  =>  {29}
->  {Figure}  =>  {30}
->  {Formula}  =>  {31}
->  {Form}  =>  {32}
->  {Ruby}  =>  {33}
->  {RB}  =>  {34}
->  {RT}  =>  {35}
->  {Warichu}  =>  {36}
->  {WT}  =>  {37}
->  {WP}  =>  {38}
->  {Artifact}  =>  {62}
->  {Art}  =>  {40}
->  {BlockQuote}  =>  {41}
->  {TOC}  =>  {42}
->  {TOCI}  =>  {43}
->  {Private}  =>  {45}
->  {Quote}  =>  {46}
->  {Note}  =>  {47}
->  {Reference}  =>  {48}
->  {BibEntry}  =>  {49}
->  {Code}  =>  {50}
->  {DocumentFragment}  =>  {51}
->  {Aside}  =>  {52}
->  {H7}  =>  {53}
->  {H8}  =>  {54}
->  {H9}  =>  {55}
->  {H10}  =>  {56}
->  {Title}  =>  {57}
->  {FENote}  =>  {58}
->  {Sub}  =>  {59}
->  {Em}  =>  {60}
->  {Strong}  =>  {61}
->  {chapter}  =>  {63}
->  {part}  =>  {64}
->  {section}  =>  {65}
->  {subsection}  =>  {66}
->  {subsubsection}  =>  {67}
->  {paragraph}  =>  {68}
->  {subparagraph}  =>  {69}
->  {tableofcontents}  =>  {70}
->  {itemize}  =>  {71}
->  {enumerate}  =>  {72}
->  {description}  =>  {73}
->  {item}  =>  {74}
->  {itemlabel}  =>  {75}
->  {itembody}  =>  {76}
->  {footnote}  =>  {77}
->  {footnotemark}  =>  {78}
->  {footnotelabel}  =>  {79}
->  {title}  =>  {80}.
+>  {Document}  =>  {pdf2}
+>  {Part}  =>  {pdf2}
+>  {Sect}  =>  {pdf2}
+>  {Div}  =>  {pdf2}
+>  {Caption}  =>  {pdf2}
+>  {Index}  =>  {pdf}
+>  {NonStruct}  =>  {pdf2}
+>  {H}  =>  {pdf2}
+>  {H1}  =>  {pdf2}
+>  {H2}  =>  {pdf2}
+>  {H3}  =>  {pdf2}
+>  {H4}  =>  {pdf2}
+>  {H5}  =>  {pdf2}
+>  {H6}  =>  {pdf2}
+>  {P}  =>  {pdf2}
+>  {L}  =>  {pdf2}
+>  {LI}  =>  {pdf2}
+>  {Lbl}  =>  {pdf2}
+>  {LBody}  =>  {pdf2}
+>  {Table}  =>  {pdf2}
+>  {TR}  =>  {pdf2}
+>  {TH}  =>  {pdf2}
+>  {TD}  =>  {pdf2}
+>  {THead}  =>  {pdf2}
+>  {TBody}  =>  {pdf2}
+>  {TFoot}  =>  {pdf2}
+>  {Span}  =>  {pdf2}
+>  {Link}  =>  {pdf2}
+>  {Annot}  =>  {pdf2}
+>  {Figure}  =>  {pdf2}
+>  {Formula}  =>  {pdf2}
+>  {Form}  =>  {pdf2}
+>  {Ruby}  =>  {pdf2}
+>  {RB}  =>  {pdf2}
+>  {RT}  =>  {pdf2}
+>  {Warichu}  =>  {pdf2}
+>  {WT}  =>  {pdf2}
+>  {WP}  =>  {pdf2}
+>  {Artifact}  =>  {pdf2}
+>  {Art}  =>  {pdf}
+>  {BlockQuote}  =>  {pdf}
+>  {TOC}  =>  {pdf}
+>  {TOCI}  =>  {pdf}
+>  {Private}  =>  {pdf}
+>  {Quote}  =>  {pdf}
+>  {Note}  =>  {pdf}
+>  {Reference}  =>  {pdf}
+>  {BibEntry}  =>  {pdf}
+>  {Code}  =>  {pdf}
+>  {DocumentFragment}  =>  {pdf2}
+>  {Aside}  =>  {pdf2}
+>  {H7}  =>  {pdf2}
+>  {H8}  =>  {pdf2}
+>  {H9}  =>  {pdf2}
+>  {H10}  =>  {pdf2}
+>  {Title}  =>  {pdf2}
+>  {FENote}  =>  {pdf2}
+>  {Sub}  =>  {pdf2}
+>  {Em}  =>  {pdf2}
+>  {Strong}  =>  {pdf2}
+>  {chapter}  =>  {latex-book}
+>  {part}  =>  {latex}
+>  {section}  =>  {latex}
+>  {subsection}  =>  {latex}
+>  {subsubsection}  =>  {latex}
+>  {paragraph}  =>  {latex}
+>  {subparagraph}  =>  {latex}
+>  {tableofcontents}  =>  {latex}
+>  {itemize}  =>  {latex}
+>  {enumerate}  =>  {latex}
+>  {description}  =>  {latex}
+>  {item}  =>  {latex}
+>  {itemlabel}  =>  {latex}
+>  {itembody}  =>  {latex}
+>  {footnote}  =>  {latex}
+>  {footnotemark}  =>  {latex}
+>  {footnotelabel}  =>  {latex}
+>  {title}  =>  {user}.
 <recently read> }
-l. ...\__tag_prop_show:N \g__tag_role_tags_prop
-tagpdf: lua property table g__tag_role_tags_prop
-tagpdf: [Annot] => 29
-tagpdf: [Art] => 40
-tagpdf: [Artifact] => 62
-tagpdf: [Aside] => 52
-tagpdf: [BibEntry] => 49
-tagpdf: [BlockQuote] => 41
-tagpdf: [Caption] => 5
-tagpdf: [Code] => 50
-tagpdf: [Div] => 4
-tagpdf: [Document] => 1
-tagpdf: [DocumentFragment] => 51
-tagpdf: [Em] => 60
-tagpdf: [FENote] => 58
-tagpdf: [Figure] => 30
-tagpdf: [Form] => 32
-tagpdf: [Formula] => 31
-tagpdf: [H] => 8
-tagpdf: [H1] => 9
-tagpdf: [H10] => 56
-tagpdf: [H2] => 10
-tagpdf: [H3] => 11
-tagpdf: [H4] => 12
-tagpdf: [H5] => 13
-tagpdf: [H6] => 14
-tagpdf: [H7] => 53
-tagpdf: [H8] => 54
-tagpdf: [H9] => 55
-tagpdf: [Index] => 44
-tagpdf: [L] => 16
-tagpdf: [LBody] => 19
-tagpdf: [LI] => 17
-tagpdf: [Lbl] => 18
-tagpdf: [Link] => 28
-tagpdf: [NonStruct] => 7
-tagpdf: [Note] => 47
-tagpdf: [P] => 15
-tagpdf: [Part] => 2
-tagpdf: [Private] => 45
-tagpdf: [Quote] => 46
-tagpdf: [RB] => 34
-tagpdf: [RT] => 35
-tagpdf: [Reference] => 48
-tagpdf: [Ruby] => 33
-tagpdf: [Sect] => 3
-tagpdf: [Span] => 27
-tagpdf: [Strong] => 61
-tagpdf: [Sub] => 59
-tagpdf: [TBody] => 25
-tagpdf: [TD] => 23
-tagpdf: [TFoot] => 26
-tagpdf: [TH] => 22
-tagpdf: [THead] => 24
-tagpdf: [TOC] => 42
-tagpdf: [TOCI] => 43
-tagpdf: [TR] => 21
-tagpdf: [Table] => 20
-tagpdf: [Title] => 57
-tagpdf: [WP] => 38
-tagpdf: [WT] => 37
-tagpdf: [Warichu] => 36
-tagpdf: [chapter] => 63
-tagpdf: [description] => 73
-tagpdf: [enumerate] => 72
-tagpdf: [footnote] => 77
-tagpdf: [footnotelabel] => 79
-tagpdf: [footnotemark] => 78
-tagpdf: [item] => 74
-tagpdf: [itembody] => 76
-tagpdf: [itemize] => 71
-tagpdf: [itemlabel] => 75
-tagpdf: [paragraph] => 68
-tagpdf: [part] => 64
-tagpdf: [section] => 65
-tagpdf: [subparagraph] => 69
-tagpdf: [subsection] => 66
-tagpdf: [subsubsection] => 67
-tagpdf: [tableofcontents] => 70
-tagpdf: [title] => 80
+l. ...\__tag_prop_show:N \g__tag_role_tags_NS_prop
+tagpdf: lua property table g__tag_role_tags_NS_prop
+tagpdf: prop nil not found or not a table
 > \test=macro:
-->H5.
-l. ...\show\test
-> \test=macro:
-->9.
+->pdf2.
 l. ...\show\test
