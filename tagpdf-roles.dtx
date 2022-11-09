@@ -92,61 +92,40 @@
 %</header>
 %    \end{macrocode}
 % \section{Code related to roles and structure names}
-% \subsection{Variables}
-% Tags have a name (a string), a number (for the lua attribute), and 
-% in PDF 2.0 belong to one or more name spaces, so here it is also important
-% to know the default name space. 
-% The number is only relevant in lua and only for the MC type, 
-% tags with the same name from different names spaces can have the same number.
-% So we store this only in lua.
-% \begin{macro}{\@@_role_alloctag:n}
-% By default this command does current nothing. In the 
-% lua backend it will record the attribute value.
-%    \begin{macrocode}
-\sys_if_engine_luatex:TF
- {
-   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
-    {
-      \lua_now:e { ltx.@@.func.alloctag ('#1') }
-      %\prop_gput:Nnn \g_@@_role_tags_prop {#1}{}
-    }      
- }
- {   
-  \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
-    {
-      %\prop_gput:Nnn \g_@@_role_tags_prop {#1}{} 
-    }
- }      
-%    \end{macrocode}
-% \end{macro}
-% 
-% Testing a name is easier with a prop, while accessing with a number is
-% better done with a seq. So both are used and must be kept in sync if a new
-% tag is added. 
-% \begin{variable}{\g_@@_role_tags_seq,\g_@@_role_tags_prop}
 %    \begin{macrocode}
 %<*package>
-%\@@_seq_new:N  \g_@@_role_tags_seq  %to get names (type/NS) from numbers
-% \@@_prop_new:N \g_@@_role_tags_prop %to get numbers  from names (type/NS)
 %    \end{macrocode}
-% \end{variable}
-% \begin{variable}{\g_@@_role_tags_NS_prop}
-% in pdf 2.0 tags belong to a name space. For every tag we store a default
+% \subsection{Variables}
+% Tags have a name (a string), a number (for the lua attribute), and 
+% in PDF 2.0 belong to one or more name spaces, with one being the default
 % name space.
-% The keys are the tags, the value shorthands like pdf2, or mathml.
+% Tags have also a type like grouping, inline or block level structure.
+% The number is only relevant in lua and only for the MC type, 
+% tags with the same name from different names spaces can have the same number.
+%
+% \begin{variable}{\g_@@_role_tags_NS_prop}
+% This is basically the main list of tags. It uses tags as keys
+% and the default name space as value. The value are shorthands like pdf2, or mathml.
+% We store a name space also in pdf <2.0, even if not needed: it doesn't harm and simplify
+% the code. 
 % There is no need to access this from lua, so we use the standard prop commands.
 %    \begin{macrocode}
-\prop_new:N    \g_@@_role_tags_NS_prop %to namespace info
+\prop_new:N    \g_@@_role_tags_NS_prop % to namespace info
 %    \end{macrocode}
 % \end{variable}
+% 
 % \begin{variable}{\g_@@_role_NS_prop}
-% The standard names spaces are the following. The keys are the name
-% tagpdf will use,  the urls are the identifier in the namespace object.
+% This holds the list of supported name spaces.
+% The keys are the name tagpdf will use, the values the object reference. 
+% The urls identifier are stored in related dict object.
 % \begin{description}
 % \item[mathml] http://www.w3.org/1998/Math/MathML
 % \item[pdf2]   http://iso.org/pdf2/ssn
 % \item[pdf]    http://iso.org/pdf/ssn (default)
 % \item[user]   \cs{c_@@_role_userNS_id_str} (random id, for user tags)
+% \item[latex]  https://www.latex-project.org/ns/dflt/2022
+% \item[latex-book] https://www.latex-project.org/ns/book/2022
+% \item[latex-inline]     https://www.latex-project.org/ns/inline/2022
 % \end{description}
 % More namespaces are possible and
 % their objects references and the ones of the namespaces must be collected
@@ -154,14 +133,14 @@
 % We use a prop to store also the object reference as it will be needed rather
 % often.
 %    \begin{macrocode}
-\prop_new:N \g_@@_role_NS_prop % collect namespaces
+\prop_new:N \g_@@_role_NS_prop 
 %    \end{macrocode}
 % \end{variable}
 %
 % We need also a bunch of temporary variables:
 % \begin{variable}
 %  {
-%     \l_@@_role_tag_tmpa_tl
+%     ,\l_@@_role_tag_tmpa_tl
 %     ,\l_@@_role_tag_namespace_tmpa_tl
 %     ,\l_@@_role_role_tmpa_tl
 %     ,\l_@@_role_role_namespace_tmpa_tl
@@ -174,10 +153,10 @@
 %    \end{macrocode}
 % \end{variable}
 % \subsection{Namesspaces}
-% The following commands setups a names space. Namespace dictionaries can
+% The following commands setups a name space. Namespace dictionaries can
 % contain an optional |/Schema| and |/RoleMapNS| entry. We only reserve the
 % objects but delay the writing to the finish code, where we can test if the
-% keys and the name spaces are actually needed
+% keys and the name spaces are actually needed.
 % This commands setups objects for the name space and its rolemap. It also
 % initialize a prop to collect the rolemaps if needed.
 % \begin{function}{\@@_role_NS_new:nnn}
@@ -197,13 +176,13 @@
       {g_@@_role/Namespace_#1_dict}
       {Type}
       {/Namespace}
-    \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_tmpa_str
-    \tl_if_empty:NF \l_tmpa_str
+    \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_@@_tmpa_str
+    \tl_if_empty:NF \l_@@_tmpa_str
       {
         \pdfdict_gput:nnx
           {g_@@_role/Namespace_#1_dict}
           {NS}
-          {\l_tmpa_str}
+          {\l_@@_tmpa_str}
       }
     %RoleMapNS is added in tree
     \tl_if_empty:nF  {#3}
@@ -248,6 +227,7 @@
     \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
     \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
     \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
+   % \@@_role_NS_new:nnn {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
     \exp_args:Nnx
     \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
   }
@@ -260,6 +240,24 @@
 % the one only in pdf and the one with the tags only in pdf2.
 % We also define a rolemap for the pdfII only type to pdf so that
 % they can always be used.
+% \begin{macro}{\@@_role_alloctag:n}
+% By default this command does currently nothing. In the 
+% lua backend it will record the attribute value.
+%    \begin{macrocode}
+\sys_if_engine_luatex:TF
+ {
+   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
+    {
+      \lua_now:e { ltx.@@.func.alloctag ('#1') }
+    }      
+ }
+ {   
+  \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
+    {
+    }
+ }      
+%    \end{macrocode}
+% \end{macro}
 % \begin{variable}
 %   {
 %     \c_@@_role_sttags_pdf_pdfII_clist,
@@ -279,7 +277,6 @@
     Sect,       %A container for grouping related content elements.
     Div,        %A generic block-level element or group of elements
     Caption,    %A brief portion of text describing a table or figure.
-    Index,
     NonStruct,  %probably not needed
     H,
     H1,
