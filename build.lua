@@ -54,7 +54,7 @@ checkruns = 4
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
 excludetests = {"test-saveboxes-structure-dev","test-link"}
 
-sourcefiles =  {"*.dtx","*.ins","*.sty"}
+
 
 if os.getenv('TRAVIS')  then
    checkconfigs = {"build","config-pdftex","config-luatex"}
@@ -174,7 +174,8 @@ installfiles = {
                 "**/*.sty",
                 "**/*.def",
                 "**/*.lua",
-                "**/*.ltx"
+                "**/*.ltx",
+                "*.txt"
                }
 
 sourcefiles  = {"*.dtx",
@@ -182,6 +183,7 @@ sourcefiles  = {"*.dtx",
                 --"*.sty",
                 --"**/*.def",
                 --"**/*.lua"
+                "*.txt"
                }
 
 

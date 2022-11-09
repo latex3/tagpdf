@@ -110,7 +110,15 @@
 % the code. 
 % There is no need to access this from lua, so we use the standard prop commands.
 %    \begin{macrocode}
-\prop_new:N    \g_@@_role_tags_NS_prop % to namespace info
+\prop_new:N    \g_@@_role_tags_NS_prop 
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_role_tags_type_prop}
+% This stores the type(s) of a tag. Tags that are rolemapped should get the type from
+% the target.
+%    \begin{macrocode}
+\prop_new:N    \g_@@_role_tags_type_prop 
 %    \end{macrocode}
 % \end{variable}
 % 
@@ -258,6 +266,52 @@
  }      
 %    \end{macrocode}
 % \end{macro}
+% 
+%    \begin{macrocode}
+\pdf_version_compare:NnTF > {1.9}
+ {
+   \cs_new_protected:Npn \@@_role_read_namespace_line:nw #1#2,#3,#4,#5,#6\q_stop %
+    % #1 NS, #2 tag, #3 rolemap, #4 NS rolemap #5 type
+    {
+      \tl_if_empty:NF #2
+       {
+        \@@_role_alloctag:n {#2}
+        \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
+        \prop_gput:Nnn \g_@@_role_tags_type_prop {#2}{#5}
+        \@@_role_add_tag:nnnn {#2}{#1}{#3}{#4} 
+       }     
+    }
+ }
+ {
+  \cs_new_protected:Npn \@@_role_read_namespace_line:nw #1#2,#3,#4,#5,#6\q_stop %
+   % #1 NS, #2 tag, #3 rolemap, #4 NS rolemap #5 type
+    {
+      \tl_if_empty:nF { #2 }
+       {
+        \@@_role_alloctag:n {#2}
+        \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
+        \prop_gput:Nnn \g_@@_role_tags_type_prop {#2}{#5}
+        \tl_if_empty:nF {#3}
+          { \@@_role_add_tag:nn {#2}{#3} }
+        \typeout{#1!#2!#3!#4!#5!#6!}
+       }     
+    }
+  }  
+  
+\cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
+  { 
+    \file_if_exist:nT { tagpdf-ns-#1.txt}
+     {
+       \ior_open:Nn \g_tmpa_ior {tagpdf-ns-#1.txt}
+       \ior_map_inline:Nn \g_tmpa_ior 
+         {
+           \@@_role_read_namespace_line:nw {#1} ##1,,,,\q_stop 
+         }
+       \ior_close:N\g_tmpa_ior    
+     }
+  }   
+   
+%    \end{macrocode}
 % \begin{variable}
 %   {
 %     \c_@@_role_sttags_pdf_pdfII_clist,
@@ -631,11 +685,9 @@
   }
 %    \end{macrocode}
 % \end{variable}
-% We fill the structure tags in to the seq. We allow all pdf1.7 and pdf2.0,
+% We fill the structure tags into the prop. We allow all pdf1.7 and pdf2.0,
 % and role map if needed the 2.0 tags.
 %    \begin{macrocode}
-% get tag name from number: \seq_item:Nn \g_@@_role_tags_seq { n }
-% get tag number from name: \prop_item:Nn \g_@@_role_tags_prop { name }
 
 \clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
   {
@@ -677,18 +729,6 @@
          \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ mathml }
        }
   }
-%    \end{macrocode}
-% For luatex and the MC we need a name/number relation.
-% The name space is not relevant.
-%    \begin{macrocode}
-%\int_step_inline:nnnn { 1 }{ 1 }{ \seq_count:N \g_@@_role_tags_seq }
-%  {
-%    \@@_prop_gput:Nxn \g_@@_role_tags_prop
-%      {
-%        \seq_item:Nn \g_@@_role_tags_seq  { #1 }
-%      }
-%      { #1 }
-%  }
 %    \end{macrocode}
 %
 % \subsection{Adding new tags and rolemapping}
@@ -785,6 +825,7 @@
        }
    }
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
+\@@_role_read_namespace:n {pdf}
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Rolemap the latex namespace}
