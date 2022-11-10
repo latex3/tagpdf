@@ -3,31 +3,32 @@ Don't change this file in any respect.
 luatex
 Package tagpdf Info: mapping tag section to role H1
 Package tagpdf Info: adding new tag mn
-tagpdf: Add mn 79
+tagpdf: Add mn 78
 Package tagpdf Warning: tag mn has no role assigned
 Package tagpdf Info: adding new tag wrongtag
-tagpdf: Add wrongtag 80
+tagpdf: Add wrongtag 79
 Package tagpdf Warning: role HX is not known
 The global dictionary 'g__tag_role/RoleMap_dict' contains the pairs (without
 outer braces):
 >  {DocumentFragment}  =>  {/Art}
 >  {Aside}  =>  {/Note}
->  {Title}  =>  {/P}
->  {Sub}  =>  {/Span}
 >  {H7}  =>  {/H6}
 >  {H8}  =>  {/H6}
 >  {H9}  =>  {/H6}
 >  {H10}  =>  {/H6}
+>  {Title}  =>  {/P}
 >  {FENote}  =>  {/Note}
+>  {Sub}  =>  {/Span}
 >  {Em}  =>  {/Span}
 >  {Strong}  =>  {/Span}
->  {title}  =>  {/Title}
->  {part}  =>  {/Title}
+>  {chapter}  =>  {/H1}
 >  {section}  =>  {/H1}
 >  {subsection}  =>  {/H2}
 >  {subsubsection}  =>  {/H3}
 >  {paragraph}  =>  {/H4}
 >  {subparagraph}  =>  {/H5}
+>  {title}  =>  {/Title}
+>  {part}  =>  {/Title}
 >  {itemize}  =>  {/L}
 >  {enumerate}  =>  {/L}
 >  {description}  =>  {/L}
@@ -43,4 +44,4 @@ l. ...\pdfdict_show:n {g__tag_role/RoleMap_dict}
 > \testname=macro:
 ->user.
 l. ...\show\testname
-79
+78

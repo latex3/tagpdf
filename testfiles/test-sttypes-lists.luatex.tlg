@@ -64,13 +64,13 @@ braces):
 >  {Em}  =>  {pdf2}
 >  {Strong}  =>  {pdf2}
 >  {chapter}  =>  {latex-book}
->  {part}  =>  {latex}
 >  {section}  =>  {latex}
 >  {subsection}  =>  {latex}
 >  {subsubsection}  =>  {latex}
 >  {paragraph}  =>  {latex}
 >  {subparagraph}  =>  {latex}
->  {tableofcontents}  =>  {latex}
+>  {title}  =>  {latex}
+>  {part}  =>  {latex}
 >  {itemize}  =>  {latex}
 >  {enumerate}  =>  {latex}
 >  {description}  =>  {latex}
@@ -79,8 +79,7 @@ braces):
 >  {itembody}  =>  {latex}
 >  {footnote}  =>  {latex}
 >  {footnotemark}  =>  {latex}
->  {footnotelabel}  =>  {latex}
->  {title}  =>  {user}.
+>  {footnotelabel}  =>  {latex}.
 <recently read> }
 l. ...\__tag_prop_show:N \g__tag_role_tags_NS_prop
 tagpdf: lua property table g__tag_role_tags_NS_prop
