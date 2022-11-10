@@ -273,12 +273,14 @@
    \cs_new_protected:Npn \@@_role_read_namespace_line:nw #1#2,#3,#4,#5,#6\q_stop %
     % #1 NS, #2 tag, #3 rolemap, #4 NS rolemap #5 type
     {
-      \tl_if_empty:NF #2
+      \tl_if_empty:nF {#2}
        {
         \@@_role_alloctag:n {#2}
         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
         \prop_gput:Nnn \g_@@_role_tags_type_prop {#2}{#5}
-        \@@_role_add_tag:nnnn {#2}{#1}{#3}{#4} 
+        \bool_lazy_and:nnT
+           { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}} 
+           {\@@_role_add_tag:nnnn {#2}{#1}{#3}{#4}} 
        }     
     }
  }
@@ -292,16 +294,18 @@
         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
         \prop_gput:Nnn \g_@@_role_tags_type_prop {#2}{#5}
         \tl_if_empty:nF {#3}
-          { \@@_role_add_tag:nn {#2}{#3} }
-        \typeout{#1!#2!#3!#4!#5!#6!}
+          { 
+            \@@_role_add_tag:nn {#2}{#3} 
+            \typeout{#1!#2!#3!#4!#5!#6!}
+          }  
        }     
     }
   }  
   
 \cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
-  { 
+  { \typeout{try to reading tagpdf-ns-#1.txt}
     \file_if_exist:nT { tagpdf-ns-#1.txt}
-     {
+     { \typeout{reading tagpdf-ns-#1.txt}
        \ior_open:Nn \g_tmpa_ior {tagpdf-ns-#1.txt}
        \ior_map_inline:Nn \g_tmpa_ior 
          {
@@ -689,46 +693,46 @@
 % and role map if needed the 2.0 tags.
 %    \begin{macrocode}
 
-\clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
-  {
-    \@@_role_alloctag:n {#1}
-    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
-  }
-\clist_map_inline:Nn \c_@@_role_sttags_only_pdf_clist
-  {
-    \@@_role_alloctag:n {#1}
-    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf }
-  }
-\clist_map_inline:Nn \c_@@_role_sttags_only_pdfII_clist
-  {
-    \@@_role_alloctag:n {#1}
-    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
-  }
-\clist_map_inline:Nn \c_@@_role_sttags_latex_book_clist
-  {
-    \@@_role_alloctag:n {#1}
-    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
-  }
-\clist_map_inline:Nn \c_@@_role_sttags_latex_clist
-  {
-    \@@_role_alloctag:n {#1}
-    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex }
-  }
-
-\pdf_version_compare:NnT > {1.9}
-  {
-     \clist_map_inline:Nn \c_@@_role_sttags_mathml_clist
-       {
-         \@@_role_alloctag:n {#1}
-         %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-         \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ mathml }
-       }
-  }
+%\clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
+%  {
+%    \@@_role_alloctag:n {#1}
+%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
+%  }
+%\clist_map_inline:Nn \c_@@_role_sttags_only_pdf_clist
+%  {
+%    \@@_role_alloctag:n {#1}
+%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf }
+%  }
+%\clist_map_inline:Nn \c_@@_role_sttags_only_pdfII_clist
+%  {
+%    \@@_role_alloctag:n {#1}
+%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
+%  }
+%\clist_map_inline:Nn \c_@@_role_sttags_latex_book_clist
+%  {
+%    \@@_role_alloctag:n {#1}
+%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
+%  }
+%\clist_map_inline:Nn \c_@@_role_sttags_latex_clist
+%  {
+%    \@@_role_alloctag:n {#1}
+%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex }
+%  }
+%
+%\pdf_version_compare:NnT > {1.9}
+%  {
+%     \clist_map_inline:Nn \c_@@_role_sttags_mathml_clist
+%       {
+%         \@@_role_alloctag:n {#1}
+%         %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
+%         \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ mathml }
+%       }
+%  }
 %    \end{macrocode}
 %
 % \subsection{Adding new tags and rolemapping}
@@ -772,27 +776,27 @@
   }
 \cs_generate_variant:Nn \@@_role_add_tag:nn {VV}
 
-\pdf_version_compare:NnT < {2.0}
-  {
-     \prop_map_inline:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
-       {
-         \@@_role_add_tag:nn {#1}{#2}
-       }
-     \prop_map_inline:Nn \c_@@_role_sttags_latex_to_pdfII_prop
-       {
-         \@@_role_add_tag:nn {#1}{#2}
-       }
-     \hook_gput_code:nnn {begindocument}{tagpdf}
-      {
-        \cs_if_exist:NT \chapter
-         {
-           \prop_map_inline:Nn\c_@@_role_sttags_latex_book_to_pdfII_prop
-             {
-               \@@_role_add_tag:nn {#1}{#2}
-             }
-         }
-      }
-  }
+%\pdf_version_compare:NnT < {2.0}
+%  {
+%     \prop_map_inline:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
+%       {
+%         \@@_role_add_tag:nn {#1}{#2}
+%       }
+%     \prop_map_inline:Nn \c_@@_role_sttags_latex_to_pdfII_prop
+%       {
+%         \@@_role_add_tag:nn {#1}{#2}
+%       }
+%     \hook_gput_code:nnn {begindocument}{tagpdf}
+%      {
+%        \cs_if_exist:NT \chapter
+%         {
+%           \prop_map_inline:Nn\c_@@_role_sttags_latex_book_to_pdfII_prop
+%             {
+%               \@@_role_add_tag:nn {#1}{#2}
+%             }
+%         }
+%      }
+%  }
 
 %    \end{macrocode}
 % \end{macro}
@@ -826,6 +830,11 @@
    }
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
 \@@_role_read_namespace:n {pdf}
+\@@_role_read_namespace:n {pdf2}
+\pdf_version_compare:NnT > {1.9}
+  {\@@_role_read_namespace:n {mathml}}
+\@@_role_read_namespace:n {latex}
+\@@_role_read_namespace:n {latex-book}
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Rolemap the latex namespace}
