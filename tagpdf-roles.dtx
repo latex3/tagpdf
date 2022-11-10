@@ -161,7 +161,10 @@
 %    \end{macrocode}
 % \end{variable}
 % \subsection{Namesspaces}
-% The following commands setups a name space. Namespace dictionaries can
+% The following commands setups a name space. 
+% With pdf version below 2.0 this is only a prop with the 
+% rolemap. With pdf 2.0 a dictionary must be set up. 
+% Such a namespace dictionaries can
 % contain an optional |/Schema| and |/RoleMapNS| entry. We only reserve the
 % objects but delay the writing to the finish code, where we can test if the
 % keys and the name spaces are actually needed.
@@ -175,33 +178,42 @@
 % \end{function}
 % \begin{macro}{\@@_role_NS_new:nnn}
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
-  {
-    \prop_new:c { g_@@_role_NS_#1_prop }
-    \pdf_object_new:n {tag/NS/#1}
-    \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
-    \pdf_object_new:n {@@/RoleMapNS/#1}
-    \pdfdict_new:n     {g_@@_role/RoleMapNS_#1_dict}
-    \pdfdict_gput:nnn
-      {g_@@_role/Namespace_#1_dict}
-      {Type}
-      {/Namespace}
-    \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_@@_tmpa_str
-    \tl_if_empty:NF \l_@@_tmpa_str
-      {
-        \pdfdict_gput:nnx
-          {g_@@_role/Namespace_#1_dict}
-          {NS}
-          {\l_@@_tmpa_str}
-      }
-    %RoleMapNS is added in tree
-    \tl_if_empty:nF  {#3}
-     {
-       \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
-        {Schema}{#3}
-     }
-    \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{tag/NS/#1}~}
-  }
+\pdf_version_compare:NnTF > {1.9}
+ {
+  \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
+    {
+      \prop_new:c { g_@@_role_NS_#1_prop }
+      \pdf_object_new:n {tag/NS/#1}
+      \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
+      \pdf_object_new:n {@@/RoleMapNS/#1}
+      \pdfdict_new:n     {g_@@_role/RoleMapNS_#1_dict}
+      \pdfdict_gput:nnn
+        {g_@@_role/Namespace_#1_dict}
+        {Type}
+        {/Namespace}
+      \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_@@_tmpa_str
+      \tl_if_empty:NF \l_@@_tmpa_str
+        {
+          \pdfdict_gput:nnx
+            {g_@@_role/Namespace_#1_dict}
+            {NS}
+            {\l_@@_tmpa_str}
+        }
+      %RoleMapNS is added in tree
+      \tl_if_empty:nF  {#3}
+       {
+         \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
+          {Schema}{#3}
+       }
+      \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{tag/NS/#1}~}
+    }
+ } 
+ {
+   \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
+    {
+      \prop_new:c { g_@@_role_NS_#1_prop }
+    }
+ }
 %    \end{macrocode}
 % \end{macro}
 % We need an id for the user space. For the tests it should be possible
@@ -227,20 +239,19 @@
   }
 %    \end{macrocode}
 % \end{variable}
-% Now we setup the standard names spaces. Currently only if we detect pdf2.0 but
-% this will perhaps have to change if the structure code gets to messy.
+% Now we setup the standard names spaces. 
 %    \begin{macrocode}
-\pdf_version_compare:NnT > {1.9}
-  {
     \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
     \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
+\pdf_version_compare:NnT > {1.9}
+  {    
     \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
+  }  
     \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
     \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
    % \@@_role_NS_new:nnn {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
     \exp_args:Nnx
     \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
-  }
 %    \end{macrocode}
 %
 % 
@@ -293,7 +304,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
   { 
-    \prop_if_in:NnF \g_@@_role_NS_prop {#1}
+    \prop_if_exist:cF {g__tag_role_NS_#1_prop}
       { \msg_warning:nnn {tag}{namespace-unknown}{#1} }
     \file_if_exist:nTF { tagpdf-ns-#1.def}
      { 
@@ -414,7 +425,7 @@
       {
         \cs_if_exist:NT \chapter
            {
-             \prop_map_inline:Nn\g_@@_role_NS_latex_book_prop
+             \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
                {
                  \@@_role_add_tag:nn {#1}{#2}
                }
@@ -426,7 +437,7 @@
       {
         \cs_if_exist:NT \chapter
          {
-           \prop_map_inline:Nn \g_@@_role_NS_latex_book_prop
+           \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
              {
                \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
              }

@@ -3,40 +3,26 @@ rem l3build save -e\2 \1
 rem l3build save -cconfig-pdftex -e\2 \1
 rem l3build save -cconfig-luatex -e\2 \1
 
-l3build save -eluatex test-add-new-tag-2
-l3build save -eluatex test-add-new-tag
-l3build save -epdftex test-add-new-tag
-l3build save -epdftexmain test-add-new-tag
-l3build save -eluatex test-alttext
-l3build save -epdftex test-alttext
-l3build save -epdftexmain test-alttext
-l3build save -eluatex test-artifact-group
-l3build save -epdftex test-artifact-group
-l3build save -epdftexmain test-artifact-group
-l3build save -eluatex test-empty-mc
-l3build save -epdftex test-empty-mc
-l3build save -epdftexmain test-empty-mc
-l3build save -eluatex test-header-tagging
-l3build save -epdftex test-header-tagging
-l3build save -epdftexmain test-header-tagging
-l3build save -eluatex test-links-backend
-l3build save -epdftex test-links-backend
-l3build save -epdftexmain test-links-backend
-l3build save -eluatex test-local-inactive-mc
-l3build save -epdftex test-local-inactive-mc
-l3build save -epdftexmain test-local-inactive-mc
-l3build save -eluatex test-mc-used-twice-b
-l3build save -epdftex test-mc-used-twice-b
-l3build save -epdftexmain test-mc-used-twice-b
-l3build save -eluatex test-paratag
-l3build save -epdftex test-paratag
-l3build save -epdftexmain test-paratag
-l3build save -eluatex test-parent-key
-l3build save -epdftex test-parent-key
-l3build save -epdftexmain test-parent-key
-l3build save -eluatex test-saveboxes-structure
-l3build save -epdftex test-saveboxes-structure
-l3build save -epdftexmain test-saveboxes-structure
-l3build save -eluatex test-sttypes-lists
-l3build save -epdftex test-sttypes-lists
-l3build save -epdftexmain test-sttypes-lists
+l3build save -cconfig-pdftex -epdftex ptagging-004-p
+l3build save -cconfig-pdftex -epdftex ptagging-006-p
+l3build save -cconfig-pdftex -epdftex ptagging-007-p
+l3build save -cconfig-pdftex -epdftex test-attribute-name
+l3build save -cconfig-pdftex -epdftex test-attribute
+l3build save -cconfig-pdftex -epdftex test-fakespace-tagpdf
+l3build save -cconfig-pdftex -epdftex test-mc-alt
+l3build save -cconfig-pdftex -epdftex test-namespace-pdf-article
+l3build save -cconfig-pdftex -epdftex test-namespace-pdf-book
+l3build save -cconfig-pdftex -epdftex test-sectioning-koma
+
+REM 
+REM Failed tests for configuration config-luatex:
+REM 
+REM   Check failed with difference files
+REM   - ./build/test-config-luatex/issue13-mcid-array.luatex.fc
+REM   - ./build/test-config-luatex/issue14-artifact-bool.luatex.fc
+REM   - ./build/test-config-luatex/test-attribute.luatex.fc
+REM   - ./build/test-config-luatex/test-fakespace-box.luatex.fc
+REM   - ./build/test-config-luatex/test-fakespace-fontchange.luatex.fc
+REM   - ./build/test-config-luatex/test-fakespace-tagpdf.luatex.fc
+REM   - ./build/test-config-luatex/test-mc-alt.luatex.fc
+REM   - ./build/test-config-luatex/test-sectioning-koma.luatex.fc
