@@ -166,7 +166,8 @@
 % objects but delay the writing to the finish code, where we can test if the
 % keys and the name spaces are actually needed.
 % This commands setups objects for the name space and its rolemap. It also
-% initialize a prop to collect the rolemaps if needed.
+% initialize a dict to collect the rolemaps if needed, and a property
+% with the tags of the namespace and their rolemapping for loops.
 % \begin{function}{\@@_role_NS_new:nnn}
 %  \begin{syntax}
 %   \cs{@@_role_NS_new:nnn}\Arg{shorthand}\Arg{URI-ID}{Schema}
@@ -176,6 +177,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
   {
+    \prop_new:c { g_@@_role_NS_#1_prop }
     \pdf_object_new:n {tag/NS/#1}
     \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
     \pdf_object_new:n {@@/RoleMapNS/#1}
@@ -241,26 +243,10 @@
   }
 %    \end{macrocode}
 %
-% \subsection{Reading Data}
+% 
+% \subsection{Helper command to read the data from files}
 % In this section we setup the helper command to read namespace files.
-% 
-% \begin{macro}{\@@_role_alloctag:n}
-% By default this command does currently nothing. In the 
-% lua backend it will record the attribute value.
-%    \begin{macrocode}
-\sys_if_engine_luatex:TF
- {
-   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
-    {
-      \lua_now:e { ltx.@@.func.alloctag ('#1') }
-    }      
- }
- {   
-   \cs_new_protected:Npn \@@_role_alloctag:n #1 {} %#1 tagname
- }      
-%    \end{macrocode}
-% \end{macro}
-% 
+
 % \begin{macro}{\@@_role_read_namespace_line:nw}
 % This command will process a line in the name space file.
 % The first argument is the name of the name space. 
@@ -276,6 +262,7 @@
         \@@_role_alloctag:n {#2}
         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
         \prop_gput:Nnn \g_@@_role_tags_type_prop {#2}{#5}
+        \prop_gput:cnn { g_@@_role_NS_#1_prop }   {#2}{#3} 
         \bool_lazy_and:nnT
            { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}} 
            {\@@_role_add_tag:nnnn {#2}{#1}{#3}{#4}} 
@@ -291,6 +278,7 @@
         \@@_role_alloctag:n {#2}
         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
         \prop_gput:Nnn \g_@@_role_tags_type_prop {#2}{#5}
+        \prop_gput:cnn { g_@@_role_NS_#1_prop }   {#2}{#3} 
         \tl_if_empty:nF {#3}
           { 
             \@@_role_add_tag:nn {#2}{#3} 
@@ -298,7 +286,11 @@
        }     
     }
   }  
-  
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_role_read_namespace:n}
+% This command reads the namespace file.
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
   { 
     \prop_if_in:NnF \g_@@_role_NS_prop {#1}
@@ -320,8 +312,27 @@
    
 %    \end{macrocode}
 % \end{macro}
-
-% \subsection{Adding new tags and rolemapping}
+%
+% \subsection{Storing the tag data}
+% Both when reading the files and when setting up a tag manually
+% we have to store data in various places.
+% 
+% \begin{macro}{\@@_role_alloctag:n}
+% By default this command does currently nothing. In the 
+% lua backend it will record the attribute value.
+%    \begin{macrocode}
+\sys_if_engine_luatex:TF
+ {
+   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
+    {
+      \lua_now:e { ltx.@@.func.alloctag ('#1') }
+    }      
+ }
+ {   
+   \cs_new_protected:Npn \@@_role_alloctag:n #1 {} %#1 tagname
+ }      
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsubsection{pdf 1.7 and earlier}
 % With this versions only RoleMap is filled.
@@ -355,29 +366,6 @@
       }
   }
 \cs_generate_variant:Nn \@@_role_add_tag:nn {VV}
-
-%\pdf_version_compare:NnT < {2.0}
-%  {
-%     \prop_map_inline:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
-%       {
-%         \@@_role_add_tag:nn {#1}{#2}
-%       }
-%     \prop_map_inline:Nn \c_@@_role_sttags_latex_to_pdfII_prop
-%       {
-%         \@@_role_add_tag:nn {#1}{#2}
-%       }
-%     \hook_gput_code:nnn {begindocument}{tagpdf}
-%      {
-%        \cs_if_exist:NT \chapter
-%         {
-%           \prop_map_inline:Nn\c_@@_role_sttags_latex_book_to_pdfII_prop
-%             {
-%               \@@_role_add_tag:nn {#1}{#2}
-%             }
-%         }
-%      }
-%  }
-
 %    \end{macrocode}
 % \end{macro}
 % \subsubsection{The pdf 2.0 version}
@@ -404,6 +392,12 @@
        }
    }
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \subsection{Reading the default data}
+% The order is important as we want pdf2 and latex as default.
+%    \begin{macrocode}
 \@@_role_read_namespace:n {pdf}
 \@@_role_read_namespace:n {pdf2}
 \pdf_version_compare:NnT > {1.9}
@@ -411,34 +405,36 @@
 \@@_role_read_namespace:n {latex-book}  
 \@@_role_read_namespace:n {latex}
 %    \end{macrocode}
-% \end{macro}
-% \subsection{Rolemap the latex namespace}
-% We setup both namespaces directly. The |latex| namespace is the default.
-% If \cs{chapter} is detected we switch the default name space for the relevant
-% tags.
+%
+% But is the class provides a \cs{chapter} command then we switch 
 %    \begin{macrocode}
-%\pdf_version_compare:NnT = {2.0}
-%  {
-%    \prop_map_inline:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
-%     {
-%        \@@_role_add_tag:nnnn { #1 }{latex-book}{#2}{pdf2}
-%     }
-%   \prop_map_inline:Nn \c_@@_role_sttags_latex_to_pdfII_prop
-%     {
-%       \@@_role_add_tag:nnnn { #1 }{latex}{#2}{pdf2}
-%     }
-%    \hook_gput_code:nnn {begindocument}{tagpdf}
-%      {
-%        \cs_if_exist:NT \chapter
-%         {
-%           \prop_map_inline:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
-%             {
-%               \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
-%             }
-%         }
-%      }
-%  }
+\pdf_version_compare:NnTF < {2.0}
+  {
+    \hook_gput_code:nnn {begindocument}{tagpdf}
+      {
+        \cs_if_exist:NT \chapter
+           {
+             \prop_map_inline:Nn\g_@@_role_NS_latex_book_prop
+               {
+                 \@@_role_add_tag:nn {#1}{#2}
+               }
+           }
+      }
+  }
+  {
+    \hook_gput_code:nnn {begindocument}{tagpdf}
+      {
+        \cs_if_exist:NT \chapter
+         {
+           \prop_map_inline:Nn \g_@@_role_NS_latex_book_prop
+             {
+               \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
+             }
+         }
+      }  
+  }
 %    \end{macrocode}
+%
 % \subsection{Key-val user interface}
 %  The user interface uses the key |add-new-tag|, which takes either a
 %  keyval list as argument, or a tag/role.
