@@ -241,13 +241,9 @@
   }
 %    \end{macrocode}
 %
-% \subsection{Data}
-% In this section we setup the standard data.
-% At first the list of structure types. We split them in three lists,
-% the tags with which are both in the pdf and pdf2 namespace,
-% the one only in pdf and the one with the tags only in pdf2.
-% We also define a rolemap for the pdfII only type to pdf so that
-% they can always be used.
+% \subsection{Reading Data}
+% In this section we setup the helper command to read namespace files.
+% 
 % \begin{macro}{\@@_role_alloctag:n}
 % By default this command does currently nothing. In the 
 % lua backend it will record the attribute value.
@@ -260,13 +256,15 @@
     }      
  }
  {   
-  \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
-    {
-    }
+   \cs_new_protected:Npn \@@_role_alloctag:n #1 {} %#1 tagname
  }      
 %    \end{macrocode}
 % \end{macro}
 % 
+% \begin{macro}{\@@_role_read_namespace_line:nw}
+% This command will process a line in the name space file.
+% The first argument is the name of the name space. 
+% The definition differ for pdf 2.0. as we have proper name spaces there.
 %    \begin{macrocode}
 \pdf_version_compare:NnTF > {1.9}
  {
@@ -296,445 +294,33 @@
         \tl_if_empty:nF {#3}
           { 
             \@@_role_add_tag:nn {#2}{#3} 
-            \typeout{#1!#2!#3!#4!#5!#6!}
           }  
        }     
     }
   }  
   
 \cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
-  { \typeout{try to reading tagpdf-ns-#1.txt}
-    \file_if_exist:nT { tagpdf-ns-#1.txt}
-     { \typeout{reading tagpdf-ns-#1.txt}
-       \ior_open:Nn \g_tmpa_ior {tagpdf-ns-#1.txt}
+  { 
+    \prop_if_in:NnF \g_@@_role_NS_prop {#1}
+      { \msg_warning:nnn {tag}{namespace-unknown}{#1} }
+    \file_if_exist:nTF { tagpdf-ns-#1.def}
+     { 
+       \ior_open:Nn \g_tmpa_ior {tagpdf-ns-#1.def}
+       \msg_info:nnn {tag}{read-namespace}{#1}
        \ior_map_inline:Nn \g_tmpa_ior 
          {
            \@@_role_read_namespace_line:nw {#1} ##1,,,,\q_stop 
          }
        \ior_close:N\g_tmpa_ior    
      }
+     {
+      \msg_warning:nnn{tag}{namespace-missing}{#1}
+     }
   }   
    
 %    \end{macrocode}
-% \begin{variable}
-%   {
-%     \c_@@_role_sttags_pdf_pdfII_clist,
-%     \c_@@_role_sttags_only_pdf_clist,
-%     \c_@@_role_sttags_only_pdfII_clist,
-%     \c_@@_role_sttags_mathml_clist,
-%     \c_@@_role_sttags_pdfII_to_pdf_prop
-%   }
-%    \begin{macrocode}
-%
-\clist_const:Nn \c_@@_role_sttags_pdf_pdfII_clist
-  {
-    Document,   %A complete document. This is the root element
-                %of any structure tree containing
-                %multiple parts or multiple articles.
-    Part,       %A large-scale division of a document.
-    Sect,       %A container for grouping related content elements.
-    Div,        %A generic block-level element or group of elements
-    Caption,    %A brief portion of text describing a table or figure.
-    NonStruct,  %probably not needed
-    H,
-    H1,
-    H2,
-    H3,
-    H4,
-    H5,
-    H6,
-    P,
-    L,           %list
-    LI,          %list item (around label and list item body)
-    Lbl,         %list label
-    LBody,       %list item body
-    Table,
-    TR,          %table row
-    TH,          %table header cell
-    TD,          %table data cell
-    THead,       %table header (n rows)
-    TBody,       %table rows
-    TFoot,       %table footer
-    Span,        %generic inline marker
-    Link,        %
-    Annot,
-    Figure,
-    Formula,
-    Form,
-    % ruby warichu etc ..
-    Ruby,
-    RB,
-    RT,
-    Warichu,
-    WT,
-    WP,
-    Artifact % only MC-tag ?...
-  }
+% \end{macro}
 
-\clist_const:Nn \c_@@_role_sttags_only_pdf_clist
- {
-   Art,        %A relatively self-contained body of text
-               %constituting a single narrative or exposition
-   BlockQuote, %A portion of text consisting of one or more paragraphs
-               %attributed to someone other than the author of the
-               %surrounding text.
-   TOC,        %A list made up of table of contents item entries
-               %(structure tag TOCI; see below) and/or other
-               %nested table of contents entries
-   TOCI,       %An individual member of a table of contents.
-               %This entry's children can be any of the following structure  tags:
-               %Lbl,Reference,NonStruct,P,TOC
-   Index,
-   Private,
-   Quote,       %inline quote
-   Note,        %footnote, endnote. Lbl can be child
-   Reference,   %A citation to content elsewhere in the document.
-   BibEntry,    %bibentry
-   Code
- }
-
-\clist_const:Nn \c_@@_role_sttags_only_pdfII_clist
- {
-   DocumentFragment
-   ,Aside
-   ,H7
-   ,H8
-   ,H9
-   ,H10
-   ,Title
-   ,FENote
-   ,Sub
-   ,Em
-   ,Strong
-   ,Artifact
- }
-
-\clist_const:Nn \c_@@_role_sttags_mathml_clist
- {
-   abs
-   ,and
-   ,annotation
-   ,apply
-   ,approx
-   ,arccos
-   ,arccosh
-   ,arccot
-   ,arccoth
-   ,arccsc
-   ,arccsch
-   ,arcsec
-   ,arcsech
-   ,arcsin
-   ,arcsinh
-   ,arctan
-   ,arctanh
-   ,arg
-   ,bind
-   ,bvar
-   ,card
-   ,cartesianproduct
-   ,cbytes
-   ,ceiling
-   ,cerror
-   ,ci
-   ,cn
-   ,codomain
-   ,complexes
-   ,compose
-   ,condition
-   ,conjugate
-   ,cos
-   ,cosh
-   ,cot
-   ,coth
-   ,cs
-   ,csc
-   ,csch
-   ,csymbol
-   ,curl
-   ,declare
-   ,degree
-   ,determinant
-   ,diff
-   ,divergence
-   ,divide
-   ,domain
-   ,domainofapplication
-   ,emptyset
-   ,eq
-   ,equivalent
-   ,eulergamma
-   ,exists
-   ,exp
-   ,exponentiale
-   ,factorial
-   ,factorof
-   ,false
-   ,floor
-   ,fn
-   ,forall
-   ,gcd
-   ,geq
-   ,grad
-   ,gt
-   ,ident
-   ,image
-   ,imaginary
-   ,imaginaryi
-   ,implies
-   ,in
-   ,infinity
-   ,int
-   ,integers
-   ,intersect
-   ,interval
-   ,inverse
-   ,lambda
-   ,laplacian
-   ,lcm
-   ,leq
-   ,limit
-   ,ln
-   ,log
-   ,logbase
-   ,lowlimit
-   ,lt
-   ,maction
-   ,maligngroup
-   ,malignmark
-   ,math
-   ,matrix
-   ,matrixrow
-   ,max
-   ,mean
-   ,median
-   ,menclose
-   ,merror
-   ,mfenced
-   ,mfrac
-   ,mglyph
-   ,mi
-   ,min
-   ,minus
-   ,mlabeledtr
-   ,mlongdiv
-   ,mmultiscripts
-   ,mn
-   ,mo
-   ,mode
-   ,moment
-   ,momentabout
-   ,mover
-   ,mpadded
-   ,mphantom
-   ,mprescripts
-   ,mroot
-   ,mrow
-   ,ms
-   ,mscarries
-   ,mscarry
-   ,msgroup
-   ,msline
-   ,mspace
-   ,msqrt
-   ,msrow
-   ,mstack
-   ,mstyle
-   ,msub
-   ,msubsup
-   ,msup
-   ,mtable
-   ,mtd
-   ,mtext
-   ,mtr
-   ,munder
-   ,munderover
-   ,naturalnumbers
-   ,neq
-   ,none
-   ,not
-   ,notanumber
-   ,notin
-   ,notprsubset
-   ,notsubset
-   ,or
-   ,otherwise
-   ,outerproduct
-   ,partialdiff
-   ,pi
-   ,piece
-   ,piecewise
-   ,plus
-   ,power
-   ,primes
-   ,product
-   ,prsubset
-   ,quotient
-   ,rationals
-   ,real
-   ,reals
-   ,reln
-   ,rem
-   ,root
-   ,scalarproduct
-   ,sdev
-   ,sec
-   ,sech
-   ,selector
-   ,semantics
-   ,sep
-   ,set
-   ,setdiff
-   ,share
-   ,sin
-   ,sinh
-   ,subset
-   ,sum
-   ,tan
-   ,tanh
-   ,tendsto
-   ,times
-   ,transpose
-   ,true
-   ,union
-   ,uplimit
-   ,variance
-   ,vector
-   ,vectorproduct
-   ,xor
- }
-
-\prop_const_from_keyval:Nn \c_@@_role_sttags_pdfII_to_pdf_prop
-  {
-    DocumentFragment = Art,
-    Aside = Note,
-    Title = P,
-    Sub   = Span,
-    H7    = H6 ,
-    H8    = H6 ,
-    H9    = H6 ,
-    H10   = H6,
-    FENote= Note,
-    Em    = Span,
-    Strong= Span,
-  }
-%    \end{macrocode}
-% \end{variable}
-
-% \begin{variable}
-%   {
-%     \c_@@_role_sttags_latex_clist,
-%     \c_@@_role_sttags_latex_book_clist,
-%     \c_@@_role_sttags_latex_to_pdfII_prop,
-%     \c_@@_role_sttags_latex_book_to_pdfII_prop,
-%   }
-% This will define the \LaTeX{} namespaces. This is work in progress
-% and can still change. The default namespace will contain most
-% of the mappings. The book namespace will contain needed extras like chapter.
-% A book class can then exchange the default name space of the relevant tags.
-%    \begin{macrocode}
-\clist_const:Nn \c_@@_role_sttags_latex_clist
- {
-%sectioning titles
-   part,
-   section,
-   subsection,
-   subsubsection,
-   paragraph,
-   subparagraph,
-%lists
-   tableofcontents,
-   itemize,
-   enumerate,
-   description,
-   item,
-   itemlabel,
-   itembody,
-%footnotes
-   footnote,
-   footnotemark,
-   footnotelabel
- }
-\clist_const:Nn \c_@@_role_sttags_latex_book_clist
- {
-   chapter
- }
-\prop_const_from_keyval:Nn \c_@@_role_sttags_latex_to_pdfII_prop
-  {
-    title        = Title,
-    part         = Title,
-    section      = H1,
-    subsection   = H2,
-    subsubsection= H3,
-    paragraph    = H4,
-    subparagraph = H5,
-    itemize      = L,
-    enumerate    = L,
-    description  = L,
-    item         = LI,
-    itemlabel    = Lbl,
-    itembody     = LBody,
-    footnote     = FENote,
-    footnotemark = Lbl,
-    footnotelabel= Lbl
-  }
-\prop_const_from_keyval:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
-  {
-    chapter      = H1,
-    section      = H2,
-    subsection   = H3,
-    subsubsection= H4,
-    paragraph    = H5,
-    subparagraph = H6
-  }
-%    \end{macrocode}
-% \end{variable}
-% We fill the structure tags into the prop. We allow all pdf1.7 and pdf2.0,
-% and role map if needed the 2.0 tags.
-%    \begin{macrocode}
-
-%\clist_map_inline:Nn \c_@@_role_sttags_pdf_pdfII_clist
-%  {
-%    \@@_role_alloctag:n {#1}
-%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
-%  }
-%\clist_map_inline:Nn \c_@@_role_sttags_only_pdf_clist
-%  {
-%    \@@_role_alloctag:n {#1}
-%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf }
-%  }
-%\clist_map_inline:Nn \c_@@_role_sttags_only_pdfII_clist
-%  {
-%    \@@_role_alloctag:n {#1}
-%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ pdf2 }
-%  }
-%\clist_map_inline:Nn \c_@@_role_sttags_latex_book_clist
-%  {
-%    \@@_role_alloctag:n {#1}
-%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
-%  }
-%\clist_map_inline:Nn \c_@@_role_sttags_latex_clist
-%  {
-%    \@@_role_alloctag:n {#1}
-%    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-%    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex }
-%  }
-%
-%\pdf_version_compare:NnT > {1.9}
-%  {
-%     \clist_map_inline:Nn \c_@@_role_sttags_mathml_clist
-%       {
-%         \@@_role_alloctag:n {#1}
-%         %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-%         \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ mathml }
-%       }
-%  }
-%    \end{macrocode}
-%
 % \subsection{Adding new tags and rolemapping}
 %
 % \subsubsection{pdf 1.7 and earlier}
@@ -747,7 +333,6 @@
 % \end{variable}
 % \begin{macro}{\@@_role_add_tag:nn}
 % The pdf 1.7 version has only two arguments: new and rolemap name.
-% To make pdf 2.0 types usable we directly define a rolemapping for them.
 %
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
@@ -759,11 +344,6 @@
             \msg_info:nnn { tag }{new-tag}{#1}
           }
          \@@_role_alloctag:n {#1}  
-         %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-%         \@@_prop_gput:Nnx \g_@@_role_tags_NS_prop    { #1 }
-%           {
-%             %\seq_count:N \g_@@_role_tags_seq
-%           }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ user }
       }
     \@@_check_add_tag_role:nn {#1}{#2}
@@ -812,11 +392,6 @@
         \msg_info:nnn { tag }{new-tag}{#1}
       }
     \@@_role_alloctag:n {#1}
-    %\@@_seq_gput_right:Nn \g_@@_role_tags_seq { #1 }
-%    \@@_prop_gput:Nnx \g_@@_role_tags_prop    { #1 }
-%       {
-%         %\seq_count:N \g_@@_role_tags_seq
-%       }
     \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ #2 }
     \@@_check_add_tag_role:nn {#1}{#3}
     \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
@@ -842,27 +417,27 @@
 % If \cs{chapter} is detected we switch the default name space for the relevant
 % tags.
 %    \begin{macrocode}
-\pdf_version_compare:NnT = {2.0}
-  {
-    \prop_map_inline:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
-     {
-        \@@_role_add_tag:nnnn { #1 }{latex-book}{#2}{pdf2}
-     }
-   \prop_map_inline:Nn \c_@@_role_sttags_latex_to_pdfII_prop
-     {
-       \@@_role_add_tag:nnnn { #1 }{latex}{#2}{pdf2}
-     }
-    \hook_gput_code:nnn {begindocument}{tagpdf}
-      {
-        \cs_if_exist:NT \chapter
-         {
-           \prop_map_inline:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
-             {
-               \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
-             }
-         }
-      }
-  }
+%\pdf_version_compare:NnT = {2.0}
+%  {
+%    \prop_map_inline:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
+%     {
+%        \@@_role_add_tag:nnnn { #1 }{latex-book}{#2}{pdf2}
+%     }
+%   \prop_map_inline:Nn \c_@@_role_sttags_latex_to_pdfII_prop
+%     {
+%       \@@_role_add_tag:nnnn { #1 }{latex}{#2}{pdf2}
+%     }
+%    \hook_gput_code:nnn {begindocument}{tagpdf}
+%      {
+%        \cs_if_exist:NT \chapter
+%         {
+%           \prop_map_inline:Nn \c_@@_role_sttags_latex_book_to_pdfII_prop
+%             {
+%               \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
+%             }
+%         }
+%      }
+%  }
 %    \end{macrocode}
 % \subsection{Key-val user interface}
 %  The user interface uses the key |add-new-tag|, which takes either a
