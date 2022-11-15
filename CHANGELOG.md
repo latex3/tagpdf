@@ -9,6 +9,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Added 
  - started with dedicated latex name spaces
+ - namespaces definitions have been externalized and are now read from files.
  
  
 ## [2022-08-24]
