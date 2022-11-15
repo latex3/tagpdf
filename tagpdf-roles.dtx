@@ -114,11 +114,14 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_role_tags_type_prop}
-% This stores the type(s) of a tag. Tags that are rolemapped should get the type from
+% \begin{variable}{\g_@@_role_types_prop}
+% with pdf 2.0 we store the types in NS dependant props. 
+% With pdf <2.0 we store for now the type(s) of a tag in a common
+% prop. 
+% Tags that are rolemapped should get the type from
 % the target.
 %    \begin{macrocode}
-\prop_new:N    \g_@@_role_tags_type_prop 
+\prop_new:N    \g_@@_role_types_prop 
 %    \end{macrocode}
 % \end{variable}
 % 
@@ -183,6 +186,7 @@
   \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
     {
       \prop_new:c { g_@@_role_NS_#1_prop }
+      \prop_new:c { g_@@_role_NS_#1_types_prop }
       \pdf_object_new:n {tag/NS/#1}
       \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
       \pdf_object_new:n {@@/RoleMapNS/#1}
@@ -272,7 +276,20 @@
        {
         \@@_role_alloctag:n {#2}
         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
-        \prop_gput:Nnn \g_@@_role_tags_type_prop {#2}{#5}
+        \tl_if_empty:nTF {#5}
+         {
+           \prop_get:cnN { g_@@_role_NS_#4_types_prop } {#3}\l_@@_tmpa_tl
+           \quark_if_no_value:NTF \l_@@_tmpa_tl 
+             {
+               %no type warning? special value?
+             } 
+             {
+               \prop_gput:cnV { g_@@_role_NS_#1_types_prop } {#2}\l_@@_tmpa_tl
+             }
+         }
+         { 
+           \prop_gput:cnn { g_@@_role_NS_#1_types_prop } {#2}{#5}
+         }
         \prop_gput:cnn { g_@@_role_NS_#1_prop }   {#2}{#3} 
         \bool_lazy_and:nnT
            { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}} 
@@ -288,7 +305,20 @@
        {
         \@@_role_alloctag:n {#2}
         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
-        \prop_gput:Nnn \g_@@_role_tags_type_prop {#2}{#5}
+        \tl_if_empty:nTF {#5}
+         {
+           \prop_get:NnN \g_@@_role_types_prop {#3}\l_@@_tmpa_tl
+           \quark_if_no_value:NTF \l_@@_tmpa_tl 
+             {
+               %no type
+             } 
+             {
+               \prop_gput:NnV \g_@@_role_types_prop {#2}\l_@@_tmpa_tl
+             }
+         }
+         { 
+           \prop_gput:Nnn \g_@@_role_types_prop {#2}{#5}
+         }
         \prop_gput:cnn { g_@@_role_NS_#1_prop }   {#2}{#3} 
         \tl_if_empty:nF {#3}
           { 
