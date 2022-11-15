@@ -57,7 +57,7 @@
 %    role (rolemap-key),
 %    role-namespace (rolemap-key)
 %  }
-% This key can be used in \cs{tagpdfsetup} to declare and rolemap new tags.
+% The \texttt{add-new-tag} key can be used in \cs{tagpdfsetup} to declare and rolemap new tags.
 % It takes as value a key-value list or a simple |new-tag/old-tag|.
 %
 % The key-value list knows the following keys:
@@ -96,16 +96,21 @@
 %<*package>
 %    \end{macrocode}
 % \subsection{Variables}
-% Tags have a name (a string), a number (for the lua attribute), and 
+% Tags are used in structures and mc-chunks. 
+% They have a name (a string), a number (for the lua attribute), and 
 % in PDF 2.0 belong to one or more name spaces, with one being the default
 % name space.
-% Tags have also a type like grouping, inline or block level structure.
+% The structures represented by the tags are classified as grouping, 
+% inline or block level structure (and a few special types like lists and tables)
+% with special containments rules (for example can a inline structure not contain
+% a block level structure). This classification should stored too as it is needed
+% for tests.
 % The number is only relevant in lua and only for the MC type, 
 % tags with the same name from different names spaces can have the same number.
 %
 % \begin{variable}{\g_@@_role_tags_NS_prop}
 % This is basically the main list of tags. It uses tags as keys
-% and the default name space as value. The value are shorthands like pdf2, or mathml.
+% and the default name space as value. The values are shorthands like pdf2, or mathml.
 % We store a name space also in pdf <2.0, even if not needed: it doesn't harm and simplify
 % the code. 
 % There is no need to access this from lua, so we use the standard prop commands.
@@ -115,7 +120,7 @@
 % \end{variable}
 %
 % \begin{variable}{\g_@@_role_tags_type_prop}
-% This stores the type(s) of a tag. Tags that are rolemapped should get the type from
+% This stores the type(s) of a tag. Tags that are role mapped should get the type from
 % the target.
 %    \begin{macrocode}
 \prop_new:N    \g_@@_role_tags_type_prop 
@@ -160,17 +165,19 @@
 \tl_new:N \l_@@_role_role_namespace_tmpa_tl
 %    \end{macrocode}
 % \end{variable}
-% \subsection{Namesspaces}
+% \subsection{Namespaces}
 % The following commands setups a name space. 
-% With pdf version below 2.0 this is only a prop with the 
+% With pdf version $<$2.0 this is only a prop with the 
 % rolemap. With pdf 2.0 a dictionary must be set up. 
-% Such a namespace dictionaries can
+% Such a name space dictionaries can
 % contain an optional |/Schema| and |/RoleMapNS| entry. We only reserve the
 % objects but delay the writing to the finish code, where we can test if the
 % keys and the name spaces are actually needed.
 % This commands setups objects for the name space and its rolemap. It also
 % initialize a dict to collect the rolemaps if needed, and a property
 % with the tags of the namespace and their rolemapping for loops.
+% It is unclear if a reference to a schema file will be ever needed, 
+% but it doesn't harm \ldots.
 % \begin{function}{\@@_role_NS_new:nnn}
 %  \begin{syntax}
 %   \cs{@@_role_NS_new:nnn}\Arg{shorthand}\Arg{URI-ID}{Schema}
@@ -219,7 +226,7 @@
 % We need an id for the user space. For the tests it should be possible
 % to set it to a fix value. So we use random numbers which can
 % be fixed by setting a seed. We fake a sort of
-% GUID but not try to be really exact as it doesn't matter ...
+% GUID but do not try to be really exact as it doesn't matter ...
 %
 % \begin{variable}{\c_@@_role_userNS_id_str}
 %    \begin{macrocode}
@@ -240,18 +247,19 @@
 %    \end{macrocode}
 % \end{variable}
 % Now we setup the standard names spaces. 
+% The mathml space is currently only loaded for pdf 2.0.
 %    \begin{macrocode}
-    \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
-    \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
+\@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
+\@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
 \pdf_version_compare:NnT > {1.9}
   {    
     \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
   }  
-    \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
-    \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
+\@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
+\@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
    % \@@_role_NS_new:nnn {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
-    \exp_args:Nnx
-    \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
+\exp_args:Nnx
+  \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
 %    \end{macrocode}
 %
 % 
