@@ -634,7 +634,7 @@
   {
     \tl_if_empty:nTF {#2}
       {
-        \msg_warning:nnn { tag } {role-missing} {#1}
+        \msg_error:nnn { tag } {role-missing} {#1}
       }
       {
         \prop_get:NnNTF \g_@@_role_tags_NS_prop {#2} \l_tmpa_tl
@@ -645,7 +645,7 @@
               }
           }
           {
-            \msg_warning:nnn { tag } {role-unknown} {#2}
+            \msg_error:nnn { tag } {role-unknown} {#2}
           }
       }
   }

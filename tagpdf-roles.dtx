@@ -55,31 +55,31 @@
 %    tag (rolemap-key),
 %    namespace (rolemap-key),
 %    role (rolemap-key),
-%    role-namespace (rolemap-key)
+%    role-namespace (rolemap-key),
 %  }
 % The \texttt{add-new-tag} key can be used in \cs{tagpdfsetup} to declare and rolemap new tags.
 % It takes as value a key-value list or a simple |new-tag/old-tag|.
 %
 % The key-value list knows the following keys:
 % \begin{description}
-% \item[\texttt{tag}] This is the name of the new type as it should then be used in \cs{tagstructbegin}.
-% \item[\texttt{namespace}] This is the namespace of the new type.
+% \item[\texttt{tag}] This is the name of the new tag as it should 
+% then be used in \cs{tagstructbegin}.
+% \item[\texttt{namespace}] This is the namespace of the new tag.
 %   The value should be a shorthand of a namespace.
 %   The allowed values are currently |pdf|, |pdf2|, |mathml|,|latex|, |latex-book| and |user|.
 %   The default value (and recommended value for a new tag) is |user|.
 %   The public name of the user namespace is |tag/NS/user|. This can be used to reference
 %   the namespace e.g. in attributes.
-% \item[\texttt{role}] This is the type the tag should be mapped too.
-%  In a PDF 1.7 or earlier this is normally a type from the |pdf| set,
+% \item[\texttt{role}] This is the tag the tag should be mapped too.
+%  In a PDF 1.7 or earlier this is normally a tag from the |pdf| set,
 %  in PDF 2.0 from the |pdf|, |pdf2| and |mathml| set.
-%  It can also be a user type, or a still unknown type.
+%  It can also be a user tag. The tag must be declared before, as the code retrieves
+%  the type of the new tag from it. 
 %  The PDF format allows mapping to be done transitively.
 %  But tagpdf can't/won't check such unusual role mapping.
-% \item[\texttt{role-namespace}] If the role is a known type
-%  the default value is the default namespace of this type.
-%  If the role is unknown, |user| is used and
-%  the code hopes that the type will be defined later. With this key a specific
-%  namespace can be forced.
+% \item[\texttt{role-namespace}] If the role is a known tag
+%  the default value is the default namespace of this tag.
+%  With this key a specific namespace can be forced.  
 % \end{description}
 % \end{function}
 % \end{documentation}
@@ -116,24 +116,24 @@
 % spaces can have the same number.
 %
 % \begin{variable}{\g_@@_role_tags_NS_prop}
-% This is basically the main list of tags. It uses tags as keys
-% and the default name space as value. The values are shorthands like pdf2, or mathml.
-% We store a name space also in pdf <2.0, even if not needed: it doesn't harm and simplify
-% the code. 
+% This is the core list of tag names. It uses tags as keys
+% and the shorthand (e.g. pdf2, or mathml) of the default name space as value .
+% We store the default name space also in pdf <2.0, even if not needed: 
+% it doesn't harm and simplifies the code. 
 % There is no need to access this from lua, so we use the standard prop commands.
 %    \begin{macrocode}
 \prop_new:N    \g_@@_role_tags_NS_prop 
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_role_types_prop}
-% with pdf 2.0 we store the types in NS dependant props. 
+% \begin{variable}{\g_@@_role_tags_types_prop}
+% With pdf 2.0 we store the types in NS dependant props. 
 % With pdf <2.0 we store for now the type(s) of a tag in a common
 % prop. 
 % Tags that are rolemapped should get the type from
 % the target.
 %    \begin{macrocode}
-\prop_new:N    \g_@@_role_types_prop 
+\prop_new:N    \g_@@_role_tags_types_prop 
 %    \end{macrocode}
 % \end{variable}
 % 
@@ -151,9 +151,9 @@
 % \item[latex-inline]     https://www.latex-project.org/ns/inline/2022
 % \end{description}
 % More namespaces are possible and
-% their objects references and the ones of the namespaces must be collected
+% their objects references and their rolemaps must be collected
 % so that an array can be written to the StructTreeRoot at the end (see tagpdf-tree).
-% We use a prop to store also the object reference as it will be needed rather
+% We use a prop to store the object reference as it will be needed rather
 % often.
 %    \begin{macrocode}
 \prop_new:N \g_@@_role_NS_prop 
@@ -175,6 +175,7 @@
 \tl_new:N \l_@@_role_role_namespace_tmpa_tl
 %    \end{macrocode}
 % \end{variable}
+% 
 % \subsection{Namespaces}
 % The following commands setups a name space. 
 % With pdf version $<$2.0 this is only a prop with the 
@@ -188,6 +189,15 @@
 % with the tags of the namespace and their rolemapping for loops.
 % It is unclear if a reference to a schema file will be ever needed, 
 % but it doesn't harm \ldots.
+% 
+% \begin{variable}{g_@@_role/RoleMap_dict}
+% This is the object which contains the normal RoleMap. It is probably not
+% needed in pdf 2.0 but currently kept.
+%    \begin{macrocode}
+\pdfdict_new:n {g_@@_role/RoleMap_dict}
+%    \end{macrocode}
+% \end{variable}
+% 
 % \begin{function}{\@@_role_NS_new:nnn}
 %  \begin{syntax}
 %   \cs{@@_role_NS_new:nnn}\Arg{shorthand}\Arg{URI-ID}{Schema}
@@ -273,6 +283,86 @@
   \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
 %    \end{macrocode}
 %
+% \subsection{Adding a new tag}
+% Both when reading the files and when setting up a tag manually
+% we have to store data in various places.
+% 
+% \begin{macro}{\@@_role_alloctag:n}
+% This command allocates a new tag. In the 
+% lua backend it will record the attribute value.
+%    \begin{macrocode}
+\sys_if_engine_luatex:TF
+ {
+   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
+    {
+      \lua_now:e { ltx.@@.func.alloctag ('#1') }
+    }      
+ }
+ {   
+   \cs_new_protected:Npn \@@_role_alloctag:n #1 
+    {
+      \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
+    } %#1 tagname
+ }      
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{pdf 1.7 and earlier}
+%
+% \begin{macro}{\@@_role_add_tag:nn}
+% The pdf 1.7 version has only two arguments: new and rolemap name.
+% The role must be an existing tag and should not be empty.
+% We allow to change the role of an existing tag: as the rolemap is written
+% at the end not confusion can happen.
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_role_add_tag:nn % (new) name, reference to old
+  {
+    \@@_check_add_tag_role:nn {#1}{#2}
+    \prop_if_in:NnF \g_@@_role_tags_NS_prop {#1}
+      {
+        \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+          {
+            \msg_info:nnn { tag }{new-tag}{#1}
+          }
+         \@@_role_alloctag:n {#1}  
+         \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ user }
+      }
+    \tl_if_empty:nF { #2 }
+      {
+        \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
+          {#1}
+          {\pdf_name_from_unicode_e:n{#2}}
+      }
+  }
+\cs_generate_variant:Nn \@@_role_add_tag:nn {VV}
+%    \end{macrocode}
+% \end{macro}
+% \subsubsection{The pdf 2.0 version}
+% \begin{macro}{\@@_role_add_tag:nnnn}
+% The pdf 2.0 version takes four arguments:
+% tag/namespace/role/namespace
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_role_add_tag:nnnn %tag/namespace/role/namespace
+  {
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+      {
+        \msg_info:nnn { tag }{new-tag}{#1}
+      }
+    \@@_role_alloctag:n {#1}
+    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ #2 }
+    \@@_check_add_tag_role:nn {#1}{#3}
+    \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
+       {
+         [
+           \pdf_name_from_unicode_e:n{#3}
+           \c_space_tl
+           \pdf_object_ref:n {tag/NS/#4}
+         ]
+       }
+   }
+\cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
+%    \end{macrocode}
+% \end{macro}
 % 
 % \subsection{Helper command to read the data from files}
 % In this section we setup the helper command to read namespace files.
@@ -322,17 +412,17 @@
         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
         \tl_if_empty:nTF {#5}
          {
-           \prop_get:NnN \g_@@_role_types_prop {#3}\l_@@_tmpa_tl
+           \prop_get:NnN \g_@@_role_tags_types_prop {#3}\l_@@_tmpa_tl
            \quark_if_no_value:NTF \l_@@_tmpa_tl 
              {
                %no type
              } 
              {
-               \prop_gput:NnV \g_@@_role_types_prop {#2}\l_@@_tmpa_tl
+               \prop_gput:NnV \g_@@_role_tags_types_prop {#2}\l_@@_tmpa_tl
              }
          }
          { 
-           \prop_gput:Nnn \g_@@_role_types_prop {#2}{#5}
+           \prop_gput:Nnn \g_@@_role_tags_types_prop {#2}{#5}
          }
         \prop_gput:cnn { g_@@_role_NS_#1_prop }   {#2}{#3} 
         \tl_if_empty:nF {#3}
@@ -369,87 +459,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{Storing the tag data}
-% Both when reading the files and when setting up a tag manually
-% we have to store data in various places.
-% 
-% \begin{macro}{\@@_role_alloctag:n}
-% By default this command does currently nothing. In the 
-% lua backend it will record the attribute value.
-%    \begin{macrocode}
-\sys_if_engine_luatex:TF
- {
-   \cs_new_protected:Npn \@@_role_alloctag:n #1 %#1 tagname
-    {
-      \lua_now:e { ltx.@@.func.alloctag ('#1') }
-    }      
- }
- {   
-   \cs_new_protected:Npn \@@_role_alloctag:n #1 {} %#1 tagname
- }      
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsubsection{pdf 1.7 and earlier}
-% With this versions only RoleMap is filled.
-% At first the dictionary:
-% \begin{variable}{g_@@_role/RoleMap_dict}
-%    \begin{macrocode}
-\pdfdict_new:n {g_@@_role/RoleMap_dict}
-%    \end{macrocode}
-% \end{variable}
-% \begin{macro}{\@@_role_add_tag:nn}
-% The pdf 1.7 version has only two arguments: new and rolemap name.
-%
-%    \begin{macrocode}
-\cs_new_protected:Nn \@@_role_add_tag:nn %(new) name, reference to old
-  {
-    \prop_if_in:NnF \g_@@_role_tags_NS_prop {#1}
-      {
-        \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-          {
-            \msg_info:nnn { tag }{new-tag}{#1}
-          }
-         \@@_role_alloctag:n {#1}  
-         \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ user }
-      }
-    \@@_check_add_tag_role:nn {#1}{#2}
-    \tl_if_empty:nF { #2 }
-      {
-        \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
-          {#1}
-          {\pdf_name_from_unicode_e:n{#2}}
-      }
-  }
-\cs_generate_variant:Nn \@@_role_add_tag:nn {VV}
-%    \end{macrocode}
-% \end{macro}
-% \subsubsection{The pdf 2.0 version}
-% \begin{macro}{\@@_role_add_tag:nnnn}
-% The pdf 2.0 version takes four arguments:
-% tag/namespace/role/namespace
-%    \begin{macrocode}
-\cs_new_protected:Nn \@@_role_add_tag:nnnn %tag/namespace/role/namespace
-  {
-    \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-      {
-        \msg_info:nnn { tag }{new-tag}{#1}
-      }
-    \@@_role_alloctag:n {#1}
-    \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ #2 }
-    \@@_check_add_tag_role:nn {#1}{#3}
-    \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
-       {
-         [
-           \pdf_name_from_unicode_e:n{#3}
-           \c_space_tl
-           \pdf_object_ref:n {tag/NS/#4}
-         ]
-       }
-   }
-\cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
-%    \end{macrocode}
-% \end{macro}
+
 % 
 % \subsection{Reading the default data}
 % The order is important as we want pdf2 and latex as default.
