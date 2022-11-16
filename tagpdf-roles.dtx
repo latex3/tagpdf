@@ -114,10 +114,37 @@
 % The attribute number is only relevant in lua and only for the MC type, and so only
 % stored if luatex. Tags with the same name from different names 
 % spaces can have the same number.
+% 
+% The requirements for pdf 2.0 and <2.0 are different, which makes things a bit difficult.
+% and leads to some duplications.
+% \begin{description}
+% \item[\cs{g_@@_role_tags_NS_prop}] 
+% This is the core list of tag names. It uses tags as keys
+% and the shorthand (e.g. pdf2, or mathml) of the default name space as value. 
+% 
+% It is in pdf 2.0 needs the info in the structure dictionaries.
+% 
+% \item[\cs{g_@@_role_tags_types_prop}]
+% This contains for each tag a type. It is used in pdf <2.0.
+% 
+% \item[\cs{g_@@_role_NS_prop}] This contains the names spaces. The
+% values are the object references. They are used in pdf 2.0.
+% 
+% \item[\texttt{g\_@@\_role/RoleMap\_dict}] This dictionary contains 
+% the standard rolemaps. It is relevant only for pdf <2.0. 
+% 
+% \item[\cs{g_@@_role_NS_<ns>_prop}] This prop contains the tags of
+% a name space and their role. The value is only needed for pdf <2.0. 
+% 
+% \item[\cs{g_@@_role_NS_<ns>_types_prop}]   
+% This prop contains the tags of
+% a name space and their type. The value is only needed for pdf 2.0.             
+% \end{description} 
+%
 %
 % \begin{variable}{\g_@@_role_tags_NS_prop}
 % This is the core list of tag names. It uses tags as keys
-% and the shorthand (e.g. pdf2, or mathml) of the default name space as value .
+% and the shorthand (e.g. pdf2, or mathml) of the default name space as value.
 % We store the default name space also in pdf <2.0, even if not needed: 
 % it doesn't harm and simplifies the code. 
 % There is no need to access this from lua, so we use the standard prop commands.
