@@ -127,7 +127,7 @@
 % \end{variable}
 %
 % \begin{variable}{\g_@@_role_tags_types_prop}
-% With pdf 2.0 we store the types in NS dependant props. 
+% With pdf 2.0 we store the types in the NS dependant props. 
 % With pdf <2.0 we store for now the type(s) of a tag in a common
 % prop. 
 % Tags that are rolemapped should get the type from
@@ -186,7 +186,7 @@
 % keys and the name spaces are actually needed.
 % This commands setups objects for the name space and its rolemap. It also
 % initialize a dict to collect the rolemaps if needed, and a property
-% with the tags of the namespace and their rolemapping for loops.
+% with the tags of the name space and their rolemapping for loops.
 % It is unclear if a reference to a schema file will be ever needed, 
 % but it doesn't harm \ldots.
 % 
@@ -298,16 +298,18 @@
     {
       \lua_now:e { ltx.@@.func.alloctag ('#1') }
       \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
+      \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{}
       \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{#3}
-      \prop_gput:cnn { g_@@_role_NS_#2_types_prop }{#1}{#3}
+      \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{#3}
     }      
  }
  {   
    \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3
     {
       \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
+      \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{}
       \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{#3}
-      \prop_gput:cnn { g_@@_role_NS_#2_types_prop }{#1}{#3}
+      \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{#3}
     } 
  }   
 \cs_generate_variant:Nn  \@@_role_alloctag:nnn {nnV}   
@@ -371,7 +373,7 @@
       {
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
       }         
-    \@@_role_alloctag:nnV {#1}{#2}\l_@@_tmpa_tl
+    \@@_role_alloctag:nnV {#1}{#2}\l_@@_tmpa_tl    
     \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
        {
          [
@@ -402,7 +404,7 @@
        {
         \tl_if_empty:nTF {#5}
          {
-           \prop_get:cnN { g_@@_role_NS_#4_types_prop } {#3}\l_@@_tmpa_tl
+           \prop_get:cnN { g_@@_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
            \quark_if_no_value:NT \l_@@_tmpa_tl 
              {
                \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
@@ -412,6 +414,7 @@
            \tl_set:Nn \l_@@_tmpa_tl {#5}
          }     
         \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
+        \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{#3}
         \bool_lazy_and:nnT
            { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}} 
            {\@@_role_add_tag:nnnn {#2}{#1}{#3}{#4}} 
@@ -424,23 +427,19 @@
     {
       \tl_if_empty:nF { #2 }
        {
-        \@@_role_alloctag:n {#2}
-        \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#2}{#1}
         \tl_if_empty:nTF {#5}
-         {
-           \prop_get:NnN \g_@@_role_tags_types_prop {#3}\l_@@_tmpa_tl
-           \quark_if_no_value:NTF \l_@@_tmpa_tl 
-             {
-               %no type
-             } 
-             {
-               \prop_gput:NnV \g_@@_role_tags_types_prop {#2}\l_@@_tmpa_tl
-             }
-         }
-         { 
-           \prop_gput:Nnn \g_@@_role_tags_types_prop {#2}{#5}
-         }
-        \prop_gput:cnn { g_@@_role_NS_#1_prop }   {#2}{#3} 
+          {
+            \prop_get:NnN \g_@@_role_tags_types_prop  {#3}\l_@@_tmpa_tl
+            \quark_if_no_value:NT \l_@@_tmpa_tl 
+              {
+                \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
+              } 
+          }
+          {
+            \tl_set:Nn \l_@@_tmpa_tl {#5}
+          }             
+        \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
+        \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{#3}
         \tl_if_empty:nF {#3}
           { 
             \@@_role_add_tag:nn {#2}{#3} 
