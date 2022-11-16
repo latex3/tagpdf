@@ -100,13 +100,20 @@
 % They have a name (a string), a number (for the lua attribute), and 
 % in PDF 2.0 belong to one or more name spaces, with one being the default
 % name space.
-% The structures represented by the tags are classified as grouping, 
-% inline or block level structure (and a few special types like lists and tables)
-% with special containments rules (for example can a inline structure not contain
-% a block level structure). This classification should stored too as it is needed
-% for tests.
-% The number is only relevant in lua and only for the MC type, 
-% tags with the same name from different names spaces can have the same number.
+% 
+% The structures are classified, e.g. as grouping, 
+% inline or block level structure (and a few special types like lists and tables),
+% and must follow containments rules depending on their classification 
+% (for example a inline structure can not contain
+% a block level structure). New tags inherit their 
+% classification from the standard namespaces (PDF and/or PDF 2.0). 
+% We store this as it will probably 
+% be needed for tests but currently the data is not used. 
+% The classification for math is unclear currently and so not set.
+% 
+% The attribute number is only relevant in lua and only for the MC type, and so only
+% stored if luatex. Tags with the same name from different names 
+% spaces can have the same number.
 %
 % \begin{variable}{\g_@@_role_tags_NS_prop}
 % This is basically the main list of tags. It uses tags as keys
