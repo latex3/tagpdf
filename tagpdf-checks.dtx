@@ -651,7 +651,30 @@
   }
 %    \end{macrocode}
 % \end{macro}
-%
+% Similar with a namespace
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_add_tag_role:nnn #1 #2 #3 %#1 tag/NS, #2 role #3 namespace
+  {
+    \tl_if_empty:nTF {#2}
+      {
+        \msg_error:nnn { tag } {role-missing} {#1}
+      }
+      {
+        \prop_get:cnNTF { g_@@_role_NS_#3_prop } {#2} \l_tmpa_tl
+          {
+            \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+              {
+                \msg_info:nnnn { tag } {role-tag} {#1} {#2/#3}
+              }
+          }
+          {
+            \msg_error:nnn { tag } {role-unknown} {#2/#3}
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+
 % \subsection{Check related to mc-chunks}
 %
 % \begin{macro}{\@@_check_mc_if_nested:,\@@_check_mc_if_open:}
