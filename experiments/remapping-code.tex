@@ -1,4 +1,4 @@
-\DocumentMetadata{uncompress,testphase=phase-II,pdfversion=1.7}
+\DocumentMetadata{uncompress,testphase=phase-II,pdfversion=2.0}
 \documentclass{article}
 
 \begin{document}
@@ -21,32 +21,42 @@ We define a prop tag->new tag
 %\prop_show:c{g__tag_role_NS_latex-book_prop}
 %\prop_new:N\g__tag_role_remap_inline_prop
 %\prop_gset_from_keyval:Nn\g__tag_role_remap_inline_prop{H1=P/pdf2,chapter=P/pdf}
-\pdf_version_compare:NnTF <{2.0}
- {
-   \cs_new_protected:Npn \__tag_role_remap_inline:nN #1#2
-    {
-      \prop_get:cnNF { g__tag_role_NS_latex-inline_prop }{#1}#2
-       {\tl_set:Nn#2{#1}}
-    }
- }
- {
-   \cs_new_protected:Npn \__tag_role_remap_inline:nN #1#2
-    {
-      \prop_get:cnNTF { g__tag_role_NS_latex-inline_prop }{#1}#2
-       {\tl_set:Nn#2{#1/latex-inline}}
-       {\tl_set:Nn#2{#1}}
-    }
- 
- }   
-\cs_new_protected:Npn \__tag_role_remap_id:nN #1#2
- { \tl_set:Nn#2{#1} } 
+%\pdf_version_compare:NnTF <{2.0}
+% {
+%   \cs_new_protected:Npn \__tag_role_remap_inline:nN #1#2
+%    {
+%      \prop_get:cnNF { g__tag_role_NS_latex-inline_prop }{#1}#2
+%       {\tl_set:Nn#2{#1}}
+%    }
+% }
+% {
+%   \cs_new_protected:Npn \__tag_role_remap_inline:nN #1#2
+%    {
+%      \prop_get:cnNTF { g__tag_role_NS_latex-inline_prop }{#1}#2
+%       {\tl_set:Nn#2{#1/latex-inline}}
+%       {\tl_set:Nn#2{#1}}
+%    }
+% 
+% }   
+%\cs_new_protected:Npn \__tag_role_remap_id:nN #1#2
+% { \tl_set:Nn#2{#1} } 
 
 \cs_set_eq:NN\__tag_role_remap_default:nN \__tag_role_remap_id:nN
  
-\cs_set_eq:NN\__tag_role_remap_default:nN \__tag_role_remap_inline:nN 
-\__tag_role_remap_default:nN{chapter}\l_tmpa_tl 
+\cs_set_eq:NN\__tag_role_remap: \__tag_role_remap_inline: 
 
-abb \tagmcend\tagstructbegin{tag=\l_tmpa_tl}\tagmcbegin{tag=P}blub\tagmcend\tagstructend\tagmcbegin{tag=P} ccc
+\tl_set:Nn \l__tag_role_remap_tag_tl {chapter} 
+
+\tl_set:Nn \l__tag_role_remap_NS_tl {latex} 
+
+\__tag_role_remap:
+
+\tl_show:N\l__tag_role_remap_tag_tl
+%\__tag_role_remap_default:nN{chapter}\l_tmpa_tl 
+
+abb 
+\tagmcend\tagstructbegin{tag=H1}\tagmcbegin{tag=P}blub\tagmcend\tagstructend\tagmcbegin{tag=P} 
+ccc 
 
  
 \ExplSyntaxOff
