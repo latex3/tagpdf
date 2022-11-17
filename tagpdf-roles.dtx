@@ -95,6 +95,8 @@
 %    \begin{macrocode}
 %<*package>
 %    \end{macrocode}
+%
+% 
 % \subsection{Variables}
 % Tags are used in structures and mc-chunks. 
 % They have a name (a string), a number (for the lua attribute), and 
@@ -134,7 +136,9 @@
 % the standard rolemaps. It is relevant only for pdf <2.0. 
 % 
 % \item[\cs{g_@@_role_NS_<ns>_prop}] This prop contains the tags of
-% a name space and their role. The value is only needed for pdf <2.0. 
+% a name space and their role. The props are also use for 
+% remapping. Therefore the value differ: in pdf <2.0 only the role,
+% in pdf 2.0 the value is role/NS. 
 % 
 % \item[\cs{g_@@_role_NS_<ns>_types_prop}]   
 % This prop contains the tags of
@@ -232,7 +236,14 @@
 % \end{function}
 % \begin{macro}{\@@_role_NS_new:nnn}
 %    \begin{macrocode}
-\pdf_version_compare:NnTF > {1.9}
+\pdf_version_compare:NnTF < {2.0}
+ {
+   \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
+    {
+      \prop_new:c { g_@@_role_NS_#1_prop }
+      \prop_new:c { g_@@_role_NS_#1_types_prop }
+    }
+ }
  {
   \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
     {
@@ -262,14 +273,7 @@
        }
       \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{tag/NS/#1}~}
     }
- } 
- {
-   \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
-    {
-      \prop_new:c { g_@@_role_NS_#1_prop }
-      \prop_new:c { g_@@_role_NS_#1_types_prop }
-    }
- }
+ }  
 %    \end{macrocode}
 % \end{macro}
 % We need an id for the user space. For the tests it should be possible
@@ -300,13 +304,13 @@
 %    \begin{macrocode}
 \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
 \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
-\pdf_version_compare:NnT > {1.9}
+\pdf_version_compare:NnF < {2.0}
   {    
     \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
   }  
 \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
 \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
-   % \@@_role_NS_new:nnn {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
+\@@_role_NS_new:nnn {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
 \exp_args:Nnx
   \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
 %    \end{macrocode}
@@ -400,7 +404,7 @@
       {
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
       }         
-    \@@_role_alloctag:nnV {#1}{#2}\l_@@_tmpa_tl    
+    \@@_role_alloctag:nnV {#1}{#2}\l_@@_tmpa_tl   
     \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
        {
          [
@@ -422,32 +426,7 @@
 % The first argument is the name of the name space. 
 % The definition differ for pdf 2.0. as we have proper name spaces there.
 %    \begin{macrocode}
-\pdf_version_compare:NnTF > {1.9}
- {
-   \cs_new_protected:Npn \@@_role_read_namespace_line:nw #1#2,#3,#4,#5,#6\q_stop %
-    % #1 NS, #2 tag, #3 rolemap, #4 NS rolemap #5 type
-    {
-      \tl_if_empty:nF {#2}
-       {
-        \tl_if_empty:nTF {#5}
-         {
-           \prop_get:cnN { g_@@_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
-           \quark_if_no_value:NT \l_@@_tmpa_tl 
-             {
-               \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
-             } 
-         }
-         {
-           \tl_set:Nn \l_@@_tmpa_tl {#5}
-         }     
-        \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
-        \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{#3}
-        \bool_lazy_and:nnT
-           { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}} 
-           {\@@_role_add_tag:nnnn {#2}{#1}{#3}{#4}} 
-       }     
-    }
- }
+\pdf_version_compare:NnTF < {2.0}
  {
   \cs_new_protected:Npn \@@_role_read_namespace_line:nw #1#2,#3,#4,#5,#6\q_stop %
    % #1 NS, #2 tag, #3 rolemap, #4 NS rolemap #5 type
@@ -466,14 +445,41 @@
             \tl_set:Nn \l_@@_tmpa_tl {#5}
           }             
         \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
-        \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{#3}
         \tl_if_empty:nF {#3}
           { 
             \@@_role_add_tag:nn {#2}{#3} 
           }  
+        \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{#3}          
        }     
     }
   }  
+ {
+   \cs_new_protected:Npn \@@_role_read_namespace_line:nw #1#2,#3,#4,#5,#6\q_stop %
+    % #1 NS, #2 tag, #3 rolemap, #4 NS rolemap #5 type
+    {
+      \tl_if_empty:nF {#2}
+       {
+        \tl_if_empty:nTF {#5}
+         {
+           \prop_get:cnN { g_@@_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
+           \quark_if_no_value:NT \l_@@_tmpa_tl 
+             {
+               \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
+             } 
+         }
+         {
+           \tl_set:Nn \l_@@_tmpa_tl {#5}
+         }     
+        \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
+        \bool_lazy_and:nnT
+           { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}} 
+           {
+            \@@_role_add_tag:nnnn {#2}{#1}{#3}{#4}
+            \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{#3/#4}
+           }            
+       }     
+    }
+ }  
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_role_read_namespace:n}
@@ -508,8 +514,9 @@
 %    \begin{macrocode}
 \@@_role_read_namespace:n {pdf}
 \@@_role_read_namespace:n {pdf2}
-\pdf_version_compare:NnT > {1.9}
+\pdf_version_compare:NnF < {2.0}
   {\@@_role_read_namespace:n {mathml}}
+\@@_role_read_namespace:n {latex-inline}  
 \@@_role_read_namespace:n {latex-book}  
 \@@_role_read_namespace:n {latex}
 %    \end{macrocode}

@@ -11,6 +11,9 @@ this project uses date-based 'snapshot' version identifiers.
  - started with dedicated latex name spaces
  - namespaces definitions have been externalized and are now read from files.
  
+### Changed 
+ -  adding a new tag with add-new-tag now requires that the target role is 
+    defined. Unknown roles error. 
  
 ## [2022-08-24]
 
