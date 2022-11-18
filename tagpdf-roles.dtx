@@ -425,6 +425,13 @@
 % This command will process a line in the name space file.
 % The first argument is the name of the name space. 
 % The definition differ for pdf 2.0. as we have proper name spaces there.
+% With pdf<2.0 not special name spaces shouldn't update the default role or add to the rolemap
+% again. We use a boolean here.
+%    \begin{macrocode}
+\bool_new:N\l_@@_role_update_bool
+\bool_set_true:N \l_@@_role_update_bool
+%    \end{macrocode}
+% 
 %    \begin{macrocode}
 \pdf_version_compare:NnTF < {2.0}
  {
@@ -433,26 +440,36 @@
     {
       \tl_if_empty:nF { #2 }
        {
-        \tl_if_empty:nTF {#5}
-          {
-            \prop_get:NnN \g_@@_role_tags_types_prop  {#3}\l_@@_tmpa_tl
-            \quark_if_no_value:NT \l_@@_tmpa_tl 
-              {
-                \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
-              } 
-          }
-          {
-            \tl_set:Nn \l_@@_tmpa_tl {#5}
-          }             
-        \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
-        \tl_if_empty:nF {#3}
-          { 
+        \bool_if:NTF \l_@@_role_update_bool
+         {
+          \tl_if_empty:nTF {#5}
+            {
+              \prop_get:NnN \g_@@_role_tags_types_prop  {#3}\l_@@_tmpa_tl
+              \quark_if_no_value:NT \l_@@_tmpa_tl 
+                {
+                  \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
+                } 
+            }
+            {              
+              \tl_set:Nn \l_@@_tmpa_tl {#5} 
+            }             
+          \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
+          \tl_if_empty:nF {#3} 
+           { 
             \@@_role_add_tag:nn {#2}{#3} 
-          }  
-        \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}          
+           }  
+          \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}   
+         }
+         {
+           \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
+           \prop_get:NnNT \g_@@_role_tags_types_prop  {#3}\l_@@_tmpa_tl
+            {
+             \prop_gput:cnV {g_@@_role_NS_#1_types_prop}  {#2}\l_@@_tmpa_tl
+            }  
+         }       
        }     
     }
-  }  
+ }  
  {
    \cs_new_protected:Npn \@@_role_read_namespace_line:nw #1#2,#3,#4,#5,#6\q_stop %
     % #1 NS, #2 tag, #3 rolemap, #4 NS rolemap #5 type
@@ -515,10 +532,12 @@
 \@@_role_read_namespace:n {pdf}
 \@@_role_read_namespace:n {pdf2}
 \pdf_version_compare:NnF < {2.0}
-  {\@@_role_read_namespace:n {mathml}}
-\@@_role_read_namespace:n {latex-inline}  
+  {\@@_role_read_namespace:n {mathml}} 
 \@@_role_read_namespace:n {latex-book}  
 \@@_role_read_namespace:n {latex}
+\bool_set_false:N\l_@@_role_update_bool
+\@@_role_read_namespace:n {latex-inline} 
+\bool_set_true:N\l_@@_role_update_bool
 %    \end{macrocode}
 %
 % But is the class provides a \cs{chapter} command then we switch 
@@ -582,15 +601,37 @@
 % \end{macro}
 % 
 % \begin{macro}{\@@_role_remap_inline:nN}
+% The mapping is meant to \enquote{degrade} tags, e.g. if used
+% inside some complex object. 
+% The pdf<2.0 code maps the tag to the new role, the pdf 2.0 code only
+% switch the NS.
 %    \begin{macrocode}
-\cs_new_protected:Npn \__tag_role_remap_inline:
+\pdf_version_compare:NnTF < {2.0}
   {
-    \prop_get:cVNT { g__tag_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
-       {
-         \tl_set:Nx\l_@@_role_remap_tag_tl{\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}
-         \tl_set:Nx\l_@@_role_remap_NS_tl {\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}
-       }
+    \cs_new_protected:Npn \__tag_role_remap_inline:
+      {
+        \prop_get:cVNT { g__tag_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
+          {
+            \tl_set:Nx\l_@@_role_remap_tag_tl
+              {
+                \exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl
+              }
+            \tl_set:Nx\l_@@_role_remap_NS_tl 
+              {
+                \exp_last_unbraced:NV\use_ii:nn \l_@@_tmpa_tl
+              }
+          }
+      }
   }
+  {
+    \cs_new_protected:Npn \__tag_role_remap_inline:
+      {
+        \prop_get:cVNT { g__tag_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
+          {
+            \tl_set:Nn\l_@@_role_remap_NS_tl {latex-inline}
+          }
+      }    
+  }    
 %    \end{macrocode}
 % \end{macro}
 %

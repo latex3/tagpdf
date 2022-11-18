@@ -1,4 +1,5 @@
-\DocumentMetadata{uncompress,testphase=phase-II,pdfversion=2.0}
+% !Mode:: "TeX:UTF-8:Main"
+\DocumentMetadata{uncompress,testphase=phase-II,pdfversion=1.7}
 \documentclass{article}
 
 \begin{document}
@@ -45,20 +46,24 @@ We define a prop tag->new tag
  
 \cs_set_eq:NN\__tag_role_remap: \__tag_role_remap_inline: 
 
-\tl_set:Nn \l__tag_role_remap_tag_tl {chapter} 
+\tl_set:Nn \l__tag_role_remap_tag_tl {frontmatter} 
 
 \tl_set:Nn \l__tag_role_remap_NS_tl {latex} 
 
 \__tag_role_remap:
-
+\prop_show:c{g__tag_role_tags_NS_prop}
+\prop_show:c{g__tag_role_NS_latex-inline_prop}
 \tl_show:N\l__tag_role_remap_tag_tl
+\tl_show:N\l__tag_role_remap_NS_tl
 %\__tag_role_remap_default:nN{chapter}\l_tmpa_tl 
 
 abb 
 \tagmcend\tagstructbegin{tag=H1}\tagmcbegin{tag=P}blub\tagmcend\tagstructend\tagmcbegin{tag=P} 
 ccc 
 
+\pdfdict_show:n{g__tag_role/RoleMap_dict}
  
+\prop_show:c {g__tag_role_tags_types_prop} 
 \ExplSyntaxOff
 
  
