@@ -1,15 +1,33 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
+Package tagpdf Info: mapping tag section/user to role H1/pdf2
 Package tagpdf Info: adding new tag section
-Package tagpdf Info: mapping tag section to role H1
+! Package tagpdf Error: role H1/mathml is not known
+Type <return> to continue.
+ ...                                              
+l. ...  }
+LaTeX does not know anything more about this error, sorry.
+Try typing <return> to proceed.
+If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag wrongsection
-Package tagpdf Info: mapping tag wrongsection to role H1
+Package tagpdf Info: mapping tag var/mathml to role mo/mathml
 Package tagpdf Info: adding new tag var
-Package tagpdf Info: mapping tag var to role mo
+! Package tagpdf Error: role blub/user is not known
+Type <return> to continue.
+ ...                                              
+l. ...  }
+LaTeX does not know anything more about this error, sorry.
+Try typing <return> to proceed.
+If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag mn
-Package tagpdf Warning: role blub is not known
+! Package tagpdf Error: role x space/user is not known
+Type <return> to continue.
+ ...                                              
+l. ...  }
+LaTeX does not know anything more about this error, sorry.
+Try typing <return> to proceed.
+If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag space
-Package tagpdf Warning: role x space is not known
 pdftex
 The global dictionary 'g__tag_role/RoleMap_dict' is empty
 > .
@@ -19,8 +37,8 @@ The global dictionary 'g__tag_role/RoleMapNS_user_dict' contains the pairs
 (without outer braces):
 >  {section}  =>  {[/H1 11 0 R]}
 >  {wrongsection}  =>  {[/H1 13 0 R]}
->  {mn}  =>  {[/blub 19 0 R]}
->  {space}  =>  {[/x#20space 19 0 R]}.
+>  {mn}  =>  {[/blub 21 0 R]}
+>  {space}  =>  {[/x#20space 21 0 R]}.
 <recently read> }
 l. ......t_show:n {g__tag_role/RoleMapNS_user_dict}
 The global dictionary 'g__tag_role/RoleMapNS_mathml_dict' contains the pairs

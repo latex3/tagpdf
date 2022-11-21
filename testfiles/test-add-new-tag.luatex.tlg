@@ -2,12 +2,24 @@ This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 luatex
 Package tagpdf Info: mapping tag section to role H1
+! Package tagpdf Error: tag mn has no role assigned
+Type <return> to continue.
+ ...                                              
+l. ...\__tag_role_add_tag:nn {mn}{}
+LaTeX does not know anything more about this error, sorry.
+Try typing <return> to proceed.
+If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag mn
-tagpdf: Add mn 78
-Package tagpdf Warning: tag mn has no role assigned
+tagpdf: Add mn 77
+! Package tagpdf Error: role HX is not known
+Type <return> to continue.
+ ...                                              
+l. ...\__tag_role_add_tag:nn {wrongtag}{HX}
+LaTeX does not know anything more about this error, sorry.
+Try typing <return> to proceed.
+If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag wrongtag
-tagpdf: Add wrongtag 79
-Package tagpdf Warning: role HX is not known
+tagpdf: Add wrongtag 78
 The global dictionary 'g__tag_role/RoleMap_dict' contains the pairs (without
 outer braces):
 >  {DocumentFragment}  =>  {/Art}
@@ -21,14 +33,13 @@ outer braces):
 >  {Sub}  =>  {/Span}
 >  {Em}  =>  {/Span}
 >  {Strong}  =>  {/Span}
->  {chapter}  =>  {/H1}
+>  {title}  =>  {/Title}
+>  {part}  =>  {/Title}
 >  {section}  =>  {/H1}
 >  {subsection}  =>  {/H2}
 >  {subsubsection}  =>  {/H3}
 >  {paragraph}  =>  {/H4}
 >  {subparagraph}  =>  {/H5}
->  {title}  =>  {/Title}
->  {part}  =>  {/Title}
 >  {itemize}  =>  {/L}
 >  {enumerate}  =>  {/L}
 >  {description}  =>  {/L}
@@ -44,4 +55,4 @@ l. ...\pdfdict_show:n {g__tag_role/RoleMap_dict}
 > \testname=macro:
 ->user.
 l. ...\show\testname
-78
+77
