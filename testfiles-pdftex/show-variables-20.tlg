@@ -256,12 +256,12 @@ braces):
 >  {vector}  =>  {mathml}
 >  {vectorproduct}  =>  {mathml}
 >  {xor}  =>  {mathml}
->  {chapter}  =>  {latex-inline}
->  {section}  =>  {latex-inline}
->  {subsection}  =>  {latex-inline}
->  {subsubsection}  =>  {latex-inline}
->  {paragraph}  =>  {latex-inline}
->  {subparagraph}  =>  {latex-inline}
+>  {chapter}  =>  {latex-book}
+>  {section}  =>  {latex}
+>  {subsection}  =>  {latex}
+>  {subsubsection}  =>  {latex}
+>  {paragraph}  =>  {latex}
+>  {subparagraph}  =>  {latex}
 >  {title}  =>  {latex}
 >  {part}  =>  {latex}
 >  {itemize}  =>  {latex}
@@ -281,274 +281,274 @@ TEST 2: show tags ->types (1.7)
 ============================================================
 The property list \g__tag_role_tags_types_prop contains the pairs (without
 outer braces):
->  {Document}  =>  {D}
->  {Part}  =>  {G}
->  {Sect}  =>  {G}
->  {Div}  =>  {G}
->  {Caption}  =>  {GB}
->  {NonStruct}  =>  {G}
->  {H}  =>  {B}
->  {H1}  =>  {B}
->  {H2}  =>  {B}
->  {H3}  =>  {B}
->  {H4}  =>  {B}
->  {H5}  =>  {B}
->  {H6}  =>  {B}
->  {P}  =>  {I}
->  {L}  =>  {BI}
->  {LI}  =>  {L}
->  {Lbl}  =>  {I}
->  {LBody}  =>  {L}
->  {Table}  =>  {B}
->  {TR}  =>  {T}
->  {TH}  =>  {T}
->  {TD}  =>  {T}
->  {THead}  =>  {T}
->  {TBody}  =>  {T}
->  {TFoot}  =>  {T}
->  {Span}  =>  {I}
->  {Link}  =>  {GBI}
->  {Annot}  =>  {GBI}
->  {Figure}  =>  {GBI}
->  {Formula}  =>  {GBI}
->  {Form}  =>  {GBI}
->  {Ruby}  =>  {I}
->  {RB}  =>  {I}
->  {RT}  =>  {I}
->  {Warichu}  =>  {I}
->  {WT}  =>  {I}
->  {WP}  =>  {I}
->  {Artifact}  =>  {GBI}
->  {Art}  =>  {--UNKNOWN--}
->  {BlockQuote}  =>  {G}
->  {TOC}  =>  {G}
->  {TOCI}  =>  {G}
->  {Index}  =>  {G}
->  {Private}  =>  {G}
->  {Quote}  =>  {I}
->  {Note}  =>  {GBI}
->  {Reference}  =>  {B}
->  {BibEntry}  =>  {B}
->  {Code}  =>  {I}
->  {DocumentFragment}  =>  {D}
->  {Aside}  =>  {G}
->  {H7}  =>  {B}
->  {H8}  =>  {B}
->  {H9}  =>  {B}
->  {H10}  =>  {B}
->  {Title}  =>  {GB}
->  {FENote}  =>  {GBI}
->  {Sub}  =>  {I}
->  {Em}  =>  {I}
->  {Strong}  =>  {I}
->  {abs}  =>  {--UNKNOWN--}
->  {and}  =>  {--UNKNOWN--}
->  {annotation}  =>  {--UNKNOWN--}
->  {apply}  =>  {--UNKNOWN--}
->  {approx}  =>  {--UNKNOWN--}
->  {arccos}  =>  {--UNKNOWN--}
->  {arccosh}  =>  {--UNKNOWN--}
->  {arccot}  =>  {--UNKNOWN--}
->  {arccoth}  =>  {--UNKNOWN--}
->  {arccsc}  =>  {--UNKNOWN--}
->  {arccsch}  =>  {--UNKNOWN--}
->  {arcsec}  =>  {--UNKNOWN--}
->  {arcsech}  =>  {--UNKNOWN--}
->  {arcsin}  =>  {--UNKNOWN--}
->  {arcsinh}  =>  {--UNKNOWN--}
->  {arctan}  =>  {--UNKNOWN--}
->  {arctanh}  =>  {--UNKNOWN--}
->  {arg}  =>  {--UNKNOWN--}
->  {bind}  =>  {--UNKNOWN--}
->  {bvar}  =>  {--UNKNOWN--}
->  {card}  =>  {--UNKNOWN--}
->  {cartesianproduct}  =>  {--UNKNOWN--}
->  {cbytes}  =>  {--UNKNOWN--}
->  {ceiling}  =>  {--UNKNOWN--}
->  {cerror}  =>  {--UNKNOWN--}
->  {ci}  =>  {--UNKNOWN--}
->  {cn}  =>  {--UNKNOWN--}
->  {codomain}  =>  {--UNKNOWN--}
->  {complexes}  =>  {--UNKNOWN--}
->  {compose}  =>  {--UNKNOWN--}
->  {condition}  =>  {--UNKNOWN--}
->  {conjugate}  =>  {--UNKNOWN--}
->  {cos}  =>  {--UNKNOWN--}
->  {cosh}  =>  {--UNKNOWN--}
->  {cot}  =>  {--UNKNOWN--}
->  {coth}  =>  {--UNKNOWN--}
->  {cs}  =>  {--UNKNOWN--}
->  {csc}  =>  {--UNKNOWN--}
->  {csch}  =>  {--UNKNOWN--}
->  {csymbol}  =>  {--UNKNOWN--}
->  {curl}  =>  {--UNKNOWN--}
->  {declare}  =>  {--UNKNOWN--}
->  {degree}  =>  {--UNKNOWN--}
->  {determinant}  =>  {--UNKNOWN--}
->  {diff}  =>  {--UNKNOWN--}
->  {divergence}  =>  {--UNKNOWN--}
->  {divide}  =>  {--UNKNOWN--}
->  {domain}  =>  {--UNKNOWN--}
->  {domainofapplication}  =>  {--UNKNOWN--}
->  {emptyset}  =>  {--UNKNOWN--}
->  {eq}  =>  {--UNKNOWN--}
->  {equivalent}  =>  {--UNKNOWN--}
->  {eulergamma}  =>  {--UNKNOWN--}
->  {exists}  =>  {--UNKNOWN--}
->  {exp}  =>  {--UNKNOWN--}
->  {exponentiale}  =>  {--UNKNOWN--}
->  {factorial}  =>  {--UNKNOWN--}
->  {factorof}  =>  {--UNKNOWN--}
->  {false}  =>  {--UNKNOWN--}
->  {floor}  =>  {--UNKNOWN--}
->  {fn}  =>  {--UNKNOWN--}
->  {forall}  =>  {--UNKNOWN--}
->  {gcd}  =>  {--UNKNOWN--}
->  {geq}  =>  {--UNKNOWN--}
->  {grad}  =>  {--UNKNOWN--}
->  {gt}  =>  {--UNKNOWN--}
->  {ident}  =>  {--UNKNOWN--}
->  {image}  =>  {--UNKNOWN--}
->  {imaginary}  =>  {--UNKNOWN--}
->  {imaginaryi}  =>  {--UNKNOWN--}
->  {implies}  =>  {--UNKNOWN--}
->  {in}  =>  {--UNKNOWN--}
->  {infinity}  =>  {--UNKNOWN--}
->  {int}  =>  {--UNKNOWN--}
->  {integers}  =>  {--UNKNOWN--}
->  {intersect}  =>  {--UNKNOWN--}
->  {interval}  =>  {--UNKNOWN--}
->  {inverse}  =>  {--UNKNOWN--}
->  {lambda}  =>  {--UNKNOWN--}
->  {laplacian}  =>  {--UNKNOWN--}
->  {lcm}  =>  {--UNKNOWN--}
->  {leq}  =>  {--UNKNOWN--}
->  {limit}  =>  {--UNKNOWN--}
->  {ln}  =>  {--UNKNOWN--}
->  {log}  =>  {--UNKNOWN--}
->  {logbase}  =>  {--UNKNOWN--}
->  {lowlimit}  =>  {--UNKNOWN--}
->  {lt}  =>  {--UNKNOWN--}
->  {maction}  =>  {--UNKNOWN--}
->  {maligngroup}  =>  {--UNKNOWN--}
->  {malignmark}  =>  {--UNKNOWN--}
->  {math}  =>  {--UNKNOWN--}
->  {matrix}  =>  {--UNKNOWN--}
->  {matrixrow}  =>  {--UNKNOWN--}
->  {max}  =>  {--UNKNOWN--}
->  {mean}  =>  {--UNKNOWN--}
->  {median}  =>  {--UNKNOWN--}
->  {menclose}  =>  {--UNKNOWN--}
->  {merror}  =>  {--UNKNOWN--}
->  {mfenced}  =>  {--UNKNOWN--}
->  {mfrac}  =>  {--UNKNOWN--}
->  {mglyph}  =>  {--UNKNOWN--}
->  {mi}  =>  {--UNKNOWN--}
->  {min}  =>  {--UNKNOWN--}
->  {minus}  =>  {--UNKNOWN--}
->  {mlabeledtr}  =>  {--UNKNOWN--}
->  {mlongdiv}  =>  {--UNKNOWN--}
->  {mmultiscripts}  =>  {--UNKNOWN--}
->  {mn}  =>  {--UNKNOWN--}
->  {mo}  =>  {--UNKNOWN--}
->  {mode}  =>  {--UNKNOWN--}
->  {moment}  =>  {--UNKNOWN--}
->  {momentabout}  =>  {--UNKNOWN--}
->  {mover}  =>  {--UNKNOWN--}
->  {mpadded}  =>  {--UNKNOWN--}
->  {mphantom}  =>  {--UNKNOWN--}
->  {mprescripts}  =>  {--UNKNOWN--}
->  {mroot}  =>  {--UNKNOWN--}
->  {mrow}  =>  {--UNKNOWN--}
->  {ms}  =>  {--UNKNOWN--}
->  {mscarries}  =>  {--UNKNOWN--}
->  {mscarry}  =>  {--UNKNOWN--}
->  {msgroup}  =>  {--UNKNOWN--}
->  {msline}  =>  {--UNKNOWN--}
->  {mspace}  =>  {--UNKNOWN--}
->  {msqrt}  =>  {--UNKNOWN--}
->  {msrow}  =>  {--UNKNOWN--}
->  {mstack}  =>  {--UNKNOWN--}
->  {mstyle}  =>  {--UNKNOWN--}
->  {msub}  =>  {--UNKNOWN--}
->  {msubsup}  =>  {--UNKNOWN--}
->  {msup}  =>  {--UNKNOWN--}
->  {mtable}  =>  {--UNKNOWN--}
->  {mtd}  =>  {--UNKNOWN--}
->  {mtext}  =>  {--UNKNOWN--}
->  {mtr}  =>  {--UNKNOWN--}
->  {munder}  =>  {--UNKNOWN--}
->  {munderover}  =>  {--UNKNOWN--}
->  {naturalnumbers}  =>  {--UNKNOWN--}
->  {neq}  =>  {--UNKNOWN--}
->  {none}  =>  {--UNKNOWN--}
->  {not}  =>  {--UNKNOWN--}
->  {notanumber}  =>  {--UNKNOWN--}
->  {notin}  =>  {--UNKNOWN--}
->  {notprsubset}  =>  {--UNKNOWN--}
->  {notsubset}  =>  {--UNKNOWN--}
->  {or}  =>  {--UNKNOWN--}
->  {otherwise}  =>  {--UNKNOWN--}
->  {outerproduct}  =>  {--UNKNOWN--}
->  {partialdiff}  =>  {--UNKNOWN--}
->  {pi}  =>  {--UNKNOWN--}
->  {piece}  =>  {--UNKNOWN--}
->  {piecewise}  =>  {--UNKNOWN--}
->  {plus}  =>  {--UNKNOWN--}
->  {power}  =>  {--UNKNOWN--}
->  {primes}  =>  {--UNKNOWN--}
->  {product}  =>  {--UNKNOWN--}
->  {prsubset}  =>  {--UNKNOWN--}
->  {quotient}  =>  {--UNKNOWN--}
->  {rationals}  =>  {--UNKNOWN--}
->  {real}  =>  {--UNKNOWN--}
->  {reals}  =>  {--UNKNOWN--}
->  {reln}  =>  {--UNKNOWN--}
->  {rem}  =>  {--UNKNOWN--}
->  {root}  =>  {--UNKNOWN--}
->  {scalarproduct}  =>  {--UNKNOWN--}
->  {sdev}  =>  {--UNKNOWN--}
->  {sec}  =>  {--UNKNOWN--}
->  {sech}  =>  {--UNKNOWN--}
->  {selector}  =>  {--UNKNOWN--}
->  {semantics}  =>  {--UNKNOWN--}
->  {sep}  =>  {--UNKNOWN--}
->  {set}  =>  {--UNKNOWN--}
->  {setdiff}  =>  {--UNKNOWN--}
->  {share}  =>  {--UNKNOWN--}
->  {sin}  =>  {--UNKNOWN--}
->  {sinh}  =>  {--UNKNOWN--}
->  {subset}  =>  {--UNKNOWN--}
->  {sum}  =>  {--UNKNOWN--}
->  {tan}  =>  {--UNKNOWN--}
->  {tanh}  =>  {--UNKNOWN--}
->  {tendsto}  =>  {--UNKNOWN--}
->  {times}  =>  {--UNKNOWN--}
->  {transpose}  =>  {--UNKNOWN--}
->  {true}  =>  {--UNKNOWN--}
->  {union}  =>  {--UNKNOWN--}
->  {uplimit}  =>  {--UNKNOWN--}
->  {variance}  =>  {--UNKNOWN--}
->  {vector}  =>  {--UNKNOWN--}
->  {vectorproduct}  =>  {--UNKNOWN--}
->  {xor}  =>  {--UNKNOWN--}
->  {chapter}  =>  {I}
->  {section}  =>  {I}
->  {subsection}  =>  {I}
->  {subsubsection}  =>  {I}
->  {paragraph}  =>  {I}
->  {subparagraph}  =>  {I}
->  {title}  =>  {GB}
->  {part}  =>  {GB}
->  {itemize}  =>  {BI}
->  {enumerate}  =>  {BI}
->  {description}  =>  {BI}
->  {item}  =>  {L}
->  {itemlabel}  =>  {I}
->  {itembody}  =>  {L}
->  {footnote}  =>  {GBI}
->  {footnotemark}  =>  {I}
->  {footnotelabel}  =>  {I}.
+>  {Document}  =>  {--UNUSED--}
+>  {Part}  =>  {--UNUSED--}
+>  {Sect}  =>  {--UNUSED--}
+>  {Div}  =>  {--UNUSED--}
+>  {Caption}  =>  {--UNUSED--}
+>  {NonStruct}  =>  {--UNUSED--}
+>  {H}  =>  {--UNUSED--}
+>  {H1}  =>  {--UNUSED--}
+>  {H2}  =>  {--UNUSED--}
+>  {H3}  =>  {--UNUSED--}
+>  {H4}  =>  {--UNUSED--}
+>  {H5}  =>  {--UNUSED--}
+>  {H6}  =>  {--UNUSED--}
+>  {P}  =>  {--UNUSED--}
+>  {L}  =>  {--UNUSED--}
+>  {LI}  =>  {--UNUSED--}
+>  {Lbl}  =>  {--UNUSED--}
+>  {LBody}  =>  {--UNUSED--}
+>  {Table}  =>  {--UNUSED--}
+>  {TR}  =>  {--UNUSED--}
+>  {TH}  =>  {--UNUSED--}
+>  {TD}  =>  {--UNUSED--}
+>  {THead}  =>  {--UNUSED--}
+>  {TBody}  =>  {--UNUSED--}
+>  {TFoot}  =>  {--UNUSED--}
+>  {Span}  =>  {--UNUSED--}
+>  {Link}  =>  {--UNUSED--}
+>  {Annot}  =>  {--UNUSED--}
+>  {Figure}  =>  {--UNUSED--}
+>  {Formula}  =>  {--UNUSED--}
+>  {Form}  =>  {--UNUSED--}
+>  {Ruby}  =>  {--UNUSED--}
+>  {RB}  =>  {--UNUSED--}
+>  {RT}  =>  {--UNUSED--}
+>  {Warichu}  =>  {--UNUSED--}
+>  {WT}  =>  {--UNUSED--}
+>  {WP}  =>  {--UNUSED--}
+>  {Artifact}  =>  {--UNUSED--}
+>  {Art}  =>  {--UNUSED--}
+>  {BlockQuote}  =>  {--UNUSED--}
+>  {TOC}  =>  {--UNUSED--}
+>  {TOCI}  =>  {--UNUSED--}
+>  {Index}  =>  {--UNUSED--}
+>  {Private}  =>  {--UNUSED--}
+>  {Quote}  =>  {--UNUSED--}
+>  {Note}  =>  {--UNUSED--}
+>  {Reference}  =>  {--UNUSED--}
+>  {BibEntry}  =>  {--UNUSED--}
+>  {Code}  =>  {--UNUSED--}
+>  {DocumentFragment}  =>  {--UNUSED--}
+>  {Aside}  =>  {--UNUSED--}
+>  {H7}  =>  {--UNUSED--}
+>  {H8}  =>  {--UNUSED--}
+>  {H9}  =>  {--UNUSED--}
+>  {H10}  =>  {--UNUSED--}
+>  {Title}  =>  {--UNUSED--}
+>  {FENote}  =>  {--UNUSED--}
+>  {Sub}  =>  {--UNUSED--}
+>  {Em}  =>  {--UNUSED--}
+>  {Strong}  =>  {--UNUSED--}
+>  {abs}  =>  {--UNUSED--}
+>  {and}  =>  {--UNUSED--}
+>  {annotation}  =>  {--UNUSED--}
+>  {apply}  =>  {--UNUSED--}
+>  {approx}  =>  {--UNUSED--}
+>  {arccos}  =>  {--UNUSED--}
+>  {arccosh}  =>  {--UNUSED--}
+>  {arccot}  =>  {--UNUSED--}
+>  {arccoth}  =>  {--UNUSED--}
+>  {arccsc}  =>  {--UNUSED--}
+>  {arccsch}  =>  {--UNUSED--}
+>  {arcsec}  =>  {--UNUSED--}
+>  {arcsech}  =>  {--UNUSED--}
+>  {arcsin}  =>  {--UNUSED--}
+>  {arcsinh}  =>  {--UNUSED--}
+>  {arctan}  =>  {--UNUSED--}
+>  {arctanh}  =>  {--UNUSED--}
+>  {arg}  =>  {--UNUSED--}
+>  {bind}  =>  {--UNUSED--}
+>  {bvar}  =>  {--UNUSED--}
+>  {card}  =>  {--UNUSED--}
+>  {cartesianproduct}  =>  {--UNUSED--}
+>  {cbytes}  =>  {--UNUSED--}
+>  {ceiling}  =>  {--UNUSED--}
+>  {cerror}  =>  {--UNUSED--}
+>  {ci}  =>  {--UNUSED--}
+>  {cn}  =>  {--UNUSED--}
+>  {codomain}  =>  {--UNUSED--}
+>  {complexes}  =>  {--UNUSED--}
+>  {compose}  =>  {--UNUSED--}
+>  {condition}  =>  {--UNUSED--}
+>  {conjugate}  =>  {--UNUSED--}
+>  {cos}  =>  {--UNUSED--}
+>  {cosh}  =>  {--UNUSED--}
+>  {cot}  =>  {--UNUSED--}
+>  {coth}  =>  {--UNUSED--}
+>  {cs}  =>  {--UNUSED--}
+>  {csc}  =>  {--UNUSED--}
+>  {csch}  =>  {--UNUSED--}
+>  {csymbol}  =>  {--UNUSED--}
+>  {curl}  =>  {--UNUSED--}
+>  {declare}  =>  {--UNUSED--}
+>  {degree}  =>  {--UNUSED--}
+>  {determinant}  =>  {--UNUSED--}
+>  {diff}  =>  {--UNUSED--}
+>  {divergence}  =>  {--UNUSED--}
+>  {divide}  =>  {--UNUSED--}
+>  {domain}  =>  {--UNUSED--}
+>  {domainofapplication}  =>  {--UNUSED--}
+>  {emptyset}  =>  {--UNUSED--}
+>  {eq}  =>  {--UNUSED--}
+>  {equivalent}  =>  {--UNUSED--}
+>  {eulergamma}  =>  {--UNUSED--}
+>  {exists}  =>  {--UNUSED--}
+>  {exp}  =>  {--UNUSED--}
+>  {exponentiale}  =>  {--UNUSED--}
+>  {factorial}  =>  {--UNUSED--}
+>  {factorof}  =>  {--UNUSED--}
+>  {false}  =>  {--UNUSED--}
+>  {floor}  =>  {--UNUSED--}
+>  {fn}  =>  {--UNUSED--}
+>  {forall}  =>  {--UNUSED--}
+>  {gcd}  =>  {--UNUSED--}
+>  {geq}  =>  {--UNUSED--}
+>  {grad}  =>  {--UNUSED--}
+>  {gt}  =>  {--UNUSED--}
+>  {ident}  =>  {--UNUSED--}
+>  {image}  =>  {--UNUSED--}
+>  {imaginary}  =>  {--UNUSED--}
+>  {imaginaryi}  =>  {--UNUSED--}
+>  {implies}  =>  {--UNUSED--}
+>  {in}  =>  {--UNUSED--}
+>  {infinity}  =>  {--UNUSED--}
+>  {int}  =>  {--UNUSED--}
+>  {integers}  =>  {--UNUSED--}
+>  {intersect}  =>  {--UNUSED--}
+>  {interval}  =>  {--UNUSED--}
+>  {inverse}  =>  {--UNUSED--}
+>  {lambda}  =>  {--UNUSED--}
+>  {laplacian}  =>  {--UNUSED--}
+>  {lcm}  =>  {--UNUSED--}
+>  {leq}  =>  {--UNUSED--}
+>  {limit}  =>  {--UNUSED--}
+>  {ln}  =>  {--UNUSED--}
+>  {log}  =>  {--UNUSED--}
+>  {logbase}  =>  {--UNUSED--}
+>  {lowlimit}  =>  {--UNUSED--}
+>  {lt}  =>  {--UNUSED--}
+>  {maction}  =>  {--UNUSED--}
+>  {maligngroup}  =>  {--UNUSED--}
+>  {malignmark}  =>  {--UNUSED--}
+>  {math}  =>  {--UNUSED--}
+>  {matrix}  =>  {--UNUSED--}
+>  {matrixrow}  =>  {--UNUSED--}
+>  {max}  =>  {--UNUSED--}
+>  {mean}  =>  {--UNUSED--}
+>  {median}  =>  {--UNUSED--}
+>  {menclose}  =>  {--UNUSED--}
+>  {merror}  =>  {--UNUSED--}
+>  {mfenced}  =>  {--UNUSED--}
+>  {mfrac}  =>  {--UNUSED--}
+>  {mglyph}  =>  {--UNUSED--}
+>  {mi}  =>  {--UNUSED--}
+>  {min}  =>  {--UNUSED--}
+>  {minus}  =>  {--UNUSED--}
+>  {mlabeledtr}  =>  {--UNUSED--}
+>  {mlongdiv}  =>  {--UNUSED--}
+>  {mmultiscripts}  =>  {--UNUSED--}
+>  {mn}  =>  {--UNUSED--}
+>  {mo}  =>  {--UNUSED--}
+>  {mode}  =>  {--UNUSED--}
+>  {moment}  =>  {--UNUSED--}
+>  {momentabout}  =>  {--UNUSED--}
+>  {mover}  =>  {--UNUSED--}
+>  {mpadded}  =>  {--UNUSED--}
+>  {mphantom}  =>  {--UNUSED--}
+>  {mprescripts}  =>  {--UNUSED--}
+>  {mroot}  =>  {--UNUSED--}
+>  {mrow}  =>  {--UNUSED--}
+>  {ms}  =>  {--UNUSED--}
+>  {mscarries}  =>  {--UNUSED--}
+>  {mscarry}  =>  {--UNUSED--}
+>  {msgroup}  =>  {--UNUSED--}
+>  {msline}  =>  {--UNUSED--}
+>  {mspace}  =>  {--UNUSED--}
+>  {msqrt}  =>  {--UNUSED--}
+>  {msrow}  =>  {--UNUSED--}
+>  {mstack}  =>  {--UNUSED--}
+>  {mstyle}  =>  {--UNUSED--}
+>  {msub}  =>  {--UNUSED--}
+>  {msubsup}  =>  {--UNUSED--}
+>  {msup}  =>  {--UNUSED--}
+>  {mtable}  =>  {--UNUSED--}
+>  {mtd}  =>  {--UNUSED--}
+>  {mtext}  =>  {--UNUSED--}
+>  {mtr}  =>  {--UNUSED--}
+>  {munder}  =>  {--UNUSED--}
+>  {munderover}  =>  {--UNUSED--}
+>  {naturalnumbers}  =>  {--UNUSED--}
+>  {neq}  =>  {--UNUSED--}
+>  {none}  =>  {--UNUSED--}
+>  {not}  =>  {--UNUSED--}
+>  {notanumber}  =>  {--UNUSED--}
+>  {notin}  =>  {--UNUSED--}
+>  {notprsubset}  =>  {--UNUSED--}
+>  {notsubset}  =>  {--UNUSED--}
+>  {or}  =>  {--UNUSED--}
+>  {otherwise}  =>  {--UNUSED--}
+>  {outerproduct}  =>  {--UNUSED--}
+>  {partialdiff}  =>  {--UNUSED--}
+>  {pi}  =>  {--UNUSED--}
+>  {piece}  =>  {--UNUSED--}
+>  {piecewise}  =>  {--UNUSED--}
+>  {plus}  =>  {--UNUSED--}
+>  {power}  =>  {--UNUSED--}
+>  {primes}  =>  {--UNUSED--}
+>  {product}  =>  {--UNUSED--}
+>  {prsubset}  =>  {--UNUSED--}
+>  {quotient}  =>  {--UNUSED--}
+>  {rationals}  =>  {--UNUSED--}
+>  {real}  =>  {--UNUSED--}
+>  {reals}  =>  {--UNUSED--}
+>  {reln}  =>  {--UNUSED--}
+>  {rem}  =>  {--UNUSED--}
+>  {root}  =>  {--UNUSED--}
+>  {scalarproduct}  =>  {--UNUSED--}
+>  {sdev}  =>  {--UNUSED--}
+>  {sec}  =>  {--UNUSED--}
+>  {sech}  =>  {--UNUSED--}
+>  {selector}  =>  {--UNUSED--}
+>  {semantics}  =>  {--UNUSED--}
+>  {sep}  =>  {--UNUSED--}
+>  {set}  =>  {--UNUSED--}
+>  {setdiff}  =>  {--UNUSED--}
+>  {share}  =>  {--UNUSED--}
+>  {sin}  =>  {--UNUSED--}
+>  {sinh}  =>  {--UNUSED--}
+>  {subset}  =>  {--UNUSED--}
+>  {sum}  =>  {--UNUSED--}
+>  {tan}  =>  {--UNUSED--}
+>  {tanh}  =>  {--UNUSED--}
+>  {tendsto}  =>  {--UNUSED--}
+>  {times}  =>  {--UNUSED--}
+>  {transpose}  =>  {--UNUSED--}
+>  {true}  =>  {--UNUSED--}
+>  {union}  =>  {--UNUSED--}
+>  {uplimit}  =>  {--UNUSED--}
+>  {variance}  =>  {--UNUSED--}
+>  {vector}  =>  {--UNUSED--}
+>  {vectorproduct}  =>  {--UNUSED--}
+>  {xor}  =>  {--UNUSED--}
+>  {chapter}  =>  {--UNUSED--}
+>  {section}  =>  {--UNUSED--}
+>  {subsection}  =>  {--UNUSED--}
+>  {subsubsection}  =>  {--UNUSED--}
+>  {paragraph}  =>  {--UNUSED--}
+>  {subparagraph}  =>  {--UNUSED--}
+>  {title}  =>  {--UNUSED--}
+>  {part}  =>  {--UNUSED--}
+>  {itemize}  =>  {--UNUSED--}
+>  {enumerate}  =>  {--UNUSED--}
+>  {description}  =>  {--UNUSED--}
+>  {item}  =>  {--UNUSED--}
+>  {itemlabel}  =>  {--UNUSED--}
+>  {itembody}  =>  {--UNUSED--}
+>  {footnote}  =>  {--UNUSED--}
+>  {footnotemark}  =>  {--UNUSED--}
+>  {footnotelabel}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================
@@ -1319,6 +1319,161 @@ l. ... }
 TEST 18: show types of tags in namespace user
 ============================================================
 The property list \g__tag_role_NS_user_types_prop is empty
+> .
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 19: show namespace dict
+============================================================
+The global dictionary 'g__tag_role/Namespace_pdf_dict' contains the pairs
+(without outer braces):
+>  {Type}  =>  {/Namespace}
+>  {NS}  =>  {(http://iso.org/pdf/ssn)}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 20: show RoleMap dict
+============================================================
+The global dictionary 'g__tag_role/RoleMapNS_pdf_dict' is empty
+> .
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 21: show namespace dict
+============================================================
+The global dictionary 'g__tag_role/Namespace_pdf2_dict' contains the pairs
+(without outer braces):
+>  {Type}  =>  {/Namespace}
+>  {NS}  =>  {(http://iso.org/pdf2/ssn)}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 22: show RoleMap dict
+============================================================
+The global dictionary 'g__tag_role/RoleMapNS_pdf2_dict' is empty
+> .
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 23: show namespace dict
+============================================================
+The global dictionary 'g__tag_role/Namespace_mathml_dict' contains the pairs
+(without outer braces):
+>  {Type}  =>  {/Namespace}
+>  {NS}  =>  {(http://www.w3.org/1998/Math/MathML)}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 24: show RoleMap dict
+============================================================
+The global dictionary 'g__tag_role/RoleMapNS_mathml_dict' is empty
+> .
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 25: show namespace dict
+============================================================
+The global dictionary 'g__tag_role/Namespace_latex_dict' contains the pairs
+(without outer braces):
+>  {Type}  =>  {/Namespace}
+>  {NS}  =>  {(https://www.latex-project.org/ns/dflt/2022)}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 26: show RoleMap dict
+============================================================
+The global dictionary 'g__tag_role/RoleMapNS_latex_dict' contains the pairs
+(without outer braces):
+>  {title}  =>  {[/Title 11 0 R]}
+>  {part}  =>  {[/Title 11 0 R]}
+>  {section}  =>  {[/H1 11 0 R]}
+>  {subsection}  =>  {[/H2 11 0 R]}
+>  {subsubsection}  =>  {[/H3 11 0 R]}
+>  {paragraph}  =>  {[/H4 11 0 R]}
+>  {subparagraph}  =>  {[/H5 11 0 R]}
+>  {itemize}  =>  {[/L 11 0 R]}
+>  {enumerate}  =>  {[/L 11 0 R]}
+>  {description}  =>  {[/L 11 0 R]}
+>  {item}  =>  {[/LI 11 0 R]}
+>  {itemlabel}  =>  {[/Lbl 11 0 R]}
+>  {itembody}  =>  {[/LBody 11 0 R]}
+>  {footnote}  =>  {[/FENote 11 0 R]}
+>  {footnotemark}  =>  {[/Lbl 11 0 R]}
+>  {footnotelabel}  =>  {[/Lbl 11 0 R]}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 27: show namespace dict
+============================================================
+The global dictionary 'g__tag_role/Namespace_latex-book_dict' contains the
+pairs (without outer braces):
+>  {Type}  =>  {/Namespace}
+>  {NS}  =>  {(https://www.latex-project.org/ns/book/2022)}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 28: show RoleMap dict
+============================================================
+The global dictionary 'g__tag_role/RoleMapNS_latex-book_dict' contains the
+pairs (without outer braces):
+>  {chapter}  =>  {[/H1 11 0 R]}
+>  {section}  =>  {[/H2 11 0 R]}
+>  {subsection}  =>  {[/H3 11 0 R]}
+>  {subsubsection}  =>  {[/H4 11 0 R]}
+>  {paragraph}  =>  {[/H5 11 0 R]}
+>  {subparagraph}  =>  {[/H6 11 0 R]}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 29: show namespace dict
+============================================================
+The global dictionary 'g__tag_role/Namespace_latex-inline_dict' contains the
+pairs (without outer braces):
+>  {Type}  =>  {/Namespace}
+>  {NS}  =>  {(https://www.latex-project.org/ns/inline/2022)}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 30: show RoleMap dict
+============================================================
+The global dictionary 'g__tag_role/RoleMapNS_latex-inline_dict' contains the
+pairs (without outer braces):
+>  {chapter}  =>  {[/Span 11 0 R]}
+>  {section}  =>  {[/Span 11 0 R]}
+>  {subsection}  =>  {[/Span 11 0 R]}
+>  {subsubsection}  =>  {[/Span 11 0 R]}
+>  {paragraph}  =>  {[/Span 11 0 R]}
+>  {subparagraph}  =>  {[/Span 11 0 R]}
+>  {P}  =>  {[/Span 11 0 R]}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 31: show namespace dict
+============================================================
+The global dictionary 'g__tag_role/Namespace_user_dict' contains the pairs
+(without outer braces):
+>  {Type}  =>  {/Namespace}
+>  {NS}  =>  {(data:,6715A4BE-B4B7-7922-3AE2-336C9426B9CF)}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 32: show RoleMap dict
+============================================================
+The global dictionary 'g__tag_role/RoleMapNS_user_dict' is empty
 > .
 <recently read> }
 l. ... }

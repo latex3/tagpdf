@@ -48,4 +48,16 @@
  } 
 
 
+\prop_map_inline:Nn \g__tag_role_NS_prop
+ {
+   \TEST{show~namespace~dict}
+     {
+      \pdfdict_show:n{g__tag_role/Namespace_#1_dict}
+     }
+   \TEST{show~RoleMap~dict}
+     {
+      \pdfdict_show:n{g__tag_role/RoleMapNS_#1_dict}
+     }   
+ } 
+
 \END

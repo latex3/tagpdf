@@ -65,14 +65,13 @@ braces):
 >  {Sub}  =>  {user}
 >  {Em}  =>  {user}
 >  {Strong}  =>  {user}
->  {chapter}  =>  {user}
+>  {title}  =>  {user}
+>  {part}  =>  {user}
 >  {section}  =>  {user}
 >  {subsection}  =>  {user}
 >  {subsubsection}  =>  {user}
 >  {paragraph}  =>  {user}
 >  {subparagraph}  =>  {user}
->  {title}  =>  {user}
->  {part}  =>  {user}
 >  {itemize}  =>  {user}
 >  {enumerate}  =>  {user}
 >  {description}  =>  {user}
@@ -150,14 +149,13 @@ outer braces):
 >  {Sub}  =>  {I}
 >  {Em}  =>  {I}
 >  {Strong}  =>  {I}
->  {chapter}  =>  {B}
+>  {title}  =>  {B}
+>  {part}  =>  {B}
 >  {section}  =>  {B}
 >  {subsection}  =>  {B}
 >  {subsubsection}  =>  {B}
 >  {paragraph}  =>  {B}
 >  {subparagraph}  =>  {B}
->  {title}  =>  {B}
->  {part}  =>  {B}
 >  {itemize}  =>  {BI}
 >  {enumerate}  =>  {BI}
 >  {description}  =>  {BI}
@@ -173,8 +171,14 @@ l. ... }
 ============================================================
 TEST 3: show namespaces
 ============================================================
-The property list \g__tag_role_NS_prop is empty
-> .
+The property list \g__tag_role_NS_prop contains the pairs (without outer
+braces):
+>  {pdf}  =>  {}
+>  {pdf2}  =>  {}
+>  {latex}  =>  {}
+>  {latex-book}  =>  {}
+>  {latex-inline}  =>  {}
+>  {user}  =>  {}.
 <recently read> }
 l. ... }
 ============================================================
@@ -194,14 +198,13 @@ outer braces):
 >  {Sub}  =>  {/Span}
 >  {Em}  =>  {/Span}
 >  {Strong}  =>  {/Span}
->  {chapter}  =>  {/H1}
+>  {title}  =>  {/Title}
+>  {part}  =>  {/Title}
 >  {section}  =>  {/H1}
 >  {subsection}  =>  {/H2}
 >  {subsubsection}  =>  {/H3}
 >  {paragraph}  =>  {/H4}
 >  {subparagraph}  =>  {/H5}
->  {title}  =>  {/Title}
->  {part}  =>  {/Title}
 >  {itemize}  =>  {/L}
 >  {enumerate}  =>  {/L}
 >  {description}  =>  {/L}
@@ -211,6 +214,410 @@ outer braces):
 >  {footnote}  =>  {/FENote}
 >  {footnotemark}  =>  {/Lbl}
 >  {footnotelabel}  =>  {/Lbl}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 5: show tags of namespace pdf
+============================================================
+The property list \g__tag_role_NS_pdf_prop contains the pairs (without outer
+braces):
+>  {Document}  =>  {{}{}}
+>  {Part}  =>  {{}{}}
+>  {Sect}  =>  {{}{}}
+>  {Div}  =>  {{}{}}
+>  {Caption}  =>  {{}{}}
+>  {NonStruct}  =>  {{}{}}
+>  {H}  =>  {{}{}}
+>  {H1}  =>  {{}{}}
+>  {H2}  =>  {{}{}}
+>  {H3}  =>  {{}{}}
+>  {H4}  =>  {{}{}}
+>  {H5}  =>  {{}{}}
+>  {H6}  =>  {{}{}}
+>  {P}  =>  {{}{}}
+>  {L}  =>  {{}{}}
+>  {LI}  =>  {{}{}}
+>  {Lbl}  =>  {{}{}}
+>  {LBody}  =>  {{}{}}
+>  {Table}  =>  {{}{}}
+>  {TR}  =>  {{}{}}
+>  {TH}  =>  {{}{}}
+>  {TD}  =>  {{}{}}
+>  {THead}  =>  {{}{}}
+>  {TBody}  =>  {{}{}}
+>  {TFoot}  =>  {{}{}}
+>  {Span}  =>  {{}{}}
+>  {Link}  =>  {{}{}}
+>  {Annot}  =>  {{}{}}
+>  {Figure}  =>  {{}{}}
+>  {Formula}  =>  {{}{}}
+>  {Form}  =>  {{}{}}
+>  {Ruby}  =>  {{}{}}
+>  {RB}  =>  {{}{}}
+>  {RT}  =>  {{}{}}
+>  {Warichu}  =>  {{}{}}
+>  {WT}  =>  {{}{}}
+>  {WP}  =>  {{}{}}
+>  {Artifact}  =>  {{}{}}
+>  {Art}  =>  {{}{}}
+>  {BlockQuote}  =>  {{}{}}
+>  {TOC}  =>  {{}{}}
+>  {TOCI}  =>  {{}{}}
+>  {Index}  =>  {{}{}}
+>  {Private}  =>  {{}{}}
+>  {Quote}  =>  {{}{}}
+>  {Note}  =>  {{}{}}
+>  {Reference}  =>  {{}{}}
+>  {BibEntry}  =>  {{}{}}
+>  {Code}  =>  {{}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 6: show tags of namespace pdf2
+============================================================
+The property list \g__tag_role_NS_pdf2_prop contains the pairs (without outer
+braces):
+>  {Document}  =>  {{}{}}
+>  {Part}  =>  {{}{}}
+>  {Sect}  =>  {{}{}}
+>  {Div}  =>  {{}{}}
+>  {Caption}  =>  {{}{}}
+>  {NonStruct}  =>  {{}{}}
+>  {H}  =>  {{}{}}
+>  {H1}  =>  {{}{}}
+>  {H2}  =>  {{}{}}
+>  {H3}  =>  {{}{}}
+>  {H4}  =>  {{}{}}
+>  {H5}  =>  {{}{}}
+>  {H6}  =>  {{}{}}
+>  {P}  =>  {{}{}}
+>  {L}  =>  {{}{}}
+>  {LI}  =>  {{}{}}
+>  {Lbl}  =>  {{}{}}
+>  {LBody}  =>  {{}{}}
+>  {Table}  =>  {{}{}}
+>  {TR}  =>  {{}{}}
+>  {TH}  =>  {{}{}}
+>  {TD}  =>  {{}{}}
+>  {THead}  =>  {{}{}}
+>  {TBody}  =>  {{}{}}
+>  {TFoot}  =>  {{}{}}
+>  {Span}  =>  {{}{}}
+>  {Link}  =>  {{}{}}
+>  {Annot}  =>  {{}{}}
+>  {Figure}  =>  {{}{}}
+>  {Formula}  =>  {{}{}}
+>  {Form}  =>  {{}{}}
+>  {Ruby}  =>  {{}{}}
+>  {RB}  =>  {{}{}}
+>  {RT}  =>  {{}{}}
+>  {Warichu}  =>  {{}{}}
+>  {WT}  =>  {{}{}}
+>  {WP}  =>  {{}{}}
+>  {Artifact}  =>  {{}{}}
+>  {DocumentFragment}  =>  {{Art}{}}
+>  {Aside}  =>  {{Note}{}}
+>  {H7}  =>  {{H6}{}}
+>  {H8}  =>  {{H6}{}}
+>  {H9}  =>  {{H6}{}}
+>  {H10}  =>  {{H6}{}}
+>  {Title}  =>  {{P}{}}
+>  {FENote}  =>  {{Note}{}}
+>  {Sub}  =>  {{Span}{}}
+>  {Em}  =>  {{Span}{}}
+>  {Strong}  =>  {{Span}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 7: show tags of namespace latex
+============================================================
+The property list \g__tag_role_NS_latex_prop contains the pairs (without outer
+braces):
+>  {title}  =>  {{Title}{}}
+>  {part}  =>  {{Title}{}}
+>  {section}  =>  {{H1}{}}
+>  {subsection}  =>  {{H2}{}}
+>  {subsubsection}  =>  {{H3}{}}
+>  {paragraph}  =>  {{H4}{}}
+>  {subparagraph}  =>  {{H5}{}}
+>  {itemize}  =>  {{L}{}}
+>  {enumerate}  =>  {{L}{}}
+>  {description}  =>  {{L}{}}
+>  {item}  =>  {{LI}{}}
+>  {itemlabel}  =>  {{Lbl}{}}
+>  {itembody}  =>  {{LBody}{}}
+>  {footnote}  =>  {{FENote}{}}
+>  {footnotemark}  =>  {{Lbl}{}}
+>  {footnotelabel}  =>  {{Lbl}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 8: show tags of namespace latex-book
+============================================================
+The property list \g__tag_role_NS_latex-book_prop contains the pairs (without
+outer braces):
+>  {chapter}  =>  {{H1}{}}
+>  {section}  =>  {{H2}{}}
+>  {subsection}  =>  {{H3}{}}
+>  {subsubsection}  =>  {{H4}{}}
+>  {paragraph}  =>  {{H5}{}}
+>  {subparagraph}  =>  {{H6}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 9: show tags of namespace latex-inline
+============================================================
+The property list \g__tag_role_NS_latex-inline_prop contains the pairs
+(without outer braces):
+>  {chapter}  =>  {{Span}{}}
+>  {section}  =>  {{Span}{}}
+>  {subsection}  =>  {{Span}{}}
+>  {subsubsection}  =>  {{Span}{}}
+>  {paragraph}  =>  {{Span}{}}
+>  {subparagraph}  =>  {{Span}{}}
+>  {P}  =>  {{Span}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 10: show tags of namespace user
+============================================================
+The property list \g__tag_role_NS_user_prop contains the pairs (without outer
+braces):
+>  {DocumentFragment}  =>  {{}{}}
+>  {Aside}  =>  {{}{}}
+>  {H7}  =>  {{}{}}
+>  {H8}  =>  {{}{}}
+>  {H9}  =>  {{}{}}
+>  {H10}  =>  {{}{}}
+>  {Title}  =>  {{}{}}
+>  {FENote}  =>  {{}{}}
+>  {Sub}  =>  {{}{}}
+>  {Em}  =>  {{}{}}
+>  {Strong}  =>  {{}{}}
+>  {title}  =>  {{}{}}
+>  {part}  =>  {{}{}}
+>  {section}  =>  {{}{}}
+>  {subsection}  =>  {{}{}}
+>  {subsubsection}  =>  {{}{}}
+>  {paragraph}  =>  {{}{}}
+>  {subparagraph}  =>  {{}{}}
+>  {itemize}  =>  {{}{}}
+>  {enumerate}  =>  {{}{}}
+>  {description}  =>  {{}{}}
+>  {item}  =>  {{}{}}
+>  {itemlabel}  =>  {{}{}}
+>  {itembody}  =>  {{}{}}
+>  {footnote}  =>  {{}{}}
+>  {footnotemark}  =>  {{}{}}
+>  {footnotelabel}  =>  {{}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 11: show types of tags in namespace pdf
+============================================================
+The property list \g__tag_role_NS_pdf_types_prop contains the pairs (without
+outer braces):
+>  {Document}  =>  {--UNUSED--}
+>  {Part}  =>  {--UNUSED--}
+>  {Sect}  =>  {--UNUSED--}
+>  {Div}  =>  {--UNUSED--}
+>  {Caption}  =>  {--UNUSED--}
+>  {NonStruct}  =>  {--UNUSED--}
+>  {H}  =>  {--UNUSED--}
+>  {H1}  =>  {--UNUSED--}
+>  {H2}  =>  {--UNUSED--}
+>  {H3}  =>  {--UNUSED--}
+>  {H4}  =>  {--UNUSED--}
+>  {H5}  =>  {--UNUSED--}
+>  {H6}  =>  {--UNUSED--}
+>  {P}  =>  {--UNUSED--}
+>  {L}  =>  {--UNUSED--}
+>  {LI}  =>  {--UNUSED--}
+>  {Lbl}  =>  {--UNUSED--}
+>  {LBody}  =>  {--UNUSED--}
+>  {Table}  =>  {--UNUSED--}
+>  {TR}  =>  {--UNUSED--}
+>  {TH}  =>  {--UNUSED--}
+>  {TD}  =>  {--UNUSED--}
+>  {THead}  =>  {--UNUSED--}
+>  {TBody}  =>  {--UNUSED--}
+>  {TFoot}  =>  {--UNUSED--}
+>  {Span}  =>  {--UNUSED--}
+>  {Link}  =>  {--UNUSED--}
+>  {Annot}  =>  {--UNUSED--}
+>  {Figure}  =>  {--UNUSED--}
+>  {Formula}  =>  {--UNUSED--}
+>  {Form}  =>  {--UNUSED--}
+>  {Ruby}  =>  {--UNUSED--}
+>  {RB}  =>  {--UNUSED--}
+>  {RT}  =>  {--UNUSED--}
+>  {Warichu}  =>  {--UNUSED--}
+>  {WT}  =>  {--UNUSED--}
+>  {WP}  =>  {--UNUSED--}
+>  {Artifact}  =>  {--UNUSED--}
+>  {Art}  =>  {--UNUSED--}
+>  {BlockQuote}  =>  {--UNUSED--}
+>  {TOC}  =>  {--UNUSED--}
+>  {TOCI}  =>  {--UNUSED--}
+>  {Index}  =>  {--UNUSED--}
+>  {Private}  =>  {--UNUSED--}
+>  {Quote}  =>  {--UNUSED--}
+>  {Note}  =>  {--UNUSED--}
+>  {Reference}  =>  {--UNUSED--}
+>  {BibEntry}  =>  {--UNUSED--}
+>  {Code}  =>  {--UNUSED--}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 12: show types of tags in namespace pdf2
+============================================================
+The property list \g__tag_role_NS_pdf2_types_prop contains the pairs (without
+outer braces):
+>  {Document}  =>  {--UNUSED--}
+>  {Part}  =>  {--UNUSED--}
+>  {Sect}  =>  {--UNUSED--}
+>  {Div}  =>  {--UNUSED--}
+>  {Caption}  =>  {--UNUSED--}
+>  {NonStruct}  =>  {--UNUSED--}
+>  {H}  =>  {--UNUSED--}
+>  {H1}  =>  {--UNUSED--}
+>  {H2}  =>  {--UNUSED--}
+>  {H3}  =>  {--UNUSED--}
+>  {H4}  =>  {--UNUSED--}
+>  {H5}  =>  {--UNUSED--}
+>  {H6}  =>  {--UNUSED--}
+>  {P}  =>  {--UNUSED--}
+>  {L}  =>  {--UNUSED--}
+>  {LI}  =>  {--UNUSED--}
+>  {Lbl}  =>  {--UNUSED--}
+>  {LBody}  =>  {--UNUSED--}
+>  {Table}  =>  {--UNUSED--}
+>  {TR}  =>  {--UNUSED--}
+>  {TH}  =>  {--UNUSED--}
+>  {TD}  =>  {--UNUSED--}
+>  {THead}  =>  {--UNUSED--}
+>  {TBody}  =>  {--UNUSED--}
+>  {TFoot}  =>  {--UNUSED--}
+>  {Span}  =>  {--UNUSED--}
+>  {Link}  =>  {--UNUSED--}
+>  {Annot}  =>  {--UNUSED--}
+>  {Figure}  =>  {--UNUSED--}
+>  {Formula}  =>  {--UNUSED--}
+>  {Form}  =>  {--UNUSED--}
+>  {Ruby}  =>  {--UNUSED--}
+>  {RB}  =>  {--UNUSED--}
+>  {RT}  =>  {--UNUSED--}
+>  {Warichu}  =>  {--UNUSED--}
+>  {WT}  =>  {--UNUSED--}
+>  {WP}  =>  {--UNUSED--}
+>  {Artifact}  =>  {--UNUSED--}
+>  {DocumentFragment}  =>  {--UNUSED--}
+>  {Aside}  =>  {--UNUSED--}
+>  {H7}  =>  {--UNUSED--}
+>  {H8}  =>  {--UNUSED--}
+>  {H9}  =>  {--UNUSED--}
+>  {H10}  =>  {--UNUSED--}
+>  {Title}  =>  {--UNUSED--}
+>  {FENote}  =>  {--UNUSED--}
+>  {Sub}  =>  {--UNUSED--}
+>  {Em}  =>  {--UNUSED--}
+>  {Strong}  =>  {--UNUSED--}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 13: show types of tags in namespace latex
+============================================================
+The property list \g__tag_role_NS_latex_types_prop contains the pairs (without
+outer braces):
+>  {title}  =>  {--UNUSED--}
+>  {part}  =>  {--UNUSED--}
+>  {section}  =>  {--UNUSED--}
+>  {subsection}  =>  {--UNUSED--}
+>  {subsubsection}  =>  {--UNUSED--}
+>  {paragraph}  =>  {--UNUSED--}
+>  {subparagraph}  =>  {--UNUSED--}
+>  {itemize}  =>  {--UNUSED--}
+>  {enumerate}  =>  {--UNUSED--}
+>  {description}  =>  {--UNUSED--}
+>  {item}  =>  {--UNUSED--}
+>  {itemlabel}  =>  {--UNUSED--}
+>  {itembody}  =>  {--UNUSED--}
+>  {footnote}  =>  {--UNUSED--}
+>  {footnotemark}  =>  {--UNUSED--}
+>  {footnotelabel}  =>  {--UNUSED--}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 14: show types of tags in namespace latex-book
+============================================================
+The property list \g__tag_role_NS_latex-book_types_prop contains the pairs
+(without outer braces):
+>  {chapter}  =>  {--UNUSED--}
+>  {section}  =>  {--UNUSED--}
+>  {subsection}  =>  {--UNUSED--}
+>  {subsubsection}  =>  {--UNUSED--}
+>  {paragraph}  =>  {--UNUSED--}
+>  {subparagraph}  =>  {--UNUSED--}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 15: show types of tags in namespace latex-inline
+============================================================
+The property list \g__tag_role_NS_latex-inline_types_prop contains the pairs
+(without outer braces):
+>  {chapter}  =>  {--UNUSED--}
+>  {section}  =>  {--UNUSED--}
+>  {subsection}  =>  {--UNUSED--}
+>  {subsubsection}  =>  {--UNUSED--}
+>  {paragraph}  =>  {--UNUSED--}
+>  {subparagraph}  =>  {--UNUSED--}
+>  {P}  =>  {--UNUSED--}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 16: show types of tags in namespace user
+============================================================
+The property list \g__tag_role_NS_user_types_prop contains the pairs (without
+outer braces):
+>  {DocumentFragment}  =>  {--UNUSED--}
+>  {Aside}  =>  {--UNUSED--}
+>  {H7}  =>  {--UNUSED--}
+>  {H8}  =>  {--UNUSED--}
+>  {H9}  =>  {--UNUSED--}
+>  {H10}  =>  {--UNUSED--}
+>  {Title}  =>  {--UNUSED--}
+>  {FENote}  =>  {--UNUSED--}
+>  {Sub}  =>  {--UNUSED--}
+>  {Em}  =>  {--UNUSED--}
+>  {Strong}  =>  {--UNUSED--}
+>  {title}  =>  {--UNUSED--}
+>  {part}  =>  {--UNUSED--}
+>  {section}  =>  {--UNUSED--}
+>  {subsection}  =>  {--UNUSED--}
+>  {subsubsection}  =>  {--UNUSED--}
+>  {paragraph}  =>  {--UNUSED--}
+>  {subparagraph}  =>  {--UNUSED--}
+>  {itemize}  =>  {--UNUSED--}
+>  {enumerate}  =>  {--UNUSED--}
+>  {description}  =>  {--UNUSED--}
+>  {item}  =>  {--UNUSED--}
+>  {itemlabel}  =>  {--UNUSED--}
+>  {itembody}  =>  {--UNUSED--}
+>  {footnote}  =>  {--UNUSED--}
+>  {footnotemark}  =>  {--UNUSED--}
+>  {footnotelabel}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================

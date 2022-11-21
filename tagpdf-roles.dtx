@@ -252,6 +252,7 @@
     {
       \prop_new:c { g_@@_role_NS_#1_prop }
       \prop_new:c { g_@@_role_NS_#1_types_prop }
+      \prop_gput:Nnx \g_@@_role_NS_prop {#1}{}
     }
  }
  {
@@ -333,26 +334,51 @@
 % This command allocates a new tag without role mapping. In the 
 % lua backend it will also record the attribute value.
 %    \begin{macrocode}
-\sys_if_engine_luatex:TF
- {
-   \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3 %#1 tagname, ns, type
+\pdf_version_compare:NnTF < {2.0}
+  {
+   \sys_if_engine_luatex:TF
     {
-      \lua_now:e { ltx.@@.func.alloctag ('#1') }
-      \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
-      \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
-      \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{#3}
-      \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{#3}
-    }      
- }
- {   
-   \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3
+      \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3 %#1 tagname, ns, type
+       {
+         \lua_now:e { ltx.@@.func.alloctag ('#1') }
+         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
+         \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
+         \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{#3}
+         \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{--UNUSED--}
+       }      
+    }
+    {   
+      \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3
+       {
+         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
+         \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
+         \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{#3}
+         \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{--UNUSED--}
+       } 
+    }   
+  }
+  {
+   \sys_if_engine_luatex:TF
     {
-      \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
-      \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
-      \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{#3}
-      \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{#3}
-    } 
- }   
+      \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3 %#1 tagname, ns, type
+       {
+         \lua_now:e { ltx.@@.func.alloctag ('#1') }
+         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
+         \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
+         \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{--UNUSED--}
+         \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{#3}
+       }      
+    }
+    {   
+      \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3
+       {
+         \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
+         \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
+         \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{--UNUSED--}
+         \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{#3}
+       } 
+    }   
+  }   
 \cs_generate_variant:Nn  \@@_role_alloctag:nnn {nnV}   
 %    \end{macrocode}
 % \end{macro}
@@ -472,10 +498,7 @@
          }
          {
            \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
-           \prop_get:NnNT \g_@@_role_tags_types_prop  {#3}\l_@@_tmpa_tl
-            {
-             \prop_gput:cnV {g_@@_role_NS_#1_types_prop}  {#2}\l_@@_tmpa_tl
-            }  
+           \prop_gput:cnn {g_@@_role_NS_#1_types_prop}  {#2}{--UNUSED--}
          }       
        }     
     }
@@ -543,11 +566,11 @@
 \@@_role_read_namespace:n {pdf2}
 \pdf_version_compare:NnF < {2.0}
   {\@@_role_read_namespace:n {mathml}} 
-\@@_role_read_namespace:n {latex-book}  
-\@@_role_read_namespace:n {latex}
 \bool_set_false:N\l_@@_role_update_bool
 \@@_role_read_namespace:n {latex-inline} 
+\@@_role_read_namespace:n {latex-book}  
 \bool_set_true:N\l_@@_role_update_bool
+\@@_role_read_namespace:n {latex}
 %    \end{macrocode}
 %
 % But is the class provides a \cs{chapter} command then we switch 
