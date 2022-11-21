@@ -375,7 +375,7 @@
 % \end{macro}
 % \subsection{Namespaces}
 % Namespaces are handle in the role module, here is the code to write them out.
-% Namespaces are only relevant for pdf2.0 but we don't care, it doesn't harm.
+% Namespaces are only relevant for pdf2.0.
 % \begin{variable}{@@/tree/namespaces}
 %    \begin{macrocode}
 \pdf_object_new:n { @@/tree/namespaces }
@@ -385,26 +385,29 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_namespaces:
   {
-    \prop_map_inline:Nn \g_@@_role_NS_prop
-      {
-        \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
-          {
-            \pdf_object_write:nnx {@@/RoleMapNS/##1}{dict}
-              {
-                \pdfdict_use:n {g_@@_role/RoleMapNS_##1_dict}
-              }
-            \pdfdict_gput:nnx{g_@@_role/Namespace_##1_dict}
-              {RoleMapNS}{\pdf_object_ref:n {@@/RoleMapNS/##1}}
-          }
-        \pdf_object_write:nnx{tag/NS/##1}{dict}
-          {
-             \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
-          }
-      }
-    \pdf_object_write:nnx {@@/tree/namespaces}{array}
-      {
-        \prop_map_tokens:Nn \g_@@_role_NS_prop{\use_ii:nn}
-      }
+   \pdf_version_compare:NnF < {2.0}
+    {
+      \prop_map_inline:Nn \g_@@_role_NS_prop
+        {
+          \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
+            {
+              \pdf_object_write:nnx {@@/RoleMapNS/##1}{dict}
+                {
+                  \pdfdict_use:n {g_@@_role/RoleMapNS_##1_dict}
+                }
+              \pdfdict_gput:nnx{g_@@_role/Namespace_##1_dict}
+                {RoleMapNS}{\pdf_object_ref:n {@@/RoleMapNS/##1}}
+            }
+          \pdf_object_write:nnx{tag/NS/##1}{dict}
+            {
+               \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
+            }
+        }
+      \pdf_object_write:nnx {@@/tree/namespaces}{array}
+        {
+          \prop_map_tokens:Nn \g_@@_role_NS_prop{\use_ii:nn}
+        }
+    }  
   }
 %    \end{macrocode}
 % \end{macro}

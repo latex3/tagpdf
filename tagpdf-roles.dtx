@@ -608,7 +608,7 @@
 % Or instead of tag=P one wants tag=Code.
 % 
 % The following command provide some general interface for this.
-% The general idea is that before a tag is set it is fed through a function
+% The core idea is that before a tag is set it is fed through a function
 % that can change it. We want to be able to chain such functions,
 % so all of them manipulate the same variables.
 % 
@@ -619,7 +619,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_role_remap:}
-% This function is used in the structure and the ms code before using a tag. By default it
+% This function is used in the structure and the mc code before using a tag. By default it
 % does nothing with the tl vars. Perhaps this should be a hook?
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_remap: {  } 

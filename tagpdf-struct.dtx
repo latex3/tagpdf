@@ -865,13 +865,16 @@
          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
          { S }
          { \pdf_name_from_unicode_e:n{ \g_@@_struct_tag_tl} } %
-       \prop_get:NVNT \g_@@_role_NS_prop\g_@@_struct_tag_NS_tl\l_@@_tmpa_tl
-         {
-           \@@_prop_gput:cnx
-            { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-            { NS }
-            { \l_@@_tmpa_tl } %
-         }
+       \pdf_version_compare:NnF < {2.0}
+        {  
+          \prop_get:NVNT \g_@@_role_NS_prop\g_@@_struct_tag_NS_tl\l_@@_tmpa_tl
+            {
+              \@@_prop_gput:cnx
+               { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+               { NS }
+               { \l_@@_tmpa_tl } %
+            }
+        } 
       },
     title .code:n        = % T property
       {
