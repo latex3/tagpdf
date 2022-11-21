@@ -1,0 +1,216 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: show tags -> NS
+============================================================
+The property list \g__tag_role_tags_NS_prop contains the pairs (without outer
+braces):
+>  {Document}  =>  {pdf2}
+>  {Part}  =>  {pdf2}
+>  {Sect}  =>  {pdf2}
+>  {Div}  =>  {pdf2}
+>  {Caption}  =>  {pdf2}
+>  {NonStruct}  =>  {pdf2}
+>  {H}  =>  {pdf2}
+>  {H1}  =>  {pdf2}
+>  {H2}  =>  {pdf2}
+>  {H3}  =>  {pdf2}
+>  {H4}  =>  {pdf2}
+>  {H5}  =>  {pdf2}
+>  {H6}  =>  {pdf2}
+>  {P}  =>  {pdf2}
+>  {L}  =>  {pdf2}
+>  {LI}  =>  {pdf2}
+>  {Lbl}  =>  {pdf2}
+>  {LBody}  =>  {pdf2}
+>  {Table}  =>  {pdf2}
+>  {TR}  =>  {pdf2}
+>  {TH}  =>  {pdf2}
+>  {TD}  =>  {pdf2}
+>  {THead}  =>  {pdf2}
+>  {TBody}  =>  {pdf2}
+>  {TFoot}  =>  {pdf2}
+>  {Span}  =>  {pdf2}
+>  {Link}  =>  {pdf2}
+>  {Annot}  =>  {pdf2}
+>  {Figure}  =>  {pdf2}
+>  {Formula}  =>  {pdf2}
+>  {Form}  =>  {pdf2}
+>  {Ruby}  =>  {pdf2}
+>  {RB}  =>  {pdf2}
+>  {RT}  =>  {pdf2}
+>  {Warichu}  =>  {pdf2}
+>  {WT}  =>  {pdf2}
+>  {WP}  =>  {pdf2}
+>  {Artifact}  =>  {pdf2}
+>  {Art}  =>  {pdf}
+>  {BlockQuote}  =>  {pdf}
+>  {TOC}  =>  {pdf}
+>  {TOCI}  =>  {pdf}
+>  {Index}  =>  {pdf}
+>  {Private}  =>  {pdf}
+>  {Quote}  =>  {pdf}
+>  {Note}  =>  {pdf}
+>  {Reference}  =>  {pdf}
+>  {BibEntry}  =>  {pdf}
+>  {Code}  =>  {pdf}
+>  {DocumentFragment}  =>  {user}
+>  {Aside}  =>  {user}
+>  {H7}  =>  {user}
+>  {H8}  =>  {user}
+>  {H9}  =>  {user}
+>  {H10}  =>  {user}
+>  {Title}  =>  {user}
+>  {FENote}  =>  {user}
+>  {Sub}  =>  {user}
+>  {Em}  =>  {user}
+>  {Strong}  =>  {user}
+>  {chapter}  =>  {user}
+>  {section}  =>  {user}
+>  {subsection}  =>  {user}
+>  {subsubsection}  =>  {user}
+>  {paragraph}  =>  {user}
+>  {subparagraph}  =>  {user}
+>  {title}  =>  {user}
+>  {part}  =>  {user}
+>  {itemize}  =>  {user}
+>  {enumerate}  =>  {user}
+>  {description}  =>  {user}
+>  {item}  =>  {user}
+>  {itemlabel}  =>  {user}
+>  {itembody}  =>  {user}
+>  {footnote}  =>  {user}
+>  {footnotemark}  =>  {user}
+>  {footnotelabel}  =>  {user}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 2: show tags ->types (1.7)
+============================================================
+The property list \g__tag_role_tags_types_prop contains the pairs (without
+outer braces):
+>  {Document}  =>  {D}
+>  {Part}  =>  {G}
+>  {Sect}  =>  {G}
+>  {Div}  =>  {G}
+>  {Caption}  =>  {GB}
+>  {NonStruct}  =>  {G}
+>  {H}  =>  {B}
+>  {H1}  =>  {B}
+>  {H2}  =>  {B}
+>  {H3}  =>  {B}
+>  {H4}  =>  {B}
+>  {H5}  =>  {B}
+>  {H6}  =>  {B}
+>  {P}  =>  {B}
+>  {L}  =>  {BI}
+>  {LI}  =>  {L}
+>  {Lbl}  =>  {I}
+>  {LBody}  =>  {L}
+>  {Table}  =>  {B}
+>  {TR}  =>  {T}
+>  {TH}  =>  {T}
+>  {TD}  =>  {T}
+>  {THead}  =>  {T}
+>  {TBody}  =>  {T}
+>  {TFoot}  =>  {T}
+>  {Span}  =>  {I}
+>  {Link}  =>  {GBI}
+>  {Annot}  =>  {GBI}
+>  {Figure}  =>  {GBI}
+>  {Formula}  =>  {GBI}
+>  {Form}  =>  {GBI}
+>  {Ruby}  =>  {I}
+>  {RB}  =>  {I}
+>  {RT}  =>  {I}
+>  {Warichu}  =>  {I}
+>  {WT}  =>  {I}
+>  {WP}  =>  {I}
+>  {Artifact}  =>  {GBI}
+>  {Art}  =>  {--UNKNOWN--}
+>  {BlockQuote}  =>  {G}
+>  {TOC}  =>  {G}
+>  {TOCI}  =>  {G}
+>  {Index}  =>  {G}
+>  {Private}  =>  {G}
+>  {Quote}  =>  {I}
+>  {Note}  =>  {GBI}
+>  {Reference}  =>  {B}
+>  {BibEntry}  =>  {B}
+>  {Code}  =>  {I}
+>  {DocumentFragment}  =>  {--UNKNOWN--}
+>  {Aside}  =>  {GBI}
+>  {H7}  =>  {B}
+>  {H8}  =>  {B}
+>  {H9}  =>  {B}
+>  {H10}  =>  {B}
+>  {Title}  =>  {B}
+>  {FENote}  =>  {GBI}
+>  {Sub}  =>  {I}
+>  {Em}  =>  {I}
+>  {Strong}  =>  {I}
+>  {chapter}  =>  {B}
+>  {section}  =>  {B}
+>  {subsection}  =>  {B}
+>  {subsubsection}  =>  {B}
+>  {paragraph}  =>  {B}
+>  {subparagraph}  =>  {B}
+>  {title}  =>  {B}
+>  {part}  =>  {B}
+>  {itemize}  =>  {BI}
+>  {enumerate}  =>  {BI}
+>  {description}  =>  {BI}
+>  {item}  =>  {L}
+>  {itemlabel}  =>  {I}
+>  {itembody}  =>  {L}
+>  {footnote}  =>  {GBI}
+>  {footnotemark}  =>  {I}
+>  {footnotelabel}  =>  {I}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 3: show namespaces
+============================================================
+The property list \g__tag_role_NS_prop is empty
+> .
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 4: show RoleMapdict (1.7)
+============================================================
+The global dictionary 'g__tag_role/RoleMap_dict' contains the pairs (without
+outer braces):
+>  {DocumentFragment}  =>  {/Art}
+>  {Aside}  =>  {/Note}
+>  {H7}  =>  {/H6}
+>  {H8}  =>  {/H6}
+>  {H9}  =>  {/H6}
+>  {H10}  =>  {/H6}
+>  {Title}  =>  {/P}
+>  {FENote}  =>  {/Note}
+>  {Sub}  =>  {/Span}
+>  {Em}  =>  {/Span}
+>  {Strong}  =>  {/Span}
+>  {chapter}  =>  {/H1}
+>  {section}  =>  {/H1}
+>  {subsection}  =>  {/H2}
+>  {subsubsection}  =>  {/H3}
+>  {paragraph}  =>  {/H4}
+>  {subparagraph}  =>  {/H5}
+>  {title}  =>  {/Title}
+>  {part}  =>  {/Title}
+>  {itemize}  =>  {/L}
+>  {enumerate}  =>  {/L}
+>  {description}  =>  {/L}
+>  {item}  =>  {/LI}
+>  {itemlabel}  =>  {/Lbl}
+>  {itembody}  =>  {/LBody}
+>  {footnote}  =>  {/FENote}
+>  {footnotemark}  =>  {/Lbl}
+>  {footnotelabel}  =>  {/Lbl}.
+<recently read> }
+l. ... }
+============================================================

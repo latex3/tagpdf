@@ -26,7 +26,7 @@
 \ExplSyntaxOn
 \iow_log:x { \c_sys_engine_str }
 
-\__tag_prop_show:N \g__tag_role_tags_NS_prop
+\__tag_prop_show:N \g__tag_role_tag_NS_prop
 
 
 \edef\test{\prop_item:cn {g__tag_role_tags_NS_prop}{H1}}

@@ -81,6 +81,9 @@
 %  the default value is the default namespace of this tag.
 %  With this key a specific namespace can be forced.  
 % \end{description}
+% 
+% Namespaces are mostly a PDF 2.0 property, but it doesn't harm to 
+% set them also in a PDF 1.7 or earlier.
 % \end{function}
 % \end{documentation}
 % \begin{implementation}
@@ -98,36 +101,43 @@
 %
 % 
 % \subsection{Variables}
-% Tags are used in structures and mc-chunks. 
-% They have a name (a string), a number (for the lua attribute), and 
+% Tags are used in structures (\cs{tagstructbegin}) and mc-chunks (\cs{tagmcbegin}). 
+% 
+% They have a name (a string), in lua a number (for the lua attribute), and 
 % in PDF 2.0 belong to one or more name spaces, with one being the default
 % name space.
 % 
-% The structures are classified, e.g. as grouping, 
+% Tags of structures are classified, e.g. as grouping, 
 % inline or block level structure (and a few special types like lists and tables),
 % and must follow containments rules depending on their classification 
 % (for example a inline structure can not contain
 % a block level structure). New tags inherit their 
-% classification from the standard namespaces (PDF and/or PDF 2.0). 
-% We store this as it will probably 
-% be needed for tests but currently the data is not used. 
-% The classification for math is unclear currently and so not set.
+% classification from their rolemapping to the standard namespaces (\texttt{pdf} 
+% and/or \texttt{pdf2}). 
+% We store this classification as it will probably 
+% be needed for tests but currently the data is not much used. 
+% The classification for math (and the containment rules) 
+% is unclear currently and so not set.
 % 
-% The attribute number is only relevant in lua and only for the MC type, and so only
-% stored if luatex. Tags with the same name from different names 
-% spaces can have the same number.
+% The attribute number is only relevant in lua and only for the MC type 
+% (so tags with the same name from different names spaces can have the same number), 
+% and so only stored if luatex is detected. 
 % 
-% The requirements for pdf 2.0 and <2.0 are different, which makes things a bit difficult.
-% and leads to some duplications.
+% Due to the namespaces the storing and processing of tags and there data
+% are different in various places for PDF~2.0 and PDF~<2.0, which makes 
+% things a bit difficult and leads to some duplications. Perhaps at some time
+% there should be a clear split.
+% 
+% This are the main variables used by the code:
 % \begin{description}
 % \item[\cs{g_@@_role_tags_NS_prop}] 
 % This is the core list of tag names. It uses tags as keys
 % and the shorthand (e.g. pdf2, or mathml) of the default name space as value. 
 % 
-% It is in pdf 2.0 needs the info in the structure dictionaries.
+% In pdf 2.0 the value is needed in the structure dictionaries.
 % 
 % \item[\cs{g_@@_role_tags_types_prop}]
-% This contains for each tag a type. It is used in pdf <2.0.
+% This contains for each tag a classification type. It is used in pdf <2.0.
 % 
 % \item[\cs{g_@@_role_NS_prop}] This contains the names spaces. The
 % values are the object references. They are used in pdf 2.0.

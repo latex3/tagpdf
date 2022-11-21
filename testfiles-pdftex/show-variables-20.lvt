@@ -1,0 +1,51 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+
+\DocumentMetadata{testphase=phase-II,pdfversion=2.0}
+\input{regression-test}
+\documentclass{article}
+
+\START
+
+\ExplSyntaxOn
+%tag-NS
+\TEST{show~tags~->~NS}
+ {
+   \prop_show:N \g__tag_role_tags_NS_prop
+ }
+ 
+\TEST{show~tags~->types~(1.7)}
+ {
+   \prop_show:N \g__tag_role_tags_types_prop
+ }
+ 
+\TEST{show~namespaces}
+ {
+   \prop_show:N \g__tag_role_NS_prop
+ }
+ 
+\TEST{show~RoleMap dict~(1.7)}
+ {
+   \pdfdict_show:n { g__tag_role/RoleMap_dict }
+ }
+ 
+
+\prop_map_inline:Nn \g__tag_role_NS_prop
+ {
+   \TEST{show~tags~of~namespace~#1}
+     {
+      \prop_show:c{g__tag_role_NS_#1_prop}
+     }
+ }
+ 
+ 
+\prop_map_inline:Nn \g__tag_role_NS_prop
+ {
+   \TEST{show~types~of~tags~in~namespace~#1}
+     {
+      \prop_show:c{g__tag_role_NS_#1_types_prop}
+     }
+ } 
+
+
+\END

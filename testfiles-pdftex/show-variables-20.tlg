@@ -1,0 +1,1325 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: show tags -> NS
+============================================================
+The property list \g__tag_role_tags_NS_prop contains the pairs (without outer
+braces):
+>  {Document}  =>  {pdf2}
+>  {Part}  =>  {pdf2}
+>  {Sect}  =>  {pdf2}
+>  {Div}  =>  {pdf2}
+>  {Caption}  =>  {pdf2}
+>  {NonStruct}  =>  {pdf2}
+>  {H}  =>  {pdf2}
+>  {H1}  =>  {pdf2}
+>  {H2}  =>  {pdf2}
+>  {H3}  =>  {pdf2}
+>  {H4}  =>  {pdf2}
+>  {H5}  =>  {pdf2}
+>  {H6}  =>  {pdf2}
+>  {P}  =>  {latex-inline}
+>  {L}  =>  {pdf2}
+>  {LI}  =>  {pdf2}
+>  {Lbl}  =>  {pdf2}
+>  {LBody}  =>  {pdf2}
+>  {Table}  =>  {pdf2}
+>  {TR}  =>  {pdf2}
+>  {TH}  =>  {pdf2}
+>  {TD}  =>  {pdf2}
+>  {THead}  =>  {pdf2}
+>  {TBody}  =>  {pdf2}
+>  {TFoot}  =>  {pdf2}
+>  {Span}  =>  {pdf2}
+>  {Link}  =>  {pdf2}
+>  {Annot}  =>  {pdf2}
+>  {Figure}  =>  {pdf2}
+>  {Formula}  =>  {pdf2}
+>  {Form}  =>  {pdf2}
+>  {Ruby}  =>  {pdf2}
+>  {RB}  =>  {pdf2}
+>  {RT}  =>  {pdf2}
+>  {Warichu}  =>  {pdf2}
+>  {WT}  =>  {pdf2}
+>  {WP}  =>  {pdf2}
+>  {Artifact}  =>  {pdf2}
+>  {Art}  =>  {pdf}
+>  {BlockQuote}  =>  {pdf}
+>  {TOC}  =>  {pdf}
+>  {TOCI}  =>  {pdf}
+>  {Index}  =>  {pdf}
+>  {Private}  =>  {pdf}
+>  {Quote}  =>  {pdf}
+>  {Note}  =>  {pdf}
+>  {Reference}  =>  {pdf}
+>  {BibEntry}  =>  {pdf}
+>  {Code}  =>  {pdf}
+>  {DocumentFragment}  =>  {pdf2}
+>  {Aside}  =>  {pdf2}
+>  {H7}  =>  {pdf2}
+>  {H8}  =>  {pdf2}
+>  {H9}  =>  {pdf2}
+>  {H10}  =>  {pdf2}
+>  {Title}  =>  {pdf2}
+>  {FENote}  =>  {pdf2}
+>  {Sub}  =>  {pdf2}
+>  {Em}  =>  {pdf2}
+>  {Strong}  =>  {pdf2}
+>  {abs}  =>  {mathml}
+>  {and}  =>  {mathml}
+>  {annotation}  =>  {mathml}
+>  {apply}  =>  {mathml}
+>  {approx}  =>  {mathml}
+>  {arccos}  =>  {mathml}
+>  {arccosh}  =>  {mathml}
+>  {arccot}  =>  {mathml}
+>  {arccoth}  =>  {mathml}
+>  {arccsc}  =>  {mathml}
+>  {arccsch}  =>  {mathml}
+>  {arcsec}  =>  {mathml}
+>  {arcsech}  =>  {mathml}
+>  {arcsin}  =>  {mathml}
+>  {arcsinh}  =>  {mathml}
+>  {arctan}  =>  {mathml}
+>  {arctanh}  =>  {mathml}
+>  {arg}  =>  {mathml}
+>  {bind}  =>  {mathml}
+>  {bvar}  =>  {mathml}
+>  {card}  =>  {mathml}
+>  {cartesianproduct}  =>  {mathml}
+>  {cbytes}  =>  {mathml}
+>  {ceiling}  =>  {mathml}
+>  {cerror}  =>  {mathml}
+>  {ci}  =>  {mathml}
+>  {cn}  =>  {mathml}
+>  {codomain}  =>  {mathml}
+>  {complexes}  =>  {mathml}
+>  {compose}  =>  {mathml}
+>  {condition}  =>  {mathml}
+>  {conjugate}  =>  {mathml}
+>  {cos}  =>  {mathml}
+>  {cosh}  =>  {mathml}
+>  {cot}  =>  {mathml}
+>  {coth}  =>  {mathml}
+>  {cs}  =>  {mathml}
+>  {csc}  =>  {mathml}
+>  {csch}  =>  {mathml}
+>  {csymbol}  =>  {mathml}
+>  {curl}  =>  {mathml}
+>  {declare}  =>  {mathml}
+>  {degree}  =>  {mathml}
+>  {determinant}  =>  {mathml}
+>  {diff}  =>  {mathml}
+>  {divergence}  =>  {mathml}
+>  {divide}  =>  {mathml}
+>  {domain}  =>  {mathml}
+>  {domainofapplication}  =>  {mathml}
+>  {emptyset}  =>  {mathml}
+>  {eq}  =>  {mathml}
+>  {equivalent}  =>  {mathml}
+>  {eulergamma}  =>  {mathml}
+>  {exists}  =>  {mathml}
+>  {exp}  =>  {mathml}
+>  {exponentiale}  =>  {mathml}
+>  {factorial}  =>  {mathml}
+>  {factorof}  =>  {mathml}
+>  {false}  =>  {mathml}
+>  {floor}  =>  {mathml}
+>  {fn}  =>  {mathml}
+>  {forall}  =>  {mathml}
+>  {gcd}  =>  {mathml}
+>  {geq}  =>  {mathml}
+>  {grad}  =>  {mathml}
+>  {gt}  =>  {mathml}
+>  {ident}  =>  {mathml}
+>  {image}  =>  {mathml}
+>  {imaginary}  =>  {mathml}
+>  {imaginaryi}  =>  {mathml}
+>  {implies}  =>  {mathml}
+>  {in}  =>  {mathml}
+>  {infinity}  =>  {mathml}
+>  {int}  =>  {mathml}
+>  {integers}  =>  {mathml}
+>  {intersect}  =>  {mathml}
+>  {interval}  =>  {mathml}
+>  {inverse}  =>  {mathml}
+>  {lambda}  =>  {mathml}
+>  {laplacian}  =>  {mathml}
+>  {lcm}  =>  {mathml}
+>  {leq}  =>  {mathml}
+>  {limit}  =>  {mathml}
+>  {ln}  =>  {mathml}
+>  {log}  =>  {mathml}
+>  {logbase}  =>  {mathml}
+>  {lowlimit}  =>  {mathml}
+>  {lt}  =>  {mathml}
+>  {maction}  =>  {mathml}
+>  {maligngroup}  =>  {mathml}
+>  {malignmark}  =>  {mathml}
+>  {math}  =>  {mathml}
+>  {matrix}  =>  {mathml}
+>  {matrixrow}  =>  {mathml}
+>  {max}  =>  {mathml}
+>  {mean}  =>  {mathml}
+>  {median}  =>  {mathml}
+>  {menclose}  =>  {mathml}
+>  {merror}  =>  {mathml}
+>  {mfenced}  =>  {mathml}
+>  {mfrac}  =>  {mathml}
+>  {mglyph}  =>  {mathml}
+>  {mi}  =>  {mathml}
+>  {min}  =>  {mathml}
+>  {minus}  =>  {mathml}
+>  {mlabeledtr}  =>  {mathml}
+>  {mlongdiv}  =>  {mathml}
+>  {mmultiscripts}  =>  {mathml}
+>  {mn}  =>  {mathml}
+>  {mo}  =>  {mathml}
+>  {mode}  =>  {mathml}
+>  {moment}  =>  {mathml}
+>  {momentabout}  =>  {mathml}
+>  {mover}  =>  {mathml}
+>  {mpadded}  =>  {mathml}
+>  {mphantom}  =>  {mathml}
+>  {mprescripts}  =>  {mathml}
+>  {mroot}  =>  {mathml}
+>  {mrow}  =>  {mathml}
+>  {ms}  =>  {mathml}
+>  {mscarries}  =>  {mathml}
+>  {mscarry}  =>  {mathml}
+>  {msgroup}  =>  {mathml}
+>  {msline}  =>  {mathml}
+>  {mspace}  =>  {mathml}
+>  {msqrt}  =>  {mathml}
+>  {msrow}  =>  {mathml}
+>  {mstack}  =>  {mathml}
+>  {mstyle}  =>  {mathml}
+>  {msub}  =>  {mathml}
+>  {msubsup}  =>  {mathml}
+>  {msup}  =>  {mathml}
+>  {mtable}  =>  {mathml}
+>  {mtd}  =>  {mathml}
+>  {mtext}  =>  {mathml}
+>  {mtr}  =>  {mathml}
+>  {munder}  =>  {mathml}
+>  {munderover}  =>  {mathml}
+>  {naturalnumbers}  =>  {mathml}
+>  {neq}  =>  {mathml}
+>  {none}  =>  {mathml}
+>  {not}  =>  {mathml}
+>  {notanumber}  =>  {mathml}
+>  {notin}  =>  {mathml}
+>  {notprsubset}  =>  {mathml}
+>  {notsubset}  =>  {mathml}
+>  {or}  =>  {mathml}
+>  {otherwise}  =>  {mathml}
+>  {outerproduct}  =>  {mathml}
+>  {partialdiff}  =>  {mathml}
+>  {pi}  =>  {mathml}
+>  {piece}  =>  {mathml}
+>  {piecewise}  =>  {mathml}
+>  {plus}  =>  {mathml}
+>  {power}  =>  {mathml}
+>  {primes}  =>  {mathml}
+>  {product}  =>  {mathml}
+>  {prsubset}  =>  {mathml}
+>  {quotient}  =>  {mathml}
+>  {rationals}  =>  {mathml}
+>  {real}  =>  {mathml}
+>  {reals}  =>  {mathml}
+>  {reln}  =>  {mathml}
+>  {rem}  =>  {mathml}
+>  {root}  =>  {mathml}
+>  {scalarproduct}  =>  {mathml}
+>  {sdev}  =>  {mathml}
+>  {sec}  =>  {mathml}
+>  {sech}  =>  {mathml}
+>  {selector}  =>  {mathml}
+>  {semantics}  =>  {mathml}
+>  {sep}  =>  {mathml}
+>  {set}  =>  {mathml}
+>  {setdiff}  =>  {mathml}
+>  {share}  =>  {mathml}
+>  {sin}  =>  {mathml}
+>  {sinh}  =>  {mathml}
+>  {subset}  =>  {mathml}
+>  {sum}  =>  {mathml}
+>  {tan}  =>  {mathml}
+>  {tanh}  =>  {mathml}
+>  {tendsto}  =>  {mathml}
+>  {times}  =>  {mathml}
+>  {transpose}  =>  {mathml}
+>  {true}  =>  {mathml}
+>  {union}  =>  {mathml}
+>  {uplimit}  =>  {mathml}
+>  {variance}  =>  {mathml}
+>  {vector}  =>  {mathml}
+>  {vectorproduct}  =>  {mathml}
+>  {xor}  =>  {mathml}
+>  {chapter}  =>  {latex-inline}
+>  {section}  =>  {latex-inline}
+>  {subsection}  =>  {latex-inline}
+>  {subsubsection}  =>  {latex-inline}
+>  {paragraph}  =>  {latex-inline}
+>  {subparagraph}  =>  {latex-inline}
+>  {title}  =>  {latex}
+>  {part}  =>  {latex}
+>  {itemize}  =>  {latex}
+>  {enumerate}  =>  {latex}
+>  {description}  =>  {latex}
+>  {item}  =>  {latex}
+>  {itemlabel}  =>  {latex}
+>  {itembody}  =>  {latex}
+>  {footnote}  =>  {latex}
+>  {footnotemark}  =>  {latex}
+>  {footnotelabel}  =>  {latex}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 2: show tags ->types (1.7)
+============================================================
+The property list \g__tag_role_tags_types_prop contains the pairs (without
+outer braces):
+>  {Document}  =>  {D}
+>  {Part}  =>  {G}
+>  {Sect}  =>  {G}
+>  {Div}  =>  {G}
+>  {Caption}  =>  {GB}
+>  {NonStruct}  =>  {G}
+>  {H}  =>  {B}
+>  {H1}  =>  {B}
+>  {H2}  =>  {B}
+>  {H3}  =>  {B}
+>  {H4}  =>  {B}
+>  {H5}  =>  {B}
+>  {H6}  =>  {B}
+>  {P}  =>  {I}
+>  {L}  =>  {BI}
+>  {LI}  =>  {L}
+>  {Lbl}  =>  {I}
+>  {LBody}  =>  {L}
+>  {Table}  =>  {B}
+>  {TR}  =>  {T}
+>  {TH}  =>  {T}
+>  {TD}  =>  {T}
+>  {THead}  =>  {T}
+>  {TBody}  =>  {T}
+>  {TFoot}  =>  {T}
+>  {Span}  =>  {I}
+>  {Link}  =>  {GBI}
+>  {Annot}  =>  {GBI}
+>  {Figure}  =>  {GBI}
+>  {Formula}  =>  {GBI}
+>  {Form}  =>  {GBI}
+>  {Ruby}  =>  {I}
+>  {RB}  =>  {I}
+>  {RT}  =>  {I}
+>  {Warichu}  =>  {I}
+>  {WT}  =>  {I}
+>  {WP}  =>  {I}
+>  {Artifact}  =>  {GBI}
+>  {Art}  =>  {--UNKNOWN--}
+>  {BlockQuote}  =>  {G}
+>  {TOC}  =>  {G}
+>  {TOCI}  =>  {G}
+>  {Index}  =>  {G}
+>  {Private}  =>  {G}
+>  {Quote}  =>  {I}
+>  {Note}  =>  {GBI}
+>  {Reference}  =>  {B}
+>  {BibEntry}  =>  {B}
+>  {Code}  =>  {I}
+>  {DocumentFragment}  =>  {D}
+>  {Aside}  =>  {G}
+>  {H7}  =>  {B}
+>  {H8}  =>  {B}
+>  {H9}  =>  {B}
+>  {H10}  =>  {B}
+>  {Title}  =>  {GB}
+>  {FENote}  =>  {GBI}
+>  {Sub}  =>  {I}
+>  {Em}  =>  {I}
+>  {Strong}  =>  {I}
+>  {abs}  =>  {--UNKNOWN--}
+>  {and}  =>  {--UNKNOWN--}
+>  {annotation}  =>  {--UNKNOWN--}
+>  {apply}  =>  {--UNKNOWN--}
+>  {approx}  =>  {--UNKNOWN--}
+>  {arccos}  =>  {--UNKNOWN--}
+>  {arccosh}  =>  {--UNKNOWN--}
+>  {arccot}  =>  {--UNKNOWN--}
+>  {arccoth}  =>  {--UNKNOWN--}
+>  {arccsc}  =>  {--UNKNOWN--}
+>  {arccsch}  =>  {--UNKNOWN--}
+>  {arcsec}  =>  {--UNKNOWN--}
+>  {arcsech}  =>  {--UNKNOWN--}
+>  {arcsin}  =>  {--UNKNOWN--}
+>  {arcsinh}  =>  {--UNKNOWN--}
+>  {arctan}  =>  {--UNKNOWN--}
+>  {arctanh}  =>  {--UNKNOWN--}
+>  {arg}  =>  {--UNKNOWN--}
+>  {bind}  =>  {--UNKNOWN--}
+>  {bvar}  =>  {--UNKNOWN--}
+>  {card}  =>  {--UNKNOWN--}
+>  {cartesianproduct}  =>  {--UNKNOWN--}
+>  {cbytes}  =>  {--UNKNOWN--}
+>  {ceiling}  =>  {--UNKNOWN--}
+>  {cerror}  =>  {--UNKNOWN--}
+>  {ci}  =>  {--UNKNOWN--}
+>  {cn}  =>  {--UNKNOWN--}
+>  {codomain}  =>  {--UNKNOWN--}
+>  {complexes}  =>  {--UNKNOWN--}
+>  {compose}  =>  {--UNKNOWN--}
+>  {condition}  =>  {--UNKNOWN--}
+>  {conjugate}  =>  {--UNKNOWN--}
+>  {cos}  =>  {--UNKNOWN--}
+>  {cosh}  =>  {--UNKNOWN--}
+>  {cot}  =>  {--UNKNOWN--}
+>  {coth}  =>  {--UNKNOWN--}
+>  {cs}  =>  {--UNKNOWN--}
+>  {csc}  =>  {--UNKNOWN--}
+>  {csch}  =>  {--UNKNOWN--}
+>  {csymbol}  =>  {--UNKNOWN--}
+>  {curl}  =>  {--UNKNOWN--}
+>  {declare}  =>  {--UNKNOWN--}
+>  {degree}  =>  {--UNKNOWN--}
+>  {determinant}  =>  {--UNKNOWN--}
+>  {diff}  =>  {--UNKNOWN--}
+>  {divergence}  =>  {--UNKNOWN--}
+>  {divide}  =>  {--UNKNOWN--}
+>  {domain}  =>  {--UNKNOWN--}
+>  {domainofapplication}  =>  {--UNKNOWN--}
+>  {emptyset}  =>  {--UNKNOWN--}
+>  {eq}  =>  {--UNKNOWN--}
+>  {equivalent}  =>  {--UNKNOWN--}
+>  {eulergamma}  =>  {--UNKNOWN--}
+>  {exists}  =>  {--UNKNOWN--}
+>  {exp}  =>  {--UNKNOWN--}
+>  {exponentiale}  =>  {--UNKNOWN--}
+>  {factorial}  =>  {--UNKNOWN--}
+>  {factorof}  =>  {--UNKNOWN--}
+>  {false}  =>  {--UNKNOWN--}
+>  {floor}  =>  {--UNKNOWN--}
+>  {fn}  =>  {--UNKNOWN--}
+>  {forall}  =>  {--UNKNOWN--}
+>  {gcd}  =>  {--UNKNOWN--}
+>  {geq}  =>  {--UNKNOWN--}
+>  {grad}  =>  {--UNKNOWN--}
+>  {gt}  =>  {--UNKNOWN--}
+>  {ident}  =>  {--UNKNOWN--}
+>  {image}  =>  {--UNKNOWN--}
+>  {imaginary}  =>  {--UNKNOWN--}
+>  {imaginaryi}  =>  {--UNKNOWN--}
+>  {implies}  =>  {--UNKNOWN--}
+>  {in}  =>  {--UNKNOWN--}
+>  {infinity}  =>  {--UNKNOWN--}
+>  {int}  =>  {--UNKNOWN--}
+>  {integers}  =>  {--UNKNOWN--}
+>  {intersect}  =>  {--UNKNOWN--}
+>  {interval}  =>  {--UNKNOWN--}
+>  {inverse}  =>  {--UNKNOWN--}
+>  {lambda}  =>  {--UNKNOWN--}
+>  {laplacian}  =>  {--UNKNOWN--}
+>  {lcm}  =>  {--UNKNOWN--}
+>  {leq}  =>  {--UNKNOWN--}
+>  {limit}  =>  {--UNKNOWN--}
+>  {ln}  =>  {--UNKNOWN--}
+>  {log}  =>  {--UNKNOWN--}
+>  {logbase}  =>  {--UNKNOWN--}
+>  {lowlimit}  =>  {--UNKNOWN--}
+>  {lt}  =>  {--UNKNOWN--}
+>  {maction}  =>  {--UNKNOWN--}
+>  {maligngroup}  =>  {--UNKNOWN--}
+>  {malignmark}  =>  {--UNKNOWN--}
+>  {math}  =>  {--UNKNOWN--}
+>  {matrix}  =>  {--UNKNOWN--}
+>  {matrixrow}  =>  {--UNKNOWN--}
+>  {max}  =>  {--UNKNOWN--}
+>  {mean}  =>  {--UNKNOWN--}
+>  {median}  =>  {--UNKNOWN--}
+>  {menclose}  =>  {--UNKNOWN--}
+>  {merror}  =>  {--UNKNOWN--}
+>  {mfenced}  =>  {--UNKNOWN--}
+>  {mfrac}  =>  {--UNKNOWN--}
+>  {mglyph}  =>  {--UNKNOWN--}
+>  {mi}  =>  {--UNKNOWN--}
+>  {min}  =>  {--UNKNOWN--}
+>  {minus}  =>  {--UNKNOWN--}
+>  {mlabeledtr}  =>  {--UNKNOWN--}
+>  {mlongdiv}  =>  {--UNKNOWN--}
+>  {mmultiscripts}  =>  {--UNKNOWN--}
+>  {mn}  =>  {--UNKNOWN--}
+>  {mo}  =>  {--UNKNOWN--}
+>  {mode}  =>  {--UNKNOWN--}
+>  {moment}  =>  {--UNKNOWN--}
+>  {momentabout}  =>  {--UNKNOWN--}
+>  {mover}  =>  {--UNKNOWN--}
+>  {mpadded}  =>  {--UNKNOWN--}
+>  {mphantom}  =>  {--UNKNOWN--}
+>  {mprescripts}  =>  {--UNKNOWN--}
+>  {mroot}  =>  {--UNKNOWN--}
+>  {mrow}  =>  {--UNKNOWN--}
+>  {ms}  =>  {--UNKNOWN--}
+>  {mscarries}  =>  {--UNKNOWN--}
+>  {mscarry}  =>  {--UNKNOWN--}
+>  {msgroup}  =>  {--UNKNOWN--}
+>  {msline}  =>  {--UNKNOWN--}
+>  {mspace}  =>  {--UNKNOWN--}
+>  {msqrt}  =>  {--UNKNOWN--}
+>  {msrow}  =>  {--UNKNOWN--}
+>  {mstack}  =>  {--UNKNOWN--}
+>  {mstyle}  =>  {--UNKNOWN--}
+>  {msub}  =>  {--UNKNOWN--}
+>  {msubsup}  =>  {--UNKNOWN--}
+>  {msup}  =>  {--UNKNOWN--}
+>  {mtable}  =>  {--UNKNOWN--}
+>  {mtd}  =>  {--UNKNOWN--}
+>  {mtext}  =>  {--UNKNOWN--}
+>  {mtr}  =>  {--UNKNOWN--}
+>  {munder}  =>  {--UNKNOWN--}
+>  {munderover}  =>  {--UNKNOWN--}
+>  {naturalnumbers}  =>  {--UNKNOWN--}
+>  {neq}  =>  {--UNKNOWN--}
+>  {none}  =>  {--UNKNOWN--}
+>  {not}  =>  {--UNKNOWN--}
+>  {notanumber}  =>  {--UNKNOWN--}
+>  {notin}  =>  {--UNKNOWN--}
+>  {notprsubset}  =>  {--UNKNOWN--}
+>  {notsubset}  =>  {--UNKNOWN--}
+>  {or}  =>  {--UNKNOWN--}
+>  {otherwise}  =>  {--UNKNOWN--}
+>  {outerproduct}  =>  {--UNKNOWN--}
+>  {partialdiff}  =>  {--UNKNOWN--}
+>  {pi}  =>  {--UNKNOWN--}
+>  {piece}  =>  {--UNKNOWN--}
+>  {piecewise}  =>  {--UNKNOWN--}
+>  {plus}  =>  {--UNKNOWN--}
+>  {power}  =>  {--UNKNOWN--}
+>  {primes}  =>  {--UNKNOWN--}
+>  {product}  =>  {--UNKNOWN--}
+>  {prsubset}  =>  {--UNKNOWN--}
+>  {quotient}  =>  {--UNKNOWN--}
+>  {rationals}  =>  {--UNKNOWN--}
+>  {real}  =>  {--UNKNOWN--}
+>  {reals}  =>  {--UNKNOWN--}
+>  {reln}  =>  {--UNKNOWN--}
+>  {rem}  =>  {--UNKNOWN--}
+>  {root}  =>  {--UNKNOWN--}
+>  {scalarproduct}  =>  {--UNKNOWN--}
+>  {sdev}  =>  {--UNKNOWN--}
+>  {sec}  =>  {--UNKNOWN--}
+>  {sech}  =>  {--UNKNOWN--}
+>  {selector}  =>  {--UNKNOWN--}
+>  {semantics}  =>  {--UNKNOWN--}
+>  {sep}  =>  {--UNKNOWN--}
+>  {set}  =>  {--UNKNOWN--}
+>  {setdiff}  =>  {--UNKNOWN--}
+>  {share}  =>  {--UNKNOWN--}
+>  {sin}  =>  {--UNKNOWN--}
+>  {sinh}  =>  {--UNKNOWN--}
+>  {subset}  =>  {--UNKNOWN--}
+>  {sum}  =>  {--UNKNOWN--}
+>  {tan}  =>  {--UNKNOWN--}
+>  {tanh}  =>  {--UNKNOWN--}
+>  {tendsto}  =>  {--UNKNOWN--}
+>  {times}  =>  {--UNKNOWN--}
+>  {transpose}  =>  {--UNKNOWN--}
+>  {true}  =>  {--UNKNOWN--}
+>  {union}  =>  {--UNKNOWN--}
+>  {uplimit}  =>  {--UNKNOWN--}
+>  {variance}  =>  {--UNKNOWN--}
+>  {vector}  =>  {--UNKNOWN--}
+>  {vectorproduct}  =>  {--UNKNOWN--}
+>  {xor}  =>  {--UNKNOWN--}
+>  {chapter}  =>  {I}
+>  {section}  =>  {I}
+>  {subsection}  =>  {I}
+>  {subsubsection}  =>  {I}
+>  {paragraph}  =>  {I}
+>  {subparagraph}  =>  {I}
+>  {title}  =>  {GB}
+>  {part}  =>  {GB}
+>  {itemize}  =>  {BI}
+>  {enumerate}  =>  {BI}
+>  {description}  =>  {BI}
+>  {item}  =>  {L}
+>  {itemlabel}  =>  {I}
+>  {itembody}  =>  {L}
+>  {footnote}  =>  {GBI}
+>  {footnotemark}  =>  {I}
+>  {footnotelabel}  =>  {I}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 3: show namespaces
+============================================================
+The property list \g__tag_role_NS_prop contains the pairs (without outer
+braces):
+>  {pdf}  =>  {9 0 R }
+>  {pdf2}  =>  {11 0 R }
+>  {mathml}  =>  {13 0 R }
+>  {latex}  =>  {15 0 R }
+>  {latex-book}  =>  {17 0 R }
+>  {latex-inline}  =>  {19 0 R }
+>  {user}  =>  {21 0 R }.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 4: show RoleMapdict (1.7)
+============================================================
+The global dictionary 'g__tag_role/RoleMap_dict' is empty
+> .
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 5: show tags of namespace pdf
+============================================================
+The property list \g__tag_role_NS_pdf_prop contains the pairs (without outer
+braces):
+>  {Document}  =>  {{}{}}
+>  {Part}  =>  {{}{}}
+>  {Sect}  =>  {{}{}}
+>  {Div}  =>  {{}{}}
+>  {Caption}  =>  {{}{}}
+>  {NonStruct}  =>  {{}{}}
+>  {H}  =>  {{}{}}
+>  {H1}  =>  {{}{}}
+>  {H2}  =>  {{}{}}
+>  {H3}  =>  {{}{}}
+>  {H4}  =>  {{}{}}
+>  {H5}  =>  {{}{}}
+>  {H6}  =>  {{}{}}
+>  {P}  =>  {{}{}}
+>  {L}  =>  {{}{}}
+>  {LI}  =>  {{}{}}
+>  {Lbl}  =>  {{}{}}
+>  {LBody}  =>  {{}{}}
+>  {Table}  =>  {{}{}}
+>  {TR}  =>  {{}{}}
+>  {TH}  =>  {{}{}}
+>  {TD}  =>  {{}{}}
+>  {THead}  =>  {{}{}}
+>  {TBody}  =>  {{}{}}
+>  {TFoot}  =>  {{}{}}
+>  {Span}  =>  {{}{}}
+>  {Link}  =>  {{}{}}
+>  {Annot}  =>  {{}{}}
+>  {Figure}  =>  {{}{}}
+>  {Formula}  =>  {{}{}}
+>  {Form}  =>  {{}{}}
+>  {Ruby}  =>  {{}{}}
+>  {RB}  =>  {{}{}}
+>  {RT}  =>  {{}{}}
+>  {Warichu}  =>  {{}{}}
+>  {WT}  =>  {{}{}}
+>  {WP}  =>  {{}{}}
+>  {Artifact}  =>  {{}{}}
+>  {Art}  =>  {{}{}}
+>  {BlockQuote}  =>  {{}{}}
+>  {TOC}  =>  {{}{}}
+>  {TOCI}  =>  {{}{}}
+>  {Index}  =>  {{}{}}
+>  {Private}  =>  {{}{}}
+>  {Quote}  =>  {{}{}}
+>  {Note}  =>  {{}{}}
+>  {Reference}  =>  {{}{}}
+>  {BibEntry}  =>  {{}{}}
+>  {Code}  =>  {{}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 6: show tags of namespace pdf2
+============================================================
+The property list \g__tag_role_NS_pdf2_prop contains the pairs (without outer
+braces):
+>  {Document}  =>  {{}{}}
+>  {Part}  =>  {{}{}}
+>  {Sect}  =>  {{}{}}
+>  {Div}  =>  {{}{}}
+>  {Caption}  =>  {{}{}}
+>  {NonStruct}  =>  {{}{}}
+>  {H}  =>  {{}{}}
+>  {H1}  =>  {{}{}}
+>  {H2}  =>  {{}{}}
+>  {H3}  =>  {{}{}}
+>  {H4}  =>  {{}{}}
+>  {H5}  =>  {{}{}}
+>  {H6}  =>  {{}{}}
+>  {P}  =>  {{}{}}
+>  {L}  =>  {{}{}}
+>  {LI}  =>  {{}{}}
+>  {Lbl}  =>  {{}{}}
+>  {LBody}  =>  {{}{}}
+>  {Table}  =>  {{}{}}
+>  {TR}  =>  {{}{}}
+>  {TH}  =>  {{}{}}
+>  {TD}  =>  {{}{}}
+>  {THead}  =>  {{}{}}
+>  {TBody}  =>  {{}{}}
+>  {TFoot}  =>  {{}{}}
+>  {Span}  =>  {{}{}}
+>  {Link}  =>  {{}{}}
+>  {Annot}  =>  {{}{}}
+>  {Figure}  =>  {{}{}}
+>  {Formula}  =>  {{}{}}
+>  {Form}  =>  {{}{}}
+>  {Ruby}  =>  {{}{}}
+>  {RB}  =>  {{}{}}
+>  {RT}  =>  {{}{}}
+>  {Warichu}  =>  {{}{}}
+>  {WT}  =>  {{}{}}
+>  {WP}  =>  {{}{}}
+>  {Artifact}  =>  {{}{}}
+>  {DocumentFragment}  =>  {{}{}}
+>  {Aside}  =>  {{}{}}
+>  {H7}  =>  {{}{}}
+>  {H8}  =>  {{}{}}
+>  {H9}  =>  {{}{}}
+>  {H10}  =>  {{}{}}
+>  {Title}  =>  {{}{}}
+>  {FENote}  =>  {{}{}}
+>  {Sub}  =>  {{}{}}
+>  {Em}  =>  {{}{}}
+>  {Strong}  =>  {{}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 7: show tags of namespace mathml
+============================================================
+The property list \g__tag_role_NS_mathml_prop contains the pairs (without
+outer braces):
+>  {abs}  =>  {{}{}}
+>  {and}  =>  {{}{}}
+>  {annotation}  =>  {{}{}}
+>  {apply}  =>  {{}{}}
+>  {approx}  =>  {{}{}}
+>  {arccos}  =>  {{}{}}
+>  {arccosh}  =>  {{}{}}
+>  {arccot}  =>  {{}{}}
+>  {arccoth}  =>  {{}{}}
+>  {arccsc}  =>  {{}{}}
+>  {arccsch}  =>  {{}{}}
+>  {arcsec}  =>  {{}{}}
+>  {arcsech}  =>  {{}{}}
+>  {arcsin}  =>  {{}{}}
+>  {arcsinh}  =>  {{}{}}
+>  {arctan}  =>  {{}{}}
+>  {arctanh}  =>  {{}{}}
+>  {arg}  =>  {{}{}}
+>  {bind}  =>  {{}{}}
+>  {bvar}  =>  {{}{}}
+>  {card}  =>  {{}{}}
+>  {cartesianproduct}  =>  {{}{}}
+>  {cbytes}  =>  {{}{}}
+>  {ceiling}  =>  {{}{}}
+>  {cerror}  =>  {{}{}}
+>  {ci}  =>  {{}{}}
+>  {cn}  =>  {{}{}}
+>  {codomain}  =>  {{}{}}
+>  {complexes}  =>  {{}{}}
+>  {compose}  =>  {{}{}}
+>  {condition}  =>  {{}{}}
+>  {conjugate}  =>  {{}{}}
+>  {cos}  =>  {{}{}}
+>  {cosh}  =>  {{}{}}
+>  {cot}  =>  {{}{}}
+>  {coth}  =>  {{}{}}
+>  {cs}  =>  {{}{}}
+>  {csc}  =>  {{}{}}
+>  {csch}  =>  {{}{}}
+>  {csymbol}  =>  {{}{}}
+>  {curl}  =>  {{}{}}
+>  {declare}  =>  {{}{}}
+>  {degree}  =>  {{}{}}
+>  {determinant}  =>  {{}{}}
+>  {diff}  =>  {{}{}}
+>  {divergence}  =>  {{}{}}
+>  {divide}  =>  {{}{}}
+>  {domain}  =>  {{}{}}
+>  {domainofapplication}  =>  {{}{}}
+>  {emptyset}  =>  {{}{}}
+>  {eq}  =>  {{}{}}
+>  {equivalent}  =>  {{}{}}
+>  {eulergamma}  =>  {{}{}}
+>  {exists}  =>  {{}{}}
+>  {exp}  =>  {{}{}}
+>  {exponentiale}  =>  {{}{}}
+>  {factorial}  =>  {{}{}}
+>  {factorof}  =>  {{}{}}
+>  {false}  =>  {{}{}}
+>  {floor}  =>  {{}{}}
+>  {fn}  =>  {{}{}}
+>  {forall}  =>  {{}{}}
+>  {gcd}  =>  {{}{}}
+>  {geq}  =>  {{}{}}
+>  {grad}  =>  {{}{}}
+>  {gt}  =>  {{}{}}
+>  {ident}  =>  {{}{}}
+>  {image}  =>  {{}{}}
+>  {imaginary}  =>  {{}{}}
+>  {imaginaryi}  =>  {{}{}}
+>  {implies}  =>  {{}{}}
+>  {in}  =>  {{}{}}
+>  {infinity}  =>  {{}{}}
+>  {int}  =>  {{}{}}
+>  {integers}  =>  {{}{}}
+>  {intersect}  =>  {{}{}}
+>  {interval}  =>  {{}{}}
+>  {inverse}  =>  {{}{}}
+>  {lambda}  =>  {{}{}}
+>  {laplacian}  =>  {{}{}}
+>  {lcm}  =>  {{}{}}
+>  {leq}  =>  {{}{}}
+>  {limit}  =>  {{}{}}
+>  {ln}  =>  {{}{}}
+>  {log}  =>  {{}{}}
+>  {logbase}  =>  {{}{}}
+>  {lowlimit}  =>  {{}{}}
+>  {lt}  =>  {{}{}}
+>  {maction}  =>  {{}{}}
+>  {maligngroup}  =>  {{}{}}
+>  {malignmark}  =>  {{}{}}
+>  {math}  =>  {{}{}}
+>  {matrix}  =>  {{}{}}
+>  {matrixrow}  =>  {{}{}}
+>  {max}  =>  {{}{}}
+>  {mean}  =>  {{}{}}
+>  {median}  =>  {{}{}}
+>  {menclose}  =>  {{}{}}
+>  {merror}  =>  {{}{}}
+>  {mfenced}  =>  {{}{}}
+>  {mfrac}  =>  {{}{}}
+>  {mglyph}  =>  {{}{}}
+>  {mi}  =>  {{}{}}
+>  {min}  =>  {{}{}}
+>  {minus}  =>  {{}{}}
+>  {mlabeledtr}  =>  {{}{}}
+>  {mlongdiv}  =>  {{}{}}
+>  {mmultiscripts}  =>  {{}{}}
+>  {mn}  =>  {{}{}}
+>  {mo}  =>  {{}{}}
+>  {mode}  =>  {{}{}}
+>  {moment}  =>  {{}{}}
+>  {momentabout}  =>  {{}{}}
+>  {mover}  =>  {{}{}}
+>  {mpadded}  =>  {{}{}}
+>  {mphantom}  =>  {{}{}}
+>  {mprescripts}  =>  {{}{}}
+>  {mroot}  =>  {{}{}}
+>  {mrow}  =>  {{}{}}
+>  {ms}  =>  {{}{}}
+>  {mscarries}  =>  {{}{}}
+>  {mscarry}  =>  {{}{}}
+>  {msgroup}  =>  {{}{}}
+>  {msline}  =>  {{}{}}
+>  {mspace}  =>  {{}{}}
+>  {msqrt}  =>  {{}{}}
+>  {msrow}  =>  {{}{}}
+>  {mstack}  =>  {{}{}}
+>  {mstyle}  =>  {{}{}}
+>  {msub}  =>  {{}{}}
+>  {msubsup}  =>  {{}{}}
+>  {msup}  =>  {{}{}}
+>  {mtable}  =>  {{}{}}
+>  {mtd}  =>  {{}{}}
+>  {mtext}  =>  {{}{}}
+>  {mtr}  =>  {{}{}}
+>  {munder}  =>  {{}{}}
+>  {munderover}  =>  {{}{}}
+>  {naturalnumbers}  =>  {{}{}}
+>  {neq}  =>  {{}{}}
+>  {none}  =>  {{}{}}
+>  {not}  =>  {{}{}}
+>  {notanumber}  =>  {{}{}}
+>  {notin}  =>  {{}{}}
+>  {notprsubset}  =>  {{}{}}
+>  {notsubset}  =>  {{}{}}
+>  {or}  =>  {{}{}}
+>  {otherwise}  =>  {{}{}}
+>  {outerproduct}  =>  {{}{}}
+>  {partialdiff}  =>  {{}{}}
+>  {pi}  =>  {{}{}}
+>  {piece}  =>  {{}{}}
+>  {piecewise}  =>  {{}{}}
+>  {plus}  =>  {{}{}}
+>  {power}  =>  {{}{}}
+>  {primes}  =>  {{}{}}
+>  {product}  =>  {{}{}}
+>  {prsubset}  =>  {{}{}}
+>  {quotient}  =>  {{}{}}
+>  {rationals}  =>  {{}{}}
+>  {real}  =>  {{}{}}
+>  {reals}  =>  {{}{}}
+>  {reln}  =>  {{}{}}
+>  {rem}  =>  {{}{}}
+>  {root}  =>  {{}{}}
+>  {scalarproduct}  =>  {{}{}}
+>  {sdev}  =>  {{}{}}
+>  {sec}  =>  {{}{}}
+>  {sech}  =>  {{}{}}
+>  {selector}  =>  {{}{}}
+>  {semantics}  =>  {{}{}}
+>  {sep}  =>  {{}{}}
+>  {set}  =>  {{}{}}
+>  {setdiff}  =>  {{}{}}
+>  {share}  =>  {{}{}}
+>  {sin}  =>  {{}{}}
+>  {sinh}  =>  {{}{}}
+>  {subset}  =>  {{}{}}
+>  {sum}  =>  {{}{}}
+>  {tan}  =>  {{}{}}
+>  {tanh}  =>  {{}{}}
+>  {tendsto}  =>  {{}{}}
+>  {times}  =>  {{}{}}
+>  {transpose}  =>  {{}{}}
+>  {true}  =>  {{}{}}
+>  {union}  =>  {{}{}}
+>  {uplimit}  =>  {{}{}}
+>  {variance}  =>  {{}{}}
+>  {vector}  =>  {{}{}}
+>  {vectorproduct}  =>  {{}{}}
+>  {xor}  =>  {{}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 8: show tags of namespace latex
+============================================================
+The property list \g__tag_role_NS_latex_prop contains the pairs (without outer
+braces):
+>  {title}  =>  {{Title}{pdf2}}
+>  {part}  =>  {{Title}{pdf2}}
+>  {section}  =>  {{H1}{pdf2}}
+>  {subsection}  =>  {{H2}{pdf2}}
+>  {subsubsection}  =>  {{H3}{pdf2}}
+>  {paragraph}  =>  {{H4}{pdf2}}
+>  {subparagraph}  =>  {{H5}{pdf2}}
+>  {itemize}  =>  {{L}{pdf2}}
+>  {enumerate}  =>  {{L}{pdf2}}
+>  {description}  =>  {{L}{pdf2}}
+>  {item}  =>  {{LI}{pdf2}}
+>  {itemlabel}  =>  {{Lbl}{pdf2}}
+>  {itembody}  =>  {{LBody}{pdf2}}
+>  {footnote}  =>  {{FENote}{pdf2}}
+>  {footnotemark}  =>  {{Lbl}{pdf2}}
+>  {footnotelabel}  =>  {{Lbl}{pdf2}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 9: show tags of namespace latex-book
+============================================================
+The property list \g__tag_role_NS_latex-book_prop contains the pairs (without
+outer braces):
+>  {chapter}  =>  {{H1}{pdf2}}
+>  {section}  =>  {{H2}{pdf2}}
+>  {subsection}  =>  {{H3}{pdf2}}
+>  {subsubsection}  =>  {{H4}{pdf2}}
+>  {paragraph}  =>  {{H5}{pdf2}}
+>  {subparagraph}  =>  {{H6}{pdf2}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 10: show tags of namespace latex-inline
+============================================================
+The property list \g__tag_role_NS_latex-inline_prop contains the pairs
+(without outer braces):
+>  {chapter}  =>  {{Span}{pdf2}}
+>  {section}  =>  {{Span}{pdf2}}
+>  {subsection}  =>  {{Span}{pdf2}}
+>  {subsubsection}  =>  {{Span}{pdf2}}
+>  {paragraph}  =>  {{Span}{pdf2}}
+>  {subparagraph}  =>  {{Span}{pdf2}}
+>  {P}  =>  {{Span}{pdf2}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 11: show tags of namespace user
+============================================================
+The property list \g__tag_role_NS_user_prop is empty
+> .
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 12: show types of tags in namespace pdf
+============================================================
+The property list \g__tag_role_NS_pdf_types_prop contains the pairs (without
+outer braces):
+>  {Document}  =>  {D}
+>  {Part}  =>  {G}
+>  {Sect}  =>  {G}
+>  {Div}  =>  {G}
+>  {Caption}  =>  {GB}
+>  {NonStruct}  =>  {G}
+>  {H}  =>  {B}
+>  {H1}  =>  {B}
+>  {H2}  =>  {B}
+>  {H3}  =>  {B}
+>  {H4}  =>  {B}
+>  {H5}  =>  {B}
+>  {H6}  =>  {B}
+>  {P}  =>  {B}
+>  {L}  =>  {BI}
+>  {LI}  =>  {L}
+>  {Lbl}  =>  {I}
+>  {LBody}  =>  {L}
+>  {Table}  =>  {B}
+>  {TR}  =>  {T}
+>  {TH}  =>  {T}
+>  {TD}  =>  {T}
+>  {THead}  =>  {T}
+>  {TBody}  =>  {T}
+>  {TFoot}  =>  {T}
+>  {Span}  =>  {I}
+>  {Link}  =>  {GBI}
+>  {Annot}  =>  {GBI}
+>  {Figure}  =>  {GBI}
+>  {Formula}  =>  {GBI}
+>  {Form}  =>  {GBI}
+>  {Ruby}  =>  {I}
+>  {RB}  =>  {I}
+>  {RT}  =>  {I}
+>  {Warichu}  =>  {I}
+>  {WT}  =>  {I}
+>  {WP}  =>  {I}
+>  {Artifact}  =>  {GBI}
+>  {Art}  =>  {--UNKNOWN--}
+>  {BlockQuote}  =>  {G}
+>  {TOC}  =>  {G}
+>  {TOCI}  =>  {G}
+>  {Index}  =>  {G}
+>  {Private}  =>  {G}
+>  {Quote}  =>  {I}
+>  {Note}  =>  {GBI}
+>  {Reference}  =>  {B}
+>  {BibEntry}  =>  {B}
+>  {Code}  =>  {I}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 13: show types of tags in namespace pdf2
+============================================================
+The property list \g__tag_role_NS_pdf2_types_prop contains the pairs (without
+outer braces):
+>  {Document}  =>  {D}
+>  {Part}  =>  {G}
+>  {Sect}  =>  {G}
+>  {Div}  =>  {G}
+>  {Caption}  =>  {GB}
+>  {NonStruct}  =>  {G}
+>  {H}  =>  {B}
+>  {H1}  =>  {B}
+>  {H2}  =>  {B}
+>  {H3}  =>  {B}
+>  {H4}  =>  {B}
+>  {H5}  =>  {B}
+>  {H6}  =>  {B}
+>  {P}  =>  {B}
+>  {L}  =>  {BI}
+>  {LI}  =>  {L}
+>  {Lbl}  =>  {I}
+>  {LBody}  =>  {L}
+>  {Table}  =>  {B}
+>  {TR}  =>  {T}
+>  {TH}  =>  {T}
+>  {TD}  =>  {T}
+>  {THead}  =>  {T}
+>  {TBody}  =>  {T}
+>  {TFoot}  =>  {T}
+>  {Span}  =>  {I}
+>  {Link}  =>  {GBI}
+>  {Annot}  =>  {GBI}
+>  {Figure}  =>  {GBI}
+>  {Formula}  =>  {GBI}
+>  {Form}  =>  {GBI}
+>  {Ruby}  =>  {I}
+>  {RB}  =>  {I}
+>  {RT}  =>  {I}
+>  {Warichu}  =>  {I}
+>  {WT}  =>  {I}
+>  {WP}  =>  {I}
+>  {Artifact}  =>  {GBI}
+>  {DocumentFragment}  =>  {D}
+>  {Aside}  =>  {G}
+>  {H7}  =>  {B}
+>  {H8}  =>  {B}
+>  {H9}  =>  {B}
+>  {H10}  =>  {B}
+>  {Title}  =>  {GB}
+>  {FENote}  =>  {GBI}
+>  {Sub}  =>  {I}
+>  {Em}  =>  {I}
+>  {Strong}  =>  {I}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 14: show types of tags in namespace mathml
+============================================================
+The property list \g__tag_role_NS_mathml_types_prop contains the pairs
+(without outer braces):
+>  {abs}  =>  {--UNKNOWN--}
+>  {and}  =>  {--UNKNOWN--}
+>  {annotation}  =>  {--UNKNOWN--}
+>  {apply}  =>  {--UNKNOWN--}
+>  {approx}  =>  {--UNKNOWN--}
+>  {arccos}  =>  {--UNKNOWN--}
+>  {arccosh}  =>  {--UNKNOWN--}
+>  {arccot}  =>  {--UNKNOWN--}
+>  {arccoth}  =>  {--UNKNOWN--}
+>  {arccsc}  =>  {--UNKNOWN--}
+>  {arccsch}  =>  {--UNKNOWN--}
+>  {arcsec}  =>  {--UNKNOWN--}
+>  {arcsech}  =>  {--UNKNOWN--}
+>  {arcsin}  =>  {--UNKNOWN--}
+>  {arcsinh}  =>  {--UNKNOWN--}
+>  {arctan}  =>  {--UNKNOWN--}
+>  {arctanh}  =>  {--UNKNOWN--}
+>  {arg}  =>  {--UNKNOWN--}
+>  {bind}  =>  {--UNKNOWN--}
+>  {bvar}  =>  {--UNKNOWN--}
+>  {card}  =>  {--UNKNOWN--}
+>  {cartesianproduct}  =>  {--UNKNOWN--}
+>  {cbytes}  =>  {--UNKNOWN--}
+>  {ceiling}  =>  {--UNKNOWN--}
+>  {cerror}  =>  {--UNKNOWN--}
+>  {ci}  =>  {--UNKNOWN--}
+>  {cn}  =>  {--UNKNOWN--}
+>  {codomain}  =>  {--UNKNOWN--}
+>  {complexes}  =>  {--UNKNOWN--}
+>  {compose}  =>  {--UNKNOWN--}
+>  {condition}  =>  {--UNKNOWN--}
+>  {conjugate}  =>  {--UNKNOWN--}
+>  {cos}  =>  {--UNKNOWN--}
+>  {cosh}  =>  {--UNKNOWN--}
+>  {cot}  =>  {--UNKNOWN--}
+>  {coth}  =>  {--UNKNOWN--}
+>  {cs}  =>  {--UNKNOWN--}
+>  {csc}  =>  {--UNKNOWN--}
+>  {csch}  =>  {--UNKNOWN--}
+>  {csymbol}  =>  {--UNKNOWN--}
+>  {curl}  =>  {--UNKNOWN--}
+>  {declare}  =>  {--UNKNOWN--}
+>  {degree}  =>  {--UNKNOWN--}
+>  {determinant}  =>  {--UNKNOWN--}
+>  {diff}  =>  {--UNKNOWN--}
+>  {divergence}  =>  {--UNKNOWN--}
+>  {divide}  =>  {--UNKNOWN--}
+>  {domain}  =>  {--UNKNOWN--}
+>  {domainofapplication}  =>  {--UNKNOWN--}
+>  {emptyset}  =>  {--UNKNOWN--}
+>  {eq}  =>  {--UNKNOWN--}
+>  {equivalent}  =>  {--UNKNOWN--}
+>  {eulergamma}  =>  {--UNKNOWN--}
+>  {exists}  =>  {--UNKNOWN--}
+>  {exp}  =>  {--UNKNOWN--}
+>  {exponentiale}  =>  {--UNKNOWN--}
+>  {factorial}  =>  {--UNKNOWN--}
+>  {factorof}  =>  {--UNKNOWN--}
+>  {false}  =>  {--UNKNOWN--}
+>  {floor}  =>  {--UNKNOWN--}
+>  {fn}  =>  {--UNKNOWN--}
+>  {forall}  =>  {--UNKNOWN--}
+>  {gcd}  =>  {--UNKNOWN--}
+>  {geq}  =>  {--UNKNOWN--}
+>  {grad}  =>  {--UNKNOWN--}
+>  {gt}  =>  {--UNKNOWN--}
+>  {ident}  =>  {--UNKNOWN--}
+>  {image}  =>  {--UNKNOWN--}
+>  {imaginary}  =>  {--UNKNOWN--}
+>  {imaginaryi}  =>  {--UNKNOWN--}
+>  {implies}  =>  {--UNKNOWN--}
+>  {in}  =>  {--UNKNOWN--}
+>  {infinity}  =>  {--UNKNOWN--}
+>  {int}  =>  {--UNKNOWN--}
+>  {integers}  =>  {--UNKNOWN--}
+>  {intersect}  =>  {--UNKNOWN--}
+>  {interval}  =>  {--UNKNOWN--}
+>  {inverse}  =>  {--UNKNOWN--}
+>  {lambda}  =>  {--UNKNOWN--}
+>  {laplacian}  =>  {--UNKNOWN--}
+>  {lcm}  =>  {--UNKNOWN--}
+>  {leq}  =>  {--UNKNOWN--}
+>  {limit}  =>  {--UNKNOWN--}
+>  {ln}  =>  {--UNKNOWN--}
+>  {log}  =>  {--UNKNOWN--}
+>  {logbase}  =>  {--UNKNOWN--}
+>  {lowlimit}  =>  {--UNKNOWN--}
+>  {lt}  =>  {--UNKNOWN--}
+>  {maction}  =>  {--UNKNOWN--}
+>  {maligngroup}  =>  {--UNKNOWN--}
+>  {malignmark}  =>  {--UNKNOWN--}
+>  {math}  =>  {--UNKNOWN--}
+>  {matrix}  =>  {--UNKNOWN--}
+>  {matrixrow}  =>  {--UNKNOWN--}
+>  {max}  =>  {--UNKNOWN--}
+>  {mean}  =>  {--UNKNOWN--}
+>  {median}  =>  {--UNKNOWN--}
+>  {menclose}  =>  {--UNKNOWN--}
+>  {merror}  =>  {--UNKNOWN--}
+>  {mfenced}  =>  {--UNKNOWN--}
+>  {mfrac}  =>  {--UNKNOWN--}
+>  {mglyph}  =>  {--UNKNOWN--}
+>  {mi}  =>  {--UNKNOWN--}
+>  {min}  =>  {--UNKNOWN--}
+>  {minus}  =>  {--UNKNOWN--}
+>  {mlabeledtr}  =>  {--UNKNOWN--}
+>  {mlongdiv}  =>  {--UNKNOWN--}
+>  {mmultiscripts}  =>  {--UNKNOWN--}
+>  {mn}  =>  {--UNKNOWN--}
+>  {mo}  =>  {--UNKNOWN--}
+>  {mode}  =>  {--UNKNOWN--}
+>  {moment}  =>  {--UNKNOWN--}
+>  {momentabout}  =>  {--UNKNOWN--}
+>  {mover}  =>  {--UNKNOWN--}
+>  {mpadded}  =>  {--UNKNOWN--}
+>  {mphantom}  =>  {--UNKNOWN--}
+>  {mprescripts}  =>  {--UNKNOWN--}
+>  {mroot}  =>  {--UNKNOWN--}
+>  {mrow}  =>  {--UNKNOWN--}
+>  {ms}  =>  {--UNKNOWN--}
+>  {mscarries}  =>  {--UNKNOWN--}
+>  {mscarry}  =>  {--UNKNOWN--}
+>  {msgroup}  =>  {--UNKNOWN--}
+>  {msline}  =>  {--UNKNOWN--}
+>  {mspace}  =>  {--UNKNOWN--}
+>  {msqrt}  =>  {--UNKNOWN--}
+>  {msrow}  =>  {--UNKNOWN--}
+>  {mstack}  =>  {--UNKNOWN--}
+>  {mstyle}  =>  {--UNKNOWN--}
+>  {msub}  =>  {--UNKNOWN--}
+>  {msubsup}  =>  {--UNKNOWN--}
+>  {msup}  =>  {--UNKNOWN--}
+>  {mtable}  =>  {--UNKNOWN--}
+>  {mtd}  =>  {--UNKNOWN--}
+>  {mtext}  =>  {--UNKNOWN--}
+>  {mtr}  =>  {--UNKNOWN--}
+>  {munder}  =>  {--UNKNOWN--}
+>  {munderover}  =>  {--UNKNOWN--}
+>  {naturalnumbers}  =>  {--UNKNOWN--}
+>  {neq}  =>  {--UNKNOWN--}
+>  {none}  =>  {--UNKNOWN--}
+>  {not}  =>  {--UNKNOWN--}
+>  {notanumber}  =>  {--UNKNOWN--}
+>  {notin}  =>  {--UNKNOWN--}
+>  {notprsubset}  =>  {--UNKNOWN--}
+>  {notsubset}  =>  {--UNKNOWN--}
+>  {or}  =>  {--UNKNOWN--}
+>  {otherwise}  =>  {--UNKNOWN--}
+>  {outerproduct}  =>  {--UNKNOWN--}
+>  {partialdiff}  =>  {--UNKNOWN--}
+>  {pi}  =>  {--UNKNOWN--}
+>  {piece}  =>  {--UNKNOWN--}
+>  {piecewise}  =>  {--UNKNOWN--}
+>  {plus}  =>  {--UNKNOWN--}
+>  {power}  =>  {--UNKNOWN--}
+>  {primes}  =>  {--UNKNOWN--}
+>  {product}  =>  {--UNKNOWN--}
+>  {prsubset}  =>  {--UNKNOWN--}
+>  {quotient}  =>  {--UNKNOWN--}
+>  {rationals}  =>  {--UNKNOWN--}
+>  {real}  =>  {--UNKNOWN--}
+>  {reals}  =>  {--UNKNOWN--}
+>  {reln}  =>  {--UNKNOWN--}
+>  {rem}  =>  {--UNKNOWN--}
+>  {root}  =>  {--UNKNOWN--}
+>  {scalarproduct}  =>  {--UNKNOWN--}
+>  {sdev}  =>  {--UNKNOWN--}
+>  {sec}  =>  {--UNKNOWN--}
+>  {sech}  =>  {--UNKNOWN--}
+>  {selector}  =>  {--UNKNOWN--}
+>  {semantics}  =>  {--UNKNOWN--}
+>  {sep}  =>  {--UNKNOWN--}
+>  {set}  =>  {--UNKNOWN--}
+>  {setdiff}  =>  {--UNKNOWN--}
+>  {share}  =>  {--UNKNOWN--}
+>  {sin}  =>  {--UNKNOWN--}
+>  {sinh}  =>  {--UNKNOWN--}
+>  {subset}  =>  {--UNKNOWN--}
+>  {sum}  =>  {--UNKNOWN--}
+>  {tan}  =>  {--UNKNOWN--}
+>  {tanh}  =>  {--UNKNOWN--}
+>  {tendsto}  =>  {--UNKNOWN--}
+>  {times}  =>  {--UNKNOWN--}
+>  {transpose}  =>  {--UNKNOWN--}
+>  {true}  =>  {--UNKNOWN--}
+>  {union}  =>  {--UNKNOWN--}
+>  {uplimit}  =>  {--UNKNOWN--}
+>  {variance}  =>  {--UNKNOWN--}
+>  {vector}  =>  {--UNKNOWN--}
+>  {vectorproduct}  =>  {--UNKNOWN--}
+>  {xor}  =>  {--UNKNOWN--}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 15: show types of tags in namespace latex
+============================================================
+The property list \g__tag_role_NS_latex_types_prop contains the pairs (without
+outer braces):
+>  {title}  =>  {GB}
+>  {part}  =>  {GB}
+>  {section}  =>  {B}
+>  {subsection}  =>  {B}
+>  {subsubsection}  =>  {B}
+>  {paragraph}  =>  {B}
+>  {subparagraph}  =>  {B}
+>  {itemize}  =>  {BI}
+>  {enumerate}  =>  {BI}
+>  {description}  =>  {BI}
+>  {item}  =>  {L}
+>  {itemlabel}  =>  {I}
+>  {itembody}  =>  {L}
+>  {footnote}  =>  {GBI}
+>  {footnotemark}  =>  {I}
+>  {footnotelabel}  =>  {I}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 16: show types of tags in namespace latex-book
+============================================================
+The property list \g__tag_role_NS_latex-book_types_prop contains the pairs
+(without outer braces):
+>  {chapter}  =>  {B}
+>  {section}  =>  {B}
+>  {subsection}  =>  {B}
+>  {subsubsection}  =>  {B}
+>  {paragraph}  =>  {B}
+>  {subparagraph}  =>  {B}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 17: show types of tags in namespace latex-inline
+============================================================
+The property list \g__tag_role_NS_latex-inline_types_prop contains the pairs
+(without outer braces):
+>  {chapter}  =>  {I}
+>  {section}  =>  {I}
+>  {subsection}  =>  {I}
+>  {subsubsection}  =>  {I}
+>  {paragraph}  =>  {I}
+>  {subparagraph}  =>  {I}
+>  {P}  =>  {I}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 18: show types of tags in namespace user
+============================================================
+The property list \g__tag_role_NS_user_types_prop is empty
+> .
+<recently read> }
+l. ... }
+============================================================
