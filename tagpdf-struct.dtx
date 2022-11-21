@@ -858,8 +858,11 @@
     tag   .code:n        = % S property
       {
         \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:Ne\g__tag_role_tags_NS_prop{#1}}
-        \tl_gset:Nx \g_@@_struct_tag_tl    { \seq_item:Nn\l_@@_tmpa_seq {1} }
-        \tl_gset:Nx \g_@@_struct_tag_NS_tl { \seq_item:Nn\l_@@_tmpa_seq {2} }
+        \tl_set:Nx \l_@@_role_remap_tag_tl    { \seq_item:Nn\l_@@_tmpa_seq {1} }
+        \tl_set:Nx \l_@@_role_remap_NS_tl { \seq_item:Nn\l_@@_tmpa_seq {2} }
+        \@@_role_remap:
+        \tl_gset_eq:NN \g_@@_struct_tag_tl\l_@@_role_remap_tag_tl
+        \tl_gset_eq:NN \g_@@_struct_tag_NS_tl\l_@@_role_remap_NS_tl       
         \@@_check_structure_tag:N \g_@@_struct_tag_tl
         \@@_prop_gput:cnx
          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }

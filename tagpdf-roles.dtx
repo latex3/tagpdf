@@ -571,6 +571,8 @@
 \@@_role_read_namespace:n {latex-book}  
 \bool_set_true:N\l_@@_role_update_bool
 \@@_role_read_namespace:n {latex}
+\@@_role_read_namespace:n {pdf}
+\@@_role_read_namespace:n {pdf2}
 %    \end{macrocode}
 %
 % But is the class provides a \cs{chapter} command then we switch 
@@ -633,7 +635,7 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_role_remap_inline:nN}
+% \begin{macro}{\@@_role_remap_inline:}
 % The mapping is meant to \enquote{degrade} tags, e.g. if used
 % inside some complex object. 
 % The pdf<2.0 code maps the tag to the new role, the pdf 2.0 code only
