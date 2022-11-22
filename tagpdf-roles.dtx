@@ -74,7 +74,7 @@
 %  In a PDF 1.7 or earlier this is normally a tag from the |pdf| set,
 %  in PDF 2.0 from the |pdf|, |pdf2| and |mathml| set.
 %  It can also be a user tag. The tag must be declared before, as the code retrieves
-%  the type of the new tag from it. 
+%  the class of the new tag from it. 
 %  The PDF format allows mapping to be done transitively.
 %  But tagpdf can't/won't check such unusual role mapping.
 % \item[\texttt{role-namespace}] If the role is a known tag
@@ -108,7 +108,7 @@
 % name space.
 % 
 % Tags of structures are classified, e.g. as grouping, 
-% inline or block level structure (and a few special types like lists and tables),
+% inline or block level structure (and a few special classes like lists and tables),
 % and must follow containments rules depending on their classification 
 % (for example a inline structure can not contain
 % a block level structure). New tags inherit their 
@@ -119,7 +119,7 @@
 % The classification for math (and the containment rules) 
 % is unclear currently and so not set.
 % 
-% The attribute number is only relevant in lua and only for the MC type 
+% The attribute number is only relevant in lua and only for the MC chunks 
 % (so tags with the same name from different names spaces can have the same number), 
 % and so only stored if luatex is detected. 
 % 
@@ -136,7 +136,7 @@
 % 
 % In pdf 2.0 the value is needed in the structure dictionaries.
 % 
-% \item[\cs{g_@@_role_tags_types_prop}]
+% \item[\cs{g_@@_role_tags_class_prop}]
 % This contains for each tag a classification type. It is used in pdf <2.0.
 % 
 % \item[\cs{g_@@_role_NS_prop}] This contains the names spaces. The
@@ -150,7 +150,7 @@
 % remapping. As value they contain two brace groups: tag and namespace.
 % In pdf <2.0 the namespace is empty. 
 % 
-% \item[\cs{g_@@_role_NS_<ns>_types_prop}]   
+% \item[\cs{g_@@_role_NS_<ns>_class_prop}]   
 % This prop contains the tags of
 % a name space and their type. The value is only needed for pdf 2.0.             
 % \end{description} 
@@ -167,14 +167,14 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_role_tags_types_prop}
-% With pdf 2.0 we store the types in the NS dependant props. 
+% \begin{variable}{\g_@@_role_tags_class_prop}
+% With pdf 2.0 we store the class in the NS dependant props. 
 % With pdf <2.0 we store for now the type(s) of a tag in a common
 % prop. 
 % Tags that are rolemapped should get the type from
 % the target.
 %    \begin{macrocode}
-\prop_new:N    \g_@@_role_tags_types_prop 
+\prop_new:N    \g_@@_role_tags_class_prop 
 %    \end{macrocode}
 % \end{variable}
 % 
@@ -251,7 +251,7 @@
    \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
     {
       \prop_new:c { g_@@_role_NS_#1_prop }
-      \prop_new:c { g_@@_role_NS_#1_types_prop }
+      \prop_new:c { g_@@_role_NS_#1_class_prop }
       \prop_gput:Nnx \g_@@_role_NS_prop {#1}{}
     }
  }
@@ -259,7 +259,7 @@
   \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
     {
       \prop_new:c { g_@@_role_NS_#1_prop }
-      \prop_new:c { g_@@_role_NS_#1_types_prop }
+      \prop_new:c { g_@@_role_NS_#1_class_prop }
       \pdf_object_new:n {tag/NS/#1}
       \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
       \pdf_object_new:n {@@/RoleMapNS/#1}
@@ -343,8 +343,8 @@
          \lua_now:e { ltx.@@.func.alloctag ('#1') }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
          \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
-         \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{#3}
-         \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{--UNUSED--}
+         \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{#3}
+         \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{--UNUSED--}
        }      
     }
     {   
@@ -352,8 +352,8 @@
        {
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
          \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
-         \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{#3}
-         \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{--UNUSED--}
+         \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{#3}
+         \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{--UNUSED--}
        } 
     }   
   }
@@ -365,8 +365,8 @@
          \lua_now:e { ltx.@@.func.alloctag ('#1') }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
          \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
-         \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{--UNUSED--}
-         \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{#3}
+         \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{--UNUSED--}
+         \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{#3}
        }      
     }
     {   
@@ -374,8 +374,8 @@
        {
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
          \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
-         \prop_gput:Nnn \g_@@_role_tags_types_prop {#1}{--UNUSED--}
-         \prop_gput:cnn {g_@@_role_NS_#2_types_prop}  {#1}{#3}
+         \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{--UNUSED--}
+         \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{#3}
        } 
     }   
   }   
@@ -407,7 +407,7 @@
 %    \end{macrocode}
 % now the addition
 %    \begin{macrocode}
-    \prop_get:NnN \g_@@_role_tags_types_prop {#2}\l_@@_tmpa_tl
+    \prop_get:NnN \g_@@_role_tags_class_prop {#2}\l_@@_tmpa_tl
     \quark_if_no_value:NT \l_@@_tmpa_tl 
       {
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
@@ -435,7 +435,7 @@
       {
         \msg_info:nnn { tag }{new-tag}{#1}
       }
-    \prop_get:cnN { g_@@_role_NS_#4_types_prop } {#3}\l_@@_tmpa_tl
+    \prop_get:cnN { g_@@_role_NS_#4_class_prop } {#3}\l_@@_tmpa_tl
     \quark_if_no_value:NT \l_@@_tmpa_tl 
       {
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
@@ -480,7 +480,7 @@
          {
           \tl_if_empty:nTF {#5}
             {
-              \prop_get:NnN \g_@@_role_tags_types_prop  {#3}\l_@@_tmpa_tl
+              \prop_get:NnN \g_@@_role_tags_class_prop  {#3}\l_@@_tmpa_tl
               \quark_if_no_value:NT \l_@@_tmpa_tl 
                 {
                   \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
@@ -498,7 +498,7 @@
          }
          {
            \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
-           \prop_gput:cnn {g_@@_role_NS_#1_types_prop}  {#2}{--UNUSED--}
+           \prop_gput:cnn {g_@@_role_NS_#1_class_prop}  {#2}{--UNUSED--}
          }       
        }     
     }
@@ -511,7 +511,7 @@
        {
         \tl_if_empty:nTF {#5}
          {
-           \prop_get:cnN { g_@@_role_NS_#4_types_prop } {#3}\l_@@_tmpa_tl
+           \prop_get:cnN { g_@@_role_NS_#4_class_prop } {#3}\l_@@_tmpa_tl
            \quark_if_no_value:NT \l_@@_tmpa_tl 
              {
                \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}

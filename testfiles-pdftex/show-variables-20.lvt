@@ -16,9 +16,9 @@
    \prop_show:N \g__tag_role_tags_NS_prop
  }
  
-\TEST{show~tags~->types~(1.7)}
+\TEST{show~tags~->classes~(1.7)}
  {
-   \prop_show:N \g__tag_role_tags_types_prop
+   \prop_show:N \g__tag_role_tags_class_prop
  }
  
 \TEST{show~namespaces}
@@ -43,9 +43,9 @@
  
 \prop_map_inline:Nn \g__tag_role_NS_prop
  {
-   \TEST{show~types~of~tags~in~namespace~#1}
+   \TEST{show~class~of~tags~in~namespace~#1}
      {
-      \prop_show:c{g__tag_role_NS_#1_types_prop}
+      \prop_show:c{g__tag_role_NS_#1_class_prop}
      }
  } 
 

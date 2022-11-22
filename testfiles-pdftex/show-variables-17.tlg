@@ -85,9 +85,9 @@ braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 2: show tags ->types (1.7)
+TEST 2: show tags ->class (1.7)
 ============================================================
-The property list \g__tag_role_tags_types_prop contains the pairs (without
+The property list \g__tag_role_tags_class_prop contains the pairs (without
 outer braces):
 >  {Document}  =>  {D}
 >  {Part}  =>  {G}
@@ -420,9 +420,9 @@ braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 11: show types of tags in namespace pdf
+TEST 11: show class of tags in namespace pdf
 ============================================================
-The property list \g__tag_role_NS_pdf_types_prop contains the pairs (without
+The property list \g__tag_role_NS_pdf_class_prop contains the pairs (without
 outer braces):
 >  {Document}  =>  {--UNUSED--}
 >  {Part}  =>  {--UNUSED--}
@@ -477,9 +477,9 @@ outer braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 12: show types of tags in namespace pdf2
+TEST 12: show class of tags in namespace pdf2
 ============================================================
-The property list \g__tag_role_NS_pdf2_types_prop contains the pairs (without
+The property list \g__tag_role_NS_pdf2_class_prop contains the pairs (without
 outer braces):
 >  {Document}  =>  {--UNUSED--}
 >  {Part}  =>  {--UNUSED--}
@@ -534,9 +534,9 @@ outer braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 13: show types of tags in namespace latex
+TEST 13: show class of tags in namespace latex
 ============================================================
-The property list \g__tag_role_NS_latex_types_prop contains the pairs (without
+The property list \g__tag_role_NS_latex_class_prop contains the pairs (without
 outer braces):
 >  {title}  =>  {--UNUSED--}
 >  {part}  =>  {--UNUSED--}
@@ -558,9 +558,9 @@ outer braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 14: show types of tags in namespace latex-book
+TEST 14: show class of tags in namespace latex-book
 ============================================================
-The property list \g__tag_role_NS_latex-book_types_prop contains the pairs
+The property list \g__tag_role_NS_latex-book_class_prop contains the pairs
 (without outer braces):
 >  {chapter}  =>  {--UNUSED--}
 >  {section}  =>  {--UNUSED--}
@@ -572,9 +572,9 @@ The property list \g__tag_role_NS_latex-book_types_prop contains the pairs
 l. ... }
 ============================================================
 ============================================================
-TEST 15: show types of tags in namespace latex-inline
+TEST 15: show class of tags in namespace latex-inline
 ============================================================
-The property list \g__tag_role_NS_latex-inline_types_prop contains the pairs
+The property list \g__tag_role_NS_latex-inline_class_prop contains the pairs
 (without outer braces):
 >  {chapter}  =>  {--UNUSED--}
 >  {section}  =>  {--UNUSED--}
@@ -587,9 +587,9 @@ The property list \g__tag_role_NS_latex-inline_types_prop contains the pairs
 l. ... }
 ============================================================
 ============================================================
-TEST 16: show types of tags in namespace user
+TEST 16: show class of tags in namespace user
 ============================================================
-The property list \g__tag_role_NS_user_types_prop contains the pairs (without
+The property list \g__tag_role_NS_user_class_prop contains the pairs (without
 outer braces):
 >  {DocumentFragment}  =>  {--UNUSED--}
 >  {Aside}  =>  {--UNUSED--}
