@@ -2,23 +2,62 @@
 
 \begin{document}
 \ExplSyntaxOn
+\prop_new:N\g__tag_role_index_prop
+\ior_open:Nn \g_tmpa_ior {tagpdf-tag-index.def}
+\ior_map_inline:Nn \g_tmpa_ior
+  {
+   \prop_gput:Nnn\g__tag_role_index_prop #1
+  }
+\ior_close:N\g_tmpa_ior 
+
+\intarray_new:Nn \g__tag_parent_child_rel_intarray {9999}
+
 \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child.csv}
 \int_zero:N\g_tmpa_int
 \seq_new:N\g__tag_role_header_seq
 \ior_map_inline:Nn \g_tmpa_ior 
   { 
-    \int_incr:N\g_tmpa_int    
+    \int_incr:N\g_tmpa_int     
     \seq_set_from_clist:Nn\l_tmpa_seq { #1 } 
     \int_compare:nNnTF {\g_tmpa_int}=1
      { %header
-       \seq_gset_eq:NN \g__tag_role_header_seq \l_tmpa_seq
-       \seq_show:N \g__tag_role_header_seq
+       \seq_map_inline:Nn \l_tmpa_seq
+         {
+           \seq_gput_right:Nx \g__tag_role_header_seq {\prop_item:Nn \g__tag_role_index_prop {##1}}           
+         }  
+       %\seq_show:N \g__tag_role_header_seq
      }
      {
        %rest
+       \seq_set_from_clist:Nn\l_tmpa_seq { #1 }
+       %\seq_show:N \l_tmpa_seq
+       \seq_if_empty:NF \l_tmpa_seq 
+       {
+       \seq_pop_left:NN\l_tmpa_seq\l_tmpa_tl
+       \prop_get:NVN \g__tag_role_index_prop \l_tmpa_tl \l_tmpb_tl
+%       %index of child       
+        \quark_if_no_value:NT\l_tmpb_tl {\seq_show:N \l_tmpa_seq \tl_show:N\l_tmpa_tl\tl_show:N\l_tmpb_tl}
+       \int_set:Nn\l_tmpa_int { \l_tmpb_tl }
+       \seq_pop_left:NN\l_tmpa_seq\l_tmpa_tl
+       \seq_pop_left:NN\l_tmpa_seq\l_tmpa_tl
+       \seq_map_indexed_inline:Nn \l_tmpa_seq 
+         {
+           \str_case:nn {##2}
+            {
+              { ∅ } 
+              { %\show\blub
+                \intarray_gset:Nnn \g__tag_parent_child_rel_intarray 
+%                {1}{-100}
+                  {100*\seq_item:Nn \g__tag_role_header_seq {##1} + \l_tmpa_int }{-1}
+              }                  
+            }
+         }
+     }
      }
   }
 \ior_close:N\g_tmpa_ior 
+\intarray_show:N \g__tag_parent_child_rel_intarray
 
+%\edef\blub {\intarray_item:Nn \g__tag_parent_child_rel_intarray {1}}\show\blub
 \ExplSyntaxOff
 \end{document}
