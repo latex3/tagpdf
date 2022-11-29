@@ -10,6 +10,7 @@
 %\seq_new:N \l__tag_tmpa_seq
 %\tl_new:N  \l__tag_tmpa_tl
 %\tl_new:N  \l__tag_tmpb_tl
+\seq_new:N \l__tag_role_tmpa_seq
 %
 \prop_new:N      \g__tag_role_index_prop
 \intarray_new:Nn \g__tag_role_parent_child_intarray {6000}
@@ -40,7 +41,7 @@
   -1 = ∅ ,
  }
 
-
+\seq_show:N\g__tag_struct_tag_stack_seq
 \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child.csv}
 \int_zero:N  \l__tag_tmpa_int
 
@@ -122,7 +123,7 @@
 \int_step_inline:nn{10}
  {
    \prop_gput:Nnx\g__tag_role_index_prop{H#1}{\l__tag_tmpa_tl}
- }
+ } 
 %    \end{macrocode}
 % TODO handle mathml tags
 %    \begin{macrocode}
@@ -130,8 +131,10 @@
 %    \end{macrocode}
 % Testing tags.
 %    \begin{macrocode}
+\tl_new:N \l__tag_role_real_parent_tl 
 \cs_new_protected:Npn \__tag_role_get_parent_child:nnN #1 #2 #3% #1 parent #2  #3 tl for state
   {
+     \tl_set:Nn\l__tag_role_real_parent_tl {#1}
      \prop_get:NnN\g__tag_role_index_prop{#1}\l__tag_tmpa_tl
      \prop_get:NnN\g__tag_role_index_prop{#2}\l__tag_tmpb_tl
      \bool_lazy_and:nnTF 
@@ -143,14 +146,36 @@
               \g__tag_role_parent_child_intarray 
               {100*\l__tag_tmpa_tl+\l__tag_tmpb_tl}
            }
+        \int_compare:nNnT  
+         {#3} = {\prop_item:Nn\c__tag_role_rules_prop{‡}}  
+         {
+           \seq_set_eq:NN\l__tag_role_tmpa_seq \g__tag_struct_tag_stack_seq
+           %\seq_pop:NN \l__tag_role_tmpa_seq \l__tag_tmpa_tl
+           \seq_map_inline:Nn\g__tag_struct_tag_stack_seq 
+             {
+                \tl_if_in:nnF {-Part-Div-NonStruct-}{-##1-}
+                  {  
+                    \tl_set:Nn\l__tag_role_real_parent_tl {##1}
+                    \__tag_role_get_parent_child:nnN {##1}{#2}#3
+                    \seq_map_break:
+                  }
+             } 
+           %\tl_show:N \l__tag_role_next_parent_tl            
+         }
 %in debug             
          \int_compare:nNnT {\l__tag_loglevel_int} > { 0 }
            {      
              \prop_get:NVN\c__tag_role_rules_num_prop #3 \l__tag_tmpa_tl
+             \tl_set:Nn \l__tag_tmpb_tl{#1}
              \msg_info:nnxxx 
                { tag } 
                {role-parent-child} 
-               { #1 } 
+               { #1
+                 \tl_if_eq:NNF\l__tag_tmpb_tl\l__tag_role_real_parent_tl
+                   {
+                     \c_space_tl(inherited~from~\l__tag_role_real_parent_tl)
+                   }  
+               } 
                { #2 }
                { '\l__tag_tmpa_tl' }   
            }  
@@ -166,7 +191,7 @@
        }
   }  
 %    \end{macrocode}
-
+\tagstructbegin{tag=P}
 \__tag_role_get_parent_child:nnN {Document}{P}\l_tmpa_tl
 \tl_show:N\l_tmpa_tl
 
@@ -178,7 +203,7 @@
 
 \__tag_role_get_parent_child:nnN {Blub}{H1}\l_tmpa_tl
 \tl_show:N\l_tmpa_tl
-
+\tagstructend
 %\edef\blub {\intarray_item:Nn \g__tag_role_parent_child_intarray {1}}\show\blub
 \ExplSyntaxOff
 \end{document} 
