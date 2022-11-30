@@ -41,7 +41,7 @@
   -1 = ∅ ,
  }
 
-\seq_show:N\g__tag_struct_tag_stack_seq
+%\seq_show:N\g__tag_struct_tag_stack_seq
 \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child.csv}
 \int_zero:N  \l__tag_tmpa_int
 
@@ -132,7 +132,7 @@
 % Testing tags.
 %    \begin{macrocode}
 \tl_new:N \l__tag_role_real_parent_tl 
-\cs_new_protected:Npn \__tag_role_get_parent_child:nnN #1 #2 #3% #1 parent #2  #3 tl for state
+\cs_new_protected:Npn \__tag_role_get_parent_child_rel:nnN #1 #2 #3% #1 parent #2  #3 tl for state
   {
      \tl_set:Nn\l__tag_role_real_parent_tl {#1}
      \prop_get:NnN\g__tag_role_index_prop{#1}\l__tag_tmpa_tl
@@ -156,7 +156,7 @@
                 \tl_if_in:nnF {-Part-Div-NonStruct-}{-##1-}
                   {  
                     \tl_set:Nn\l__tag_role_real_parent_tl {##1}
-                    \__tag_role_get_parent_child:nnN {##1}{#2}#3
+                    \__tag_role_get_parent_child_rel:nnN {##1}{#2}#3
                     \seq_map_break:
                   }
              } 
@@ -190,19 +190,72 @@
            { unknown! }  
        }
   }  
+\cs_generate_variant:Nn  \__tag_role_get_parent_child_rel:nnN {VVN}
 %    \end{macrocode}
 \tagstructbegin{tag=P}
-\__tag_role_get_parent_child:nnN {Document}{P}\l_tmpa_tl
-\tl_show:N\l_tmpa_tl
+\__tag_role_get_parent_child_rel:nnN {Document}{P}\l_tmpa_tl
+%\tl_show:N\l_tmpa_tl
 
-\__tag_role_get_parent_child:nnN {Span}{P}\l_tmpa_tl
-\tl_show:N\l_tmpa_tl
+\__tag_role_get_parent_child_rel:nnN {Span}{P}\l_tmpa_tl
+%\tl_show:N\l_tmpa_tl
 
-\__tag_role_get_parent_child:nnN {Part}{H1}\l_tmpa_tl
-\tl_show:N\l_tmpa_tl
+\__tag_role_get_parent_child_rel:nnN {Part}{H1}\l_tmpa_tl
+%\tl_show:N\l_tmpa_tl
 
-\__tag_role_get_parent_child:nnN {Blub}{H1}\l_tmpa_tl
-\tl_show:N\l_tmpa_tl
+\__tag_role_get_parent_child_rel:nnN {Blub}{H1}\l_tmpa_tl
+
+
+\pdf_version_compare:NnTF < {2.0}
+ {
+   \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
+     {
+       \prop_get:NnN\g__tag_role_index_prop {#1}\l__tag_tmpa_tl
+       %\tl_show:N\l__tag_tmpa_tl
+       \quark_if_no_value:NTF \l__tag_tmpa_tl
+         {
+           \pdfdict_get:nnN {g__tag_role/RoleMap_dict}{#1}\l__tag_tmpa_tl
+         }
+         {
+           \tl_set:Nn\l__tag_tmpa_tl {#1}
+         }
+       \pdfdict_show:n  {g__tag_role/RoleMap_dict}
+       \tl_show:N\l__tag_tmpa_tl  
+       \prop_get:NnN\g__tag_role_index_prop {#2}\l__tag_tmpb_tl
+       \quark_if_no_value:NTF \l__tag_tmpb_tl
+         {
+           \pdfdict_get:nnN {g__tag_role/RoleMap_dict}{#2}\l__tag_tmpb_tl           
+         }     
+         {
+           \tl_set:Nn\l__tag_tmpb_tl {#2}
+         }         
+       \tl_show:N\l__tag_tmpb_tl    
+       \bool_lazy_and:nnTF 
+         { ! \quark_if_no_value_p:N \l__tag_tmpa_tl }
+         { ! \quark_if_no_value_p:N \l__tag_tmpb_tl }     
+         {  
+           \__tag_role_get_parent_child_rel:VVN \l__tag_tmpa_tl \l__tag_tmpb_tl #3
+         }   
+         {
+           \tl_set:Nn #3 {0}
+           \msg_warning:nnxxx 
+            { tag } 
+            {role-parent-child} 
+            { #1 } 
+            { #2 }
+            { unknown! }  
+         }
+     }
+ }
+ {
+ }
+
+
+\tag_check_parent_child:nnN {section}{P}\l_tmpa_tl
+\tag_check_parent_child:nnN {subsection}{Document}\l_tmpa_tl
+\tag_check_parent_child:nnN {blub}{Document}\l_tmpa_tl
+\tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
+
+
 \tagstructend
 %\edef\blub {\intarray_item:Nn \g__tag_role_parent_child_intarray {1}}\show\blub
 \ExplSyntaxOff
