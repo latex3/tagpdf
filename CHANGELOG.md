@@ -14,6 +14,8 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed 
  -  adding a new tag with add-new-tag now requires that the target role is 
     defined. Unknown roles error. 
+ -  RoleMap object is no longer written in pdf 2.0 as it uses namespaces
+ -  in pdf < 2.0 rolemaps are resolved to the PDF standard.   
  
 ## [2022-08-24]
 
