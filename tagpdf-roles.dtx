@@ -141,6 +141,11 @@
 % 
 % \item[\cs{g_@@_role_NS_prop}] This contains the names spaces. The
 % values are the object references. They are used in pdf 2.0.
+%
+% \item[\cs{g_@@_role_rolemap_prop}]
+% This contains for each tag the role to a standard tag. 
+% It is used in pdf<2.0 for tag checking and to fill at the end the 
+% RoleMap dictionary.
 % 
 % \item[\texttt{g\_@@\_role/RoleMap\_dict}] This dictionary contains 
 % the standard rolemaps. It is relevant only for pdf <2.0. 
@@ -231,11 +236,12 @@
 % It is unclear if a reference to a schema file will be ever needed, 
 % but it doesn't harm \ldots.
 % 
-% \begin{variable}{g_@@_role/RoleMap_dict}
+% \begin{variable}{g_@@_role/RoleMap_dict,\g_@@_role_rolemap_prop}
 % This is the object which contains the normal RoleMap. It is probably not
 % needed in pdf 2.0 but currently kept.
 %    \begin{macrocode}
 \pdfdict_new:n {g_@@_role/RoleMap_dict}
+\prop_new:N \g_@@_role_rolemap_prop
 %    \end{macrocode}
 % \end{variable}
 % 
@@ -412,12 +418,20 @@
       {
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
       }        
-    \@@_role_alloctag:nnV {#1}{user}\l__@@_tmpa_tl  
+    \@@_role_alloctag:nnV {#1}{user}\l_@@_tmpa_tl  
     \tl_if_empty:nF { #2 }
       {
-        \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
-          {#1}
-          {\pdf_name_from_unicode_e:n{#2}}
+        \prop_get:NnN \g_@@_role_rolemap_prop {#2}\l_@@_tmpa_tl
+        \quark_if_no_value:NTF \l_@@_tmpa_tl
+          {          
+            \prop_gput:Nnx \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#2}}
+          }
+          {
+            \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
+          }          
+        %\pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
+%          {#1}
+%          {\pdf_name_from_unicode_e:n{#2}}
       }
   }
 \cs_generate_variant:Nn \@@_role_add_tag:nn {VV,ne}

@@ -323,13 +323,26 @@
 % This writes out the rolemap, basically it simply pushes out
 % the dictionary which has been filled in the role module.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_tree_write_rolemap:
+\pdf_version_compare:NnTF < {2.0}
   {
-    \pdf_object_write:nnx  { @@/tree/rolemap }{dict}
-      {
+   \cs_new_protected:Npn \@@_tree_write_rolemap:
+    {     
+      \prop_map_inline:Nn\g_@@_role_rolemap_prop
+        {
+          \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
+            {##1}
+            {\pdf_name_from_unicode_e:n{##2}}
+        }
+      \pdf_object_write:nnx  { @@/tree/rolemap }{dict}
+       {
         \pdfdict_use:n{g_@@_role/RoleMap_dict}
-      }
+       }
+    }
   }
+  {
+    \cs_new_protected:Npn \@@_tree_write_rolemap:{}
+  }
+    
 %    \end{macrocode}
 % \end{macro}
 %

@@ -248,13 +248,16 @@
  }
  {
  }
-
+\tagpdfsetup{add-new-tag=ssection/section}
+\prop_show:N\g__tag_role_rolemap_prop
+\pdfdict_show:n {g__tag_role/RoleMap_dict}
 
 \tag_check_parent_child:nnN {section}{P}\l_tmpa_tl
 \tag_check_parent_child:nnN {subsection}{Document}\l_tmpa_tl
 \tag_check_parent_child:nnN {blub}{Document}\l_tmpa_tl
 \tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
 
+yyyyyyyyyyyy
 
 \tagstructend
 %\edef\blub {\intarray_item:Nn \g__tag_role_parent_child_intarray {1}}\show\blub
