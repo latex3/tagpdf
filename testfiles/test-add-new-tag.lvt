@@ -32,7 +32,8 @@
 \__tag_role_add_tag:nn {wrongtag}{HX}
 
 %\__tag_prop_show:N \g__tag_role_rolemap_prop
-\pdfdict_show:n {g__tag_role/RoleMap_dict}
+\prop_show:N\g__tag_role_rolemap_prop
+%\pdfdict_show:n {g__tag_role/RoleMap_dict}
 
 \edef\testname{\prop_item:cn {g__tag_role_tags_NS_prop}{mn}}
 \show\testname

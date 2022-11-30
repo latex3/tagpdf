@@ -20,38 +20,38 @@ Try typing <return> to proceed.
 If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag wrongtag
 tagpdf: Add wrongtag 78
-The global dictionary 'g__tag_role/RoleMap_dict' contains the pairs (without
-outer braces):
->  {DocumentFragment}  =>  {/Art}
->  {Aside}  =>  {/Note}
->  {H7}  =>  {/H6}
->  {H8}  =>  {/H6}
->  {H9}  =>  {/H6}
->  {H10}  =>  {/H6}
->  {Title}  =>  {/P}
->  {FENote}  =>  {/Note}
->  {Sub}  =>  {/Span}
->  {Em}  =>  {/Span}
->  {Strong}  =>  {/Span}
->  {title}  =>  {/Title}
->  {part}  =>  {/Title}
->  {section}  =>  {/H1}
->  {subsection}  =>  {/H2}
->  {subsubsection}  =>  {/H3}
->  {paragraph}  =>  {/H4}
->  {subparagraph}  =>  {/H5}
->  {itemize}  =>  {/L}
->  {enumerate}  =>  {/L}
->  {description}  =>  {/L}
->  {item}  =>  {/LI}
->  {itemlabel}  =>  {/Lbl}
->  {itembody}  =>  {/LBody}
->  {footnote}  =>  {/FENote}
->  {footnotemark}  =>  {/Lbl}
->  {footnotelabel}  =>  {/Lbl}
->  {wrongtag}  =>  {/HX}.
+The property list \g__tag_role_rolemap_prop contains the pairs (without outer
+braces):
+>  {DocumentFragment}  =>  {Art}
+>  {Aside}  =>  {Note}
+>  {H7}  =>  {H6}
+>  {H8}  =>  {H6}
+>  {H9}  =>  {H6}
+>  {H10}  =>  {H6}
+>  {Title}  =>  {P}
+>  {FENote}  =>  {Note}
+>  {Sub}  =>  {Span}
+>  {Em}  =>  {Span}
+>  {Strong}  =>  {Span}
+>  {title}  =>  {P}
+>  {part}  =>  {P}
+>  {section}  =>  {H1}
+>  {subsection}  =>  {H2}
+>  {subsubsection}  =>  {H3}
+>  {paragraph}  =>  {H4}
+>  {subparagraph}  =>  {H5}
+>  {itemize}  =>  {L}
+>  {enumerate}  =>  {L}
+>  {description}  =>  {L}
+>  {item}  =>  {LI}
+>  {itemlabel}  =>  {Lbl}
+>  {itembody}  =>  {LBody}
+>  {footnote}  =>  {Note}
+>  {footnotemark}  =>  {Lbl}
+>  {footnotelabel}  =>  {Lbl}
+>  {wrongtag}  =>  {HX}.
 <recently read> }
-l. ...\pdfdict_show:n {g__tag_role/RoleMap_dict}
+l. ...\prop_show:N\g__tag_role_rolemap_prop
 > \testname=macro:
 ->user.
 l. ...\show\testname
