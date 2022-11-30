@@ -209,26 +209,28 @@
  {
    \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
      {
-       \prop_get:NnN\g__tag_role_index_prop {#1}\l__tag_tmpa_tl
-       %\tl_show:N\l__tag_tmpa_tl
-       \quark_if_no_value:NTF \l__tag_tmpa_tl
+       \prop_get:NnNTF \g__tag_role_index_prop {#1}\l__tag_tmpa_tl
          {
-           \pdfdict_get:nnN {g__tag_role/RoleMap_dict}{#1}\l__tag_tmpa_tl
+           \tl_set:Nn \l__tag_tmpa_tl {#1}
          }
          {
-           \tl_set:Nn\l__tag_tmpa_tl {#1}
+           \prop_get:NnNF \g__tag_role_rolemap_prop {#1}\l__tag_tmpa_tl 
+             { 
+               \tl_set:Nn \l__tag_tmpa_tl {\q_no_value}
+             }
+         }    
+       \tl_show:N\l__tag_tmpa_tl
+       \prop_get:NnNTF \g__tag_role_index_prop {#2}\l__tag_tmpb_tl
+         {
+           \tl_set:Nn \l__tag_tmpb_tl {#2}
          }
-       \pdfdict_show:n  {g__tag_role/RoleMap_dict}
-       \tl_show:N\l__tag_tmpa_tl  
-       \prop_get:NnN\g__tag_role_index_prop {#2}\l__tag_tmpb_tl
-       \quark_if_no_value:NTF \l__tag_tmpb_tl
          {
-           \pdfdict_get:nnN {g__tag_role/RoleMap_dict}{#2}\l__tag_tmpb_tl           
-         }     
-         {
-           \tl_set:Nn\l__tag_tmpb_tl {#2}
-         }         
-       \tl_show:N\l__tag_tmpb_tl    
+           \prop_get:NnNF \g__tag_role_rolemap_prop {#2}\l__tag_tmpb_tl 
+             { 
+               \tl_set:Nn \l__tag_tmpb_tl {\q_no_value.}
+             }
+         }    
+        \tl_show:N\l__tag_tmpb_tl    
        \bool_lazy_and:nnTF 
          { ! \quark_if_no_value_p:N \l__tag_tmpa_tl }
          { ! \quark_if_no_value_p:N \l__tag_tmpb_tl }     
@@ -256,7 +258,7 @@
 \tag_check_parent_child:nnN {subsection}{Document}\l_tmpa_tl
 \tag_check_parent_child:nnN {blub}{Document}\l_tmpa_tl
 \tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
-
+\tag_check_parent_child:nnN {ssection}{Span}\l_tmpa_tl
 yyyyyyyyyyyy
 
 \tagstructend
