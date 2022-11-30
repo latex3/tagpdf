@@ -28,6 +28,10 @@
    \pdfdict_show:n { g__tag_role/RoleMap_dict }
  }
  
+\TEST{show~RoleMap prop~(1.7)}
+ {
+   \prop_show:N \g__tag_role_rolemap_prop
+ } 
 
 \prop_map_inline:Nn \g__tag_role_NS_prop
  {
