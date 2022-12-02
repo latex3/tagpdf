@@ -4,7 +4,9 @@
 
 \begin{document}
 \ExplSyntaxOn
-\msg_new:nnn { tag } {role-parent-child} { The~relation~of~parent~'#1'~and~child~'#2'~is~#3}
+\tl_new:N\l__tag_rolemap_info_tmpa_tl
+\tl_new:N\l__tag_rolemap_info_tmpb_tl
+\msg_new:nnn { tag } {role-parent-child} { The~relation~of~parent~'#1\l__tag_rolemap_info_tmpa_tl'~and~child~'#2\l__tag_rolemap_info_tmpb_tl'~is~#3}
 % from tagpdf.dtx ...
 %\int_new:N \l__tag_tmpa_int
 %\seq_new:N \l__tag_tmpa_seq
@@ -215,22 +217,25 @@
      {
        \prop_get:NnNTF \g__tag_role_index_prop {#1}\l__tag_tmpa_tl
          {
+           \tl_set:Nn \l__tag_rolemap_info_tmpa_tl {}
            \tl_set:Nn \l__tag_tmpa_tl {#1}
          }
          {
+           \tl_set:Nn \l__tag_rolemap_info_tmpa_tl {~(#1)}
            \prop_get:NnNF \g__tag_role_rolemap_prop {#1}\l__tag_tmpa_tl 
              { 
                \tl_set:Nn \l__tag_tmpa_tl {\q_no_value}
              }
          }    
-       \tl_show:N\l__tag_tmpa_tl
        \prop_get:NnNTF \g__tag_role_index_prop {#2}\l__tag_tmpb_tl
          {
+           \tl_set:Nn \l__tag_rolemap_info_tmpb_tl {}
            \tl_set:Nn \l__tag_tmpb_tl {#2}
          }
          {
+           \tl_set:Nn \l__tag_rolemap_info_tmpb_tl {~(#2)}
            \prop_get:NnNF \g__tag_role_rolemap_prop {#2}\l__tag_tmpb_tl 
-             { 
+             {                
                \tl_set:Nn \l__tag_tmpb_tl {\q_no_value.}
              }
          }    
@@ -256,19 +261,20 @@
  }
 \tagpdfsetup{add-new-tag=ssection/section}
 
-\int_step_inline:nnn{2}{56}
- {
-   \int_step_inline:nnn{2}{56}
-     {
-       \tl_set:Nx\l_tmpa_tl{\int_compare:nNnT{#1}<{10}{0}#1\int_compare:nNnT{##1}<{10}{0}##1}
-       %\int_show:n{\intarray_item:Nn \g__tag_role_parent_child_intarray{\l_tmpa_tl}}
-       \int_compare:nNnT
-         {\intarray_item:Nn \g__tag_role_parent_child_intarray{\l_tmpa_tl}}={0}
-         {\show\blubblub\tl_show:N\l_tmpa_tl}
-     }   
- }
+%\int_step_inline:nnn{2}{56}
+% {
+%   \int_step_inline:nnn{2}{56}
+%     {
+%       \tl_set:Nx\l_tmpa_tl{\int_compare:nNnT{#1}<{10}{0}#1\int_compare:nNnT{##1}<{10}{0}##1}
+%       %\int_show:n{\intarray_item:Nn \g__tag_role_parent_child_intarray{\l_tmpa_tl}}
+%       \int_compare:nNnT
+%         {\intarray_item:Nn \g__tag_role_parent_child_intarray{\l_tmpa_tl}}={0}
+%         {\show\blubblub\tl_show:N\l_tmpa_tl}
+%     }   
+% }
 %\prop_show:N\g__tag_role_rolemap_prop
 %\pdfdict_show:n {g__tag_role/RoleMap_dict}
+\tag_check_parent_child:nnN {Title}{Part}\l_tmpa_tl
 \tag_check_parent_child:nnN {Part}{Div}\l_tmpa_tl
 \tag_check_parent_child:nnN {section}{P}\l_tmpa_tl
 \tag_check_parent_child:nnN {subsection}{Document}\l_tmpa_tl
