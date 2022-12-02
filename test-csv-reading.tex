@@ -1,12 +1,12 @@
 % !Mode:: "TeX:UTF-8:Main"
-\DocumentMetadata{uncompress,testphase=phase-II,debug={log=v}}
+\DocumentMetadata{uncompress,testphase=phase-II,debug={log=v},pdfversion=2.0}
 \documentclass{article}
 
 \begin{document}
 \ExplSyntaxOn
-\tl_new:N\l__tag_rolemap_info_tmpa_tl
-\tl_new:N\l__tag_rolemap_info_tmpb_tl
-\msg_new:nnn { tag } {role-parent-child} { The~relation~of~parent~'#1\l__tag_rolemap_info_tmpa_tl'~and~child~'#2\l__tag_rolemap_info_tmpb_tl'~is~#3}
+\tl_new:N\l__tag_role_info_tmpa_tl
+\tl_new:N\l__tag_role_info_tmpb_tl
+\msg_new:nnn { tag } {role-parent-child} { The~relation~of~parent~'#1\l__tag_role_info_tmpa_tl'~and~child~'#2\l__tag_role_info_tmpb_tl'~is~#3}
 % from tagpdf.dtx ...
 %\int_new:N \l__tag_tmpa_int
 %\seq_new:N \l__tag_tmpa_seq
@@ -44,7 +44,14 @@
  }
 
 %\seq_show:N\g__tag_struct_tag_stack_seq
-\ior_open:Nn \g_tmpa_ior {tagpdf-parent-child.csv}
+\pdf_version_compare:NnTF < {2.0}
+ {
+   \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child.csv}
+ }
+ {
+   \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child-2.csv}
+ }
+   
 \int_zero:N  \l__tag_tmpa_int
 
 \tl_new:N \l__tag_childnum_tl
@@ -199,29 +206,29 @@
 %    \end{macrocode}
 \tagstructbegin{tag=P}
 
-\__tag_role_get_parent_child_rel:nnN {Document}{P}\l_tmpa_tl
-%\tl_show:N\l_tmpa_tl
-
-\__tag_role_get_parent_child_rel:nnN {Span}{P}\l_tmpa_tl
-%\tl_show:N\l_tmpa_tl
-
-\__tag_role_get_parent_child_rel:nnN {Part}{H1}\l_tmpa_tl
-%\tl_show:N\l_tmpa_tl
-
-\__tag_role_get_parent_child_rel:nnN {Blub}{H1}\l_tmpa_tl
+%\__tag_role_get_parent_child_rel:nnN {Document}{P}\l_tmpa_tl
+%%\tl_show:N\l_tmpa_tl
+%
+%\__tag_role_get_parent_child_rel:nnN {Span}{P}\l_tmpa_tl
+%%\tl_show:N\l_tmpa_tl
+%
+%\__tag_role_get_parent_child_rel:nnN {Part}{H1}\l_tmpa_tl
+%%\tl_show:N\l_tmpa_tl
+%
+%\__tag_role_get_parent_child_rel:nnN {Blub}{H1}\l_tmpa_tl
 
 
 \pdf_version_compare:NnTF < {2.0}
  {
    \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
      {
+       \tl_set:Nn \l__tag_role_info_tmpa_tl {~(#1)}
+       \tl_set:Nn \l__tag_role_info_tmpa_tl {~(#2)}
        \prop_get:NnNTF \g__tag_role_index_prop {#1}\l__tag_tmpa_tl
          {
-           \tl_set:Nn \l__tag_rolemap_info_tmpa_tl {}
            \tl_set:Nn \l__tag_tmpa_tl {#1}
          }
-         {
-           \tl_set:Nn \l__tag_rolemap_info_tmpa_tl {~(#1)}
+         {           
            \prop_get:NnNF \g__tag_role_rolemap_prop {#1}\l__tag_tmpa_tl 
              { 
                \tl_set:Nn \l__tag_tmpa_tl {\q_no_value}
@@ -229,17 +236,14 @@
          }    
        \prop_get:NnNTF \g__tag_role_index_prop {#2}\l__tag_tmpb_tl
          {
-           \tl_set:Nn \l__tag_rolemap_info_tmpb_tl {}
            \tl_set:Nn \l__tag_tmpb_tl {#2}
          }
          {
-           \tl_set:Nn \l__tag_rolemap_info_tmpb_tl {~(#2)}
            \prop_get:NnNF \g__tag_role_rolemap_prop {#2}\l__tag_tmpb_tl 
              {                
                \tl_set:Nn \l__tag_tmpb_tl {\q_no_value.}
              }
          }    
-        \tl_show:N\l__tag_tmpb_tl    
        \bool_lazy_and:nnTF 
          { ! \quark_if_no_value_p:N \l__tag_tmpa_tl }
          { ! \quark_if_no_value_p:N \l__tag_tmpb_tl }     
@@ -258,7 +262,81 @@
      }
  }
  {
+   \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
+     { 
+       \tl_set:Nn \l__tag_role_info_tmpa_tl {~(#1)}
+       \tl_set:Nn \l__tag_role_info_tmpb_tl {~(#2)}
+%    \end{macrocode}
+% we assume here that the standard tags do not change their name space and their role
+% mapping, so we can simply get their index from the prop 
+%    \begin{macrocode}
+       \prop_get:NnNTF \g__tag_role_index_prop {#1}\l__tag_tmpa_tl
+         {
+           \tl_set:Nn \l__tag_tmpa_tl {#1}
+         }
+%    \end{macrocode}
+%  If there is some rolemapping we need the current namespace
+%    \begin{macrocode}
+         {           
+           \prop_get:NnNT\g__tag_role_tags_NS_prop {#1}\l__tag_role_tag_namespace_tmpa_tl
+             {
+               \prop_show:c { g__tag_role_NS_ \l__tag_role_tag_namespace_tmpa_tl _prop }
+               \prop_get:cnNTF { g__tag_role_NS_ \l__tag_role_tag_namespace_tmpa_tl _prop }{#1}\l__tag_tmpa_tl
+                 {
+                   \tl_set:Nx \l__tag_tmpa_tl {\tl_head:N\l__tag_tmpa_tl}
+                 }
+                 { 
+                   \tl_set:Nn \l__tag_tmpa_tl {\q_no_value}
+                 }
+             }                          
+         }    
+%    \end{macrocode}
+% and the same for the child
+%    \begin{macrocode}
+      \prop_get:NnNTF \g__tag_role_index_prop {#2}\l__tag_tmpb_tl
+         {
+           \tl_set:Nn \l__tag_tmpb_tl {#2}
+         }
+%    \end{macrocode}
+%  If there is some rolemapping we need the current namespace
+%    \begin{macrocode}
+         {           
+           \prop_get:NnNT\g__tag_role_tags_NS_prop {#2}\l__tag_role_tag_namespace_tmpa_tl
+             {
+               \prop_get:cnNTF { g__tag_role_NS_ \l__tag_role_tag_namespace_tmpa_tl _prop }{#2}\l__tag_tmpb_tl
+                 {
+                   \tl_set:Nx \l__tag_tmpb_tl {\tl_head:N\l__tag_tmpb_tl}
+                 }
+                 { 
+                   \tl_set:Nn \l__tag_tmpb_tl {\q_no_value}
+                 }
+             }                          
+         }    
+%    \end{macrocode}
+% and now get the relation
+%    \begin{macrocode}
+       \bool_lazy_and:nnTF 
+         { ! \quark_if_no_value_p:N \l__tag_tmpa_tl }
+         { ! \quark_if_no_value_p:N \l__tag_tmpb_tl }     
+         {  
+           \__tag_role_get_parent_child_rel:VVN \l__tag_tmpa_tl \l__tag_tmpb_tl #3
+         }   
+         {
+           \tl_set:Nn #3 {0}
+           \msg_warning:nnxxx 
+            { tag } 
+            {role-parent-child} 
+            { #1 } 
+            { #2 }
+            { unknown! }  
+         }
+%    \end{macrocode}
+%      \tl_show:N\l__tag_tmpa_tl  \tl_show:N\l__tag_tmpb_tl       
+     }
  }
+ 
+%\tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
+
 \tagpdfsetup{add-new-tag=ssection/section}
 
 %\int_step_inline:nnn{2}{56}
@@ -274,12 +352,12 @@
 % }
 %\prop_show:N\g__tag_role_rolemap_prop
 %\pdfdict_show:n {g__tag_role/RoleMap_dict}
-\tag_check_parent_child:nnN {Title}{Part}\l_tmpa_tl
-\tag_check_parent_child:nnN {Part}{Div}\l_tmpa_tl
-\tag_check_parent_child:nnN {section}{P}\l_tmpa_tl
-\tag_check_parent_child:nnN {subsection}{Document}\l_tmpa_tl
-\tag_check_parent_child:nnN {blub}{Document}\l_tmpa_tl
-\tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
+%\tag_check_parent_child:nnN {Title}{Part}\l_tmpa_tl
+%\tag_check_parent_child:nnN {Part}{Div}\l_tmpa_tl
+%\tag_check_parent_child:nnN {section}{P}\l_tmpa_tl
+%\tag_check_parent_child:nnN {subsection}{Document}\l_tmpa_tl
+%\tag_check_parent_child:nnN {blub}{Document}\l_tmpa_tl
+%\tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
 \tag_check_parent_child:nnN {ssection}{Span}\l_tmpa_tl
 yyyyyyyyyyyy
 
