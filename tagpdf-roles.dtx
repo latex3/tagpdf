@@ -419,6 +419,10 @@
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
       }        
     \@@_role_alloctag:nnV {#1}{user}\l_@@_tmpa_tl  
+%    \end{macrocode}
+% We resolve rolemapping recursively so that all targets are stored as standard
+% tags.
+%    \begin{macrocode}
     \tl_if_empty:nF { #2 }
       {
         \prop_get:NnN \g_@@_role_rolemap_prop {#2}\l_@@_tmpa_tl
@@ -429,9 +433,6 @@
           {
             \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
           }          
-        %\pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
-%          {#1}
-%          {\pdf_name_from_unicode_e:n{#2}}
       }
   }
 \cs_generate_variant:Nn \@@_role_add_tag:nn {VV,ne}
@@ -463,6 +464,21 @@
            \pdf_object_ref:n {tag/NS/#4}
          ]
        }
+%    \end{macrocode}
+% We resolve rolemapping recursively so that all targets are stored as standard
+% tags for the tests.
+%    \begin{macrocode}
+    \tl_if_empty:nF { #2 }
+      {
+        \prop_get:cnN { g__tag_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
+        \quark_if_no_value:NTF \l_@@_tmpa_tl
+          {          
+            \prop_gput:cnx { g__tag_role_NS_#2_prop } {#1}{{\tl_to_str:n{#3}}{\tl_to_str:n#4}}
+          }
+          {
+            \prop_gput:cno { g__tag_role_NS_#2_prop } {#1}{\l_@@_tmpa_tl}
+          }          
+      }       
    }
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
 %    \end{macrocode}
