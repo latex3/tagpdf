@@ -223,7 +223,7 @@
    \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
      {
        \tl_set:Nn \l__tag_role_info_tmpa_tl {~(#1)}
-       \tl_set:Nn \l__tag_role_info_tmpa_tl {~(#2)}
+       \tl_set:Nn \l__tag_role_info_tmpb_tl {~(#2)}
        \prop_get:NnNTF \g__tag_role_index_prop {#1}\l__tag_tmpa_tl
          {
            \tl_set:Nn \l__tag_tmpa_tl {#1}
