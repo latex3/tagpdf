@@ -660,6 +660,48 @@
       }  
   }
 %    \end{macrocode}
+% \subsection{Parent-child rules}
+% PDF define various rules about which tag can be a child of another tag.
+% The following code implements the matrix to allow to use it in tests.
+
+% \begin{variable}{\g_@@_role_parent_child_intarray}
+% This intarray will store the rule as a number. For parent nm and child ij 
+% (n,m,i,j digits) the rule is at position nmij. As we have around 56 tags,
+% we need roughly a size 6000.
+%    \begin{macrocode}
+\intarray_new:Nn \g_@@_role_parent_child_intarray {6000}
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\c_@@_role_rules_prop}
+%    \begin{macrocode}
+\prop_const_from_keyval:Nn \c__tag_role_rules_prop
+ {
+    0..n = 1,
+    0..1 = 2,
+    1    = 3, %StructTreeRoot, not really needed
+    [a]  = 4, %ruby
+    [b]  = 5, %warichu
+    c    = 6, % WP ??
+    ‡    = 7, % Part,Div,NonStruct -> "check parent"
+    ∅*   = 8, % or negative by default?
+    ∅    = -1,
+ }
+%in debug??
+\prop_const_from_keyval:Nn \c__tag_role_rules_num_prop
+ {
+   1 = 0..n,
+   2 = 0..1,
+   3 = 1   , %StructTreeRoot, not really needed
+   4 = [a] , %ruby
+   5 = [b] , %warichu
+   6 = c   , % WP ??
+   7 = ‡   , % Part,Div,NonStruct -> "check parent"
+   8 = ∅*  , % or negative by default?
+  -1 = ∅ ,
+ }
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{Remapping of tags}
 % In some context it can be necessary to remap or replace the tags. 

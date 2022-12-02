@@ -14,33 +14,9 @@
 
 %
 
-\intarray_new:Nn \g__tag_role_parent_child_intarray {6000}
 
-\prop_const_from_keyval:Nn \c__tag_role_rules_prop
- {
-    0..n = 1,
-    0..1 = 2,
-    1    = 3, %StructTreeRoot, not really needed
-    [a]  = 4, %ruby
-    [b]  = 5, %warichu
-    c    = 6, % WP ??
-    ‡    = 7, % Part,Div,NonStruct -> "check parent"
-    ∅*   = 8, % or negative by default?
-    ∅    = -1,
- }
-%in debug??
-\prop_const_from_keyval:Nn \c__tag_role_rules_num_prop
- {
-   1 = 0..n,
-   2 = 0..1,
-   3 = 1   , %StructTreeRoot, not really needed
-   4 = [a] , %ruby
-   5 = [b] , %warichu
-   6 = c   , % WP ??
-   7 = ‡   , % Part,Div,NonStruct -> "check parent"
-   8 = ∅*  , % or negative by default?
-  -1 = ∅ ,
- }
+
+
 
 %\seq_show:N\g__tag_struct_tag_stack_seq
 \pdf_version_compare:NnTF < {2.0}
