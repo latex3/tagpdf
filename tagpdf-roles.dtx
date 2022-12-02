@@ -473,7 +473,8 @@
         \prop_get:cnN { g__tag_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
         \quark_if_no_value:NTF \l_@@_tmpa_tl
           {          
-            \prop_gput:cnx { g__tag_role_NS_#2_prop } {#1}{{\tl_to_str:n{#3}}{\tl_to_str:n#4}}
+            \prop_gput:cnx { g__tag_role_NS_#2_prop } {#1}
+              {{\tl_to_str:n{#3}}{\tl_to_str:n{#4}}}
           }
           {
             \prop_gput:cno { g__tag_role_NS_#2_prop } {#1}{\l_@@_tmpa_tl}
