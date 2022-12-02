@@ -1,20 +1,19 @@
 % !Mode:: "TeX:UTF-8:Main"
 \DocumentMetadata{uncompress,testphase=phase-II,debug={log=v},pdfversion=2.0}
+%\DocumentMetadata{uncompress,testphase=phase-II,debug={log=v},pdfversion=1.7}
 \documentclass{article}
 
 \begin{document}
 \ExplSyntaxOn
-\tl_new:N\l__tag_role_info_tmpa_tl
-\tl_new:N\l__tag_role_info_tmpb_tl
-\msg_new:nnn { tag } {role-parent-child} { The~relation~of~parent~'#1\l__tag_role_info_tmpa_tl'~and~child~'#2\l__tag_role_info_tmpb_tl'~is~#3}
+
 % from tagpdf.dtx ...
 %\int_new:N \l__tag_tmpa_int
 %\seq_new:N \l__tag_tmpa_seq
 %\tl_new:N  \l__tag_tmpa_tl
 %\tl_new:N  \l__tag_tmpb_tl
-\seq_new:N \l__tag_role_tmpa_seq
+
 %
-\prop_new:N      \g__tag_role_index_prop
+
 \intarray_new:Nn \g__tag_role_parent_child_intarray {6000}
 
 \prop_const_from_keyval:Nn \c__tag_role_rules_prop
@@ -129,10 +128,28 @@
 % add the H1, H2 to the index. 
 %    \begin{macrocode}
 \prop_get:NnN\g__tag_role_index_prop{Hn}\l__tag_tmpa_tl
-\int_step_inline:nn{10}
+\pdf_version_compare:NnTF < {2.0}
  {
-   \prop_gput:Nnx\g__tag_role_index_prop{H#1}{\l__tag_tmpa_tl}
- } 
+  \int_step_inline:nn{6}
+   {
+     \prop_gput:Nnx\g__tag_role_index_prop{H#1}{\l__tag_tmpa_tl}
+   }
+ }
+ {
+   \int_step_inline:nn{10}
+    {
+      \prop_gput:Nnx\g__tag_role_index_prop{H#1}{\l__tag_tmpa_tl}
+    }
+   \prop_get:NnN\g__tag_role_index_prop {math}\l__tag_tmpa_tl 
+   \prop_get:NnN\g__tag_role_index_prop {mathml}\l__tag_tmpb_tl
+   \prop_map_inline:Nn \g__tag_role_NS_mathml_prop  
+     {
+       \prop_gput:NnV\g__tag_role_index_prop{#1}\l__tag_tmpb_tl
+     }  
+   \prop_gput:NnV\g__tag_role_index_prop{math}\l__tag_tmpa_tl  
+ }    
+\prop_show:N \g__tag_role_index_prop 
+ 
 %    \end{macrocode}
 % TODO handle mathml tags
 %    \begin{macrocode}
@@ -184,8 +201,30 @@
                    {
                      \c_space_tl(inherited~from~\l__tag_role_real_parent_tl)
                    }  
+                 \bool_lazy_and:nnT 
+                   {
+                     \prop_if_in_p:Nn \l__tag_role_debug_prop {parent}
+                   }
+                   {
+                     !\str_if_eq_p:ee {#1}{\prop_item:Nn\l__tag_role_debug_prop {parent}}
+                   }  
+                   {
+                     \c_space_tl (role-mapped~from~\prop_item:Nn\l__tag_role_debug_prop {parent})
+                   }                 
                } 
-               { #2 }
+               { 
+                 #2 
+                 \bool_lazy_and:nnT 
+                   {
+                     \prop_if_in_p:Nn \l__tag_role_debug_prop {child}
+                   }
+                   {
+                     !\str_if_eq_p:ee {#1}{\prop_item:Nn\l__tag_role_debug_prop {child}}
+                   }  
+                   {
+                     \c_space_tl (role-mapped~from~\prop_item:Nn\l__tag_role_debug_prop {parent})
+                   }                                   
+               }
                { '\l__tag_tmpa_tl' }   
            }  
        }
@@ -222,8 +261,8 @@
  {
    \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
      {
-       \tl_set:Nn \l__tag_role_info_tmpa_tl {~(#1)}
-       \tl_set:Nn \l__tag_role_info_tmpb_tl {~(#2)}
+       \prop_put:Nnn \l__tag_role_debug_prop {parent} {#1} 
+       \prop_put:Nnn \l__tag_role_debug_prop {child} {#2}        
        \prop_get:NnNTF \g__tag_role_index_prop {#1}\l__tag_tmpa_tl
          {
            \tl_set:Nn \l__tag_tmpa_tl {#1}
@@ -264,8 +303,8 @@
  {
    \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
      { 
-       \tl_set:Nn \l__tag_role_info_tmpa_tl {~(#1)}
-       \tl_set:Nn \l__tag_role_info_tmpb_tl {~(#2)}
+       \prop_put:Nnn \l__tag_role_debug_prop {parent} {#1} 
+       \prop_put:Nnn \l__tag_role_debug_prop {child} {#2}       
 %    \end{macrocode}
 % we assume here that the standard tags do not change their name space and their role
 % mapping, so we can simply get their index from the prop 
@@ -357,11 +396,15 @@
 %\tag_check_parent_child:nnN {section}{P}\l_tmpa_tl
 %\tag_check_parent_child:nnN {subsection}{Document}\l_tmpa_tl
 %\tag_check_parent_child:nnN {blub}{Document}\l_tmpa_tl
-%\tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
+\tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
 \tag_check_parent_child:nnN {ssection}{Span}\l_tmpa_tl
 yyyyyyyyyyyy
+\tag_check_parent_child:nnN {H8}{Span}\l_tmpa_tl
 
-
+\tag_check_parent_child:nnN {Formula}{math}\l_tmpa_tl
+\tag_check_parent_child:nnN {math}{mi}\l_tmpa_tl
+\tag_check_parent_child:nnN {mi}{mi}\l_tmpa_tl
+\tag_check_parent_child:nnN {mi}{P}\l_tmpa_tl
 \tag_check_parent_child:nnN {Title}{Part}\l_tmpa_tl
 
 \tagstructend

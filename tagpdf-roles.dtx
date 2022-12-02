@@ -157,7 +157,16 @@
 % 
 % \item[\cs{g_@@_role_NS_<ns>_class_prop}]   
 % This prop contains the tags of
-% a name space and their type. The value is only needed for pdf 2.0.             
+% a name space and their type. The value is only needed for pdf 2.0.      
+% 
+% \item[\cs{g_@@_role_index_prop}]   
+% This prop contains the standard tags (pdf in pdf<2.0,
+% pdf,pdf2 + mathml in pdf 2.0) as keys, the values are a two-digit
+% number. These numbers are used to get the containment rule of two tags
+% from the intarray.
+% 
+%\item[\cs{l_@@_role_debug_prop}] This property is used to pass some info
+% around for info messages or debugging.      
 % \end{description} 
 %
 %
@@ -205,20 +214,37 @@
 \prop_new:N \g_@@_role_NS_prop 
 %    \end{macrocode}
 % \end{variable}
-%
-% We need also a bunch of temporary variables:
+% 
+% \begin{variable}{\g_@@_role_index_prop}
+% This prop contains the standard tags (pdf in pdf<2.0,
+% pdf,pdf2 + mathml in pdf 2.0) as keys, the values are a two-digit
+% number. These numbers are used to get the containment rule of two tags
+% from the intarray.
+%    \begin{macrocode}
+\prop_new:N \g_@@_role_index_prop
+%    \end{macrocode}
+% \end{macro}
+% \begin{variable}{\l_@@_role_debug_prop}
+% This variable is used to pass more infos to debug messages. 
+%    \begin{macrocode}
+\prop_new:N \l_@@_role_debug_prop
+%    \end{macrocode}
+% \end{macro}
+% We need also a bunch of temporary variables.
 % \begin{variable}
 %  {
 %     ,\l_@@_role_tag_tmpa_tl
 %     ,\l_@@_role_tag_namespace_tmpa_tl
 %     ,\l_@@_role_role_tmpa_tl
-%     ,\l_@@_role_role_namespace_tmpa_tl
+%     ,\l_@@_role_role_namespace_tmpa_tl      
+%     ,\l_@@_role_tmpa_seq
 %  }
 %    \begin{macrocode}
 \tl_new:N \l_@@_role_tag_tmpa_tl
 \tl_new:N \l_@@_role_tag_namespace_tmpa_tl
 \tl_new:N \l_@@_role_role_tmpa_tl
-\tl_new:N \l_@@_role_role_namespace_tmpa_tl
+\tl_new:N \l_@@_role_role_namespace_tmpa_tl  
+\seq_new:N\l_@@_role_tmpa_seq
 %    \end{macrocode}
 % \end{variable}
 % 
