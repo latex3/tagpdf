@@ -6,18 +6,6 @@
 \begin{document}
 \ExplSyntaxOn
 
-% from tagpdf.dtx ...
-%\int_new:N \l__tag_tmpa_int
-%\seq_new:N \l__tag_tmpa_seq
-%\tl_new:N  \l__tag_tmpa_tl
-%\tl_new:N  \l__tag_tmpb_tl
-
-%
-
-
-
-
-
 %\seq_show:N\g__tag_struct_tag_stack_seq
 \pdf_version_compare:NnTF < {2.0}
  {
@@ -29,7 +17,6 @@
    
 \int_zero:N  \l__tag_tmpa_int
 
-\tl_new:N \l__tag_childnum_tl
 \tl_new:N\l__tag_parent_tmpa_tl
 
 \cs_new_protected:Npn \__tag_store_parent_child_rule:nnn #1 #2 #3 % num parent, num child, #3 string
@@ -45,6 +32,8 @@
 %    \end{macrocode}
 % count the lines ...
 %    \begin{macrocode}
+  \tl_if_empty:nF{#1}
+   {
     \int_incr:N\l__tag_tmpa_int 
 %    \end{macrocode}
 %  put the line into a seq. Attention! empty cells are dropped.
@@ -95,6 +84,7 @@
            }
         }
      }
+    } 
   }
 %    \end{macrocode}
 % close the read handle.

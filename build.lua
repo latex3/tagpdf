@@ -173,6 +173,7 @@ packtdszip   = false
 installfiles = {
                 "**/*.sty",
                 "**/*.def",
+                "**/*.csv",
                 "**/*.lua",
                 "**/*.ltx",
                }
