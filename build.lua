@@ -180,7 +180,7 @@ installfiles = {
 sourcefiles  = {"*.dtx",
                 "*.ins",
                 --"*.sty",
-                "*.def",
+                --"*.def",
                 --"**/*.lua"                
                }
 

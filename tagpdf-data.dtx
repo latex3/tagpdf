@@ -1,0 +1,427 @@
+% \iffalse meta-comment
+%
+%% File: tagpdf-data.dtx
+%
+% Copyright (C) 2022 Ulrike Fischer
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version.  The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tagpdf bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+% -----------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://github.com/u-fischer/tagpdf
+%
+% for those people who are interested.
+%<*driver>
+\DocumentMetadata{}
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf-data module (tagpdf)}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% \title{^^A
+%   The \pkg{tagpdf-data} module\\ 
+%   Data files for tag namespaces and containment rules^^A
+%   \\ Part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.97, released 2022-08-24}
+% \maketitle
+% \begin{documentation}
+% This files contains a various data files which are read in
+% by \pkg{tagpdf} to setup name spaces and  rules for tag relationships.
+% 
+% \end{documentation}
+% \begin{implementation}
+% \section{The LaTeX namespace}
+% This is the main new namespace. It is bound to change a lot!
+% It lists the new tag, the rolemap and the namespace of the rolemap.
+%    \begin{macrocode}
+%<*ns-latex>
+%% \ProvidesExplFile {tagpdf-ns-latex.def} {2022-08-24} {0.97}
+%% {latex} {https://www.latex-project.org/ns/dflt/2022}{}
+title,        Title,    pdf2,
+part,         Title,    pdf2,
+section,      H1,       pdf2, 
+subsection,   H2,       pdf2,
+subsubsection,H3,       pdf2,
+paragraph,    H4,       pdf2, 
+subparagraph, H5,       pdf2,
+itemize,      L,        pdf2,
+enumerate,    L,        pdf2,
+description,  L,        pdf2,
+item,         LI,       pdf2,
+itemlabel,    Lbl,      pdf2,
+itembody,     LBody,    pdf2,
+footnote,     FENote,   pdf2,
+footnotemark, Lbl,      pdf2,
+footnotelabel,Lbl,      pdf2,
+%</ns-latex>
+%    \end{macrocode}
+% \section{The LaTeX-book namespace}
+% This changes the rolemapping of some tags for heading with
+% to values more suitable in book classes. 
+% It is bound to change
+%    \begin{macrocode}
+%<*ns-latex-book>
+%% \ProvidesExplFile {tagpdf-ns-latex-book.def} {2022-08-24} {0.97}
+%% {latex-book} {https://www.latex-project.org/ns/book/2022}{}
+chapter,       H1,pdf2,
+section,       H2,pdf2,
+subsection,    H3,pdf2,
+subsubsection, H4,pdf2,
+paragraph,     H5,pdf2,
+subparagraph,  H6,pdf2,
+%</ns-latex-book>
+%    \end{macrocode}
+% \section{The LaTeX-inline namespace}
+% This degrades the rolemapping of some tags. It is an experimental name space.
+% It can disappear again if it doesn't look usefull.
+% It is bound to change a lot!
+%    \begin{macrocode}
+%<*ns-latex-inline>
+%% \ProvidesExplFile {tagpdf-ns-latex-inline.def} {2022-08-24} {0.97}
+%% {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
+chapter,       Span, pdf2,    
+section,       Span, pdf2,
+subsection,    Span, pdf2,
+subsubsection, Span, pdf2,
+paragraph,     Span, pdf2,
+subparagraph,  Span, pdf2,
+P,             Span, pdf2,
+%</ns-latex-inline>
+%    \end{macrocode}
+% \section{The pdf namespace data}
+%    \begin{macrocode}
+%<*ns-pdf>
+%% \ProvidesExplFile {tagpdf-ns-pdf.def} {2022-08-24} {0.97}
+%%  {pdf}   {http://iso.org/pdf/ssn}{}
+Document,,,D,   
+Part,,,G,       
+Sect,,,G,       
+Div,,,G,        
+Caption,,,GB,    
+NonStruct,,,G,  
+H,,,B,
+H1,,,B,
+H2,,,B,
+H3,,,B,
+H4,,,B,
+H5,,,B,
+H6,,,B,
+P,,,B,
+L,,,BI,           
+LI,,,L,          
+Lbl,,,I,         
+LBody,,,L,       
+Table,,,B,
+TR,,,T,          
+TH,,,T,          
+TD,,,T,          
+THead,,,T,       
+TBody,,,T,       
+TFoot,,,T,       
+Span,,,I,        
+Link,,,GBI,        
+Annot,,,GBI,
+Figure,,,GBI,
+Formula,,,GBI,
+Form,,,GBI,
+Ruby,,,I,
+RB,,,I,
+RT,,,I,
+Warichu,,,I,
+WT,,,I,
+WP,,,I,
+Artifact,,,GBI, 
+Art,,,,G,  % only pdf, types unclear, needs correction later       
+BlockQuote,,,G, %or GB?
+TOC,,,G,        
+TOCI,,,G,       
+Index,,,G,
+Private,,,G,
+Quote,,,I,      
+Note,,,GBI, % I in reference, but        
+Reference,,,B, %  
+BibEntry,,,B, %   
+Code,,,I, %
+%</ns-pdf>
+%    \end{macrocode}
+% \section{The pdf 2.0 namespace data}
+%    \begin{macrocode}
+%<*ns-pdf2>
+%% \ProvidesExplFile {tagpdf-ns-pdf2.def} {2022-08-24} {0.97} 
+%%  {pdf2}  {http://iso.org/pdf2/ssn}{}
+Document,,,D,   
+Part,,,G,       
+Sect,,,G,       
+Div,,,G,        
+Caption,,,GB,    
+NonStruct,,,G,  
+H,,,B,
+H1,,,B,
+H2,,,B,
+H3,,,B,
+H4,,,B,
+H5,,,B,
+H6,,,B,
+P,,,B,
+L,,,BI,           
+LI,,,L,          
+Lbl,,,I,         
+LBody,,,L,       
+Table,,,B,
+TR,,,T,          
+TH,,,T,          
+TD,,,T,          
+THead,,,T,       
+TBody,,,T,       
+TFoot,,,T,       
+Span,,,I,        
+Link,,,GBI,        
+Annot,,,GBI,
+Figure,,,GBI,
+Formula,,,GBI,
+Form,,,GBI,
+Ruby,,,I,
+RB,,,I,
+RT,,,I,
+Warichu,,,I,
+WT,,,I,
+WP,,,I,
+Artifact,,,GBI, 
+DocumentFragment,Art,    pdf,D, %rest only pdf2
+Aside,           Note,   pdf,G,
+H7,              H6,     pdf,B,
+H8,              H6,     pdf,B, 
+H9,              H6,     pdf,B,
+H10,             H6,     pdf,B,
+Title,           P,      pdf,GB,
+FENote,          Note,   pdf,GBI,
+Sub,             Span,   pdf,I,
+Em,              Span,   pdf,I,
+Strong,          Span,   pdf,I, 
+%</ns-pdf2>
+%    \end{macrocode}
+% \section{The mathml namespace data}
+%    \begin{macrocode}
+%<*ns-mathml>
+%% \ProvidesExplFile {tagpdf-ns-mathml.def} {2022-08-24} {0.97}
+% {mathml}{http://www.w3.org/1998/Math/MathML}{}
+abs,,,
+and,,,
+annotation,,,
+apply,,,
+approx,,,
+arccos,,,
+arccosh,,,
+arccot,,,
+arccoth,,,
+arccsc,,,
+arccsch,,,
+arcsec,,,
+arcsech,,,
+arcsin,,,
+arcsinh,,,
+arctan,,,
+arctanh,,,
+arg,,,
+bind,,,
+bvar,,,
+card,,,
+cartesianproduct,,,
+cbytes,,,
+ceiling,,,
+cerror,,,
+ci,,,
+cn,,,
+codomain,,,
+complexes,,,
+compose,,,
+condition,,,
+conjugate,,,
+cos,,,
+cosh,,,
+cot,,,
+coth,,,
+cs,,,
+csc,,,
+csch,,,
+csymbol,,,
+curl,,,
+declare,,,
+degree,,,
+determinant,,,
+diff,,,
+divergence,,,
+divide,,,
+domain,,,
+domainofapplication,,,
+emptyset,,,
+eq,,,
+equivalent,,,
+eulergamma,,,
+exists,,,
+exp,,,
+exponentiale,,,
+factorial,,,
+factorof,,,
+false,,,
+floor,,,
+fn,,,
+forall,,,
+gcd,,,
+geq,,,
+grad,,,
+gt,,,
+ident,,,
+image,,,
+imaginary,,,
+imaginaryi,,,
+implies,,,
+in,,,
+infinity,,,
+int,,,
+integers,,,
+intersect,,,
+interval,,,
+inverse,,,
+lambda,,,
+laplacian,,,
+lcm,,,
+leq,,,
+limit,,,
+ln,,,
+log,,,
+logbase,,,
+lowlimit,,,
+lt,,,
+maction,,,
+maligngroup,,,
+malignmark,,,
+math,,,
+matrix,,,
+matrixrow,,,
+max,,,
+mean,,,
+median,,,
+menclose,,,
+merror,,,
+mfenced,,,
+mfrac,,,
+mglyph,,,
+mi,,,
+min,,,
+minus,,,
+mlabeledtr,,,
+mlongdiv,,,
+mmultiscripts,,,
+mn,,,
+mo,,,
+mode,,,
+moment,,,
+momentabout,,,
+mover,,,
+mpadded,,,
+mphantom,,,
+mprescripts,,,
+mroot,,,
+mrow,,,
+ms,,,
+mscarries,,,
+mscarry,,,
+msgroup,,,
+msline,,,
+mspace,,,
+msqrt,,,
+msrow,,,
+mstack,,,
+mstyle,,,
+msub,,,
+msubsup,,,
+msup,,,
+mtable,,,
+mtd,,,
+mtext,,,
+mtr,,,
+munder,,,
+munderover,,,
+naturalnumbers,,,
+neq,,,
+none,,,
+not,,,
+notanumber,,,
+notin,,,
+notprsubset,,,
+notsubset,,,
+or,,,
+otherwise,,,
+outerproduct,,,
+partialdiff,,,
+pi,,,
+piece,,,
+piecewise,,,
+plus,,,
+power,,,
+primes,,,
+product,,,
+prsubset,,,
+quotient,,,
+rationals,,,
+real,,,
+reals,,,
+reln,,,
+rem,,,
+root,,,
+scalarproduct,,,
+sdev,,,
+sec,,,
+sech,,,
+selector,,,
+semantics,,,
+sep,,,
+set,,,
+setdiff,,,
+share,,,
+sin,,,
+sinh,,,
+subset,,,
+sum,,,
+tan,,,
+tanh,,,
+tendsto,,,
+times,,,
+transpose,,,
+true,,,
+union,,,
+uplimit,,,
+variance,,,
+vector,,,
+vectorproduct,,,
+xor,,,
+%</ns-mathml>
+%    \end{macrocode}
+% \end{implementation}
+% \PrintIndex

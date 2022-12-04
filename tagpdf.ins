@@ -88,6 +88,19 @@ and all files in that bundle must be distributed together.
 \generate
   {\file{tagpdf-mc-code-lua.sty}{\from{tagpdf-mc-luacode.dtx}{luamode}}}
 
+\generate
+  {\file{tagpdf-ns-pdf.def}{\from{tagpdf-data.dtx}{ns-pdf}}}
+\generate
+  {\file{tagpdf-ns-pdf2.def}{\from{tagpdf-data.dtx}{ns-pdf2}}}
+\generate
+  {\file{tagpdf-ns-mathml.def}{\from{tagpdf-data.dtx}{ns-mathml}}}
+\generate
+  {\file{tagpdf-ns-latex.def}{\from{tagpdf-data.dtx}{ns-latex}}}
+\generate
+  {\file{tagpdf-ns-latex-book.def}{\from{tagpdf-data.dtx}{ns-latex-book}}}
+\generate
+  {\file{tagpdf-ns-latex-inline.def}{\from{tagpdf-data.dtx}{ns-latex-inline}}}
+
 % check later if the mc-code uses debug guards too.
 \generate
   {\file{tagpdf-debug.sty}
@@ -117,4 +130,6 @@ and all files in that bundle must be distributed together.
 }
 \def\currentpostamble{\defaultpostamble}%
 \generate{\file{tagpdf.lua}   {\from{tagpdf-backend.dtx}{lua}}}
+
+
 \endbatchfile
