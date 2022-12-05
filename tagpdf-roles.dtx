@@ -663,7 +663,6 @@
 % \subsection{Parent-child rules}
 % PDF define various rules about which tag can be a child of another tag.
 % The following code implements the matrix to allow to use it in tests.
-
 % \begin{variable}{\g_@@_role_parent_child_intarray}
 % This intarray will store the rule as a number. For parent nm and child ij 
 % (n,m,i,j digits) the rule is at position nmij. As we have around 56 tags,
@@ -672,36 +671,104 @@
 \intarray_new:Nn \g_@@_role_parent_child_intarray {6000}
 %    \end{macrocode}
 % \end{macro}
-
-% \begin{macro}{\c_@@_role_rules_prop}
+% \begin{macro}{\c_@@_role_rules_prop,\c_@@_role_rules_num_prop}
+% These two properties map the rule strings to numbers and back.
+% There are in tagpdf-data.dtx near the csv files for easier maintenance.
+% \end{macro}
+% 
+% \begin{macro}{\@@_store_parent_child_rule:nnn}
+% The helper command is used to store the rule. 
+% It assumes that parent and child are given as 2-digit number!
 %    \begin{macrocode}
-\prop_const_from_keyval:Nn \c_@@_role_rules_prop
- {
-    0..n = 1,
-    0..1 = 2,
-    1    = 3, %StructTreeRoot, not really needed
-    [a]  = 4, %ruby
-    [b]  = 5, %warichu
-    c    = 6, % WP ??
-    ‡    = 7, % Part,Div,NonStruct -> "check parent"
-    ∅*   = 8, % or negative by default?
-    ∅    = -1,
- }
-%in debug??
-\prop_const_from_keyval:Nn \c_@@_role_rules_num_prop
- {
-   1 = 0..n,
-   2 = 0..1,
-   3 = 1   , %StructTreeRoot, not really needed
-   4 = [a] , %ruby
-   5 = [b] , %warichu
-   6 = c   , % WP ??
-   7 = ‡   , % Part,Div,NonStruct -> "check parent"
-   8 = ∅*  , % or negative by default?
-  -1 = ∅ ,
- }
+\cs_new_protected:Npn \@@_store_parent_child_rule:nnn #1 #2 #3 % num parent, num child, #3 string
+  {
+    \intarray_gset:Nnn \g_@@_role_parent_child_intarray 
+      { #1#2 }{0\prop_item:Nn\c_@@_role_rules_prop{#3}}
+  }  
 %    \end{macrocode}
 % \end{macro}
+% 
+% \subsubsection{Reading in the csv-files}
+% This counter will be used to identify the first (non-comment) line
+%    \begin{macrocode}
+\int_zero:N  \l_@@_tmpa_int
+%    \end{macrocode}
+% Open the file depending on the PDF version
+%    \begin{macrocode}
+\pdf_version_compare:NnTF < {2.0}
+  {
+    \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child.csv}
+  }
+  {
+    \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child-2.csv}
+  }  
+%    \end{macrocode}
+
+%  Now the main loop over the file
+%    \begin{macrocode}
+\ior_map_inline:Nn \g_tmpa_ior 
+  { 
+%    \end{macrocode}
+% ignore lines containing only comments
+%    \begin{macrocode}
+    \tl_if_empty:nF{#1}
+      {
+%    \end{macrocode}
+% count the lines ...
+%    \begin{macrocode}      
+        \int_incr:N\l_@@_tmpa_int 
+%    \end{macrocode}
+%  put the line into a seq. Attention! empty cells are dropped.
+%    \begin{macrocode}
+        \seq_set_from_clist:Nn\l_@@_tmpa_seq { #1 } 
+        \int_compare:nNnTF {\l_@@_tmpa_int}=1
+%    \end{macrocode}
+% This handles the header line. It gives the tags 2-digit numbers
+%    \begin{macrocode}
+          {         
+            \seq_map_indexed_inline:Nn \l_@@_tmpa_seq
+              {
+                \prop_gput:Nnx\g_@@_role_index_prop 
+                  {##2}
+                  {\int_compare:nNnT{##1}<{10}{0}##1}           
+              }  
+          }
+%    \end{macrocode}
+% now the data lines.
+%    \begin{macrocode}
+         {
+           \seq_set_from_clist:Nn\l_@@_tmpa_seq { #1 }
+%    \end{macrocode}
+% get the name of the child tag from the first column
+%    \begin{macrocode}
+           \seq_pop_left:NN\l_@@_tmpa_seq\l_@@_tmpa_tl
+%    \end{macrocode}
+% get the number of the child, and store it in  \cs{l_@@_tmpb_tl}
+%    \begin{macrocode}
+           \prop_get:NVN \g_@@_role_index_prop \l_@@_tmpa_tl \l_@@_tmpb_tl
+%    \end{macrocode}
+% remove column 2+3
+%    \begin{macrocode}
+           \seq_pop_left:NN\l_@@_tmpa_seq\l_@@_tmpa_tl
+           \seq_pop_left:NN\l_@@_tmpa_seq\l_@@_tmpa_tl
+%    \end{macrocode}
+% Now map over the rest. The index \verb+##1+ gives us the 
+% number of the parent, \verb+##2+ is the data.
+%    \begin{macrocode}
+           \seq_map_indexed_inline:Nn \l_@@_tmpa_seq 
+             {       
+               \exp_args:Nnx 
+               \@@_store_parent_child_rule:nnn {##1}{\l_@@_tmpb_tl}{ ##2 }       
+             }        
+         }
+      } 
+  }
+%    \end{macrocode}
+% close the read handle.
+%    \begin{macrocode}
+\ior_close:N\g_tmpa_ior 
+%    \end{macrocode}
+%
 %
 % \subsection{Remapping of tags}
 % In some context it can be necessary to remap or replace the tags. 

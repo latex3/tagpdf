@@ -423,6 +423,40 @@ vectorproduct,,,
 xor,,,
 %</ns-mathml>
 %    \end{macrocode}
+% \section{Rule naming}
+% \begin{macro}{\c_@@_role_rules_prop}
+% These two properties map the rule strings to numbers and back.
+% There are in tagpdf-data.dtx near the csv files for easier maintainance.
+%    \begin{macrocode}
+%<*package>
+\prop_const_from_keyval:Nn \c_@@_role_rules_prop
+ {
+    0..n = 1,
+    0..1 = 2,
+    1    = 3, %StructTreeRoot, not really needed
+    [a]  = 4, %ruby
+    [b]  = 5, %warichu
+    c    = 6, % WP ??
+    ‡    = 7, % Part,Div,NonStruct -> "check parent"
+    ∅*   = 8, % or negative by default?
+    ∅    = -1,
+ }
+%in debug??
+\prop_const_from_keyval:Nn \c_@@_role_rules_num_prop
+ {
+   1 = 0..n,
+   2 = 0..1,
+   3 = 1   , %StructTreeRoot, not really needed
+   4 = [a] , %ruby
+   5 = [b] , %warichu
+   6 = c   , % WP ??
+   7 = ‡   , % Part,Div,NonStruct -> "check parent"
+   8 = ∅*  , % or negative by default?
+  -1 = ∅ ,
+ }
+%</package>
+%    \end{macrocode}
+% \end{macro}
 % \section{The parent-child rules for pdf <2.0}
 % This csv contains the parent-child matrix for pdf <2.0.
 % The values are currently the strings used in the PDF reference.

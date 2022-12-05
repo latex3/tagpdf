@@ -7,90 +7,9 @@
 \ExplSyntaxOn
 
 %\seq_show:N\g__tag_struct_tag_stack_seq
-\pdf_version_compare:NnTF < {2.0}
- {
-   \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child.csv}
- }
- {
-   \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child-2.csv}
- }
-   
-\int_zero:N  \l__tag_tmpa_int
+%\tl_new:N\l__tag_parent_tmpa_tl
 
-\tl_new:N\l__tag_parent_tmpa_tl
 
-\cs_new_protected:Npn \__tag_store_parent_child_rule:nnn #1 #2 #3 % num parent, num child, #3 string
- {
-   \intarray_gset:Nnn \g__tag_role_parent_child_intarray 
-      { #1#2 }{0\prop_item:Nn\c__tag_role_rules_prop{#3}}
- }  
- 
-
-                  
-\ior_map_inline:Nn \g_tmpa_ior 
-  { 
-%    \end{macrocode}
-% count the lines ...
-%    \begin{macrocode}
-  \tl_if_empty:nF{#1}
-   {
-    \int_incr:N\l__tag_tmpa_int 
-%    \end{macrocode}
-%  put the line into a seq. Attention! empty cells are dropped.
-%    \begin{macrocode}
-    \seq_set_from_clist:Nn\l__tag_tmpa_seq { #1 } 
-    \int_compare:nNnTF {\l__tag_tmpa_int}=1
-%    \end{macrocode}
-% This handles the header line. It numbers the tags.
-% the StructTreeRoot, Hn, mathml and MC tags are special!
-%    \begin{macrocode}
-     {         
-       \seq_map_indexed_inline:Nn \l__tag_tmpa_seq
-         {
-           \prop_gput:Nnx\g__tag_role_index_prop {##2}{\int_compare:nNnT{##1}<{10}{0}##1}           
-         }  
-     }
-%    \end{macrocode}
-% now the data lines.
-%    \begin{macrocode}
-     {
-       \seq_set_from_clist:Nn\l__tag_tmpa_seq { #1 }
-%    \end{macrocode}
-% there can be an empty line at the end, so better test.
-%    \begin{macrocode}
-       \seq_if_empty:NF \l__tag_tmpa_seq 
-        {
-%    \end{macrocode}
-% get the name of the tag
-%    \begin{macrocode}
-         \seq_pop_left:NN\l__tag_tmpa_seq\l__tag_tmpa_tl
-%    \end{macrocode}
-% get the number of the child, stored in \cs{l__tag_tmpb_tl}
-%    \begin{macrocode}
-         \prop_get:NVN \g__tag_role_index_prop \l__tag_tmpa_tl \l__tag_tmpb_tl
-%    \end{macrocode}
-% remove column 2+3
-%    \begin{macrocode}
-         \seq_pop_left:NN\l__tag_tmpa_seq\l__tag_tmpa_tl
-         \seq_pop_left:NN\l__tag_tmpa_seq\l__tag_tmpa_tl
-%    \end{macrocode}
-% Now map over the rest. The index \verb+##1+ gives us the 
-% number of parent, \verb+##2+ is the data.
-%    \begin{macrocode}
-         \seq_map_indexed_inline:Nn \l__tag_tmpa_seq 
-           {       
-             \exp_args:Nnx 
-               \__tag_store_parent_child_rule:nnn {##1}{\l__tag_tmpb_tl}{ ##2 }       
-           }
-        }
-     }
-    } 
-  }
-%    \end{macrocode}
-% close the read handle.
-%    \begin{macrocode}
-\ior_close:N\g_tmpa_ior 
-%    \end{macrocode}
 % add the H1, H2 to the index. 
 %    \begin{macrocode}
 \prop_get:NnN\g__tag_role_index_prop{Hn}\l__tag_tmpa_tl
