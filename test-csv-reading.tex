@@ -15,238 +15,33 @@
 %    \end{macrocode}
 % Testing tags.
 %    \begin{macrocode}
-\tl_new:N \l__tag_role_real_parent_tl 
-\cs_new_protected:Npn \__tag_role_get_parent_child_rel:nnN #1 #2 #3% #1 parent #2  #3 tl for state
-  {
-     \tl_set:Nn\l__tag_role_real_parent_tl {#1}
-     \prop_get:NnN\g__tag_role_index_prop{#1}\l__tag_tmpa_tl
-     \prop_get:NnN\g__tag_role_index_prop{#2}\l__tag_tmpb_tl
-     \bool_lazy_and:nnTF 
-       { ! \quark_if_no_value_p:N \l__tag_tmpa_tl }
-       { ! \quark_if_no_value_p:N \l__tag_tmpb_tl }
-       {
-         \tl_set:Nx#3 
-           { \intarray_item:Nn 
-              \g__tag_role_parent_child_intarray 
-              {\l__tag_tmpa_tl\l__tag_tmpb_tl}
-           }
-        \int_compare:nNnT  
-         {#3} = {\prop_item:Nn\c__tag_role_rules_prop{‡}}  
-         {
-           \seq_set_eq:NN\l__tag_role_tmpa_seq \g__tag_struct_tag_stack_seq
-           %\seq_pop:NN \l__tag_role_tmpa_seq \l__tag_tmpa_tl
-           \seq_map_inline:Nn\g__tag_struct_tag_stack_seq 
-             {
-                \tl_if_in:nnF {-Part-Div-NonStruct-}{-##1-}
-                  {  
-                    \tl_set:Nn\l__tag_role_real_parent_tl {##1}
-                    \__tag_role_get_parent_child_rel:nnN {##1}{#2}#3
-                    \seq_map_break:
-                  }
-             } 
-           %\tl_show:N \l__tag_role_next_parent_tl            
-         }
-%in debug             
-         \int_compare:nNnT {\l__tag_loglevel_int} > { 0 }
-           {      
-             \prop_get:NVN\c__tag_role_rules_num_prop #3 \l__tag_tmpa_tl
-             \tl_set:Nn \l__tag_tmpb_tl{#1}
-             \msg_info:nnxxx 
-               { tag } 
-               {role-parent-child} 
-               { #1
-                 \tl_if_eq:NNF\l__tag_tmpb_tl\l__tag_role_real_parent_tl
-                   {
-                     \c_space_tl(inherited~from~\l__tag_role_real_parent_tl)
-                   }  
-                 \bool_lazy_and:nnT 
-                   {
-                     \prop_if_in_p:Nn \l__tag_role_debug_prop {parent}
-                   }
-                   {
-                     !\str_if_eq_p:ee {#1}{\prop_item:Nn\l__tag_role_debug_prop {parent}}
-                   }  
-                   {
-                     \c_space_tl (role-mapped~from~\prop_item:Nn\l__tag_role_debug_prop {parent})
-                   }                 
-               } 
-               { 
-                 #2 
-                 \bool_lazy_and:nnT 
-                   {
-                     \prop_if_in_p:Nn \l__tag_role_debug_prop {child}
-                   }
-                   {
-                     !\str_if_eq_p:ee {#1}{\prop_item:Nn\l__tag_role_debug_prop {child}}
-                   }  
-                   {
-                     \c_space_tl (role-mapped~from~\prop_item:Nn\l__tag_role_debug_prop {parent})
-                   }                                   
-               }
-               { '\l__tag_tmpa_tl' }   
-           }  
-       }
-       {         
-         \tl_set:Nn#3 {0}
-         \msg_warning:nnxxx 
-           { tag } 
-           {role-parent-child} 
-           { #1 } 
-           { #2 }
-           { unknown! }  
-       }
-  }  
+
 \msg_redirect_name:nnn { tag } { role-parent-child } { note }
 
-\prop_show:N\g__tag_role_index_prop  
-\cs_generate_variant:Nn  \__tag_role_get_parent_child_rel:nnN {VVN}
+%\prop_show:N\g__tag_role_index_prop  \cs_generate_variant:Nn  
+%\__tag_role_get_parent_child_rule:nnN {VVN} 
 %    \end{macrocode}
 \tagstructbegin{tag=P}
 
-%\__tag_role_get_parent_child_rel:nnN {Document}{P}\l_tmpa_tl
+%\__tag_role_get_parent_child_rule:nnN {Document}{P}\l_tmpa_tl
 %%\tl_show:N\l_tmpa_tl
 %
-%\__tag_role_get_parent_child_rel:nnN {Span}{P}\l_tmpa_tl
+%\__tag_role_get_parent_child_rule:nnN {Span}{P}\l_tmpa_tl
 %%\tl_show:N\l_tmpa_tl
 %
-%\__tag_role_get_parent_child_rel:nnN {Part}{H1}\l_tmpa_tl
+%\__tag_role_get_parent_child_rule:nnN {Part}{H1}\l_tmpa_tl
 %%\tl_show:N\l_tmpa_tl
 %
-%\__tag_role_get_parent_child_rel:nnN {Blub}{H1}\l_tmpa_tl
+%\__tag_role_get_parent_child_rule:nnN {Blub}{H1}\l_tmpa_tl
 
 
-\pdf_version_compare:NnTF < {2.0}
- {
-   \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
-     {
-       \prop_put:Nnn \l__tag_role_debug_prop {parent} {#1} 
-       \prop_put:Nnn \l__tag_role_debug_prop {child} {#2}        
-       \prop_get:NnNTF \g__tag_role_index_prop {#1}\l__tag_tmpa_tl
-         {
-           \tl_set:Nn \l__tag_tmpa_tl {#1}
-         }
-         {           
-           \prop_get:NnNF \g__tag_role_rolemap_prop {#1}\l__tag_tmpa_tl 
-             { 
-               \tl_set:Nn \l__tag_tmpa_tl {\q_no_value}
-             }
-         }    
-       \prop_get:NnNTF \g__tag_role_index_prop {#2}\l__tag_tmpb_tl
-         {
-           \tl_set:Nn \l__tag_tmpb_tl {#2}
-         }
-         {
-           \prop_get:NnNF \g__tag_role_rolemap_prop {#2}\l__tag_tmpb_tl 
-             {                
-               \tl_set:Nn \l__tag_tmpb_tl {\q_no_value.}
-             }
-         }    
-       \bool_lazy_and:nnTF 
-         { ! \quark_if_no_value_p:N \l__tag_tmpa_tl }
-         { ! \quark_if_no_value_p:N \l__tag_tmpb_tl }     
-         {  
-           \__tag_role_get_parent_child_rel:VVN \l__tag_tmpa_tl \l__tag_tmpb_tl #3
-         }   
-         {
-           \tl_set:Nn #3 {0}
-           \msg_warning:nnxxx 
-            { tag } 
-            {role-parent-child} 
-            { #1 } 
-            { #2 }
-            { unknown! }  
-         }
-     }
- }
- {
-   \cs_new_protected:Npn \tag_check_parent_child:nnN #1 #2 #3
-     { 
-       \prop_put:Nnn \l__tag_role_debug_prop {parent} {#1} 
-       \prop_put:Nnn \l__tag_role_debug_prop {child} {#2}       
-%    \end{macrocode}
-% we assume here that the standard tags do not change their name space and their role
-% mapping, so we can simply get their index from the prop 
-%    \begin{macrocode}
-       \prop_get:NnNTF \g__tag_role_index_prop {#1}\l__tag_tmpa_tl
-         {
-           \tl_set:Nn \l__tag_tmpa_tl {#1}
-         }
-%    \end{macrocode}
-%  If there is some rolemapping we need the current namespace
-%    \begin{macrocode}
-         {           
-           \prop_get:NnNT\g__tag_role_tags_NS_prop {#1}\l__tag_role_tag_namespace_tmpa_tl
-             {
-               \prop_show:c { g__tag_role_NS_ \l__tag_role_tag_namespace_tmpa_tl _prop }
-               \prop_get:cnNTF { g__tag_role_NS_ \l__tag_role_tag_namespace_tmpa_tl _prop }{#1}\l__tag_tmpa_tl
-                 {
-                   \tl_set:Nx \l__tag_tmpa_tl {\tl_head:N\l__tag_tmpa_tl}
-                 }
-                 { 
-                   \tl_set:Nn \l__tag_tmpa_tl {\q_no_value}
-                 }
-             }                          
-         }    
-%    \end{macrocode}
-% and the same for the child
-%    \begin{macrocode}
-      \prop_get:NnNTF \g__tag_role_index_prop {#2}\l__tag_tmpb_tl
-         {
-           \tl_set:Nn \l__tag_tmpb_tl {#2}
-         }
-%    \end{macrocode}
-%  If there is some rolemapping we need the current namespace
-%    \begin{macrocode}
-         {           
-           \prop_get:NnNT\g__tag_role_tags_NS_prop {#2}\l__tag_role_tag_namespace_tmpa_tl
-             {
-               \prop_get:cnNTF { g__tag_role_NS_ \l__tag_role_tag_namespace_tmpa_tl _prop }{#2}\l__tag_tmpb_tl
-                 {
-                   \tl_set:Nx \l__tag_tmpb_tl {\tl_head:N\l__tag_tmpb_tl}
-                 }
-                 { 
-                   \tl_set:Nn \l__tag_tmpb_tl {\q_no_value}
-                 }
-             }                          
-         }    
-%    \end{macrocode}
-% and now get the relation
-%    \begin{macrocode}
-       \bool_lazy_and:nnTF 
-         { ! \quark_if_no_value_p:N \l__tag_tmpa_tl }
-         { ! \quark_if_no_value_p:N \l__tag_tmpb_tl }     
-         {  
-           \__tag_role_get_parent_child_rel:VVN \l__tag_tmpa_tl \l__tag_tmpb_tl #3
-         }   
-         {
-           \tl_set:Nn #3 {0}
-           \msg_warning:nnxxx 
-            { tag } 
-            {role-parent-child} 
-            { #1 } 
-            { #2 }
-            { unknown! }  
-         }
-%    \end{macrocode}
-%      \tl_show:N\l__tag_tmpa_tl  \tl_show:N\l__tag_tmpb_tl       
-     }
- }
+
  
 %\tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
 
 \tagpdfsetup{add-new-tag=ssection/section}
 
-%\int_step_inline:nnn{2}{56}
-% {
-%   \int_step_inline:nnn{2}{56}
-%     {
-%       \tl_set:Nx\l_tmpa_tl{\int_compare:nNnT{#1}<{10}{0}#1\int_compare:nNnT{##1}<{10}{0}##1}
-%       %\int_show:n{\intarray_item:Nn \g__tag_role_parent_child_intarray{\l_tmpa_tl}}
-%       \int_compare:nNnT
-%         {\intarray_item:Nn \g__tag_role_parent_child_intarray{\l_tmpa_tl}}={0}
-%         {\show\blubblub\tl_show:N\l_tmpa_tl}
-%     }   
-% }
+
 %\prop_show:N\g__tag_role_rolemap_prop
 %\pdfdict_show:n {g__tag_role/RoleMap_dict}
 %\tag_check_parent_child:nnN {Title}{Part}\l_tmpa_tl
@@ -254,16 +49,16 @@
 %\tag_check_parent_child:nnN {section}{P}\l_tmpa_tl
 %\tag_check_parent_child:nnN {subsection}{Document}\l_tmpa_tl
 %\tag_check_parent_child:nnN {blub}{Document}\l_tmpa_tl
-\tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl
-\tag_check_parent_child:nnN {ssection}{Span}\l_tmpa_tl
-yyyyyyyyyyyy
-\tag_check_parent_child:nnN {H8}{Span}\l_tmpa_tl
+\__tag_check_parent_child:nnN {section}{subsection}\l_tmpa_tl 
+\__tag_check_parent_child:nnN {ssection}{Span}\l_tmpa_tl yyyyyyyyyyyy 
+\__tag_check_parent_child:nnN {H8}{Span}\l_tmpa_tl 
 
-\tag_check_parent_child:nnN {Formula}{math}\l_tmpa_tl
-\tag_check_parent_child:nnN {math}{mi}\l_tmpa_tl
-\tag_check_parent_child:nnN {mi}{mi}\l_tmpa_tl
-\tag_check_parent_child:nnN {mi}{P}\l_tmpa_tl
-\tag_check_parent_child:nnN {Title}{Part}\l_tmpa_tl
+\__tag_check_parent_child:nnN {Formula}{math}\l_tmpa_tl 
+\__tag_check_parent_child:nnN {math}{mi}\l_tmpa_tl 
+\__tag_check_parent_child:nnN {mi}{mi}\l_tmpa_tl 
+\__tag_check_parent_child:nnN 
+{mi}{P}\l_tmpa_tl 
+\__tag_check_parent_child:nnN {Title}{Part}\l_tmpa_tl 
 
 \tagstructend
 %\edef\blub {\intarray_item:Nn \g__tag_role_parent_child_intarray {1}}\show\blub
