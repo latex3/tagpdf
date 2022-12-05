@@ -794,6 +794,103 @@
   }    
 %    \end{macrocode}
 %
+% \subsubsection{Retrieving the parent-child rule}
+% 
+% \begin{macro}{\l_@@_role_real_parent_tl}
+%  Part, Div and NonStruct have no own rules, instead
+%  the parent have to be inspected. To store this parent
+%  we use this tlvar
+%    \begin{macrocode}
+\tl_new:N \l_@@_role_real_parent_tl 
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_role_get_parent_child_rule:nnN}
+%  This command is retrieve the rule (as a number) and stores it in the tl-var.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3% #1 parent #2  #3 tl for state
+  {
+     \tl_set:Nn\l_@@_role_real_parent_tl {#1}
+     \prop_get:NnN\g_@@_role_index_prop{#1}\l_@@_tmpa_tl
+     \prop_get:NnN\g_@@_role_index_prop{#2}\l_@@_tmpb_tl
+     \bool_lazy_and:nnTF 
+       { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
+       { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
+       {
+         \tl_set:Nx#3 
+           { \intarray_item:Nn 
+              \g_@@_role_parent_child_intarray 
+              {\l_@@_tmpa_tl\l_@@_tmpb_tl}
+           }
+        \int_compare:nNnT  
+         {#3} = {\prop_item:Nn\c_@@_role_rules_prop{‡}}  
+         {
+           \seq_set_eq:NN\l_@@_role_tmpa_seq \g_@@_struct_tag_stack_seq
+           %\seq_pop:NN \l_@@_role_tmpa_seq \l_@@_tmpa_tl
+           \seq_map_inline:Nn\g_@@_struct_tag_stack_seq 
+             {
+                \tl_if_in:nnF {-Part-Div-NonStruct-}{-##1-}
+                  {  
+                    \tl_set:Nn\l_@@_role_real_parent_tl {##1}
+                    \@@_role_get_parent_child_rel:nnN {##1}{#2}#3
+                    \seq_map_break:
+                  }
+             } 
+           %\tl_show:N \l_@@_role_next_parent_tl            
+         }
+%in debug             
+         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+           {      
+             \prop_get:NVN\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
+             \tl_set:Nn \l_@@_tmpb_tl{#1}
+             \msg_info:nnxxx 
+               { tag } 
+               {role-parent-child} 
+               { #1
+                 \tl_if_eq:NNF\l_@@_tmpb_tl\l_@@_role_real_parent_tl
+                   {
+                     \c_space_tl(inherited~from~\l_@@_role_real_parent_tl)
+                   }  
+                 \bool_lazy_and:nnT 
+                   {
+                     \prop_if_in_p:Nn \l_@@_role_debug_prop {parent}
+                   }
+                   {
+                     !\str_if_eq_p:ee {#1}{\prop_item:Nn\l_@@_role_debug_prop {parent}}
+                   }  
+                   {
+                     \c_space_tl (role-mapped~from~\prop_item:Nn\l_@@_role_debug_prop {parent})
+                   }                 
+               } 
+               { 
+                 #2 
+                 \bool_lazy_and:nnT 
+                   {
+                     \prop_if_in_p:Nn \l_@@_role_debug_prop {child}
+                   }
+                   {
+                     !\str_if_eq_p:ee {#1}{\prop_item:Nn\l_@@_role_debug_prop {child}}
+                   }  
+                   {
+                     \c_space_tl (role-mapped~from~\prop_item:Nn\l_@@_role_debug_prop {parent})
+                   }                                   
+               }
+               { '\l_@@_tmpa_tl' }   
+           }  
+       }
+       {         
+         \tl_set:Nn#3 {0}
+         \msg_warning:nnxxx 
+           { tag } 
+           {role-parent-child} 
+           { #1 } 
+           { #2 }
+           { unknown! }  
+       }
+  }  
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsection{Remapping of tags}
 % In some context it can be necessary to remap or replace the tags. 
 % That means instead of tag=H1 or tag=section one wants the effect of tag=Span.

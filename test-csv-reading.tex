@@ -6,34 +6,7 @@
 \begin{document}
 \ExplSyntaxOn
 
-%\seq_show:N\g__tag_struct_tag_stack_seq
-%\tl_new:N\l__tag_parent_tmpa_tl
 
-
-% add the H1, H2 to the index. 
-%    \begin{macrocode}
-\prop_get:NnN\g__tag_role_index_prop{Hn}\l__tag_tmpa_tl
-\pdf_version_compare:NnTF < {2.0}
- {
-  \int_step_inline:nn{6}
-   {
-     \prop_gput:Nnx\g__tag_role_index_prop{H#1}{\l__tag_tmpa_tl}
-   }
- }
- {
-   \int_step_inline:nn{10}
-    {
-      \prop_gput:Nnx\g__tag_role_index_prop{H#1}{\l__tag_tmpa_tl}
-    }
-   \prop_get:NnN\g__tag_role_index_prop {math}\l__tag_tmpa_tl 
-   \prop_get:NnN\g__tag_role_index_prop {mathml}\l__tag_tmpb_tl
-   \prop_map_inline:Nn \g__tag_role_NS_mathml_prop  
-     {
-       \prop_gput:NnV\g__tag_role_index_prop{#1}\l__tag_tmpb_tl
-     }  
-   \prop_gput:NnV\g__tag_role_index_prop{math}\l__tag_tmpa_tl  
- }    
-\prop_show:N \g__tag_role_index_prop 
  
 %    \end{macrocode}
 % TODO handle mathml tags
