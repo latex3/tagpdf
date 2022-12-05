@@ -768,7 +768,31 @@
 %    \begin{macrocode}
 \ior_close:N\g_tmpa_ior 
 %    \end{macrocode}
-%
+% The Hn and mathml tags are special an need to be added explicitly
+%    \begin{macrocode}
+\prop_get:NnN\g_@@_role_index_prop{Hn}\l_@@_tmpa_tl
+\pdf_version_compare:NnTF < {2.0}
+  {
+    \int_step_inline:nn{6}
+      {
+        \prop_gput:Nnx\g_@@_role_index_prop{H#1}{\l_@@_tmpa_tl}
+      }
+  }
+  {
+    \int_step_inline:nn{10}
+      {
+        \prop_gput:Nnx\g_@@_role_index_prop{H#1}{\l_@@_tmpa_tl}
+      }
+%    \end{macrocode}
+% all mathml tags are currently handled identically
+%    \begin{macrocode}
+    \prop_get:NnN\g_@@_role_index_prop {mathml}\l_@@_tmpa_tl
+    \prop_map_inline:Nn \g_@@_role_NS_mathml_prop  
+      {
+        \prop_gput:NnV\g_@@_role_index_prop{#1}\l_@@_tmpa_tl
+      }  
+  }    
+%    \end{macrocode}
 %
 % \subsection{Remapping of tags}
 % In some context it can be necessary to remap or replace the tags. 

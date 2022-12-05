@@ -62,4 +62,15 @@
      }   
  } 
 
+\TEST{show~tagindex}
+ {
+   \prop_show:N\g__tag_role_index_prop
+ }
+
+\TEST{show~tag rules}
+ {
+   \intarray_show:N\g__tag_role_parent_child_intarray
+ }
+
+ 
 \END
