@@ -3,10 +3,17 @@
 \DocumentMetadata{testphase=phase-II,pdfversion=2.0,debug={log=v}}
 \input{regression-test}
 \documentclass{article}
+\begin{document}
 
+
+\ShowTagging{struct-stack}
 \START
 
 \ExplSyntaxOn
+\TEST{Show-Stack}
+ {
+   \ShowTagging{struct-stack}
+ }
 %tag-NS
 \TEST{Sect-Em: no}
  {
@@ -110,3 +117,4 @@
    \tl_show:N\l_tmpa_tl
  }           
 \END
+\end{document}

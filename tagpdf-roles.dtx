@@ -790,10 +790,12 @@
 % all mathml tags are currently handled identically
 %    \begin{macrocode}
     \prop_get:NnN\g_@@_role_index_prop {mathml}\l_@@_tmpa_tl
+    \prop_get:NnN\g_@@_role_index_prop {math}\l_@@_tmpb_tl
     \prop_map_inline:Nn \g_@@_role_NS_mathml_prop  
       {
         \prop_gput:NnV\g_@@_role_index_prop{#1}\l_@@_tmpa_tl
       }  
+    \prop_gput:NnV\g_@@_role_index_prop{math}\l_@@_tmpb_tl    
   }    
 %    \end{macrocode}
 %
@@ -811,7 +813,8 @@
 % \begin{macro}{\@@_role_get_parent_child_rule:nnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3% #1 parent #2  #3 tl for state
+\cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
+  % #1 parent (string) #2 child (string) #3 tl for state
   {
      \tl_set:Nn \l_@@_role_real_parent_tl {#1}
 %    \end{macrocode}
@@ -912,7 +915,7 @@
 % 
 % \begin{macro}{@@_check_parent_child:nnN}
 % This is the main command. 
-% It has to retrieve the standard tags for a comparision.
+% It has to retrieve the standard tags for a comparison.
 %    \begin{macrocode}
 \pdf_version_compare:NnTF < {2.0}
   {
@@ -986,7 +989,7 @@
 %  If there is some rolemapping we need the current namespace
 %    \begin{macrocode}
          {           
-           \prop_get:NnNT\g_@@_role_tags_NS_prop {#1}\l_@@_role_tag_namespace_tmpa_tl
+           \prop_get:NnNTF\g_@@_role_tags_NS_prop {#1}\l_@@_role_tag_namespace_tmpa_tl
              {
                \prop_get:cnNTF 
                  { g_@@_role_NS_ \l_@@_role_tag_namespace_tmpa_tl _prop }
@@ -998,6 +1001,9 @@
                  { 
                    \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
                  }
+             }
+             {
+               \tl_set:Nn \l_@@_tmpa_tl {#1}
              }                          
          }    
 %    \end{macrocode}
@@ -1011,7 +1017,7 @@
 %  If there is some rolemapping we need the current namespace
 %    \begin{macrocode}
          {           
-           \prop_get:NnNT\g_@@_role_tags_NS_prop {#2}\l_@@_role_tag_namespace_tmpa_tl
+           \prop_get:NnNTF\g_@@_role_tags_NS_prop {#2}\l_@@_role_tag_namespace_tmpa_tl
              {
                \prop_get:cnNTF 
                  { g_@@_role_NS_ \l_@@_role_tag_namespace_tmpa_tl _prop }
@@ -1022,8 +1028,11 @@
                  }
                  { 
                    \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
-                 }
-             }                          
+                 } 
+             }    
+             {
+               \tl_set:Nn \l_@@_tmpb_tl {#2}
+             }                                    
          }    
 %    \end{macrocode}
 % and now get the relation

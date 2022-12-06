@@ -1,7 +1,17 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 ============================================================
-TEST 1: Sect-Em:no
+TEST 1: Show-Stack
+============================================================
+The sequence \g__tag_struct_tag_stack_seq contains the items (without outer
+braces):
+>  {Document}
+>  {Root}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 2: Sect-Em:no
 ============================================================
 Package tagpdf Info: The rule between parent 'Sect' and child 'Em' is '^^e2^^88^^85'
 > \l_tmpa_tl=-1.
@@ -9,34 +19,34 @@ Package tagpdf Info: The rule between parent 'Sect' and child 'Em' is '^^e2^^88^
 l. ... }
 ============================================================
 ============================================================
-TEST 2: Sect-blub:unknown
+TEST 3: Sect-blub:unknown
 ============================================================
-Package tagpdf Warning: The rule between parent 'Sect' and child '56' is
+Package tagpdf Warning: The rule between parent 'Sect' and child 'blub' is
 (tagpdf)                unknown!
 > \l_tmpa_tl=0.
 <recently read> }
 l. ... }
 ============================================================
 ============================================================
-TEST 3: bla-Sect:unknown
+TEST 4: bla-Sect:unknown
 ============================================================
-Package tagpdf Warning: The rule between parent '54' and child 'Sect' is
+Package tagpdf Warning: The rule between parent 'bla' and child 'Sect' is
 (tagpdf)                unknown!
 > \l_tmpa_tl=0.
 <recently read> }
 l. ... }
 ============================================================
 ============================================================
-TEST 4: bla-blub:unknown
+TEST 5: bla-blub:unknown
 ============================================================
-Package tagpdf Warning: The rule between parent '54' and child '56' is
+Package tagpdf Warning: The rule between parent 'bla' and child 'blub' is
 (tagpdf)                unknown!
 > \l_tmpa_tl=0.
 <recently read> }
 l. ... }
 ============================================================
 ============================================================
-TEST 5: Sect-H2:allowed
+TEST 6: Sect-H2:allowed
 ============================================================
 Package tagpdf Info: The rule between parent 'Sect' and child 'H2' is '0..n'
 > \l_tmpa_tl=1.
@@ -44,7 +54,7 @@ Package tagpdf Info: The rule between parent 'Sect' and child 'H2' is '0..n'
 l. ... }
 ============================================================
 ============================================================
-TEST 6: Rolemapping: Sect-section allowed
+TEST 7: Rolemapping: Sect-section allowed
 ============================================================
 Package tagpdf Info: The rule between parent 'Sect' and child 'H1 (role-mapped
 (tagpdf)             from section)' is '0..n'
@@ -53,7 +63,7 @@ Package tagpdf Info: The rule between parent 'Sect' and child 'H1 (role-mapped
 l. ... }
 ============================================================
 ============================================================
-TEST 7: Double rolemapping: subsection-section no
+TEST 8: Double rolemapping: subsection-section no
 ============================================================
 Package tagpdf Info: The rule between parent 'H2 (role-mapped from
 (tagpdf)             subsection)' and child 'H1 (role-mapped from section)' is
@@ -63,25 +73,25 @@ Package tagpdf Info: The rule between parent 'H2 (role-mapped from
 l. ... }
 ============================================================
 ============================================================
-TEST 8: Inherit: Part-P yes
+TEST 9: Inherit: Part-P yes
 ============================================================
-Package tagpdf Info: The rule between parent 'Part (inherited from Root)' and
-(tagpdf)             child 'P' is '^^e2^^88^^85'
+Package tagpdf Info: The rule between parent 'Part (inherited from Document)'
+(tagpdf)             and child 'P' is '0..n'
+> \l_tmpa_tl=1.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 10: Inherit: NonStruct-Lbl no
+============================================================
+Package tagpdf Info: The rule between parent 'NonStruct (inherited from
+(tagpdf)             Document)' and child 'Lbl' is '^^e2^^88^^85'
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
 ============================================================
 ============================================================
-TEST 9: Inherit: NonStruct-Lbl no
-============================================================
-Package tagpdf Info: The rule between parent 'NonStruct (inherited from Root)'
-(tagpdf)             and child 'Lbl' is '^^e2^^88^^85'
-> \l_tmpa_tl=-1.
-<recently read> }
-l. ... }
-============================================================
-============================================================
-TEST 10: Special: Ruby-RT yes
+TEST 11: Special: Ruby-RT yes
 ============================================================
 Package tagpdf Info: The rule between parent 'Ruby' and child 'RT' is '[a]'
 > \l_tmpa_tl=4.
@@ -89,7 +99,7 @@ Package tagpdf Info: The rule between parent 'Ruby' and child 'RT' is '[a]'
 l. ... }
 ============================================================
 ============================================================
-TEST 11: Special: H-Sect yes
+TEST 12: Special: H-Sect yes
 ============================================================
 Package tagpdf Info: The rule between parent 'H' and child 'Sect' is '0..1'
 > \l_tmpa_tl=2.
@@ -97,7 +107,7 @@ Package tagpdf Info: The rule between parent 'H' and child 'Sect' is '0..1'
 l. ... }
 ============================================================
 ============================================================
-TEST 12: Content item: P-MC yes
+TEST 13: Content item: P-MC yes
 ============================================================
 Package tagpdf Info: The rule between parent 'P' and child 'MC' is '0..n'
 > \l_tmpa_tl=1.
@@ -105,7 +115,7 @@ Package tagpdf Info: The rule between parent 'P' and child 'MC' is '0..n'
 l. ... }
 ============================================================
 ============================================================
-TEST 13: Content item: TBody-MC no
+TEST 14: Content item: TBody-MC no
 ============================================================
 Package tagpdf Info: The rule between parent 'TBody' and child 'MC' is '^^e2^^88^^85'
 > \l_tmpa_tl=-1.
@@ -113,7 +123,7 @@ Package tagpdf Info: The rule between parent 'TBody' and child 'MC' is '^^e2^^88
 l. ... }
 ============================================================
 ============================================================
-TEST 14: Root: StructTreeRoot-MC no
+TEST 15: Root: StructTreeRoot-MC no
 ============================================================
 Package tagpdf Info: The rule between parent 'StructTreeRoot' and child 'MC'
 (tagpdf)             is '^^e2^^88^^85'
@@ -122,7 +132,7 @@ Package tagpdf Info: The rule between parent 'StructTreeRoot' and child 'MC'
 l. ... }
 ============================================================
 ============================================================
-TEST 15: Math: math-abs yes
+TEST 16: Math: math-abs yes
 ============================================================
 Package tagpdf Info: The rule between parent 'math' and child 'abs' is '0..n'
 > \l_tmpa_tl=1.
@@ -130,16 +140,16 @@ Package tagpdf Info: The rule between parent 'math' and child 'abs' is '0..n'
 l. ... }
 ============================================================
 ============================================================
-TEST 16: Math: Formula-math yes
+TEST 17: Math: Formula-math yes
 ============================================================
 Package tagpdf Info: The rule between parent 'Formula' and child 'math' is
-(tagpdf)             '^^e2^^88^^85'
-> \l_tmpa_tl=-1.
+(tagpdf)             '0..n'
+> \l_tmpa_tl=1.
 <recently read> }
 l. ... }
 ============================================================
 ============================================================
-TEST 17: H10: Sect-H10 yes
+TEST 18: H10: Sect-H10 yes
 ============================================================
 Package tagpdf Info: The rule between parent 'Sect' and child 'H10' is '0..n'
 > \l_tmpa_tl=1.
