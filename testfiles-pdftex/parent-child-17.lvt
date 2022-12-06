@@ -1,0 +1,94 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\DocumentMetadata{testphase=phase-II,pdfversion=1.7,debug={log=v}}
+\input{regression-test}
+\documentclass{article}
+
+\START
+
+\ExplSyntaxOn
+%tag-NS
+\TEST{Sect-Em: no}
+ {
+   \__tag_check_parent_child:nnN {Sect}{Em}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }
+ 
+\TEST{Sect-blub: unknown}
+ {
+   \__tag_check_parent_child:nnN {Sect}{blub}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ } 
+ 
+\TEST{bla-Sect: unknown}
+ {
+   \__tag_check_parent_child:nnN {bla}{Sect}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }  
+ 
+\TEST{bla-blub: unknown}
+ {
+   \__tag_check_parent_child:nnN {bla}{blub}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }  
+ 
+\TEST{Sect-H2: allowed}
+ {
+   \__tag_check_parent_child:nnN {Sect}{H2}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }  
+ 
+\TEST{Rolemapping:~Sect-section~allowed}
+ {
+   \__tag_check_parent_child:nnN {Sect}{section}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }   
+ 
+\TEST{Double~rolemapping:~subsection-section~no}
+ {
+   \__tag_check_parent_child:nnN {subsection}{section}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }    
+ 
+ 
+\TEST{Inherit:~Part-P~yes}
+ {
+   \__tag_check_parent_child:nnN {Part}{P}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }   
+ 
+\TEST{Inherit:~NonStruct-Lbl~no}
+ {
+   \__tag_check_parent_child:nnN {NonStruct}{Lbl}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }     
+ 
+\TEST{Special:~Ruby-RT~yes}
+ {
+   \__tag_check_parent_child:nnN {Ruby}{RT}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }       
+ 
+\TEST{Special:~H-Sect~yes}
+ {
+   \__tag_check_parent_child:nnN {H}{Sect}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }  
+\TEST{Content~item:~P-MC~yes}
+ {
+   \__tag_check_parent_child:nnN {P}{MC}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }   
+ 
+\TEST{Content~item:~TBody-MC~no}
+ {
+   \__tag_check_parent_child:nnN {TBody}{MC}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }   
+ 
+\TEST{Root:~StructTreeRoot-MC~no}
+ {
+   \__tag_check_parent_child:nnN {StructTreeRoot}{MC}\l_tmpa_tl
+   \tl_show:N\l_tmpa_tl
+ }        
+\END
