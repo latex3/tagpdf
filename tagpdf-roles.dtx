@@ -768,8 +768,11 @@
 %    \begin{macrocode}
 \ior_close:N\g_tmpa_ior 
 %    \end{macrocode}
-% The Hn and mathml tags are special an need to be added explicitly
+% The Root,
+% Hn and mathml tags are special and need to be added explicitly
 %    \begin{macrocode}
+\prop_get:NnN\g_@@_role_index_prop{StructTreeRoot}\l_@@_tmpa_tl
+\prop_gput:Nnx\g_@@_role_index_prop{Root}{\l_@@_tmpa_tl}
 \prop_get:NnN\g_@@_role_index_prop{Hn}\l_@@_tmpa_tl
 \pdf_version_compare:NnTF < {2.0}
   {
@@ -842,7 +845,9 @@
                  \tl_if_in:nnF {-Part-Div-NonStruct-}{-##1-}
                    {  
                      \tl_set:Nn\l_@@_role_real_parent_tl {##1}
+                     \int_zero:N\l_@@_tmpa_int
                      \@@_role_get_parent_child_rule:nnN {##1}{#2}#3
+                     \int_set:Nn\l_@@_tmpa_int{1}
                      \seq_map_break:
                    }
                } 
@@ -850,7 +855,7 @@
 %    \end{macrocode}
 %   This is the message, this can perhaps go into debug mode.
 %    \begin{macrocode}
-         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+         \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
            {      
              \prop_get:NVN\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
              \tl_set:Nn \l_@@_tmpb_tl {#1}
@@ -858,20 +863,22 @@
                { tag } 
                { role-parent-child } 
                { #1
-                 \tl_if_eq:NNF\l_@@_tmpb_tl\l_@@_role_real_parent_tl
+                 \tl_if_eq:NNTF\l_@@_tmpb_tl\l_@@_role_real_parent_tl
+                   {
+                     \bool_lazy_and:nnT 
+                      {
+                        \prop_if_in_p:Nn \l_@@_role_debug_prop {parent}
+                      }
+                      {
+                        !\str_if_eq_p:ee {#1}{\prop_item:Nn\l_@@_role_debug_prop {parent}}
+                      }  
+                      {
+                        \c_space_tl (role-mapped~from~\prop_item:Nn\l_@@_role_debug_prop {parent})
+                      }                                    
+                   }
                    {
                      \c_space_tl(inherited~from~\l_@@_role_real_parent_tl)
                    }  
-                 \bool_lazy_and:nnT 
-                   {
-                     \prop_if_in_p:Nn \l_@@_role_debug_prop {parent}
-                   }
-                   {
-                     !\str_if_eq_p:ee {#1}{\prop_item:Nn\l_@@_role_debug_prop {parent}}
-                   }  
-                   {
-                     \c_space_tl (role-mapped~from~\prop_item:Nn\l_@@_role_debug_prop {parent})
-                   }                 
                } 
                { 
                  #2 
@@ -880,10 +887,10 @@
                      \prop_if_in_p:Nn \l_@@_role_debug_prop {child}
                    }
                    {
-                     !\str_if_eq_p:ee {#1}{\prop_item:Nn\l_@@_role_debug_prop {child}}
+                     !\str_if_eq_p:ee {#2}{\prop_item:Nn\l_@@_role_debug_prop {child}}
                    }  
                    {
-                     \c_space_tl (role-mapped~from~\prop_item:Nn\l_@@_role_debug_prop {parent})
+                     \c_space_tl (role-mapped~from~\prop_item:Nn\l_@@_role_debug_prop {child})
                    }                                   
                }
                { '\l_@@_tmpa_tl' }   
@@ -936,7 +943,7 @@
          {
            \prop_get:NnNF \g_@@_role_rolemap_prop {#2}\l_@@_tmpb_tl 
              {                
-               \tl_set:Nn \l_@@_tmpb_tl {\q_no_value.}
+               \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
              }
          } 
 %    \end{macrocode}
