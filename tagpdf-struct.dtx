@@ -894,16 +894,9 @@
     tag   .code:n        = % S property
       {
         \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:Ne\g__tag_role_tags_NS_prop{#1}}
-        \tl_set:Nx \l_@@_role_remap_tag_tl    { \seq_item:Nn\l_@@_tmpa_seq {1} }
-        \tl_set:Nx \l_@@_role_remap_NS_tl { \seq_item:Nn\l_@@_tmpa_seq {2} }
-        \@@_role_remap:
-        \tl_gset_eq:NN \g_@@_struct_tag_tl\l_@@_role_remap_tag_tl
-        \tl_gset_eq:NN \g_@@_struct_tag_NS_tl\l_@@_role_remap_NS_tl       
+        \tl_gset:Nx \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
+        \tl_gset:Nx \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }  
         \@@_check_structure_tag:N \g_@@_struct_tag_tl
-        \@@_struct_set_tag_info:nVV 
-          { \int_eval:n {\c@g_@@_struct_abs_int} }
-           \g_@@_struct_tag_tl               
-           \g_@@_struct_tag_NS_tl   
       },
     title .code:n        = % T property
       {
@@ -1146,7 +1139,24 @@
           { /StructElem }
         \tl_set:Nn \l_@@_struct_stack_parent_tmpa_tl {-1}
         \keys_set:nn { @@ / struct} { #1 }
-        \@@_check_structure_has_tag:n { \int_eval:n {\c@g_@@_struct_abs_int} }
+%    \end{macrocode}
+% now we check if the tag can be used inside the parent. It only makes sense,
+% if the structure is actually used here, so it is guarded by the stash boolean.
+%    \begin{macrocode}
+        \bool_if:NF \l_@@_struct_elem_stash_bool
+          {
+           \@@_check_parent_child:VVN 
+             \g_@@_struct_tag_tl 
+             \g_@@_struct_tag_tl % change to parent!!
+             \l_@@_tmpa_tl
+          }   
+%    \end{macrocode}
+%    \begin{macrocode}
+        \@@_struct_set_tag_info:nVV 
+          { \int_eval:n {\c@g_@@_struct_abs_int} }
+           \g_@@_struct_tag_tl               
+           \g_@@_struct_tag_NS_tl   
+        \@@_check_structure_has_tag:n { \int_eval:n {\c@g_@@_struct_abs_int} }           
         \tl_if_empty:NF
           \l_@@_struct_key_label_tl
           {
