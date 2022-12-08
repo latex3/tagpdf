@@ -471,8 +471,10 @@
 % 
 % \subsection{Filling in the tag info}
 % \begin{macro}{\@@_struct_set_tag_info:nnn }
-% This adds or updates the tag info to a structure given by a number
+% This adds or updates the tag info to a structure given by a number. 
+% We need also the original data, so we store both.
 %    \begin{macrocode}
+\cs_new:Npn \@@_use_arg:nn #1#2{#1}
 
 \pdf_version_compare:NnTF < {2.0}
  {
@@ -491,13 +493,13 @@
        \@@_prop_gput:cnx
          { g_@@_struct_#1_prop }
          { S }
-         { \pdf_name_from_unicode_e:n{ #2 } } %
+         { \exp_not:N\@@_use_arg:nn{\pdf_name_from_unicode_e:n{ #2 }}{#2} } %
        \prop_get:NnNT \g_@@_role_NS_prop{#3} \l_@@_tmpa_tl
          {
            \@@_prop_gput:cnx
              { g_@@_struct_#1_prop }
              { NS }
-             { \l_@@_tmpa_tl } %
+             { \exp_not:N\@@_use_arg:nn{\l_@@_tmpa_tl}{#2}  } %
          }
      } 
  }     
@@ -1140,17 +1142,6 @@
         \tl_set:Nn \l_@@_struct_stack_parent_tmpa_tl {-1}
         \keys_set:nn { @@ / struct} { #1 }
 %    \end{macrocode}
-% now we check if the tag can be used inside the parent. It only makes sense,
-% if the structure is actually used here, so it is guarded by the stash boolean.
-%    \begin{macrocode}
-        \bool_if:NF \l_@@_struct_elem_stash_bool
-          {
-           \@@_check_parent_child:VVN 
-             \g_@@_struct_tag_tl 
-             \g_@@_struct_tag_tl % change to parent!!
-             \l_@@_tmpa_tl
-          }   
-%    \end{macrocode}
 %    \begin{macrocode}
         \@@_struct_set_tag_info:nVV 
           { \int_eval:n {\c@g_@@_struct_abs_int} }
@@ -1181,7 +1172,33 @@
         %\seq_show:N   \g_@@_struct_stack_seq
         \bool_if:NF
           \l_@@_struct_elem_stash_bool
-          {%set the  parent
+          {
+%    \end{macrocode}
+%  check if the tag can be used inside the parent. It only makes sense,
+%  if the structure is actually used here, so it is guarded by the stash boolean.
+%  For now we ignore the namespace! 
+%    \begin{macrocode}
+           \prop_get:cnNTF 
+             { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _ prop }
+             {S}
+             \l_@@_tmpa_tl
+             {
+                \cs_set_eq:NN \@@_use_arg:nn\use_ii:nn
+                \@@_check_parent_child:eVN 
+                  {\l_@@_tmpa_tl} % remove slash
+                  \g_@@_struct_tag_tl 
+                  \l_@@_tmpa_tl
+                \int_compare:nNnT {\l_@@_tmpa_tl}<0 
+                 { 
+                  %\@@_role_remap:V \l_@@_tmpa_tl 
+                 }
+             }
+             {
+               \tl_set:Nn\l_@@_tmpa_tl {0}
+             }
+%    \end{macrocode}
+% Set the Parent.
+%    \begin{macrocode}
             \@@_prop_gput:cnx
               { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
               { P }

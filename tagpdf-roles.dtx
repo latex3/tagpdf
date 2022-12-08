@@ -1053,8 +1053,76 @@
             { unknown! }  
          }
      }
+   \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5 %tag,NS,tag,NS, tl var
+      { 
+       \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1} 
+       \prop_put:Nnn \l_@@_role_debug_prop {child} {#2}       
+%    \end{macrocode}
+% we assume here that the standard tags do not change their name space and their role
+% mapping, so we can simply get their index from the prop 
+%    \begin{macrocode}
+       \prop_get:NnNTF \g_@@_role_index_prop {#1}\l_@@_tmpa_tl
+         {
+           \tl_set:Nn \l_@@_tmpa_tl {#1}
+         }
+%    \end{macrocode}
+%  If there is some rolemapping we retrieve it from the namespace
+%    \begin{macrocode}
+         {           
+           \prop_get:cnNTF 
+              { g_@@_role_NS_#2_prop }
+              {#1}
+              \l_@@_tmpa_tl
+              {
+                \tl_set:Nx \l_@@_tmpa_tl {\tl_head:N\l_@@_tmpa_tl}
+              }
+              { 
+                \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
+              }
+         }    
+%    \end{macrocode}
+% and the same for the child
+%    \begin{macrocode}
+      \prop_get:NnNTF \g_@@_role_index_prop {#3}\l_@@_tmpb_tl
+         {
+           \tl_set:Nn \l_@@_tmpb_tl {#3}
+         }
+%    \end{macrocode}
+%  If there is some rolemapping we retrieve it from the namespace
+%    \begin{macrocode}
+         {           
+           \prop_get:cnNTF 
+             { g_@@_role_NS_#4_prop }
+             {#3}
+             \l_@@_tmpb_tl
+             {
+               \tl_set:Nx \l_@@_tmpb_tl { \tl_head:N\l_@@_tmpb_tl }
+             }
+             { 
+               \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
+             }     
+         }    
+%    \end{macrocode}
+% and now get the relation
+%    \begin{macrocode}
+       \bool_lazy_and:nnTF 
+         { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
+         { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
+         {  
+           \@@_role_get_parent_child_rule:VVN \l_@@_tmpa_tl \l_@@_tmpb_tl #5
+         }   
+         {
+           \tl_set:Nn #5 {0}
+           \msg_warning:nnxxx 
+            { tag } 
+            {role-parent-child} 
+            { #1 } 
+            { #3 }
+            { unknown! }  
+         }
+     }     
   }
-\cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN}  
+\cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN,eVN}  
 %    \end{macrocode}
 % \end{macro}
 %
