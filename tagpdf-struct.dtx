@@ -468,6 +468,42 @@
   { \pdf_object_ref:n { @@/tree/namespaces } }
 %    \end{macrocode}
 % \end{variable}
+% 
+% \subsection{Filling in the tag info}
+% \begin{macro}{\@@_struct_set_tag_info:nnn }
+% This adds or updates the tag info to a structure given by a number
+%    \begin{macrocode}
+
+\pdf_version_compare:NnTF < {2.0}
+ {
+   \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
+     %#1 structure number, #2 tag
+     { 
+       \@@_prop_gput:cnx
+         { g_@@_struct_#1_prop }         
+         { S }
+         { \pdf_name_from_unicode_e:n{ #2 } } %
+     }
+ }     
+ {     
+   \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
+     {  
+       \@@_prop_gput:cnx
+         { g_@@_struct_#1_prop }
+         { S }
+         { \pdf_name_from_unicode_e:n{ #2 } } %
+       \prop_get:NnNT \g_@@_role_NS_prop{#3} \l_@@_tmpa_tl
+         {
+           \@@_prop_gput:cnx
+             { g_@@_struct_#1_prop }
+             { NS }
+             { \l_@@_tmpa_tl } %
+         }
+     } 
+ }     
+\cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {nVV}
+%    \end{macrocode}
+% \end{macro}
 % \subsection{Handlings kids}
 % Commands to store the kids. Kids in a structure can be a reference to a mc-chunk,
 % an object reference to another structure element, or a object reference to an
@@ -864,20 +900,10 @@
         \tl_gset_eq:NN \g_@@_struct_tag_tl\l_@@_role_remap_tag_tl
         \tl_gset_eq:NN \g_@@_struct_tag_NS_tl\l_@@_role_remap_NS_tl       
         \@@_check_structure_tag:N \g_@@_struct_tag_tl
-        \@@_prop_gput:cnx
-         { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-         { S }
-         { \pdf_name_from_unicode_e:n{ \g_@@_struct_tag_tl} } %
-       \pdf_version_compare:NnF < {2.0}
-        {  
-          \prop_get:NVNT \g_@@_role_NS_prop\g_@@_struct_tag_NS_tl\l_@@_tmpa_tl
-            {
-              \@@_prop_gput:cnx
-               { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-               { NS }
-               { \l_@@_tmpa_tl } %
-            }
-        } 
+        \@@_struct_set_tag_info:nVV 
+          { \int_eval:n {\c@g_@@_struct_abs_int} }
+           \g_@@_struct_tag_tl               
+           \g_@@_struct_tag_NS_tl   
       },
     title .code:n        = % T property
       {
