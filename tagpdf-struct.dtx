@@ -1183,15 +1183,15 @@
              {S}
              \l_@@_tmpa_tl
              {
-                \cs_set_eq:NN \@@_use_arg:nn\use_ii:nn
-                \@@_check_parent_child:eVN 
-                  {\l_@@_tmpa_tl} % remove slash
-                  \g_@@_struct_tag_tl 
-                  \l_@@_parent_child_check_tl                 
-                \int_compare:nNnT {\l_@@_parent_child_check_tl}<0 
-                 { 
-                  %\@@_role_remap:V \l_@@_tmpa_tl 
-                 }
+                %\cs_set_eq:NN \@@_use_arg:nn\use_ii:nn
+%                \@@_check_parent_child:eVN 
+%                  {\l_@@_tmpa_tl} % remove slash
+%                  \g_@@_struct_tag_tl 
+%                  \l_@@_parent_child_check_tl                 
+%                \int_compare:nNnT {\l_@@_parent_child_check_tl}<0 
+%                 { 
+%                  %\@@_role_remap:V \l_@@_tmpa_tl 
+%                 }
              }
              {
                \tl_set:Nn\l_@@_parent_child_check_tl {0}

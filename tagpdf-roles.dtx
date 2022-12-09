@@ -803,7 +803,7 @@
 % 
 % \begin{macro}{\l_@@_role_real_parent_tl}
 %  Part, Div and NonStruct have no own rules, instead
-%  the parent have to be inspected. To store this parent
+%  the parent(s) have to be inspected. To store this real parent
 %  we use this tlvar
 %    \begin{macrocode}
 \tl_new:N \l_@@_role_real_parent_tl 
@@ -813,6 +813,8 @@
 % \begin{macro}{\@@_role_get_parent_child_rule:nnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
 %  TODO check temporary variables. Check if the tl-var should be fix.
+%  The arguments should be standard tags for which a rule exist and
+%  role mapping should have already be done.
 %    \begin{macrocode}
 \tl_new:N \l_@@_parent_child_check_tl
 \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
@@ -860,6 +862,7 @@
 %    \end{macrocode}
 %   This is the message, this can perhaps go into debug mode.
 %    \begin{macrocode}
+         \group_begin:
          \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
            {      
              \prop_get:NVN\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
@@ -900,6 +903,7 @@
                }
                { '\l_@@_tmpa_tl' }   
            }  
+           \group_end: 
        }
        {         
          \tl_set:Nn#3 {0}
@@ -915,21 +919,25 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{@@_check_parent_child:nnN}
+% \begin{macro}{@@_check_parent_child:nnnnN}
 % This is the main command. 
 % It has to retrieve the standard tags for a comparison.
+% In pdf 2.0 the name spaces of the tags are relevant, so we
+% have arguments for them, but in pdf <2.0 they are ignored and can
+% be left empty.
 %    \begin{macrocode}
 \pdf_version_compare:NnTF < {2.0}
   {
-   \cs_new_protected:Npn \@@_check_parent_child:nnN #1 #2 #3
+   \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5
      {
 %    \end{macrocode}
 % for debugging messages we store the arguments.
 %    \begin{macrocode}
        \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1} 
-       \prop_put:Nnn \l_@@_role_debug_prop {child} {#2}  
+       \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3}  
 %    \end{macrocode}
-% get the standard tag through rolemapping if needed
+% get the standard tags through rolemapping if needed
+% at first the parent
 %    \begin{macrocode}
        \prop_get:NnNTF \g_@@_role_index_prop {#1}\l_@@_tmpa_tl
          {
@@ -941,35 +949,42 @@
                \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
              }
          }    
-       \prop_get:NnNTF \g_@@_role_index_prop {#2}\l_@@_tmpb_tl
+%    \end{macrocode}
+% now the child
+%    \begin{macrocode}
+       \prop_get:NnNTF \g_@@_role_index_prop {#3}\l_@@_tmpb_tl
          {
-           \tl_set:Nn \l_@@_tmpb_tl {#2}
+           \tl_set:Nn \l_@@_tmpb_tl {#3}
          }
          {
-           \prop_get:NnNF \g_@@_role_rolemap_prop {#2}\l_@@_tmpb_tl 
+           \prop_get:NnNF \g_@@_role_rolemap_prop {#3}\l_@@_tmpb_tl 
              {                
                \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
              }
          } 
 %    \end{macrocode}
-% if we got tags for parent and child
+% if we got tags for parent and child we call the checking command
 %    \begin{macrocode}
        \bool_lazy_and:nnTF 
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
          {  
-           \@@_role_get_parent_child_rule:VVN \l_@@_tmpa_tl \l_@@_tmpb_tl #3
+           \@@_role_get_parent_child_rule:VVN \l_@@_tmpa_tl \l_@@_tmpb_tl #5
          }   
          {
-           \tl_set:Nn #3 {0}
+           \tl_set:Nn #5 {0}
            \msg_warning:nnxxx 
             { tag } 
             {role-parent-child} 
             { #1 } 
-            { #2 }
+            { #3 }
             { unknown! }  
          }
      }
+   \cs_new_protected:Npn \@@_check_parent_child:nnN #1#2#3 
+     {
+       \@@_check_parent_child:nnnnN {#1}{}{#2}{}#3
+     }  
   }
 %    \end{macrocode}
 % and now the pdf 2.0 version
@@ -1057,53 +1072,57 @@
      }
    \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5 %tag,NS,tag,NS, tl var
       { 
-       \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1} 
-       \prop_put:Nnn \l_@@_role_debug_prop {child} {#2}       
+        \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1/#2} 
+        \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3/#4}       
 %    \end{macrocode}
-% we assume here that the standard tags do not change their name space and their role
-% mapping, so we can simply get their index from the prop 
-%    \begin{macrocode}
-       \prop_get:NnNTF \g_@@_role_index_prop {#1}\l_@@_tmpa_tl
-         {
-           \tl_set:Nn \l_@@_tmpa_tl {#1}
-         }
-%    \end{macrocode}
-%  If there is some rolemapping we retrieve it from the namespace
-%    \begin{macrocode}
-         {           
-           \prop_get:cnNTF 
-              { g_@@_role_NS_#2_prop }
-              {#1}
-              \l_@@_tmpa_tl
-              {
-                \tl_set:Nx \l_@@_tmpa_tl {\tl_head:N\l_@@_tmpa_tl}
-              }
-              { 
-                \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
-              }
-         }    
+%  If the namespace is empty, we assume a standard tag,
+%  otherwise we retrieve the rolemapping from the namespace
+%    \begin{macrocode} 
+        \tl_if_empty:nTF  {#2}
+          {   
+            \tl_set:Nn \l_@@_tmpa_tl {#1}
+          } 
+          {           
+            \prop_get:cnNTF 
+               { g_@@_role_NS_#2_prop }
+               {#1}
+               \l_@@_tmpa_tl
+               {
+                 \tl_set:Nx \l_@@_tmpa_tl {\tl_head:N\l_@@_tmpa_tl}
+                 \tl_if_empty:NT\l_@@_tmpa_tl
+                   {
+                     \tl_set:Nn \l_@@_tmpa_tl {#1}
+                   } 
+               }
+               { 
+                 \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
+               }  
+          }            
 %    \end{macrocode}
 % and the same for the child
+%  If the namespace is empty, we assume a standard tag,
+%  otherwise we retrieve the rolemapping from the namespace
 %    \begin{macrocode}
-      \prop_get:NnNTF \g_@@_role_index_prop {#3}\l_@@_tmpb_tl
-         {
-           \tl_set:Nn \l_@@_tmpb_tl {#3}
-         }
-%    \end{macrocode}
-%  If there is some rolemapping we retrieve it from the namespace
-%    \begin{macrocode}
-         {           
-           \prop_get:cnNTF 
-             { g_@@_role_NS_#4_prop }
-             {#3}
-             \l_@@_tmpb_tl
-             {
-               \tl_set:Nx \l_@@_tmpb_tl { \tl_head:N\l_@@_tmpb_tl }
-             }
-             { 
-               \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
-             }     
-         }    
+        \tl_if_empty:nTF  {#4}
+          {   
+            \tl_set:Nn \l_@@_tmpb_tl {#3}
+          } 
+          { 
+            \prop_get:cnNTF 
+              { g_@@_role_NS_#4_prop }
+              {#3}
+              \l_@@_tmpb_tl
+              {
+                \tl_set:Nx \l_@@_tmpb_tl { \tl_head:N\l_@@_tmpb_tl }
+                \tl_if_empty:NT\l_@@_tmpb_tl
+                  {
+                    \tl_set:Nn \l_@@_tmpb_tl {#3}
+                  }             
+              }
+              { 
+                \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
+              } 
+          }         
 %    \end{macrocode}
 % and now get the relation
 %    \begin{macrocode}
@@ -1125,6 +1144,7 @@
      }     
   }
 \cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN,eVN}  
+\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,eVeVN}  
 %    \end{macrocode}
 % \end{macro}
 %
