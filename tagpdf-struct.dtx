@@ -484,7 +484,7 @@
        \@@_prop_gput:cnx
          { g_@@_struct_#1_prop }         
          { S }
-         { \pdf_name_from_unicode_e:n{ #2 } } %
+         { \exp_not:N\@@_use_arg:nn{\pdf_name_from_unicode_e:n{ #2 }}{#2}  } %
      }
  }     
  {     
@@ -1187,14 +1187,14 @@
                 \@@_check_parent_child:eVN 
                   {\l_@@_tmpa_tl} % remove slash
                   \g_@@_struct_tag_tl 
-                  \l_@@_tmpa_tl
-                \int_compare:nNnT {\l_@@_tmpa_tl}<0 
+                  \l_@@_parent_child_check_tl                 
+                \int_compare:nNnT {\l_@@_parent_child_check_tl}<0 
                  { 
                   %\@@_role_remap:V \l_@@_tmpa_tl 
                  }
              }
              {
-               \tl_set:Nn\l_@@_tmpa_tl {0}
+               \tl_set:Nn\l_@@_parent_child_check_tl {0}
              }
 %    \end{macrocode}
 % Set the Parent.

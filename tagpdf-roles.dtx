@@ -812,7 +812,9 @@
 % 
 % \begin{macro}{\@@_role_get_parent_child_rule:nnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
+%  TODO check temporary variables. Check if the tl-var should be fix.
 %    \begin{macrocode}
+\tl_new:N \l_@@_parent_child_check_tl
 \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
   % #1 parent (string) #2 child (string) #3 tl for state
   {

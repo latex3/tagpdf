@@ -402,7 +402,7 @@
 % Informational message shown if log-mode is high enough
 %    \begin{macrocode}
 \msg_new:nnn { tag } {struct-show-closing}
-  { closing~structure~#1~tagged~\prop_item:cn{g_@@_struct_#1_prop}{S} }
+  { closing~structure~#1~tagged~\use:e{\prop_item:cn{g_@@_struct_#1_prop}{S}} }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{tree-struct-still-open}
