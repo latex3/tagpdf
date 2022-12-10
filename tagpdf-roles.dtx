@@ -988,78 +988,25 @@
   }
 %    \end{macrocode}
 % and now the pdf 2.0 version
+% The version with three arguments retrieves the default 
+% names space and then calls the full command. 
+% Not sure if this will ever be needed but we leave it for now. 
 %    \begin{macrocode}
   {
    \cs_new_protected:Npn \@@_check_parent_child:nnN #1 #2 #3
      { 
-       \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1} 
-       \prop_put:Nnn \l_@@_role_debug_prop {child} {#2}       
-%    \end{macrocode}
-% we assume here that the standard tags do not change their name space and their role
-% mapping, so we can simply get their index from the prop 
-%    \begin{macrocode}
-       \prop_get:NnNTF \g_@@_role_index_prop {#1}\l_@@_tmpa_tl
-         {
-           \tl_set:Nn \l_@@_tmpa_tl {#1}
-         }
-%    \end{macrocode}
-%  If there is some rolemapping we need the current namespace
-%    \begin{macrocode}
-         {           
-           \prop_get:NnNTF\g_@@_role_tags_NS_prop {#1}\l_@@_role_tag_namespace_tmpa_tl
-             {
-               \prop_get:cnNTF 
-                 { g_@@_role_NS_ \l_@@_role_tag_namespace_tmpa_tl _prop }
-                 {#1}
-                 \l_@@_tmpa_tl
-                 {
-                   \tl_set:Nx \l_@@_tmpa_tl {\tl_head:N\l_@@_tmpa_tl}
-                 }
-                 { 
-                   \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
-                 }
-             }
-             {
-               \tl_set:Nn \l_@@_tmpa_tl {#1}
-             }                          
-         }    
-%    \end{macrocode}
-% and the same for the child
-%    \begin{macrocode}
-      \prop_get:NnNTF \g_@@_role_index_prop {#2}\l_@@_tmpb_tl
-         {
-           \tl_set:Nn \l_@@_tmpb_tl {#2}
-         }
-%    \end{macrocode}
-%  If there is some rolemapping we need the current namespace
-%    \begin{macrocode}
-         {           
-           \prop_get:NnNTF\g_@@_role_tags_NS_prop {#2}\l_@@_role_tag_namespace_tmpa_tl
-             {
-               \prop_get:cnNTF 
-                 { g_@@_role_NS_ \l_@@_role_tag_namespace_tmpa_tl _prop }
-                 {#2}
-                 \l_@@_tmpb_tl
-                 {
-                   \tl_set:Nx \l_@@_tmpb_tl { \tl_head:N\l_@@_tmpb_tl }
-                 }
-                 { 
-                   \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
-                 } 
-             }    
-             {
-               \tl_set:Nn \l_@@_tmpb_tl {#2}
-             }                                    
-         }    
-%    \end{macrocode}
-% and now get the relation
-%    \begin{macrocode}
+       \prop_get:NnN\g_@@_role_tags_NS_prop {#1}\l_@@_role_tag_namespace_tmpa_tl  
+       \prop_get:NnN\g_@@_role_tags_NS_prop {#2}\l_@@_role_tag_namespace_tmpb_tl
+       \str_if_eq:nnT{#2}{MC}{\tl_clear:N \l_@@_role_tag_namespace_tmpb_tl}
        \bool_lazy_and:nnTF 
-         { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
-         { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
-         {  
-           \@@_role_get_parent_child_rule:VVN \l_@@_tmpa_tl \l_@@_tmpb_tl #3
-         }   
+         { ! \quark_if_no_value_p:N \l_@@_role_tag_namespace_tmpa_tl }
+         { ! \quark_if_no_value_p:N \l_@@_role_tag_namespace_tmpb_tl } 
+         {
+           \@@_check_parent_child:nVnVN 
+             {#1}\l_@@_role_tag_namespace_tmpa_tl   
+             {#2}\l_@@_role_tag_namespace_tmpb_tl   
+             #3
+         }        
          {
            \tl_set:Nn #3 {0}
            \msg_warning:nnxxx 
@@ -1070,6 +1017,9 @@
             { unknown! }  
          }
      }
+%    \end{macrocode}
+% and now the real command.
+%    \begin{macrocode}
    \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5 %tag,NS,tag,NS, tl var
       { 
         \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1/#2} 
@@ -1144,7 +1094,7 @@
      }     
   }
 \cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN,eVN}  
-\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,eVeVN}  
+\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {nVnVN}  
 %    \end{macrocode}
 % \end{macro}
 %
