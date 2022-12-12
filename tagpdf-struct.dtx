@@ -1208,10 +1208,18 @@
               \g_@@_struct_tag_tl               
               \g_@@_struct_tag_NS_tl  
               \l_@@_parent_child_check_tl             
-%             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0 
-%                 { 
-%                  %\@@_role_remap:V \l_@@_tmpa_tl 
-%                 }
+            \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
+              {
+                \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
+                \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
+                \@@_role_remap:
+                \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
+                \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
+                \@@_struct_set_tag_info:nVV 
+                  { \int_eval:n {\c@g_@@_struct_abs_int} }
+                    \g_@@_struct_tag_tl               
+                    \g_@@_struct_tag_NS_tl                                 
+              }
 %    \end{macrocode}
 % Set the Parent.
 %    \begin{macrocode}

@@ -1137,7 +1137,7 @@
 %    \begin{macrocode}
 \pdf_version_compare:NnTF < {2.0}
   {
-    \cs_new_protected:Npn \__tag_role_remap_inline:
+    \cs_new_protected:Npn \@@_role_remap_inline:
       {
         \prop_get:cVNT { g__tag_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
           {
@@ -1150,15 +1150,23 @@
                 \exp_last_unbraced:NV\use_ii:nn \l_@@_tmpa_tl
               }
           }
+        \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+          {
+            \msg_note:nnx { tag } { role-remapping }{ \l_@@_role_remap_tag_tl }
+          }  
       }
   }
   {
-    \cs_new_protected:Npn \__tag_role_remap_inline:
+    \cs_new_protected:Npn \@@_role_remap_inline:
       {
         \prop_get:cVNT { g__tag_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
           {
             \tl_set:Nn\l_@@_role_remap_NS_tl {latex-inline}
           }
+        \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+          {
+            \msg_note:nnx { tag } { role-remapping }{ \l_@@_role_remap_tag_tl/latex-inline }
+          }  
       }    
   }    
 %    \end{macrocode}
