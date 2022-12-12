@@ -40,6 +40,10 @@ Don't change this file in any respect.
 \newlabeldata{__tag_LastPage}{{abspage}{4}{tagmcabs}{33}}^^M
 \gdef \@abspage@last{4}^^M
 -------- ptagging-004.aux (end) -----------
+Package tagpdf Info: The rule between parent 'Document' and child 'P' is
+(tagpdf)             '0..n'
+Package tagpdf Info: The rule between parent 'P' and child 'Note' is '0..n'
+Package tagpdf Info: The rule between parent 'Note' and child 'Lbl' is '0..n'
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line ....
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -47,6 +51,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line ....
 Package tagpdf Info: closing structure 4 tagged /Lbl
+Package tagpdf Info: The rule between parent 'Note' and child 'Lbl' is '0..n'
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line ....
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -54,6 +59,8 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 Package tagpdf Info: closing structure 5 tagged /Lbl
 Package tagpdf Info: closing structure 3 tagged /Note
 Package tagpdf Info: closing structure 2 tagged /P
+Package tagpdf Info: The rule between parent 'Document' and child 'P' is
+(tagpdf)             '0..n'
 Package tagpdf Info: closing structure 6 tagged /P
 ====> In \@makecol 1
 Pick up new bot mark!
@@ -150,6 +157,8 @@ braces):
 >  {3}
 >  {Note}.
 [2]
+Package tagpdf Info: The rule between parent 'Document' and child 'P' is
+(tagpdf)             '0..n'
 Package tagpdf Info: closing structure 7 tagged /P
 ====> In \@makecol 3
 Pick up new bot mark!
@@ -188,6 +197,8 @@ braces):
 >  {22}
 >  {7}
 >  {P}.
+Package tagpdf Info: The rule between parent 'Document' and child 'P' is
+(tagpdf)             '0..n'
 Package tagpdf Info: closing structure 8 tagged /P
 ====> In \@makecol 4
 Pick up new bot mark!

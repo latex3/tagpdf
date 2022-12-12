@@ -455,6 +455,10 @@
   { Type }
   { /StructTreeRoot }
 
+\@@_prop_gput:cnn
+  { g_@@_struct_0_prop }
+  { S }
+  { \@@_use_arg:nn{}{StructTreeRoot}}
 
 
 %    \end{macrocode}
@@ -499,11 +503,27 @@
            \@@_prop_gput:cnx
              { g_@@_struct_#1_prop }
              { NS }
-             { \exp_not:N\@@_use_arg:nn{\l_@@_tmpa_tl}{#2}  } %
+             { \exp_not:N\@@_use_arg:nn{\l_@@_tmpa_tl}{#3}  } %
          }
      } 
  }     
 \cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {nVV}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\cc}
+%  We also need a way to get the tag info back from parent structures.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_get_tag_info:nNN #1 #2 #3 
+   %#1 struct num, #2 tlvar for tag , #3 tlvar for NS
+    {        
+       \prop_get:cnNTF { g_@@_struct_#1_prop }{S}#2
+         {\tl_set:Nx #2{\exp_last_unbraced:No\use_iii:nnn#2}}         
+         {\tl_clear:N#2}
+       \prop_get:cnNTF { g_@@_struct_#1_prop }{NS}#3
+         {\tl_set:Nx #3{\exp_last_unbraced:No\use_iii:nnn#3}}
+         {\tl_clear:N#3}  
+    }
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Handlings kids}
@@ -1178,24 +1198,20 @@
 %  if the structure is actually used here, so it is guarded by the stash boolean.
 %  For now we ignore the namespace! 
 %    \begin{macrocode}
-           \prop_get:cnNTF 
-             { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _ prop }
-             {S}
-             \l_@@_tmpa_tl
-             {
-                %\cs_set_eq:NN \@@_use_arg:nn\use_ii:nn
-%                \@@_check_parent_child:eVN 
-%                  {\l_@@_tmpa_tl} % remove slash
-%                  \g_@@_struct_tag_tl 
-%                  \l_@@_parent_child_check_tl                 
-%                \int_compare:nNnT {\l_@@_parent_child_check_tl}<0 
+            \@@_struct_get_tag_info:nNN  
+              {\l_@@_struct_stack_parent_tmpa_tl}
+              \l_@@_tmpa_tl
+              \l_@@_tmpb_tl
+            \@@_check_parent_child:VVVVN
+              \l_@@_tmpa_tl
+              \l_@@_tmpb_tl 
+              \g_@@_struct_tag_tl               
+              \g_@@_struct_tag_NS_tl  
+              \l_@@_parent_child_check_tl             
+%             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0 
 %                 { 
 %                  %\@@_role_remap:V \l_@@_tmpa_tl 
 %                 }
-             }
-             {
-               \tl_set:Nn\l_@@_parent_child_check_tl {0}
-             }
 %    \end{macrocode}
 % Set the Parent.
 %    \begin{macrocode}

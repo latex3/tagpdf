@@ -867,7 +867,7 @@
            {      
              \prop_get:NVN\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
              \tl_set:Nn \l_@@_tmpb_tl {#1}
-             \msg_info:nnxxx 
+             \msg_note:nnxxx 
                { tag } 
                { role-parent-child } 
                { #1
@@ -881,7 +881,7 @@
                         !\str_if_eq_p:ee {#1}{\prop_item:Nn\l_@@_role_debug_prop {parent}}
                       }  
                       {
-                        \c_space_tl (role-mapped~from~\prop_item:Nn\l_@@_role_debug_prop {parent})
+                        \c_space_tl (from~\prop_item:Nn\l_@@_role_debug_prop {parent})
                       }                                    
                    }
                    {
@@ -898,7 +898,7 @@
                      !\str_if_eq_p:ee {#2}{\prop_item:Nn\l_@@_role_debug_prop {child}}
                    }  
                    {
-                     \c_space_tl (role-mapped~from~\prop_item:Nn\l_@@_role_debug_prop {child})
+                     \c_space_tl (from~\prop_item:Nn\l_@@_role_debug_prop {child})
                    }                                   
                }
                { '\l_@@_tmpa_tl' }   
@@ -1093,8 +1093,8 @@
          }
      }     
   }
-\cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN,eVN}  
-\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {nVnVN}  
+\cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN}  
+\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,nVnVN}  
 %    \end{macrocode}
 % \end{macro}
 %

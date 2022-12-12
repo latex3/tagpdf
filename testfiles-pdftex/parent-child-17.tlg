@@ -3,8 +3,8 @@ Don't change this file in any respect.
 ============================================================
 TEST 1: Sect-Em:no
 ============================================================
-Package tagpdf Info: The rule between parent 'Sect' and child 'Span
-(tagpdf)             (role-mapped from Em)' is '^^e2^^88^^85'
+Package tagpdf Info: The rule between parent 'Sect' and child 'Span (from Em)'
+(tagpdf)             is '^^e2^^88^^85'
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
@@ -47,8 +47,8 @@ l. ... }
 ============================================================
 TEST 6: Rolemapping: Sect-section allowed
 ============================================================
-Package tagpdf Info: The rule between parent 'Sect' and child 'H1 (role-mapped
-(tagpdf)             from section)' is '0..n'
+Package tagpdf Info: The rule between parent 'Sect' and child 'H1 (from
+(tagpdf)             section)' is '0..n'
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -56,9 +56,8 @@ l. ... }
 ============================================================
 TEST 7: Double rolemapping: subsection-section no
 ============================================================
-Package tagpdf Info: The rule between parent 'H2 (role-mapped from
-(tagpdf)             subsection)' and child 'H1 (role-mapped from section)' is
-(tagpdf)             '^^e2^^88^^85'
+Package tagpdf Info: The rule between parent 'H2 (from subsection)' and child
+(tagpdf)             'H1 (from section)' is '^^e2^^88^^85'
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
