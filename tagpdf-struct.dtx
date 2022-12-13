@@ -442,7 +442,11 @@
 %    \begin{macrocode}
 \tl_gset:Nn \g_@@_struct_stack_current_tl {0}
 %    \end{macrocode}
-
+% \begin{macro}{\@@_use_arg:nn}
+%    \begin{macrocode}
+\cs_new:Npn \@@_use_arg:nn #1#2{#1}
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{variable}{g_@@_struct_0_prop,g_@@_struct_kids_0_seq}
 %    \begin{macrocode}
@@ -478,8 +482,6 @@
 % This adds or updates the tag info to a structure given by a number. 
 % We need also the original data, so we store both.
 %    \begin{macrocode}
-\cs_new:Npn \@@_use_arg:nn #1#2{#1}
-
 \pdf_version_compare:NnTF < {2.0}
  {
    \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
