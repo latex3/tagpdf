@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 %\PassOptionsToPackage{check-declarations,enable-debug}{expl3}
 %\RequirePackage{pdfmanagement-testphase}
-\DocumentMetadata{pdfversion=2.0,lang=en-UK,testphase=phase-II}
+\DocumentMetadata{pdfversion=2.0,lang=en-UK,testphase=phase-II,pdfstandard=a-2b}
 
 \makeatletter
 \def\UlrikeFischer@package@version{0.97}
@@ -41,7 +41,7 @@
 \tikzset{operator/.style = {font=\footnotesize\ttfamily, anchor=base,draw, rounded corners,node distance=4mm and 4mm}}
 
 
-\usepackage{enumitem,xpatch}
+\usepackage{enumitem}
 
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily, columns=fullflexible,language=[LaTeX]TeX,
@@ -56,15 +56,12 @@
  %show-spaces
  }
 
-\usepackage{hyperxmp}
 \usepackage[pdfdisplaydoctitle=true,%hyperfootnotes=false,
             ]{hyperref}
 
  \hypersetup{
   pdftitle={The tagpdf package, v\csname UlrikeFischer@package@version\endcsname},
   pdfauthor=Ulrike Fischer,
-  pdfaconformance=a,
-  pdfuapart=1,
   colorlinks}
 
 \tcbuselibrary{documentation}
@@ -88,8 +85,6 @@
 \title{The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname}
 \date{\csname UlrikeFischer@package@date\endcsname}
 \author{Ulrike Fischer\thanks{fischer@troubleshooting-tex.de}}
-
-\tagpdfsetup{paratagging,paratagging-show}
 
 \usepackage{shortvrb}
 \MakeShortVerb|
