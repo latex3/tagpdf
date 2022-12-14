@@ -53,15 +53,22 @@
  
 \TEST{Inherit:~Part-P~yes}
  {
+   %inheritation requires that the parent is on the stack
+   \tagstructbegin{tag=Part}
    \__tag_check_parent_child:nnN {Part}{P}\l_tmpa_tl
+   \tagstructend
    \tl_show:N\l_tmpa_tl
+   
  }   
  
 \TEST{Inherit:~NonStruct-Lbl~no}
- {
+ { %inheritation requires that the parent is on the stack
+   \tagstructbegin{tag=NonStruct}
    \__tag_check_parent_child:nnN {NonStruct}{Lbl}\l_tmpa_tl
+   \tagstructend
    \tl_show:N\l_tmpa_tl
  }     
+
  
 \TEST{Special:~Ruby-RT~yes}
  {

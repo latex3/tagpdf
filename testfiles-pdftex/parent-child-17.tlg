@@ -65,8 +65,11 @@ l. ... }
 ============================================================
 TEST 8: Inherit: Part-P yes
 ============================================================
+Package tagpdf Info: The rule between parent 'Document' and child 'Part' is
+(tagpdf)             '0..n'
 Package tagpdf Info: The rule between parent 'Part (inherited from Document)'
 (tagpdf)             and child 'P' is '0..n'
+Package tagpdf Info: closing structure 2 tagged /Part
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -74,8 +77,11 @@ l. ... }
 ============================================================
 TEST 9: Inherit: NonStruct-Lbl no
 ============================================================
+Package tagpdf Info: The rule between parent 'Document' and child 'NonStruct'
+(tagpdf)             is '0..n'
 Package tagpdf Info: The rule between parent 'NonStruct (inherited from
 (tagpdf)             Document)' and child 'Lbl' is '^^e2^^88^^85'
+Package tagpdf Info: closing structure 3 tagged /NonStruct
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
