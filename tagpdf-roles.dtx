@@ -846,8 +846,14 @@
          \int_compare:nNnT  
            {#3} = {\prop_item:Nn\c_@@_role_rules_prop{‡}}  
            {
-             \seq_set_eq:NN\l_@@_role_tmpa_seq \g_@@_struct_tag_stack_seq
-             \seq_map_inline:Nn\g_@@_struct_tag_stack_seq 
+             \seq_set_eq:NN   \l_@@_role_tmpa_seq \g_@@_struct_tag_stack_seq
+%    \end{macrocode}
+% we must take the current child from the stack if is already there, 
+% depending on location the check is called, this could also remove the 
+% parent, but that is ok too.
+%    \begin{macrocode}
+             \seq_pop_left:NN \l_@@_role_tmpa_seq\l_@@_get_tmpc_tl             
+             \seq_map_inline:Nn\l_@@_role_tmpa_seq
                {
                  \tl_if_in:nnF {-Part-Div-NonStruct-}{-##1-}
                    {  

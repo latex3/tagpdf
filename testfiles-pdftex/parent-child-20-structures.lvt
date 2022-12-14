@@ -1,0 +1,28 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\DocumentMetadata{testphase=phase-II,pdfversion=2.0,debug={log=v}}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+
+\showoutput
+
+\START
+
+abc\tagmcend\tagstructend% End P
+\tagstructbegin{tag=Sect}
+\tagstructbegin{tag=Div}
+\tagstructbegin{tag=P}
+\tagstructbegin{tag=P}
+\tagstructbegin{tag=chapter}
+\tagstructbegin{tag=Strong}
+\tagstructend
+\tagstructend
+\tagstructend
+\tagstructend
+\tagstructend
+\tagstructend
+\tagmcbegin{tag=P}
+\tagstructbegin{tag=P}
+aaaa
+\end{document}
