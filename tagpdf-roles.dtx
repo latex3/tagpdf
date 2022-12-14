@@ -223,13 +223,13 @@
 %    \begin{macrocode}
 \prop_new:N \g_@@_role_index_prop
 %    \end{macrocode}
-% \end{macro}
+% \end{variable}
 % \begin{variable}{\l_@@_role_debug_prop}
 % This variable is used to pass more infos to debug messages. 
 %    \begin{macrocode}
 \prop_new:N \l_@@_role_debug_prop
 %    \end{macrocode}
-% \end{macro}
+% \end{variable}
 % We need also a bunch of temporary variables.
 % \begin{variable}
 %  {
@@ -670,7 +670,7 @@
 %    \begin{macrocode}
 \intarray_new:Nn \g_@@_role_parent_child_intarray {6000}
 %    \end{macrocode}
-% \end{macro}
+% \end{variable}
 % \begin{macro}{\c_@@_role_rules_prop,\c_@@_role_rules_num_prop}
 % These two properties map the rule strings to numbers and back.
 % There are in tagpdf-data.dtx near the csv files for easier maintenance.
@@ -1113,7 +1113,7 @@
 \tl_new:N \l_@@_role_remap_tag_tl
 \tl_new:N \l_@@_role_remap_NS_tl
 %    \end{macrocode}
-% \end{macro}
+% \end{variable}
 % \begin{macro}{\@@_role_remap:}
 % This function is used in the structure and the mc code before using a tag. By default it
 % does nothing with the tl vars. Perhaps this should be a hook?
