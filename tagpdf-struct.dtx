@@ -298,6 +298,14 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\g_@@_struct_tag_NS_prop}
+% For the parent-child check, we need the tag and NS of every structure
+%    \begin{macrocode}
+\prop_new:N\g_@@_struct_tag_NS_prop
+%    \end{macrocode}
+% \end{variable}
+%
+%
 % \begin{variable}{\g_@@_struct_stack_current_tl,\l_@@_struct_stack_parent_tmpa_tl}
 % The global variable will hold the current structure number. It is already
 % defined in \texttt{tagpdf-base}.
@@ -442,9 +450,9 @@
 %    \begin{macrocode}
 \tl_gset:Nn \g_@@_struct_stack_current_tl {0}
 %    \end{macrocode}
-% \begin{macro}{\@@_use_arg:nn}
+% \begin{macro}{\@@_pdf_name_e:n}
 %    \begin{macrocode}
-\cs_new:Npn \@@_use_arg:nn #1#2{#1}
+\cs_new:Npn \@@_pdf_name_e:n #1{\pdf_name_from_unicode_e:n{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -454,17 +462,17 @@
 \@@_new_output_prop_handler:n {0}
 \@@_seq_new:c  { g_@@_struct_kids_0_seq }
 
-\@@_prop_gput:cnn
+\@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { Type }
-  { /StructTreeRoot }
+  { \pdf_name_from_unicode_e:n {StructTreeRoot} }
 
-\@@_prop_gput:cnn
+\@@_prop_gput:cnx
   { g_@@_struct_0_prop }
   { S }
-  { \@@_use_arg:nn{}{StructTreeRoot}}
+  { \pdf_name_from_unicode_e:n {StructTreeRoot} }
 
-
+\prop_gput:Nnn \g_@@_struct_tag_NS_prop {0}{{StructTreeRoot}{pdf}}
 %    \end{macrocode}
 % Namespaces are pdf 2.0 but it doesn't harm
 % to have an empty entry. We could add a test, but if the code moves into
@@ -478,6 +486,7 @@
 % \end{variable}
 % 
 % \subsection{Filling in the tag info}
+
 % \begin{macro}{\@@_struct_set_tag_info:nnn }
 % This adds or updates the tag info to a structure given by a number. 
 % We need also the original data, so we store both.
@@ -485,12 +494,13 @@
 \pdf_version_compare:NnTF < {2.0}
  {
    \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
-     %#1 structure number, #2 tag
+     %#1 structure number, #2 tag, #3 NS
      { 
        \@@_prop_gput:cnx
          { g_@@_struct_#1_prop }         
          { S }
-         { \exp_not:N\@@_use_arg:nn{\pdf_name_from_unicode_e:n{ #2 }}{#2}  } %
+         { \pdf_name_from_unicode_e:n {#2}  } %
+       \prop_gput:Nnn \g_@@_struct_tag_NS_prop {#1}{{#2}{#3}}  
      }
  }     
  {     
@@ -499,17 +509,18 @@
        \@@_prop_gput:cnx
          { g_@@_struct_#1_prop }
          { S }
-         { \exp_not:N\@@_use_arg:nn{\pdf_name_from_unicode_e:n{ #2 }}{#2} } %
-       \prop_get:NnNT \g_@@_role_NS_prop{#3} \l_@@_tmpa_tl
+         { \pdf_name_from_unicode_e:n {#2} } %
+       \prop_get:NnNT \g_@@_role_NS_prop {#3} \l_@@_get_tmpc_tl
          {
            \@@_prop_gput:cnx
              { g_@@_struct_#1_prop }
              { NS }
-             { \exp_not:N\@@_use_arg:nn{\l_@@_tmpa_tl}{#3}  } %
+             { \l_@@_get_tmpc_tl } %
          }
+       \prop_gput:Nnn \g_@@_struct_tag_NS_prop {#1}{{#2}{#3}}   
      } 
  }     
-\cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {nVV}
+\cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {eVV}
 %    \end{macrocode}
 % \end{macro}
 % 
@@ -519,13 +530,17 @@
 \cs_new_protected:Npn \@@_struct_get_tag_info:nNN #1 #2 #3 
    %#1 struct num, #2 tlvar for tag , #3 tlvar for NS
     {        
-       \prop_get:cnNTF { g_@@_struct_#1_prop }{S}#2
-         {\tl_set:Nx #2{\exp_last_unbraced:No\use_iii:nnn#2}}         
-         {\tl_clear:N#2}
-       \prop_get:cnNTF { g_@@_struct_#1_prop }{NS}#3
-         {\tl_set:Nx #3{\exp_last_unbraced:No\use_iii:nnn#3}}
-         {\tl_clear:N#3}  
+       \prop_get:NnNTF \g_@@_struct_tag_NS_prop {#1}\l_@@_get_tmpc_tl
+         {
+           \tl_set:Nx #2{\exp_last_unbraced:NV\use_i:nn  \l_@@_get_tmpc_tl}
+           \tl_set:Nx #3{\exp_last_unbraced:NV\use_ii:nn \l_@@_get_tmpc_tl}
+         }         
+         {
+           \tl_clear:N#2
+           \tl_clear:N#3
+         }
     }
+\cs_generate_variant:Nn\@@_struct_get_tag_info:nNN {eNN}    
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Handlings kids}
@@ -1165,7 +1180,7 @@
         \keys_set:nn { @@ / struct} { #1 }
 %    \end{macrocode}
 %    \begin{macrocode}
-        \@@_struct_set_tag_info:nVV 
+        \@@_struct_set_tag_info:eVV 
           { \int_eval:n {\c@g_@@_struct_abs_int} }
            \g_@@_struct_tag_tl               
            \g_@@_struct_tag_NS_tl   
@@ -1200,7 +1215,7 @@
 %  if the structure is actually used here, so it is guarded by the stash boolean.
 %  For now we ignore the namespace! 
 %    \begin{macrocode}
-            \@@_struct_get_tag_info:nNN  
+            \@@_struct_get_tag_info:eNN  
               {\l_@@_struct_stack_parent_tmpa_tl}
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
@@ -1217,7 +1232,7 @@
                 \@@_role_remap:
                 \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
                 \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
-                \@@_struct_set_tag_info:nVV 
+                \@@_struct_set_tag_info:eVV 
                   { \int_eval:n {\c@g_@@_struct_abs_int} }
                     \g_@@_struct_tag_tl               
                     \g_@@_struct_tag_NS_tl                                 
@@ -1356,11 +1371,11 @@
      \prop_get:cnN
         { g_@@_struct_#1_prop }
         {Ref}
-        \l_@@_tmpb_tl
+        \l_@@_get_tmpc_tl
      \@@_prop_gput:cnx
         { g_@@_struct_#1_prop }
         { Ref }
-        { \quark_if_no_value:NF\l_@@_tmpb_tl { \l_@@_tmpb_tl\c_space_tl }#2 }
+        { \quark_if_no_value:NF\l_@@_get_tmpc_tl { \l_@@_get_tmpc_tl\c_space_tl }#2 }
     }
 \cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee}
 %    \end{macrocode}
