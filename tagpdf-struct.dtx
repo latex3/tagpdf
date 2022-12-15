@@ -1302,7 +1302,7 @@
 %<base>\cs_new_protected:Npn \tag_struct_use:n #1 {}
 %<*package>
 \cs_set_protected:Npn \tag_struct_use:n #1 %#1 is the label
-  {
+  { 
     \@@_check_if_active_struct:T
       {
         \prop_if_exist:cTF
@@ -1319,6 +1319,33 @@
               { P }
               {
                 \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
+              }
+%    \end{macrocode}
+%   check if the tag is allowed as child. Here we have to retrieve the 
+%   tag info for the child, while the data for the parent is in 
+%   the global tl-vars:
+%    \begin{macrocode}
+             \@@_struct_get_tag_info:eNN  
+              {\__tag_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}}
+              \l_@@_tmpa_tl
+              \l_@@_tmpb_tl
+            \@@_check_parent_child:VVVVN
+              \g_@@_struct_tag_tl               
+              \g_@@_struct_tag_NS_tl  
+              \l_@@_tmpa_tl
+              \l_@@_tmpb_tl               
+              \l_@@_parent_child_check_tl             
+            \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
+              {
+                \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
+                \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
+                \@@_role_remap:
+                \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
+                \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
+                \@@_struct_set_tag_info:eVV 
+                  { \int_eval:n {\c@g_@@_struct_abs_int} }
+                    \g_@@_struct_tag_tl               
+                    \g_@@_struct_tag_NS_tl                                 
               }
           }
           {
