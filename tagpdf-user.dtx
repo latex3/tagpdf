@@ -520,8 +520,10 @@
 % \subsection{Structure destinations}
 % In TeXlive 2022 pdftex and luatex will offer support for structure destinations.
 % The  pdfmanagement has already backend support. We activate them if the
-% prerequisites are there: The pdf version should be 2.0, structures should be activated,
+% prerequisites are there: structures should be activated,
 % the code in the pdfmanagement must be there.
+% Structure destinations are actually PDF 2.0  only but they don't harm in 
+% older PDF and can improve html export. 
 %    \begin{macrocode}
 \AddToHook{begindocument/before}
   {
@@ -530,7 +532,6 @@
         { \g_@@_active_struct_dest_bool }
         { \g_@@_active_struct_bool }
         { \cs_if_exist_p:N \pdf_activate_structure_destination: }
-        { ! \pdf_version_compare_p:Nn < {2.0} }
       }
       {
         \tl_set:Nn \l_pdf_current_structure_destination_tl { __tag/struct/\g__tag_struct_stack_current_tl }

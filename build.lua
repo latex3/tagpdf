@@ -52,7 +52,7 @@ checkconfigs = {
                 }
 checkruns = 4
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
-excludetests = {"test-saveboxes-structure-dev","test-link"}
+--excludetests = {"test-saveboxes-structure-dev","test-link"}
 
 
 

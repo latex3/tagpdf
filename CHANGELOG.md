@@ -9,13 +9,18 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Added 
  - started with dedicated latex name spaces
- - namespaces definitions have been externalized and are now read from files.
+ - namespaces definitions have been externalized and are now read from files.   
+ - rules to check if a tag is allowed as child in the current structure. Messages
+   can be activated with log=v. 
+ - The data for namespaces and rules are in a new module, tagpdf-data.dtx.
  
 ### Changed 
  -  adding a new tag with add-new-tag now requires that the target role is 
     defined. Unknown roles error. 
- -  RoleMap object is no longer written in pdf 2.0 as it uses namespaces
+ -  RoleMap object is no longer written in PDF 2.0 as it uses namespaces
  -  in pdf < 2.0 rolemaps are resolved to the PDF standard.   
+ -  Structure destinations are used in PDF < 2.0 too -- they don't harm and
+    can improve html export.
  
 ## [2022-08-24]
 
