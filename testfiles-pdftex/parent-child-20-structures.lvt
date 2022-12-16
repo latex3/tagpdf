@@ -25,4 +25,22 @@ abc\tagmcend\tagstructend% End P
 \tagmcbegin{tag=P}
 \tagstructbegin{tag=P}
 aaaa
+
+\TEST{Parent Key}
+ {
+   abc \tagmcend\tagstructbegin{tag=H1,parent=1}\tagmcbegin{tag=H1} h1\tagmcend\tagstructend
+   \tagmcbegin{tag=P}abc 
+ }  
+
+
+\TEST{Label  later use}
+ {
+   abc\tagmcend
+   \tagstructbegin{tag=H1,label=blub,stash}\tagmcbegin{tag=H1}H1\tagmcend\tagstructend
+   \tagmcbegin{tag=P}abc
+  
+   \tagpdfsetup{paratag=Sect}
+   \leavevmode\tagstructuse{blub} x
+   
+ }  
 \end{document}

@@ -24,10 +24,33 @@ Package tagpdf Info: closing structure 3 tagged /Sect
 Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)'
 (tagpdf)             and child 'P (from P/pdf2)' is '0..n'
 Package tagpdf Info: closing structure 9 tagged /P
+============================================================
+TEST 1: Parent Key
+============================================================
+Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)'
+(tagpdf)             and child 'P (from P/pdf2)' is '0..n'
+Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)'
+(tagpdf)             and child 'H1 (from H1/pdf2)' is '0..n'
+Package tagpdf Info: closing structure 11 tagged /H1
+============================================================
+Package tagpdf Info: closing structure 10 tagged /P
+============================================================
+TEST 2: Label later use
+============================================================
+Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)'
+(tagpdf)             and child 'P (from P/pdf2)' is '0..n'
+Package tagpdf Info: closing structure 13 tagged /H1
+Package tagpdf Info: closing structure 12 tagged /P
+Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)'
+(tagpdf)             and child 'Sect (from Sect/pdf2)' is '0..n'
+Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' and child
+(tagpdf)             'H1 (from H1/pdf2)' is '0..n'
+Package tagpdf Info: closing structure 14 tagged /Sect
+============================================================
 ====> In \@makecol 1
 Pick up new bot mark!
 => first b-, 1, 2, P
-=> bot e+, 2, 9
+=> bot e+, 9, 14
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq is empty
@@ -47,17 +70,17 @@ Completed box being shipped out [1]
 ...\glue 0.0 plus 1.0fil
 ...\pdfrunninglinkoff
 ...\pdfliteral page{/Artifact BMC}
-...\marks4{b-,3,-1,}
-...\marks4{b+,3,-1,}
+...\marks4{b-,10,-1,}
+...\marks4{b+,10,-1,}
 ...\hbox(0.0+0.0)x345.0
 ....\hbox(0.0+0.0)x345.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,3,1,}
-...\marks4{e+,3,1,}
+...\marks4{e-,10,1,}
+...\marks4{e+,10,1,}
 ...\pdfrunninglinkon
 ..\glue 25.0
 ..\glue(\lineskip) 0.0
-..\vbox(550.0+0.0)x345.0, glue set 539.94232fil
+..\vbox(550.0+0.0)x345.0, glue set 503.94617fil
 ...\hbox(0.0+0.0)x0.0
 ...\pdfinterwordspaceon
 ...\write-{}
@@ -101,6 +124,112 @@ Completed box being shipped out [1]
 ...\marks4{b+,2,1,P,,,}
 ...\marks4{e-,2,9,}
 ...\marks4{e+,2,9,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 5.05556
+...\hbox(6.94444+0.0)x345.0, glue set 278.8888fil
+....\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+....\pdfliteral page{/P /l3pdf3 BDC}
+....\write1{\newlabeldata{l3pdf3}{{abspage}{\__ref_attribute_abspage: }}}
+....\hbox(0.0+0.0)x15.0
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\pdfliteral page{EMC}
+....\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+....\pdfliteral page{/H1 /l3pdf4 BDC}
+....\write1{\newlabeldata{l3pdf4}{{abspage}{\__ref_attribute_abspage: }}}
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\OT1/cmr/m/n/10 h
+....\OT1/cmr/m/n/10 1
+....\pdfliteral page{EMC}
+....\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+....\pdfliteral page{/P /l3pdf5 BDC}
+....\write1{\newlabeldata{l3pdf5}{{abspage}{\__ref_attribute_abspage: }}}
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,3,10,P,,,}
+...\marks4{b+,3,10,P,,,}
+...\marks4{e-,3,10,}
+...\marks4{e+,3,10,}
+...\marks4{b-,4,11,H1,,,}
+...\marks4{b+,4,11,H1,,,}
+...\marks4{e-,4,11,}
+...\marks4{e+,4,11,}
+...\marks4{b-,5,10,P,,,}
+...\marks4{b+,5,10,P,,,}
+...\marks4{e-,5,10,}
+...\marks4{e+,5,10,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 5.05556
+...\hbox(6.94444+0.0)x345.0, glue set 286.94434fil
+....\write1{\newlabeldata{mcid-6}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+....\pdfliteral page{/P /l3pdf6 BDC}
+....\write1{\newlabeldata{l3pdf6}{{abspage}{\__ref_attribute_abspage: }}}
+....\hbox(0.0+0.0)x15.0
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\pdfliteral page{EMC}
+....\write1{\newlabeldata{tagpdfstruct-blub}{{tagstruct}{13}{tagstructobj}{42 0 R\ETC.}
+....\write1{\newlabeldata{mcid-7}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+....\pdfliteral page{/H1 /l3pdf7 BDC}
+....\write1{\newlabeldata{l3pdf7}{{abspage}{\__ref_attribute_abspage: }}}
+....\OT1/cmr/m/n/10 H
+....\OT1/cmr/m/n/10 1
+....\pdfliteral page{EMC}
+....\write1{\newlabeldata{mcid-8}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+....\pdfliteral page{/P /l3pdf8 BDC}
+....\write1{\newlabeldata{l3pdf8}{{abspage}{\__ref_attribute_abspage: }}}
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,6,12,P,,,}
+...\marks4{b+,6,12,P,,,}
+...\marks4{e-,6,12,}
+...\marks4{e+,6,12,}
+...\marks4{b-,7,13,H1,,,}
+...\marks4{b+,7,13,H1,,,}
+...\marks4{e-,7,13,}
+...\marks4{e+,7,13,}
+...\marks4{b-,8,12,P,,,}
+...\marks4{b+,8,12,P,,,}
+...\marks4{e-,8,12,}
+...\marks4{e+,8,12,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 7.69446
+...\hbox(4.30554+0.0)x345.0, glue set 321.38887fil
+....\write1{\newlabeldata{mcid-9}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+....\pdfliteral page{/Sect /l3pdf9 BDC}
+....\write1{\newlabeldata{l3pdf9}{{abspage}{\__ref_attribute_abspage: }}}
+....\hbox(0.0+0.0)x15.0
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\OT1/cmr/m/n/10 x
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,9,14,Sect,,,}
+...\marks4{b+,9,14,Sect,,,}
+...\marks4{e-,9,14,}
+...\marks4{e+,9,14,}
 ...\glue 0.0 plus 1.0fil
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
@@ -108,8 +237,8 @@ Completed box being shipped out [1]
 ...\glue 0.0 plus 0.0001fil
 ..\pdfrunninglinkoff
 ..\pdfliteral page{/Artifact BMC}
-..\marks4{b-,4,-1,}
-..\marks4{b+,4,-1,}
+..\marks4{b-,11,-1,}
+..\marks4{b+,11,-1,}
 ..\glue(\baselineskip) 23.55556
 ..\hbox(6.44444+0.0)x345.0
 ...\hbox(6.44444+0.0)x345.0, glue set 170.0fil
@@ -117,8 +246,8 @@ Completed box being shipped out [1]
 ....\OT1/cmr/m/n/10 1
 ....\glue 0.0 plus 1.0fil
 ..\pdfliteral page{EMC}
-..\marks4{e-,4,1,}
-..\marks4{e+,4,1,}
+..\marks4{e-,11,1,}
+..\marks4{e+,11,1,}
 ..\pdfrunninglinkon
 .\kern 0.0
 .\kern -633.0
