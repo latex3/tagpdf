@@ -1,5 +1,5 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-%\PassOptionsToPackage{check-declarations,enable-debug}{expl3}
+\PassOptionsToPackage{check-declarations,enable-debug}{expl3}
 %\RequirePackage{pdfmanagement-testphase}
 \DocumentMetadata{pdfversion=2.0,lang=en-UK,testphase=phase-II,pdfstandard=a-2b}
 
@@ -294,7 +294,7 @@ I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{
 \item \textbf{Breaking change!} The argument of \texttt{newattribute} option should no longer add the dictionary bracket \verb+<<..>>+, they are added by the code.
 
 
-\item \textbf{Breaking change!} The package now requires the new PDF management as provided for now by the package \texttt{pdfmanagement-testphase}. \texttt{pdfmanagement-testphase},
+\item \textbf{Breaking change!} The package now requires the new PDF management as provided for now by the package \pkg{pdfmanagement-testphase}. \pkg{pdfmanagement-testphase},
 prepares the ground for better support for tagged PDF in \LaTeX{}.
 It is part of a larger project to automatically generate tagged PDF \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/}
 
@@ -343,7 +343,8 @@ add annotations to the structure.
 
 \item \textbf{More engines supported} The generic mode of \pkg{tagpdf} now works
 (theoretically, it is not much tested) with all engines supported
-by the pdfmanagement. So compilations with Xe\LaTeX{} or with dvips should work. But it should be noted that
+by the \PDF\ management. 
+So compilations with Xe\LaTeX{} or with dvips should work. But it should be noted that
 these engines and backends don't support the |interspaceword| option. With Xe\LaTeX{} it is perhaps possible
 implement something with |\XeTeXinterchartoks|, but for the dvips route I don't see an option (apart from lots
 of manual macros everywhere).
@@ -434,11 +435,34 @@ Small bug fixes.
 \item Small bug fixes.
 \end{itemize}
 
+\subsection{Changes in version 0.98}
+
+\begin{itemize}
+\item The declarations of tag namespaces have been externalized and are now
+read from files when \pkg{tagpdf} is loaded. 
+
+\item The \PDF{} format (and some of the standards) declare various parent-child rules for
+structure tags. A first step to implement this rules and check if they are fullfilled have
+been done. More information can be found in section~\ref{sec:parent-child}.
+
+\item As a side effect of the new rule checking, the requirements for new tags
+ have been tightened: Adding a new tag with add-new-tag now requires that the target role is 
+    defined. Unknown roles error. 
+    
+\item |\tagmcbegin| no longer requires that a tag is set, instead if will pick up
+the tag name from the surrounding structure. 
+
+\item Structure destination are now created also with \PDF \textless\,2.0. They shouldn't harm and
+can improve the html export.
+
+\end{itemize}
+
+
 \subsection{Proof of concept: the tagging of the documentation itself}
 
 Starting with version 0.6 the documentation itself has been tagged. The tagging wasn't (and isn't) in no way perfect. The validator from Adobe didn't complain, but PAX3 wanted alternative text for all links (no idea why) and so I put everywhere simple text like \enquote{link} and \enquote{ref}. The links to footnotes gave warnings, so I disabled them. I used types from the \PDF{} version 1.7, mostly as I have no idea what should be used for code in 2.0. Margin notes were simply wrong \ldots
 
-The tagging has been improved and automated over time in sync with improvements and new features in the LaTeX kernel and the pdfmanagement code.
+The tagging has been improved and automated over time in sync with improvements and new features in the LaTeX kernel and the \PDF\ management code.
 
 But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are still rather crude. So there is lot space for improvement.
 
@@ -462,11 +486,16 @@ The \texttt{tagpdf} package can then be loaded and activated by using the \textt
 the \texttt{testphase} key is documented in \texttt{documentmetadata-support-doc.pdf} which
 is part of the \texttt{latex-lab} bundle.
 
+Various parts of the code differentiate between \PDF{} version 2.0 and lower versions. If 
+\PDF{} 2.0 is wanted it is required to set the version early in the \cs{DocumentMetadata}
+command so that \pkg{tagpdf} can pick up the correct code path. 
+
 \begin{lstlisting}
 \DocumentMetadata
  {
   % testphase = phase-I, % tagging without paragraph tagging
   testphase = phase-II % tagging with paragraph tagging and other new stuff.
+  % pdfversion = 2.0   % pdfversion must be set here.
  }
 \documentclass{article}
 \begin{document}
@@ -476,11 +505,12 @@ some text
 
 \minisec{Activation needed!}
 
-The package can also be loaded normally with |\usepackage| (but it is
-still required to use \cs{DocumentMetadata} to load the pdfmanagement) but
+It is not recommended anymore, but 
+the package can also be loaded normally with |\usepackage| (but it is
+still required to use \cs{DocumentMetadata} to load the \PDF\ management) but
 it will then -- apart from loading more packages and defining a lot of things -- not do much. You will have to \emph{activate} it with \verb+\tagpdfsetup+.
 
-The pdfmanagement loaded with \cs{DocumentMetadata} will in any case load \texttt{tagpdf-base} a
+The \PDF\ management loaded with \cs{DocumentMetadata} will in any case load \texttt{tagpdf-base} a
 small package that provides no-op versions of the main tagging commands.
 
 Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
@@ -495,7 +525,7 @@ The check is true only if \emph{everything} is activated. In all other cases (in
 %TODO think about tagging of the keys. Aside? Header?
 
 
-The package has two different modes: The \textbf{generic mode} works (in theory, currently only tested with pdftex and luatex) probably with all engines, the \textbf{lua mode} only with luatex. The differences between both modes  will be described later. The mode can be set with package options:
+The package has two different modes: The \textbf{generic mode} works (in theory, currently only fully tested with pdflatex) probably with all engines, the \textbf{lua mode} only with lualatex. The differences between both modes  will be described later. The mode can be set with package options:
 
 \DescribeKey{luamode}
 
@@ -1200,7 +1230,7 @@ The method is described in Frank Mittelbach's talk at TUG~2021
 Please note
 
 \begin{itemize}
-\item The code requires a pdfmanagement-testphase version v0.95i or newer.
+\item The code requires a \pkg{pdfmanagement-testphase} version v0.95i or newer.
 \item Typically you will need more compilations than previously, don't rely on the rerun messages, but if something looks wrong
 rerun.
 \item The code relies on that related |\tagmcbegin| and |\tagmcend| are in the same boxing level. If one is in a box (which hides the marks) and the other in the main galley, things will go wrong.
@@ -1319,7 +1349,7 @@ The key-val list understands the following keys:
   % By default a structure is added as kid to the currently active structure.
    With the parent key one can choose another parent. The value is a structure number which
    must refer to an already existing, previously created structure. Such a structure
-   number can for example be have been stored with \cs{tag\_get:n}, but one can also use
+   number can have been stored previously with \cs{tag\_get:n}, but one can also use
    a label on the parent structure and then use
    \cs{ref\_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve it.
 
@@ -1765,7 +1795,7 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
  \TeX{}live 2022  (earlier in miktex) both engines will knew new keywords which allow
  to create structure destination easily.
 
- Support for this has been already added to the pdfmanagement and \pkg{tagpdf} will make
+ Support for this has been already added to the \PDF\ management and \pkg{tagpdf} will make
  use of it if possible. In most cases it should simply work, but one should be aware
  that as one now has a destination that is actually tied to the content it gets more
  important to actually consider the context and the place where such destinations

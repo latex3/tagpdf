@@ -21,6 +21,8 @@ this project uses date-based 'snapshot' version identifiers.
  -  in pdf < 2.0 rolemaps are resolved to the PDF standard.   
  -  Structure destinations are used in PDF < 2.0 too -- they don't harm and
     can improve html export.
+ -  \tagmcbegin no longer requires to use the tag key: the value from the surrounding
+    structure will be used.   
  
 ## [2022-08-24]
 
