@@ -683,6 +683,11 @@
         \group_begin: %hm
         \@@_check_mc_if_nested:
         \bool_gset_true:N \g_@@_in_mc_bool
+%    \end{macrocode}
+% set default MC tags to structure:
+%    \begin{macrocode}
+        \tl_set_eq:NN \l_@@_mc_key_tag_tl \g_@@_struct_tag_tl
+        \tl_gset_eq:NN\g_@@_mc_key_tag_tl \g_@@_struct_tag_tl        
         \keys_set:nn { @@ / mc } {#1}
         \bool_if:NTF \l_@@_mc_artifact_bool
           { %handle artifact

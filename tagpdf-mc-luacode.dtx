@@ -299,6 +299,15 @@
         \bool_set_false:N\l_@@_mc_artifact_bool
         \tl_clear:N \l_@@_mc_key_properties_tl
         \int_gincr:N \c@g_@@_MCID_abs_int
+%    \end{macrocode}
+% set the default tag to the structure:
+%    \begin{macrocode}
+        \tl_set_eq:NN \l_@@_mc_key_tag_tl \g_@@_struct_tag_tl
+        \tl_gset_eq:NN\g_@@_mc_key_tag_tl \g_@@_struct_tag_tl  
+        \lua_now:e
+          {
+            ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","\g_@@_struct_tag_tl")
+          }                     
         \keys_set:nn { @@ / mc }{ label={}, #1 }
         %check that a tag or artifact has been used
         \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
