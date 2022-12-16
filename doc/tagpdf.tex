@@ -619,29 +619,59 @@ endstream
 \end{lstlisting}
 
 
-From this stream one can extract the characters and their placement on the page but not their semantic meaning  (the first line is actually a section heading, the last the page number). And while in the example the order is correct there is actually no guaranty that the stream contains the text in the order it should be read.
+From this stream one can extract the characters and their placement on the page 
+but not their semantic meaning  (the first line is actually a section heading, 
+the last the page number). And while in the example the order is correct 
+there is actually no guaranty that the stream contains the text in the order 
+it should be read.
 
-Tagging means to enrich the \PDF{} with information about the \emph{semantic} meaning and the \emph{reading order}. (Tagging can do more, one can also store all sorts of layout information like font properties and indentation with tags. But as I already wrote this package concentrates on the part of tagging that is needed to improve accessibility.)
-
-
+Tagging means to enrich the \PDF{} with information about the \emph{semantic} 
+meaning and the \emph{reading order}. (Tagging can do more, one can also 
+store all sorts of layout information like font properties and indentation 
+with tags. But as I already wrote this package concentrates on the part of 
+tagging that is needed to improve accessibility.)
 
 
 \subsection{Three tasks}
-
 
 
 To tag a \PDF{} three tasks must be  carried out:
 
 \begin{enumerate}
 \item
- \textbf{The mark-content-task}:\sidenote{mc-task} The document must add \enquote{labels} to the page stream which allows to identify and reference the various chunks of text and other content.  This is the most difficult part of tagging -- both for the document writer but also for the package code. At first there can be quite many chunks as every one is a leaf node of the structure and so often a rather small unit.  At second the chunks must be defined page-wise -- and this is not easy when you don't know where the page breaks are. Also in a standard document a lot text is created automatically, e.g. the toc, references, citations, list numbers etc and it is not always easy to mark them correctly.
+ \textbf{The mark-content-task}:\sidenote{mc-task} The document must add 
+ \enquote{labels} to the page stream which allows to identify and reference 
+ the various chunks of text and other content.  
+ This is the most difficult part of tagging -- both for the document writer 
+ but also for the package code. At first there can be quite many 
+ chunks as every one is a leaf node of the structure and so often a rather 
+ small unit.  At second the chunks must be defined page-wise -- and 
+ this is not easy when you don't know where the page breaks are. 
+ Also in a standard document a lot text is created automatically, e.g. 
+ the toc, references, citations, list numbers etc and it is not always 
+ easy to mark them correctly.
 
-\item
-  \textbf{The structure-task}:\sidenote{struct-task}  The document must declare the structure. This means marking the start and end of semantically connected portions of the document (correctly nested as a tree). This too means some work for the document writer, but less than for the mc-task: at first quite often the mc-task and the structure-task can be combined, e.g. when you mark up a list number or a tabular cell or a section header; at second one doesn't have to worry about page breaks so quite often one can patch standard environments to declare the structure. On the other side a number of structures end in \LaTeX\ only implicitly -- e.g. an item ends at the next item, so getting the \PDF{} structure right still means that additional mark up must be added.
+\item \textbf{The structure-task}:\sidenote{struct-task}  The document must 
+    declare the structure. This means marking the start and end of 
+    semantically connected portions of the document (correctly nested as a 
+    tree). This too means some work for the document writer, but less than 
+    for the mc-task: at first quite often the mc-task and the 
+    structure-task can be combined, e.g. when you mark up a list number or 
+    a tabular cell or a section header; at second one doesn't have to worry 
+    about page breaks so quite often one can patch standard environments to 
+    declare the structure. On the other side a number of structures end in 
+    \LaTeX\ only implicitly -- e.g. an item ends at the next item, so 
+    getting the \PDF{} structure right still means that additional mark up 
+    must be added. 
 
 
-\item
- \textbf{The tree management}:\sidenote{tree-task} At last the structure must be written into the \PDF{}. For every structure an object of type \texttt{StructElem} must be  created and flushed with keys for the parents and the kids. A parenttree must be created to get a reference from the mc-chunks to the parent structure. A rolemap must be written. And a number of dictionary entries. All this is hopefully done automatically and correctly by the package \ldots.
+\item \textbf{The tree management}:\sidenote{tree-task} At last the 
+    structure must be written into the \PDF{}. For every structure an 
+    object of type \texttt{StructElem} must be  created and flushed with 
+    keys for the parents and the kids. A parenttree must be created to get 
+    a reference from the mc-chunks to the parent structure. A rolemap must 
+    be written. And a number of dictionary entries. All this is hopefully 
+    done automatically and correctly by the package \ldots. 
 
 \end{enumerate}
 
@@ -704,9 +734,9 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \end{tcolorbox}
 
-\tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption}
-\caption{Schematical description of the relation between marked content in the page stream and the structure}
-\tagmcend\tagstructend
+\tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption} \caption{Schematical 
+description of the relation between marked content in the page stream and the 
+structure} \tagmcend\tagstructend 
 
 \end{figure}
 
@@ -717,10 +747,18 @@ To tag a \PDF{} three tasks must be  carried out:
 
 
 
-To be able to refer to parts of the text in the structure, the text in the page stream must get \enquote{labels}. In the \PDF{} reference they are called \enquote{marked content}. The three main variants needed here are:
+To be able to refer to parts of the text in the structure, the text in the 
+page stream must get \enquote{labels}. In the \PDF{} reference they are 
+called \enquote{marked content}. The three main variants needed here are: 
 
 \begin{description}
-\item[Artifacts] They are marked with of a pair of keywords, \texttt{BMC} and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should be used for irrelevant text and page content that should be ignored in the structure. Sadly it is often not possible to leave such text simply unmarked -- the accessibility tests in Acrobat and other validators complain.
+\item[Artifacts] They are marked with of a pair of keywords, \texttt{BMC} 
+    and \texttt{EMC} which surrounds the text. \texttt{BMC} has a single 
+    prefix argument, the fix tag name \texttt{/Artifact}. Artifacts should 
+    be used for irrelevant text and page content that should be ignored in 
+    the structure. Sadly it is often not possible to leave such text simply 
+    unmarked -- the accessibility tests in Acrobat and other validators 
+    complain. 
 
 
 \begin{lstlisting}
@@ -733,8 +771,11 @@ To be able to refer to parts of the text in the structure, the text in the page 
 
 
 
-\item[Artifacts with a type]
-They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} has two arguments: again the tag name \texttt{/Artifact} and a following dictionary which allows to specify the suppressed info. Text in header and footer can e.g. be declared as pagination like this:
+\item[Artifacts with a type] They are marked with of a pair of keywords, 
+    \texttt{BDC} and \texttt{EMC} which surrounds the text. \texttt{BDC} 
+    has two arguments: again the tag name \texttt{/Artifact} and a 
+    following dictionary which allows to specify the suppressed info. Text 
+    in header and footer can e.g. be declared as pagination like this: 
 
 
 \begin{lstlisting}
@@ -746,10 +787,19 @@ They are marked with of a pair of keywords, \texttt{BDC} and \texttt{EMC} which 
 
 
 
-\item[Content]  Content is marked also with of a pair of keywords, \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a tag name which describes the structural type of the text\footnote{There is quite some redundancy in the specification here. The structural type is also set in the structure tree. One wonders if it isn't enough to use  always \texttt{/SPAN} here.}
-    Examples are \texttt{/P} (paragraph), \texttt{/H2} (heading), \texttt{/TD} (table cell). The reference mentions a number of standard types but it is possible to add more or to use different names.
+\item[Content]  Content is marked also with of a pair of keywords, 
+    \texttt{BDC} and \texttt{EMC}. The first argument of \texttt{BDC} is a 
+    tag name which describes the structural type of the text\footnote{There 
+    is quite some redundancy in the specification here. The structural type 
+    is also set in the structure tree. One wonders if it isn't enough to 
+    use  always \texttt{/SPAN} here.} Examples are \texttt{/P} (paragraph), 
+    \texttt{/H2} (heading), \texttt{/TD} (table cell). The reference 
+    mentions a number of standard types but it is possible to add more or 
+    to use different names. 
 
-In the second argument of \texttt{BDC} -- in the property dictionary -- more data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an integer as a value:
+In the second argument of \texttt{BDC} -- in the property dictionary -- more 
+data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an 
+integer as a value: 
 
 
 \begin{lstlisting}
@@ -759,10 +809,15 @@ In the second argument of \texttt{BDC} -- in the property dictionary -- more dat
 \end{lstlisting}
 
 
-This integer is used to identify the chunk when building the structure tree. The chunks are numbered by page starting with 0. As the numbers are also used as an index in an array they shouldn't be \enquote{holes} in the numbering system
-(It is perhaps possible to handle a numbering scheme not starting by 0 and having holes, but it will enlarge the \PDF{} as one would need dummy objects.).
+This integer is used to identify the chunk when building the structure 
+tree. The chunks are numbered by page starting with 0. As the numbers are 
+also used as an index in an array they shouldn't be \enquote{holes} in the 
+numbering system (It is perhaps possible to handle a numbering scheme not 
+starting by 0 and having holes, but it will enlarge the \PDF{} as one would 
+need dummy objects.). 
 
-It is possible to add more entries to the property dictionary, e.g. a title, alternative text or a local language setting.
+It is possible to add more entries to the property dictionary, e.g. a 
+title, alternative text or a local language setting. 
 \end{description}
 
 
@@ -779,8 +834,11 @@ The needed markers can be added with low level code e.g. like this (in pdftex sy
 This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
 
 \begin{enumerate}[beginpenalty=10000]
-  \item \PDF{} is a page oriented format. And this means that the start \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} must be on the same page.
-  So marking e.g. a section title like in the following example won't always work  as the literal before the section could end on the previous page:
+  \item \PDF{} is a page oriented format. And this means that the start 
+      \texttt{BDC}/\texttt{BMC}  and the corresponding end \texttt{EMC} 
+      must be on the same page. So marking e.g. a section title like in the 
+      following example won't always work  as the literal before the 
+      section could end on the previous page: 
 
 
 \begin{lstlisting}
@@ -790,54 +848,86 @@ This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
 \end{lstlisting}
 
 
-  Using the literals \emph{inside} the section argument is better, but then one has to take care that they don't wander into the header and the toc.
+  Using the literals \emph{inside} the section argument is better, but then 
+  one has to take care that they don't wander into the header and the toc. 
 
-  \item
-  Literals are \enquote{whatsits} nodes and can change spacing, page and line breaking. The literal \emph{behind} the section in the previous example could e.g. lead to a lonely section title at the end of the page.
+  \item Literals are \enquote{whatsits} nodes and can change spacing, page 
+      and line breaking. The literal \emph{behind} the section in the 
+      previous example could e.g. lead to a lonely section title at the end 
+      of the page. 
 
-  \item
-   The \texttt{/MCID} numbers must be unique on a page. So you can't use the literal in a saved box that you reuse in various places. This is e.\,g. a problem with \texttt{longtable} as it saves the table header and footer in a box.
+  \item The \texttt{/MCID} numbers must be unique on a page. So you can't 
+      use the literal in a saved box that you reuse in various places. This 
+      is e.\,g. a problem with \texttt{longtable} as it saves the table 
+      header and footer in a box. 
 
-  \item
-  The  \texttt{/MCID}-chunks are leaf nodes in the structure tree, so they shouldn't be nested.
+  \item The  \texttt{/MCID}-chunks are leaf nodes in the structure tree, so 
+      they shouldn't be nested. 
 
-  \item
-  Often text in a document is created automatically or moved around: entries in the table of contents, index, bibliography and more. To mark these text chunks correctly one has to analyze the code creating such content to find suitable places to inject the literals.
+  \item Often text in a document is created automatically or moved around: 
+      entries in the table of contents, index, bibliography and more. To 
+      mark these text chunks correctly one has to analyze the code creating 
+      such content to find suitable places to inject the literals. 
 
-  \item
-  The literals are inserted directly and not at shipout. This means that due to the asynchronous page breaking of \TeX\ the MCID-number can be wrong even if the counter is reset at every page. This package uses in generic mode a label-ref-system to get around this problem. This sadly means that often at least three compilations are needed until everything has settled down.
+  \item The literals are inserted directly and not at shipout. This means 
+      that due to the asynchronous page breaking of \TeX\ the MCID-number 
+      can be wrong even if the counter is reset at every page. This package 
+      uses in generic mode a label-ref-system to get around this problem. 
+      This sadly means that often at least three compilations are needed 
+      until everything has settled down. 
 
-  It can actually be worse: If the text is changed after the MCID-numbers have been assigned, and
-  a new mc-chunk is inserted in the middle of the page, then all the numbers have to be recalculated
-  and that requires again a number of compilations until it really settles down again.
-  Internal references are especially problematic here, as the first compilation
-  typically creates a non-link |??|, and only the second inserts the structure and the new mc.
-  When the reference system in LaTeX will be extended, care will be taken to ensure that already the dummy text builds a chunk.
-  Until then the advice is to first compile the document and resolve all cross-reference and to activate tagging only at the end.
+  It can actually be worse: If the text is changed after the MCID-numbers 
+  have been assigned, and a new mc-chunk is inserted in the middle of the 
+  page, then all the numbers have to be recalculated and that requires 
+  again a number of compilations until it really settles down again. 
+  Internal references are especially problematic here, as the first 
+  compilation typically creates a non-link |??|, and only the second 
+  inserts the structure and the new mc. When the reference system in LaTeX 
+  will be extended, care will be taken to ensure that already the dummy 
+  text builds a chunk. Until then the advice is to first compile the 
+  document and resolve all cross-reference and to activate tagging only at 
+  the end. 
 
 
-  \item
-  There exist environments which process their content more than once -- examples are \texttt{align} and \texttt{tabularx}.
+  \item There exist environments which process their content more than once 
+      -- examples are \texttt{align} and \texttt{tabularx}. 
        So one has to check for doublettes and holes in the counting system.
 
 
-  \item
-  \PDF{} is a page oriented format. And this means that the start and the end marker must be on the same page \ldots\ \emph{so what to do with normal paragraphs that split over pages??}. This question will be discussed in subsection~\ref{sec:splitpara}.
+  \item \PDF{} is a page oriented format. And this means that the start and 
+      the end marker must be on the same page \ldots\ \emph{so what to do 
+      with normal paragraphs that split over pages??}. This question will 
+      be discussed in subsection~\ref{sec:splitpara}. 
 \end{enumerate}
 
 
 \subsubsection{Generic mode versus lua mode in the mc-task}
 
-While in generic mode the commands insert the literals directly and so have all the problems described above the lua mode works quite differently: The tagging commands don't insert literals but set some \emph{attributes} which are attached to all the following nodes. When the page is shipped out some lua code is called which wanders through the shipout box and injects the literals at the places where the attributes changes.
+While in generic mode the commands insert the literals directly and so have 
+all the problems described above the lua mode works quite differently: The 
+tagging commands don't insert literals but set some \emph{attributes} which 
+are attached to all the following nodes. When the page is shipped out some 
+lua code is called which wanders through the shipout box and injects the 
+literals at the places where the attributes changes. 
 
 This means that quite a number of problems mentioned above are not relevant for the lua mode:
 
-\begin{enumerate}
-\item Pagebreaks between start and end of the marker are \emph{not} a problem. So you can mark a complete paragraph. If a pagebreak occur directly after an start marker or before an end marker this can lead to empty chunks in the \PDF{} and so bloat up \PDF{} a bit, but this is imho not really a problem (compared to the size increase by the rest of the tagging).
-\item The commands don't insert literals directly and so affect line and page breaking much less.
-\item The numbering of the MCID are done at shipout, so no label/ref system is needed.
-\item The code can do some marking automatically. Currently everything that has not been marked up by the document is marked as artifact.
-\end{enumerate}
+\begin{enumerate} 
+\item Pagebreaks between start and end of the marker are 
+\emph{not} a problem. So you can mark a complete paragraph. If a pagebreak 
+occur directly after an start marker or before an end marker this can lead to 
+empty chunks in the \PDF{} and so bloat up \PDF{} a bit, but this is imho not 
+really a problem (compared to the size increase by the rest of the tagging). 
+
+\item The commands don't insert literals directly and so affect line and page 
+breaking much less. 
+
+\item The numbering of the MCID are done at shipout, so no label/ref system 
+    is needed. 
+    
+\item The code can do some marking automatically. Currently everything that 
+    has not been marked up by the document is marked as artifact. 
+\end{enumerate} 
 
 
 
@@ -845,37 +935,67 @@ This means that quite a number of problems mentioned above are not relevant for 
 \subsubsection{Commands to mark content and chunks}
 
 
-In generic mode\sidenote{Generic mode only} is vital that the end command is executed on the same page as the begin command. So think carefully how to place them.
-For strategies how to handle paragraphs that split over pages see subsection~\ref{sec:splitpara}.
+In generic mode\sidenote{Generic mode only} is vital that the end command is 
+executed on the same page as the begin command. So think carefully how to 
+place them. For strategies how to handle paragraphs that split over pages see 
+subsection~\ref{sec:splitpara}. 
 
 \begin{docCommand}{tagmcbegin}{\marg{key-val-list}}\end{docCommand}
 \begin{docCommand}{tag_mc_begin:n}{\marg{key-val-list}}\end{docCommand}
 
 
-These commands insert the begin of the marked content code in the \PDF{}. They don't start a paragraph. \emph{They don't start a group}.
-Such markers should not be nested. The command will warn you if this happens.
+These commands insert the begin of the marked content code in the \PDF{}. 
+They don't start a paragraph. \emph{They don't start a group}. Such markers 
+should not be nested. The command will warn you if this happens. 
 
 The key-val list understands the following keys:
 
 \begin{description}
-  \item[\PrintKeyName{tag}]
-  This is required, unless you use the \PrintKeyName{artifact} key. The value of the key is normally one of the standard type listed in section \ref{sec:new-tag} (without a slash at the begin, this is added by the code). It is possible to setup new tags, see the same section. The value of the key is expanded, so it can be a command. The expansion is passed unchanged to the \PDF{}, so it should with a starting slash give a valid \PDF{} name  (some ascii with numbers like \texttt{H4} is fine).
+  \item[\PrintKeyName{tag}] This key is optional. By default the tag name 
+      of the surrounding structure is used, which normally should be fine. 
+      But if needed the name can be set explicitly with this key. The value 
+      of the key is typically one of the standard type listed in section 
+      \ref{sec:new-tag} (without a slash at the begin, this is added by the 
+      code). It is possible to setup new tags, see the same section. The 
+      value of the key is expanded, so it can be a command. The expansion 
+      is passed unchanged to the \PDF{}, so it should with a starting slash 
+      give a valid \PDF{} name  (some ascii with numbers like \texttt{H4} 
+      is fine). 
 
-  \item[\PrintKeyName{artifact}]
-  This will setup the marked content as an artifact. The key should be used for content that should be ignored. The key can take one of the values \PrintKeyName{pagination}, \PrintKeyName{pagination/header}, \PrintKeyName{pagination/footer}, \PrintKeyName{layout},  \PrintKeyName{page},  \PrintKeyName{background} and \PrintKeyName{notype} (this is the default). Text in the header and footer should normally be marked with \PrintKeyName{artifact=pagination} or \PrintKeyName{pagination/header}, \PrintKeyName{pagination/footer} but
-  simply artifact (as it is now done automatically) should be ok too.
+  \item[\PrintKeyName{artifact}] This will setup the marked content as an 
+      artifact. The key should be used for content that should be ignored. 
+      The key can take one of the values \PrintKeyName{pagination}, 
+      \PrintKeyName{pagination/header}, \PrintKeyName{pagination/footer}, 
+      \PrintKeyName{layout},  \PrintKeyName{page},  
+      \PrintKeyName{background} and \PrintKeyName{notype} (this is the 
+      default). Text in the header and footer should normally be marked 
+      with \PrintKeyName{artifact=pagination} or 
+      \PrintKeyName{pagination/header}, \PrintKeyName{pagination/footer} 
+      but simply artifact (as it is now done automatically) should be ok 
+      too. 
 
-  It is not quite clear if rules and other decorative graphical objects needs to be marked up as artifacts. Acrobat seems not to mind if not, but PAC~3 complained.
+  It is not quite clear if rules and other decorative graphical objects 
+  needs to be marked up as artifacts. Acrobat seems not to mind if not, but 
+  PAC~3 complained. 
 
-  The validators complain if some text is not marked up, but it is not quite clear if this is a serious problem.
+  The validators complain if some text is not marked up, but it is not 
+  quite clear if this is a serious problem. 
 
-  The\sidenote{lua mode only} lua mode will mark up everything unmarked as \texttt{artifact=notype}. You can suppress this behaviour by setting the tagpdfsetup key \texttt{tagunmarked} to false. See section \ref{ssec:setup}.
+  The\sidenote{lua mode only} lua mode will mark up everything unmarked as 
+  \texttt{artifact=notype}. You can suppress this behaviour by setting the 
+  tagpdfsetup key \texttt{tagunmarked} to false. See section 
+  \ref{ssec:setup}. 
 
-  \item[\PrintKeyName{stash}]
-   Normally marked content will be stored in the \enquote{current} structure. This may not be what you want. As an example you may perhaps want to put a marginnote behind or before the paragraph it is in the tex-code. With this boolean key the content is marked but not stored in the kid-key of the current structure.
+  \item[\PrintKeyName{stash}] Normally marked content will be stored in the 
+      \enquote{current} structure. This may not be what you want. As an 
+      example you may perhaps want to put a marginnote behind or before the 
+      paragraph it is in the tex-code. With this boolean key the content is 
+      marked but not stored in the kid-key of the current structure. 
 
-  \item[\PrintKeyName{label}]
-  This key sets a label by which you can call the marked content later in another structure (if it has been stashed with the previous key). Internally the label name will start with \texttt{tagpdf-}.
+  \item[\PrintKeyName{label}] This key sets a label by which you can call 
+      the marked content later in another structure (if it has been stashed 
+      with the previous key). Internally the label name will start with 
+      \texttt{tagpdf-}. 
 
   \item[\PrintKeyName{alt}]
    This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alt}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed).
@@ -890,10 +1010,15 @@ The key-val list understands the following keys:
 
 
 
-  \item[\PrintKeyName{actualtext}]
-  This key inserts an \texttt{/ActualText} value in the property dictionary of the BDC operator. See section~\ref{sec:alt}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{actualtext-o} in previous versions which has been removed).
+  \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} 
+      value in the property dictionary of the BDC operator. See 
+      section~\ref{sec:alt}. The value is handled as verbatim string, 
+      commands are not expanded but the value will be expanded first once 
+      (so works like the key \texttt{actualtext-o} in previous versions 
+      which has been removed). 
 
-  That means that you can do something like in the following listing and and it will insert \verb+X+ (hex encoded)  in the \PDF{}.
+  That means that you can do something like in the following listing and 
+  and it will insert \verb+X+ (hex encoded)  in the \PDF{}. 
 
 
   \begin{lstlisting}
@@ -901,18 +1026,26 @@ The key-val list understands the following keys:
    \tagmcbegin{tag=Span,actualtext=\myactualtext}
   \end{lstlisting}
 
-  According to the PDF reference, \texttt{/ActualText} should only be used on marked content sequence of type Span. This is not enforced by the code currently.
+  According to the PDF reference, \texttt{/ActualText} should only be used 
+  on marked content sequence of type Span. This is not enforced by the code 
+  currently. 
 
 
-  \item[\PrintKeyName{raw}]
-  This key allows you to add more entries to the properties dictionary. The value must be correct, low-level \PDF{}. E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text.
+  \item[\PrintKeyName{raw}] This key allows you to add more entries to the 
+      properties dictionary. The value must be correct, low-level \PDF{}. 
+      E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text. 
 \end{description}
 
 
 \begin{docCommand}{tagmcend}{}\end{docCommand}
 \begin{docCommand}{tag_mc:end}{}\end{docCommand}
 
-These commands insert the end code of the marked content. They don't end a group and it doesn't matter if they are in another group as the starting commands. In generic mode both commands check if there has been a begin marker and issue a warning if not. In luamode it is often possible to omit the command, as the effect of the begin command ends  with a new \verb+\tagmcbegin+ anyway.
+These commands insert the end code of the marked content. They don't end a 
+group and it doesn't matter if they are in another group as the starting 
+commands. In generic mode both commands check if there has been a begin 
+marker and issue a warning if not. In luamode it is often possible to omit 
+the command, as the effect of the begin command ends  with a new 
+\verb+\tagmcbegin+ anyway. 
 
 
 % no longer relevant
@@ -938,7 +1071,9 @@ These commands insert the end code of the marked content. They don't end a group
 \begin{docCommand}{tag_mc_use:n}{}\end{docCommand}
 
 
-These commands allow you to record a marked content that you stashed away into the current structure. Be aware that a marked content can be used only once -- the command will warn you if you try to use it a second time.
+These commands allow you to record a marked content that you stashed away 
+into the current structure. Be aware that a marked content can be used only 
+once -- the command will warn you if you try to use it a second time. 
 
 
 \begin{docCommand}{tag_mc_end_push:}{}\end{docCommand}
@@ -1673,7 +1808,10 @@ In PDF 2.0 the situation is a bit more complicated. At first PDF~2.0 introduced 
 That means that a type can have more than one \enquote{meaning} depending on the name space it belongs to.
 |section (name space A)| and |section (name space B)| are two different types.
 
-At second PDF 2.0 still requires that a tagged PDF maps all types to a standard type, but now there are three sets of standard types (The meanings of the PDF types can be looked up in the \PDF{}-references \parencite{pdfspec-iso32000-1,pdfspec-iso32000-2_2020}):
+At second PDF 2.0 still requires that a tagged PDF maps all types to a 
+standard type, but now there are three sets of standard types (The meanings 
+of the PDF types can be looked up in the \PDF{}-references 
+\parencite{pdfspec-iso32000-1,pdfspec-iso32000-2_2020}): 
 
 \begin{enumerate}
 \item The \emph{standard structure namespace for PDF 1.7}, also called the \emph{default standard structure namespace}. The public name of the namespace is |tag/NS/pdf|. This can be used to reference
@@ -1749,7 +1887,24 @@ syntax |section/H1| should in most cases do the right thing.
 
 The exact effects of the keys depend on the PDF version. With PDF 1.7 or older the namespace keys are ignored, with PDF 2.0 the namespace keys are use to setup the correct rolemaps. The |namespace| key is also used to define the default namespace if the type is used as a role or as tag in a structure.
 
+\subsection{The \texttt{latex} namespace}
 
+Starting with version 0.98 work has started to setup specific latex tags. In 
+\PDF{} 2.0 in form of a special name space,  with \PDF{} 1.7 or older the 
+tags are role mapped. This is work in progress and bound to change.
+
+
+\section{Checking parent-child rules}\label{sec:parent-child}
+
+The \PDF{} reference formulate various rules about whether a structure can be 
+a child of another structure. In the \PDF{} 1.7 reference this rule were 
+rather vage, in the \PDF{} 2.0  reference there is a rather specific matrix, 
+which sadly missed some of the tags from \PDF{} 1.7. The ISO norm 32005 will 
+address this problem and extend the matrix (but still miss the \texttt{math} 
+tag). Beside the parent-child matrix additional rules can be found in the  
+descriptions of the standard structure types and in standards like \PDF/UA. 
+  
+  
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
@@ -1795,20 +1950,20 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
  \TeX{}live 2022  (earlier in miktex) both engines will knew new keywords which allow
  to create structure destination easily.
 
- Support for this has been already added to the \PDF\ management and \pkg{tagpdf} will make
- use of it if possible. In most cases it should simply work, but one should be aware
- that as one now has a destination that is actually tied to the content it gets more
- important to actually consider the context and the place where such destinations
- are created. It now makes a difference if the destination is created before the
- structure is opened or after so in some cases
- code that place destinations should be changed to place them inside the structure they
- belong too. .
- One also has to consider the pages connected to the destinations: The structure destination
- is bound to the page where the structure \emph{begins}, if this differ from the page of the page destination
- (e.g. if the destination is created by a \verb+\phantomsection+  in the middle of a longer paragraph)
- then be necessary to surround
- destinations with a dummy structure (a Span or an Artifact) to
- get the right page number.
+ Support for this has been already added to the \PDF\ management and 
+ \pkg{tagpdf} will make use of it if possible. In most cases it should simply 
+ work, but one should be aware that as one now has a destination that is 
+ actually tied to the content it gets more important to actually consider the 
+ context and the place where such destinations are created. It now makes a 
+ difference if the destination is created before the structure is opened or 
+ after so in some cases code that place destinations should be changed to 
+ place them inside the structure they belong too. One also has to consider 
+ the pages connected to the destinations: The structure destination is bound 
+ to the page where the structure \emph{begins}, if this differ from the page 
+ of the page destination (e.g. if the destination is created by a 
+ \verb+\phantomsection+  in the middle of a longer paragraph) then may be 
+ necessary to surround destinations with a dummy structure (a Span or an 
+ Artifact) to get the right page number. 
 
 
 
