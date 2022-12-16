@@ -13,8 +13,8 @@ l. ... }
 ============================================================
 TEST 2: Sect-Em:no
 ============================================================
-Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' and child
-(tagpdf)             'Em (from Em/pdf2)' is '^^e2^^88^^85'
+Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' 
+(tagpdf)             and child 'Em (from Em/pdf2)' is '-1 (^^e2^^88^^85)'
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
@@ -22,8 +22,8 @@ l. ... }
 ============================================================
 TEST 3: Sect-blub:unknown
 ============================================================
-Package tagpdf Warning: The rule between parent 'Sect' and child 'blub' is
-(tagpdf)                unknown!
+Package tagpdf Warning: The rule between parent 'Sect' 
+(tagpdf)                and child 'blub' is unknown!
 > \l_tmpa_tl=0.
 <recently read> }
 l. ... }
@@ -31,8 +31,8 @@ l. ... }
 ============================================================
 TEST 4: bla-Sect:unknown
 ============================================================
-Package tagpdf Warning: The rule between parent 'bla' and child 'Sect' is
-(tagpdf)                unknown!
+Package tagpdf Warning: The rule between parent 'bla' 
+(tagpdf)                and child 'Sect' is unknown!
 > \l_tmpa_tl=0.
 <recently read> }
 l. ... }
@@ -40,8 +40,8 @@ l. ... }
 ============================================================
 TEST 5: bla-blub:unknown
 ============================================================
-Package tagpdf Warning: The rule between parent 'bla' and child 'blub' is
-(tagpdf)                unknown!
+Package tagpdf Warning: The rule between parent 'bla' 
+(tagpdf)                and child 'blub' is unknown!
 > \l_tmpa_tl=0.
 <recently read> }
 l. ... }
@@ -49,8 +49,8 @@ l. ... }
 ============================================================
 TEST 6: Sect-H2:allowed
 ============================================================
-Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' and child
-(tagpdf)             'H2 (from H2/pdf2)' is '0..n'
+Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' 
+(tagpdf)             and child 'H2 (from H2/pdf2)' is '1 (0..n)'
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -58,8 +58,8 @@ l. ... }
 ============================================================
 TEST 7: Rolemapping: Sect-section allowed
 ============================================================
-Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' and child
-(tagpdf)             'H1 (from section/latex)' is '0..n'
+Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' 
+(tagpdf)             and child 'H1 (from section/latex)' is '1 (0..n)'
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -67,8 +67,8 @@ l. ... }
 ============================================================
 TEST 8: Double rolemapping: subsection-section no
 ============================================================
-Package tagpdf Info: The rule between parent 'H2 (from subsection/latex)' and
-(tagpdf)             child 'H1 (from section/latex)' is '^^e2^^88^^85'
+Package tagpdf Info: The rule between parent 'H2 (from subsection/latex)' 
+(tagpdf)             and child 'H1 (from section/latex)' is '-1 (^^e2^^88^^85)'
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
@@ -76,10 +76,10 @@ l. ... }
 ============================================================
 TEST 9: Inherit: Part-P yes
 ============================================================
-Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)'
-(tagpdf)             and child 'Part (from Part/pdf2)' is '0..n'
-Package tagpdf Info: The rule between parent 'Part (inherited from Document)'
-(tagpdf)             and child 'P (from P/pdf2)' is '0..n'
+Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)' 
+(tagpdf)             and child 'Part (from Part/pdf2)' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
+(tagpdf)             and child 'P (from P/pdf2)' is '1 (0..n)'
 Package tagpdf Info: closing structure 2 tagged /Part
 > \l_tmpa_tl=1.
 <recently read> }
@@ -88,10 +88,11 @@ l. ... }
 ============================================================
 TEST 10: Inherit: NonStruct-Lbl no
 ============================================================
-Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)'
-(tagpdf)             and child 'NonStruct (from NonStruct/pdf2)' is '0..n'
+Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)' 
+(tagpdf)             and child 'NonStruct (from NonStruct/pdf2)' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'NonStruct (inherited from
-(tagpdf)             Document)' and child 'Lbl (from Lbl/pdf2)' is '^^e2^^88^^85'
+(tagpdf)             Document)' 
+(tagpdf)             and child 'Lbl (from Lbl/pdf2)' is '-1 (^^e2^^88^^85)'
 Package tagpdf Info: closing structure 3 tagged /NonStruct
 > \l_tmpa_tl=-1.
 <recently read> }
@@ -100,8 +101,8 @@ l. ... }
 ============================================================
 TEST 11: Special: Ruby-RT yes
 ============================================================
-Package tagpdf Info: The rule between parent 'Ruby (from Ruby/pdf2)' and child
-(tagpdf)             'RT (from RT/pdf2)' is '[a]'
+Package tagpdf Info: The rule between parent 'Ruby (from Ruby/pdf2)' 
+(tagpdf)             and child 'RT (from RT/pdf2)' is '4 ([a])'
 > \l_tmpa_tl=4.
 <recently read> }
 l. ... }
@@ -109,8 +110,8 @@ l. ... }
 ============================================================
 TEST 12: Special: H-Sect yes
 ============================================================
-Package tagpdf Info: The rule between parent 'H (from H/pdf2)' and child 'Sect
-(tagpdf)             (from Sect/pdf2)' is '0..1'
+Package tagpdf Info: The rule between parent 'H (from H/pdf2)' 
+(tagpdf)             and child 'Sect (from Sect/pdf2)' is '2 (0..1)'
 > \l_tmpa_tl=2.
 <recently read> }
 l. ... }
@@ -118,8 +119,8 @@ l. ... }
 ============================================================
 TEST 13: Content item: P-MC yes
 ============================================================
-Package tagpdf Info: The rule between parent 'P (from P/pdf2)' and child 'MC
-(tagpdf)             (from MC/)' is '0..n'
+Package tagpdf Info: The rule between parent 'P (from P/pdf2)' 
+(tagpdf)             and child 'MC (from MC/)' is '1 (0..n)'
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -127,8 +128,8 @@ l. ... }
 ============================================================
 TEST 14: Content item: TBody-MC no
 ============================================================
-Package tagpdf Info: The rule between parent 'TBody (from TBody/pdf2)' and
-(tagpdf)             child 'MC (from MC/)' is '^^e2^^88^^85'
+Package tagpdf Info: The rule between parent 'TBody (from TBody/pdf2)' 
+(tagpdf)             and child 'MC (from MC/)' is '-1 (^^e2^^88^^85)'
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
@@ -137,7 +138,8 @@ l. ... }
 TEST 15: Root: StructTreeRoot-MC no
 ============================================================
 Package tagpdf Info: The rule between parent 'StructTreeRoot (from
-(tagpdf)             StructTreeRoot/pdf)' and child 'MC (from MC/)' is '^^e2^^88^^85'
+(tagpdf)             StructTreeRoot/pdf)' 
+(tagpdf)             and child 'MC (from MC/)' is '-1 (^^e2^^88^^85)'
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
@@ -145,8 +147,8 @@ l. ... }
 ============================================================
 TEST 16: Math: math-abs yes
 ============================================================
-Package tagpdf Info: The rule between parent 'math (from math/mathml)' and
-(tagpdf)             child 'abs (from abs/mathml)' is '0..n'
+Package tagpdf Info: The rule between parent 'math (from math/mathml)' 
+(tagpdf)             and child 'abs (from abs/mathml)' is '1 (0..n)'
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -154,8 +156,8 @@ l. ... }
 ============================================================
 TEST 17: Math: Formula-math yes
 ============================================================
-Package tagpdf Info: The rule between parent 'Formula (from Formula/pdf2)' and
-(tagpdf)             child 'math (from math/mathml)' is '0..n'
+Package tagpdf Info: The rule between parent 'Formula (from Formula/pdf2)' 
+(tagpdf)             and child 'math (from math/mathml)' is '1 (0..n)'
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -163,8 +165,8 @@ l. ... }
 ============================================================
 TEST 18: H10: Sect-H10 yes
 ============================================================
-Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' and child
-(tagpdf)             'H10 (from H10/pdf2)' is '0..n'
+Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' 
+(tagpdf)             and child 'H10 (from H10/pdf2)' is '1 (0..n)'
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }

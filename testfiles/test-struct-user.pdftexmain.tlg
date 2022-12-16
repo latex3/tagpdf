@@ -1,25 +1,34 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: The rule between parent 'StructTreeRoot' and child
-(tagpdf)             'Document' is '1'
-Package tagpdf Info: The rule between parent 'Document' and child 'Sect' is
-(tagpdf)             '0..n'
-Package tagpdf Info: The rule between parent 'Sect' and child 'H' is '0..1'
+Package tagpdf Info: The rule between parent 'StructTreeRoot' 
+(tagpdf)             and child 'Document' is '3 (1)'
+Package tagpdf Info: The rule between parent 'Document' 
+(tagpdf)             and child 'Sect' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'Sect' 
+(tagpdf)             and child 'H' is '2 (0..1)'
 LaTeX Font Info:    Trying to load font information for T1+cmss on input line ....
 Package tagpdf Info: closing structure 3 tagged /H
-Package tagpdf Info: The rule between parent 'Sect' and child 'P' is '0..n'
+Package tagpdf Info: The rule between parent 'Sect' 
+(tagpdf)             and child 'P' is '1 (0..n)'
 Package tagpdf Info: closing structure 4 tagged /P
-Package tagpdf Info: The rule between parent 'Sect' and child 'L' is '0..n'
-Package tagpdf Info: The rule between parent 'L' and child 'LI' is '0..n'
-Package tagpdf Info: The rule between parent 'LI' and child 'Lbl' is '0..n'
+Package tagpdf Info: The rule between parent 'Sect' 
+(tagpdf)             and child 'L' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'L' 
+(tagpdf)             and child 'LI' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'LI' 
+(tagpdf)             and child 'Lbl' is '1 (0..n)'
 Package tagpdf Info: closing structure 7 tagged /Lbl
-Package tagpdf Info: The rule between parent 'LI' and child 'LBody' is '0..n'
+Package tagpdf Info: The rule between parent 'LI' 
+(tagpdf)             and child 'LBody' is '1 (0..n)'
 Package tagpdf Info: closing structure 8 tagged /LBody
 Package tagpdf Info: closing structure 6 tagged /LI
-Package tagpdf Info: The rule between parent 'L' and child 'LI' is '0..n'
-Package tagpdf Info: The rule between parent 'LI' and child 'Lbl' is '0..n'
+Package tagpdf Info: The rule between parent 'L' 
+(tagpdf)             and child 'LI' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'LI' 
+(tagpdf)             and child 'Lbl' is '1 (0..n)'
 Package tagpdf Info: closing structure 10 tagged /Lbl
-Package tagpdf Info: The rule between parent 'LI' and child 'LBody' is '0..n'
+Package tagpdf Info: The rule between parent 'LI' 
+(tagpdf)             and child 'LBody' is '1 (0..n)'
 Package tagpdf Info: closing structure 11 tagged /LBody
 Package tagpdf Info: closing structure 9 tagged /LI
 Package tagpdf Info: closing structure 5 tagged /L
