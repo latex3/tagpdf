@@ -871,7 +871,10 @@
          \group_begin:
          \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
            {      
-             \prop_get:NVN\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
+             \prop_get:NVNF\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
+               {
+                 \tl_set:Nn \l_@@_tmpa_tl {unknown}
+               }
              \tl_set:Nn \l_@@_tmpb_tl {#1}
              \msg_note:nnxxx 
                { tag } 
@@ -1100,7 +1103,7 @@
      }     
   }
 \cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN}  
-\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,nVnVN}  
+\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,nVnVN,VVnnN}  
 %    \end{macrocode}
 % \end{macro}
 %

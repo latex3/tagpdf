@@ -708,6 +708,19 @@
               }
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
+                \@@_check_parent_child:VVnnN
+                 \g_@@_struct_tag_tl \g_@@_struct_tag_NS_tl  
+                 {MC}{}
+                 \l_@@_parent_child_check_tl 
+                \int_compare:nNnT {\l_@@_parent_child_check_tl}<{0}
+                 {
+                    \msg_warning:nnxxx 
+                     { tag } 
+                     {role-parent-child} 
+                     { \g_@@_struct_tag_tl/\g_@@_struct_tag_NS_tl  } 
+                     { MC~(=~real content) }
+                     { 'not~allowed'. }  
+                 }    
                 \@@_mc_handle_stash:x { \int_use:N \c@g_@@_MCID_abs_int }
               }
           }
