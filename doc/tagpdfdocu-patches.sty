@@ -10,76 +10,76 @@
 %%%%%
 
 
-\AfterTOCHead{\tag_struct_begin:n{tag=TOC}}
-\AfterStartingTOC{\tag_struct_end:} %end TOC
-%Marking the toc entries
-%around the whole entry so only structure:
-\newcommand\tagscrtocentry[1]{\tag_struct_begin:n{tag=TOCI}#1\tag_struct_end:}
-
-%leaf so structure and mc:
-\newcommand\tagscrtocpagenumber[1]
- {
-   \tag_struct_begin:n{tag=Reference}
-   \tag_mc_begin:n{tag=Reference}
-   #1
-   \tag_mc_end:
- \tag_struct_end:
- }
-
-
-\DeclareTOCStyleEntry[
-   entryformat=\tagscrtocentry,
-   pagenumberformat=\tagscrtocpagenumber]{tocline}{section}
-\DeclareTOCStyleEntry[
-   entryformat=\tagscrtocentry,
-   pagenumberformat=\tagscrtocpagenumber]{tocline}{subsection}
-\DeclareTOCStyleEntry[
-   entryformat=\tagscrtocentry,
-   pagenumberformat=\tagscrtocpagenumber]{tocline}{subsubsection}
-\DeclareTOCStyleEntry[
-   entryformat=\tagscrtocentry,
-   pagenumberformat=\tagscrtocpagenumber]{tocline}{paragraph}
-
-
-% \IfStr{#3} doesnt like a \label ...
-\renewcommand{\addtocentrydefault}[3]{%
-% \Ifstr{#3}{}{}
-%   {%
-   \Ifstr{#2}{}
-    {%
-     \addcontentsline{toc}{#1}
-      {%
-       \protect\nonumberline
-       \tagstructbegin{tag=P}%
-       \tagmcbegin{tag=P}%
-        #3%
-       \tagmcend
-       \tagstructend
-      }%
-    }%
-    {%
-    \addcontentsline{toc}{#1}{%
-     \tagstructbegin{tag=Lbl}%
-     \tagmcbegin{tag=Lbl}%
-     \protect\numberline{#2}%
-     \tagmcend\tagstructend
-     \tagstructbegin{tag=P}%
-     \tagmcbegin{tag=P}%
-      #3%
-     \tagmcend
-     \tagstructend
-     }%
-    }%
-  %}
-}%
-
-% the dots must be marked too
-
-\renewcommand*{\TOCLineLeaderFill}[1][.]{
-  \leaders\hbox{$\m@th
-    \mkern \@dotsep mu\hbox{\tag_mc_begin:n{artifact}#1\tag_mc_end:}\mkern \@dotsep
-    mu$}\hfill
-}
+%\AfterTOCHead{\tag_struct_begin:n{tag=TOC}}
+%\AfterStartingTOC{\tag_struct_end:} %end TOC
+%%Marking the toc entries
+%%around the whole entry so only structure:
+%\newcommand\tagscrtocentry[1]{\tag_struct_begin:n{tag=TOCI}#1\tag_struct_end:}
+%
+%%leaf so structure and mc:
+%\newcommand\tagscrtocpagenumber[1]
+% {
+%   \tag_struct_begin:n{tag=Reference}
+%   \tag_mc_begin:n{tag=Reference}
+%   #1
+%   \tag_mc_end:
+% \tag_struct_end:
+% }
+%
+%
+%\DeclareTOCStyleEntry[
+%   entryformat=\tagscrtocentry,
+%   pagenumberformat=\tagscrtocpagenumber]{tocline}{section}
+%\DeclareTOCStyleEntry[
+%   entryformat=\tagscrtocentry,
+%   pagenumberformat=\tagscrtocpagenumber]{tocline}{subsection}
+%\DeclareTOCStyleEntry[
+%   entryformat=\tagscrtocentry,
+%   pagenumberformat=\tagscrtocpagenumber]{tocline}{subsubsection}
+%\DeclareTOCStyleEntry[
+%   entryformat=\tagscrtocentry,
+%   pagenumberformat=\tagscrtocpagenumber]{tocline}{paragraph}
+%
+%
+%% \IfStr{#3} doesnt like a \label ...
+%\renewcommand{\addtocentrydefault}[3]{%
+%% \Ifstr{#3}{}{}
+%%   {%
+%   \Ifstr{#2}{}
+%    {%
+%     \addcontentsline{toc}{#1}
+%      {%
+%       \protect\nonumberline
+%       \tagstructbegin{tag=P}%
+%       \tagmcbegin{tag=P}%
+%        #3%
+%       \tagmcend
+%       \tagstructend
+%      }%
+%    }%
+%    {%
+%    \addcontentsline{toc}{#1}{%
+%     \tagstructbegin{tag=Lbl}%
+%     \tagmcbegin{tag=Lbl}%
+%     \protect\numberline{#2}%
+%     \tagmcend\tagstructend
+%     \tagstructbegin{tag=P}%
+%     \tagmcbegin{tag=P}%
+%      #3%
+%     \tagmcend
+%     \tagstructend
+%     }%
+%    }%
+%  %}
+%}%
+%
+%% the dots must be marked too
+%
+%\renewcommand*{\TOCLineLeaderFill}[1][.]{
+%  \leaders\hbox{$\m@th
+%    \mkern \@dotsep mu\hbox{\tag_mc_begin:n{artifact}#1\tag_mc_end:}\mkern \@dotsep
+%    mu$}\hfill
+%}
 
 %%%%%%%%%
 % Sectioning commands

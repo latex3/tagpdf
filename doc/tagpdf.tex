@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \PassOptionsToPackage{check-declarations,enable-debug}{expl3}
 %\RequirePackage{pdfmanagement-testphase}
-\DocumentMetadata{pdfversion=2.0,lang=en-UK,testphase=phase-II,pdfstandard=a-2b}
+\DocumentMetadata{uncompress,pdfversion=2.0,lang=en-UK,testphase=phase-II,testphase=toc-tagging,pdfstandard=a-2b}
 
 \makeatletter
 \def\UlrikeFischer@package@version{0.97}
@@ -1896,13 +1896,56 @@ tags are role mapped. This is work in progress and bound to change.
 
 \section{Checking parent-child rules}\label{sec:parent-child}
 
-The \PDF{} reference formulate various rules about whether a structure can be 
-a child of another structure. In the \PDF{} 1.7 reference this rule were 
-rather vage, in the \PDF{} 2.0  reference there is a rather specific matrix, 
-which sadly missed some of the tags from \PDF{} 1.7. The ISO norm 32005 will 
-address this problem and extend the matrix (but still miss the \texttt{math} 
-tag). Beside the parent-child matrix additional rules can be found in the  
-descriptions of the standard structure types and in standards like \PDF/UA. 
+The \PDF{} references formulate various rules about whether a structure can be 
+a child of another structure, e.g. a \texttt{Sect} can not be a child of \texttt{P}. 
+In the \PDF{} 1.7 reference this rules were 
+rather vage, in the \PDF{} 2.0  reference there is a quite specific matrix, 
+which sadly misses some of the tags from \PDF{} 1.7. The upcoming 
+ISO norm 32005 will 
+address this problem and extend the matrix to cover tags from 
+\PDF{} 1.7 and 2.0 (but it still misses the \texttt{math} tag and mathml 
+tags). 
+
+The rules in the matrix are not a simple allowed/not allowed. Instead some rules determine 
+that structure elements
+can appear only once in a parent, or that  additional requirements can be found in the  
+descriptions of the standard structure types, e.g. \texttt{Caption} often has
+to be the first element in the parent structure, and elements like \texttt{Part} and \texttt{Div}
+inherit restrictions from parent structures.
+External standards like \PDF/UA can add more rules.
+
+Altogether this doesn't make it easy to check if a structure tree is conformant or not without slowing down 
+the compilation a lot.
+
+With version 0.98 some first steps to do checks (and to react to the result of a change)
+have been implemented. Some checks will led to warning directly, but the majority
+will only be visible if the log-level is increased. 
+
+Typical messages will look then like this
+
+\begin{lstlisting}[mathescape]
+Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' 
+(tagpdf)             and child 'H10 (from H10/pdf2)' is '1 (0..n)'
+
+Package tagpdf Info: The rule between parent 'H2 (from subsection/latex)' 
+(tagpdf)             and child 'H1 (from section/latex)' is '-1 ($\emptyset$)'
+\end{lstlisting}
+
+The descriptions of the parent and childs are rather verbose as the checks have to take role mapping and name spaces into account. The result of a check is a number---negative if the relation is not allowed,
+positive if allowed. The text in the parentheses show the symbols used in the \PDF-matrix. 
+
+Be aware
+\begin{itemize}
+\item This doesn't test all rules, it only implements (hopefully correctly) the matrix.
+\item There can be differences between \PDF~1.7 and 2.0, e.g. \texttt{FENote} is rolemapped to \texttt{Note}
+in \PDF~1.7 and then has different containment rules.
+\item The special tag \texttt{MC} stands for mc-chunks, so \enquote{real content} (the matrix has containments rules for this too).
+\item  Currently there is as only negative number \texttt{\textminus1} but that is bound to change, depending on if (and how) it is possible to \enquote{repair} a disallowed parent-child relation.  
+\end{itemize}
+
+
+
+
   
   
 
