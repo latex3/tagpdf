@@ -323,8 +323,12 @@
            % if not stashed record the absolute number
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
+                \exp_args:NV\@@_struct_get_tag_info:nNN 
+                    \g_@@_struct_stack_current_tl 
+                    \l_@@_tmpa_tl
+                    \l_@@_tmpb_tl               
                 \@@_check_parent_child:VVnnN
-                 \g_@@_struct_tag_tl \g_@@_struct_tag_NS_tl  
+                 \l_@@_tmpa_tl \l_@@_tmpb_tl
                  {MC}{}
                  \l_@@_parent_child_check_tl 
                 \int_compare:nNnT {\l_@@_parent_child_check_tl}<{0}
