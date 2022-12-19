@@ -1,0 +1,14 @@
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{1000}
+\ExplSyntaxOff
+\DocumentMetadata{testphase=phase-II,pdfversion=2.0,debug={log=v}} 
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+
+\tagpdfsetup{paratag=Reference}
+  aaaa 
+  \tagmcend
+  \tagstructbegin{tag=Lbl}\tagmcbegin{} xxx\tagmcend \tagstructend 
+  \tagmcbegin{}xx
+\end{document}
