@@ -8,8 +8,8 @@
 \def\UlrikeFischer@package@date{2022-08-24}
 \makeatother
 
-\documentclass[DIV=12,parskip=half-,bibliography=totoc]{scrartcl}
-
+\documentclass[DIV=12,parskip=half-,bibliography=totoc,a4paper]{article}
+\usepackage{geometry}
 \usepackage[english]{babel}
 
 \usepackage{unicode-math}
@@ -96,13 +96,18 @@
 
 \begin{center}%\let\thanks\par
 \makeatletter
-  \usekomafont{title}{\huge \@title \par}
+\huge \@title \par
+ % \usekomafont{title}{}
+%
+\vskip .5em
+%  \usekomafont{author}{}
+\@author \par
+%
 
-  \vskip .5em
-  \usekomafont{author}{\@author \par}
-
-  \vskip 1em%
-  \usekomafont{date}{\@date \par}%
+  
+\vskip 1em%
+%  \usekomafont{date}{}%
+\@date \par
 
 \end{center}%
  \tagmcend
