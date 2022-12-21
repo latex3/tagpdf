@@ -407,6 +407,28 @@
 \bool_new:N \l_@@_struct_elem_stash_bool
 %    \end{macrocode}
 % \end{variable}
+% 
+% \subsection{Variables used by tagging code of basic elements}
+%
+% \begin{variable}{\g_@@_struct_dest_num_prop}
+% This variable records for (some or all, not clear yet)
+% destination names the related structure number to allow
+% to reference them in a Ref. The key is the destination.
+% It is currently used by the toc-tagging and sec-tagging code.
+%    \begin{macrocode}
+\prop_new:N \g_@@_struct_dest_num_prop
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_struct_ref_by_dest_prop}
+% This variable contains structures whose Ref key should be updated
+% at the end to point to structured related with this destination.
+% As this is probably need in other places too, it is not only a toc-variable.
+%    \begin{macrocode}
+\prop_new:N \g_@@_struct_ref_by_dest_prop
+%    \end{macrocode}
+% \end{variable} 
+% 
 % \section{Commands}
 %
 % The properties must be in some places handled expandably.
@@ -1217,16 +1239,22 @@
 %    \begin{macrocode}
             \@@_struct_get_tag_info:eNN  
               {\l_@@_struct_stack_parent_tmpa_tl}
-              \l_@@_tmpa_tl
-              \l_@@_tmpb_tl
+              \l_@@_get_parent_tmpa_tl
+              \l_@@_get_parent_tmpb_tl
             \@@_check_parent_child:VVVVN
-              \l_@@_tmpa_tl
-              \l_@@_tmpb_tl 
+              \l_@@_get_parent_tmpa_tl
+              \l_@@_get_parent_tmpb_tl
               \g_@@_struct_tag_tl               
               \g_@@_struct_tag_NS_tl  
               \l_@@_parent_child_check_tl             
             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
               {
+                \msg_warning:nnxxx 
+                 { tag } 
+                 {role-parent-child} 
+                 { \l_@@_get_parent_tmpa_tl/\l_@@_get_parent_tmpb_tl } 
+                 { \g_@@_struct_tag_tl/\g_@@_struct_tag_NS_tl  }
+                 { not~allowed (struct~\g_@@_struct_stack_current_tl) }  
                 \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
                 \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
                 \@@_role_remap:
