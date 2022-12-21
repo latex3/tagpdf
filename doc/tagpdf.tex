@@ -1,7 +1,7 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \PassOptionsToPackage{check-declarations,enable-debug}{expl3}
 %\RequirePackage{pdfmanagement-testphase}
-\DocumentMetadata{uncompress,pdfversion=2.0,lang=en-UK,testphase=phase-II,testphase=toc-tagging,pdfstandard=a-2b}
+\DocumentMetadata{uncompress,pdfversion=2.0,lang=en-UK,testphase=phase-II,testphase=toc-tagging,testphase=sec-tagging,pdfstandard=a-2b}
 
 \makeatletter
 \def\UlrikeFischer@package@version{0.97}
@@ -20,7 +20,7 @@
 %\patchcmd{\MT@get@prot}{\noindent}{\RawNoindent}{}{\fail}
 \makeatother
 
-\usepackage{scrlayer-scrpage}
+%\usepackage{scrlayer-scrpage}
 
 \usepackage[autostyle]{csquotes}
 \usepackage[style=numeric,hyperref=false]{biblatex}
@@ -76,7 +76,7 @@
 \usepackage{tagpdfdocu-patches}
 
 
-\cfoot*{\pagemark}
+%\cfoot*{\pagemark}
 
 %
 
@@ -94,7 +94,8 @@
 \tagstructbegin{tag=Title}
 \tagmcbegin{tag=Title}
 
-\begin{center}%\let\thanks\par
+\begin{center}%
+\let\thanks\footnote
 \makeatletter
 \huge \@title \par
  % \usekomafont{title}{}
@@ -147,7 +148,11 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 \tagstructend
 
 
+\tagtool{sec-add-grouping=false}
+
 \tableofcontents
+
+\tagtool{sec-add-grouping}
 
 
 \section{Introduction}
