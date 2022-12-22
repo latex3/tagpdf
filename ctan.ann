@@ -1,8 +1,19 @@
-Version 0.97 [2022-08-24]
+Version 0.98 [2022-12-22]
 
-
-### Fixed
- - title handling was faulty
-
+### Added 
+ - started with dedicated latex name spaces
+ - namespaces definitions have been externalized and are now read from files.   
+ - rules to check if a tag is allowed as child in the current structure. If not allow
+   a warning is issued, more messages can be activated with log=v. 
+ - The data for namespaces and rules are in a new module, tagpdf-data.dtx.
+ 
 ### Changed 
- - internal adaptions to changes in l3backend 
+ -  adding a new tag with add-new-tag now requires that the target role is 
+    defined. Unknown roles error. 
+ -  RoleMap object is no longer written in PDF 2.0 as it uses namespaces
+ -  in pdf < 2.0 rolemaps are resolved to the PDF standard.   
+ -  Structure destinations are used in PDF < 2.0 too -- they don't harm and
+    can improve html export.
+ -  \tagmcbegin no longer requires to use the tag key: the value from the surrounding
+    structure will be used.   
+ 
