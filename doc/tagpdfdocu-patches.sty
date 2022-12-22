@@ -3,7 +3,47 @@
  {patches/commands for the tagpdf documentation}
 \RequirePackage{etoolbox,xpatch}
 
+%vLogos
 
+\ExplSyntaxOn
+\DeclareRobustCommand\TeX{
+  \tag_mc_end_push:
+   \tag_struct_begin:n{tag=Span,alt=TeX,actualtext=TeX}
+    \tagmcbegin{}
+    \kern-.1667em\lower.5ex\hbox{E}\kern-.125emX\@
+    \tagmcend
+   \tag_struct_end:
+  \tag_mc_begin_pop:n{}}
+\DeclareRobustCommand{\LaTeX}{
+  {
+   \tag_mc_end_push:
+   \tag_struct_begin:n{tag=Span,alt=LaTeX,actualtext=LaTeX}
+    \tagmcbegin{}
+     L\kern-.36em%
+     \sbox\z@ T%
+         \vbox to\ht\z@{\hbox{\check@mathfonts
+                              \fontsize\sf@size\z@
+                              \math@fontsfalse\selectfont
+                              A}%
+                        \vss}%
+        }%
+        \kern-.15em%
+        \TeX
+       \tagmcend
+      \tag_struct_end:
+      \tag_mc_begin_pop:n{}      
+        }
+
+
+% textbf
+
+\AddToHook{cmd/textbf/before}
+  {\leavevmode\tag_mc_end_push:\tag_struct_begin:n{tag=Strong}\tagmcbegin{}}
+
+\AddToHook{cmd/textbf/after}
+  {\tag_mc_end:\tag_struct_end:\tag_mc_begin_pop:n{}}
+  
+  
 \newcommand\minisec[1]{%
     \if@noskipsec \leavevmode \fi
     \par
