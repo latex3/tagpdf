@@ -124,18 +124,34 @@
 % \begin{macro}{\@@_tree_write_structtreeroot:}
 % This writes out the root object.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_tree_write_structtreeroot:
-  {
-     \@@_prop_gput:cnx
-       { g_@@_struct_0_prop }
-       { ParentTree }
-       { \pdf_object_ref:n { @@/tree/parenttree } }
-     \@@_prop_gput:cnx
-       { g_@@_struct_0_prop }
-       { RoleMap }
-       { \pdf_object_ref:n { @@/tree/rolemap } }
-     \@@_struct_write_obj:n { 0 }
-  }
+\pdf_version_compare:NnTF < {2.0}   
+ { 
+   \cs_new_protected:Npn \@@_tree_write_structtreeroot:
+     {
+        \@@_prop_gput:cnx
+          { g_@@_struct_0_prop }
+          { ParentTree }
+          { \pdf_object_ref:n { @@/tree/parenttree } }
+        \@@_prop_gput:cnx
+          { g_@@_struct_0_prop }
+          { RoleMap }
+          { \pdf_object_ref:n { @@/tree/rolemap } }       
+        \@@_struct_write_obj:n { 0 }
+     }
+ } 
+%    \end{macrocode}
+% no RoleMap in pdf 2.0
+%    \begin{macrocode}
+ {
+   \cs_new_protected:Npn \@@_tree_write_structtreeroot:
+     {
+        \@@_prop_gput:cnx
+          { g_@@_struct_0_prop }
+          { ParentTree }
+          { \pdf_object_ref:n { @@/tree/parenttree } }
+        \@@_struct_write_obj:n { 0 }
+     }  
+ } 
 %    \end{macrocode}
 % \end{macro}
 %
@@ -315,7 +331,10 @@
 % \begin{variable}{@@/tree/rolemap}
 % At first we reserve again an object.
 %    \begin{macrocode}
-\pdf_object_new:n { @@/tree/rolemap }
+\pdf_version_compare:NnT < {2.0}
+  {
+    \pdf_object_new:n { @@/tree/rolemap }
+  }  
 %    \end{macrocode}
 % \end{variable}
 %
