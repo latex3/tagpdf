@@ -92,26 +92,15 @@
 \begin{document}
 
 \tagstructbegin{tag=Title}
-\tagmcbegin{tag=Title}
-
 \begin{center}%
 \let\thanks\footnote
 \makeatletter
 \huge \@title \par
- % \usekomafont{title}{}
-%
 \vskip .5em
-%  \usekomafont{author}{}
 \@author \par
-%
-
-  
 \vskip 1em%
-%  \usekomafont{date}{}%
 \@date \par
-
 \end{center}%
- \tagmcend
 \tagstructend
 
 
@@ -255,7 +244,7 @@ It is also possible that validators contradict: that the one says everything is 
 To make the package usable examples are needed: examples that demonstrate how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
 
 
-\begin{tcolorbox}[before upper=\tagpdfparaOn]
+\begin{tcolorbox}
 Feedback, contribuations and corrections are welcome!
 \end{tcolorbox}
 

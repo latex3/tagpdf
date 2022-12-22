@@ -27,11 +27,20 @@
 %% Lists
 %% patches enumitem internals!
 %%%%
-\AddToHook{env/itemize/begin}{\par\tagstructbegin{tag=L}}%\par is needed to close the paragraph before.
+\tagpdfsetup
+  {
+     newattribute =
+        {itemize}{/O /List /ListNumbering/Unordered},
+     newattribute =
+        {enumerate}{/O /List /ListNumbering/Ordered},        
+     newattribute =
+        {description}{/O /List /ListNumbering/Description},            
+  }
+\AddToHook{env/itemize/begin}{\par\tagstructbegin{tag=L,attribute-class=itemize}}%\par is needed to close the paragraph before.
 \AddToHook{env/itemize/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
-\AddToHook{env/enumerate/begin}{\par\tagstructbegin{tag=L}}
+\AddToHook{env/enumerate/begin}{\par\tagstructbegin{tag=L,attribute-class=enumerate}}
 \AddToHook{env/enumerate/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
-\AddToHook{env/description/begin}{\par\tagstructbegin{tag=L}}
+\AddToHook{env/description/begin}{\par\tagstructbegin{tag=L,attribute-class=description}}
 \AddToHook{env/description/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
 
 \newcommand\tag@enit@format@preset[1]{%
