@@ -10,8 +10,8 @@ this project uses date-based 'snapshot' version identifiers.
 ### Added 
  - started with dedicated latex name spaces
  - namespaces definitions have been externalized and are now read from files.   
- - rules to check if a tag is allowed as child in the current structure. Messages
-   can be activated with log=v. 
+ - rules to check if a tag is allowed as child in the current structure. If not allow
+   a warning is issued, more messages can be activated with log=v. 
  - The data for namespaces and rules are in a new module, tagpdf-data.dtx.
  
 ### Changed 

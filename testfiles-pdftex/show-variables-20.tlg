@@ -559,13 +559,13 @@ TEST 3: show namespaces
 ============================================================
 The property list \g__tag_role_NS_prop contains the pairs (without outer
 braces):
->  {pdf}  =>  {9 0 R }
->  {pdf2}  =>  {11 0 R }
->  {mathml}  =>  {13 0 R }
->  {latex}  =>  {15 0 R }
->  {latex-book}  =>  {17 0 R }
->  {latex-inline}  =>  {19 0 R }
->  {user}  =>  {21 0 R }.
+>  {pdf}  =>  {8 0 R }
+>  {pdf2}  =>  {10 0 R }
+>  {mathml}  =>  {12 0 R }
+>  {latex}  =>  {14 0 R }
+>  {latex-book}  =>  {16 0 R }
+>  {latex-inline}  =>  {18 0 R }
+>  {user}  =>  {20 0 R }.
 <recently read> }
 l. ... }
 ============================================================
@@ -1396,22 +1396,22 @@ TEST 26: show RoleMap dict latex
 ============================================================
 The global dictionary 'g__tag_role/RoleMapNS_latex_dict' contains the pairs
 (without outer braces):
->  {title}  =>  {[/Title 11 0 R]}
->  {part}  =>  {[/Title 11 0 R]}
->  {section}  =>  {[/H1 11 0 R]}
->  {subsection}  =>  {[/H2 11 0 R]}
->  {subsubsection}  =>  {[/H3 11 0 R]}
->  {paragraph}  =>  {[/H4 11 0 R]}
->  {subparagraph}  =>  {[/H5 11 0 R]}
->  {itemize}  =>  {[/L 11 0 R]}
->  {enumerate}  =>  {[/L 11 0 R]}
->  {description}  =>  {[/L 11 0 R]}
->  {item}  =>  {[/LI 11 0 R]}
->  {itemlabel}  =>  {[/Lbl 11 0 R]}
->  {itembody}  =>  {[/LBody 11 0 R]}
->  {footnote}  =>  {[/FENote 11 0 R]}
->  {footnotemark}  =>  {[/Lbl 11 0 R]}
->  {footnotelabel}  =>  {[/Lbl 11 0 R]}.
+>  {title}  =>  {[/Title 10 0 R]}
+>  {part}  =>  {[/Title 10 0 R]}
+>  {section}  =>  {[/H1 10 0 R]}
+>  {subsection}  =>  {[/H2 10 0 R]}
+>  {subsubsection}  =>  {[/H3 10 0 R]}
+>  {paragraph}  =>  {[/H4 10 0 R]}
+>  {subparagraph}  =>  {[/H5 10 0 R]}
+>  {itemize}  =>  {[/L 10 0 R]}
+>  {enumerate}  =>  {[/L 10 0 R]}
+>  {description}  =>  {[/L 10 0 R]}
+>  {item}  =>  {[/LI 10 0 R]}
+>  {itemlabel}  =>  {[/Lbl 10 0 R]}
+>  {itembody}  =>  {[/LBody 10 0 R]}
+>  {footnote}  =>  {[/FENote 10 0 R]}
+>  {footnotemark}  =>  {[/Lbl 10 0 R]}
+>  {footnotelabel}  =>  {[/Lbl 10 0 R]}.
 <recently read> }
 l. ... }
 ============================================================
@@ -1430,12 +1430,12 @@ TEST 28: show RoleMap dict latex-book
 ============================================================
 The global dictionary 'g__tag_role/RoleMapNS_latex-book_dict' contains the
 pairs (without outer braces):
->  {chapter}  =>  {[/H1 11 0 R]}
->  {section}  =>  {[/H2 11 0 R]}
->  {subsection}  =>  {[/H3 11 0 R]}
->  {subsubsection}  =>  {[/H4 11 0 R]}
->  {paragraph}  =>  {[/H5 11 0 R]}
->  {subparagraph}  =>  {[/H6 11 0 R]}.
+>  {chapter}  =>  {[/H1 10 0 R]}
+>  {section}  =>  {[/H2 10 0 R]}
+>  {subsection}  =>  {[/H3 10 0 R]}
+>  {subsubsection}  =>  {[/H4 10 0 R]}
+>  {paragraph}  =>  {[/H5 10 0 R]}
+>  {subparagraph}  =>  {[/H6 10 0 R]}.
 <recently read> }
 l. ... }
 ============================================================
@@ -1454,13 +1454,13 @@ TEST 30: show RoleMap dict latex-inline
 ============================================================
 The global dictionary 'g__tag_role/RoleMapNS_latex-inline_dict' contains the
 pairs (without outer braces):
->  {chapter}  =>  {[/Span 11 0 R]}
->  {section}  =>  {[/Span 11 0 R]}
->  {subsection}  =>  {[/Span 11 0 R]}
->  {subsubsection}  =>  {[/Span 11 0 R]}
->  {paragraph}  =>  {[/Span 11 0 R]}
->  {subparagraph}  =>  {[/Span 11 0 R]}
->  {P}  =>  {[/Span 11 0 R]}.
+>  {chapter}  =>  {[/Span 10 0 R]}
+>  {section}  =>  {[/Span 10 0 R]}
+>  {subsection}  =>  {[/Span 10 0 R]}
+>  {subsubsection}  =>  {[/Span 10 0 R]}
+>  {paragraph}  =>  {[/Span 10 0 R]}
+>  {subparagraph}  =>  {[/Span 10 0 R]}
+>  {P}  =>  {[/Span 10 0 R]}.
 <recently read> }
 l. ... }
 ============================================================

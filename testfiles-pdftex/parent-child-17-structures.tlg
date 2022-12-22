@@ -13,6 +13,8 @@ Package tagpdf Info: The rule between parent 'Div (inherited from Sect)'
 (tagpdf)             and child 'P' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'P' 
 (tagpdf)             and child 'P' is '-1 (^^e2^^88^^85)'
+Package tagpdf Warning: The rule between parent 'P/pdf2' 
+(tagpdf)                and child 'P/pdf2' is not allowed (struct 6)
 Package tagpdf Warning: tag chapter is not known
 Package tagpdf Warning: The rule between parent 'P' 
 (tagpdf)                and child 'chapter' is unknown!
@@ -20,6 +22,8 @@ Package tagpdf Warning: The rule between parent 'chapter'
 (tagpdf)                and child 'Strong' is unknown!
 Package tagpdf Info: The rule between parent 'Span (from Strong)' 
 (tagpdf)             and child 'Sect' is '-1 (^^e2^^88^^85)'
+Package tagpdf Warning: The rule between parent 'Strong/user' 
+(tagpdf)                and child 'Sect/pdf2' is not allowed (struct 9)
 Package tagpdf Info: The rule between parent 'Sect' 
 (tagpdf)             and child 'Div' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'Div (inherited from Sect)' 

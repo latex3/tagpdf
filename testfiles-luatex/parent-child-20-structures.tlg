@@ -13,8 +13,13 @@ Package tagpdf Info: The rule between parent 'Div (inherited from Sect)'
 (tagpdf)             and child 'P (from P/pdf2)' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'P (from P/pdf2)' 
 (tagpdf)             and child 'P (from P/pdf2)' is '-1 (∅)'
+Package tagpdf Warning: The rule between parent 'P/pdf2' 
+(tagpdf)                and child 'P/pdf2' is not allowed (struct 6)
 Package tagpdf Info: The rule between parent 'P (from P/pdf2)' 
 (tagpdf)             and child 'H1 (from chapter/latex-book)' is '-1 (∅)'
+Package tagpdf Warning: The rule between parent 'P/pdf2' 
+(tagpdf)                and child 'chapter/latex-book' is not allowed (struct
+(tagpdf)                7)
 Package tagpdf Info: The rule between parent 'H1 (from chapter/latex-book)' 
 (tagpdf)             and child 'Strong (from Strong/pdf2)' is '1 (0..n)'
 Package tagpdf Info: closing structure 8 tagged /Strong
@@ -182,7 +187,7 @@ Completed box being shipped out [1]
 ....\TU/lmr/m/n/10 c
 ....\pdfliteral page <lua data reference ...>
 ....\pdfliteral page <lua data reference ...>
-....\write1{\newlabeldata{tagpdfstruct-blub}{{tagstruct}{13}{tagstructobj}{35 0 R\ETC.}
+....\write1{\newlabeldata{tagpdfstruct-blub}{{tagstruct}{13}{tagstructobj}{34 0 R\ETC.}
 ....\pdfliteral page <lua data reference ...>
 ....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/10 H
