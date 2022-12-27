@@ -1,0 +1,39 @@
+\DocumentMetadata{testphase=phase-II,pdfversion=2.0}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+xxx
+\START
+\ExplSyntaxOn
+\TEST{pdf 1.7} {}
+\TEST{get~known~role:~title}
+ {
+   \__tag_role_get:nnN {title}{latex}\l_tmpa_tl
+   \tl_show:N \l_tmpa_tl
+ }  
+ 
+\TEST{get~known~role~title,~unknown~name~space}
+ {
+   \__tag_role_get:nnN {title}{blub}\l_tmpa_tl
+   \tl_show:N \l_tmpa_tl
+ }  
+ 
+\TEST{get~unknown~role:~blub}
+ {
+   \__tag_role_get:nnN {blub}{pdf}\l_tmpa_tl
+   \tl_show:N \l_tmpa_tl
+ }  
+ 
+\TEST{get~standard~role:~Sect}
+ {
+   \__tag_role_get:nnN {Sect}{xxx}\l_tmpa_tl
+   \tl_show:N \l_tmpa_tl
+ }   
+ 
+\TEST{get~standard~role:~Aside}
+ {
+   \__tag_role_get:nnN {Aside}{xxx}\l_tmpa_tl
+   \tl_show:N \l_tmpa_tl
+ }    
+\ExplSyntaxOff
+\END

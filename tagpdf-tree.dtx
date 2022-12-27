@@ -348,9 +348,12 @@
     {     
       \prop_map_inline:Nn\g_@@_role_rolemap_prop
         {
-          \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
-            {##1}
-            {\pdf_name_from_unicode_e:n{##2}}
+          \tl_if_eq:nnF {##1}{##2}
+           {
+             \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
+              {##1}
+              {\pdf_name_from_unicode_e:n{##2}}
+           }   
         }
       \pdf_object_write:nnx  { @@/tree/rolemap }{dict}
        {
@@ -418,7 +421,7 @@
 \cs_new_protected:Npn \@@_tree_write_namespaces:
   {
    \pdf_version_compare:NnF < {2.0}
-    {
+    {      
       \prop_map_inline:Nn \g_@@_role_NS_prop
         {
           \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
