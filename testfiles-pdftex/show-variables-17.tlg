@@ -55,17 +55,17 @@ braces):
 >  {Reference}  =>  {pdf}
 >  {BibEntry}  =>  {pdf}
 >  {Code}  =>  {pdf}
->  {DocumentFragment}  =>  {user}
->  {Aside}  =>  {user}
->  {H7}  =>  {user}
->  {H8}  =>  {user}
->  {H9}  =>  {user}
->  {H10}  =>  {user}
->  {Title}  =>  {user}
->  {FENote}  =>  {user}
->  {Sub}  =>  {user}
->  {Em}  =>  {user}
->  {Strong}  =>  {user}
+>  {DocumentFragment}  =>  {pdf2}
+>  {Aside}  =>  {pdf2}
+>  {H7}  =>  {pdf2}
+>  {H8}  =>  {pdf2}
+>  {H9}  =>  {pdf2}
+>  {H10}  =>  {pdf2}
+>  {Title}  =>  {pdf2}
+>  {FENote}  =>  {pdf2}
+>  {Sub}  =>  {pdf2}
+>  {Em}  =>  {pdf2}
+>  {Strong}  =>  {pdf2}
 >  {title}  =>  {user}
 >  {part}  =>  {user}
 >  {section}  =>  {user}
@@ -140,19 +140,19 @@ outer braces):
 >  {Reference}  =>  {B}
 >  {BibEntry}  =>  {B}
 >  {Code}  =>  {I}
->  {DocumentFragment}  =>  {--UNKNOWN--}
->  {Aside}  =>  {GBI}
+>  {DocumentFragment}  =>  {D}
+>  {Aside}  =>  {G}
 >  {H7}  =>  {B}
 >  {H8}  =>  {B}
 >  {H9}  =>  {B}
 >  {H10}  =>  {B}
->  {Title}  =>  {B}
+>  {Title}  =>  {GB}
 >  {FENote}  =>  {GBI}
 >  {Sub}  =>  {I}
 >  {Em}  =>  {I}
 >  {Strong}  =>  {I}
->  {title}  =>  {B}
->  {part}  =>  {B}
+>  {title}  =>  {GB}
+>  {part}  =>  {GB}
 >  {section}  =>  {B}
 >  {subsection}  =>  {B}
 >  {subsubsection}  =>  {B}
@@ -232,102 +232,56 @@ TEST 6: show tags of namespace pdf
 ============================================================
 The property list \g__tag_role_NS_pdf_prop contains the pairs (without outer
 braces):
->  {StructTreeRoot}  =>  {{}{}}
->  {Document}  =>  {{}{}}
->  {Part}  =>  {{}{}}
->  {Sect}  =>  {{}{}}
->  {Div}  =>  {{}{}}
->  {Caption}  =>  {{}{}}
->  {NonStruct}  =>  {{}{}}
->  {H}  =>  {{}{}}
->  {H1}  =>  {{}{}}
->  {H2}  =>  {{}{}}
->  {H3}  =>  {{}{}}
->  {H4}  =>  {{}{}}
->  {H5}  =>  {{}{}}
->  {H6}  =>  {{}{}}
->  {P}  =>  {{}{}}
->  {L}  =>  {{}{}}
->  {LI}  =>  {{}{}}
->  {Lbl}  =>  {{}{}}
->  {LBody}  =>  {{}{}}
->  {Table}  =>  {{}{}}
->  {TR}  =>  {{}{}}
->  {TH}  =>  {{}{}}
->  {TD}  =>  {{}{}}
->  {THead}  =>  {{}{}}
->  {TBody}  =>  {{}{}}
->  {TFoot}  =>  {{}{}}
->  {Span}  =>  {{}{}}
->  {Link}  =>  {{}{}}
->  {Annot}  =>  {{}{}}
->  {Figure}  =>  {{}{}}
->  {Formula}  =>  {{}{}}
->  {Form}  =>  {{}{}}
->  {Ruby}  =>  {{}{}}
->  {RB}  =>  {{}{}}
->  {RT}  =>  {{}{}}
->  {Warichu}  =>  {{}{}}
->  {WT}  =>  {{}{}}
->  {WP}  =>  {{}{}}
->  {Artifact}  =>  {{}{}}
->  {Art}  =>  {{}{}}
->  {BlockQuote}  =>  {{}{}}
->  {TOC}  =>  {{}{}}
->  {TOCI}  =>  {{}{}}
->  {Index}  =>  {{}{}}
->  {Private}  =>  {{}{}}
->  {Quote}  =>  {{}{}}
->  {Note}  =>  {{}{}}
->  {Reference}  =>  {{}{}}
->  {BibEntry}  =>  {{}{}}
->  {Code}  =>  {{}{}}.
-<recently read> }
-l. ... }
-============================================================
-============================================================
-TEST 7: show tags of namespace pdf2
-============================================================
-The property list \g__tag_role_NS_pdf2_prop contains the pairs (without outer
-braces):
->  {Document}  =>  {{}{}}
->  {Part}  =>  {{}{}}
->  {Sect}  =>  {{}{}}
->  {Div}  =>  {{}{}}
->  {Caption}  =>  {{}{}}
->  {NonStruct}  =>  {{}{}}
->  {H}  =>  {{}{}}
->  {H1}  =>  {{}{}}
->  {H2}  =>  {{}{}}
->  {H3}  =>  {{}{}}
->  {H4}  =>  {{}{}}
->  {H5}  =>  {{}{}}
->  {H6}  =>  {{}{}}
->  {P}  =>  {{}{}}
->  {L}  =>  {{}{}}
->  {LI}  =>  {{}{}}
->  {Lbl}  =>  {{}{}}
->  {LBody}  =>  {{}{}}
->  {Table}  =>  {{}{}}
->  {TR}  =>  {{}{}}
->  {TH}  =>  {{}{}}
->  {TD}  =>  {{}{}}
->  {THead}  =>  {{}{}}
->  {TBody}  =>  {{}{}}
->  {TFoot}  =>  {{}{}}
->  {Span}  =>  {{}{}}
->  {Link}  =>  {{}{}}
->  {Annot}  =>  {{}{}}
->  {Figure}  =>  {{}{}}
->  {Formula}  =>  {{}{}}
->  {Form}  =>  {{}{}}
->  {Ruby}  =>  {{}{}}
->  {RB}  =>  {{}{}}
->  {RT}  =>  {{}{}}
->  {Warichu}  =>  {{}{}}
->  {WT}  =>  {{}{}}
->  {WP}  =>  {{}{}}
->  {Artifact}  =>  {{}{}}
+>  {StructTreeRoot}  =>  {{StructTreeRoot}{}}
+>  {Document}  =>  {{Document}{}}
+>  {Part}  =>  {{Part}{}}
+>  {Sect}  =>  {{Sect}{}}
+>  {Div}  =>  {{Div}{}}
+>  {Caption}  =>  {{Caption}{}}
+>  {NonStruct}  =>  {{NonStruct}{}}
+>  {H}  =>  {{H}{}}
+>  {H1}  =>  {{H1}{}}
+>  {H2}  =>  {{H2}{}}
+>  {H3}  =>  {{H3}{}}
+>  {H4}  =>  {{H4}{}}
+>  {H5}  =>  {{H5}{}}
+>  {H6}  =>  {{H6}{}}
+>  {P}  =>  {{P}{}}
+>  {L}  =>  {{L}{}}
+>  {LI}  =>  {{LI}{}}
+>  {Lbl}  =>  {{Lbl}{}}
+>  {LBody}  =>  {{LBody}{}}
+>  {Table}  =>  {{Table}{}}
+>  {TR}  =>  {{TR}{}}
+>  {TH}  =>  {{TH}{}}
+>  {TD}  =>  {{TD}{}}
+>  {THead}  =>  {{THead}{}}
+>  {TBody}  =>  {{TBody}{}}
+>  {TFoot}  =>  {{TFoot}{}}
+>  {Span}  =>  {{Span}{}}
+>  {Link}  =>  {{Link}{}}
+>  {Annot}  =>  {{Annot}{}}
+>  {Figure}  =>  {{Figure}{}}
+>  {Formula}  =>  {{Formula}{}}
+>  {Form}  =>  {{Form}{}}
+>  {Ruby}  =>  {{Ruby}{}}
+>  {RB}  =>  {{RB}{}}
+>  {RT}  =>  {{RT}{}}
+>  {Warichu}  =>  {{Warichu}{}}
+>  {WT}  =>  {{WT}{}}
+>  {WP}  =>  {{WP}{}}
+>  {Artifact}  =>  {{Artifact}{}}
+>  {Art}  =>  {{Art}{}}
+>  {BlockQuote}  =>  {{BlockQuote}{}}
+>  {TOC}  =>  {{TOC}{}}
+>  {TOCI}  =>  {{TOCI}{}}
+>  {Index}  =>  {{Index}{}}
+>  {Private}  =>  {{Private}{}}
+>  {Quote}  =>  {{Quote}{}}
+>  {Note}  =>  {{Note}{}}
+>  {Reference}  =>  {{Reference}{}}
+>  {BibEntry}  =>  {{BibEntry}{}}
+>  {Code}  =>  {{Code}{}}
 >  {DocumentFragment}  =>  {{Art}{}}
 >  {Aside}  =>  {{Note}{}}
 >  {H7}  =>  {{H6}{}}
@@ -339,6 +293,63 @@ braces):
 >  {Sub}  =>  {{Span}{}}
 >  {Em}  =>  {{Span}{}}
 >  {Strong}  =>  {{Span}{}}.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 7: show tags of namespace pdf2
+============================================================
+The property list \g__tag_role_NS_pdf2_prop contains the pairs (without outer
+braces):
+>  {Document}  =>  {{Document}{}}
+>  {Part}  =>  {{Part}{}}
+>  {Sect}  =>  {{Sect}{}}
+>  {Div}  =>  {{Div}{}}
+>  {Caption}  =>  {{Caption}{}}
+>  {NonStruct}  =>  {{NonStruct}{}}
+>  {H}  =>  {{H}{}}
+>  {H1}  =>  {{H1}{}}
+>  {H2}  =>  {{H2}{}}
+>  {H3}  =>  {{H3}{}}
+>  {H4}  =>  {{H4}{}}
+>  {H5}  =>  {{H5}{}}
+>  {H6}  =>  {{H6}{}}
+>  {P}  =>  {{P}{}}
+>  {L}  =>  {{L}{}}
+>  {LI}  =>  {{LI}{}}
+>  {Lbl}  =>  {{Lbl}{}}
+>  {LBody}  =>  {{LBody}{}}
+>  {Table}  =>  {{Table}{}}
+>  {TR}  =>  {{TR}{}}
+>  {TH}  =>  {{TH}{}}
+>  {TD}  =>  {{TD}{}}
+>  {THead}  =>  {{THead}{}}
+>  {TBody}  =>  {{TBody}{}}
+>  {TFoot}  =>  {{TFoot}{}}
+>  {Span}  =>  {{Span}{}}
+>  {Link}  =>  {{Link}{}}
+>  {Annot}  =>  {{Annot}{}}
+>  {Figure}  =>  {{Figure}{}}
+>  {Formula}  =>  {{Formula}{}}
+>  {Form}  =>  {{Form}{}}
+>  {Ruby}  =>  {{Ruby}{}}
+>  {RB}  =>  {{RB}{}}
+>  {RT}  =>  {{RT}{}}
+>  {Warichu}  =>  {{Warichu}{}}
+>  {WT}  =>  {{WT}{}}
+>  {WP}  =>  {{WP}{}}
+>  {Artifact}  =>  {{Artifact}{}}
+>  {DocumentFragment}  =>  {{DocumentFragment}{}}
+>  {Aside}  =>  {{Aside}{}}
+>  {H7}  =>  {{H7}{}}
+>  {H8}  =>  {{H8}{}}
+>  {H9}  =>  {{H9}{}}
+>  {H10}  =>  {{H10}{}}
+>  {Title}  =>  {{Title}{}}
+>  {FENote}  =>  {{FENote}{}}
+>  {Sub}  =>  {{Sub}{}}
+>  {Em}  =>  {{Em}{}}
+>  {Strong}  =>  {{Strong}{}}.
 <recently read> }
 l. ... }
 ============================================================
@@ -484,7 +495,18 @@ outer braces):
 >  {Note}  =>  {--UNUSED--}
 >  {Reference}  =>  {--UNUSED--}
 >  {BibEntry}  =>  {--UNUSED--}
->  {Code}  =>  {--UNUSED--}.
+>  {Code}  =>  {--UNUSED--}
+>  {DocumentFragment}  =>  {--UNUSED--}
+>  {Aside}  =>  {--UNUSED--}
+>  {H7}  =>  {--UNUSED--}
+>  {H8}  =>  {--UNUSED--}
+>  {H9}  =>  {--UNUSED--}
+>  {H10}  =>  {--UNUSED--}
+>  {Title}  =>  {--UNUSED--}
+>  {FENote}  =>  {--UNUSED--}
+>  {Sub}  =>  {--UNUSED--}
+>  {Em}  =>  {--UNUSED--}
+>  {Strong}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================
