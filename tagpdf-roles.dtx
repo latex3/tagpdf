@@ -468,7 +468,7 @@
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the 2.0 command. 
 % If there is no role, we assume a standard tag.
-% \begin{macro}{\@@_role_get_role:nnN}
+% \begin{macro}{\@@_role_get:nnN}
 %    \begin{macrocode}
 \pdf_version_compare:NnT < {2.0}
  {
@@ -479,7 +479,9 @@
           \tl_set:Nn #3 {#1}
         }
     }
+   \cs_generate_variant:Nn \@@_role_get:nnN {VVN} 
  }   
+ 
 %    \end{macrocode}
 % \end{macro}
 % \subsubsection{The pdf 2.0 version}
@@ -538,7 +540,7 @@
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the <2.0 command (and assume
 % that we don't need a name space)% 
-% \begin{macro}{\@@_role_get_role:nnN}
+% \begin{macro}{\@@_role_get:nnN}
 %    \begin{macrocode}
 \pdf_version_compare:NnF < {2.0}
  {
@@ -552,6 +554,7 @@
          \tl_set:Nn #3 {#1}
         }
     }
+   \cs_generate_variant:Nn \@@_role_get:nnN {VVN} 
  }   
 %    \end{macrocode}
 % \end{macro}
@@ -900,11 +903,14 @@
              \seq_pop_left:NN \l_@@_role_tmpa_seq\l_@@_get_tmpc_tl             
              \seq_map_inline:Nn\l_@@_role_tmpa_seq
                {
-                 \tl_if_in:nnF {-Part-Div-NonStruct-}{-##1-}
+                 \tl_set:Nx\l_@@_tmpa_tl { \use_ii:nn ##1 }
+                 \exp_args:Nne
+                  \tl_if_in:nnF {-Part-Div-NonStruct-}{-\l_@@_tmpa_tl-}
                    {  
                      \tl_set:Nn\l_@@_role_real_parent_tl {##1}
                      \int_zero:N\l_@@_tmpa_int
-                     \@@_role_get_parent_child_rule:nnN {##1}{#2}#3
+                     \exp_args:NV
+                     \@@_role_get_parent_child_rule:nnN \l_@@_tmpa_tl{#2}#3
                      \int_set:Nn\l_@@_tmpa_int{1}
                      \seq_map_break:
                    }

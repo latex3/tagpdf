@@ -294,7 +294,7 @@
 % numbered stack, lets build a tag stack too.
 %    \begin{macrocode}
 \seq_new:N    \g_@@_struct_tag_stack_seq
-\seq_gpush:Nn \g_@@_struct_tag_stack_seq {Root}
+\seq_gpush:Nn \g_@@_struct_tag_stack_seq {{Root}{StructTreeRoot}}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1226,7 +1226,12 @@
               }
            }
         \seq_gpush:NV \g_@@_struct_stack_seq        \c@g_@@_struct_abs_int
-        \seq_gpush:NV \g_@@_struct_tag_stack_seq    \g_@@_struct_tag_tl
+        \@@_role_get:VVN 
+          \g_@@_struct_tag_tl 
+          \g_@@_struct_tag_NS_tl
+          \l_@@_get_tmpc_tl 
+        \seq_gpush:Nx \g_@@_struct_tag_stack_seq 
+          {{\g_@@_struct_tag_tl}{\l_@@_get_tmpc_tl}}
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
         %\seq_show:N   \g_@@_struct_stack_seq
         \bool_if:NF
@@ -1314,7 +1319,8 @@
           }
        \seq_get:NNT \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
           {
-            \tl_gset:NV \g_@@_struct_tag_tl \l_@@_tmpa_tl
+            \tl_gset:Nx \g_@@_struct_tag_tl 
+              { \exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl }
           }
 %<debug>\@@_debug_struct_end_insert:
       }

@@ -5,8 +5,8 @@ TEST 1: Show-Stack
 ============================================================
 The sequence \g__tag_struct_tag_stack_seq contains the items (without outer
 braces):
->  {Document}
->  {Root}.
+>  {{Document}{Document}}
+>  {{Root}{StructTreeRoot}}.
 <recently read> }
 l. ... }
 ============================================================
