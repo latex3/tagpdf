@@ -5,7 +5,13 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [2022-12-22]
+## [2022-12-28]
+
+### Fixed
+ - parent-child test for NonStruct, Part, Div
+ - tagging of sectioning in the documentation
+
+## [2022-12-22] 
 
 ### Added 
  - started with dedicated latex name spaces

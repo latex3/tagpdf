@@ -1,5 +1,5 @@
 -- Build script for tagpdf
-packageversion="0.98"
+packageversion="0.98a"
 packagedate="2022-12-22"
 
 module   = "tagpdf"
@@ -100,13 +100,13 @@ function update_tag (file,content,tagname,tagdate)
                          "\\ProvidesExplFile {(.-)} {.-} {.-}",
                          "\\ProvidesExplFile {%1} {" .. packagedate.."} {"..packageversion .. "}")
   content = string.gsub (content,
-                         '(version%s*=%s*")%d%.%d+(",%s*--TAGVERSION)',
+                         '(version%s*=%s*")%d%.%d+%l?(",%s*--TAGVERSION)',
                          "%1"..packageversion.."%2")
   content = string.gsub (content,
                          '(date%s*=%s*")%d%d%d%d%-%d%d%-%d%d(",%s*--TAGDATE)',
                          "%1"..packagedate.."%2")
   content = string.gsub (content,
-                         "date{Version %d%.%d+, released %d%d%d%d%-%d%d%-%d%d",
+                         "date{Version %d%.%d+%l?, released %d%d%d%d%-%d%d%-%d%d",
                          "date{Version "..packageversion..", released ".. packagedate)
   return content
 elseif string.match (file, "%.sty$" ) then
@@ -116,13 +116,13 @@ elseif string.match (file, "%.sty$" ) then
   return content
  elseif string.match (file, "^Readme.md$") then
    content = string.gsub (content,
-                         "Version: %d%.%d+",
+                         "Version: %d%.%d+%l?",
                          "Version: " .. packageversion )
    content = string.gsub (content,
-                         "version%-%d%.%d+",
+                         "version%-%d%.%d+%l?",
                          "version-" .. packageversion )
    content = string.gsub (content,
-                         "for %d%.%d+",
+                         "for %d%.%d+%l?",
                          "for " .. packageversion )
    content = string.gsub (content,
                          "%d%d%d%d%-%d%d%-%d%d",
@@ -134,7 +134,7 @@ elseif string.match (file, "%.sty$" ) then
    return content
  elseif string.match (file, "%.md$") then
    content = string.gsub (content,
-                         "Packageversion: %d%.%d+",
+                         "Packageversion: %d%.%d+%l?",
                          "Packageversion: " .. packageversion )
    content = string.gsub (content,
                          "Packagedate: %d%d%d%d/%d%d/%d%d",
@@ -142,7 +142,7 @@ elseif string.match (file, "%.sty$" ) then
    return content
  elseif string.match (file, "%.tex$" ) then
    content = string.gsub (content,
-                         "package@version{%d%.%d+}",
+                         "package@version{%d%.%d+%l?}",
                          "package@version{" .. packageversion .."}" )
    content = string.gsub (content,
                          "package@date{%d%d%d%d%-%d%d%-%d%d}",
@@ -159,6 +159,7 @@ docfiles = {"tagpdf.tex",
             "tagpdf.bib",
             "link-figure-input.tex",
             "pac3.PNG",
+            "acrobat.png",
             "global-ex.png",
             "examples/**/ex-*.tex",
             "examples/**/ex-*.pdf"}

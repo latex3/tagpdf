@@ -1,6 +1,6 @@
 # tagpdf
 
-![Version: 0.98](https://img.shields.io/badge/current_version-0.98-blue.svg?style=flat-square)
+![Version: 0.98a](https://img.shields.io/badge/current_version-0.98a-blue.svg?style=flat-square)
 ![Date: 2022-12-22](https://img.shields.io/badge/date-2022--12--22-blue.svg?style=flat-square)
 [![License: LPPL1.3c ](https://img.shields.io/badge/license-LPPL1.3c-blue.svg?style=flat-square)](https://ctan.org/license/lppl1.3c)
 
