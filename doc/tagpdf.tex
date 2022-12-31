@@ -1,7 +1,18 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 \PassOptionsToPackage{check-declarations,enable-debug}{expl3}
-%\RequirePackage{pdfmanagement-testphase}
-\DocumentMetadata{pdfversion=2.0,lang=en-UK,testphase=phase-II,testphase=toc-tagging,testphase=sec-tagging,pdfstandard=a-2b}
+
+% Note on the compilation of the documentation:
+% The documentation uses for the tagging sometimes code 
+% that is under development and/or not public yet. 
+% To compile an *untagged* documentation, comment the line with
+% the testphase keys in the following \DocumentMetadata command. 
+
+\DocumentMetadata
+ {
+   % comment the following line to compile an untagged documentation:
+   testphase=phase-II,testphase=toc-tagging,testphase=sec-tagging,
+   pdfversion=2.0,lang=en-UK,pdfstandard=a-2b
+ }
 
 \makeatletter
 \def\UlrikeFischer@package@version{0.98a}
@@ -1230,11 +1241,11 @@ the needed code.
 
 \tagstructbegin{tag=Figure,alt={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
 \ExplSyntaxOn
-\tag_stop_group_begin:
+\tag_stop:
 \ExplSyntaxOff
 \input{link-figure-input}
 \ExplSyntaxOn
-\tag_stop_group_end:
+\tag_start:
 \ExplSyntaxOff
 \tagmcend\tagstructend
 
