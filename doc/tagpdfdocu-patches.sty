@@ -41,6 +41,13 @@
 
 \AddToHook{cmd/textbf/after}
   {\tag_mc_end:\tag_struct_end:\tag_mc_begin_pop:n{}}
+
+% emph
+\AddToHook{cmd/emph/before}
+  {\leavevmode\tag_mc_end_push:\tag_struct_begin:n{tag=Em}\tagmcbegin{}}
+
+\AddToHook{cmd/emph/after}
+  {\tag_mc_end:\tag_struct_end:\tag_mc_begin_pop:n{}}
   
   
 \newcommand\minisec[1]{%
