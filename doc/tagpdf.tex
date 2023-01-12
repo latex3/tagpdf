@@ -59,6 +59,10 @@
         escapechar=*,
         commentstyle=\color{green!50!black}\bfseries}
 
+% this allow to get real spaces in the code parts. 
+% This should perhaps be combined in a new listings key
+\lstset{showspaces}
+\makeatletter \def\lst@visiblespace{\lst@ttfamily{\char32}{\char32}}\makeatother
 
 
 \tagpdfsetup{
