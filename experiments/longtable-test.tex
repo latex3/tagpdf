@@ -1,0 +1,72 @@
+% Needs lualatex! pdflatex has shrinkage!
+\DocumentMetadata{uncompress,testphase=phase-II,debug={log=v}}
+
+
+\documentclass{article}
+\usepackage{longtable,array}
+\tagpdfsetup{  newattribute =
+   {TH-col}{/O /Table /Scope /Column}}
+\textheight=3cm
+\begin{document}
+
+\tagpdfparaOff
+
+\tagstructbegin{tag=Table}
+\begin{longtable}{
+ >{%
+   \tagstructbegin{tag=TR}%
+    \tagstructbegin{tag=TD}%
+     \tagmcbegin{}%
+  }
+ p{2cm}
+  <{\tagmcend
+    \tagstructend}
+  >{\tagstructbegin{tag=TD}
+     \tagmcbegin{}}
+ l
+ <{\tagmcend
+   \tagstructend %TD
+   \tagstructend}%TR
+  }
+% 
+\multicolumn{1}
+{ >{\tagstructbegin{tag=THead}%
+     \tagstructbegin{tag=TR}%
+      \tagstructbegin{tag=TH,attribute-class=TH-col}%
+        \tagmcbegin{}}
+ p{2cm}
+   <{\tagmcend\tagstructend}}
+{header1} 
+&
+\multicolumn{1}
+{>{\tagstructbegin{tag=TH,attribute-class=TH-col}\tagmcbegin{}}
+ l
+ <{\tagmcend
+   \tagstructend %TH 
+    \tagstructend %TR 
+     \tagstructend
+     \tagstructbegin{tag=TBody}}%THEAD
+}
+{header2}
+\endfirsthead
+\multicolumn{1}
+{>{\tagmcbegin{artifact}}p{2cm}}
+{header1} &
+\multicolumn{1}
+{>{\tagmcbegin{artifact}}l}
+{header2}
+\endhead
+abc & cde\\
+abc & cde\\
+abc & cde\\
+abc & cde\\
+abc & cde\\
+abc & cde\\
+abc & cde\\
+abc & cde\\
+abc & cde\\
+\end{longtable}
+\tagstructend\tagstructend
+
+
+\end{document}
