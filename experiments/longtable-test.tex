@@ -1,4 +1,5 @@
-% Needs lualatex! pdflatex has shrinkage!
+% !Mode:: "TeX:UTF-8:Main"
+% Needs lualatex! pdflatex has shrinkage from the box split!!
 \DocumentMetadata{uncompress,testphase=phase-II,debug={log=v}}
 
 
@@ -11,7 +12,16 @@
 
 \tagpdfparaOff
 
-\tagstructbegin{tag=Table}
+\ExplSyntaxOn 
+%patch for pdflatex
+%unclear if it works, if a longtable is "near" a page break ...
+\AddToHook{env/longtable/begin}
+ {\bool_if:NF \g__tag_mode_lua_bool 
+   {\cs_set:Npn \__tag_add_missing_mcs_to_stream:Nn #1 #2{}}
+ }
+\ExplSyntaxOff 
+
+\tagstructbegin{tag=Table} 
 \begin{longtable}{
  >{%
    \tagstructbegin{tag=TR}%
@@ -50,21 +60,21 @@
 {header2}
 \endfirsthead
 \multicolumn{1}
-{>{\tagmcbegin{artifact}}p{2cm}}
+{>{\tagmcbegin{artifact}}p{2cm}<{\tagmcend}}
 {header1} &
 \multicolumn{1}
-{>{\tagmcbegin{artifact}}l}
+{>{\tagmcbegin{artifact}}l<{\tagmcend}}
 {header2}
 \endhead
-abc & cde\\
-abc & cde\\
-abc & cde\\
-abc & cde\\
-abc & cde\\
-abc & cde\\
-abc & cde\\
-abc & cde\\
-abc & cde\\
+1abc & cde\\
+2abc & cde\\
+3abc & cde\\
+4abc & cde\\
+5abc & cde\\
+6abc & cde\\
+7abc & cde\\
+8abc & cde\\
+9abc & cde\\
 \end{longtable}
 \tagstructend\tagstructend
 
