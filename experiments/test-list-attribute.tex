@@ -1,0 +1,36 @@
+
+% 2023-01-19 ngpdf handles that differently
+
+%  <ol data-pdf-se-type="L" style="list-style-type:none;">
+%  <ul class="enumerate" data-pdf-se-type="L" style="list-style-type:none;">
+
+\DocumentMetadata{uncompress,testphase=phase-II,pdfversion=2.0}
+\documentclass[11pt]{book}
+
+\tagpdfsetup
+  {
+     newattribute =
+        {enumerate}{/O /List /ListNumbering/Ordered},        
+  }
+\begin{document}
+
+\tagpdfparaOff 
+
+%fake two lists:
+
+\tagstructbegin{tag=L,attribute=enumerate}%
+\tagstructbegin{tag=LI}%
+ \tagstructbegin{tag={Lbl}}% 
+  \tagmcbegin{}1.\tagmcend \tagstructend \tagstructbegin{tag=LBody} 
+  \tagstructbegin{tag=P} \tagmcbegin{}Text\tagmcend \tagstructend 
+ \tagstructend \tagstructend \tagstructend 
+
+
+\tagstructbegin{tag=L,attribute-class=enumerate}%
+\tagstructbegin{tag=LI}%
+ \tagstructbegin{tag={Lbl}}% 
+  \tagmcbegin{}1.\tagmcend \tagstructend \tagstructbegin{tag=LBody} 
+  \tagstructbegin{tag=P} \tagmcbegin{}Text\tagmcend \tagstructend 
+ \tagstructend \tagstructend \tagstructend 
+
+\end{document}
