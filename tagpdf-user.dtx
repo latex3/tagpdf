@@ -639,6 +639,7 @@
 %    \begin{macrocode}
 \AddToHook{begindocument/before}
  {
+   \providecommand\@mult@ptagging@hook {} %
    \bool_if:NF \g_@@_mode_lua_bool
      {
         \cs_if_exist:NT \@kernel@before@footins
