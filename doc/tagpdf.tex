@@ -477,6 +477,13 @@ can improve the html export.
 
 \end{itemize}
 
+\subsection{Changes in version 0.98a}
+Small bug fixes in code and documentation.
+
+\subsection{Changes in version 0.98b}
+The main change is from now on every structure has an ID and an IDtree is added.
+The ID of a structure can be retrieved with |\tag_get:n|.
+
 
 \subsection{Proof of concept: the tagging of the documentation itself}
 
@@ -1149,10 +1156,14 @@ In \emph{generic mode}, where marked content command shouldn't be nested, it wor
 
 In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!
 
+\subsubsection{Retrieving data} 
+With more elaborate tagging the need arise to retrieve and store current data. 
 
 \begin{docCommand}{tag_get:n}{\marg{key word}}\end{docCommand}
 
-This command give back some variables. Currently the only working key words are \verb+mc_tag+, \verb+struct_tag+ and \verb+struct_num+. The last returns a number and works also if only \pkg{tagpdf-base} has been loaded, but then doesn't give the same output: if \pkg{tagpdf} is loaded and tagging is active, \verb+struct_num+ gives the number of currently
+This (expandable) command give back some variables. Currently the working key words are \verb+mc_tag+, \verb+struct_tag+,
+\verb+struct_id+ and \verb+struct_num+. The ID is a string and returned including parentheses. 
+\verb+struct_num+ returns a number and works also if only \pkg{tagpdf-base} has been loaded, but then doesn't give the same output: if \pkg{tagpdf} is loaded and tagging is active, \verb+struct_num+ gives the number of currently
 active structure, so it reverts to the parent number if a structure is closed. If only \pkg{tagpdf-base} is loaded
 nesting of structure is not tracked and so the command gives back the number of the last structure that has been created.
 
