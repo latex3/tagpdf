@@ -165,7 +165,7 @@
       =
       {\lua_now:e
          {
-           tex.print(tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr))
+           tex.print(\int_use:N \c_document_cctab,tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr))
          }
       }
       { \prg_return_false:  }
