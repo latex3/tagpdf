@@ -515,7 +515,7 @@
 \cs_new:Npn \@@_struct_get_id:n #1 %#1=struct num
   {
     (
-     ID-
+     ID.
      \prg_replicate:nn 
       { \int_abs:n{\g_@@_tree_id_pad_int - \tl_count:e { \int_to_arabic:n { #1 } }} } 
       { 0 }
