@@ -903,7 +903,7 @@
 %
 % \begin{macro}{\@@_get_data_struct_tag:}
 % this command allows \cs{tag_get:n} to get the current
-% structure tag with the keyword |struct_tag|. We will need to handle nesting
+% structure tag with the keyword |struct_tag|. 
 %    \begin{macrocode}
 \cs_new:Npn \@@_get_data_struct_tag:
   {
@@ -912,6 +912,17 @@
      {
        \prop_item:cn {g_@@_struct_\g_@@_struct_stack_current_tl _prop}{S}
      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_get_data_struct_id:}
+% this command allows \cs{tag_get:n} to get the current
+% structure id with the keyword |struct_id|. 
+%    \begin{macrocode}
+\cs_new:Npn \@@_get_data_struct_id:
+  {
+    \@@_struct_get_id:n {\g_@@_struct_stack_current_tl}
   }
 %</package>
 %    \end{macrocode}
