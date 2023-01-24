@@ -447,8 +447,8 @@ Small bug fixes.
 \item a new option \texttt{paratag} allows to change the tag name used for the
    automatically tagged paragraphs.
 
-\item the commands |\tag_start:|, |\tag_stop:n| and |\tag_start:n| allow
-    to stop and start tagging for example in trial typesetting.
+\item the commands |\tag_start:|, |\tag_stop:|, |\tag_stop:n| and |\tag_start:n| allow
+    to stop and start tagging (for example in trial typesetting).
 
 \item Small bug fixes.
 \end{itemize}
@@ -1783,21 +1783,53 @@ The following shows the marking needed for a section, a sentence and a list with
 \end{document}
 \end{lstlisting}
 
+\subsection{Interrupting the tagging}
+
+Experience showed that it must be possible to interrupt tagging in some places.
+For example various packages do trial typesetting to measure text and this shouldn't create
+structures. There are therefore a number of commands for various use cases\footnote{it is 
+quite possible that some of the commands will disappear again if we realize that they are not fitting!}
+
+
+\begin{docCommand}[nosep]{tag_stop:}{}\end{docCommand}
+\begin{docCommand}[nosep]{tag_start:}{}\end{docCommand}
+\begin{docCommand}[nosep]{tag_stop_group_begin:}{}\end{docCommand}
+\begin{docCommand}{tag_start_group_end:}{}\end{docCommand}
+
+This commands stop and start tagging in the current group 
+by switching \emph{local} booleans.
+The grouping commands also open and close a group.
+
+\begin{docCommand}[nosep]{tag_stop:n}{\marg{label}}\end{docCommand}
+\begin{docCommand}{tag_start:n}{\marg{label}}\end{docCommand}
+
+This commands stop and start tagging in the current group 
+by switching \emph{local} booleans, but |\tag_start:n| 
+only restarts if the corresponding |tag_stop:n| actually
+stopped something. This is meant for a situation like the following,
+where you don't want that the inner |\tag_start:n| restarts tagging.
+
+\begin{lstlisting}
+\tag_stop:n{outer}
+ ...
+ \tag_stop:n{inner}
+  ...
+ \tag_start:n{inner}
+ ...
+\tag_start:n{outer}
+\end{lstlisting} 
+ 
 
 \subsection{Lazy and automatic tagging}\label{sec:lazy}
 
 
-A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alt}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged.
+A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alt}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged (recent versions of the adobe reader manage to 
+reflow also not tagged \PDF{} but it is very slow).
 
-This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With pdflatex this is not easy due to the page break problem. But with lualatex you can use an \texttt{Document} structure and inside it rather large mc-chunks. This minimizes the needed work.
-
-One could ask if in lua mode the code couldn't try to mark up unmarked parts e.g. as P-type chunks, like it marks them up as artifacts currently. Sadly this is not so easy, as it is quite difficult to reliably identify the structure and the place in the kids array where such chunks belongs too. I also don't think that it is really needed. It is not so difficult to define user macros which e.g. opens a structure and start an mc-chunk or which close an open mc-chunk before issuing the next \verb+\tagmcbegin+.
-
-
+This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With the now available automatic tagging of paragraphs all that is needed, is to use |testphase=phase-II| in |\DocumentMetadata|.  With lualatex this can work quite OK if you don't have unbalanced paragraphs in your document (pdflatex is more fragile).
 
 
 \subsection{Adding tagging to commands}
-
 
 
 As mentioned above the mc-markers should not be nested. Basically you write:
@@ -1810,9 +1842,7 @@ As mentioned above the mc-markers should not be nested. Basically you write:
 \end{lstlisting}
 
 
-This is quite workable as long as you mark everything manually. But how to write commands, e.g for a tabular or a graphic, that do tagging automatically without breaking the flow and the structure?
-
-
+This is quite workable as long as you mark everything manually. But when defining commands you have to ensure that they correctly push and pop the mc-chunks where needed. 
 
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alt}
