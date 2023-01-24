@@ -15,8 +15,8 @@
  }
 
 \makeatletter
-\def\UlrikeFischer@package@version{0.98a}
-\def\UlrikeFischer@package@date{2022-12-22}
+\def\UlrikeFischer@package@version{0.98b}
+\def\UlrikeFischer@package@date{2023-01-24}
 \makeatother
 
 \documentclass[DIV=12,parskip=half-,bibliography=totoc,a4paper]{article}
@@ -481,8 +481,9 @@ can improve the html export.
 Small bug fixes in code and documentation.
 
 \subsection{Changes in version 0.98b}
-The main change is from now on every structure has an ID and an IDtree is added.
-The ID of a structure can be retrieved with |\tag_get:n|.
+The main change is from now on every structure has an ID and an IDtree is 
+added. The ID of a structure can be retrieved with |\tag_get:n| 
+see~\ref{sec:retrieve}. 
 
 
 \subsection{Proof of concept: the tagging of the documentation itself}
@@ -1156,7 +1157,7 @@ In \emph{generic mode}, where marked content command shouldn't be nested, it wor
 
 In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!
 
-\subsubsection{Retrieving data} 
+\subsubsection{Retrieving data} \label{sec:retrieve}
 With more elaborate tagging the need arise to retrieve and store current data. 
 
 \begin{docCommand}{tag_get:n}{\marg{key word}}\end{docCommand}
@@ -2190,7 +2191,7 @@ This command takes as argument a key-val list which implements a number of show 
 
 
 
-\printbibliography
+\printbibliography[heading=bibintoc]
 
 
 

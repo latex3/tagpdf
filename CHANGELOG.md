@@ -5,9 +5,13 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased}
+## [2023-01-24}
 
-## IDtree and option to retrieve the ID
+### Fixed
+ - missing argument declarations in tagpdf-base, issue #65
+ 
+### Added 
+ - IDtree and option to retrieve the ID 
 
 ## [2022-12-28]
 
