@@ -202,7 +202,8 @@
         \@@_prop_gput:cnx
           { g_@@_struct_0_prop }
           { RoleMap }
-          { \pdf_object_ref:n { @@/tree/rolemap } }  
+          { \pdf_object_ref:n { @@/tree/rolemap } } 
+        \@@_struct_fill_kid_key:n { 0 }   
         \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
         \pdf_object_write:nnx
             { @@/struct/0 }
@@ -222,6 +223,7 @@
           { g_@@_struct_0_prop }
           { ParentTree }
           { \pdf_object_ref:n { @@/tree/parenttree } }
+        \@@_struct_fill_kid_key:n { 0 }  
         \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
         \pdf_object_write:nnx
             { @@/struct/0 }
