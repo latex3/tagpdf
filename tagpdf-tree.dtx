@@ -119,6 +119,68 @@
   }
 %    \end{macrocode}
 %
+% \subsection{Writing the IDtree}
+% 
+% The ID are currently quite simple: every structure has an ID build from
+% the prefix ID together with the structure number padded with enough zeros to
+% that we get directly an lexical order. We ship them out in bundles 
+% At first a seq to hold the references for the kids
+% \begin{variable}{\g_@@_tree_id_kids_seq}
+%    \begin{macrocode}
+\tl_new:N\g_@@_tree_id_kids_tl
+%    \end{macrocode}
+% \end{variable}
+
+%    \begin{macrocode}
+\cs_generate_variant:Nn \tl_count:n {e} 
+
+\cs_new:Nn \__tag_pad_ID:nn 
+ {
+  \prg_replicate:nn { #1 - \tl_count:e { \int_to_arabic:n { #2 } } } { 0 }
+  \int_to_arabic:n { #2 }
+ }
+
+\cs_new_protected:Npn \@@_tree_write_idtree:
+  {
+    \tl_clear:N \l_@@_tmpa_tl
+    \int_zero:N \l_@@_tmpa_int
+    \int_step_inline:nn {\c@g_@@_struct_abs_int}
+      {     
+        \int_incr:N\l_@@_tmpa_int
+        \tl_put_right:Nx \l_@@_tmpa_tl
+          {
+            (ID-\__tag_pad_ID:nn{6}{##1})~\pdf_object_ref:n{@@/struct/##1}~
+          }        
+        \int_compare:nNnF {\l_@@_tmpa_int}<{6}
+          {
+            \pdf_object_unnamed_write:nx {dict}
+              { /Limits~[(ID-\__tag_pad_ID:nn{6}{##1-\l_@@_tmpa_int+1})~(ID-\__tag_pad_ID:nn{6}{##1})]
+                /Names~[\l_@@_tmpa_tl]
+              }
+            \tl_gput_right:Nx\g_@@_tree_id_kids_tl {\pdf_object_ref_last:\c_space_tl}   
+            \int_zero:N \l_@@_tmpa_int
+            \tl_clear:N \l_@@_tmpa_tl
+          }
+      }
+     \tl_if_empty:NF \l_@@_tmpa_tl
+      {
+        \pdf_object_unnamed_write:nx {dict}
+          {
+           /Limits~
+             [(ID-\__tag_pad_ID:nn{6}{\c@g_@@_struct_abs_int-\l_@@_tmpa_int+1})~
+              (ID-\__tag_pad_ID:nn{6}{\c@g_@@_struct_abs_int})]
+           /Names~[\l_@@_tmpa_tl]
+          }
+        \tl_gput_right:Nx\g_@@_tree_id_kids_tl {\pdf_object_ref_last:~}     
+      }
+      \pdf_object_unnamed_write:nx {dict}{/Kids~[\g_@@_tree_id_kids_tl]}
+      \@@_prop_gput:cnx
+          { g_@@_struct_0_prop }
+          { IDTree }
+          { \pdf_object_ref_last: }
+   }
+%    \end{macrocode}
+% 
 % \subsection{Writing structure elements}
 % The following commands are needed to write out the structure.
 % \begin{macro}{\@@_tree_write_structtreeroot:}
