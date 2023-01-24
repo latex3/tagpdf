@@ -79,6 +79,8 @@
   colorlinks}
 
 \tcbuselibrary{documentation}
+%less space between docCommand
+\tcbset{nosep/.style={doc raster command={raster after skip=-10pt}}}
 \definecolor{Definition}{rgb}{0,0.2,0.6}
 \newcommand\PrintKeyName[1]{\textsf{#1}}
 \newcommand\pkg[1]{\texttt{#1}}
@@ -989,7 +991,7 @@ executed on the same page as the begin command. So think carefully how to
 place them. For strategies how to handle paragraphs that split over pages see 
 subsection~\ref{sec:splitpara}. 
 
-\begin{docCommand}{tagmcbegin}{\marg{key-val-list}}\end{docCommand}
+\begin{docCommand}[nosep]{tagmcbegin}{\marg{key-val-list}}\end{docCommand}
 \begin{docCommand}{tag_mc_begin:n}{\marg{key-val-list}}\end{docCommand}
 
 
@@ -1086,7 +1088,7 @@ The key-val list understands the following keys:
 \end{description}
 
 
-\begin{docCommand}{tagmcend}{}\end{docCommand}
+\begin{docCommand}[nosep]{tagmcend}{}\end{docCommand}
 \begin{docCommand}{tag_mc:end}{}\end{docCommand}
 
 These commands insert the end code of the marked content. They don't end a 
@@ -1116,7 +1118,7 @@ the command, as the effect of the begin command ends  with a new
 %\end{tcolorbox}
 
 
-\begin{docCommand}{tagmcuse}{}\end{docCommand}
+\begin{docCommand}[nosep]{tagmcuse}{}\end{docCommand}
 \begin{docCommand}{tag_mc_use:n}{}\end{docCommand}
 
 
@@ -1125,7 +1127,7 @@ into the current structure. Be aware that a marked content can be used only
 once -- the command will warn you if you try to use it a second time. 
 
 
-\begin{docCommand}{tag_mc_end_push:}{}\end{docCommand}
+\begin{docCommand}[nosep]{tag_mc_end_push:}{}\end{docCommand}
 \begin{docCommand}{tag_mc_begin_pop:n}{\marg{key-val-list}}\end{docCommand}
 
 If there is an open mc chunk,
@@ -1137,7 +1139,7 @@ definitions so there is only an expl3 version. Perhaps other content of the mc-d
 
 
 
-\begin{docCommand}{tagmcifinTF}{\marg{true code}\marg{false code}}\end{docCommand}
+\begin{docCommand}[nosep]{tagmcifinTF}{\marg{true code}\marg{false code}}\end{docCommand}
 \begin{docCommand}{tag_mc_if_in:TF}{\marg{true code}\marg{false code}}\end{docCommand}
 
 
@@ -1422,7 +1424,7 @@ rerun.
 
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
 
-\begin{docCommand}{tagpdfparaOn}{}\end{docCommand}
+\begin{docCommand}[nosep]{tagpdfparaOn}{}\end{docCommand}
 \begin{docCommand}{tagpdfparaOff}{}\end{docCommand}
 
 Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
@@ -1505,7 +1507,7 @@ The flat version is more \LaTeX-like and it is rather straightforward to patch \
 The following commands can be used to define the tree structure:
 
 
-\begin{docCommand}{tagstructbegin}{\marg{key-val-list}}\end{docCommand}
+\begin{docCommand}[nosep]{tagstructbegin}{\marg{key-val-list}}\end{docCommand}
 \begin{docCommand}{tag_struct_begin:n}{\marg{key-val-list}}\end{docCommand}
 
 These commands start a new structure. They don't start a group. They set all their values globally.
@@ -1643,12 +1645,12 @@ The key-val list understands the following keys:
      This key sets the |/E| key, the expanded form of an abbreviation or an acronym (I couldn't think of a better name, so I sticked to E).
 \end{description}
 
-\begin{docCommand}{tagstructend}{}\end{docCommand}
+\begin{docCommand}[nosep]{tagstructend}{}\end{docCommand}
 \begin{docCommand}{tag_struct_end:}{}\end{docCommand}
 
 These commands end a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.
 
-\begin{docCommand}{tagstructuse}{\marg{label}}\end{docCommand}
+\begin{docCommand}[nosep]{tagstructuse}{\marg{label}}\end{docCommand}
 \begin{docCommand}{tag_struct_use:n}{\marg{label}}\end{docCommand}
 
 
