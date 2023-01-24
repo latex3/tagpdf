@@ -507,6 +507,24 @@
 %    \end{macrocode}
 % \end{variable}
 % 
+% \subsection{Adding the /ID key}
+% Every structure gets automatically an ID which is currently
+% simply calculated from the structure number.
+% \begin{macro}{\@@_struct_get_id:n}
+%    \begin{macrocode}
+\cs_new:Npn \@@_struct_get_id:n #1 %#1=struct num
+  {
+    (
+     ID-
+     \prg_replicate:nn 
+      { \int_abs:n{\g_@@_tree_id_pad_int - \tl_count:e { \int_to_arabic:n { #1 } }} } 
+      { 0 }
+     \int_to_arabic:n { #1 }
+    )
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
 % \subsection{Filling in the tag info}
 
 % \begin{macro}{\@@_struct_set_tag_info:nnn }
@@ -808,7 +826,8 @@
             { @@/struct/#1 }
             {dict}
             {
-              \l_@@_tmpa_tl
+              \l_@@_tmpa_tl\c_space_tl
+              /ID~\@@_struct_get_id:n{#1}              
             }
       }
       {
