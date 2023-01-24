@@ -125,7 +125,7 @@
 % the prefix ID together with the structure number padded with enough zeros to
 % that we get directly an lexical order. We ship them out in bundles 
 % At first a seq to hold the references for the kids
-% \begin{variable}{\g_@@_tree_id_kids_seq}
+% \begin{variable}{\g_@@_tree_id_pad_int}
 %    \begin{macrocode}
 \int_new:N\g_@@_tree_id_pad_int
 %    \end{macrocode}
@@ -176,7 +176,7 @@
               \@@_struct_get_id:n{\c@g_@@_struct_abs_int}]
            /Names~[\l_@@_tmpa_tl]
           }
-        \tl_gput_right:Nx\l_@@_tmpb_tl {\pdf_object_ref_last:}     
+        \tl_put_right:Nx\l_@@_tmpb_tl {\pdf_object_ref_last:}     
       }
       \pdf_object_unnamed_write:nx {dict}{/Kids~[\l_@@_tmpb_tl]}
       \@@_prop_gput:cnx
