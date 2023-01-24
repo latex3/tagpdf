@@ -34,7 +34,7 @@
 % \end{function}
 %
 % \begin{function}{ \tag_stop_group_begin:, \tag_stop_group_end:,
-%  \tag_stop:, \tag_start:, \tag_stop:n, \tag_start:n }
+%  \tag_stop:, \tag_start: }
 % We need commands to stop tagging in some places.
 % There simply switches the two local booleans. The grouping commands
 % can be used to group the effect.
@@ -518,8 +518,8 @@
 %<*base>
 \cs_new_protected:Npn \tag_stop:{}
 \cs_new_protected:Npn \tag_start:{}
-\cs_new_protected:Npn \tag_stop:n{}
-\cs_new_protected:Npn \tag_start:n{}
+\cs_new_protected:Npn \tag_stop:n  #1 {}
+\cs_new_protected:Npn \tag_start:n #1 {}
 %</base>
 %    \end{macrocode}
 % \end{macro}
