@@ -130,7 +130,7 @@
 \int_new:N\g_@@_tree_id_pad_int
 %    \end{macrocode}
 % \end{variable}
-%
+% Now we get the needed padding
 %    \begin{macrocode}
 \cs_generate_variant:Nn \tl_count:n {e} 
 \hook_gput_code:nnn{begindocument}{tagpdf}
@@ -139,7 +139,11 @@
     {\tl_count:e { \@@_ref_value_lastpage:nn{tagstruct}{1000}}+1}
  }
 
-
+%    \end{macrocode}
+% This is the main code to write the tree it basically splits the 
+% existing structure numbers in chunks of length 50 
+% TODO consider is 50 is a good length.
+%    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_idtree:
   {
     \tl_clear:N \l_@@_tmpa_tl
@@ -152,7 +156,7 @@
           {
             \@@_struct_get_id:n{##1}~\pdf_object_ref:n{@@/struct/##1}~
           }        
-        \int_compare:nNnF {\l_@@_tmpa_int}<{6}
+        \int_compare:nNnF {\l_@@_tmpa_int}<{50} %
           {
             \pdf_object_unnamed_write:nx {dict}
               { /Limits~[\@@_struct_get_id:n{##1-\l_@@_tmpa_int+1}~\@@_struct_get_id:n{##1}]
@@ -198,8 +202,14 @@
         \@@_prop_gput:cnx
           { g_@@_struct_0_prop }
           { RoleMap }
-          { \pdf_object_ref:n { @@/tree/rolemap } }       
-        \@@_struct_write_obj:n { 0 }
+          { \pdf_object_ref:n { @@/tree/rolemap } }  
+        \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
+        \pdf_object_write:nnx
+            { @@/struct/0 }
+            {dict}
+            {
+             \l_@@_tmpa_tl            
+            }
      }
  } 
 %    \end{macrocode}
@@ -212,7 +222,13 @@
           { g_@@_struct_0_prop }
           { ParentTree }
           { \pdf_object_ref:n { @@/tree/parenttree } }
-        \@@_struct_write_obj:n { 0 }
+        \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
+        \pdf_object_write:nnx
+            { @@/struct/0 }
+            {dict}
+            {
+             \l_@@_tmpa_tl            
+            }
      }  
  } 
 %    \end{macrocode}
@@ -522,6 +538,7 @@
         \hook_use:n {tagpdf/finish/before}
         \@@_tree_final_checks:
         \@@_tree_write_parenttree:
+        \@@_tree_write_idtree:
         \@@_tree_write_rolemap:
         \@@_tree_write_classmap:
         \@@_tree_write_namespaces:
