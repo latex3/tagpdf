@@ -1,0 +1,52 @@
+\DocumentMetadata{uncompress,testphase=phase-II,xmp=false,testphase=toc-tagging,testphase=sec-tagging}
+\documentclass{book}
+\usepackage{hyperref}     
+\ExplSyntaxOn\makeatletter
+
+\cs_new_protected:Npn \__kernel_backend_literal_page_shipout:n #1
+  {
+    \tex_pdfliteral:D~shipout~
+        page{ #1 }
+  }
+\cs_new_protected:Npn \__pdf_backend_bdc_contstream_shipout:nn #1 #2
+   {
+     \__kernel_backend_literal_page_shipout:n{ /#1~<<#2>>~BDC }
+   }
+\cs_set_eq:NN \__tag_mc_bdc:nn \__pdf_backend_bdc_contstream_shipout:nn
+\flag_new:n { mcid }     
+\newcounter{pagemcid}
+\AddToHook{shipout/before}
+    { \flag_clear:n { mcid } }
+\AddToHook{shipout/after}
+  {
+    \int_set:Nn \l_tmpa_int { \flag_height:n { mcid } }
+    \int_step_inline:nnn { 0 } { \l_tmpa_int - 1 }
+      {
+        \exp_args:NNx \prop_gput:Nnn \g__tag_MCID_byabspage_prop
+          { \int_eval:n { \value{pagemcid} + #1 + 1 } }
+          {#1}
+      }
+    \setcounter{pagemcid}
+      { \int_eval:n { \value{pagemcid} + \l_tmpa_int } }
+  }
+  
+\cs_set_protected:Npn \__tag_mc_bdc_mcid:nn #1 #2
+  {
+     \int_gincr:N \c@g__tag_MCID_abs_int
+     \__tag_mc_bdc:nn
+       {#1}
+       { /MCID~\flag_height:n { mcid }
+         \flag_raise:n { mcid }~  #2  }
+  }
+\ExplSyntaxOff
+\usepackage{blindtext,lipsum}
+\begin{document}
+
+\lipsum
+
+\blinddocument 
+blub \tagmcend\tagmcbegin{tag=section,alt=abc} 
+
+blub
+
+\end{document}
