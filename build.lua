@@ -108,6 +108,9 @@ function update_tag (file,content,tagname,tagdate)
   content = string.gsub (content,
                          "date{Version %d%.%d+%l?, released %d%d%d%d%-%d%d%-%d%d",
                          "date{Version "..packageversion..", released ".. packagedate)
+  content = string.gsub (content,
+                         "Copyright %(C%) 2019%-%d%d%d%d",
+                         "Copyright (C) 2019-"..os.date("%Y"))                         
   return content
 elseif string.match (file, "%.sty$" ) then
   content = string.gsub (content,
