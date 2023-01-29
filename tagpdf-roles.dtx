@@ -85,6 +85,14 @@
 % Namespaces are mostly a PDF 2.0 property, but it doesn't harm to 
 % set them also in a PDF 1.7 or earlier.
 % \end{function}
+% 
+% \begin{function}[TF]{\tag_check_child:nn}
+% \begin{syntax}
+% \cs{tag_check_child:nn}\Arg{tag}\Arg{namespace} \Arg{true code} \Arg{false code}
+% \end{syntax}
+% This checks if the tag \meta{tag} from the name space \meta{namespace}
+% can be used at the current position. In tagpdf-base it is always true. 
+% \end{function}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -522,14 +530,14 @@
 %    \begin{macrocode}
     \tl_if_empty:nF { #2 }
       {
-        \prop_get:cnN { g__tag_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
+        \prop_get:cnN { g_@@_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
         \quark_if_no_value:NTF \l_@@_tmpa_tl
           {          
-            \prop_gput:cnx { g__tag_role_NS_#2_prop } {#1}
+            \prop_gput:cnx { g_@@_role_NS_#2_prop } {#1}
               {{\tl_to_str:n{#3}}{\tl_to_str:n{#4}}}
           }
           {
-            \prop_gput:cno { g__tag_role_NS_#2_prop } {#1}{\l_@@_tmpa_tl}
+            \prop_gput:cno { g_@@_role_NS_#2_prop } {#1}{\l_@@_tmpa_tl}
           }          
       }       
    }
@@ -642,7 +650,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
   { 
-    \prop_if_exist:cF {g__tag_role_NS_#1_prop}
+    \prop_if_exist:cF {g_@@_role_NS_#1_prop}
       { \msg_warning:nnn {tag}{namespace-unknown}{#1} }
     \file_if_exist:nTF { tagpdf-ns-#1.def}
      { 
@@ -1155,6 +1163,30 @@
   }
 \cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN}  
 \cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,nVnVN,VVnnN}  
+%</package>
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}[TF]{\tag_check_child:nn}
+%    \begin{macrocode}
+%<base>\prg_new_protected_conditional:Npnn \tag_check_child:nn #1 #2 {T,F,TF}{\prg_return_true:}
+%<*package>
+\prg_set_protected_conditional:Npnn \tag_check_child:nn #1 #2 {T,F,TF}
+ {
+   \seq_get:NN\g_@@_struct_stack_seq\l_@@_tmpa_tl
+   \@@_struct_get_tag_info:eNN
+      {\l_@@_tmpa_tl}
+      \l_@@_get_parent_tmpa_tl
+      \l_@@_get_parent_tmpb_tl
+   \@@_check_parent_child:VVnnN
+     \l_@@_get_parent_tmpa_tl
+     \l_@@_get_parent_tmpb_tl
+      {#1}{#2}
+      \l_@@_parent_child_check_tl
+   \int_compare:nNnTF {  \l_@@_parent_child_check_tl } < {0}
+      {\prg_return_false:} 
+      {\prg_return_true:}
+ } 
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1199,7 +1231,7 @@
   {
     \cs_new_protected:Npn \@@_role_remap_inline:
       {
-        \prop_get:cVNT { g__tag_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
+        \prop_get:cVNT { g_@@_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
           {
             \tl_set:Nx\l_@@_role_remap_tag_tl
               {
@@ -1219,7 +1251,7 @@
   {
     \cs_new_protected:Npn \@@_role_remap_inline:
       {
-        \prop_get:cVNT { g__tag_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
+        \prop_get:cVNT { g_@@_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
           {
             \tl_set:Nn\l_@@_role_remap_NS_tl {latex-inline}
           }

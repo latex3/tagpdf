@@ -1,0 +1,15 @@
+\DocumentMetadata{}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START 
+
+\ExplSyntaxOn
+
+\TEST{tag-check-child} 
+ {
+   \cs_show:N\tag_check_child:nnTF
+ }
+ 
+\ExplSyntaxOff 
+\end{document}
