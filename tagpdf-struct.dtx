@@ -1577,7 +1577,7 @@
   {
     attribute-class .code:n =
      {
-       \clist_set:No \l_@@_tmpa_clist { #1 }
+       \clist_set:Nx \l_@@_tmpa_clist { #1 }
        \seq_set_from_clist:NN \l_@@_tmpb_seq \l_@@_tmpa_clist
 %    \end{macrocode}
 %    we convert the names into pdf names with slash
@@ -1618,7 +1618,7 @@
   {
     attribute .code:n  = % A property (attribute, value currently a dictionary)
       {
-        \clist_set:No          \l_@@_tmpa_clist { #1 }
+        \clist_set:Nx          \l_@@_tmpa_clist { #1 }
         \clist_if_empty:NF \l_@@_tmpa_clist
          {
             \seq_set_from_clist:NN \l_@@_tmpb_seq \l_@@_tmpa_clist
