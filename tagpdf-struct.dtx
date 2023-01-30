@@ -1619,49 +1619,52 @@
     attribute .code:n  = % A property (attribute, value currently a dictionary)
       {
         \clist_set:No          \l_@@_tmpa_clist { #1 }
-        \seq_set_from_clist:NN \l_@@_tmpb_seq \l_@@_tmpa_clist
+        \clist_if_empty:NF \l_@@_tmpa_clist
+         {
+            \seq_set_from_clist:NN \l_@@_tmpb_seq \l_@@_tmpa_clist
 %    \end{macrocode}
 %    we convert the names into pdf names with slash
 %    \begin{macrocode}
-       \seq_set_map_x:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
-         {
-           \pdf_name_from_unicode_e:n {##1}
-         }
-        \tl_set:Nx \l_@@_attr_value_tl
-          {
-            \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{[}%]
-          }
-        \seq_map_inline:Nn \l_@@_tmpa_seq
-          {
-            \prop_if_in:NnF \g_@@_attr_entries_prop {##1}
+           \seq_set_map_x:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
+             {
+               \pdf_name_from_unicode_e:n {##1}
+             }
+            \tl_set:Nx \l_@@_attr_value_tl
               {
-                \msg_error:nnn { tag } { attr-unknown } { ##1 }
+                \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{[}%]
               }
-            \prop_if_in:NnF \g_@@_attr_objref_prop {##1}
-              {%\prop_show:N \g_@@_attr_entries_prop
-                \pdf_object_unnamed_write:nx
-                  { dict }
+            \seq_map_inline:Nn \l_@@_tmpa_seq
+              {
+                \prop_if_in:NnF \g_@@_attr_entries_prop {##1}
                   {
-                    \prop_item:Nn\g_@@_attr_entries_prop {##1}
+                    \msg_error:nnn { tag } { attr-unknown } { ##1 }
                   }
-                \prop_gput:Nnx \g_@@_attr_objref_prop {##1} {\pdf_object_ref_last:}
+                \prop_if_in:NnF \g_@@_attr_objref_prop {##1}
+                  {%\prop_show:N \g_@@_attr_entries_prop
+                    \pdf_object_unnamed_write:nx
+                      { dict }
+                      {
+                        \prop_item:Nn\g_@@_attr_entries_prop {##1}
+                      }
+                    \prop_gput:Nnx \g_@@_attr_objref_prop {##1} {\pdf_object_ref_last:}
+                  }
+                \tl_put_right:Nx \l_@@_attr_value_tl
+                  {
+                    \c_space_tl
+                    \prop_item:Nn \g_@@_attr_objref_prop {##1}
+                  }
+     %     \tl_show:N \l_@@_attr_value_tl
               }
             \tl_put_right:Nx \l_@@_attr_value_tl
-              {
-                \c_space_tl
-                \prop_item:Nn \g_@@_attr_objref_prop {##1}
+              { %[
+                \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{]}%
               }
- %     \tl_show:N \l_@@_attr_value_tl
-          }
-        \tl_put_right:Nx \l_@@_attr_value_tl
-          { %[
-            \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{]}%
-          }
- %     \tl_show:N \l_@@_attr_value_tl
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-          { A }
-          { \l_@@_attr_value_tl }
+     %     \tl_show:N \l_@@_attr_value_tl
+            \@@_prop_gput:cnx
+              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+              { A }
+              { \l_@@_attr_value_tl }
+         }    
     },
   }
 %</package>
