@@ -8,7 +8,10 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 ### Added 
- - \tag_check_child:nnTF to test if a tag is allowed. 
+ - \tag_check_child:nnTF to test if a tag is allowed.
+ 
+### Fixed
+ - empty attributes giving faulty PDF  
 
 ## [2023-01-24} 
 
