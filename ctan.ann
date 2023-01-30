@@ -1,8 +1,9 @@
-Version 0.98b [2023-01-24]
+Version 0.98c [2023-01-30]
 
-### Fixed
- - missing argument declarations in tagpdf-base, issue #65
- 
 ### Added 
- - IDtree and option to retrieve the ID 
+ - \tag_check_child:nnTF to test if a tag is allowed as child.
+ 
+### Fixed
+ - empty attributes gave faulty PDF  
+
  

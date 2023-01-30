@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.98b"
-packagedate="2023-01-24"
+packageversion="0.98c"
+packagedate="2023-01-30"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -142,6 +142,9 @@ elseif string.match (file, "%.sty$" ) then
    content = string.gsub (content,
                          "Packagedate: %d%d%d%d/%d%d/%d%d",
                          "Packagedate: " .. tagdate )
+   content = string.gsub (content,
+                         "Unreleased",
+                          packagedate )                         
    return content
  elseif string.match (file, "%.tex$" ) then
    content = string.gsub (content,

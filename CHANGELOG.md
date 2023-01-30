@@ -5,13 +5,13 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2023-01-30]
 
 ### Added 
- - \tag_check_child:nnTF to test if a tag is allowed.
+ - \tag_check_child:nnTF to test if a tag is allowed as child.
  
 ### Fixed
- - empty attributes giving faulty PDF  
+ - empty attributes gave faulty PDF  
 
 ## [2023-01-24} 
 
