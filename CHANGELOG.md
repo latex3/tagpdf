@@ -5,7 +5,13 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [2023-01-30]
+## [Unreleased]
+
+### Added
+ - key texsource, a variant of AFinline-o, which creates an associated file
+   with extension tex, mimetype application/x-tex, and AFRelationship Source.
+
+## [2023-01-30] 
 
 ### Added 
  - \tag_check_child:nnTF to test if a tag is allowed as child.

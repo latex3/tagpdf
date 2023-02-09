@@ -1080,7 +1080,47 @@
 % extension.
 % AF is an array and can be used more than once, so we store it in a tl.
 % which is expanded.
-% AFinline can be use only once (more quite probably doesn't make sense).
+% AFinline currently uses the fix extention txt. 
+% texsource is a special variant which creates a tex-file, it expects a
+% tl-var as value (e.g. from math grabbing)
+% 
+% \begin{variable}{\g_@@_struct_AFobj_int}
+% This variable is used to number the AF-object names
+%    \begin{macrocode}
+\int_new:N\g_@@_struct_AFobj_int
+%    \end{macrocode}
+% \end{variable}
+% 
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
+  % #1 content, #2 extention
+  {
+     \group_begin:
+     \int_gincr:N \g_@@_struct_AFobj_int
+     \pdf_object_if_exist:eF {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
+       {
+         \pdffile_embed_stream:nxx
+           {#1}
+           {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
+           {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
+         \@@_struct_add_AF:ee
+           { \int_eval:n {\c@g_@@_struct_abs_int} }
+           { @@/fileobj\int_use:N\g_@@_struct_AFobj_int }
+         \@@_prop_gput:cnx
+           { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+           { AF }
+           {
+             [
+               \tl_use:c
+                { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+             ]
+           }
+       }     
+     \group_end:
+   }  
+\cs_generate_variant:Nn \@@_struct_add_inline_AF:nn {on} 
+%    \end{macrocode}
+% 
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_add_AF:nn #1 #2 % #1 struct num #2 object name
   {
@@ -1125,52 +1165,25 @@
       },
    ,AFinline .code:n =
      {
-       \group_begin:
-       \pdf_object_if_exist:eF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
-         {
-           \pdffile_embed_stream:nxx
-             {#1}
-             {tag-AFfile\int_use:N\c@g_@@_struct_abs_int.txt}
-             {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
-           \@@_struct_add_AF:ee
-             { \int_eval:n {\c@g_@@_struct_abs_int} }
-             { @@/fileobj\int_use:N\c@g_@@_struct_abs_int }
-           \@@_prop_gput:cnx
-             { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
-             { AF }
-             {
-               [
-                 \tl_use:c
-                  { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
-               ]
-             }
-         }
-       \group_end:
+       \@@_struct_add_inline_AF:nn {#1}{txt}
      }
    ,AFinline-o .code:n =
      {
-       \group_begin:
-       \pdf_object_if_exist:eF {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
-        {
-          \pdffile_embed_stream:oxx
-            {#1}
-            {tag-AFfile\int_use:N\c@g_@@_struct_abs_int.txt}
-            {@@/fileobj\int_use:N\c@g_@@_struct_abs_int}
-          \@@_struct_add_AF:ee
-             { \int_eval:n {\c@g_@@_struct_abs_int} }
-             { @@/fileobj\int_use:N\c@g_@@_struct_abs_int }
-           \@@_prop_gput:cnx
-             { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
-             { AF }
-             {
-               [
-                 \tl_use:c
-                  { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
-               ]
-             }
-        }
-       \group_end:
+       \@@_struct_add_inline_AF:on {#1}{txt}
      }
+   ,texsource .code:n =
+    {
+      \group_begin:
+      \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Source }
+%    \end{macrocode}
+% we set the mime type as pdfresources uses currently text/plain
+%    \begin{macrocode}
+      \pdfdict_put:nnx 
+        { l_pdffile }{Subtype} 
+        { \pdf_name_from_unicode_e:n{application/x-tex} }
+      \@@_struct_add_inline_AF:on {#1}{txt}
+      \group_end:
+    }  
  }
 %    \end{macrocode}
 % \end{macro}
