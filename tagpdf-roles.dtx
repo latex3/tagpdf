@@ -913,7 +913,7 @@
                {
                  \tl_set:Nx\l_@@_tmpa_tl { \use_ii:nn ##1 }
                  \exp_args:Nne
-                  \tl_if_in:nnF {-Part-Div-NonStruct-}{-\l_@@_tmpa_tl-}
+                  \str_if_in:nnF {-Part-Div-NonStruct-}{-\l_@@_tmpa_tl-}
                    {  
                      \tl_set:Nn\l_@@_role_real_parent_tl {##1}
                      \int_zero:N\l_@@_tmpa_int
