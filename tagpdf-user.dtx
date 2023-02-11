@@ -595,17 +595,35 @@
 % \end{macro}
 % This fills the para hooks with the needed code.
 %    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_para_begin_show:nn #1 #2 
+ %#1 color, #2 prefix
+  {
+    \bool_if:NT \l_@@_para_show_bool
+      { 
+        \tag_mc_begin:n{artifact}
+        \llap{\color_select:n{#1}\tiny#2\int_use:N\g_@@_para_begin_int\ }
+        \tag_mc_end:
+      }
+  }
+
+\cs_new_protected:Npn \@@_check_para_end_show:nn #1 #2
+ %#1  color, #2 prefix
+  {
+    \bool_if:NT \l_@@_para_show_bool
+      { 
+        \tag_mc_begin:n{artifact}
+        \rlap{\color_select:n{#1}\tiny\ #2\int_use:N\g_@@_para_end_int}
+        \tag_mc_end:
+      }
+  }
+  
 \AddToHook{para/begin}
   {
    \bool_if:NT \l_@@_para_bool
      {
        \int_gincr:N \g_@@_para_begin_int
        \tag_struct_begin:n {tag=\l_@@_para_tag_tl}
-       \bool_if:NT \l_@@_para_show_bool
-        { \tag_mc_begin:n{artifact}
-          \llap{\color_select:n{red}\tiny\int_use:N\g_@@_para_begin_int\ }
-          \tag_mc_end:
-        }
+       \@@_check_para_begin_show:nn {green}{}
        \tag_mc_begin:n {}
      }
   }
@@ -615,11 +633,7 @@
       {
         \int_gincr:N \g_@@_para_end_int
         \tag_mc_end:
-        \bool_if:NT \l_@@_para_show_bool
-          { \tag_mc_begin:n{artifact}
-            \rlap{\color_select:n{red}\tiny\ \int_use:N\g_@@_para_end_int}
-            \tag_mc_end:
-          }
+        \@@_check_para_end_show:nn {red}{}
         \tag_struct_end:
       }
   }
