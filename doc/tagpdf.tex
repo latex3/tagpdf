@@ -655,6 +655,21 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
 
 \end{description}
 
+\begin{docCommand}[nosep]{tagtool}{\marg{key-val}}\end{docCommand}
+\begin{docCommand}{tag_tool:n}{\marg{key-val}}\end{docCommand}
+
+The tagging of document elements require a variety of small commands. This command
+will unify them under a common interface. This is work-in-progress and syntax and implementation
+can change! While the argument looks like a key-val \emph{list} (and currently is actually one), 
+this should not be relied on. Instead only
+one argument should be used as the implementation will change to improve the speed. Currently the following 
+arguments are supported
+
+\begin{description}
+\item[\PrintKeyName{para}] Boolean. It will replace the \cs{tagpdfparaOn} and \cs{tagpdfparaOff} command.
+\item[\PrintKeyName{paratag}] String. It allows to change the tag used in the following automatically tagged paragraphs.
+\end{description}
+
 
 
 \section{Tagging}

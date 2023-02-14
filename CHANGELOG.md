@@ -13,6 +13,8 @@ this project uses date-based 'snapshot' version identifiers.
 ### Added
  - key texsource, a variant of AFinline-o, which creates an associated file
    with extension tex, mimetype application/x-tex, and AFRelationship Source.
+ - First draft of \tag_tool:n, \tagtool: a generic interface for tagging related tools.   
+   
 
 ## [2023-01-30] 
 

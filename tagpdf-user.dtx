@@ -64,10 +64,14 @@
 % add a document structure.
 % \end{function}
 %
-%
-% \begin{function}{\tagpdfifluatexTF,\tagpdfifluatexT,\tagpdfifpdftexT}
-% small wrappers around engine tests. This functions should not be used and will be removed
-% in one of the next versions.
+% \begin{function}{\tag_tool:n,\tagtool}
+% \begin{syntax}
+% \cs{tag_tool:n}\Arg{key val}
+% \end{syntax}
+% The tagging of basic document elements will require a variaty of small commands
+% to configure and adapt the tagging. This command will collect them under a command
+% interface. The argument is \emph{one} key-value like string. This is work in progress
+% and both syntax, known arguments and implementation can change!
 % \end{function}
 %
 % \section{Commands related to mc-chunks}
@@ -263,6 +267,22 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\tag_tool:n,\tagtool}
+% This is a first definition of the tool command.
+% Currently it uses key-val, but this should be probably
+% be flattened to speed it up.
+%    \begin{macrocode}
+%<base>\cs_new_protected:Npn\tag_tool:n #1 {}
+%<base>\cs_set_eq:NN\tagtool\tag_tool:n
+%<*package>
+\cs_set_protected:Npn\tag_tool:n #1 
+  {
+    \tag_if_active:T { \keys_set:nn {tag / tool}{#1} }  
+  }
+\cs_set_eq:NN\tagtool\tag_tool:n  
+%</package>
+%    \end{macrocode}
+% \end{macro}
 
 % \section{Commands for the mc-chunks}
 % \begin{macro}{\tagmcbegin,\tagmcend,\tagmcuse  }
@@ -579,10 +599,13 @@
 % {
 %  paratagging (setup-key),
 %  paratagging-show (setup-key),
+%  paratag (setup-key),
+%  paratag (tool-key),
 %  }
 % These keys enable/disable locally paratagging, and the debug modus.
 % It can affect the typesetting if |paratagging-show| is used. The small numbers
-% are boxes and they have a (small) height.
+% are boxes and they have a (small) height. The |paratag| key sets the tag used by
+% the next automatic paratagging, it can also be changed with |\tag_tool:n|
 %    \begin{macrocode}
 \keys_define:nn { @@ / setup }
   {
@@ -590,7 +613,10 @@
     paratagging-show .bool_set:N = \l_@@_para_show_bool,
     paratag          .tl_set:N   = \l_@@_para_tag_tl
   }
-
+\keys_define:nn { tag / tool} 
+  {
+    paratag .tl_set:N = \l_@@_para_tag_tl
+  }
 %    \end{macrocode}
 % \end{macro}
 % This fills the para hooks with the needed code.
@@ -685,13 +711,17 @@
 %    \tagpdfparaOff
 %   }
 %  This two command switch para mode on and off. |\tagpdfsetup| could be used
-%  too but is longer.
+%  too but is longer. An alternative is |\tag_tool:n{para=false}|
 %    \begin{macrocode}
 %<base>\newcommand\tagpdfparaOn {}
 %<base>\newcommand\tagpdfparaOff{}
 %<*package>
 \renewcommand\tagpdfparaOn {\bool_set_true:N \l_@@_para_bool}
 \renewcommand\tagpdfparaOff{\bool_set_false:N \l_@@_para_bool}
+\keys_define:nn { tag / tool} 
+  {
+    para .bool_set:N = \l_@@_para_bool
+  }  
 %    \end{macrocode}
 % \end{macro}
 %

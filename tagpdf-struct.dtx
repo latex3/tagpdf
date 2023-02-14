@@ -1092,37 +1092,66 @@
 % \end{variable}
 % 
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
-  % #1 content, #2 extention
-  {
-     \group_begin:
-     \int_gincr:N \g_@@_struct_AFobj_int
-     \pdf_object_if_exist:eF {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
-       {
-         \pdffile_embed_stream:nxx
-           {#1}
-           {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
-           {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
-         \@@_struct_add_AF:ee
-           { \int_eval:n {\c@g_@@_struct_abs_int} }
-           { @@/fileobj\int_use:N\g_@@_struct_AFobj_int }
-         \@@_prop_gput:cnx
-           { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
-           { AF }
-           {
-             [
-               \tl_use:c
-                { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
-             ]
-           }
-       }     
-     \group_end:
+\cs_if_free:NTF \pdffile_embed_stream:nnN
+ {
+   \cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
+     % #1 content, #2 extension
+     {
+        \group_begin:
+        \int_gincr:N \g_@@_struct_AFobj_int
+        \pdf_object_if_exist:eF {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
+          {
+            \pdffile_embed_stream:nxx
+              {#1}
+              {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
+              {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
+            \@@_struct_add_AF:ee
+              { \int_eval:n {\c@g_@@_struct_abs_int} }
+              { \pdf_object_ref:e {@@/fileobj\int_use:N\g_@@_struct_AFobj_int} }
+            \@@_prop_gput:cnx
+              { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+              { AF }
+              {
+                [
+                  \tl_use:c
+                   { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+                ]
+              }
+          }     
+        \group_end:
+      }  
    }  
+   {
+     \cs_generate_variant:Nn \pdffile_embed_stream:nnN {nxN}
+     \cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
+     % #1 content, #2 extension
+      {
+        \group_begin:
+        \int_gincr:N \g_@@_struct_AFobj_int
+        \pdffile_embed_stream:nxN
+          {#1}
+          {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
+          \l_@@_tmpa_tl          
+          \@@_struct_add_AF:ee
+            { \int_eval:n {\c@g_@@_struct_abs_int} }
+            { \l_@@_tmpa_tl }
+          \@@_prop_gput:cnx
+            { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+            { AF }
+            {
+              [
+                \tl_use:c
+                 { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+              ]
+            }               
+        \group_end:
+      } 
+   }     
 \cs_generate_variant:Nn \@@_struct_add_inline_AF:nn {on} 
 %    \end{macrocode}
 % 
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_add_AF:nn #1 #2 % #1 struct num #2 object name
+\cs_new_protected:Npn \@@_struct_add_AF:nn #1 #2 % #1 struct num #2 object reference
   {
      \tl_if_exist:cTF
        {
@@ -1131,14 +1160,14 @@
        {
          \tl_gput_right:cx
            { g_@@_struct_#1_AF_tl }
-           {  ~ \pdf_object_ref:n {#2} }
+           {  \c_space_tl #2 }
        }
        {
           \tl_new:c
             { g_@@_struct_#1_AF_tl }
           \tl_gset:cx
             { g_@@_struct_#1_AF_tl }
-            { \pdf_object_ref:n {#2} }
+            { #2 }
        }
   }
 \cs_generate_variant:Nn \@@_struct_add_AF:nn {en,ee}
@@ -1148,7 +1177,7 @@
       {
         \pdf_object_if_exist:nTF {#1}
           {
-            \@@_struct_add_AF:en { \int_eval:n {\c@g_@@_struct_abs_int} }{#1}
+            \@@_struct_add_AF:ee { \int_eval:n {\c@g_@@_struct_abs_int} }{\pdf_object_ref:n {#1}}
             \@@_prop_gput:cnx
              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
              { AF }
@@ -1197,7 +1226,7 @@
      {
         \pdf_object_if_exist:nTF {#1}
           {
-            \@@_struct_add_AF:en { 0 }{#1}
+            \@@_struct_add_AF:ee { 0 }{\pdf_object_ref:n {#1}}
             \@@_prop_gput:cnx
              { g_@@_struct_0_prop }
              { AF }
