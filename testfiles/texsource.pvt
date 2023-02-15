@@ -1,0 +1,10 @@
+\DocumentMetadata{uncompress,testphase=phase-I}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+
+\tagstructbegin{tag=P,texsource=ABC,texsource=CDE,texsource= abc\blub }
+\tagmcbegin{}xxxx\tagmcend\tagstructend
+
+\end{document}
