@@ -1,9 +1,11 @@
-Version 0.98c [2023-01-30]
+Version 0.98d [2023-02-15]
 
-### Added 
- - \tag_check_child:nnTF to test if a tag is allowed as child.
- 
-### Fixed
- - empty attributes gave faulty PDF  
+### Fixed 
+ - missing space in luatex, issue #66  
+
+### Added
+ - key texsource, a variant of AFinline-o, which creates an associated file
+   with extension tex, mimetype application/x-tex, and AFRelationship Source.
+ - First draft of \tag_tool:n, \tagtool: a generic interface for tagging related tools. 
 
  

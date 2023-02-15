@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]  
+## [2023-02-15]  
 
 ### Fixed 
  - missing space in luatex, issue #66  
@@ -13,7 +13,7 @@ this project uses date-based 'snapshot' version identifiers.
 ### Added
  - key texsource, a variant of AFinline-o, which creates an associated file
    with extension tex, mimetype application/x-tex, and AFRelationship Source.
- - First draft of \tag_tool:n, \tagtool: a generic interface for tagging related tools.   
+ - First draft of \tag_tool:n, \tagtool: a generic interface for tagging related tasks.   
    
 
 ## [2023-01-30] 
