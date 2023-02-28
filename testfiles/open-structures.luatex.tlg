@@ -1,20 +1,20 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 Package tagpdf Warning: The rule between parent 'Span/pdf2' 
-(tagpdf)                and child 'L/pdf2' is not allowed (struct 4)
+(tagpdf)                and child 'L/pdf2' is not allowed (struct 5)
 Package tagpdf Warning: The rule between parent 'L/pdf2' 
 (tagpdf)                and child 'MC (= realcontent)' is 'not allowed'.
 [1
 ] (open-structures.aux)
 The sequence \g__tag_struct_tag_stack_seq contains the items (without outer
 braces):
->  {{P}{P}}
+>  {{tpara}{Part}}
 >  {{Document}{Document}}
 >  {{Root}{StructTreeRoot}}.
 <recently read> }
 l. ...\end{document}
 Package tagpdf Warning: There are still open structures on the stack!
 (tagpdf)                The stack contains
-(tagpdf)                {P}{P},{Document}{Document},{Root}{StructTreeRoot}.
+(tagpdf)                {tpara}{Part},{Document}{Document},{Root}{StructTreeRoot}.
 (tagpdf)                The structures are automatically closed,
 (tagpdf)                but their nesting can be wrong.
