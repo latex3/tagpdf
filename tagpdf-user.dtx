@@ -580,17 +580,33 @@
 %  Probably one should add some checks if we are already in a paragraph.
 %
 %
-%  \begin{macro}{\l_@@_para_bool,\l_@@_para_show_bool,\g_@@_para_int,\l_@@_para_tag_default_tl}
+%  \begin{macro}{
+%   \l_@@_para_bool,
+%   \l_@@_para_main_bool,
+%   \l_@@_para_show_bool,
+%   \g_@@_para_begin_int,
+%   \g_@@_para_end_int,
+%   \g_@@_para_main_begin_int,
+%   \g_@@_para_main_end_int,
+%   \l_@@_para_tag_default_tl,
+%   \l_@@_para_tag_tl,
+%   \l_@@_para_main_tag_tl}
 %  At first some variables.
 %    \begin{macrocode}
 \bool_new:N \l_@@_para_bool
+\bool_new:N \l_@@_para_main_bool
+\bool_set_true:N \l_@@_para_main_bool
 \bool_new:N \l_@@_para_show_bool
 \int_new:N  \g_@@_para_begin_int
 \int_new:N  \g_@@_para_end_int
+\int_new:N  \g_@@_para_main_begin_int
+\int_new:N  \g_@@_para_main_end_int
 \tl_new:N   \l_@@_para_tag_default_tl
 \tl_set:Nn  \l_@@_para_tag_default_tl { P }
 \tl_new:N   \l_@@_para_tag_tl
 \tl_set:Nn  \l_@@_para_tag_tl { \l_@@_para_tag_default_tl }
+\tl_new:N   \l_@@_para_main_tag_tl
+\tl_set:Nn  \l_@@_para_main_tag_tl {tpara}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -615,7 +631,8 @@
   }
 \keys_define:nn { tag / tool} 
   {
-    paratag .tl_set:N = \l_@@_para_tag_tl
+    paratag .tl_set:N = \l_@@_para_tag_tl,
+    para/main .bool_set:N = \l_@@_para_main_bool
   }
 %    \end{macrocode}
 % \end{macro}
@@ -647,6 +664,11 @@
   {
    \bool_if:NT \l_@@_para_bool
      {
+       \bool_if:NT \l_@@_para_main_bool
+         {
+           \int_gincr:N \g_@@_para_main_begin_int
+           \tag_struct_begin:n{tag=\l_@@_para_main_tag_tl}
+         }
        \int_gincr:N \g_@@_para_begin_int
        \tag_struct_begin:n {tag=\l_@@_para_tag_tl}
        \@@_check_para_begin_show:nn {green}{}
@@ -661,17 +683,32 @@
         \tag_mc_end:
         \@@_check_para_end_show:nn {red}{}
         \tag_struct_end:
+        \bool_if:NT \l_@@_para_main_bool
+         {
+           \int_gincr:N \g_@@_para_main_end_int
+           \tag_struct_end:
+         }
       }
   }
 \AddToHook{enddocument/info}
   {
-    \int_compare:nNnF {\g__tag_para_begin_int}={\g__tag_para_end_int}
+    \int_compare:nNnF {\g__tag_para_main_begin_int}={\g__tag_para_main_end_int}
       {
-        \msg_error:nnxx
+        \msg_error:nnxxn
           {tag}
           {para-hook-count-wrong}
           {\int_use:N\g__tag_para_begin_int}
           {\int_use:N\g__tag_para_end_int}
+          {tpara}
+      }
+    \int_compare:nNnF {\g__tag_para_begin_int}={\g__tag_para_end_int}
+      {
+        \msg_error:nnxxn
+          {tag}
+          {para-hook-count-wrong}
+          {\int_use:N\g__tag_para_begin_int}
+          {\int_use:N\g__tag_para_end_int}
+          {P}
       }
   }
 %    \end{macrocode}
@@ -720,7 +757,8 @@
 \renewcommand\tagpdfparaOff{\bool_set_false:N \l_@@_para_bool}
 \keys_define:nn { tag / tool} 
   {
-    para .bool_set:N = \l_@@_para_bool
+    para .bool_set:N = \l_@@_para_bool,
+    para-main .bool_set:N = \l_@@_para_main_bool,
   }  
 %    \end{macrocode}
 % \end{macro}
