@@ -1,0 +1,40 @@
+\DocumentMetadata{xmp=false,pdfversion=2.0}
+\input{regression-test}
+\ExplSyntaxOn
+\group_begin:
+\pdfdict_put:nnn{l_pdffile/Params}{ModDate}{(D:20211230160943Z)}
+\pdfdict_put:nnn{l_pdffile/Filespec}{AFRelationship}{/Supplement}
+\pdffile_embed_file:nnn{testcss.css}{}{tag/csstest}
+\pdffile_embed_file:nnn{testcss2.css}{}{tag/csstest2}
+%\pdfmanagement_add:nnx{Catalog}{AF}{[\pdf_object_ref:n{tag/csstest}]}
+\group_end:
+\ExplSyntaxOff
+
+
+\documentclass{article}
+\makeatletter
+\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
+\@ifundefined{stockheight}{\newdimen\stockheight}{}
+\stockheight   = 297mm
+\stockwidth    = 210mm
+\makeatother
+
+\usepackage{tagpdf}
+
+\tagpdfsetup
+ {
+   activate-all,
+   newattribute = {font-red}{/O /CSS-3 },
+   newattribute = {font-bold}{/O /CSS-3 },
+   root-AF={tag/csstest},
+   root-AF={tag/csstest2},
+ }
+\begin{document}
+
+\tagpdfparaOff %for the example
+\tagstructbegin{tag=Document}
+\tagstructbegin{tag=H1,attribute-class=font-red}\tagmcbegin{tag=H1}Red section\tagmcend\tagstructend
+
+\tagstructbegin{tag=H1,attribute-class=font-bold}\tagmcbegin{tag=H1}Section\tagmcend\tagstructend
+\tagstructend
+\end{document} 

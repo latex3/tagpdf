@@ -1,0 +1,16 @@
+\ExplSyntaxOn \sys_gset_rand_seed:n{1000} \ExplSyntaxOff 
+
+\DocumentMetadata{pdfversion=2.0,testphase={phase-II},xmp=false}  
+\input{regression-test}
+
+\documentclass[12pt]{article}
+\usepackage[paperheight=24\baselineskip,
+           height=19\baselineskip]{geometry}
+\usepackage{kantlipsum,multicol}
+
+
+\begin{document}
+
+xxx\kant*[2-30]yyy
+
+\end{document} 

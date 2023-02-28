@@ -1,0 +1,43 @@
+\DocumentMetadata{
+   pdfversion=2.0
+  ,lang=de-DE
+  ,xmp=false}
+\input{regression-test}
+\documentclass{article}
+\makeatletter
+\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
+\@ifundefined{stockheight}{\newdimen\stockheight}{}
+\stockheight   = 297mm
+\stockwidth    = 210mm
+\makeatother
+
+\usepackage{tagpdf}
+
+\tagpdfsetup{tabsorder=structure,
+             activate-all}
+
+\begin{document}
+\pagestyle{empty}
+
+\tagstructbegin{tag=Document}
+
+\tagstructbegin{tag=P,label=blub}
+  \tagmcbegin{tag=P,}
+   A structure
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,ref={bla,blub}}
+  \tagmcbegin{tag=P}
+   A middle one
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,label=bla}
+  \tagmcbegin{tag=P}
+   The last one
+  \tagmcend
+\tagstructend
+
+\tagstructend
+\end{document} 

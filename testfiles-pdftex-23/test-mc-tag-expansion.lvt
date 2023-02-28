@@ -1,0 +1,44 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\IfFormatAtLeastTF{2022-06-01}{}
+  {\RequirePackage{pdfmanagement-testphase}}
+\DocumentMetadata{}
+\input{regression-test}
+\documentclass{scrartcl}
+
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+\usepackage{graphicx,iftex}
+\ifpdftex
+  \usepackage[T1]{fontenc}
+\fi
+
+\ifluatex
+  \usepackage{fontspec}
+  \usepackage{luacode}
+\fi
+
+
+
+
+
+\tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
+\begin{document}
+\START
+\showoutput
+\ExplSyntaxOn
+%\iow_log:x { \c_sys_engine_str }
+\tl_new:N\l_tag_test_artifact_type_tl
+\tl_set:Nn \l_tag_test_artifact_type_tl {pagination}
+
+\tl_new:N\l_tag_test_tag_type_tl
+\tl_set:Nn \l_tag_test_tag_type_tl {P}
+
+\tag_mc_begin:n{artifact=\l_tag_test_artifact_type_tl}%
+Artifact%
+\tag_mc_end:
+
+\tag_mc_begin:n{tag=\l_tag_test_tag_type_tl}blblb\tag_mc_end:
+\ExplSyntaxOff
+\end{document}
+
+

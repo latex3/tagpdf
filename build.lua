@@ -39,17 +39,26 @@ specialformats["latex"] = specialformats["latex"] or
     latexdvips = {binary="latex",format = "latex-dev"}
   }
 
+local luatexstatus = status.list()
+local istl2023 = string.match (luatexstatus.banner,"2023")
+
 checkengines = {"pdftex","luatex","pdftexmain"}
+if istl2023 then
 checkconfigs = {
                "build",
                "config-pdftex",
-               "config-nosyntax", -- tests with invalid pdf as result
+               "config-pdftex-23", 
                "config-luatex",
-               ---
-               -- "config-luatex-dev",
-               -- "config-pdftex-dev",
-               -- "config-dev"
                 }
+else
+checkconfigs = {
+               "build",
+               "config-pdftex",
+               "config-pdftex-22", 
+               "config-luatex",
+                }
+end                
+                
 checkruns = 4
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
 --excludetests = {"test-saveboxes-structure-dev","test-link"}
