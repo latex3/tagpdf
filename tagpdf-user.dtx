@@ -607,8 +607,6 @@
 \tl_set:Nn  \l_@@_para_tag_tl { \l_@@_para_tag_default_tl }
 \tl_new:N   \l_@@_para_main_tag_tl
 \tl_set:Nn  \l_@@_para_main_tag_tl {tpara}
-\tl_new:N   \l_@@_para_main_tag_title_tl
-\tl_set:Nn  \l_@@_para_main_tag_title_tl {par}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -669,7 +667,10 @@
        \bool_if:NT \l_@@_para_main_bool
          {
            \int_gincr:N \g_@@_para_main_begin_int
-           \tag_struct_begin:n{tag=\l_@@_para_main_tag_tl,title-o={\l_@@_para_main_tag_title_tl}}
+           \tag_struct_begin:n
+             {
+               tag=\l_@@_para_main_tag_tl,
+             }
          }
        \int_gincr:N \g_@@_para_begin_int
        \tag_struct_begin:n {tag=\l_@@_para_tag_tl}
