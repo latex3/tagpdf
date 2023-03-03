@@ -50,13 +50,18 @@
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
-% \begin{function}{\tag_struct_begin:n,\tag_struct_end:}
+% \begin{function}{\tag_struct_begin:n,\tag_struct_end:,\tag_struct_end:n}
 %   \begin{syntax}
 %     \cs{tag_struct_begin:n}\Arg{key-values}\\
-%     \cs{tag_struct_end:}
+%     \cs{tag_struct_end:}\\
+%     \cs{tag_struct_end:n}\Arg{tag}
 %   \end{syntax}
 %  These commands start and end a new structure.
 %  They don't start a group. They set all their values globally.
+%  \cs{tag_struct_end:n} does nothing special normally (apart from 
+%  swallowing its argument, but if \texttt{tagpdf-debug} is loaded,
+%  it will check if the \Arg{tag} (after expansion)
+%  is identical to the current structure on the stack. The tag is not role mapped!
 % \end{function}
 %  \begin{function}{\tag_struct_use:n}
 %   \begin{syntax}
@@ -1251,6 +1256,7 @@
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_struct_begin:n #1 {\int_gincr:N \c@g_@@_struct_abs_int}
 %<base>\cs_new_protected:Npn \tag_struct_end:{}
+%<base>\cs_new_protected:Npn \tag_struct_end:n{}
 %<*package|debug>
 %<package>\cs_set_protected:Npn \tag_struct_begin:n #1 %#1 key-val
 %<debug>\cs_set_protected:Npn \tag_struct_begin:n #1 %#1 key-val
@@ -1398,6 +1404,12 @@
       }
 %<debug>{\@@_debug_struct_end_ignore:}
   }
+
+\cs_set_protected:Npn \tag_struct_end:n #1
+ {
+%<debug>\@@_debug_struct_end_check:n{#1}
+   \tag_struct_end:
+ }  
 %</package|debug>
 %    \end{macrocode}
 % \end{macro}

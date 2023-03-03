@@ -950,6 +950,10 @@
   {
     Struct~end~#1~[\msg_line_context:]
   }
+\msg_new:nnn { tag / debug } {struct-end-wrong}
+  {
+    Struct~end~'#1'~doesn't~fit~start~'#2'~[\msg_line_context:]
+  }
 
 \cs_new_protected:Npn \@@_debug_struct_begin_insert:n #1
  {
@@ -981,6 +985,24 @@
         \msg_note:nnn { tag / debug } {struct-end } {ignored}
      }
  }
+\cs_new_protected:Npn \@@_debug_struct_end_check:n #1
+ {
+   \int_compare:nNnT { \l_@@_loglevel_int } > {0}
+    {
+      \seq_get:NNT \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
+        {
+          \str_if_eq:eeF  
+           {#1}
+           {\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}      
+           {
+             \msg_warning:nnxx { tag/debug }{ struct-end-wrong } 
+              {#1}
+              {\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}
+           }                    
+        }
+     }
+ }
+ 
 %    \end{macrocode}
 %    \begin{macrocode}
 %</debug>
