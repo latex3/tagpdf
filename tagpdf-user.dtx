@@ -554,7 +554,7 @@
         { \cs_if_exist_p:N \pdf_activate_structure_destination: }
       }
       {
-        \tl_set:Nn \l_pdf_current_structure_destination_tl { __tag/struct/\g__tag_struct_stack_current_tl }
+        \tl_set:Nn \l_pdf_current_structure_destination_tl { __tag/struct/\g_@@_struct_stack_current_tl }
         \pdf_activate_structure_destination:
       }
    }
@@ -582,7 +582,7 @@
 %
 %  \begin{macro}{
 %   \l_@@_para_bool,
-%   \l_@@_para_main_bool,
+%   \l_@@_para_flattened_bool,
 %   \l_@@_para_show_bool,
 %   \g_@@_para_begin_int,
 %   \g_@@_para_end_int,
@@ -594,8 +594,7 @@
 %  At first some variables.
 %    \begin{macrocode}
 \bool_new:N \l_@@_para_bool
-\bool_new:N \l_@@_para_main_bool
-\bool_set_true:N \l_@@_para_main_bool
+\bool_new:N \l_@@_para_flattened_bool
 \bool_new:N \l_@@_para_show_bool
 \int_new:N  \g_@@_para_begin_int
 \int_new:N  \g_@@_para_end_int
@@ -632,7 +631,7 @@
 \keys_define:nn { tag / tool} 
   {
     paratag .tl_set:N = \l_@@_para_tag_tl,
-    para-main .bool_set:N = \l_@@_para_main_bool
+    para-flattened .bool_set:N = \l_@@_para_flattened_bool
   }
 %    \end{macrocode}
 % \end{macro}
@@ -664,7 +663,7 @@
   {
    \bool_if:NT \l_@@_para_bool
      {
-       \bool_if:NT \l_@@_para_main_bool
+       \bool_if:NF \l_@@_para_flattened_bool
          {
            \int_gincr:N \g_@@_para_main_begin_int
            \tag_struct_begin:n
@@ -686,7 +685,7 @@
         \tag_mc_end:
         \@@_check_para_end_show:nn {red}{}
         \tag_struct_end:
-        \bool_if:NT \l_@@_para_main_bool
+        \bool_if:NF \l_@@_para_flattened_bool
          {
            \int_gincr:N \g_@@_para_main_end_int
            \tag_struct_end:
@@ -695,22 +694,22 @@
   }
 \AddToHook{enddocument/info}
   {
-    \int_compare:nNnF {\g__tag_para_main_begin_int}={\g__tag_para_main_end_int}
+    \int_compare:nNnF {\g_@@_para_main_begin_int}={\g_@@_para_main_end_int}
       {
-        \msg_error:nnxxn
+        \msg_error:nnxxx
           {tag}
           {para-hook-count-wrong}
-          {\int_use:N\g__tag_para_begin_int}
-          {\int_use:N\g__tag_para_end_int}
+          {\int_use:N\g_@@_para_main_begin_int}
+          {\int_use:N\g_@@_para_main_end_int}
           {tpara}
       }
-    \int_compare:nNnF {\g__tag_para_begin_int}={\g__tag_para_end_int}
+    \int_compare:nNnF {\g_@@_para_begin_int}={\g_@@_para_end_int}
       {
-        \msg_error:nnxxn
+        \msg_error:nnxxx
           {tag}
           {para-hook-count-wrong}
-          {\int_use:N\g__tag_para_begin_int}
-          {\int_use:N\g__tag_para_end_int}
+          {\int_use:N\g_@@_para_begin_int}
+          {\int_use:N\g_@@_para_end_int}
           {P}
       }
   }
@@ -761,7 +760,7 @@
 \keys_define:nn { tag / tool} 
   {
     para .bool_set:N = \l_@@_para_bool,
-    para-main .bool_set:N = \l_@@_para_main_bool,
+    para-flattened .bool_set:N = \l_@@_para_flattened_bool,
   }  
 %    \end{macrocode}
 % \end{macro}
