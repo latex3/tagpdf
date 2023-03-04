@@ -3,7 +3,7 @@
  {patches/commands for the tagpdf documentation}
 \RequirePackage{etoolbox,xpatch}
 
-%vLogos
+%Logos
 
 \ExplSyntaxOn
 \DeclareRobustCommand\TeX{
@@ -48,7 +48,7 @@
 \AddToHook{cmd/emph/after}
   {\tag_mc_end:\tag_struct_end:\tag_mc_begin_pop:n{}}
   
-  
+% minisec, correct tagging is still unclear.  
 \newcommand\minisec[1]{%
     \if@noskipsec \leavevmode \fi
     \par
@@ -66,73 +66,41 @@
   \@afterheading
 }                    
 
+% listings. Unclear how to make it work for the original lstlisting, so we make a 
+% copy taglstlisting for now
+\DeclareInstance{blockenv}{lstlisting}{display}
+{
+  env-name       = lstlisting,
+  tag-name       = verbatim,
+  tag-class      = ,
+  tagging-recipe = standard,
+  inner-level-counter  = ,
+  level-increase = false,
+  setup-code     = ,
+  block-instance = displayblock ,
+  inner-instance = ,
+  final-code     = \tagpdfsetup{paratag=Code},
+}
 
+\lstnewenvironment{taglstlisting}[2][]{%
+     \UseInstance{blockenv}{lstlisting} {}
+     \lst@TestEOLChar{#2}%
+     \lstset{#1}%
+     \csname\@lst @SetFirstNumber\endcsname%
+   }{%
+     \@nobreakfalse
+     \csname\@lst @SaveFirstNumber\endcsname%
+     \endblockenv
+   }
       
-%%%%
-%% Lists
-%% patches enumitem internals!
-%%%%
-\tagpdfsetup
-  {
-     newattribute =
-        {itemize}{/O /List /ListNumbering/Unordered},
-     newattribute =
-        {enumerate}{/O /List /ListNumbering/Ordered},        
-     newattribute =
-        {description}{/O /List /ListNumbering/Description},            
-  }
-\AddToHook{env/itemize/begin}{\par\tagstructbegin{tag=L,attribute-class=itemize}}%\par is needed to close the paragraph before.
-\AddToHook{env/itemize/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
-\AddToHook{env/enumerate/begin}{\par\tagstructbegin{tag=L,attribute-class=enumerate}}
-\AddToHook{env/enumerate/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
-\AddToHook{env/description/begin}{\par\tagstructbegin{tag=L,attribute-class=description}}
-\AddToHook{env/description/end}{\par\tagstructend\tagstructend\tagstructend}%LBody,LI,L
+%the docCommand environment doesn't like to be one after the other, 
+% it needs a block instance with a correct tagging recipe!
 
-\newcommand\tag@enit@format@preset[1]{%
- \str_if_eq:eeTF { \prop_item:cn { g__tag_struct_\g__tag_struct_stack_current_tl _prop }{S} }{/L}
-  {
-   %\typeout{BEGIN~OF~LIST}
-  }
-  {%\typeout{NEXT ITEM}
-   \tagstructend\tagstructend} % for the LBody/LI
-  \tagstructbegin{tag=LI}
-  \tagstructbegin{tag=Lbl}
-  \tagmcbegin{}
-    #1
-  \tagmcend
-  \tagstructend
-  \tagstructbegin{tag=LBody}
-  }
-
-\ExplSyntaxOff
-\xpatchcmd\enit@preset{\@firstofone}{\tag@enit@format@preset}{}{\fail}
-%close mc from paratagging and reopen ...
-% this disturbs someone docCommand which has then a MC outside a P.
-\xpatchcmd\@item{\box\@labels}{\tagmcend \box\@labels \tagmcbegin{tag=P}}{}{\fail}
-\ExplSyntaxOn
-
-% keys that overwrite \enit@format must be patched, eg like the follow
-% the font key should be patched in a similar way
-\enitkv@key{}{format}{% new enumitem don't use first argument
-  \def\enit@format{%
-   \tagstructbegin{tag=LI}%
-   \tagstructbegin{tag=Lbl}%
-   \tagmcbegin{}%
-   #1\tagmcend}}
+\AddToHook{env/docCommand/begin}{\tagpdfsetup{paratag=Code}}
+\AddToHook{env/docCommand/after}{\par}      
+      
 
 
-% listings + verbatim
-% the paragraph code could create span around the lines ...
-% we use Code for every line.
-
-\AddToHook{env/lstlisting/begin}{\tagpdfsetup{paratag=Code}}
-\AddToHook{env/lstlisting/end}{}
-
-\AddToHook{env/verbatim/begin}{\tagpdfsetup{paratag=Code}}
-\AddToHook{env/verbatim/end}{}
-
-\AddToHook{env/docCommand/begin}{\tagstructbegin{tag=P}\tagpdfsetup{paratag=Code}}
-\AddToHook{env/docCommand/end}  {\tagstructend}
 
 % ======== marginnote ==========
 % TODO marginnote has a bug (a \par is missing) so it messes up tagging.
