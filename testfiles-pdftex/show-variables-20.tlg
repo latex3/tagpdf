@@ -265,16 +265,21 @@ braces):
 >  {subparagraph}  =>  {latex}
 >  {title}  =>  {latex}
 >  {part}  =>  {latex}
+>  {list}  =>  {latex}
 >  {itemize}  =>  {latex}
 >  {enumerate}  =>  {latex}
 >  {description}  =>  {latex}
+>  {quote}  =>  {latex}
+>  {quotation}  =>  {latex}
+>  {verbatim}  =>  {latex}
 >  {item}  =>  {latex}
 >  {itemlabel}  =>  {latex}
 >  {itembody}  =>  {latex}
 >  {footnote}  =>  {latex}
 >  {footnotemark}  =>  {latex}
 >  {footnotelabel}  =>  {latex}
->  {tpara}  =>  {latex}.
+>  {text-unit}  =>  {latex}
+>  {text}  =>  {latex}.
 <recently read> }
 l. ... }
 ============================================================
@@ -543,16 +548,21 @@ outer braces):
 >  {subparagraph}  =>  {--UNUSED--}
 >  {title}  =>  {--UNUSED--}
 >  {part}  =>  {--UNUSED--}
+>  {list}  =>  {--UNUSED--}
 >  {itemize}  =>  {--UNUSED--}
 >  {enumerate}  =>  {--UNUSED--}
 >  {description}  =>  {--UNUSED--}
+>  {quote}  =>  {--UNUSED--}
+>  {quotation}  =>  {--UNUSED--}
+>  {verbatim}  =>  {--UNUSED--}
 >  {item}  =>  {--UNUSED--}
 >  {itemlabel}  =>  {--UNUSED--}
 >  {itembody}  =>  {--UNUSED--}
 >  {footnote}  =>  {--UNUSED--}
 >  {footnotemark}  =>  {--UNUSED--}
 >  {footnotelabel}  =>  {--UNUSED--}
->  {tpara}  =>  {--UNUSED--}.
+>  {text-unit}  =>  {--UNUSED--}
+>  {text}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================
@@ -916,16 +926,21 @@ braces):
 >  {subsubsection}  =>  {{H3}{pdf2}}
 >  {paragraph}  =>  {{H4}{pdf2}}
 >  {subparagraph}  =>  {{H5}{pdf2}}
+>  {list}  =>  {{L}{pdf2}}
 >  {itemize}  =>  {{L}{pdf2}}
 >  {enumerate}  =>  {{L}{pdf2}}
 >  {description}  =>  {{L}{pdf2}}
+>  {quote}  =>  {{BlockQuote}{pdf}}
+>  {quotation}  =>  {{BlockQuote}{pdf}}
+>  {verbatim}  =>  {{Div}{pdf2}}
 >  {item}  =>  {{LI}{pdf2}}
 >  {itemlabel}  =>  {{Lbl}{pdf2}}
 >  {itembody}  =>  {{LBody}{pdf2}}
 >  {footnote}  =>  {{FENote}{pdf2}}
 >  {footnotemark}  =>  {{Lbl}{pdf2}}
 >  {footnotelabel}  =>  {{Lbl}{pdf2}}
->  {tpara}  =>  {{Part}{pdf2}}.
+>  {text-unit}  =>  {{Part}{pdf2}}
+>  {text}  =>  {{P}{pdf2}}.
 <recently read> }
 l. ... }
 ============================================================
@@ -1303,16 +1318,21 @@ outer braces):
 >  {subsubsection}  =>  {B}
 >  {paragraph}  =>  {B}
 >  {subparagraph}  =>  {B}
+>  {list}  =>  {BI}
 >  {itemize}  =>  {BI}
 >  {enumerate}  =>  {BI}
 >  {description}  =>  {BI}
+>  {quote}  =>  {G}
+>  {quotation}  =>  {G}
+>  {verbatim}  =>  {G}
 >  {item}  =>  {L}
 >  {itemlabel}  =>  {I}
 >  {itembody}  =>  {L}
 >  {footnote}  =>  {GBI}
 >  {footnotemark}  =>  {I}
 >  {footnotelabel}  =>  {I}
->  {tpara}  =>  {G}.
+>  {text-unit}  =>  {G}
+>  {text}  =>  {B}.
 <recently read> }
 l. ... }
 ============================================================
@@ -1429,16 +1449,21 @@ The global dictionary 'g__tag_role/RoleMapNS_latex_dict' contains the pairs
 >  {subsubsection}  =>  {[/H3 10 0 R]}
 >  {paragraph}  =>  {[/H4 10 0 R]}
 >  {subparagraph}  =>  {[/H5 10 0 R]}
+>  {list}  =>  {[/L 10 0 R]}
 >  {itemize}  =>  {[/L 10 0 R]}
 >  {enumerate}  =>  {[/L 10 0 R]}
 >  {description}  =>  {[/L 10 0 R]}
+>  {quote}  =>  {[/BlockQuote 8 0 R]}
+>  {quotation}  =>  {[/BlockQuote 8 0 R]}
+>  {verbatim}  =>  {[/Div 10 0 R]}
 >  {item}  =>  {[/LI 10 0 R]}
 >  {itemlabel}  =>  {[/Lbl 10 0 R]}
 >  {itembody}  =>  {[/LBody 10 0 R]}
 >  {footnote}  =>  {[/FENote 10 0 R]}
 >  {footnotemark}  =>  {[/Lbl 10 0 R]}
 >  {footnotelabel}  =>  {[/Lbl 10 0 R]}
->  {tpara}  =>  {[/Part 10 0 R]}.
+>  {text-unit}  =>  {[/Part 10 0 R]}
+>  {text}  =>  {[/P 10 0 R]}.
 <recently read> }
 l. ... }
 ============================================================

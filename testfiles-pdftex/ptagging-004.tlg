@@ -41,12 +41,12 @@ Don't change this file in any respect.
 \gdef \@abspage@last{4}^^M
 -------- ptagging-004.aux (end) -----------
 Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'Part (from tpara)' is '1 (0..n)'
+(tagpdf)             and child 'Part (from text-unit)' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
+(tagpdf)             and child 'P (from text)' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'P (from text)' 
 (tagpdf)             and child 'MC' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
+Package tagpdf Info: The rule between parent 'P (from text)' 
 (tagpdf)             and child 'Note' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'Note' 
 (tagpdf)             and child 'Lbl' is '1 (0..n)'
@@ -71,22 +71,22 @@ Package tagpdf Info: closing structure 6 tagged /Lbl
 Package tagpdf Info: The rule between parent 'Note' 
 (tagpdf)             and child 'MC' is '1 (0..n)'
 Package tagpdf Info: closing structure 4 tagged /Note
-Package tagpdf Info: The rule between parent 'P' 
+Package tagpdf Info: The rule between parent 'P (from text)' 
 (tagpdf)             and child 'MC' is '1 (0..n)'
-Package tagpdf Info: closing structure 3 tagged /P
-Package tagpdf Info: closing structure 2 tagged /tpara
+Package tagpdf Info: closing structure 3 tagged /text
+Package tagpdf Info: closing structure 2 tagged /text-unit
 Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'Part (from tpara)' is '1 (0..n)'
+(tagpdf)             and child 'Part (from text-unit)' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
+(tagpdf)             and child 'P (from text)' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'P (from text)' 
 (tagpdf)             and child 'MC' is '1 (0..n)'
-Package tagpdf Info: closing structure 8 tagged /P
-Package tagpdf Info: closing structure 7 tagged /tpara
+Package tagpdf Info: closing structure 8 tagged /text
+Package tagpdf Info: closing structure 7 tagged /text-unit
 ====> In \@makecol 1
 Pick up new bot mark!
 => first b-, 1, -1
-=> bot b+, 9, 8, P
+=> bot b+, 9, 8, text
 => TMB not missing
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
@@ -94,7 +94,7 @@ braces):
 >  {b+}
 >  {9}
 >  {8}
->  {P}.
+>  {text}.
 Pick up new bot mark!
 => first b-, 4, 6, Lbl
 => bot b+, 5, 4, Note
@@ -107,9 +107,9 @@ braces):
 >  {4}
 >  {Note}.
 ====> In \@makecol 1
-No marks so use saved bot mark: b+, 9, 8, P
-=> first b+, 9, 8, P
-=> bot b+, 9, 8, P
+No marks so use saved bot mark: b+, 9, 8, text
+=> first b+, 9, 8, text
+=> bot b+, 9, 8, text
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
@@ -117,7 +117,7 @@ braces):
 >  {b+}
 >  {9}
 >  {8}
->  {P}.
+>  {text}.
 No marks so use saved bot mark: b+, 5, 4, Note
 => first b+, 5, 4, Note
 => bot b+, 5, 4, Note
@@ -132,9 +132,9 @@ braces):
 [1
 ]
 ====> In \@makecol 2
-No marks so use saved bot mark: b+, 9, 8, P
-=> first b+, 9, 8, P
-=> bot b+, 9, 8, P
+No marks so use saved bot mark: b+, 9, 8, text
+=> first b+, 9, 8, text
+=> bot b+, 9, 8, text
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
@@ -142,7 +142,7 @@ braces):
 >  {b+}
 >  {9}
 >  {8}
->  {P}.
+>  {text}.
 No marks so use saved bot mark: b+, 5, 4, Note
 => first b+, 5, 4, Note
 => bot b+, 5, 4, Note
@@ -155,9 +155,9 @@ braces):
 >  {4}
 >  {Note}.
 ====> In \@makecol 2
-No marks so use saved bot mark: b+, 9, 8, P
-=> first b+, 9, 8, P
-=> bot b+, 9, 8, P
+No marks so use saved bot mark: b+, 9, 8, text
+=> first b+, 9, 8, text
+=> bot b+, 9, 8, text
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
@@ -165,7 +165,7 @@ braces):
 >  {b+}
 >  {9}
 >  {8}
->  {P}.
+>  {text}.
 Pick up new bot mark!
 => first e-, 5, 4
 => bot e+, 5, 4
@@ -179,13 +179,13 @@ braces):
 >  {Note}.
 [2]
 Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'Part (from tpara)' is '1 (0..n)'
+(tagpdf)             and child 'Part (from text-unit)' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
+(tagpdf)             and child 'P (from text)' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'P (from text)' 
 (tagpdf)             and child 'MC' is '1 (0..n)'
-Package tagpdf Info: closing structure 10 tagged /P
-Package tagpdf Info: closing structure 9 tagged /tpara
+Package tagpdf Info: closing structure 10 tagged /text
+Package tagpdf Info: closing structure 9 tagged /text-unit
 ====> In \@makecol 3
 Pick up new bot mark!
 => first e-, 9, 8
@@ -197,11 +197,11 @@ braces):
 >  {b+}
 >  {9}
 >  {8}
->  {P}.
+>  {text}.
 ====> In \@makecol 3
 Pick up new bot mark!
 => first b-, 21, -1
-=> bot b+, 22, 10, P
+=> bot b+, 22, 10, text
 => TMB not missing
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
@@ -209,12 +209,12 @@ braces):
 >  {b+}
 >  {22}
 >  {10}
->  {P}.
+>  {text}.
 [3]
 ====> In \@makecol 4
-No marks so use saved bot mark: b+, 22, 10, P
-=> first b+, 22, 10, P
-=> bot b+, 22, 10, P
+No marks so use saved bot mark: b+, 22, 10, text
+=> first b+, 22, 10, text
+=> bot b+, 22, 10, text
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
@@ -222,15 +222,15 @@ braces):
 >  {b+}
 >  {22}
 >  {10}
->  {P}.
+>  {text}.
 Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'Part (from tpara)' is '1 (0..n)'
+(tagpdf)             and child 'Part (from text-unit)' is '1 (0..n)'
 Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
+(tagpdf)             and child 'P (from text)' is '1 (0..n)'
+Package tagpdf Info: The rule between parent 'P (from text)' 
 (tagpdf)             and child 'MC' is '1 (0..n)'
-Package tagpdf Info: closing structure 12 tagged /P
-Package tagpdf Info: closing structure 11 tagged /tpara
+Package tagpdf Info: closing structure 12 tagged /text
+Package tagpdf Info: closing structure 11 tagged /text-unit
 ====> In \@makecol 4
 Pick up new bot mark!
 => first e-, 22, 10
@@ -242,6 +242,6 @@ braces):
 >  {b+}
 >  {22}
 >  {10}
->  {P}.
+>  {text}.
 [4] (ptagging-004.aux)
 Package tagpdf Info: closing structure 1 tagged /Document

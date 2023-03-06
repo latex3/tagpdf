@@ -10,7 +10,7 @@ LaTeX does not know anything more about this error, sorry.
 Try typing <return> to proceed.
 If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag mn
-tagpdf: Add mn 79
+tagpdf: Add mn 84
 ! Package tagpdf Error: role HX is not known
 Type <return> to continue.
  ...                                              
@@ -19,7 +19,7 @@ LaTeX does not know anything more about this error, sorry.
 Try typing <return> to proceed.
 If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag wrongtag
-tagpdf: Add wrongtag 80
+tagpdf: Add wrongtag 85
 The property list \g__tag_role_rolemap_prop contains the pairs (without outer
 braces):
 >  {DocumentFragment}  =>  {Art}
@@ -40,20 +40,25 @@ braces):
 >  {subsubsection}  =>  {H3}
 >  {paragraph}  =>  {H4}
 >  {subparagraph}  =>  {H5}
+>  {list}  =>  {L}
 >  {itemize}  =>  {L}
 >  {enumerate}  =>  {L}
 >  {description}  =>  {L}
+>  {quote}  =>  {BlockQuote}
+>  {quotation}  =>  {BlockQuote}
+>  {verbatim}  =>  {Div}
 >  {item}  =>  {LI}
 >  {itemlabel}  =>  {Lbl}
 >  {itembody}  =>  {LBody}
 >  {footnote}  =>  {Note}
 >  {footnotemark}  =>  {Lbl}
 >  {footnotelabel}  =>  {Lbl}
->  {tpara}  =>  {Part}
+>  {text-unit}  =>  {Part}
+>  {text}  =>  {P}
 >  {wrongtag}  =>  {HX}.
 <recently read> }
 l. ...\prop_show:N\g__tag_role_rolemap_prop
 > \testname=macro:
 ->user.
 l. ...\show\testname
-79
+84

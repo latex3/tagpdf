@@ -73,16 +73,21 @@ braces):
 >  {subsubsection}  =>  {user}
 >  {paragraph}  =>  {user}
 >  {subparagraph}  =>  {user}
+>  {list}  =>  {user}
 >  {itemize}  =>  {user}
 >  {enumerate}  =>  {user}
 >  {description}  =>  {user}
+>  {quote}  =>  {user}
+>  {quotation}  =>  {user}
+>  {verbatim}  =>  {user}
 >  {item}  =>  {user}
 >  {itemlabel}  =>  {user}
 >  {itembody}  =>  {user}
 >  {footnote}  =>  {user}
 >  {footnotemark}  =>  {user}
 >  {footnotelabel}  =>  {user}
->  {tpara}  =>  {user}.
+>  {text-unit}  =>  {user}
+>  {text}  =>  {user}.
 <recently read> }
 l. ... }
 ============================================================
@@ -159,16 +164,21 @@ outer braces):
 >  {subsubsection}  =>  {B}
 >  {paragraph}  =>  {B}
 >  {subparagraph}  =>  {B}
+>  {list}  =>  {BI}
 >  {itemize}  =>  {BI}
 >  {enumerate}  =>  {BI}
 >  {description}  =>  {BI}
+>  {quote}  =>  {G}
+>  {quotation}  =>  {G}
+>  {verbatim}  =>  {G}
 >  {item}  =>  {L}
 >  {itemlabel}  =>  {I}
 >  {itembody}  =>  {L}
 >  {footnote}  =>  {GBI}
 >  {footnotemark}  =>  {I}
 >  {footnotelabel}  =>  {I}
->  {tpara}  =>  {G}.
+>  {text-unit}  =>  {G}
+>  {text}  =>  {B}.
 <recently read> }
 l. ... }
 ============================================================
@@ -217,16 +227,21 @@ braces):
 >  {subsubsection}  =>  {H3}
 >  {paragraph}  =>  {H4}
 >  {subparagraph}  =>  {H5}
+>  {list}  =>  {L}
 >  {itemize}  =>  {L}
 >  {enumerate}  =>  {L}
 >  {description}  =>  {L}
+>  {quote}  =>  {BlockQuote}
+>  {quotation}  =>  {BlockQuote}
+>  {verbatim}  =>  {Div}
 >  {item}  =>  {LI}
 >  {itemlabel}  =>  {Lbl}
 >  {itembody}  =>  {LBody}
 >  {footnote}  =>  {Note}
 >  {footnotemark}  =>  {Lbl}
 >  {footnotelabel}  =>  {Lbl}
->  {tpara}  =>  {Part}.
+>  {text-unit}  =>  {Part}
+>  {text}  =>  {P}.
 <recently read> }
 l. ... }
 ============================================================
@@ -368,16 +383,21 @@ braces):
 >  {subsubsection}  =>  {{H3}{}}
 >  {paragraph}  =>  {{H4}{}}
 >  {subparagraph}  =>  {{H5}{}}
+>  {list}  =>  {{L}{}}
 >  {itemize}  =>  {{L}{}}
 >  {enumerate}  =>  {{L}{}}
 >  {description}  =>  {{L}{}}
+>  {quote}  =>  {{BlockQuote}{}}
+>  {quotation}  =>  {{BlockQuote}{}}
+>  {verbatim}  =>  {{Div}{}}
 >  {item}  =>  {{LI}{}}
 >  {itemlabel}  =>  {{Lbl}{}}
 >  {itembody}  =>  {{LBody}{}}
 >  {footnote}  =>  {{FENote}{}}
 >  {footnotemark}  =>  {{Lbl}{}}
 >  {footnotelabel}  =>  {{Lbl}{}}
->  {tpara}  =>  {{Part}{}}.
+>  {text-unit}  =>  {{Part}{}}
+>  {text}  =>  {{P}{}}.
 <recently read> }
 l. ... }
 ============================================================
@@ -433,16 +453,21 @@ braces):
 >  {subsubsection}  =>  {{}{}}
 >  {paragraph}  =>  {{}{}}
 >  {subparagraph}  =>  {{}{}}
+>  {list}  =>  {{}{}}
 >  {itemize}  =>  {{}{}}
 >  {enumerate}  =>  {{}{}}
 >  {description}  =>  {{}{}}
+>  {quote}  =>  {{}{}}
+>  {quotation}  =>  {{}{}}
+>  {verbatim}  =>  {{}{}}
 >  {item}  =>  {{}{}}
 >  {itemlabel}  =>  {{}{}}
 >  {itembody}  =>  {{}{}}
 >  {footnote}  =>  {{}{}}
 >  {footnotemark}  =>  {{}{}}
 >  {footnotelabel}  =>  {{}{}}
->  {tpara}  =>  {{}{}}.
+>  {text-unit}  =>  {{}{}}
+>  {text}  =>  {{}{}}.
 <recently read> }
 l. ... }
 ============================================================
@@ -584,16 +609,21 @@ outer braces):
 >  {subsubsection}  =>  {--UNUSED--}
 >  {paragraph}  =>  {--UNUSED--}
 >  {subparagraph}  =>  {--UNUSED--}
+>  {list}  =>  {--UNUSED--}
 >  {itemize}  =>  {--UNUSED--}
 >  {enumerate}  =>  {--UNUSED--}
 >  {description}  =>  {--UNUSED--}
+>  {quote}  =>  {--UNUSED--}
+>  {quotation}  =>  {--UNUSED--}
+>  {verbatim}  =>  {--UNUSED--}
 >  {item}  =>  {--UNUSED--}
 >  {itemlabel}  =>  {--UNUSED--}
 >  {itembody}  =>  {--UNUSED--}
 >  {footnote}  =>  {--UNUSED--}
 >  {footnotemark}  =>  {--UNUSED--}
 >  {footnotelabel}  =>  {--UNUSED--}
->  {tpara}  =>  {--UNUSED--}.
+>  {text-unit}  =>  {--UNUSED--}
+>  {text}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================
@@ -649,16 +679,21 @@ outer braces):
 >  {subsubsection}  =>  {--UNUSED--}
 >  {paragraph}  =>  {--UNUSED--}
 >  {subparagraph}  =>  {--UNUSED--}
+>  {list}  =>  {--UNUSED--}
 >  {itemize}  =>  {--UNUSED--}
 >  {enumerate}  =>  {--UNUSED--}
 >  {description}  =>  {--UNUSED--}
+>  {quote}  =>  {--UNUSED--}
+>  {quotation}  =>  {--UNUSED--}
+>  {verbatim}  =>  {--UNUSED--}
 >  {item}  =>  {--UNUSED--}
 >  {itemlabel}  =>  {--UNUSED--}
 >  {itembody}  =>  {--UNUSED--}
 >  {footnote}  =>  {--UNUSED--}
 >  {footnotemark}  =>  {--UNUSED--}
 >  {footnotelabel}  =>  {--UNUSED--}
->  {tpara}  =>  {--UNUSED--}.
+>  {text-unit}  =>  {--UNUSED--}
+>  {text}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================

@@ -38,16 +38,21 @@ braces):
 >  {subsubsection}  =>  {H3}
 >  {paragraph}  =>  {H4}
 >  {subparagraph}  =>  {H5}
+>  {list}  =>  {L}
 >  {itemize}  =>  {L}
 >  {enumerate}  =>  {L}
 >  {description}  =>  {L}
+>  {quote}  =>  {BlockQuote}
+>  {quotation}  =>  {BlockQuote}
+>  {verbatim}  =>  {Div}
 >  {item}  =>  {LI}
 >  {itemlabel}  =>  {Lbl}
 >  {itembody}  =>  {LBody}
 >  {footnote}  =>  {Note}
 >  {footnotemark}  =>  {Lbl}
 >  {footnotelabel}  =>  {Lbl}
->  {tpara}  =>  {Part}
+>  {text-unit}  =>  {Part}
+>  {text}  =>  {P}
 >  {wrongtag}  =>  {HX}.
 <recently read> }
 l. ...\prop_show:N\g__tag_role_rolemap_prop
