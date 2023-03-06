@@ -603,11 +603,11 @@
 \int_new:N  \g_@@_para_main_begin_int
 \int_new:N  \g_@@_para_main_end_int
 \tl_new:N   \l_@@_para_tag_default_tl
-\tl_set:Nn  \l_@@_para_tag_default_tl { P }
+\tl_set:Nn  \l_@@_para_tag_default_tl { text }
 \tl_new:N   \l_@@_para_tag_tl
 \tl_set:Nn  \l_@@_para_tag_tl { \l_@@_para_tag_default_tl }
 \tl_new:N   \l_@@_para_main_tag_tl
-\tl_set:Nn  \l_@@_para_main_tag_tl {tpara}
+\tl_set:Nn  \l_@@_para_main_tag_tl {text-unit}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -703,7 +703,7 @@
           {para-hook-count-wrong}
           {\int_use:N\g_@@_para_main_begin_int}
           {\int_use:N\g_@@_para_main_end_int}
-          {tpara}
+          {text-unit}
       }
     \int_compare:nNnF {\g_@@_para_begin_int}={\g_@@_para_end_int}
       {
@@ -712,7 +712,7 @@
           {para-hook-count-wrong}
           {\int_use:N\g_@@_para_begin_int}
           {\int_use:N\g_@@_para_end_int}
-          {P}
+          {text}
       }
   }
 %    \end{macrocode}
