@@ -120,11 +120,7 @@
 \AddToHook{env/tcolorbox/begin}{\tagpdfparaOff \tcbset{before upper=\tagpdfparaOn}}
 \AddToHook{env/tcolorbox/after}{\par\tagstructend}
 
-% currently the block code errors if two lists directly follow each other, so we 
-% force \par
-\AddToHook{env/docCommand/before}{\par}
 \AddToHook{env/docCommand/begin}{\tagpdfparaOff \tcbset{before upper=\tagpdfparaOn}\tagtool{paratag=Code}\tagtool{para-flattened=true}}
-\AddToHook{env/docCommand/after}{\par}
 
 % ======= footnote ========
 % done in testphase code
