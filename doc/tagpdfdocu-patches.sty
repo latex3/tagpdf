@@ -79,7 +79,7 @@
   setup-code     = ,
   block-instance = displayblock ,
   inner-instance = ,
-  final-code     = \tagpdfsetup{paratag=Code},
+  final-code     =  \tl_set:Nn \l__tag_para_main_tag_tl {codeline}\tagtool{paratag=Code},
 }
 
 \lstnewenvironment{taglstlisting}[2][]{%
