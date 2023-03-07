@@ -618,6 +618,8 @@
 %  paratagging-show (setup-key),
 %  paratag (setup-key),
 %  paratag (tool-key),
+%  unittag (tool-key),
+%  para-flattened (tool-key),
 %  }
 % These keys enable/disable locally paratagging, and the debug modus.
 % It can affect the typesetting if |paratagging-show| is used. The small numbers
@@ -633,6 +635,7 @@
 \keys_define:nn { tag / tool} 
   {
     paratag .tl_set:N = \l_@@_para_tag_tl,
+    unittag .tl_set:N = \l_@@_para_main_tag_tl,
     para-flattened .bool_set:N = \l_@@_para_flattened_bool
   }
 %    \end{macrocode}

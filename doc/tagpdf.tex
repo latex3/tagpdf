@@ -10,11 +10,11 @@
 \DocumentMetadata
  {
    % comment the following line to compile an untagged documentation:
-   testphase=phase-II,testphase=toc-tagging,testphase=sec-tagging,testphase=block-tagging,
+   testphase=phase-III,
    pdfversion=2.0,lang=en-UK,pdfstandard=a-4,
    uncompress
  }
-
+\DebugBlocksOff
 \makeatletter
 \def\UlrikeFischer@package@version{0.98d}
 \def\UlrikeFischer@package@date{2023-02-15}
@@ -485,6 +485,23 @@ added. The ID of a structure can be retrieved with |\tag_get:n|
 see~\ref{sec:retrieve}. 
 
 
+\subsection{Changes in version 0.98b}
+The main change is from now on every structure has an ID and an IDtree is 
+added. The ID of a structure can be retrieved with |\tag_get:n| 
+see~\ref{sec:retrieve}. 
+
+
+\subsection{Changes in version 0.98c}
+
+\begin{itemize}
+\item The main change is that the automatic paratagging uses now a two-level structure. This accompanies development
+in the LaTeX github inthe \texttt{latex-lab} package regarding the tagging of blocks like lists or verbatim.
+See~\ref{sec:paratagging} and also \texttt{latex-lab-block-tagging.dtx} for more background.
+
+\item The command |tag_struct_end:n| has been add to improve debugging.
+\end{itemize}
+
+
 \subsection{Proof of concept: the tagging of the documentation itself}
 
 Starting with version 0.6 the documentation itself has been tagged. The 
@@ -634,15 +651,15 @@ Boolean, initially false. Activates the code related to trees. Should be used on
 Boolean.\sidenote{luamode}
 That's a debug option, it helps in lua mode to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
 
-\item[\PrintKeyName{paratagging}] Boolean. This activate/deactivates the automatic tagging of paragraphs.
+\item[\PrintKeyName{paratagging}] Boolean. This activate/deactivates the automatic tagging of paragraphs, see 
+ \ref{sec:paratagging} for more background.
  It uses the \texttt{para/begin} and \texttt{para/end} hooks of the newest \LaTeX{} version (2021-05-01).
- This is a first try to use this hooks, and the code is bound to change. Paragraphs can appear in many unexpected
- places and the code can easily break, so there is also an option to see where such paragraphs are:
+ With more tagging support conditions will be added, that means the code is bound to change! Paragraphs can appear in many unexpected  places and the code can easily break, so there is also an option to see where such paragraphs are:
 
-\item[\PrintKeyName{paratagging-show}] Boolean. This activate/deactivates small red numbers in the places where the paratagging hook code is used.
+\item[\PrintKeyName{paratagging-show}] Boolean. This activate/deactivates small red and green numbers in the places where the paratagging hook code is used.
 
-\item[\PrintKeyName{paratag}] String. This key changes the tag used by the paratagging code. The default tag is \texttt{P}. A useful local setting here can be \texttt{NonStruct}, which creates a structure \enquote{without meaning}.
-
+\item[\PrintKeyName{paratag}] String. This key changes the second tag used by the paratagging code. The default tag is \texttt{text}, a \LaTeX{} specific tag that is role mapped to \texttt{P}. A useful local setting here can be \texttt{NonStruct}, which creates a structure \enquote{without meaning}. For local changes it is recommended
+    to use the newer \cs{tagtool} command described below instead of \cs{tagpdfsetup}.
 
 \item[\PrintKeyName{tabsorder}]
  Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
@@ -666,7 +683,11 @@ arguments are supported
 
 \begin{description}
 \item[\PrintKeyName{para}] Boolean. It will replace the \cs{tagpdfparaOn} and \cs{tagpdfparaOff} command.
-\item[\PrintKeyName{paratag}] String. It allows to change the tag used in the following automatically tagged paragraphs.
+\item[\PrintKeyName{unittag}] String. It allows to change the outer tag used in the following automatically tagged paragraphs. The setting is local.
+\item[\PrintKeyName{paratag}] String. It allows to change the inner tag used in the following automatically tagged paragraphs. The setting is local.
+\item[\PrintKeyName{para-flattened}] Boolean. If set it will suppress the outer structure in the automatic paratagging. 
+This should be applied to the start and end hook in the same way! The setting is local.
+
 \end{description}
 
 
@@ -1450,20 +1471,70 @@ rerun.
 
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
 
-\begin{docCommand}[nosep]{tagpdfparaOn}{}\end{docCommand}
-\begin{docCommand}{tagpdfparaOff}{}\end{docCommand}
-
 Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
-\pkg{tagpdf} makes use of these hooks to tag paragraphs. This can be activated/deactivated (also locally) with
-options of \cs{tagpdfsetup} or with the two commands above.
+\pkg{tagpdf} makes use of these hooks to tag paragraphs. In the first version it added only one structure, but this proved to be not adequate:
+
+Paragraphs in \LaTeX{} can be nested, e.g., you can have a paragraph
+containing a display quote, which in turn consists of more than one
+(sub)paragraph, followed by some more text which all belongs to the
+same outer paragraph.
+
+In the \PDF{} model and in the HTML model that is not supported: the rules
+in \PDF{} specification do not allow \texttt{P}-structures to be nested --- a
+limitation that conflicts with real live, given that such
+constructs are quite normal in spoken and written language.
+
+The approach we take (starting with march 2023, version 0.98c)
+to resolve this is to model such \enquote{big}
+paragraphs with a structure named \texttt{text-unit} and use \texttt{P} (under the name \texttt{text})
+only for (portions of) the actual paragraph text in a way that the
+\texttt{P}s are not nested. As a result we have for a simple
+paragraph two structures:
+
+\begin{taglstlisting}
+<text-unit>
+  <P>
+   The paragraph text ...
+  </P>
+</text-unit
+\end{taglstlisting}
+
+ In the case of an element, such as a display quote or a display list
+  inside the paragraph, we then have  
+\begin{taglstlisting}
+<text-unit>
+  <text>
+   The paragraph text before the display element ...
+  </text> 
+   <display element structure>
+    Content of the display structure possibly involving inner <text-unit> tags
+   </display element structure> 
+  <text>  
+   ... continuing the outer paragraph text
+  </text>
+</text-unit>
+\end{taglstlisting}  
+
+In other words such a display block is always embedded in a
+|<text-unit>| structure, possibly preceded by a |<text>|\ldots|</text>| block
+and possibly followed by one, though both such blocks are optional.
+More information about this can be found in the documentation of \texttt{latex-lab-block-tagging}.
+
+As a consequence \pkg{tagpdf} now adds two structures if paratagging is activated. The new code
+to tag display blocks extends this code to handle the nesting of lists and other display structures.
 
 The automatic tagging require that for every begin of a paragraph with the begin hook code
 there a corresponding end with the closing hook code. This can fail, e.g if a |vbox| doesn't correctly issue a |\par| at the end.
-If this happens the tagging structure can get every confused. At the end of the document \pkg{tagpdf} checks if
-the number of start and end paragraph structures created here are equal and it will error if not.
+If this happens the tagging structure can get very confused. At the end of the document \pkg{tagpdf} checks if
+the number of outer and inner start and end paragraph structures created with the automatic paratagging code
+are equal and it will error if not. 
 
-Nesting the activation and deactivation of the tagging of paragraphs can be quite difficult. For example if it is unclear if the inner code issues a |\par| or not it is not trivial to exclude an end hook for every excluded begin hook.
-In such cases it can be easier to use the new |paratag| key with the value |NonStruct| to convert some |P|-structures
+The automatic tagging of paragraphs can be deactivated completely or only the outer level with the |\tagtool| keys
+|para| and |para-flattened| or with the (now deprecated) commands |\tagpdfparaOn|  and |\tagpdfparaOff|.
+
+
+Nesting the activation and deactivation of the tagging of paragraphs can be quite difficult.  For example if it is unclear if the inner code issues a |\par| or not it is not trivial to exclude an end hook for every excluded begin hook.
+In such cases it can be easier to use the |paratag| key with the value |NonStruct| to convert some |P|-structures
 into |NonStruct|-structures without real meaning.
 
 \subsection{Task 2: Marking the structure}
