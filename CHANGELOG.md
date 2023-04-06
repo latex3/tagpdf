@@ -8,7 +8,9 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 ### Changed 
  - alt and actualtext: test if the value is empty and then do nothing.
-
+### Fixed
+ - Structure Element "Artifact" doesn't exist in pdf1.7, it is now mapped to NonStruct.
+ 
 ## [2023-03-07]
 
 ### Changed 
