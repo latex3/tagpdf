@@ -152,12 +152,12 @@
 % \begin{function}{alt (struct-key)}
 % This key inserts an \texttt{/Alt} value in the dictionary of structure object.
 % The value is handled as verbatim string and hex encoded.
-% The value will be expanded first once.
+% The value will be expanded first once. If it is empty, nothing will happen.
 % \end{function}
 % \begin{function}{actualtext (struct-key)}
 % This key inserts an \texttt{/ActualText} value in the dictionary of structure object.
 % The value is handled as verbatim string and hex encoded.
-% The value will be expanded first once.
+% The value will be expanded first once. If it is empty, nothing will happen.
 % \end{function}
 % \begin{function}{lang (struct-key)}
 % This key allows to set the language for a structure element. The value should be a bcp-identifier,
@@ -1022,28 +1022,34 @@
       },
     alt .code:n      = % Alt property
       {
-        \str_set_convert:Noon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-          { Alt }
-          { <\l_@@_tmpa_str> }
+       \tl_if_empty:oF{#1}
+         {
+          \str_set_convert:Noon
+            \l_@@_tmpa_str
+            { #1 }
+            { default }
+            { utf16/hex }
+          \@@_prop_gput:cnx
+            { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+            { Alt }
+            { <\l_@@_tmpa_str> }
+         }   
       },
     alttext .meta:n = {alt=#1},
     actualtext .code:n  = % ActualText property
       {
-        \str_set_convert:Noon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-          { ActualText }
-          { <\l_@@_tmpa_str>}
+        \tl_if_empty:oF{#1}
+          {
+           \str_set_convert:Noon
+             \l_@@_tmpa_str
+             { #1 }
+             { default }
+             { utf16/hex }
+           \@@_prop_gput:cnx
+             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+             { ActualText }
+             { <\l_@@_tmpa_str>}
+          }  
       },
     lang .code:n        = % Lang property
       {

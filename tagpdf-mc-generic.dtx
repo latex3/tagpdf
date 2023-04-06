@@ -805,13 +805,16 @@
     alttext .meta:n = {alt=#1},
     actualtext .code:n      = % ActualText property
       {
-        \str_set_convert:Noon
-          \l_@@_tmpa_str
-          { #1 }
-          { default }
-          { utf16/hex }
-        \tl_put_right:Nn \l_@@_mc_key_properties_tl { /ActualText~< }
-        \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+        \tl_if_empty:oF{#1}
+         {
+           \str_set_convert:Noon
+             \l_@@_tmpa_str
+             { #1 }
+             { default }
+             { utf16/hex }
+           \tl_put_right:Nn \l_@@_mc_key_properties_tl { /ActualText~< }
+           \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
+         }  
       },
     label .tl_set:N        = \l_@@_mc_key_label_tl,
     artifact .code:n       =

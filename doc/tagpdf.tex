@@ -1091,7 +1091,13 @@ The key-val list understands the following keys:
       \texttt{tagpdf-}. 
 
   \item[\PrintKeyName{alt}]
-   This key inserts an \texttt{/Alt} value in the property dictionary of the BDC operator. See section~\ref{sec:alt}. The value is handled as verbatim string, commands are not expanded but the value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed).
+   This key inserts an \texttt{/Alt} value in the property dictionary 
+   of the BDC operator. See section~\ref{sec:alt}. 
+   The value is handled as verbatim string, commands are 
+   not expanded but the value will be expanded first once (so works like 
+    the key \texttt{alttext-o} in previous versions which has been 
+    removed). If the value is empty, nothing will happen.
+    
   That means that you can do something like in the following listing
   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.
 
@@ -1108,7 +1114,7 @@ The key-val list understands the following keys:
       section~\ref{sec:alt}. The value is handled as verbatim string, 
       commands are not expanded but the value will be expanded first once 
       (so works like the key \texttt{actualtext-o} in previous versions 
-      which has been removed). 
+      which has been removed).  If the value is empty, nothing will happen.
 
   That means that you can do something like in the following listing and 
   and it will insert \verb+X+ (hex encoded)  in the \PDF{}. 
@@ -1121,7 +1127,9 @@ The key-val list understands the following keys:
 
   According to the PDF reference, \texttt{/ActualText} should only be used 
   on marked content sequence of type Span. This is not enforced by the code 
-  currently. 
+  currently. There is also some discussion going on, if 
+  \texttt{/ActualText} can actually be used in a MC dictionary or if it 
+  should be in a separate BDC-operator. 
 
 
   \item[\PrintKeyName{raw}] This key allows you to add more entries to the 
@@ -1635,8 +1643,14 @@ The key-val list understands the following keys:
    a label on the parent structure and then use
    \cs{ref\_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve it.
 
-  \item[\PrintKeyName{alt}]
-   This key inserts an \texttt{/Alt} value in the dictionary of structure object, see section~\ref{sec:alt}. The value is handled as verbatim string and hex encoded. The value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). That means that you can do something like this:
+  \item[\PrintKeyName{alt}] This key inserts an \texttt{/Alt} value in the 
+      dictionary of structure object, see section~\ref{sec:alt}. The value 
+      is handled as verbatim string and hex encoded. The value will be 
+      expanded first once (so works like the key \texttt{alttext-o} in 
+      previous versions which has been removed). If the value is empty, 
+      nothing will happen. 
+   
+   That means that you can do something like this:
 
 
       \begin{taglstlisting}
@@ -1650,8 +1664,14 @@ The key-val list understands the following keys:
    expanded protect it e.g. with a \verb+\empty+.
 
 
-  \item[\PrintKeyName{actualtext}]
-   This key inserts an \texttt{/ActualText} value in the dictionary of structure object,  see section~\ref{sec:alt}. The value is handled as verbatim string, The value will be expanded first once (so works like the key \texttt{alttext-o} in previous versions which has been removed). That means that you can do something like this:
+  \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} 
+      value in the dictionary of structure object,  see 
+      section~\ref{sec:alt}. The value is handled as verbatim string. The 
+      value will be expanded first once (so works like the key 
+      \texttt{alttext-o} in previous versions which has been removed). If 
+      the value is empty, nothing will happen. 
+      
+      That means that you can do something like this: 
 
       \begin{taglstlisting}
       \newcommand\myactualtext{X}
