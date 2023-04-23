@@ -7,7 +7,7 @@
    debug={para,uncompress}
   ,lang=de-DE,xmp=false}
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass[sfdefaults=true]{scrartcl}
 \usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
 \begin{document}

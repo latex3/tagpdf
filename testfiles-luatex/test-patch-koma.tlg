@@ -185,10 +185,10 @@ Completed box being shipped out [5]
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 407.24701fil, direction TLT
-...\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \nonumberline \ETC.}
-...\marks1{\protect \foreignlanguage {english}{\protect \bbl@restore@actives cha\ETC.}
+...\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}chapter\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
+...\marks1{\protect \foreignlanguage {english}{\protect \bbl@restore@actives chapter}}
 ...\marks2{\prg_do_nothing: }
-...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives ch\ETC.}
+...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives chapter}}{}}
 ...\write1{\@writefile{lof}{\protect \addvspace {10\p@ }}}
 ...\write1{\@writefile{lot}{\protect \addvspace {10\p@ }}}
 ...\glue(\topskip) 11.0
@@ -264,11 +264,11 @@ Completed box being shipped out [5]
 ....\glue(\rightskip) 0.0 plus 1.0fil
 ...\pdfliteral page <lua data reference ...>
 ...\pdfliteral page <lua data reference ...>
-...\marks2{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\ETC.}
-...\marks3{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\ETC.}
-...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives ch\ETC.}
+...\marks2{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}
+...\marks3{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}
+...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives chapter}}{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}}
 ...\penalty 10000
-...\write1{\@writefile{toc}{\protect \contentsline {section}{\tagstructbegin {ta\ETC.}
+...\write1{\@writefile{toc}{\protect \contentsline {section}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}section\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 10.85475 plus 0.94386
@@ -314,7 +314,7 @@ Completed box being shipped out [5]
 ....\glue(\rightskip) 0.0 plus 1.0fil
 ...\pdfliteral page <lua data reference ...>
 ...\pdfliteral page <lua data reference ...>
-...\write1{\@writefile{toc}{\protect \contentsline {subsection}{\tagstructbegin \ETC.}
+...\write1{\@writefile{toc}{\protect \contentsline {subsection}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsection\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 7.07918 plus 0.94386
@@ -357,7 +357,7 @@ Completed box being shipped out [5]
 ....\glue(\rightskip) 0.0 plus 1.0fil
 ...\pdfliteral page <lua data reference ...>
 ...\pdfliteral page <lua data reference ...>
-...\write1{\@writefile{toc}{\protect \contentsline {subsubsection}{\protect \nonumberline \ETC.}
+...\write1{\@writefile{toc}{\protect \contentsline {subsubsection}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsubsection\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 7.07918 plus 0.94386
