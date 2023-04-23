@@ -506,6 +506,11 @@
   { S }
   { \pdf_name_from_unicode_e:n {StructTreeRoot} }
 
+\@@_prop_gput:cnx
+  { g_@@_struct_0_prop }
+  { rolemap }
+  { {StructTreeRoot}{pdf} }
+
 \prop_gput:Nnn \g_@@_struct_tag_NS_prop {0}{{StructTreeRoot}{pdf}}
 %    \end{macrocode}
 % Namespaces are pdf 2.0 but it doesn't harm
@@ -1316,6 +1321,50 @@
           \g_@@_struct_tag_NS_tl
           \l_@@_struct_roletag_tl 
           \l_@@_struct_roletag_NS_tl 
+%    \end{macrocode}
+% to target role and role NS 
+%    \begin{macrocode}
+        \@@_prop_gput:cnx
+              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+              { rolemap }
+              {
+                {\l_@@_struct_roletag_tl}{\l_@@_struct_roletag_NS_tl} 
+              }  
+%    \end{macrocode}
+% we also store which role to use for parent/child test. If the role is
+% one of Part, Div, NonStruct we have to retrieve it from the parent.
+% If the structure is stashed, this must be updated!
+%    \begin{macrocode}
+        \str_case:VnTF \l_@@_struct_roletag_tl
+         {
+           {Part} {}
+           {Div}  {}
+           {NonStruct} {}
+         } 
+         {
+           \prop_get:cnNT 
+            { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _prop }
+            { parentrole }
+            \l_@@_get_tmpc_tl
+            {
+              \@@_prop_gput:cno
+                { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+                { parentrole }
+                {
+                  \l_@@_get_tmpc_tl
+                } 
+            }  
+         }
+         {
+           \@@_prop_gput:cnx
+              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+              { parentrole }
+              {
+                {\l_@@_struct_roletag_tl}{\l_@@_struct_roletag_NS_tl} 
+              }
+         }
+%    \end{macrocode}
+%    \begin{macrocode}
         \seq_gpush:Nx \g_@@_struct_tag_stack_seq 
           {{\g_@@_struct_tag_tl}{\l_@@_struct_roletag_tl}}
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
