@@ -872,17 +872,20 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_role_get_parent_child_rule:nnN}
+% \begin{macro}{\@@_role_get_parent_child_rule:nnnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
 %  TODO check temporary variables. Check if the tl-var should be fix.
-%  The arguments should be standard tags for which a rule exist and
-%  role mapping should have already be done.
+%  It assumes that the tag in \#1 is a standard tag after role mapping 
+%  for which a rule exist and is \emph{not} one of Part, Div, NonStruct
+%  as the real parent has already been identified.
+%  \#3 is the actual tag and is only used to provide suitable messages if
+%  the tag is inherited. 
 %    \begin{macrocode}
 \tl_new:N \l_@@_parent_child_check_tl
-\cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
-  % #1 parent (string) #2 child (string) #3 tl for state
-  {
-     \tl_set:Nn \l_@@_role_real_parent_tl {#1}
+\cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
+  % #1 parent (string) #2 child (string) #3 real tag (eg. Div) #4 tl for state
+  { 
+     \tl_set:Nn \l_@@_role_real_parent_tl {#3}
 %    \end{macrocode}
 % 
 %    \begin{macrocode}
@@ -895,40 +898,24 @@
 %    \end{macrocode}
 % Get the rule from the intarray
 %    \begin{macrocode}
-         \tl_set:Nx#3 
+         \tl_set:Nx#4 
            { 
              \intarray_item:Nn 
               \g_@@_role_parent_child_intarray 
               {\l_@@_tmpa_tl\l_@@_tmpb_tl}
            }
 %    \end{macrocode}
-% If the state is ‡ we have to check the parents from the stack and
-% use the first which is not Part, Div or NonStruct
+% If the state is ‡ something is wrong ...
 %    \begin{macrocode}
          \int_compare:nNnT  
-           {#3} = {\prop_item:Nn\c_@@_role_rules_prop{‡}}  
-           {
-             \seq_set_eq:NN   \l_@@_role_tmpa_seq \g_@@_struct_tag_stack_seq
+           {#4} = {\prop_item:Nn\c_@@_role_rules_prop{‡}}  
+           {            
+             %warn ? 
 %    \end{macrocode}
 % we must take the current child from the stack if is already there, 
 % depending on location the check is called, this could also remove the 
 % parent, but that is ok too.
 %    \begin{macrocode}
-             \seq_pop_left:NN \l_@@_role_tmpa_seq\l_@@_get_tmpc_tl             
-             \seq_map_inline:Nn\l_@@_role_tmpa_seq
-               {
-                 \tl_set:Nx\l_@@_tmpa_tl { \use_ii:nn ##1 }
-                 \exp_args:Nne
-                  \str_if_in:nnF {-Part-Div-NonStruct-}{-\l_@@_tmpa_tl-}
-                   {  
-                     \tl_set:Nn\l_@@_role_real_parent_tl {##1}
-                     \int_zero:N\l_@@_tmpa_int
-                     \exp_args:NV
-                     \@@_role_get_parent_child_rule:nnN \l_@@_tmpa_tl{#2}#3
-                     \int_set:Nn\l_@@_tmpa_int{1}
-                     \seq_map_break:
-                   }
-               } 
            }
 %    \end{macrocode}
 %   This is the message, this can perhaps go into debug mode.
@@ -936,7 +923,7 @@
          \group_begin:
          \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
            {      
-             \prop_get:NVNF\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
+             \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
                {
                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
                }
@@ -959,7 +946,7 @@
                       }                                    
                    }
                    {
-                     \c_space_tl(inherited~from~\l_@@_role_real_parent_tl)
+                     \c_space_tl(from~\l_@@_role_real_parent_tl)
                    }  
                } 
                { 
@@ -975,12 +962,12 @@
                      \c_space_tl (from~\prop_item:Nn\l_@@_role_debug_prop {child})
                    }                                   
                }
-               { '#3~(\l_@@_tmpa_tl)' }   
+               { '#4~(\l_@@_tmpa_tl)' }   
            }  
            \group_end: 
        }
        {         
-         \tl_set:Nn#3 {0}
+         \tl_set:Nn#4 {0}
          \msg_warning:nnxxx 
            { tag } 
            {role-parent-child} 
@@ -989,7 +976,7 @@
            { unknown! }  
        }
   }  
-\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnN {VVN}   
+\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnnN {VVVN}   
 %    \end{macrocode}
 % \end{macro}
 % 
@@ -1043,7 +1030,7 @@
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
          {  
-           \@@_role_get_parent_child_rule:VVN \l_@@_tmpa_tl \l_@@_tmpb_tl #5
+           \@@_role_get_parent_child_rule:VVVN \l_@@_tmpa_tl \l_@@_tmpb_tl \l_@@_tmpa_tl #5
          }   
          {
            \tl_set:Nn #5 {0}
@@ -1154,7 +1141,7 @@
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
          {  
-           \@@_role_get_parent_child_rule:VVN \l_@@_tmpa_tl \l_@@_tmpb_tl #5
+           \@@_role_get_parent_child_rule:VVVN \l_@@_tmpa_tl \l_@@_tmpb_tl \l_@@_tmpa_tl #5
          }   
          {
            \tl_set:Nn #5 {0}
