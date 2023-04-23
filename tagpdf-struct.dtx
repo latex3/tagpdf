@@ -393,11 +393,16 @@
 % \end{variable}
 %
 % \subsection{Variables used by the keys}
-% \begin{variable}{\g_@@_struct_tag_tl,\g_@@_struct_tag_NS_tl}
+% \begin{variable}{\g_@@_struct_tag_tl,\g_@@_struct_tag_NS_tl,
+%  \l_@@_struct_roletag_tl,\g_@@_struct_roletag_NS_tl}
 % Use by the tag key to store the tag and the namespace.
+% The role tag variables will hold locally rolemapping info needed
+% for the parent-child checks
 %    \begin{macrocode}
 \tl_new:N \g_@@_struct_tag_tl
 \tl_new:N \g_@@_struct_tag_NS_tl
+\tl_new:N \l_@@_struct_roletag_tl
+\tl_new:N \l_@@_struct_roletag_NS_tl
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\l_@@_struct_key_label_tl}
@@ -1306,12 +1311,13 @@
               }
            }
         \seq_gpush:NV \g_@@_struct_stack_seq        \c@g_@@_struct_abs_int
-        \@@_role_get:VVN 
+        \@@_role_get:VVNN 
           \g_@@_struct_tag_tl 
           \g_@@_struct_tag_NS_tl
-          \l_@@_get_tmpc_tl 
+          \l_@@_struct_roletag_tl 
+          \l_@@_struct_roletag_NS_tl 
         \seq_gpush:Nx \g_@@_struct_tag_stack_seq 
-          {{\g_@@_struct_tag_tl}{\l_@@_get_tmpc_tl}}
+          {{\g_@@_struct_tag_tl}{\l_@@_struct_roletag_tl}}
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
         %\seq_show:N   \g_@@_struct_stack_seq
         \bool_if:NF

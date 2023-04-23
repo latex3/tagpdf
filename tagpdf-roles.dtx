@@ -476,18 +476,19 @@
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the 2.0 command. 
 % If there is no role, we assume a standard tag.
-% \begin{macro}{\@@_role_get:nnN}
+% \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
 \pdf_version_compare:NnT < {2.0}
  {
-   \cs_new:Npn \@@_role_get:nnN #1#2#3
+   \cs_new:Npn \@@_role_get:nnNN #1#2#3#4 %#1 tag, #2 NS, #3 tlvar which hold the role tag #4 empty
     {
       \prop_get:NnNF \g_@@_role_rolemap_prop {#1}#3
         {
-          \tl_set:Nn #3 {#1}
+          \tl_set:Nn #3 {#1}          
         }
+      \tl_set:Nn #4 {}  
     }
-   \cs_generate_variant:Nn \@@_role_get:nnN {VVN} 
+   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN} 
  }   
  
 %    \end{macrocode}
@@ -548,21 +549,26 @@
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the <2.0 command (and assume
 % that we don't need a name space)% 
-% \begin{macro}{\@@_role_get:nnN}
+% \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
 \pdf_version_compare:NnF < {2.0}
  {
-   \cs_new:Npn \@@_role_get:nnN #1#2#3
+   \cs_new:Npn \@@_role_get:nnNN #1#2#3#4 
+     %#1 tag, #2 NS, 
+     %#3 tlvar which hold the role tag
+     %#4 tlvar which hold the name of the target NS
     {
-      \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_get_tmpc_tl
+      \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_tmpa_tl
         {
-         \tl_set:Nx #3 {\exp_last_unbraced:NV\use_i:nn  \l_@@_get_tmpc_tl}
+         \tl_set:Nx #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_tmpa_tl}         
+         \tl_set:Nx #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_tmpa_tl}
         } 
         {
          \tl_set:Nn #3 {#1}
+         \tl_set:Nn #4 {#2}
         }
     }
-   \cs_generate_variant:Nn \@@_role_get:nnN {VVN} 
+   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN} 
  }   
 %    \end{macrocode}
 % \end{macro}
