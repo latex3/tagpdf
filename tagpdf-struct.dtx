@@ -1399,7 +1399,7 @@
             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
               {
                 \prop_get:cnN 
-                  { g_@@_struct_ \g_@@_struct_stack_current_tl _prop}
+                  { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _prop}
                   {S}
                   \l_@@_tmpa_tl
                 \msg_warning:nnxxx 
@@ -1408,7 +1408,8 @@
                  { \l_@@_get_parent_tmpa_tl/\l_@@_get_parent_tmpb_tl } 
                  { \g_@@_struct_tag_tl/\g_@@_struct_tag_NS_tl  }
                  { not~allowed~                   
-                   (struct~\g_@@_struct_stack_current_tl,~\l_@@_tmpa_tl)
+                   (struct~\l_@@_struct_stack_parent_tmpa_tl,~\l_@@_tmpa_tl
+                    \c_space_tl-->~struct~\int_eval:n {\c@g_@@_struct_abs_int})
                  }  
                 \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
                 \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
