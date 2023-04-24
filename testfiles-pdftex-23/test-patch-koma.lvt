@@ -10,7 +10,7 @@
 \RequirePackage{pdfmanagement-testphase}
 \DeclareDocumentMetadata{}
 \RequirePackage{tagpdf-regressiontest}
-\documentclass{scrbook}
+\documentclass[sfdefaults=true]{scrbook}
 \usepackage{graphicx}
 \usepackage[english]{babel}
 

@@ -1,58 +1,58 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: The rule between parent 'StructTreeRoot' 
-(tagpdf)             and child 'Document' is '3 (1)'
+Package tagpdf Info: Rule 'StructTreeRoot' --> 'Document' is 3 (='1')
+(tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'Document'
 LaTeX Font Info:    Trying to load font information for T1+cmss on input line ....
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'H1' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'H1' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'H1'
+Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'H1' --> 'MC'
 Package tagpdf Info: closing structure 2 tagged /H1
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'TOC' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'TOC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'TOC'
 (test-patch-koma.toc
-Package tagpdf Info: The rule between parent 'TOC' 
-(tagpdf)             and child 'TOCI' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'Lbl' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Lbl' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOC' --> 'TOCI' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI'
+Package tagpdf Info: Rule 'TOCI' --> 'Lbl' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl'
+Package tagpdf Info: Rule 'Lbl' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Lbl' --> 'MC'
 Package tagpdf Info: closing structure 5 tagged /Lbl
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOCI' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'P'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC'
 Package tagpdf Info: closing structure 6 tagged /P
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'Reference' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Reference' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOCI' --> 'Reference' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference'
+Package tagpdf Info: Rule 'Reference' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Reference' --> 'MC'
 Package tagpdf Info: closing structure 7 tagged /Reference
 Package tagpdf Info: closing structure 4 tagged /TOCI
-Package tagpdf Info: The rule between parent 'TOC' 
-(tagpdf)             and child 'TOCI' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOC' --> 'TOCI' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI'
+Package tagpdf Info: Rule 'TOCI' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'P'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC'
 Package tagpdf Info: closing structure 9 tagged /P
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'Reference' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Reference' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOCI' --> 'Reference' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference'
+Package tagpdf Info: Rule 'Reference' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Reference' --> 'MC'
 Package tagpdf Info: closing structure 10 tagged /Reference
 Package tagpdf Info: closing structure 8 tagged /TOCI
-Package tagpdf Info: The rule between parent 'TOC' 
-(tagpdf)             and child 'TOCI' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'Lbl' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Lbl' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOC' --> 'TOCI' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI'
+Package tagpdf Info: Rule 'TOCI' --> 'Lbl' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl'
+Package tagpdf Info: Rule 'Lbl' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Lbl' --> 'MC'
 Package tagpdf Info: closing structure 12 tagged /Lbl
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOCI' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'P'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC'
 Package tagpdf Info: closing structure 13 tagged /P
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line ....
@@ -60,28 +60,28 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line ....
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line ....
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'Reference' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Reference' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOCI' --> 'Reference' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference'
+Package tagpdf Info: Rule 'Reference' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Reference' --> 'MC'
 Package tagpdf Info: closing structure 14 tagged /Reference
 Package tagpdf Info: closing structure 11 tagged /TOCI
-Package tagpdf Info: The rule between parent 'TOC' 
-(tagpdf)             and child 'TOCI' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'Lbl' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Lbl' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOC' --> 'TOCI' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI'
+Package tagpdf Info: Rule 'TOCI' --> 'Lbl' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl'
+Package tagpdf Info: Rule 'Lbl' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Lbl' --> 'MC'
 Package tagpdf Info: closing structure 16 tagged /Lbl
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOCI' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'P'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC'
 Package tagpdf Info: closing structure 17 tagged /P
-Package tagpdf Info: The rule between parent 'TOCI' 
-(tagpdf)             and child 'Reference' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Reference' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'TOCI' --> 'Reference' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference'
+Package tagpdf Info: Rule 'Reference' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Reference' --> 'MC'
 Package tagpdf Info: closing structure 18 tagged /Reference
 Package tagpdf Info: closing structure 15 tagged /TOCI
 )
@@ -111,10 +111,10 @@ braces):
 [2
 ]
 chapter 1.
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'H1' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'H1' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'H1'
+Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'H1' --> 'MC'
 Package tagpdf Info: closing structure 19 tagged /H1
 ====> In \@makecol 3
 No marks so use saved bot mark: e+, 12, 17
@@ -142,30 +142,30 @@ braces):
 [4
 ]
 chapter without number
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'H1' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'H1' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'H1'
+Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'H1' --> 'MC'
 Package tagpdf Info: closing structure 20 tagged /H1
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'H2' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'H2' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'H2' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'H2'
+Package tagpdf Info: Rule 'H2' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'H2' --> 'MC'
 Package tagpdf Info: closing structure 21 tagged /H2
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'H3' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'H3' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'H3' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'H3'
+Package tagpdf Info: Rule 'H3' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'H3' --> 'MC'
 Package tagpdf Info: closing structure 22 tagged /H3
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'H4' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'H4' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'H4' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'H4'
+Package tagpdf Info: Rule 'H4' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'H4' --> 'MC'
 Package tagpdf Info: closing structure 23 tagged /H4
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'P' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P' 
-(tagpdf)             and child 'MC' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'P'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC'
 Package tagpdf Info: closing structure 24 tagged /P
 Package tagpdf Info: closing structure 1 tagged /Document
 ====> In \@makecol 5
@@ -206,10 +206,10 @@ Completed box being shipped out [5]
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 407.27904fil
 ...\hbox(0.0+0.0)x0.0
-...\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \nonumberline \ETC.}
-...\marks1{\protect \foreignlanguage {english}{\protect \bbl@restore@actives cha\ETC.}
+...\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}chapter\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
+...\marks1{\protect \foreignlanguage {english}{\protect \bbl@restore@actives chapter}}
 ...\marks2{\prg_do_nothing: }
-...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives ch\ETC.}
+...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives chapter}}{}}
 ...\write1{\@writefile{lof}{\protect \addvspace {10\p@ }}}
 ...\write1{\@writefile{lot}{\protect \addvspace {10\p@ }}}
 ...\glue(\topskip) 11.0
@@ -228,7 +228,7 @@ Completed box being shipped out [5]
 ...\glue(\baselineskip) 10.23811
 ...\hbox(14.76189+3.99005)x418.25555, glue set 171.38478fil
 ....\hbox(0.0+0.0)x0.0
-.....\write1{\newlabeldata{mcid-24}{{tagabspage}{\__ref_attribute_tagabspage: }{ta\ETC.}
+.....\write1{\newlabeldata{mcid-24}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{24}{tagmcid}{0}}}
 .....\pdfliteral page{/H1 /l3pdf14 BDC}
 .....\write1{\newlabeldata{l3pdf14}{{abspage}{\__ref_attribute_abspage: }}}
 .....\marks4{b-,24,20,H1,,,}
@@ -255,7 +255,7 @@ Completed box being shipped out [5]
 ...\hbox(10.20578+0.0)x418.25555, glue set 170.47244fil
 ....\hbox(9.87387+0.0)x29.40816
 .....\glue 0.0
-.....\write1{\newlabeldata{mcid-25}{{tagabspage}{\__ref_attribute_tagabspage: }{ta\ETC.}
+.....\write1{\newlabeldata{mcid-25}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{25}{tagmcid}{1}}}
 .....\pdfliteral page{/H2 /l3pdf15 BDC}
 .....\write1{\newlabeldata{l3pdf15}{{abspage}{\__ref_attribute_abspage: }}}
 .....\marks4{b-,25,21,H2,,,}
@@ -275,11 +275,11 @@ Completed box being shipped out [5]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0 plus 1.0fil
-...\marks2{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\ETC.}
-...\marks3{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\ETC.}
-...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives ch\ETC.}
+...\marks2{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}
+...\marks3{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}
+...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives chapter}}{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}}
 ...\penalty 10000
-...\write1{\@writefile{toc}{\protect \contentsline {section}{\tagstructbegin {ta\ETC.}
+...\write1{\@writefile{toc}{\protect \contentsline {section}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}section\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 10.84085 plus 0.94266
@@ -291,7 +291,7 @@ Completed box being shipped out [5]
 ...\hbox(8.74786+0.0)x418.25555, glue set 162.82173fil
 ....\hbox(7.9286+0.0)x34.49158
 .....\glue 0.0
-.....\write1{\newlabeldata{mcid-26}{{tagabspage}{\__ref_attribute_tagabspage: }{ta\ETC.}
+.....\write1{\newlabeldata{mcid-26}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{26}{tagmcid}{2}}}
 .....\pdfliteral page{/H3 /l3pdf16 BDC}
 .....\write1{\newlabeldata{l3pdf16}{{abspage}{\__ref_attribute_abspage: }}}
 .....\marks4{b-,26,22,H3,,,}
@@ -316,7 +316,7 @@ Completed box being shipped out [5]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0 plus 1.0fil
-...\write1{\@writefile{toc}{\protect \contentsline {subsection}{\tagstructbegin \ETC.}
+...\write1{\@writefile{toc}{\protect \contentsline {subsection}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsection\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 7.07011 plus 0.94266
@@ -328,7 +328,7 @@ Completed box being shipped out [5]
 ...\hbox(7.97733+0.0)x418.25555, glue set 174.6818fil
 ....\hbox(0.0+0.0)x0.0
 .....\glue 0.0
-.....\write1{\newlabeldata{mcid-27}{{tagabspage}{\__ref_attribute_tagabspage: }{ta\ETC.}
+.....\write1{\newlabeldata{mcid-27}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{27}{tagmcid}{3}}}
 .....\pdfliteral page{/H4 /l3pdf17 BDC}
 .....\write1{\newlabeldata{l3pdf17}{{abspage}{\__ref_attribute_abspage: }}}
 .....\marks4{b-,27,23,H4,,,}
@@ -350,11 +350,11 @@ Completed box being shipped out [5]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0 plus 1.0fil
-...\write1{\@writefile{toc}{\protect \contentsline {subsubsection}{\protect \nonumberline \ETC.}
+...\write1{\@writefile{toc}{\protect \contentsline {subsubsection}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsubsection\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 7.07011 plus 0.94266
-...\write1{\newlabeldata{mcid-28}{{tagabspage}{\__ref_attribute_tagabspage: }{ta\ETC.}
+...\write1{\newlabeldata{mcid-28}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{28}{tagmcid}{4}}}
 ...\penalty 10000
 ...\pdfliteral page{/P /l3pdf18 BDC}
 ...\write1{\newlabeldata{l3pdf18}{{abspage}{\__ref_attribute_abspage: }}}

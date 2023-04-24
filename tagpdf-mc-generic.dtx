@@ -708,22 +708,29 @@
               }
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
-                \exp_args:NV\@@_struct_get_tag_info:nNN 
+                \exp_args:NV\@@_struct_get_parentrole:nNN 
                     \g_@@_struct_stack_current_tl 
-                    \l_@@_tmpa_tl
-                    \l_@@_tmpb_tl
+                    \l_@@_get_parent_tmpa_tl
+                    \l_@@_get_parent_tmpb_tl
                  \@@_check_parent_child:VVnnN
-                 \l_@@_tmpa_tl \l_@@_tmpb_tl
-                 {MC}{}
-                 \l_@@_parent_child_check_tl 
+                   \l_@@_get_parent_tmpa_tl
+                   \l_@@_get_parent_tmpb_tl
+                   {MC}{}
+                   \l_@@_parent_child_check_tl 
                 \int_compare:nNnT {\l_@@_parent_child_check_tl}<{0}
                  {
+                    \prop_get:cnN 
+                     { g_@@_struct_ \g_@@_struct_stack_current_tl _prop}
+                     {S}
+                     \l_@@_tmpa_tl
                     \msg_warning:nnxxx 
                      { tag } 
                      {role-parent-child} 
-                     { \g_@@_struct_tag_tl/\g_@@_struct_tag_NS_tl  } 
-                     { MC~(=~real content) }
-                     { 'not~allowed'. }  
+                     { \l_@@_get_parent_tmpa_tl/\l_@@_get_parent_tmpb_tl  } 
+                     { MC~(real content) }
+                     { not~allowed~
+                       (struct~\g_@@_struct_stack_current_tl,~\l_@@_tmpa_tl)
+                     }  
                  }    
                 \@@_mc_handle_stash:x { \int_use:N \c@g_@@_MCID_abs_int }
               }

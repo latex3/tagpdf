@@ -476,18 +476,19 @@
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the 2.0 command. 
 % If there is no role, we assume a standard tag.
-% \begin{macro}{\@@_role_get:nnN}
+% \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
 \pdf_version_compare:NnT < {2.0}
  {
-   \cs_new:Npn \@@_role_get:nnN #1#2#3
+   \cs_new:Npn \@@_role_get:nnNN #1#2#3#4 %#1 tag, #2 NS, #3 tlvar which hold the role tag #4 empty
     {
       \prop_get:NnNF \g_@@_role_rolemap_prop {#1}#3
         {
-          \tl_set:Nn #3 {#1}
+          \tl_set:Nn #3 {#1}          
         }
+      \tl_set:Nn #4 {}  
     }
-   \cs_generate_variant:Nn \@@_role_get:nnN {VVN} 
+   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN} 
  }   
  
 %    \end{macrocode}
@@ -548,21 +549,26 @@
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the <2.0 command (and assume
 % that we don't need a name space)% 
-% \begin{macro}{\@@_role_get:nnN}
+% \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
 \pdf_version_compare:NnF < {2.0}
  {
-   \cs_new:Npn \@@_role_get:nnN #1#2#3
+   \cs_new:Npn \@@_role_get:nnNN #1#2#3#4 
+     %#1 tag, #2 NS, 
+     %#3 tlvar which hold the role tag
+     %#4 tlvar which hold the name of the target NS
     {
-      \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_get_tmpc_tl
+      \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_tmpa_tl
         {
-         \tl_set:Nx #3 {\exp_last_unbraced:NV\use_i:nn  \l_@@_get_tmpc_tl}
+         \tl_set:Nx #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_tmpa_tl}         
+         \tl_set:Nx #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_tmpa_tl}
         } 
         {
          \tl_set:Nn #3 {#1}
+         \tl_set:Nn #4 {#2}
         }
     }
-   \cs_generate_variant:Nn \@@_role_get:nnN {VVN} 
+   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN} 
  }   
 %    \end{macrocode}
 % \end{macro}
@@ -857,26 +863,22 @@
 %
 % \subsubsection{Retrieving the parent-child rule}
 % 
-% \begin{macro}{\l_@@_role_real_parent_tl}
-%  Part, Div and NonStruct have no own rules, instead
-%  the parent(s) have to be inspected. To store this real parent
-%  we use this tlvar
-%    \begin{macrocode}
-\tl_new:N \l_@@_role_real_parent_tl 
-%    \end{macrocode}
-% \end{macro}
 % 
-% \begin{macro}{\@@_role_get_parent_child_rule:nnN}
+% \begin{macro}{\@@_role_get_parent_child_rule:nnnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
+%  It assumes that the tag in \#1 is a standard tag after role mapping 
+%  for which a rule exist and is \emph{not} one of Part, Div, NonStruct
+%  as the real parent has already been identified.
+%  \#3 can be used to pass along data about the original tags 
+%  and is only used in messages.
+%  
 %  TODO check temporary variables. Check if the tl-var should be fix.
-%  The arguments should be standard tags for which a rule exist and
-%  role mapping should have already be done.
 %    \begin{macrocode}
 \tl_new:N \l_@@_parent_child_check_tl
-\cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
-  % #1 parent (string) #2 child (string) #3 tl for state
-  {
-     \tl_set:Nn \l_@@_role_real_parent_tl {#1}
+\cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
+  % #1 parent (string) #2 child (string) #3 text for messages (eg. about Div or Rolemapping) 
+  % #4 tl for state
+  {     
 %    \end{macrocode}
 % 
 %    \begin{macrocode}
@@ -889,40 +891,24 @@
 %    \end{macrocode}
 % Get the rule from the intarray
 %    \begin{macrocode}
-         \tl_set:Nx#3 
+         \tl_set:Nx#4 
            { 
              \intarray_item:Nn 
               \g_@@_role_parent_child_intarray 
               {\l_@@_tmpa_tl\l_@@_tmpb_tl}
            }
 %    \end{macrocode}
-% If the state is ‡ we have to check the parents from the stack and
-% use the first which is not Part, Div or NonStruct
+% If the state is ‡ something is wrong ...
 %    \begin{macrocode}
          \int_compare:nNnT  
-           {#3} = {\prop_item:Nn\c_@@_role_rules_prop{‡}}  
-           {
-             \seq_set_eq:NN   \l_@@_role_tmpa_seq \g_@@_struct_tag_stack_seq
+           {#4} = {\prop_item:Nn\c_@@_role_rules_prop{‡}}  
+           {            
+             %warn ? 
 %    \end{macrocode}
 % we must take the current child from the stack if is already there, 
 % depending on location the check is called, this could also remove the 
 % parent, but that is ok too.
 %    \begin{macrocode}
-             \seq_pop_left:NN \l_@@_role_tmpa_seq\l_@@_get_tmpc_tl             
-             \seq_map_inline:Nn\l_@@_role_tmpa_seq
-               {
-                 \tl_set:Nx\l_@@_tmpa_tl { \use_ii:nn ##1 }
-                 \exp_args:Nne
-                  \str_if_in:nnF {-Part-Div-NonStruct-}{-\l_@@_tmpa_tl-}
-                   {  
-                     \tl_set:Nn\l_@@_role_real_parent_tl {##1}
-                     \int_zero:N\l_@@_tmpa_int
-                     \exp_args:NV
-                     \@@_role_get_parent_child_rule:nnN \l_@@_tmpa_tl{#2}#3
-                     \int_set:Nn\l_@@_tmpa_int{1}
-                     \seq_map_break:
-                   }
-               } 
            }
 %    \end{macrocode}
 %   This is the message, this can perhaps go into debug mode.
@@ -930,7 +916,7 @@
          \group_begin:
          \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
            {      
-             \prop_get:NVNF\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
+             \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
                {
                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
                }
@@ -938,43 +924,18 @@
              \msg_note:nnxxx 
                { tag } 
                { role-parent-child } 
-               { #1
-                 \tl_if_eq:NNTF\l_@@_tmpb_tl\l_@@_role_real_parent_tl
-                   {
-                     \bool_lazy_and:nnT 
-                      {
-                        \prop_if_in_p:Nn \l_@@_role_debug_prop {parent}
-                      }
-                      {
-                        !\str_if_eq_p:ee {#1}{\prop_item:Nn\l_@@_role_debug_prop {parent}}
-                      }  
-                      {
-                        \c_space_tl (from~\prop_item:Nn\l_@@_role_debug_prop {parent})
-                      }                                    
-                   }
-                   {
-                     \c_space_tl(inherited~from~\l_@@_role_real_parent_tl)
-                   }  
-               } 
+               { #1 } 
+               { #2 }                                      
                { 
-                 #2 
-                 \bool_lazy_and:nnT 
-                   {
-                     \prop_if_in_p:Nn \l_@@_role_debug_prop {child}
-                   }
-                   {
-                     !\str_if_eq_p:ee {#2}{\prop_item:Nn\l_@@_role_debug_prop {child}}
-                   }  
-                   {
-                     \c_space_tl (from~\prop_item:Nn\l_@@_role_debug_prop {child})
-                   }                                   
-               }
-               { '#3~(\l_@@_tmpa_tl)' }   
+                 #4~(='\l_@@_tmpa_tl') 
+                  \iow_newline:
+                  #3
+               }   
            }  
            \group_end: 
        }
        {         
-         \tl_set:Nn#3 {0}
+         \tl_set:Nn#4 {0}
          \msg_warning:nnxxx 
            { tag } 
            {role-parent-child} 
@@ -983,13 +944,15 @@
            { unknown! }  
        }
   }  
-\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnN {VVN}   
+\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnnN {VVVN,VVnN}   
 %    \end{macrocode}
 % \end{macro}
 % 
 % \begin{macro}{@@_check_parent_child:nnnnN}
-% This is the main command. 
-% It has to retrieve the standard tags for a comparison.
+% This commands translates rolemaps its arguments and then
+% calls \cs{@@_role_get_parent_child_rule:nnnN}. 
+% It does not try to resolve inheritation of \texttt{Div} etc but
+% instead warns that the rule can not be detected in this case. 
 % In pdf 2.0 the name spaces of the tags are relevant, so we
 % have arguments for them, but in pdf <2.0 they are ignored and can
 % be left empty.
@@ -997,6 +960,7 @@
 \pdf_version_compare:NnTF < {2.0}
   {
    \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5
+    %#1 parent tag,#2 NS, #3 child tag, #4 NS, #5 tl var
      {
 %    \end{macrocode}
 % for debugging messages we store the arguments.
@@ -1037,7 +1001,10 @@
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
          {  
-           \@@_role_get_parent_child_rule:VVN \l_@@_tmpa_tl \l_@@_tmpb_tl #5
+           \@@_role_get_parent_child_rule:VVnN 
+             \l_@@_tmpa_tl \l_@@_tmpb_tl 
+             {Rolemapped~from:~'#1'~-->~'#3'} 
+             #5
          }   
          {
            \tl_set:Nn #5 {0}
@@ -1148,7 +1115,10 @@
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
          {  
-           \@@_role_get_parent_child_rule:VVN \l_@@_tmpa_tl \l_@@_tmpb_tl #5
+           \@@_role_get_parent_child_rule:VVnN 
+             \l_@@_tmpa_tl \l_@@_tmpb_tl 
+             {Rolemapped~from~'#1/#2'~-->~'#3\str_if_empty:nF{#4}{/#4}'} 
+             #5
          }   
          {
            \tl_set:Nn #5 {0}
@@ -1174,7 +1144,7 @@
 \prg_set_protected_conditional:Npnn \tag_check_child:nn #1 #2 {T,F,TF}
  {
    \seq_get:NN\g_@@_struct_stack_seq\l_@@_tmpa_tl
-   \@@_struct_get_tag_info:eNN
+   \@@_struct_get_parentrole:eNN
       {\l_@@_tmpa_tl}
       \l_@@_get_parent_tmpa_tl
       \l_@@_get_parent_tmpb_tl

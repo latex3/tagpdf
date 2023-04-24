@@ -1,9 +1,9 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: The rule between parent 'StructTreeRoot' 
-(tagpdf)             and child 'MC' is '-1 (^^e2^^88^^85)'
-Package tagpdf Warning: The rule between parent '/' 
-(tagpdf)                and child 'MC (= realcontent)' is 'not allowed'.
+Package tagpdf Info: Rule 'StructTreeRoot' --> 'MC' is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC'
+Package tagpdf Warning: Rule 'StructTreeRoot/pdf' --> 'MC (realcontent)' is
+(tagpdf)                not allowed (struct 0, /StructTreeRoot)
 The sequence \g__tag_mc_main_marks_seq is empty
 > .
 Completed box being shipped out [1]
@@ -51,7 +51,7 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 c
 ....\T1/cmr/m/n/10.95 t
 ....\pdfliteral page{EMC}
-....\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+....\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{2}{tagmcid}{0}}}
 ....\pdfliteral page{/P /l3pdf2 BDC}
 ....\write1{\newlabeldata{l3pdf2}{{abspage}{\__ref_attribute_abspage: }}}
 ....\T1/cmr/m/n/10.95 b

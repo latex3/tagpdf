@@ -393,11 +393,16 @@
 % \end{variable}
 %
 % \subsection{Variables used by the keys}
-% \begin{variable}{\g_@@_struct_tag_tl,\g_@@_struct_tag_NS_tl}
+% \begin{variable}{\g_@@_struct_tag_tl,\g_@@_struct_tag_NS_tl,
+%  \l_@@_struct_roletag_tl,\g_@@_struct_roletag_NS_tl}
 % Use by the tag key to store the tag and the namespace.
+% The role tag variables will hold locally rolemapping info needed
+% for the parent-child checks
 %    \begin{macrocode}
 \tl_new:N \g_@@_struct_tag_tl
 \tl_new:N \g_@@_struct_tag_NS_tl
+\tl_new:N \l_@@_struct_roletag_tl
+\tl_new:N \l_@@_struct_roletag_NS_tl
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\l_@@_struct_key_label_tl}
@@ -501,6 +506,16 @@
   { S }
   { \pdf_name_from_unicode_e:n {StructTreeRoot} }
 
+\@@_prop_gput:cnx
+  { g_@@_struct_0_prop }
+  { rolemap }
+  { {StructTreeRoot}{pdf} }
+
+\@@_prop_gput:cnx
+  { g_@@_struct_0_prop }
+  { parentrole }
+  { {StructTreeRoot}{pdf} }
+
 \prop_gput:Nnn \g_@@_struct_tag_NS_prop {0}{{StructTreeRoot}{pdf}}
 %    \end{macrocode}
 % Namespaces are pdf 2.0 but it doesn't harm
@@ -571,13 +586,17 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_struct_get_tag_info:nNN}
-%  We also need a way to get the tag info back from parent structures.
+% \begin{macro}{\@@_struct_get_parentrole:nNN}
+%  We also need a way to get the tag info needed for parent child
+%  check from parent structures.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_get_tag_info:nNN #1 #2 #3 
+\cs_new_protected:Npn \@@_struct_get_parentrole:nNN #1 #2 #3 
    %#1 struct num, #2 tlvar for tag , #3 tlvar for NS
     {        
-       \prop_get:NnNTF \g_@@_struct_tag_NS_prop {#1}\l_@@_get_tmpc_tl
+       \prop_get:cnNTF 
+         { g_@@_struct_#1_prop } 
+         { parentrole }
+         \l_@@_get_tmpc_tl
          {
            \tl_set:Nx #2{\exp_last_unbraced:NV\use_i:nn  \l_@@_get_tmpc_tl}
            \tl_set:Nx #3{\exp_last_unbraced:NV\use_ii:nn \l_@@_get_tmpc_tl}
@@ -587,7 +606,7 @@
            \tl_clear:N#3
          }
     }
-\cs_generate_variant:Nn\@@_struct_get_tag_info:nNN {eNN}    
+\cs_generate_variant:Nn\@@_struct_get_parentrole:nNN {eNN}    
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Handlings kids}
@@ -1312,12 +1331,57 @@
               }
            }
         \seq_gpush:NV \g_@@_struct_stack_seq        \c@g_@@_struct_abs_int
-        \@@_role_get:VVN 
+        \@@_role_get:VVNN 
           \g_@@_struct_tag_tl 
           \g_@@_struct_tag_NS_tl
-          \l_@@_get_tmpc_tl 
+          \l_@@_struct_roletag_tl 
+          \l_@@_struct_roletag_NS_tl 
+%    \end{macrocode}
+% to target role and role NS 
+%    \begin{macrocode}
+        \@@_prop_gput:cnx
+              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+              { rolemap }
+              {
+                {\l_@@_struct_roletag_tl}{\l_@@_struct_roletag_NS_tl} 
+              }  
+%    \end{macrocode}
+% we also store which role to use for parent/child test. If the role is
+% one of Part, Div, NonStruct we have to retrieve it from the parent.
+% If the structure is stashed, this must be updated!
+%    \begin{macrocode}
+        \str_case:VnTF \l_@@_struct_roletag_tl
+         {
+           {Part} {}
+           {Div}  {}
+           {NonStruct} {}
+         } 
+         {
+           \prop_get:cnNT 
+            { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _prop }
+            { parentrole }
+            \l_@@_get_tmpc_tl
+            {
+              \@@_prop_gput:cno
+                { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+                { parentrole }
+                {
+                  \l_@@_get_tmpc_tl
+                } 
+            }  
+         }
+         {
+           \@@_prop_gput:cnx
+              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+              { parentrole }
+              {
+                {\l_@@_struct_roletag_tl}{\l_@@_struct_roletag_NS_tl} 
+              }
+         }
+%    \end{macrocode}
+%    \begin{macrocode}
         \seq_gpush:Nx \g_@@_struct_tag_stack_seq 
-          {{\g_@@_struct_tag_tl}{\l_@@_get_tmpc_tl}}
+          {{\g_@@_struct_tag_tl}{\l_@@_struct_roletag_tl}}
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
         %\seq_show:N   \g_@@_struct_stack_seq
         \bool_if:NF
@@ -1328,7 +1392,7 @@
 %  if the structure is actually used here, so it is guarded by the stash boolean.
 %  For now we ignore the namespace! 
 %    \begin{macrocode}
-            \@@_struct_get_tag_info:eNN  
+            \@@_struct_get_parentrole:eNN  
               {\l_@@_struct_stack_parent_tmpa_tl}
               \l_@@_get_parent_tmpa_tl
               \l_@@_get_parent_tmpb_tl
@@ -1340,12 +1404,19 @@
               \l_@@_parent_child_check_tl             
             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
               {
+                \prop_get:cnN 
+                  { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _prop}
+                  {S}
+                  \l_@@_tmpa_tl
                 \msg_warning:nnxxx 
                  { tag } 
                  {role-parent-child} 
                  { \l_@@_get_parent_tmpa_tl/\l_@@_get_parent_tmpb_tl } 
                  { \g_@@_struct_tag_tl/\g_@@_struct_tag_NS_tl  }
-                 { not~allowed~(struct~\g_@@_struct_stack_current_tl) }  
+                 { not~allowed~                   
+                   (struct~\l_@@_struct_stack_parent_tmpa_tl,~\l_@@_tmpa_tl
+                    \c_space_tl-->~struct~\int_eval:n {\c@g_@@_struct_abs_int})
+                 }  
                 \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
                 \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
                 \@@_role_remap:
@@ -1451,7 +1522,7 @@
 %   tag info for the child, while the data for the parent is in 
 %   the global tl-vars:
 %    \begin{macrocode}
-             \@@_struct_get_tag_info:eNN  
+             \@@_struct_get_parentrole:eNN  
               {\__tag_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}}
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl

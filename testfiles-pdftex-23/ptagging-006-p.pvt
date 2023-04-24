@@ -1,16 +1,7 @@
-\DocumentMetadata{xmp=false} 
+\DocumentMetadata{xmp=false,testphase=phase-II,debug=para}
 \input{regression-test}
 
 \documentclass[12pt,a4paper]{article}
-
-
-\usepackage{tagpdf}
-\tagpdfsetup
- {
-   activate,interwordspace,paratagging,paratagging-show,log=v
- }
-
-
 
 
 \textheight=20\baselineskip

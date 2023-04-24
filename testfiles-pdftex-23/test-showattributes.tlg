@@ -1,25 +1,25 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'MC' is '-1 (^^e2^^88^^85)'
-Package tagpdf Warning: The rule between parent 'Document/pdf2' 
-(tagpdf)                and child 'MC (= realcontent)' is 'not allowed'.
+Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'Document' --> 'MC'
+Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
+(tagpdf)                (struct 1, /Document)
 Package tagpdf Info: current MC: abscnt=2, tag=P
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'MC' is '-1 (^^e2^^88^^85)'
-Package tagpdf Warning: The rule between parent 'Document/pdf2' 
-(tagpdf)                and child 'MC (= realcontent)' is 'not allowed'.
+Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'Document' --> 'MC'
+Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
+(tagpdf)                (struct 1, /Document)
 Package tagpdf Info: current MC: abscnt=3, tag=P
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'MC' is '-1 (^^e2^^88^^85)'
-Package tagpdf Warning: The rule between parent 'Document/pdf2' 
-(tagpdf)                and child 'MC (= realcontent)' is 'not allowed'.
+Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'Document' --> 'MC'
+Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
+(tagpdf)                (struct 1, /Document)
 Package tagpdf Info: current MC: abscnt=4, tag=H1
 Package tagpdf Warning: tag Blub is not known
-Package tagpdf Info: The rule between parent 'Document' 
-(tagpdf)             and child 'MC' is '-1 (^^e2^^88^^85)'
-Package tagpdf Warning: The rule between parent 'Document/pdf2' 
-(tagpdf)                and child 'MC (= realcontent)' is 'not allowed'.
+Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'Document' --> 'MC'
+Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
+(tagpdf)                (struct 1, /Document)
 Package tagpdf Info: current MC: abscnt=5, tag=Blub
 Package tagpdf Info: closing structure 1 tagged /Document
 The sequence \g__tag_mc_main_marks_seq is empty
@@ -53,7 +53,7 @@ Completed box being shipped out [1]
 ...\hbox(0.0+0.0)x0.0
 ...\write-{}
 ...\write1{\babel@aux{english}{}}
-...\write1{\newlabeldata{mcid-1}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+...\write1{\newlabeldata{mcid-1}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{1}{tagmcid}{0}}}
 ...\pdfliteral page{/P /l3pdf1 BDC}
 ...\write1{\newlabeldata{l3pdf1}{{abspage}{\__ref_attribute_abspage: }}}
 ...\marks4{b-,1,1,P,,,}
@@ -71,7 +71,7 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{e-,1,1,}
 ...\marks4{e+,1,1,}
-...\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+...\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{2}{tagmcid}{1}}}
 ...\pdfliteral page{/P /l3pdf2 BDC}
 ...\write1{\newlabeldata{l3pdf2}{{abspage}{\__ref_attribute_abspage: }}}
 ...\marks4{b-,2,1,P,,,}
@@ -234,7 +234,7 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{e-,2,1,}
 ...\marks4{e+,2,1,}
-...\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+...\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{3}{tagmcid}{2}}}
 ...\pdfliteral page{/P /l3pdf3 BDC}
 ...\write1{\newlabeldata{l3pdf3}{{abspage}{\__ref_attribute_abspage: }}}
 ...\marks4{b-,3,1,P,,,}
@@ -397,7 +397,7 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{e-,3,1,}
 ...\marks4{e+,3,1,}
-...\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+...\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{4}{tagmcid}{3}}}
 ...\pdfliteral page{/H1 /l3pdf4 BDC}
 ...\write1{\newlabeldata{l3pdf4}{{abspage}{\__ref_attribute_abspage: }}}
 ...\marks4{b-,4,1,H1,,,}
@@ -560,7 +560,7 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{e-,4,1,}
 ...\marks4{e+,4,1,}
-...\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tag\ETC.}
+...\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{5}{tagmcid}{4}}}
 ...\pdfliteral page{/Blub /l3pdf5 BDC}
 ...\write1{\newlabeldata{l3pdf5}{{abspage}{\__ref_attribute_abspage: }}}
 ...\marks4{b-,5,1,Blub,,,}

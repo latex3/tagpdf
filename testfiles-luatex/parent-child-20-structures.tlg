@@ -1,88 +1,87 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)' 
-(tagpdf)             and child 'Part (from text-unit/latex)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'P (from text/latex)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P (from text/latex)' 
-(tagpdf)             and child 'MC (from MC/)' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'Part' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex'
+Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
 Package tagpdf Info: closing structure 3 tagged /text
-Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'Sect (from Sect/pdf2)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' 
-(tagpdf)             and child 'Div (from Div/pdf2)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Div (inherited from Sect)' 
-(tagpdf)             and child 'P (from P/pdf2)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P (from P/pdf2)' 
-(tagpdf)             and child 'P (from P/pdf2)' is '-1 (∅)'
-Package tagpdf Warning: The rule between parent 'P/pdf2' 
-(tagpdf)                and child 'P/pdf2' is not allowed (struct 7)
-Package tagpdf Info: The rule between parent 'P (from P/pdf2)' 
-(tagpdf)             and child 'H1 (from chapter/latex-book)' is '-1 (∅)'
-Package tagpdf Warning: The rule between parent 'P/pdf2' 
-(tagpdf)                and child 'chapter/latex-book' is not allowed (struct
-(tagpdf)                8)
-Package tagpdf Info: The rule between parent 'H1 (from chapter/latex-book)' 
-(tagpdf)             and child 'Strong (from Strong/pdf2)' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'Sect' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2'
+Package tagpdf Info: Rule 'Sect' --> 'Div' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'Div/pdf2'
+Package tagpdf Info: Rule 'Sect' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'P/pdf2'
+Package tagpdf Info: Rule 'P' --> 'P' is -1 (='∅')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'P/pdf2'
+Package tagpdf Warning: Rule 'P/pdf2' --> 'P/pdf2' is not allowed (struct 6,
+(tagpdf)                /P --> struct 7)
+Package tagpdf Info: Rule 'P' --> 'H1' is -1 (='∅')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'chapter/latex-book'
+Package tagpdf Warning: Rule 'P/pdf2' --> 'chapter/latex-book' is not allowed
+(tagpdf)                (struct 7, /P --> struct 8)
+Package tagpdf Info: Rule 'H1' --> 'Strong' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'Strong/pdf2'
 Package tagpdf Info: closing structure 9 tagged /Strong
 Package tagpdf Info: closing structure 8 tagged /chapter
 Package tagpdf Info: closing structure 7 tagged /P
 Package tagpdf Info: closing structure 6 tagged /P
 Package tagpdf Info: closing structure 5 tagged /Div
 Package tagpdf Info: closing structure 4 tagged /Sect
-Package tagpdf Info: The rule between parent 'Part (from text-unit/latex)' 
-(tagpdf)             and child 'MC (from MC/)' is '-1 (∅)'
-Package tagpdf Warning: The rule between parent 'text-unit/pdf2' 
-(tagpdf)                and child 'MC (= realcontent)' is 'not allowed'.
-Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'P (from P/pdf2)' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='∅')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'MC'
+Package tagpdf Warning: Rule 'Document/pdf2' --> 'MC (realcontent)' is not
+(tagpdf)                allowed (struct 2, /text-unit)
+Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'P/pdf2'
 Package tagpdf Info: closing structure 10 tagged /P
 Package tagpdf Info: closing structure 2 tagged /text-unit
 ============================================================
 TEST 1: Parent Key
 ============================================================
-Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)' 
-(tagpdf)             and child 'Part (from text-unit/latex)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'P (from text/latex)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P (from text/latex)' 
-(tagpdf)             and child 'MC (from MC/)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)' 
-(tagpdf)             and child 'H1 (from H1/pdf2)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'H1 (from H1/pdf2)' 
-(tagpdf)             and child 'MC (from MC/)' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'Part' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex'
+Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
+Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'H1/pdf2'
+Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC'
 Package tagpdf Info: closing structure 13 tagged /H1
-Package tagpdf Info: The rule between parent 'P (from text/latex)' 
-(tagpdf)             and child 'MC (from MC/)' is '1 (0..n)'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
 ============================================================
 Package tagpdf Info: closing structure 12 tagged /text
 Package tagpdf Info: closing structure 11 tagged /text-unit
 ============================================================
 TEST 2: Label later use
 ============================================================
-Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)' 
-(tagpdf)             and child 'Part (from text-unit/latex)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'P (from text/latex)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'P (from text/latex)' 
-(tagpdf)             and child 'MC (from MC/)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'H1 (from H1/pdf2)' 
-(tagpdf)             and child 'MC (from MC/)' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'Part' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex'
+Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
+Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC'
 Package tagpdf Info: closing structure 16 tagged /H1
-Package tagpdf Info: The rule between parent 'P (from text/latex)' 
-(tagpdf)             and child 'MC (from MC/)' is '1 (0..n)'
+Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
 Package tagpdf Info: closing structure 15 tagged /text
 Package tagpdf Info: closing structure 14 tagged /text-unit
-Package tagpdf Info: The rule between parent 'Document (from Document/pdf2)' 
-(tagpdf)             and child 'Part (from text-unit/latex)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Part (inherited from Document)' 
-(tagpdf)             and child 'Sect (from Sect/pdf2)' is '1 (0..n)'
-Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' 
-(tagpdf)             and child 'MC (from MC/)' is '-1 (∅)'
-Package tagpdf Warning: The rule between parent 'Sect/pdf2' 
-(tagpdf)                and child 'MC (= realcontent)' is 'not allowed'.
-Package tagpdf Info: The rule between parent 'Sect (from Sect/pdf2)' 
-(tagpdf)             and child 'H1 (from H1/pdf2)' is '1 (0..n)'
+Package tagpdf Info: Rule 'Document' --> 'Part' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex'
+Package tagpdf Info: Rule 'Document' --> 'Sect' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2'
+Package tagpdf Info: Rule 'Sect' --> 'MC' is -1 (='∅')
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC'
+Package tagpdf Warning: Rule 'Sect/pdf2' --> 'MC (realcontent)' is not allowed
+(tagpdf)                (struct 18, /Sect)
+Package tagpdf Info: Rule 'Sect' --> 'H1' is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'H1/pdf2'
 Package tagpdf Info: closing structure 18 tagged /Sect
 Package tagpdf Info: closing structure 17 tagged /text-unit
 ============================================================
@@ -199,7 +198,7 @@ Completed box being shipped out [1]
 ....\TU/lmr/m/n/10 c
 ....\pdfliteral page <lua data reference ...>
 ....\pdfliteral page <lua data reference ...>
-....\write1{\newlabeldata{tagpdfstruct-blub}{{tagstruct}{16}{tagstructobj}{37 0 R\ETC.}
+....\write1{\newlabeldata{tagpdfstruct-blub}{{tagstruct}{16}{tagstructobj}{37 0 R}}}
 ....\pdfliteral page <lua data reference ...>
 ....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/10 H
