@@ -1,0 +1,13 @@
+\DocumentMetadata{testphase=phase-III}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START
+
+some text \tagmcend\tagstructbegin{tag=Div,parent=1}\tagstructbegin{tag=P} 
+xxx\tagstructend\tagstructend \tagmcbegin{} more text 
+
+some text \tagmcend\tagstructbegin{tag=Part}\tagstructbegin{tag=P} 
+xxx\tagstructend\tagstructend \tagmcbegin{} more text 
+
+\end{document}
