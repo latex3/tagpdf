@@ -1398,12 +1398,18 @@
               \l_@@_parent_child_check_tl             
             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
               {
+                \prop_get:cnN 
+                  { g_@@_struct_ \g_@@_struct_stack_current_tl _prop}
+                  {S}
+                  \l_@@_tmpa_tl
                 \msg_warning:nnxxx 
                  { tag } 
                  {role-parent-child} 
                  { \l_@@_get_parent_tmpa_tl/\l_@@_get_parent_tmpb_tl } 
                  { \g_@@_struct_tag_tl/\g_@@_struct_tag_NS_tl  }
-                 { not~allowed~(struct~\g_@@_struct_stack_current_tl) }  
+                 { not~allowed~                   
+                   (struct~\g_@@_struct_stack_current_tl,~\l_@@_tmpa_tl)
+                 }  
                 \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
                 \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
                 \@@_role_remap:
