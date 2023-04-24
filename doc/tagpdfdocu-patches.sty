@@ -1,5 +1,5 @@
 %\RequirePackage[enable-debug]{expl3}[2018/06/14]
-\ProvidesExplPackage {tagpdfdocu-patches} {2023-03-07} {0.98e}
+\ProvidesExplPackage {tagpdfdocu-patches} {2023-04-24} {0.98f}
  {patches/commands for the tagpdf documentation}
 \RequirePackage{etoolbox,xpatch}
 
@@ -162,8 +162,8 @@
    \let\tagstructend\relax
  }}{}
 
+%====== picture =======
 
-%====== pictures ========
 % PAC3 complained that the BBox is missing, so we are cheating for now
 % and add a fix size.
 \tagpdfsetup
@@ -171,5 +171,132 @@
      newattribute =
         {bbox}{/O /Layout /BBox [0 0 100 100]}
   }
+
+
+%====== floats ========
+
+\tagpdfsetup{add-new-tag=float/Div}
+\makeatletter
+\def\@xfloat #1[#2]{%
+  \@nodocument
+  \def \@captype {#1}%
+   \def \@fps {#2}%
+   \@onelevel@sanitize \@fps
+   \def \reserved@b {!}%
+   \ifx \reserved@b \@fps
+     \@fpsadddefault
+   \else
+     \ifx \@fps \@empty
+       \@fpsadddefault
+     \fi
+   \fi
+   \ifhmode
+     \@bsphack
+     \tagmcend%end P     
+     \@floatpenalty -\@Mii
+   \else
+     \@floatpenalty-\@Miii
+   \fi
+  \ifinner
+     \@parmoderr\@floatpenalty\z@
+  \else
+    \@next\@currbox\@freelist
+      {%
+       \@tempcnta \sixt@@n
+       \expandafter \@tfor \expandafter \reserved@a
+         \expandafter :\expandafter =\@fps
+         \do
+          {%
+           \if \reserved@a h%
+             \ifodd \@tempcnta
+             \else
+               \advance \@tempcnta \@ne
+             \fi
+           \else\if \reserved@a t%
+             \@setfpsbit \tw@
+           \else\if \reserved@a b%
+             \@setfpsbit 4%
+           \else\if \reserved@a p%
+             \@setfpsbit 8%
+           \else\if \reserved@a !%
+             \ifnum \@tempcnta>15
+               \advance\@tempcnta -\sixt@@n\relax
+             \fi
+           \else
+             \@latex@error{Unknown float option `\reserved@a'}%
+             {Option `\reserved@a' ignored and `p' used.}%
+             \@setfpsbit 8%
+           \fi\fi\fi\fi\fi
+           }%
+       \@tempcntb \csname ftype@\@captype \endcsname
+       \multiply \@tempcntb \@xxxii
+       \advance \@tempcnta \@tempcntb
+       \global \count\@currbox \@tempcnta
+       }%
+    \@fltovf
+  \fi
+  \tagstructbegin{tag=float}%float
+  \edef\@current@float@struct{\csname tag_get:n\endcsname{struct_num}}%
+  \typeout{Float structure: \@current@float@struct}
+  \global \setbox\@currbox
+    \color@vbox
+      \normalcolor
+      \vbox \bgroup
+        \hsize\columnwidth
+        \@parboxrestore
+        \@floatboxreset
+}%
+
+\def\end@float{%
+  \@endfloatbox
+  \tagstructend %end div
+  \ifnum\@floatpenalty <\z@
+    \@largefloatcheck
+    \@cons\@currlist\@currbox
+    \ifnum\@floatpenalty <-\@Mii
+      \penalty -\@Miv
+      \@tempdima\prevdepth
+      \vbox{}%
+      \prevdepth\@tempdima
+      \penalty\@floatpenalty
+    \else
+      \vadjust{\penalty -\@Miv \vbox{}\penalty\@floatpenalty}\@Esphack
+      \tagmcbegin{tag=P}%restart P Safe here??
+    \fi
+  \fi
+}
+
+\ExplSyntaxOn
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \tagtool{para=false}
+  \sbox\@tempboxa{#1:~#2}% 
+  \tag_struct_begin:n{tag=Caption}   
+  \ifdim \wd\@tempboxa >\hsize
+  \tag_struct_begin:n{tag=Lbl}
+  \tag_mc_begin:n{}
+    #1:~ 
+  \tag_mc_end:
+  \tag_struct_end:
+  \tag_mc_begin:n{}  
+    #2\par
+  \tag_mc_end:  
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil
+     \tag_struct_begin:n{tag=Lbl}
+      \tag_mc_begin:n{}
+       #1:~ 
+      \tag_mc_end:
+     \tag_struct_end:
+     \tag_mc_begin:n{}  
+      #2\par
+     \tag_mc_end:\hfil}%
+   \fi
+   \tagstructend %caption
+  \vskip\belowcaptionskip}
+\ExplSyntaxOff
+
+
 
 \endinput

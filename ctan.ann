@@ -1,9 +1,10 @@
-Version 0.98d [2023-02-15]
+Version 0.98f [2023-04-24]
 
 ### Changed 
- - the automatic paratagging uses now a two-level structure tpara/P
+ - alt and actualtext: test if the value is empty and then do nothing.
  
-### Added
- - \tag_struct_end:n for better debugging 
+### Fixed
+ - Structure Element "Artifact" doesn't exist in pdf1.7, it is now mapped to NonStruct.
+ - parent-child test didn't work if structure was moved with the parent key.
 
  

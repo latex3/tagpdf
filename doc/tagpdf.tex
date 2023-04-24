@@ -10,13 +10,13 @@
 \DocumentMetadata
  {
    % comment the following line to compile an untagged documentation:
-   testphase=phase-III,
+   testphase=phase-III,testphase=graphics,
    pdfversion=2.0,lang=en-UK,pdfstandard=a-4,
  }
 \DebugBlocksOff
 \makeatletter
-\def\UlrikeFischer@package@version{0.98e}
-\def\UlrikeFischer@package@date{2023-03-07}
+\def\UlrikeFischer@package@version{0.98f}
+\def\UlrikeFischer@package@date{2023-04-24}
 \makeatother
 
 \documentclass[DIV=12,parskip=half-,bibliography=totoc,a4paper]{article}
@@ -527,28 +527,17 @@ But even if the documentation passed the tests of the validators:  as mentioned 
 Be aware that to create the tagged version a current lualatex-dev and a current version of the pdfmanagment-testphase package is needed.
 \end{tcolorbox}
 
-\tagpdfparaOff
 
-\tagstructbegin{tag=Figure,alt=PAC 3 
-report,attribute=bbox}\tagmcbegin{tag=Figure} 
-\includegraphics{pac3}
-\tagmcend\tagstructend
+\includegraphics[alt=PAC 3 report]{pac3}
 
-\tagpdfparaOn
 
 \begin{figure}
-\tagpdfparaOff
 
-\tagstructbegin{tag=Figure,alt={Adobe report},attribute=bbox}%
-\tagmcbegin{}%
-\includegraphics{acrobat}
-\tagmcend
+\includegraphics[alt={Screenshot of Adobe report}]{acrobat}
 
-\tagstructbegin{tag=Caption}\tagmcbegin{}\caption{Adobe Acrobat complaining
-about the \texttt{Lbl} use}\label{fig:adobe} \tagmcend\tagstructend 
-\tagstructend
+\caption{Adobe Acrobat complaining
+about the \texttt{Lbl} use}\label{fig:adobe}\par
 
-\tagpdfparaOn
 \end{figure}
 
 
@@ -827,9 +816,9 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \end{tcolorbox}
 
-\tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption} \caption{Schematical 
+\caption{Schematical 
 description of the relation between marked content in the page stream and the 
-structure} \tagmcend\tagstructend 
+structure} 
 
 \end{figure}
 
@@ -1149,25 +1138,6 @@ the command, as the effect of the begin command ends  with a new
 \verb+\tagmcbegin+ anyway. 
 
 
-% no longer relevant
-%\begin{tcolorbox}[before upper=\tagpdfparaOn]
-%\minisec{About nesting mc-commands}\label{mc-nesting}
-%
-%\textbf{Attention!}\sidenote{luamode} As mentioned above in luamode it is often possible to omit the \verb+\tagmcend+ command. This basically means that mc-chunks can be nested.  But be aware that this can have surprising side effects on the order in the structure.
-%
-%Consider a code like this:
-%
-%
-%\begin{taglstlisting}
-%\tagmcbegin{tag=P} Block 1 {\tagmcbegin{tag=P} Block 2} Block 3 \tagmcend
-%\end{taglstlisting}
-%
-%
-%Block 3 will here get the same id number as Block 1 and be stored in the structure \emph{before} Block 2. The \PDF{} will record the chunks in the order \texttt{Block 1 -- Block 3 -- Block 2}. See also section~\ref{sec:global-local}.
-%
-%\end{tcolorbox}
-
-
 \begin{docCommand}[nosep]{tagmcuse}{}\end{docCommand}
 \begin{docCommand}{tag_mc_use:n}{}\end{docCommand}
 
@@ -1266,12 +1236,7 @@ and added as chunk to the document structure. The header and the background code
 the \emph{second} page will be marked as artifact. The following figure shows how the tags looks
 like.
 
-\tagpdfparaOff
-\tagstructbegin{tag=Figure,alt=Show tags of examples,attribute=bbox}\tagmcbegin{tag=Figure}
-\includegraphics{global-ex}
-\tagmcend\tagstructend
-
-\tagpdfparaOn
+\includegraphics[alt=Show tags of examples]{global-ex}
 
 It is therefore from now on important to correctly markup such code. Header and footer typically should be
 artifacts. The LaTeX kernel hasn't yet suitable hooks around header and footer to allow to automate
@@ -1308,9 +1273,7 @@ the needed code.
 \ExplSyntaxOff
 \tagmcend\tagstructend
 
-\tagstructbegin{tag=Caption}\tagmcbegin{tag=Caption}
 \caption{Structure needed for a link annotation}\label{fig:linkannot}
-\tagmcend\tagstructend
 
 \end{figure}
 
