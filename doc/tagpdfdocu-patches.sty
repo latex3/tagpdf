@@ -136,8 +136,6 @@
 % no internal patches, but redefining begentry/finentry is not safe.
 % better hook is needed.
 
-\newbibmacro*{begentry}{\tagstructbegin{tag=BibEntry}\tagmcbegin{}}
-\newbibmacro*{finentry}{\finentry\tagmcend\tagstructend}
 
 \def\blx@endbibliography{%
   \csuse{blx@endenv@\blx@theenv}%
