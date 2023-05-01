@@ -1553,7 +1553,75 @@
 %</package>
 %    \end{macrocode}
 % \end{macro}
-%
+% \begin{macro}{\tag_struct_use_num:n}
+% This command allows to use a stashed structure in another place.
+% differently to the previous command it doesn't use a label but directly 
+% a structure number to find the parent.
+% TODO: decide how it should be guarded. Probably by the struct-check.
+%    \begin{macrocode}
+%<base>\cs_new_protected:Npn \tag_struct_use_num:n #1 {}
+%<*package>
+\cs_set_protected:Npn \tag_struct_use_num:n #1 %#1 is structure number
+  { 
+    \@@_check_if_active_struct:T
+      {
+        \prop_if_exist:cTF
+          { g_@@_struct_#1_prop } %
+          {
+            \prop_get:cnNT
+              {g_@@_struct_#1_prop}
+              {P}
+              \l_@@_tmpa_tl
+              {
+                \msg_warning:nnn { tag } {struct-used-twice} {#1}
+              }
+            %add the label structure as kid to the current structure (can be the root)
+            \@@_struct_kid_struct_gput_right:xx
+              { \g_@@_struct_stack_current_tl }
+              { #1 }
+            %add the current structure to the labeled one as parents
+            \@@_prop_gput:cnx
+              { g_@@_struct_#1_prop }
+              { P }
+              {
+                \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
+              }
+%    \end{macrocode}
+%   check if the tag is allowed as child. Here we have to retrieve the 
+%   tag info for the child, while the data for the parent is in 
+%   the global tl-vars:
+%    \begin{macrocode}
+             \@@_struct_get_parentrole:eNN  
+              {#1}
+              \l_@@_tmpa_tl
+              \l_@@_tmpb_tl
+            \@@_check_parent_child:VVVVN
+              \g_@@_struct_tag_tl               
+              \g_@@_struct_tag_NS_tl  
+              \l_@@_tmpa_tl
+              \l_@@_tmpb_tl               
+              \l_@@_parent_child_check_tl             
+            \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
+              {
+                \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
+                \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
+                \@@_role_remap:
+                \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
+                \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
+                \@@_struct_set_tag_info:eVV 
+                  { \int_eval:n {\c@g_@@_struct_abs_int} }
+                    \g_@@_struct_tag_tl               
+                    \g_@@_struct_tag_NS_tl                                 
+              }
+          }
+          {
+            \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
+          }
+      }
+  }
+%</package>
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}[EXP]{\tag_struct_object_ref:n}
 % This is a command that allows to reference a structure. The argument is the
 % number which can be get for the current structure with |\tag_get:n{struct_num}|
