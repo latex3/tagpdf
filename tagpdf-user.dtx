@@ -563,7 +563,7 @@
 % \subsection{Fake space}
 % \begin{macro}{\pdffakespace}
 % We need a luatex variant for |\pdffakespace|. This should probably go into
-% the kernel at some time.
+% the kernel at some time. We also provide a no-op version for dvi mode
 %    \begin{macrocode}
 \sys_if_engine_luatex:T
   {
@@ -572,6 +572,7 @@
        \@@_fakespace:
      }
   }
+\providecommand\pdffakespace{}  
 %    \end{macrocode}
 % \end{macro}
 %
