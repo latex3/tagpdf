@@ -518,14 +518,16 @@
 
 \prop_gput:Nnn \g_@@_struct_tag_NS_prop {0}{{StructTreeRoot}{pdf}}
 %    \end{macrocode}
-% Namespaces are pdf 2.0 but it doesn't harm
-% to have an empty entry. We could add a test, but if the code moves into
-% the kernel, timing could get tricky.
+% Namespaces are pdf 2.0.
+% If the code moves into the kernel, the setting must be probably delayed.
 %    \begin{macrocode}
-\@@_prop_gput:cnx
-  { g_@@_struct_0_prop }
-  { Namespaces }
-  { \pdf_object_ref:n { @@/tree/namespaces } }
+\pdf_version_compare:NnF < {2.0}
+ {
+   \@@_prop_gput:cnx
+    { g_@@_struct_0_prop }
+    { Namespaces }
+    { \pdf_object_ref:n { @@/tree/namespaces } }
+ }   
 %    \end{macrocode}
 % \end{variable}
 % 
