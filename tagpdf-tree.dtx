@@ -310,7 +310,7 @@
 % This is the main command to assemble the page related entries of the parent tree.
 % It wanders through the pages and the mcid numbers and collects all mcid of one page.
 %    \begin{macrocode}
-
+\cs_new_protected:Npn \@@_tree_parenttree_rerun_msg: {}
 \cs_new_protected:Npn \@@_tree_fill_parenttree:
   {
     \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{abspage}{-1}} %not quite clear if labels are needed. See lua code
@@ -350,7 +350,10 @@
                   }
               }
               {
-                \msg_warning:nn { tag } {tree-mcid-index-wrong}
+                \cs_set_protected:Npn \@@_tree_parenttree_rerun_msg:
+                 {
+                   \msg_warning:nn { tag } {tree-mcid-index-wrong}
+                 }   
               }
           }
         \tl_put_right:Nn
@@ -396,6 +399,7 @@
       {
         \@@_tree_fill_parenttree:
       }
+    \@@_tree_parenttree_rerun_msg:  
     \tl_put_right:NV \l_@@_parenttree_content_tl\g_@@_parenttree_objr_tl
     \pdf_object_write:nnx  { @@/tree/parenttree }{dict}
       {

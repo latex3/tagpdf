@@ -5,6 +5,13 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## Unreleased
+### Changed
+ - issue tree-mcid-index-wrong message only once 
+   (https://github.com/latex3/latex2e/discussions/1010)
+ - add line number to parent-child messages 
+   https://github.com/latex3/latex2e/discussions/1010  
+
 ## [2023-04-24]
 ### Changed 
  - alt and actualtext: test if the value is empty and then do nothing.
