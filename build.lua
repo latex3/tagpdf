@@ -40,24 +40,15 @@ specialformats["latex"] = specialformats["latex"] or
   }
 
 local luatexstatus = status.list()
-local istl2023 = string.match (luatexstatus.banner,"2023")
+
 
 checkengines = {"pdftex","luatex","pdftexmain"}
-if istl2023 then
+
 checkconfigs = {
                "build",
                "config-pdftex",
-               "config-pdftex-23", 
                "config-luatex",
                 }
-else
-checkconfigs = {
-               "build",
-               "config-pdftex",
-               "config-pdftex-22", 
-               "config-luatex",
-                }
-end                
                 
 checkruns = 4
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
