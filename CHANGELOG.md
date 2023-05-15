@@ -12,6 +12,9 @@ this project uses date-based 'snapshot' version identifiers.
  - add line number to parent-child messages 
    https://github.com/latex3/latex2e/discussions/1010  
 
+### Fixed
+ - slow down because of an unneeded prop.    
+
 ## [2023-04-24]
 ### Changed 
  - alt and actualtext: test if the value is empty and then do nothing.

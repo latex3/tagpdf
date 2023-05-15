@@ -303,13 +303,6 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\g_@@_struct_tag_NS_prop}
-% For the parent-child check, we need the tag and NS of every structure
-%    \begin{macrocode}
-\prop_new:N\g_@@_struct_tag_NS_prop
-%    \end{macrocode}
-% \end{variable}
-%
 %
 % \begin{variable}{\g_@@_struct_stack_current_tl,\l_@@_struct_stack_parent_tmpa_tl}
 % The global variable will hold the current structure number. It is already
@@ -516,7 +509,6 @@
   { parentrole }
   { {StructTreeRoot}{pdf} }
 
-\prop_gput:Nnn \g_@@_struct_tag_NS_prop {0}{{StructTreeRoot}{pdf}}
 %    \end{macrocode}
 % Namespaces are pdf 2.0.
 % If the code moves into the kernel, the setting must be probably delayed.
@@ -564,7 +556,6 @@
          { g_@@_struct_#1_prop }         
          { S }
          { \pdf_name_from_unicode_e:n {#2}  } %
-       \prop_gput:Nnn \g_@@_struct_tag_NS_prop {#1}{{#2}{#3}}  
      }
  }     
  {     
@@ -581,7 +572,6 @@
              { NS }
              { \l_@@_get_tmpc_tl } %
          }
-       \prop_gput:Nnn \g_@@_struct_tag_NS_prop {#1}{{#2}{#3}}   
      } 
  }     
 \cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {eVV}
