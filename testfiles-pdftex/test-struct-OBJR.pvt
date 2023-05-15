@@ -1,0 +1,33 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{1000} % before tagging is loaded ...
+\ExplSyntaxOff 
+\DocumentMetadata{pdfversion=2.0,xmp=false} 
+\input{regression-test}
+\documentclass{scrartcl}
+
+\usepackage[english]{babel}
+\usepackage{tagpdf}
+\usepackage{graphicx,iftex}
+\usepackage{l3pdffield-testphase}
+\ifpdftex
+  \usepackage[T1]{fontenc}
+\fi
+\tagpdfsetup{activate-all,paratagging}
+\begin{document}\showoutput
+\START
+\tagstructbegin{tag=Document}
+abc
+\ExplSyntaxOn
+\tag_mc_end_push:
+%This tests only obj ref, so we set tag=false.
+\group_begin:
+\pdfannot_dict_put:nnx {widget}{StructParent}{\tag_struct_parent_int:}
+\pdffield_checkbox:n{name=a,tag=false}
+\tag_struct_insert_annot:xx { \pdffield_annot_ref_last: }{\tag_struct_parent_int:}
+\group_end:
+\tag_mc_begin_pop:n{}
+ \ExplSyntaxOff
+xxx
+\tagstructend
+\end{document}

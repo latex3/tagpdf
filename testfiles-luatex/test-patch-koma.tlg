@@ -1,57 +1,58 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 Package tagpdf Info: Rule 'StructTreeRoot' --> 'Document' is 3 (='1')
-(tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'Document'
+(tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'Document' on line
+(tagpdf)             158
 Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Document' --> 'H1'
+(tagpdf)             Rolemapped from: 'Document' --> 'H1' on line ...
 Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H1' --> 'MC'
+(tagpdf)             Rolemapped from: 'H1' --> 'MC' on line ...
 Package tagpdf Info: closing structure 2 tagged /H1
 Package tagpdf Info: Rule 'Document' --> 'TOC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Document' --> 'TOC'
+(tagpdf)             Rolemapped from: 'Document' --> 'TOC' on line ...
 (test-patch-koma.toc
 Package tagpdf Info: Rule 'TOC' --> 'TOCI' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI'
+(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI' on line ...
 Package tagpdf Info: Rule 'TOCI' --> 'Lbl' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl' on line ...
 Package tagpdf Info: Rule 'Lbl' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Lbl' --> 'MC'
+(tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
 Package tagpdf Info: closing structure 5 tagged /Lbl
 Package tagpdf Info: Rule 'TOCI' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'P'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'P' on line ...
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'P' --> 'MC'
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 Package tagpdf Info: closing structure 6 tagged /P
 Package tagpdf Info: Rule 'TOCI' --> 'Reference' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference' on line ...
 Package tagpdf Info: Rule 'Reference' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Reference' --> 'MC'
+(tagpdf)             Rolemapped from: 'Reference' --> 'MC' on line ...
 Package tagpdf Info: closing structure 7 tagged /Reference
 Package tagpdf Info: closing structure 4 tagged /TOCI
 Package tagpdf Info: Rule 'TOC' --> 'TOCI' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI'
+(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI' on line ...
 Package tagpdf Info: Rule 'TOCI' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'P'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'P' on line ...
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'P' --> 'MC'
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 Package tagpdf Info: closing structure 9 tagged /P
 Package tagpdf Info: Rule 'TOCI' --> 'Reference' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference' on line ...
 Package tagpdf Info: Rule 'Reference' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Reference' --> 'MC'
+(tagpdf)             Rolemapped from: 'Reference' --> 'MC' on line ...
 Package tagpdf Info: closing structure 10 tagged /Reference
 Package tagpdf Info: closing structure 8 tagged /TOCI
 Package tagpdf Info: Rule 'TOC' --> 'TOCI' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI'
+(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI' on line ...
 Package tagpdf Info: Rule 'TOCI' --> 'Lbl' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl' on line ...
 Package tagpdf Info: Rule 'Lbl' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Lbl' --> 'MC'
+(tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
 Package tagpdf Info: closing structure 12 tagged /Lbl
 Package tagpdf Info: Rule 'TOCI' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'P'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'P' on line ...
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'P' --> 'MC'
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 Package tagpdf Info: closing structure 13 tagged /P
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line ....
@@ -60,27 +61,27 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line ....
 Package tagpdf Info: Rule 'TOCI' --> 'Reference' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference' on line ...
 Package tagpdf Info: Rule 'Reference' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Reference' --> 'MC'
+(tagpdf)             Rolemapped from: 'Reference' --> 'MC' on line ...
 Package tagpdf Info: closing structure 14 tagged /Reference
 Package tagpdf Info: closing structure 11 tagged /TOCI
 Package tagpdf Info: Rule 'TOC' --> 'TOCI' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI'
+(tagpdf)             Rolemapped from: 'TOC' --> 'TOCI' on line ...
 Package tagpdf Info: Rule 'TOCI' --> 'Lbl' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Lbl' on line ...
 Package tagpdf Info: Rule 'Lbl' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Lbl' --> 'MC'
+(tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
 Package tagpdf Info: closing structure 16 tagged /Lbl
 Package tagpdf Info: Rule 'TOCI' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'P'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'P' on line ...
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'P' --> 'MC'
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 Package tagpdf Info: closing structure 17 tagged /P
 Package tagpdf Info: Rule 'TOCI' --> 'Reference' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference'
+(tagpdf)             Rolemapped from: 'TOCI' --> 'Reference' on line ...
 Package tagpdf Info: Rule 'Reference' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Reference' --> 'MC'
+(tagpdf)             Rolemapped from: 'Reference' --> 'MC' on line ...
 Package tagpdf Info: closing structure 18 tagged /Reference
 Package tagpdf Info: closing structure 15 tagged /TOCI
 )
@@ -103,11 +104,11 @@ tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [2
 ]
 chapter 1.
 Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Document' --> 'H1'
+(tagpdf)             Rolemapped from: 'Document' --> 'H1' on line ...
 Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H1' --> 'MC'
+(tagpdf)             Rolemapped from: 'H1' --> 'MC' on line ...
 Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H1' --> 'MC'
+(tagpdf)             Rolemapped from: 'H1' --> 'MC' on line ...
 Package tagpdf Info: closing structure 19 tagged /H1
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
@@ -123,35 +124,35 @@ tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [4
 ]
 chapter without number
 Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Document' --> 'H1'
+(tagpdf)             Rolemapped from: 'Document' --> 'H1' on line ...
 Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H1' --> 'MC'
+(tagpdf)             Rolemapped from: 'H1' --> 'MC' on line ...
 Package tagpdf Info: closing structure 20 tagged /H1
 Package tagpdf Info: Rule 'Document' --> 'H2' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Document' --> 'H2'
+(tagpdf)             Rolemapped from: 'Document' --> 'H2' on line ...
 Package tagpdf Info: Rule 'H2' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H2' --> 'MC'
+(tagpdf)             Rolemapped from: 'H2' --> 'MC' on line ...
 Package tagpdf Info: Rule 'H2' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H2' --> 'MC'
+(tagpdf)             Rolemapped from: 'H2' --> 'MC' on line ...
 Package tagpdf Info: closing structure 21 tagged /H2
 Package tagpdf Info: Rule 'Document' --> 'H3' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Document' --> 'H3'
+(tagpdf)             Rolemapped from: 'Document' --> 'H3' on line ...
 Package tagpdf Info: Rule 'H3' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H3' --> 'MC'
+(tagpdf)             Rolemapped from: 'H3' --> 'MC' on line ...
 Package tagpdf Info: Rule 'H3' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H3' --> 'MC'
+(tagpdf)             Rolemapped from: 'H3' --> 'MC' on line ...
 Package tagpdf Info: closing structure 22 tagged /H3
 Package tagpdf Info: Rule 'Document' --> 'H4' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Document' --> 'H4'
+(tagpdf)             Rolemapped from: 'Document' --> 'H4' on line ...
 Package tagpdf Info: Rule 'H4' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H4' --> 'MC'
+(tagpdf)             Rolemapped from: 'H4' --> 'MC' on line ...
 Package tagpdf Info: Rule 'H4' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'H4' --> 'MC'
+(tagpdf)             Rolemapped from: 'H4' --> 'MC' on line ...
 Package tagpdf Info: closing structure 23 tagged /H4
 Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Document' --> 'P'
+(tagpdf)             Rolemapped from: 'Document' --> 'P' on line ...
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'P' --> 'MC'
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 Package tagpdf Info: closing structure 24 tagged /P
 Package tagpdf Info: closing structure 1 tagged /Document
 Package tagpdf Info: -1 has been pushed to the mc stack

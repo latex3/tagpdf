@@ -1,28 +1,32 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 Package tagpdf Info: Rule 'Document' --> 'Part' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
+(tagpdf)             line 12
 Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
+(tagpdf)             12
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
 Package tagpdf Info: closing structure 3 tagged /text
 Package tagpdf Info: Rule 'Document' --> 'Sect' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2' on line
+(tagpdf)             13
 Package tagpdf Info: Rule 'Sect' --> 'Div' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'Div/pdf2'
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'Div/pdf2' on line ...
 Package tagpdf Info: Rule 'Sect' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'P/pdf2'
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'P/pdf2' on line ...
 Package tagpdf Info: Rule 'P' --> 'P' is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'P/pdf2' --> 'P/pdf2'
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'P/pdf2' on line ...
 Package tagpdf Warning: Rule 'P/pdf2' --> 'P/pdf2' is not allowed (struct 6,
-(tagpdf)                /P --> struct 7)
+(tagpdf)                /P --> struct 7) on line ...
 Package tagpdf Info: Rule 'P' --> 'H1' is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'P/pdf2' --> 'chapter/latex-book'
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'chapter/latex-book' on line
+(tagpdf)             17
 Package tagpdf Warning: Rule 'P/pdf2' --> 'chapter/latex-book' is not allowed
-(tagpdf)                (struct 7, /P --> struct 8)
+(tagpdf)                (struct 7, /P --> struct 8) on line ...
 Package tagpdf Info: Rule 'H1' --> 'Strong' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'H1/pdf2' --> 'Strong/pdf2'
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'Strong/pdf2' on line ...
 Package tagpdf Info: closing structure 9 tagged /Strong
 Package tagpdf Info: closing structure 8 tagged /chapter
 Package tagpdf Info: closing structure 7 tagged /P
@@ -30,29 +34,31 @@ Package tagpdf Info: closing structure 6 tagged /P
 Package tagpdf Info: closing structure 5 tagged /Div
 Package tagpdf Info: closing structure 4 tagged /Sect
 Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Rule 'Document/pdf2' --> 'MC (realcontent)' is not
-(tagpdf)                allowed (struct 2, /text-unit)
+(tagpdf)                allowed (struct 2, /text-unit) on line ...
 Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'P/pdf2'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'P/pdf2' on line ...
 Package tagpdf Info: closing structure 10 tagged /P
 Package tagpdf Info: closing structure 2 tagged /text-unit
 ============================================================
 TEST 1: Parent Key
 ============================================================
 Package tagpdf Info: Rule 'Document' --> 'Part' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
+(tagpdf)             line 33
 Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
+(tagpdf)             33
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
 Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'H1/pdf2'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'H1/pdf2' on line ...
 Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC' on line ...
 Package tagpdf Info: closing structure 13 tagged /H1
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
 ============================================================
 Package tagpdf Info: closing structure 12 tagged /text
 Package tagpdf Info: closing structure 11 tagged /text-unit
@@ -60,28 +66,32 @@ Package tagpdf Info: closing structure 11 tagged /text-unit
 TEST 2: Label later use
 ============================================================
 Package tagpdf Info: Rule 'Document' --> 'Part' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
+(tagpdf)             line 45
 Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
+(tagpdf)             45
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
 Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC' on line ...
 Package tagpdf Info: closing structure 16 tagged /H1
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
 Package tagpdf Info: closing structure 15 tagged /text
 Package tagpdf Info: closing structure 14 tagged /text-unit
 Package tagpdf Info: Rule 'Document' --> 'Part' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
+(tagpdf)             line 45
 Package tagpdf Info: Rule 'Document' --> 'Sect' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2' on line
+(tagpdf)             45
 Package tagpdf Info: Rule 'Sect' --> 'MC' is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC'
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Rule 'Sect/pdf2' --> 'MC (realcontent)' is not allowed
-(tagpdf)                (struct 18, /Sect)
+(tagpdf)                (struct 18, /Sect) on line ...
 Package tagpdf Info: Rule 'Sect' --> 'H1' is 1 (='0..n')
-(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'H1/pdf2'
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'H1/pdf2' on line ...
 Package tagpdf Info: closing structure 18 tagged /Sect
 Package tagpdf Info: closing structure 17 tagged /text-unit
 ============================================================

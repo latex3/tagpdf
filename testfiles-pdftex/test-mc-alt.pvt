@@ -1,0 +1,60 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\DocumentMetadata{lang=de-DE,xmp=false}
+\input{regression-test}
+\documentclass{article}
+\usepackage{tagpdf,iftex}
+\tagpdfsetup{activate}
+\ifpdftex
+  \usepackage[T1]{fontenc}
+\fi
+
+\ifluatex
+  \usepackage{fontspec}
+  \usepackage{luacode}
+   \newfontface\zerowidthfont{freeserif}
+\fi
+
+
+\usepackage{graphicx}
+\showthe\pdfsuppressptexinfo
+\begin{document}
+\showthe\pdfsuppressptexinfo
+\pagestyle{empty}
+
+
+Etwas unmarkierter Text. %isn't read by voice software
+
+%alt is read, actualtext copy & pasted
+\tagstructbegin{tag=P,alt=Dies ist ein Text,actualtext=Copy}
+  \tagmcbegin{tag=P}
+   Test
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P}
+ \tagmcbegin{tag=P,alt=Dies ist ein Text,actualtext=Copy}
+  Test
+ \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=Formula}
+ \tagmcbegin {tag=Formula,alt={\empty\frac{a}{b}+c + \int_1^n f(x)}}
+  $\frac{a}{b}+c + \int_1^n f(x)$
+ \tagmcend
+\tagstructend
+
+\tagmcbegin{tag=P,
+ actualtext=Ente,
+ alt=Dies ist eine Ente}
+ %% a char is needed so that actualtext works,
+ \ifluatex
+  {{\zerowidthfont^^^^200c}}%
+ \else
+  {\makebox[0pt][l]{.}}%
+ \fi
+ %it seems not to be needed for alt and voice software ....
+ \includegraphics[width=1cm]{example-image-duck}
+\tagmcend
+
+
+\end{document}
