@@ -513,28 +513,30 @@
 %
 % \section{Commands to extend document commands}
 % The following commands and code parts are not core command of tagpdf.
-% The either provide work arounds for missing functionality elsewhere,
+% They either provide work-arounds for missing functionality elsewhere,
 % or do a first step to apply tagpdf commands to document commands.
 % This part should be regularly revisited to check if the code should go to a
 % better place or can be improved.
 % \subsection{Document structure}
-% \begin{macro}{\@@_add_document_structure:n,activate (setup-key)}
+% \begin{macro}{\g_@@_root_default_tl,activate (setup-key)}
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_add_document_structure:n #1
- {
-   \hook_gput_code:nnn{begindocument}{tagpdf}{\tagstructbegin{tag=#1}}
-   \hook_gput_code:nnn{tagpdf/finish/before}{tagpdf}{\tagstructend}
- }
+\tl_new:N\g_@@_root_default_tl
+\tl_gset:Nn\g_@@_root_default_tl {Document}
+
+\hook_gput_code:nnn{begindocument}{tagpdf}{\tagstructbegin{tag=\g_@@_root_default_tl}}
+\hook_gput_code:nnn{tagpdf/finish/before}{tagpdf}{\tagstructend}
+
 \keys_define:nn { @@ / setup}
- {
-   activate   .code:n =
+ {    
+   activate  .code:n =
     {
       \keys_set:nn { @@ / setup }
         { activate-mc,activate-tree,activate-struct }
-      \@@_add_document_structure:n {#1}
+      \tl_gset:Nn\g_@@_root_default_tl {#1}  
     },
-  activate .default:n = Document
+   activate .default:n = Document
  }
+ 
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Structure destinations}
@@ -698,26 +700,35 @@
          }
       }
   }
+%    \end{macrocode}
+% We check the para count at the end. If tagging is not active it is not a error,
+% but we issue a warning as it perhaps indicates that the testphase code didn't guard
+% everything correctly.
+%    \begin{macrocode}
 \AddToHook{enddocument/info}
   {
+    \tag_if_active:F
+      {
+        \msg_redirect_name:nnn { tag } { para-hook-count-wrong } { warning }
+      }  
     \int_compare:nNnF {\g_@@_para_main_begin_int}={\g_@@_para_main_end_int}
-      {
-        \msg_error:nnxxx
-          {tag}
-          {para-hook-count-wrong}
-          {\int_use:N\g_@@_para_main_begin_int}
-          {\int_use:N\g_@@_para_main_end_int}
-          {text-unit}
-      }
+         {
+           \msg_error:nnxxx
+             {tag}
+             {para-hook-count-wrong}
+             {\int_use:N\g_@@_para_main_begin_int}
+             {\int_use:N\g_@@_para_main_end_int}
+             {text-unit}
+         }
     \int_compare:nNnF {\g_@@_para_begin_int}={\g_@@_para_end_int}
-      {
-        \msg_error:nnxxx
-          {tag}
-          {para-hook-count-wrong}
-          {\int_use:N\g_@@_para_begin_int}
-          {\int_use:N\g_@@_para_end_int}
-          {text}
-      }
+         {
+           \msg_error:nnxxx
+             {tag}
+             {para-hook-count-wrong}
+             {\int_use:N\g_@@_para_begin_int}
+             {\int_use:N\g_@@_para_end_int}
+             {text}
+         }  
   }
 %    \end{macrocode}
 % In generic mode we need the additional code from the ptagging tests.

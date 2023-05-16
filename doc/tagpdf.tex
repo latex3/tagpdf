@@ -558,6 +558,7 @@ command so that \pkg{tagpdf} can pick up the correct code path.
  {
   % testphase = phase-I, % tagging without paragraph tagging
   testphase = phase-II % tagging with paragraph tagging and other new stuff.
+  % testphase = phase-III % tagging with paragraph sec, toc, block tagging and more
   % pdfversion = 2.0   % pdfversion must be set here.
  }
 \documentclass{article}
@@ -566,10 +567,26 @@ some text
 \end{document}
 \end{taglstlisting}
 
-\minisec{Activation needed!}
+\minisec{Deactivation}
 
-It is not recommended anymore, but 
-the package can also be loaded normally with |\usepackage| (but it is
+When loading \pkg{tagpdf} through the \texttt{testphase} keys, it is automatically activated. 
+To deactivate it while still retaining all the other new code from the latex-lab testphase files,
+use in the preamble |\tagpdfsetup{activate-all=false}|. You can additionally also deactivate the 
+paratagging and the interword space code. 
+To suppress the loading of the package alltogether you can try
+
+\begin{taglstlisting}
+\makeatletter 
+\disable@package@load{tagpdf}{}
+\makeatother
+\DocumentMetadata{...}
+\end{taglstlisting}
+
+
+\minisec{Loading as package needs activation!}
+
+It is not recommended anymore, but the package can also be loaded normally with |\usepackage| 
+(but it is
 still required to use \cs{DocumentMetadata} to load the \PDF\ management) but
 it will then -- apart from loading more packages and defining a lot of things -- not do much. You will have to \emph{activate} it with \verb+\tagpdfsetup+.
 
