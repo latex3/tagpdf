@@ -13,12 +13,12 @@
 \tagpdfsetup{tabsorder=structure,uncompress,activate-all,interwordspace=true}
 
 \begin{document}
-\tagstructbegin{tag={Document}}
+
 \tagstructbegin{tag=H1}
 \tagmcbegin{tag=P}\tagmcend
 \tagstructend
 \tagstructbegin{tag=P}
 \tagmcbegin{tag=P}abc\tagmcend
 \tagstructend
-\tagstructend
+
 \end{document} 

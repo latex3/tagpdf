@@ -21,7 +21,6 @@ Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='^^e2^^88^^85')
 Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
 (tagpdf)                (struct 1, /Document) on line ...
 Package tagpdf Info: current MC: abscnt=5, tag=Blub
-Package tagpdf Info: closing structure 1 tagged /Document
 The sequence \g__tag_mc_main_marks_seq is empty
 > .
 Completed box being shipped out [1]
@@ -44,8 +43,8 @@ Completed box being shipped out [1]
 ...\hbox(0.0+0.0)x418.25555
 ....\hbox(0.0+0.0)x418.25555
 ...\pdfliteral page{EMC}
-...\marks4{e-,6,0,}
-...\marks4{e+,6,0,}
+...\marks4{e-,6,1,}
+...\marks4{e+,6,1,}
 ...\pdfrunninglinkon
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
@@ -744,11 +743,12 @@ Completed box being shipped out [1]
 .......\glue 0.0 plus 1.0fil
 ....\glue 0.0 plus 1.0fil minus 1.0fil
 ..\pdfliteral page{EMC}
-..\marks4{e-,7,0,}
-..\marks4{e+,7,0,}
+..\marks4{e-,7,1,}
+..\marks4{e+,7,1,}
 ..\pdfrunninglinkon
 .\kern 0.0
 .\kern -655.63496
 .\hbox(0.0+0.0)x0.0
 .\kern 655.63496
 (test-showattributes.aux)
+Package tagpdf Info: closing structure 1 tagged /Document

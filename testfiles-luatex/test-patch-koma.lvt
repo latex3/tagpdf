@@ -155,7 +155,7 @@
 %I don't want to handle pagestyles, so set everything to empty:
 \pagestyle{empty}\renewcommand\chapterpagestyle{empty}
 
-\tagstructbegin{tag=Document}
+
 
 \tableofcontents
 
@@ -171,6 +171,6 @@
    \tagmcend
  \tagstructend
 
-\tagstructend   %Document
+
 \newpage
 \end{document}

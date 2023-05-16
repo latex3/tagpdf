@@ -32,9 +32,9 @@
 \begin{document}
 
 \tagpdfparaOff %for the example
-\tagstructbegin{tag=Document}
+
 \tagstructbegin{tag=H1,attribute-class=font-red}\tagmcbegin{tag=H1}Red section\tagmcend\tagstructend
 
 \tagstructbegin{tag=H1,attribute-class=font-bold}\tagmcbegin{tag=H1}Section\tagmcend\tagstructend
-\tagstructend
+
 \end{document} 

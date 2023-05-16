@@ -1,8 +1,5 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: Rule 'StructTreeRoot' --> 'Document' is 3 (='1')
-(tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'Document' on line
-(tagpdf)             158
 Package tagpdf Info: Rule 'Document' --> 'H1' is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Document' --> 'H1' on line ...
 Package tagpdf Info: Rule 'H1' --> 'MC' is 1 (='0..n')
@@ -154,7 +151,6 @@ Package tagpdf Info: Rule 'Document' --> 'P' is 1 (='0..n')
 Package tagpdf Info: Rule 'P' --> 'MC' is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 Package tagpdf Info: closing structure 24 tagged /P
-Package tagpdf Info: closing structure 1 tagged /Document
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
 Package tagpdf Info: -1 has been pushed to the mc stack
@@ -418,5 +414,6 @@ Completed box being shipped out [5]
 .\kern655.63496
 .\pdfliteral page <lua data reference ...>
 (test-patch-koma.aux)
+Package tagpdf Info: closing structure 1 tagged /Document
 tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 30 has no kids
 tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 30 has no kids

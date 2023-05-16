@@ -21,7 +21,6 @@ Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='∅')
 Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
 (tagpdf)                (struct 1, /Document) on line ...
 tagpdf: mc-current: abscnt=5==5 =>tag=UNKNOWN=-1
-Package tagpdf Info: closing structure 1 tagged /Document
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
 Package tagpdf Info: -1 has been pushed to the mc stack
@@ -860,3 +859,4 @@ Completed box being shipped out [1]
 .\kern655.63496
 .\pdfliteral page <lua data reference ...>
 (test-showattributes.aux)
+Package tagpdf Info: closing structure 1 tagged /Document

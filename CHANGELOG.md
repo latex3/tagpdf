@@ -11,7 +11,7 @@ this project uses date-based 'snapshot' version identifiers.
    (https://github.com/latex3/latex2e/discussions/1010)
  - add line number to parent-child messages 
    (https://github.com/latex3/latex2e/discussions/1010)  
-   
+ - Document structure is always added.  
 
 ### Fixed
  - slow down because of an unneeded prop issue #75 

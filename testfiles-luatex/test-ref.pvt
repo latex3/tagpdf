@@ -19,7 +19,6 @@
 \begin{document}
 \pagestyle{empty}
 
-\tagstructbegin{tag=Document}
 
 \tagstructbegin{tag=P,label=blub}
   \tagmcbegin{tag=P,}
@@ -39,5 +38,4 @@
   \tagmcend
 \tagstructend
 
-\tagstructend
 \end{document} 

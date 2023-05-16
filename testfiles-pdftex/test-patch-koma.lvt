@@ -7,9 +7,9 @@
 %if the sectioning commands are redefined more/different patches are perhaps needed
 
 %no page break involved. So the example works in lua and generic mode
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{}
-\RequirePackage{tagpdf-regressiontest}
+
+\DocumentMetadata{}
+\input{regression-test}
 \documentclass[sfdefaults=true]{scrbook}
 \usepackage{graphicx}
 \usepackage[english]{babel}
@@ -146,7 +146,7 @@
 %I don't want to handle pagestyles, so set everything to empty:
 \pagestyle{empty}\renewcommand\chapterpagestyle{empty}
 
-\tagstructbegin{tag=Document}
+
 
 \tableofcontents
 
@@ -162,6 +162,6 @@
    \tagmcend
  \tagstructend
 
-\tagstructend   %Document
+
 \newpage
 \end{document}

@@ -1,6 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\IfFormatAtLeastTF{2022-06-01}{}
-  {\RequirePackage{pdfmanagement-testphase}}
+
+
 \DocumentMetadata{}
 \input{regression-test}
 \documentclass{scrartcl}
@@ -25,7 +25,7 @@
 
 \newsavebox\mybox
 \begin{document}
-\START\tagstructbegin{tag=Document}
+\START
 \ExplSyntaxOn
 \makeatletter
 \tagmcbegin {tag=BEFORESAVEBOX,label=bs}
@@ -49,6 +49,6 @@ text
 
 \seq_show:c {g__tag_struct_kids_0_seq}
 \ExplSyntaxOff
-\tagstructend
+
 \end{document}
 

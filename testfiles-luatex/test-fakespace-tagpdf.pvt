@@ -10,7 +10,7 @@
 \usepackage{kantlipsum}
 \begin{document}\START\showoutput
 
-\tagstructbegin{tag=Document}
+
 ab
 
 a\pdffakespace b
@@ -36,5 +36,5 @@ abc abc \sffamily abc abc
 \tagmcbegin{tag=P}\kant[1]\tagmcend
 
 \fontencoding{T1}\selectfont abc abc
-\tagstructend
+
 \end{document} 

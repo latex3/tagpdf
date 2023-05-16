@@ -1,8 +1,5 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: Rule 'StructTreeRoot' --> 'Document' is 3 (='1')
-(tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'Document' on line
-(tagpdf)             49
 Package tagpdf Info: Rule 'Document' --> 'Sect' is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Document' --> 'Sect' on line ...
 Package tagpdf Info: Rule 'Sect' --> 'H' is 2 (='0..1')
@@ -45,7 +42,6 @@ Package tagpdf Info: closing structure 11 tagged /LBody
 Package tagpdf Info: closing structure 9 tagged /LI
 Package tagpdf Info: closing structure 5 tagged /L
 Package tagpdf Info: closing structure 2 tagged /Sect
-Package tagpdf Info: closing structure 1 tagged /Document
 ====> In \@makecol 1
 Pick up new bot mark!
 => first b-, 1, 3, H
@@ -123,8 +119,8 @@ Completed box being shipped out [1]
 .......\glue -0.4
 .....\glue 0.0 plus 1.0fil minus 1.0fil
 ...\pdfliteral page{EMC}
-...\marks4{e-,7,0,}
-...\marks4{e+,7,0,}
+...\marks4{e-,7,1,}
+...\marks4{e+,7,1,}
 ...\pdflinkstate 0
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
@@ -378,12 +374,12 @@ Completed box being shipped out [1]
 .........\penalty 10000
 .........\glue(\parfillskip) 0.0
 .........\glue(\rightskip) 0.0 plus 1.0fil
-........\marks4{e-,8,0,}
-........\marks4{e+,8,0,}
+........\marks4{e-,8,1,}
+........\marks4{e+,8,1,}
 ........\marks4{b-,9,-1,Pagination}
 ........\marks4{b+,9,-1,Pagination}
-........\marks4{e-,9,0,}
-........\marks4{e+,9,0,}
+........\marks4{e-,9,1,}
+........\marks4{e+,9,1,}
 ........\marks4{b-,10,-1,}
 ........\marks4{b+,10,-1,}
 .......\glue 0.0 plus 1.0fill
@@ -403,11 +399,12 @@ Completed box being shipped out [1]
 ..........\glue(\rightskip) 0.0
 ....\glue 0.0 plus 1.0fil minus 1.0fil
 ..\pdfliteral page{EMC}
-..\marks4{e-,10,0,}
-..\marks4{e+,10,0,}
+..\marks4{e-,10,1,}
+..\marks4{e+,10,1,}
 ..\pdflinkstate 0
 .\kern0.0
 .\kern-659.715
 .\hbox(0.0+0.0)x0.0, direction TLT
 .\kern659.715
 (testauxtree.aux)
+Package tagpdf Info: closing structure 1 tagged /Document

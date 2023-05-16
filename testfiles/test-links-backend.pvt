@@ -26,7 +26,7 @@
 
 \textwidth=5cm
 \begin{document}
-\tagstructbegin{tag=Document}%
+
 \leavevmode
 \tagstructbegin{tag=P}
 \tagmcbegin{tag=P}%
@@ -108,5 +108,5 @@ abc %
 \tagmcend
 \tagstructend
 \tagstructend
-\tagstructend
+
 \end{document} 

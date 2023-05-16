@@ -1,6 +1,6 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\IfFormatAtLeastTF{2022-06-01}{}
-  {\RequirePackage{pdfmanagement-testphase}}
+
+
 \DocumentMetadata{}
 \input{regression-test}
 \documentclass{scrartcl}
@@ -18,7 +18,7 @@
 
 \tagpdfsetup{activate-all,log=vv,uncompress}
 \begin{document}
-\tagstructbegin{tag=Document}
+
 \tagmcbegin{tag=P}%
 abc%
 \tagmcend
@@ -49,6 +49,6 @@ augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,%
 \tagmcend
 
 
-\tagstructend
+
 \end{document}
 

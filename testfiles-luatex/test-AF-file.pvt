@@ -24,7 +24,7 @@
 \begin{document}
 \pagestyle{empty}
 
-\tagstructbegin{tag=Document}
+
 
 \ExplSyntaxOn
 \pdfdict_put:nnn { l_pdffile/Params }
@@ -58,5 +58,5 @@
   \tagmcend
 \tagstructend
 
-\tagstructend
+
 \end{document} 

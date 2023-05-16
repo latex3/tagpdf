@@ -12,7 +12,6 @@
 \tagpdfsetup{activate-all,interwordspace=true,}
 \pagestyle{empty}
 \begin{document}
-\tagstructbegin{tag=Document}
 \tagstructbegin{tag=P}
 \tagmcuse{A}\tagmcuse{A}
 \tagstructend
@@ -26,5 +25,5 @@
 \tagmcuse{A}\tagmcuse{A}
 \tagstructend
 
-\tagstructend
+
 \end{document} 

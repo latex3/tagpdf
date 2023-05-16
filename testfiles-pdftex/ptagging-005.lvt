@@ -3,9 +3,9 @@
 %%  tagpdf  "develop" branch
 %%  pdfresources "main"
 
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{uncompress}
-\RequirePackage{tagpdf-regressiontest}
+
+\DocumentMetadata{uncompress}
+\input{regression-test}
 \documentclass{article}
 
 

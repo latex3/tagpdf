@@ -13,7 +13,7 @@
 
 
 \begin{document}
-\tagstructbegin{tag=Document}
+
 \tagmcbegin{tag=P}xxx%
 \ExplSyntaxOn
 \tag_mc_artifact_group_begin:n{layout}
@@ -24,5 +24,5 @@
 \ExplSyntaxOff
 outside%
 \tagmcend
-\tagstructend
+
 \end{document} 
