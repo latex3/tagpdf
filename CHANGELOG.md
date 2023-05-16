@@ -5,16 +5,16 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## Unreleased
+## 2023-05-16
 ### Changed
  - issue tree-mcid-index-wrong message only once 
    (https://github.com/latex3/latex2e/discussions/1010)
  - add line number to parent-child messages 
-   https://github.com/latex3/latex2e/discussions/1010  
+   (https://github.com/latex3/latex2e/discussions/1010)  
    
 
 ### Fixed
- - slow down because of an unneeded prop.    
+ - slow down because of an unneeded prop issue #75 
  - activate couldn't be used twice
 
 ## [2023-04-24]

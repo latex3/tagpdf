@@ -1,10 +1,13 @@
-Version 0.98f [2023-04-24]
+Version 0.98g [2023-05-16]
 
-### Changed 
- - alt and actualtext: test if the value is empty and then do nothing.
- 
+### Changed
+ - issue tree-mcid-index-wrong message only once 
+   (https://github.com/latex3/latex2e/discussions/1010)
+ - add line number to parent-child messages 
+   (https://github.com/latex3/latex2e/discussions/1010)  
+   
+
 ### Fixed
- - Structure Element "Artifact" doesn't exist in pdf1.7, it is now mapped to NonStruct.
- - parent-child test didn't work if structure was moved with the parent key.
-
+ - slow down because of an unneeded prop issue #75   
+ - activate couldn't be used twice
  
