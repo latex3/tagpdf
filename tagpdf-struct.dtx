@@ -1470,6 +1470,10 @@
           {
             \tl_gset:Nx \g_@@_struct_tag_tl 
               { \exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl }
+            \prop_get:NVNT\g_@@_role_tags_NS_prop \g_@@_struct_tag_tl\l_@@_tmpa_tl
+             {
+               \tl_gset:Nx \g_@@_struct_tag_NS_tl { \l_@@_tmpa_tl } 
+             }  
           }
 %<debug>\@@_debug_struct_end_insert:
       }
