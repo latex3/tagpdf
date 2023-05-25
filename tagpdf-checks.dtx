@@ -151,6 +151,11 @@
 % & error
 % & in struct module
 % \\
+%   |\@@_struct_write_obj:n|
+% & |struct-orphan|
+% & warning
+% & in struct module
+% \\
 %   |\tag_struct_begin:n|
 % & |struct-faulty-nesting|
 % & error
@@ -368,6 +373,18 @@
 % Should not happen \ldots
 %    \begin{macrocode}
 \msg_new:nnn { tag } {struct-no-objnum} { objnum~missing~for~structure~#1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{struct-orphan}
+% This indicates that there is a structure which has kids but no parent.
+% This can happen if a structure is stashed but then not used.  
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-orphan} 
+  { 
+    Ignored~structure~#1.~It~has~#2~kids~but~no~parent.\\
+    Did~you~stashed~a~structure~and~then~didn't~use~it?
+  }
+ 
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{struct-faulty-nesting}

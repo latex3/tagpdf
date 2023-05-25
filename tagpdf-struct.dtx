@@ -837,16 +837,29 @@
   {
     \pdf_object_if_exist:nTF { @@/struct/#1 }
       {
-        \@@_struct_fill_kid_key:n { #1 }
-        \@@_struct_get_dict_content:nN { #1 } \l_@@_tmpa_tl
-        \exp_args:Nx
-          \pdf_object_write:nnx
-            { @@/struct/#1 }
-            {dict}
-            {
-              \l_@@_tmpa_tl\c_space_tl                            
-              /ID~\@@_struct_get_id:n{#1}              
-            }
+        \prop_get:cnNTF { g_@@_struct_#1_prop } {P}\l_@@_tmpb_tl
+          {               
+            \@@_struct_fill_kid_key:n { #1 }
+            \@@_struct_get_dict_content:nN { #1 } \l_@@_tmpa_tl
+            \exp_args:Nx
+              \pdf_object_write:nnx
+                { @@/struct/#1 }
+                {dict}
+                {
+                  \l_@@_tmpa_tl\c_space_tl                            
+                  /ID~\@@_struct_get_id:n{#1}              
+                }
+           } 
+           {
+             \seq_if_empty:cF {g_@@_struct_kids_#1_seq}
+              {
+                \msg_warning:nnxx 
+                  {tag} 
+                  {struct-orphan} 
+                  { #1 }
+                  {\seq_count:c{g_@@_struct_kids_#1_seq}}
+              }
+           }
       }
       {
         \msg_error:nnn { tag } { struct-no-objnum } { #1}
