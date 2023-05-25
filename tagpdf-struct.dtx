@@ -837,21 +837,16 @@
   {
     \pdf_object_if_exist:nTF { @@/struct/#1 }
       {
-        \prop_get:cnNTF { g_@@_struct_#1_prop } {P}\l_@@_tmpb_tl
-          {               
-            \@@_struct_fill_kid_key:n { #1 }
-            \@@_struct_get_dict_content:nN { #1 } \l_@@_tmpa_tl
-            \exp_args:Nx
-              \pdf_object_write:nnx
-                { @@/struct/#1 }
-                {dict}
-                {
-                  \l_@@_tmpa_tl\c_space_tl                            
-                  /ID~\@@_struct_get_id:n{#1}              
-                }
-           } 
-           {
-             \seq_if_empty:cF {g_@@_struct_kids_#1_seq}
+%    \end{macrocode}
+% It can happen that a structure is not used and so has not parent.
+% Simply ignoring it is problematic as it is also recorded in 
+% the IDTree, so we make an artifact out of it.
+%    \begin{macrocode}
+        \prop_get:cnNF { g_@@_struct_#1_prop } {P}\l_@@_tmpb_tl
+          { 
+            \prop_gput:cnx { g_@@_struct_#1_prop } {P}{\pdf_object_ref:n { @@/struct/0  }}
+            \prop_gput:cnx { g_@@_struct_#1_prop } {S}{/Artifact}
+            \seq_if_empty:cF {g_@@_struct_kids_#1_seq}
               {
                 \msg_warning:nnxx 
                   {tag} 
@@ -859,7 +854,18 @@
                   { #1 }
                   {\seq_count:c{g_@@_struct_kids_#1_seq}}
               }
-           }
+          }              
+        \@@_struct_fill_kid_key:n { #1 }
+        \@@_struct_get_dict_content:nN { #1 } \l_@@_tmpa_tl
+        \exp_args:Nx
+              \pdf_object_write:nnx
+                { @@/struct/#1 }
+                {dict}
+                {
+                  \l_@@_tmpa_tl\c_space_tl                            
+                  /ID~\@@_struct_get_id:n{#1}              
+                }
+           
       }
       {
         \msg_error:nnn { tag } { struct-no-objnum } { #1}
