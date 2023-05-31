@@ -1233,19 +1233,14 @@ This solves the \enquote{interruption} problem, but has its price: Material inse
 must be properly guarded. For example
 
 \begin{taglstlisting}
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{uncompress}
+\DocumentMetadata{uncompress}
 \documentclass{article}
-\usepackage{tagpdf}
-\tagpdfsetup{activate,interwordspace=true}
 
 \pagestyle{headings}
 \begin{document}
-\tagstructbegin{tag=Document}
 \sectionmark{HEADER}
 \AddToHook{shipout/background}{\put(5cm,-5cm){BACKGROUND}}
 \tagmcbegin{tag=P}Page 1\newpage Page 2\tagmcend
-\tagstructend
 \end{document}
 \end{taglstlisting}
 
@@ -1256,13 +1251,11 @@ like.
 
 \includegraphics[alt=Show tags of examples]{global-ex}
 
-It is therefore from now on important to correctly markup such code. Header and footer typically should be
-artifacts. The LaTeX kernel hasn't yet suitable hooks around header and footer to allow to automate
-this, but a first draft has been added with \pkg{pdfmanagement-testphase}. Starting with version 0.92
-header and footer are marked as (simple) artifacts.
-If they contain code which needs a different markup it still must be added explicitly.
-With packages like \pkg{fancyhdr}  or \pkg{scrlayer-scrpage} it is quite easy to add
-the needed code.
+It is therefore from now on important to correctly markup such code. Header 
+and footer are now marked as artifacts (see below). If they contain code 
+which needs a different markup it still must be added explicitly. With 
+packages like \pkg{fancyhdr}  or \pkg{scrlayer-scrpage} it is quite easy to 
+add the needed code. 
 
 
 \subsubsection{Tips}
