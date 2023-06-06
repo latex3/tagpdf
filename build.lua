@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.98g"
-packagedate="2023-05-16"
+packageversion="0.98h"
+packagedate="2023-06-06"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -207,4 +207,4 @@ typesetfiles =
 --   "tagpdf.dtx"
  }
 
-typesetruns = 4
+typesetruns = 5
