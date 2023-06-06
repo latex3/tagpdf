@@ -1,13 +1,5 @@
-Version 0.98g [2023-05-16]
-
-### Changed
- - issue tree-mcid-index-wrong message only once 
-   (https://github.com/latex3/latex2e/discussions/1010)
- - add line number to parent-child messages 
-   (https://github.com/latex3/latex2e/discussions/1010)  
-   
+Version 0.98h [2023-06-06]
 
 ### Fixed
- - slow down because of an unneeded prop issue #75   
- - activate couldn't be used twice
- 
+ - orphaned structures without parents are now turned into artifacts.
+ - the namespace was not correctly restored after the end of a structure 
