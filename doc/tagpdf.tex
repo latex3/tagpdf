@@ -203,21 +203,37 @@ at best at least once or twice more often then normal.
 
 \subsection{References and target PDF version}
 
-My main reference for the first versions of this package
-was the free reference for \PDF{} 1.7. \parencite{pdfreference} and so the package also targeted this version.
+My main reference for the first versions of this package was the free 
+reference for \PDF{} 1.7. \parencite{pdfreference} and so the first versions 
+of the package implemented only \PDF{} 1.7. 
 
-In 2018 \PDF{} 2.0. has been released, and since 2020 all engines can set the version to 2.0. 
+In 2018 \PDF{} 2.0. has been released. The reference can be bought at no cost 
+through the PDF association. 
 
-\PDF{} 2.0 has a number of features that are really needed for good tagging: it knows more structure types,
-So the package will
-now target \PDF{} 2.0. This doesn't mean that 2.0 will be required, but that the code and the options will be extended to
-support \PDF{} 2.0. One example is the support for associated files, another the support for name spaces in version 0.82.
+\PDF{} 2.0 has a number of features that are really needed for good tagging: 
+it knows more structure types, it allows to add associated files to 
+structures---these are small, embedded files which can for example contain 
+the mathML or source code of an equation---, it knows structure destinations 
+which allows to link to a structure. 
 
-The package doesn't try to suppress all 2.0 features if an older \PDF{} version is produced. It normally doesn't harm if a \PDF{} contains keys unknown in its version and it makes the code faster and easier to maintain if there aren't too many tests and code pathes; so for example associated files will always be added. But tests could be added in case this leads to incompabilities.
 
-It should be noted that some tools don't like \PDF{}~2.0.  PAC~3 for example 
-simply crashes, and pdftk will create a \PDF{}~1.0 from it. This makes 
-testing \PDF{}~2.0 files a bit of a challenge. 
+\PDF{}~2.0 features are currently (mid 2023) not well supported by 
+\PDF~consumer. No PDF viewer (including Acrobat) for example can handle name 
+spaces and associated files. PAC~3 even crashes if one tries to load a \PDF{} 
+2.0 file, and pdftk will create a \PDF{}~1.0 from it. 
+
+Nevertheless \LaTeX{} targets \PDF{} 2.0, tagpdf has added support for 
+associated files, for name spaces and other \PDF{} 2.0 features tagpdf and we 
+recommend to use \PDF{} 2.0 if possible and then to complain to the PDF{} 
+consumer if something doesn't work.   
+
+The package doesn't try to suppress all 2.0 features if an older \PDF{} 
+version is produced. It normally doesn't harm if a \PDF{} contains keys 
+unknown in its version and it makes the code faster and easier to maintain if 
+there aren't too many tests and code pathes; so for example associated files 
+will always be added. But tests could be added in case this leads to 
+incompabilities. 
+
 
 \subsection{Validation}
 
@@ -226,11 +242,14 @@ testing \PDF{}~2.0 files a bit of a challenge.
 
 \begin{itemize}
 \item
- One must check that the \PDF{} is \emph{syntactically} correct. It is rather easy to create broken \PDF{}:
- e.g. if a chunk is opened on one page but closed on the next page or if the document isn't compiled often enough.
+ One must check that the \PDF{} is \emph{syntactically} correct. 
+ It is rather easy to create broken \PDF{}:
+ e.g. if a chunk is opened on one page but closed 
+ on the next page or if the document isn't compiled often enough.
 
-\item
-One must check how good the requirements of the PDF/UA standard are followed \emph{formally}.
+\item One must check how good the requirements of the PDF/UA standard are 
+    followed \emph{formally}\footnote{The PDF/UA-2 standard for \PDF~2.0 
+    will hopefully be released in 2023}. 
 
 \item
 One must check how good the accessibility is \emph{practically}.
@@ -239,26 +258,33 @@ One must check how good the accessibility is \emph{practically}.
 
 Syntax validation and formal standard validation can be done with preflight 
 of the (non-free) adobe acrobat. It can also be done also with the free 
-\PDF{} Accessibility Checker (PAC~3) \parencite{pac3}. There is also the 
+\PDF{} Accessibility Checker (PAC~2021) \parencite{pac3}. There is also the 
 validator veraPDF \parencite{verapdf}. A rather new and quite useful tool is 
 \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application which 
 converts a tagged PDF to html, allows to inspect its structure and also to 
 edit the structure. 
 
-Practical validation is naturally the more complicated part. It needs screen reader, users which actually knows how to handle them, can test documents and can report where a \PDF{} has real accessibility problems.
+Practical validation is naturally the more complicated part. 
+It needs screen reader, users which actually knows how to handle them, 
+can test documents and can report where a \PDF{} has real accessibility problems.
 
 
 \minisec{Preflight woes}
 
-Sadly validators can not be always trusted. As an example for an reason that I don't understand the adobe preflight don't like the list structure \texttt{L}.
-It is also possible that validators contradict: that the one says everything is okay, while the other complains.
+Sadly validators can not be always trusted. 
+As an example for an reason that I don't understand the adobe preflight 
+don't like the list structure \texttt{L}.
+It is also possible that validators contradict: that the one says everything is okay, 
+while the other complains.
 
 
 
 \subsection{Examples wanted!}
 
 
-To make the package usable examples are needed: examples that demonstrate how various structures can be tagged and which patches are needed, examples for the test suite, examples that demonstrates problems.
+To make the package usable examples are needed: 
+examples that demonstrate how various structures can be tagged and which patches are needed, 
+examples for the test suite, examples that demonstrates problems.
 
 
 \begin{tcolorbox}
@@ -267,7 +293,8 @@ Feedback, contribuations and corrections are welcome!
 
 
 All examples should use the \cs{DocumentMetadata} key \PrintKeyName{uncompress}
-so that uncompressed \PDF{} are created and the internal objects and structures can be inspected and -- hopefully soon -- be compared by the l3build checks.%
+so that uncompressed \PDF{} are created and the internal objects and 
+structures can be inspected and be compared by the l3build checks.%
 
 
 \section{Changes}
