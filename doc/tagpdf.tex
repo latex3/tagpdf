@@ -27,19 +27,16 @@
 \usepackage{unicode-math}
 \setmainfont{Heuristica}
 \usepackage[nopatch]{microtype}
-\makeatletter
-% see https://github.com/schlcht/microtype/issues/8
-%\patchcmd{\MT@get@prot}{\noindent}{\RawNoindent}{}{\fail}
-\makeatother
 
-%\usepackage{scrlayer-scrpage}
 
 \usepackage[autostyle]{csquotes}
-\usepackage[style=numeric,hyperref=false]{biblatex}
+\usepackage[style=numeric]{biblatex}
 \addbibresource{tagpdf.bib}
 
 \usepackage[noparboxrestore]{marginnote}
-\makeatletter \renewcommand*{\mn@parboxrestore}{\tagpdfparaOff}%
+\makeatletter 
+\renewcommand*{\mn@parboxrestore}{\tagpdfparaOff}%
+\makeatother
 \reversemarginpar
 
 \usepackage{tcolorbox}
@@ -90,11 +87,6 @@
 
 \usepackage{tagpdfdocu-patches}
 
-
-%\cfoot*{\pagemark}
-
-%
-
 \newcommand\PDF{PDF}
 
 \title{The \pkg{tagpdf} package, v\csname UlrikeFischer@package@version\endcsname}
@@ -129,12 +121,12 @@ This package is not meant for normal document production. It is mainly a tool to
 tagging.
 
 You need a very current \LaTeX{} format.
-      You need a very current L3 programming layer.
-      You need the new \LaTeX{} PDF management bundle.
+You need a very current L3 programming layer.
+You need the new \LaTeX{} PDF management bundle.
 
 This package is incomplete, experimental and quite probably contains bugs. It is in parts
 quite slow as the code prefers readability over speed.
-      At some time it will disappear when the code has been integrated into the \LaTeX{} format.
+At some time it will disappear when the code has been integrated into the \LaTeX{} format.
 
 This package can change in an incompatible way.
 
@@ -161,45 +153,47 @@ Issues, comments, suggestions should be added as issues to the github tracker:
 
 \section{Introduction}
 
-Since many years the creation of accessible \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a webpage \parencite{tugaccess} dedicated to this theme.
+Since many years the creation of accessible, tagged \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a web page \parencite{tugaccess} dedicated to this theme.
 
-But in my opinion missing were means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader. Without such experiments it is imho quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
+In my opinion missing were means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader, means to try out how core \LaTeX\ commands behave if tagging is used. Without such experiments it is in my opinion
+quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
 
-
-This package were developped to close this gap by offering \emph{core} commands to tag a \PDF{}%
+This package was developed to close this gap by offering \emph{core} commands to tag a \PDF{}%
 \footnote{In case you don't know what this means: there will be some explanations later on.}.
-My hope was that the knowledge gained by the use of this package will at the end allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
+My hope was that the knowledge gained by the use of this package will at the end 
+allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
 
 
-The code has been written with the goal to extend \LaTeX{} itself.
-It therefore quite does not patch commands from other packages and is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged \PDF{} files -- and the examples accompanying the package try (or will try) to show various strategies -- these changes should in my opinion be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
-
+The code has been written so that it can be added as module to the \LaTeX{} kernel itself if it turns out to be usable. 
+It therefore avoid to patch commands from other packages and is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged \PDF{} files 
+these changes should be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
 
 The package is now a part of the Tagged PDF project and triggered already various changes in the LaTeX kernel and the engines: There is a new PDF management,
 the new para hooks allows to automatically tag paragraphs, after changes in the output routine
 page breaks and header and footer are handled correctly, the engines support
-now structure destinations.
+now structure destinations. More changes are in the latex-lab bundle and can be loaded through testphase keys.
 
-I'm sure that it still has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
+I'm sure that tagpdf still has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
 
-Please also check the github site for new examples and improvements.
+Please also check the github site and latex-lab for new examples and improvements.
 
 \subsection{Tagging and accessibility}
 
-While the package is named \texttt{tagpdf} the goal is actually \emph{accessible} \PDF{}-files. Tagging is \emph{one} requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
+While the package is named \texttt{tagpdf} the goal is also \emph{accessible} \PDF{}-files. Tagging is \emph{one} (the most difficult) requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
 
 So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
 
 
 \subsection{Engines and modes}
 
-The package theoretically with all engines,
-But the xelatex and the latex-dvips-route are not much tested and they also don't support
-real space glyphs. lualatex is the most powerful and safe modus, but pdflatex works ok too.
+The package works theoretically with all engines,
+but the xelatex and the latex-dvips-route are basically untested tested and they also don't support
+real space glyphs so I don't recommend them. 
+lualatex is the most powerful and safe modus and should be used for new documents, it is slower than pdflatex but requires less compilations to get tagging. pdflatex works ok and can be used for legacy documents; it needs more compilations to resolve all cross references needed for the tagging. 
 
 The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
 
-I implemented the generic mode first. Mostly because my tex skills are much better than my lua skills and I wanted to get the tex side right before starting to fight with attributes and node traversing.
+I implemented the generic mode first. Mostly because my \TeX\ skills are much better than my lua skills and I wanted to get the \TeX\ side right before starting to fight with attributes and node traversing.
 
 While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode.
 
@@ -210,9 +204,12 @@ at best at least once or twice more often then normal.
 \subsection{References and target PDF version}
 
 My main reference for the first versions of this package
-was the free reference for \PDF{} 1.7. \parencite{pdfreference} and so the package also targetted this version.
+was the free reference for \PDF{} 1.7. \parencite{pdfreference} and so the package also targeted this version.
 
-In 2018 \PDF{} 2.0. has been released, and since 2020 all engines can set the version to 2.0. So the package will
+In 2018 \PDF{} 2.0. has been released, and since 2020 all engines can set the version to 2.0. 
+
+\PDF{} 2.0 has a number of features that are really needed for good tagging: it knows more structure types,
+So the package will
 now target \PDF{} 2.0. This doesn't mean that 2.0 will be required, but that the code and the options will be extended to
 support \PDF{} 2.0. One example is the support for associated files, another the support for name spaces in version 0.82.
 
