@@ -890,6 +890,25 @@ end
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{ltx.@@.func.update_mc_attributes}
+% This updates the mc-attributes of a box. It should only be used on boxes
+% which don't contain structure elements.
+% The arguments are a box, the mc-num and the type (as a number)
+%    \begin{macrocode}
+local function @@_update_mc_attributes (head,mcnum,type)
+ for n in node.traverse(head) do
+   node.set_attribute(n,mccntattributeid,mcnum)
+   node.set_attribute(n,mctypeattributeid,type)
+   if n.id == HLIST or n.id == VLIST then
+     @@_update_mc_attributes (n.list,mcnum,type)
+   end
+ end
+ return head
+end
+ltx.@@.func.update_mc_attributes = @@_update_mc_attributes
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{ltx.@@.func.mark_page_elements}
 % This is the main traversing function. See the lua comment for more details.
 %    \begin{macrocode}
