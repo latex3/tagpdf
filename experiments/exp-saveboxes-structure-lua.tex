@@ -11,6 +11,42 @@
 \newcommand\luamcborder[1]{\sys_if_engine_luatex:T{\tagmcbegin{#1}}}
 \newcommand\mcuse[1]{\sys_if_engine_luatex:T{\tagmcuse{#1}\luamcborder{}}}
 \ExplSyntaxOff
+
+\ExplSyntaxOn
+\newcommand\updateattribute[1]{
+ \directlua{
+   local type=tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr)
+   local mc=tex.getattribute(luatexbase.attributes.g__tag_mc_cnt_attr)
+   update_attribute(tex.getbox(#1),mc,type)}}
+\ExplSyntaxOff
+
+\usepackage{luacode}
+\begin{luacode*}
+local glyph_id = node.id("glyph")
+local hlist_id = node.id("hlist")
+local vlist_id = node.id("vlist")
+function update_attribute (head,mc,type)
+    for n in node.traverse(head) do
+      node.set_attribute(n,luatexbase.attributes.g__tag_mc_cnt_attr,mc)
+      node.set_attribute(n,luatexbase.attributes.g__tag_mc_type_attr,type)
+        if n.id == hlist_id or n.id == vlist_id then
+            update_attribute (n.list,mc,type)
+        end
+    end
+    return head
+end
+\end{luacode*}
+
+\begin{document}
+\setbox2\hbox{blaue}
+
+Die\setbox0\hbox{gelbe\box2} Ente
+
+Das \updateattribute{0} \copy0\ Haus
+
+Die \emph{\updateattribute{0}\copy0 xxx}\ Sonne
+\end{document}
+
 \begin{document}
 % ## Test 1a
 % a simple setbox
