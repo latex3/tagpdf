@@ -1,0 +1,185 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\DocumentMetadata{uncompress,testphase=phase-III,xmp=false}
+\documentclass{article}
+\newsavebox\testbox
+\ExplSyntaxOn
+\newcommand\teststructure[1]{\tagstructbegin{tag=Span}\tagmcbegin{}#1\tagmcend\tagstructend}
+\newcommand\interruptmc[1]{\tag_mc_end_push:#1\tag_mc_begin_pop:n{}}
+\newcommand\stashstructure[2]{\tagstructbegin{tag=NonStruct,label=#1,stash}#2\tagstructend}
+\cs_set_eq:NN \pdfxformnew\pdfxform_new:nnn
+\cs_set_eq:NN \pdfxformuse\pdfxform_use:n
+\newcommand\luamcborder[1]{\sys_if_engine_luatex:T{\tagmcbegin{#1}}}
+\newcommand\mcuse[1]{\sys_if_engine_luatex:T{\tagmcuse{#1}\luamcborder{}}}
+\ExplSyntaxOff
+\begin{document}
+% ## Test 1a
+% a simple setbox
+
+\iffalse
+Die\setbox0\hbox{gelbe} Ente
+
+Das \box0\ Haus
+\fi
+
+% tests (with adobe reader)
+% lualatex
+% reading:    Die Ente gelbe Das Haus (wrong)
+% copy&paste: Die Ente Das gelbe Haus (result ok, but wrong regarding the structure)
+
+% pdflatex 
+% reading: Die Ente Das gelbe Haus (ok)
+% copy&paste: Die Ente Das gelbe Haus (ok)
+
+% ## Test 1b
+% a simple setbox where we interrupt the mc
+
+\iffalse
+Die\interruptmc{\setbox0\hbox{gelbe}} Ente
+
+Das \box0\ Haus
+\fi
+
+% pdflatex: reading + copy&paste ok: Die Ente Das gelbe Haus (copy&paste miss one space)
+% lualatex: reading is missing "gelbe" as it is unmarked and so artifact; copy & paste ok  
+
+% ## Test 1c
+% a simple setbox where we interrupt the mc + restart for lualatex
+
+\iffalse
+Die\interruptmc{\luamcborder{}\setbox0\hbox{gelbe}\luamcborder{}} Ente
+
+Das \box0\ Haus
+\fi
+
+% * pdflatex: reading + copy&paste ok: Die Ente Das gelbe Haus (copy&paste miss one space)
+% * lualatex
+%   reading + tags:    Die gelbe Ente Das Haus (wrong)
+%   copy&paste: Die Ente Das gelbe Haus (result ok, but wrong regarding the structure)
+
+% ## Test 1d
+% a simple setbox where we interrupt the mc. With luatex we restart and stash.
+
+\iffalse
+Die\interruptmc{\luamcborder{stash,label=mc1d}\setbox0\hbox{gelbe}\luamcborder{}} Ente
+
+Das \mcuse{mc1d}\copy0\ Haus
+\fi
+
+% * pdflatex: reading + copy&paste ok: Die Ente Das gelbe Haus (copy&paste miss one space)
+% * lualatex: reading + copy&paste Die Ente Das gelbe Haus
+
+
+% ## Test 1e
+% a simple setbox where we interrupt the mc. With luatex we restart and stash.
+% we add a dummy structure that we don't use but will be needed if the box has inner structure.
+
+\iffalse
+Die\interruptmc{\luamcborder{stash,label=mc1e}\stashstructure{box1e}{\setbox0\hbox{gelbe}\luamcborder{}}} Ente
+
+Das \mcuse{mc1e}\copy0\ Haus
+\fi
+
+% * pdflatex + luatex reading + copy& paste ok DieEnte Das gelbe Haus
+
+% ## Test 1f
+% same as 1e but we use the box twice
+
+\iftrue
+Die\interruptmc{\luamcborder{stash,label=mc1e}\stashstructure{box1e}{\setbox0\hbox{gelbe}\luamcborder{}}} Ente
+
+Das \mcuse{mc1e}\copy0\ Haus
+
+Das \luamcborder{} \ExplSyntaxOn
+\tl_set:Nx  \l__tag_tmpa_tl { \__tag_ref_value:nnn{tagpdf-mc1e}{tagmcabs}{} }
+\tl_if_empty:NF\l__tag_tmpa_tl { \__tag_mc_handle_stash:x { \l__tag_tmpa_tl} }
+\ExplSyntaxOff\copy0\ \luamcborder{} Haus
+\fi
+
+
+
+% # Test 2a
+% a setbox with a complete, internal structure
+% ## handling the mc state
+% ### storing
+% * with pdflatex we must stop and restart 
+% the mc when storing as it will complain 
+% about nested mc
+% * with lualatex we must also stop and restart 
+% the mc when storing as the global
+% mc-attribute will confuse following text: the internal 
+% \tagmcend will unset the attribute and the text is unmarked.
+% ### using
+% * with pdflatex the box contains literals. So we must interrupt the mc to avoid to 
+% get nested MC in the pdf (no tool seems to detect that ...)
+% * lualatex has no problems here.
+%
+% ## handling the structure
+% To move the structure to the place of use we have to stash
+% and then use the structure. For the label we add a NonStruct.
+
+\iffalse
+Die%
+ \interruptmc{\stashstructure{box1}{\setbox0\hbox{\teststructure{gelbe}}}} 
+Ente
+
+Das \interruptmc{\tagstructuse{box1}\copy0}\ Haus
+
+
+% # Test 3
+% a setbox with a complete, internal structure which is reused.
+%
+% reusing a box with structure is not really possible: the structure 
+% can not be inserted twice.
+% * with pdflatex we get a duplicated mcid: both occurrences are numbered
+% as /Span /l3pdf2 BDC in the mcid. It doesn't show up in the tag structure
+% in adobe, but is read as  Die Ente Das gelbe gelbe Haus Die Sonne
+% * with lualatex the mcid are numbered correctly, but the box is as expected
+% inserted into the parent structure and so we have it twice in second paragraph:
+% and it is also read as Die Ente Das gelbe gelbe Haus Die Sonne
+% (copy & paste again ignore the structure and gives Die Ente Das gelbe Haus Die gelbe Sonne)
+
+Die \interruptmc{\copy0}\ Sonne
+\fi
+
+% # Test 4 
+% a simple xform 
+
+\iffalse
+Die\pdfxformnew{xform1}{}{gelbe} Ente
+
+Das \pdfxformuse{xform1} Haus
+\fi
+
+% pdflatex + lualatex are both ok here:
+% reading: Die Ente Das gelbe Haus (ok)
+% copy&paste: Die Ente Das gelbe Haus (ok)
+
+% test 5 
+% xform with mc's 
+% this basically doesn't work: pdflatex errors as it can't write the labels 
+% and lualatex doesn't find the mc-attributes and so the structure is empty (and there are also no
+% BDC marks in the Xobject).
+\iffalse
+Die%
+ \interruptmc{\stashstructure{box2}{\pdfxformnew{xform2}{}{\tagmcbegin{tag=Span}gelbe\tagmcend}}}
+Ente
+
+Das \interruptmc{\tagstructuse{box2}{\pdfxformuse{xform2}}}\ Haus
+\fi 
+
+% # Test 6
+% xform with internal structure
+% this basically doesn't work: pdflatex errors as it can't write the labels 
+% and lualatex doesn't find the mc-attributes and so the structure is empty.
+\iffalse
+Die%
+ \interruptmc{\stashstructure{box3}{\pdfxformnew{xform3}{}{\teststructure{gelbe}}}}
+Ente
+
+Das \interruptmc{\tagstructuse{box3}{\pdfxformuse{xform3}}}\ Haus
+\fi 
+
+
+\end{document}
+
+1
