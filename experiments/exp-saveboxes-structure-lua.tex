@@ -15,36 +15,21 @@
 \ExplSyntaxOn
 \newcommand\updateattribute[1]{
  \directlua{
-   local type=tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr)
-   local mc=tex.getattribute(luatexbase.attributes.g__tag_mc_cnt_attr)
-   update_attribute(tex.getbox(#1),mc,type)}}
+   local~type=tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr)
+   local~mc=tex.getattribute(luatexbase.attributes.g__tag_mc_cnt_attr)
+   ltx.__tag.func.update_mc_attributes(tex.getbox(#1),mc,type)
+   }}
 \ExplSyntaxOff
 
-\usepackage{luacode}
-\begin{luacode*}
-local glyph_id = node.id("glyph")
-local hlist_id = node.id("hlist")
-local vlist_id = node.id("vlist")
-function update_attribute (head,mc,type)
-    for n in node.traverse(head) do
-      node.set_attribute(n,luatexbase.attributes.g__tag_mc_cnt_attr,mc)
-      node.set_attribute(n,luatexbase.attributes.g__tag_mc_type_attr,type)
-        if n.id == hlist_id or n.id == vlist_id then
-            update_attribute (n.list,mc,type)
-        end
-    end
-    return head
-end
-\end{luacode*}
-
+\newsavebox\mybox
 \begin{document}
-\setbox2\hbox{blaue}
+\setbox2\hbox{blaue} 
 
-Die\setbox0\hbox{gelbe\box2} Ente
+Die\savebox\mybox{\hbox{gelbe\box2}} Ente
 
-Das \updateattribute{0} \copy0\ Haus
+Das \updateattribute{\the\mybox}\usebox\mybox\ Haus
 
-Die \emph{\updateattribute{0}\copy0 xxx}\ Sonne
+Die \emph{\updateattribute{\the\mybox}\usebox\mybox xxx}\ Sonne
 \end{document}
 
 \begin{document}
