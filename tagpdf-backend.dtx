@@ -895,34 +895,33 @@ end
 % simple minded: if the mc-counter changes it assumes that there is some tagging inside.
 % some nodes have nil as attribute value, these are ignored.
 %    \begin{macrocode}
-local function @@_check_box_tagging (head)
+local function @@_check_box_tagging (head,mcnum_last)
  local tagged
- local mcnum
- local mcnum_tmp
+ local mcnum_new 
  for n in node.traverse(head) do
-   mcnum_tmp= node.get_attribute(n,mccntattributeid)
+   mcnum_new= node.get_attribute(n,mccntattributeid)
    if tagged then 
      return tagged
    else
-     if mcnum_tmp then-- if it is nil do nothing!
-       if mcnum then -- if it has a value
-         if mcnum ~= mcnum_tmp then     
+     if mcnum_new then-- if it is nil do nothing!
+       if mcnum_last then -- if it has a value
+         if mcnum_last ~= mcnum_new then     
            tagged = true       
            return tagged
          end
        else
-         mcnum=mcnum_tmp 
+         mcnum_last=mcnum_new
        end 
      end  
      if n.id == HLIST or n.id == VLIST then
-       tagged=@@_check_box_tagging (n.list)
+       tagged,mcnum_last =@@_check_box_tagging (n.list,mcnum_last)
        if tagged then
          return tagged
        end  
      end
    end 
  end
- return tagged
+ return tagged,mcnum_last
 end
 
 ltx.@@.func.check_box_tagging = @@_check_box_tagging
