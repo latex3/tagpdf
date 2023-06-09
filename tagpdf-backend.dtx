@@ -890,6 +890,44 @@ end
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{ltx.@@.func.check_box_tagging}
+% These function checks if a box contains tagging command. The test is quite
+% simple minded: if the mc-counter changes it assumes that there is some tagging inside.
+% some nodes have nil as attribute value, these are ignored.
+%    \begin{macrocode}
+local function @@_check_box_tagging (head)
+ local tagged
+ local mcnum
+ local mcnum_tmp
+ for n in node.traverse(head) do
+   mcnum_tmp= node.get_attribute(n,mccntattributeid)
+   if tagged then 
+     return tagged
+   else
+     if mcnum_tmp then-- if it is nil do nothing!
+       if mcnum then -- if it has a value
+         if mcnum ~= mcnum_tmp then     
+           tagged = true       
+           return tagged
+         end
+       else
+         mcnum=mcnum_tmp 
+       end 
+     end  
+     if n.id == HLIST or n.id == VLIST then
+       tagged=@@_check_box_tagging (n.list)
+       if tagged then
+         return tagged
+       end  
+     end
+   end 
+ end
+ return tagged
+end
+
+ltx.@@.func.check_box_tagging = @@_check_box_tagging
+% \end{macro}
+%    \end{macrocode}
 % \begin{macro}{ltx.@@.func.update_mc_attributes}
 % This updates the mc-attributes of a box. It should only be used on boxes
 % which don't contain structure elements.
