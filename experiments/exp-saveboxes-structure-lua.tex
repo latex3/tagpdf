@@ -19,17 +19,55 @@
    local~mc=tex.getattribute(luatexbase.attributes.g__tag_mc_cnt_attr)
    ltx.__tag.func.update_mc_attributes(tex.getbox(#1),mc,type)
    }}
+
+\sys_if_engine_luatex:TF
+ {
+   \prg_new_conditional:Npnn \tag_if_box_tagged:N #1 {T,F,TF} 
+    {
+      \lua_now:e
+       {
+         local~tagged=ltx.__tag.func.check_box_tagging (tex.getbox(\int_use:N #1))
+         if~tagged~then~
+           tex.print(token.get_macro("prg_return_true:"))
+         else~
+           tex.print(token.get_macro("prg_return_false:"))
+         end
+       }   
+    }
+ }{}   
+\newcommand\testtagged[1]{
+ \directlua{
+      tagged=ltx.__tag.func.check_box_tagging (tex.getbox(#1))
+      print("#1", tagged)
+   }}   
+  
+  %\show\l_tmpa_box 
+   
 \ExplSyntaxOff
 
 \newsavebox\mybox
 \begin{document}
-\setbox2\hbox{blaue} 
+%\setbox2\hbox{blaue} 
+%
+Die\savebox\mybox{gelb rote} Ente
+\ExplSyntaxOn
+\tag_if_box_tagged:NTF \mybox {yes}{NO}
+\ExplSyntaxOff
+%
+%Das \testtagged{\the\mybox}\updateattribute{\the\mybox}\usebox\mybox\ Haus
 
-Die\savebox\mybox{\hbox{gelbe\box2}} Ente
+Die\savebox\mybox{\teststructure{blub}} Ente
 
-Das \updateattribute{\the\mybox}\usebox\mybox\ Haus
+%\testtagged{\the\mybox}
+\ExplSyntaxOn
+\tag_if_box_tagged:NTF \mybox {yes}{NO}
+\ExplSyntaxOff
 
-Die \emph{\updateattribute{\the\mybox}\usebox\mybox xxx}\ Sonne
+
+%
+%Das \updateattribute{\the\mybox}\usebox\mybox\ Haus
+
+%Die \emph{\updateattribute{\the\mybox}\usebox\mybox xxx}\ Sonne
 \end{document}
 
 \begin{document}
