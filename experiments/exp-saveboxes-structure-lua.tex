@@ -41,32 +41,6 @@
    ltx.__tag.func.update_mc_attributes(tex.getbox(#1),mc,type)
    }}
 
-\sys_if_engine_luatex:TF
- {
-   \prg_new_conditional:Npnn \tag_if_box_tagged:N #1 {p,T,F,TF} 
-    {
-      \tl_if_exist:cTF {l__tag_box_\cs_to_str:N#1_state_tl}
-       { 
-         \int_compare:nNnTF {\tl_use:c{l__tag_box_\cs_to_str:N#1_state_tl}}={1}
-          { \prg_return_true:  }
-          { \prg_return_false: }      
-       }
-       {
-         \lua_now:e
-          {
-            local~tagged=ltx.__tag.func.check_box_tagging 
-              (tex.getbox(\int_use:N #1))
-            if~tagged~then~
-            print("XXXXXXXXXXXX")
-              tex.print(token.get_macro("prg_return_true:"))
-            else~
-              tex.print(token.get_macro("prg_return_false:"))
-            end
-          }
-       }
-    }  
- }
- {
    \prg_new_conditional:Npnn \tag_if_box_tagged:N #1 {p,T,F,TF} 
     {
       \tl_if_exist:cTF {l__tag_box_\cs_to_str:N#1_state_tl}
@@ -80,7 +54,6 @@
          % warning?? 
        }
     }  
- }  
  
   
 \newcommand\testtagged[1]{
@@ -100,15 +73,30 @@
 Die\savebox\mybox{gelb rote} Ente
 
 \newbox\myboxb
-\setbox\myboxb\hbox{\teststructure{blub}}
+xx \setbox\myboxb\hbox{\teststructure{blub}}
 
 
 %\newbox\myboxb
-x\setbox\myboxb\hbox{blub}
+%x\setbox\myboxb\hbox{blub}
 
 \ExplSyntaxOn
 \tag_if_box_tagged:NTF \myboxb {1yes}{NO}
 
+\show\blubstructure
+\par
+
+\setbox\myboxb\hbox{\teststructure{blub}}
+
+\tag_if_box_tagged:NTF \myboxb {1yes}{NO}
+
+\show\blubstructure
+\par
+
+xx \setbox\myboxb\hbox{blaue} 
+
+\tag_if_box_tagged:NTF \myboxb {1yes}{NO}
+
+\show\blubunstruct
 % \bool_if:nTF{ \tag_if_box_tagged_p:N 
 %\myboxb} {yes}{NO} 
 \ExplSyntaxOff
