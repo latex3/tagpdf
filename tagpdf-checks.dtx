@@ -76,7 +76,7 @@
 % The LaTeX commands will do that automatically
 % at some time but it is in the responsability of the user to 
 % ensure that when using low-level code.
-% If the internal command doesn't exist the box is assumed to be tagged.
+% If the internal command doesn't exist the box is assumed to be untagged.
 % \end{function}
 % \section{Description of log messages}
 % \subsection{\cs{ShowTagging} command}
@@ -579,7 +579,7 @@
 % The LaTeX commands will do that automatically
 % at some time but it is in the responsability of the user to 
 % ensure that when using low-level code.
-% If the internal command doesn't exist the box is assumed to be tagged.
+% If the internal command doesn't exist the box is assumed to be untagged.
 %    \begin{macrocode}
 %<*base>
 \prg_new_conditional:Npnn \tag_if_box_tagged:N #1 {p,T,F,TF} 
@@ -591,7 +591,7 @@
           { \prg_return_false: }      
        }
        {
-         \prg_return_true:     
+         \prg_return_false:     
          % warning?? 
        }
     }  
