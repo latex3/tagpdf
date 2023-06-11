@@ -6,54 +6,65 @@
 \newcommand\teststructure[1]{\tagstructbegin{tag=Span}\tagmcbegin{}#1\tagmcend\tagstructend}
 \newcommand\interruptmc[1]{\tag_mc_end_push:#1\tag_mc_begin_pop:n{}}
 \newcommand\stashstructure[2]{\tagstructbegin{tag=NonStruct,label=#1,stash}#2\tagstructend}
-\cs_set_eq:NN \pdfxformnew\pdfxform_new:nnn
-\cs_set_eq:NN \pdfxformuse\pdfxform_use:n
-\newcommand\luamcborder[1]{\sys_if_engine_luatex:T{\tagmcbegin{#1}}}
-\newcommand\mcuse[1]{\sys_if_engine_luatex:T{\tagmcuse{#1}\luamcborder{}}}
-\ExplSyntaxOff
+
+\sys_if_engine_luatex:TF
+ {
+   \newcommand\updateattribute[1]{
+    \directlua{
+     local~type=tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr)
+     local~mc=tex.getattribute(luatexbase.attributes.g__tag_mc_cnt_attr)
+     ltx.__tag.func.update_mc_attributes(tex.getbox(\int_use:N #1),mc,type)
+     }}
+ }
+ {
+   \newcommand\updateattribute[1]{}
+ }     
+   
 
 \ExplSyntaxOn\makeatletter
+% this should go when the format has it ...
 \def\newsavebox#1{\@ifdefinable{#1}{\newbox#1 \tl_new:c{l_tag_box_\int_use:N#1_tl}}}
 
 \AddToHookWithArguments{cmd/sbox/before}
   {
    \tl_set:cx {l_tag_box_\int_use:N#1_tl}{\int_eval:n{\tag_get:n{struct_counter}+\tag_get:n{mc_counter}}}
-   \tl_show:c {l_tag_box_\int_use:N#1_tl}
   }
 \AddToHookWithArguments {cmd/sbox/after}
   {
     \tl_set:cx {l_tag_box_\int_use:N#1_tl}
-      {\int_eval:n{\tag_get:n{struct_counter}+\tag_get:n{mc_counter}-\tl_use:c{l_tag_box_\int_use:N#1_tl}}}
-    \tl_show:c {l_tag_box_\int_use:N#1_tl}  
+      {\int_eval:n{\tag_get:n{struct_counter}+\tag_get:n{mc_counter}-\tl_use:c{l_tag_box_\int_use:N#1_tl}}}    
   }
-
+\makeatother  
 \ExplSyntaxOff
 
-
-\ExplSyntaxOn
-\newcommand\updateattribute[1]{
- \directlua{
-   local~type=tex.getattribute(luatexbase.attributes.g__tag_mc_type_attr)
-   local~mc=tex.getattribute(luatexbase.attributes.g__tag_mc_cnt_attr)
-   ltx.__tag.func.update_mc_attributes(tex.getbox(#1),mc,type)
-   }}
-
-   
-\newcommand\testtagged[1]{
- \directlua{
-      tagged=ltx.__tag.func.check_box_tagging (tex.getbox(#1))
-      print("#1", tagged)
-   }}   
-  
-  %\show\l_tmpa_box 
-   
-\ExplSyntaxOff
 
 \newsavebox\mybox
 \begin{document}
-%\setbox2\hbox{blaue} 
-%
-Die\savebox\mybox{gelb rote} Ente
+
+\section{Saving and using boxes}
+
+\TeX{} allows to store material in boxes and to use these box once or multiple times in other places.
+This poses some challenges to tagging.
+
+\subsection{Boxes without tagging commands}
+
+If no tagging commands were used (or if they were inactive) when the box was stored then
+there is no problem to use this box with pdf\LaTeX{}/generic mode in various places. So
+
+\begin{verbatim}
+The\savebox\mybox{yellow} duck
+
+The \usebox\mybox{} sun
+\end{verbatim}
+
+will produce (assuming para tagging is activated) the paragraph structures \enquote{The duck} and \enquote{The yellow sun}.
+
+With lua\LaTeX{}/lua mode this is different: The nodes in the box will have the mc-attribute value attached which were
+active when the box was saved and this value is recorded as kid of the first paragraph. So when the lua code later wanders through the box to find all kids of structure it will also find the content of the \cs{usebox}. This means with lua\LaTeX{} we get the two paragraph structures \enquote{The duck yellow} and \enquote{The sun}. 
+
+
+
+
 
 %\newbox\myboxb
 %xx \setbox\myboxb\hbox{\teststructure{blub}}

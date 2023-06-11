@@ -1208,6 +1208,16 @@ In \emph{generic mode}, where marked content command shouldn't be nested, it wor
 
 In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!
 
+
+
+\begin{docCommand}{\tag_mc_reset_box:N}{\marg{box}}\end{docCommand}
+
+In lua mode this command will process the given box and reset all mc related attributes in the box to the current values.
+This means that if the box is used all its contents will be a kid of the current structure.
+This should (probably) only be used on boxes which don't contain tagging commands.
+See below section~\ref{sec:savebox} for more details.
+
+
 \subsubsection{Retrieving data} \label{sec:retrieve}
 With more elaborate tagging the need arise to retrieve and store current data. 
 
@@ -2210,7 +2220,7 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
  necessary to surround destinations with a dummy structure (a Span or an 
  Artifact) to get the right page number. 
 
-
+\section{Storing and reusing boxes}\label{sec:savebox}
 
 \section{Accessibility is not only tagging}
 
