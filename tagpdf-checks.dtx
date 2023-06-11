@@ -586,7 +586,7 @@
     {
       \tl_if_exist:cTF {l_tag_box_\int_use:N #1_tl}
        {
-         \int_compare:nNnTF {\tl_use:c{l_tag_box_\int_use:N #1_tl}}>{0}
+         \int_compare:nNnTF {0\tl_use:c{l_tag_box_\int_use:N #1_tl}}>{0}
           { \prg_return_true:  }
           { \prg_return_false: }      
        }
