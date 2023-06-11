@@ -84,7 +84,7 @@ Das \mcuse{mc1e}\copy0\ Haus
 % ## Test 1f
 % same as 1e but we use the box twice
 
-\iftrue
+\iffalse
 Die\interruptmc{\luamcborder{}\stashstructure{box1e}{\setbox0\hbox{gelbe}\luamcborder{}}} Ente
 
 Das \copy0\ Haus
@@ -116,15 +116,28 @@ Das \luamcborder{} \ExplSyntaxOn
 % ## handling the structure
 % To move the structure to the place of use we have to stash
 % and then use the structure. For the label we add a NonStruct.
+\ExplSyntaxOn
+\let\tagmcresetbox\tag_mc_reset_box:N
+\ExplSyntaxOff
 
 \iffalse
 Die%
- \interruptmc{\stashstructure{box1}{\setbox0\hbox{\teststructure{gelbe}}}} 
+ \interruptmc{\setbox\testbox\hbox{\teststructure{grüngelbe}}} 
 Ente
 
-Das \interruptmc{\tagstructuse{box1}\copy0}\ Haus
+Das \interruptmc{\copy\testbox}\ Haus
 
 
+\fi
+
+\iftrue
+Die%
+ \interruptmc{\stashstructure{box1}{\setbox\testbox\hbox{\teststructure{gelbe}}}} 
+Ente
+
+Das \interruptmc{\tagstructuse{box1}\copy\testbox}\ Haus
+
+Das \tagmcresetbox\testbox\copy\testbox\ Haus
 % # Test 3
 % a setbox with a complete, internal structure which is reused.
 %
@@ -138,7 +151,7 @@ Das \interruptmc{\tagstructuse{box1}\copy0}\ Haus
 % and it is also read as Die Ente Das gelbe gelbe Haus Die Sonne
 % (copy & paste again ignore the structure and gives Die Ente Das gelbe Haus Die gelbe Sonne)
 
-Die \interruptmc{\copy0}\ Sonne
+%Die \interruptmc{\copy0}\ Sonne
 \fi
 
 % # Test 4 
