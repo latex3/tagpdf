@@ -1,0 +1,15 @@
+\DocumentMetadata{}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START
+\ExplSyntaxOn
+\tag_tool:n{para=false}
+
+\TYPE{structure:~\tag_get:n{struct_counter},~mc:~\tag_get:n{mc_counter}}
+\tagstructbegin{}\tagmcbegin{}xxx\tagmcend\tagstructend
+
+\TYPE{structure:~\tag_get:n{struct_counter},~mc:~\tag_get:n{mc_counter}}
+
+\ExplSyntaxOff
+\end{document} 

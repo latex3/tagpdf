@@ -111,6 +111,13 @@
 %   Determines if a mc-chunk is open.
 % \end{function}
 
+% \begin{function}[ EXP,added=2023-06-11]{\tag_mc_reset_box:N}
+%   \begin{syntax}
+%     \cs{\tag_mc_reset:N} \Arg{box} 
+%   \end{syntax}
+%   This resets in lua mode the mc attributes to the one currently in use.
+%   It does nothing in generic mode.
+% \end{function}
 %
 % \section{Public keys}
 % The following keys can be used with |\tag_mc_begin:n|, |\tagmcbegin|,
@@ -192,18 +199,34 @@
 %
 % \begin{variable}{g_@@_MCID_abs_int}
 %    \begin{macrocode}
-%<*shared>
+%<*base>
 \newcounter { g_@@_MCID_abs_int }
 %    \end{macrocode}
 % \end{variable}
-%
-% \begin{macro}{\_@@_get_mc_abs_cnt:}
-% A (expandable) function to get the current value of the cnt.
+% \begin{macro}{\@@_get_data_mc_counter:}
+% This command allows \cs{tag_get:n} to get the current
+% state of the mc counter with the keyword |mc_counter|. 
+% By comparing the numbers it can be used to check the number of 
+% structure commands in a piece of code.
 %    \begin{macrocode}
-\cs_new:Npn \_@@_get_mc_abs_cnt: { \int_use:N \c@g_@@_MCID_abs_int }
+\cs_new:Npn \@@_get_data_mc_counter:
+  {
+    \int_use:N \c@g_@@_MCID_abs_int
+  }
+%</base>
 %    \end{macrocode}
 % \end{macro}
 %
+%
+% \begin{macro}{\@@_get_mc_abs_cnt:}
+% A (expandable) function to get the current value of the cnt.
+% TODO: duplicate of the previous one, this should be cleaned up.
+%    \begin{macrocode}
+%<*shared>
+\cs_new:Npn \@@_get_mc_abs_cnt: { \int_use:N \c@g_@@_MCID_abs_int }
+%    \end{macrocode}
+% \end{macro}
+% 
 % \begin{variable}{\g_@@_MCID_tmp_bypage_int}
 % The following hold the temporary by page number assigned to a mc.
 % It must be defined in the shared code to avoid problems with labels.
@@ -362,7 +385,13 @@
 %</shared>
 %    \end{macrocode}
 % \end{macro}
-%
+% \begin{macro}{\tag_mc_reset_box:N}
+% This allows to reset the mc-attributes in box. On base and generic mode it should do 
+% nothing.
+%    \begin{macrocode}
+%<base>\cs_new_protected:Npn \tag_mc_reset_box:N #1 {}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\tag_mc_end_push:, \tag_mc_begin_pop:n}
 %
 %    \begin{macrocode}
@@ -410,7 +439,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-%
+% 
 % \subsection{Keys}
 % This are the keys where the code can be shared between the modes.
 %

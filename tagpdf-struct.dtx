@@ -978,6 +978,20 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_get_data_struct_counter:}
+% this command allows \cs{tag_get:n} to get the current
+% state of the structure counter with the keyword |struct_counter|. 
+% By comparing the numbers it can be used to check the number of 
+% structure commands in a piece of code.
+%    \begin{macrocode}
+%<*base>
+\cs_new:Npn \@@_get_data_struct_counter:
+  {
+    \int_use:N \c@g_@@_struct_abs_int
+  }
+%</base>
+%    \end{macrocode}
+% \end{macro}
 % \section{Keys}
 % This are the keys for the user commands.
 % we store the tag in a variable. But we should be careful, it is only reliable

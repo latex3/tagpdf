@@ -375,6 +375,22 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\tag_mc_reset_box:N}
+% This allows to reset the mc-attributes in box. On base and generic mode it should do 
+% nothing.
+%    \begin{macrocode}
+\cs_set_protected:Npn \tag_mc_reset_box:N #1
+  {
+    \lua_now:e
+     {
+       local~type=tex.getattribute(luatexbase.attributes.g_@@_mc_type_attr)
+       local~mc=tex.getattribute(luatexbase.attributes.g_@@_mc_cnt_attr)
+       ltx.__tag.func.update_mc_attributes(tex.getbox(\int_use:N #1),mc,type)
+     }
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
 % \begin{macro}{ \@@_get_data_mc_tag: }
 % The command to retrieve the current mc tag.
 % TODO: Perhaps this should use the attribute instead.

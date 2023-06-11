@@ -9,14 +9,20 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Added
  - lua backend: added function to update attributes in a box.
+ - keyword struct `struct_abs` and `mc_abs` to `\tag_get:n`.
+ - \tag_if_box_tagged:N to allow to test if store boxes have tags.
+ - \tag_mc_box_reset:N to reset the attributes in a box (lua mode).
   
 ## 2023-06-06
+Version: 0.98h
 
 ### Fixed
  - orphaned structures without parents are now turned into artifacts.
  - the namespace was not correctly restored after the end of a structure
 
 ## 2023-05-16
+Version: 0.98g
+ 
 ### Changed
  - issue tree-mcid-index-wrong message only once 
    (https://github.com/latex3/latex2e/discussions/1010)
@@ -29,6 +35,8 @@ this project uses date-based 'snapshot' version identifiers.
  - activate couldn't be used twice
 
 ## [2023-04-24]
+Version: 0.98f
+ 
 ### Changed 
  - alt and actualtext: test if the value is empty and then do nothing.
  
@@ -37,7 +45,8 @@ this project uses date-based 'snapshot' version identifiers.
  - parent-child test didn't work if structure was moved with the parent key.
  
 ## [2023-03-07]
-
+Version: 0.98e
+ 
 ### Changed 
  - the automatic paratagging uses now a two-level structure tpara/P
  
@@ -46,7 +55,8 @@ this project uses date-based 'snapshot' version identifiers.
  
 
 ## [2023-02-15]  
-
+Version: 0.98d
+ 
 ### Fixed 
  - missing space in luatex, issue #66  
 
@@ -57,7 +67,8 @@ this project uses date-based 'snapshot' version identifiers.
    
 
 ## [2023-01-30] 
-
+Version: 0.98c
+ 
 ### Added 
  - \tag_check_child:nnTF to test if a tag is allowed as child.
  
@@ -65,7 +76,8 @@ this project uses date-based 'snapshot' version identifiers.
  - empty attributes gave faulty PDF  
 
 ## [2023-01-24} 
-
+Version: 0.98b
+ 
 ### Fixed
  - missing argument declarations in tagpdf-base, issue #65
  
@@ -73,7 +85,8 @@ this project uses date-based 'snapshot' version identifiers.
  - IDtree and option to retrieve the ID 
 
 ## [2022-12-28]
-
+Version: 0.98a
+ 
 ### Fixed
  - parent-child test for NonStruct, Part, Div
  - tagging of sectioning in the documentation

@@ -657,6 +657,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%
 % \begin{macro}{\tag_mc_begin:n,\tag_mc_end:}
 % These are the core public commands to open and close an mc.
 % They don't need to be in the same group or grouping level,
@@ -664,7 +665,7 @@
 % the state is passed to the end command through a global var and
 % a global boolean.
 %    \begin{macrocode}
-%<base>\cs_new_protected:Npn \tag_mc_begin:n #1 { \@@_whatsits: }
+%<base>\cs_new_protected:Npn \tag_mc_begin:n #1 { \@@_whatsits: \int_gincr:N \c@g_@@_MCID_abs_int }
 %<base>\cs_new_protected:Nn \tag_mc_end:{ \@@_whatsits: }
 %<*generic|debug>
 %<*generic>

@@ -298,6 +298,9 @@ structures can be inspected and be compared by the l3build checks.%
 
 
 \section{Changes}
+
+This section lists only important changes. More can be found in the \texttt{CHANGELOG.MD} and by checking the git commits.
+
 \subsection{Changes in 0.3}
 
 
@@ -504,12 +507,6 @@ can improve the html export.
 Small bug fixes in code and documentation.
 
 \subsection{Changes in version 0.98b}
-The main change is from now on every structure has an ID and an IDtree is 
-added. The ID of a structure can be retrieved with |\tag_get:n| 
-see~\ref{sec:retrieve}. 
-
-
-\subsection{Changes in version 0.98d}
 The main change is from now on every structure has an ID and an IDtree is 
 added. The ID of a structure can be retrieved with |\tag_get:n| 
 see~\ref{sec:retrieve}. 
@@ -1216,11 +1213,15 @@ With more elaborate tagging the need arise to retrieve and store current data.
 
 \begin{docCommand}{tag_get:n}{\marg{key word}}\end{docCommand}
 
-This (expandable) command give back some variables. Currently the working key words are \verb+mc_tag+, \verb+struct_tag+,
-\verb+struct_id+ and \verb+struct_num+. The ID is a string and returned including parentheses. 
-\verb+struct_num+ returns a number and works also if only \pkg{tagpdf-base} has been loaded, but then doesn't give the same output: if \pkg{tagpdf} is loaded and tagging is active, \verb+struct_num+ gives the number of currently
-active structure, so it reverts to the parent number if a structure is closed. If only \pkg{tagpdf-base} is loaded
-nesting of structure is not tracked and so the command gives back the number of the last structure that has been created.
+This (expandable) command give back some variables. Currently the working key words are 
+\begin{itemize} 
+\item \verb+mc_tag+: the tag name of the current mc-chunk
+\item  \verb+struct_tag+: the tag name of the current structure
+\item \verb+struct_id+: The ID of the current structure. This is a string and is returned including parentheses. 
+\item \verb+struct_num+: This returns a number and works also if only \pkg{tagpdf-base} has been loaded, but then doesn't give the same output: if \pkg{tagpdf} is loaded and tagging is active, \verb+struct_num+ gives the number of currently active structure, so it reverts to the parent number if a structure is closed. If only \pkg{tagpdf-base} is loaded nesting of structure is not tracked and so the command gives back the number of the last structure that has been created.
+\item \verb+struct_counter+:  This returns a number and works also if only \pkg{tagpdf-base} has been loaded. It gives back the state of the absolute structure counter and so number of the last structure that has been created. This can be used to detect if in a piece of code there are structure commands. Be aware that this is a \LaTeX{} counter and so reset in some places.
+\item \verb+mc_counter+:  This returns a number and works also if only \pkg{tagpdf-base} has been loaded. It gives back the state of the absolute mc-counter and so number of the last mc-chunk that has been created. This can be used to detect if in a piece of code there are mc-commands.
+\end{itemize}              
 
 
 \subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}

@@ -1,0 +1,49 @@
+\DocumentMetadata{testphase=phase-III}
+\input{regression-test}
+\documentclass{article}
+
+\ExplSyntaxOn\makeatletter
+% this should go when the format has it ...
+\def\newsavebox#1{\@ifdefinable{#1}{\newbox#1 \tl_new:c{l_tag_box_\int_use:N#1_tl}}}
+
+\AddToHookWithArguments{cmd/sbox/before}
+  {
+   \tl_set:cx {l_tag_box_\int_use:N#1_tl}{\int_eval:n{\tag_get:n{struct_counter}+\tag_get:n{mc_counter}}}
+  }
+\AddToHookWithArguments {cmd/sbox/after}
+  {
+    \tl_set:cx {l_tag_box_\int_use:N#1_tl}
+      {\int_eval:n{\tag_get:n{struct_counter}+\tag_get:n{mc_counter}-\tl_use:c{l_tag_box_\int_use:N#1_tl}}}    
+  }
+\makeatother  
+\ExplSyntaxOff
+
+\newsavebox\mybox
+\begin{document}
+\START
+
+\savebox\mybox{untagged}
+\ExplSyntaxOn
+\TEST{untagged~box}
+ {
+   \TYPE{\tag_if_box_tagged:NTF \mybox {TAGGED}{UNTAGGED}}
+ }
+\ExplSyntaxOff
+
+\savebox\mybox{\tagstructbegin{tag=Span}tagged\tagstructend}
+\ExplSyntaxOn
+\TEST{box~with~structure}
+ {
+   \TYPE{\tag_if_box_tagged:NTF \mybox {TAGGED}{UNTAGGED}}
+ }
+\ExplSyntaxOff
+
+\savebox\mybox{\tagmcbegin{tag=Span}tagged\tagmcend}
+\ExplSyntaxOn
+\TEST{box~with~mc-chunk}
+ {
+   \TYPE{\tag_if_box_tagged:NTF \mybox {TAGGED}{UNTAGGED}}
+ }
+\ExplSyntaxOff
+
+\end{document}
