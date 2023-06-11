@@ -1210,7 +1210,7 @@ In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't te
 
 
 
-\begin{docCommand}{\tag_mc_reset_box:N}{\marg{box}}\end{docCommand}
+\begin{docCommand}{tag_mc_reset_box:N}{\marg{box}}\end{docCommand}
 
 In lua mode this command will process the given box and reset all mc related attributes in the box to the current values.
 This means that if the box is used all its contents will be a kid of the current structure.
@@ -2238,12 +2238,12 @@ If no tagging commands were used (or if they were inactive) when the box
 was stored then there is no problem to use this box with 
 pdf\LaTeX{}/generic mode in various places. So 
 
-\begin{verbatim}
+\begin{taglstlisting}
 \newbox\mybox
 The\setbox\mybox\hbox{yellow} duck
 
 The \box\mybox{} sun
-\end{verbatim}
+\end{taglstlisting}
 
 will produce (assuming para tagging is activated) the paragraph structures 
 \enquote{The duck} and \enquote{The yellow sun}. 
@@ -2259,11 +2259,11 @@ sun}.
 
 The solution here is to reset the attributes before using the box: 
 
-\begin{verbatim}
+\begin{taglstlisting}
 The\setbox\mybox\hbox{yellow} duck
 
 The \tag_mc_reset_box:N\mybox\box\mybox{} sun
-\end{verbatim}
+\end{taglstlisting}
 
 
 The box can in both modes be used without problems many times. 
@@ -2275,29 +2275,29 @@ We assume in the following that the box contains only well balanced tagging
 commands and no parts that are \enquote{untagged}. It should be possible to 
 copy the whole box inside a \verb+\tagstructbegin+/\verb+\tagstructend+ 
 pair. So the following is fine as box content 
-\begin{verbatim}
+\begin{taglstlisting}
 box=\tagstructbegin{...}\tagmcbegin{} balanced content\tagmcend\tagstructend
 box=
   \tagmcbegin{}text\tagmcend 
   \tagstructbegin{...}\tagmcbegin{} balanced content\tagmcend\tagstructend
   \tagmcbegin{}text\tagmcend 
-\end{verbatim} 
+\end{taglstlisting}
 but this not (this case could probably be handled nevertheless with a bit 
 care at least in lua mode) 
-\begin{verbatim}
+\begin{taglstlisting}
 box= text\tagmcend\tagstructbegin{...}...\tagstructend\tagmcbegin{}text
-\end{verbatim}
-and this absolutly unusable: 
-\begin{verbatim}
+\end{taglstlisting}
+and this is absolutely unusable: 
+\begin{taglstlisting}
 box= text\tagmcend\tagstructbegin{...}\tagmcbegin{}text
-\end{verbatim}
+\end{taglstlisting}
 
 We also assume that we want to move the structure of the box to the place 
 where the box is used (if the structure should stay where the box is saved, 
 simply save it and that will happen). For this we must add a structure that 
 we can stash and label. 
 
-\begin{verbatim}
+\begin{taglstlisting}
 \tag_mc_end_push: % interrupt an open mc
 \tagstructbegin{tag=NonStruct,stash}
  \edef\myboxnum{\tag_get:n{struct_num}} % store structure number
@@ -2305,17 +2305,17 @@ we can stash and label.
    {content}
 \tagstructend
 \tag_mc_begin_pop:n{}% restart open mc
-\end{verbatim}
+\end{taglstlisting}
 
 At the place where the box is then used we also have to inject this 
 structure: 
 
-\begin{verbatim}
+\begin{taglstlisting}
 \tag_mc_end_push: % interrupt an open mc
 \tag_struct_use_num:n {\myboxnum} % use structure
 \box\mybox             % use box   
 \tag_mc_begin_pop:n{}% restart open mc
-\end{verbatim}
+\end{taglstlisting}
 
 With pdf\LaTeX{} Boxes with tagging commands can currently be used only 
 once. The tagging commands set labels and reusing the box gives multiple 
