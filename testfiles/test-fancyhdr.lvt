@@ -1,0 +1,12 @@
+\DocumentMetadata{testphase=phase-III}
+\input{regression-test}
+\documentclass{article}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{some \emph{text} }
+\lfoot{some \emph{text} }
+\begin{document}
+\START \showoutput
+\section{some text}
+\subsection{blub}
+\end{document}

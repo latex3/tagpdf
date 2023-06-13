@@ -12,6 +12,9 @@ this project uses date-based 'snapshot' version identifiers.
  - keyword struct `struct_abs` and `mc_abs` to `\tag_get:n`.
  - \tag_if_box_tagged:N to allow to test if store boxes have tags.
  - \tag_mc_box_reset:N to reset the attributes in a box (lua mode).
+ 
+### Fixed
+ - tagging of header/footer if fancyhdr is used: tagging is now correctly stopped. 
   
 ## 2023-06-06
 Version: 0.98h

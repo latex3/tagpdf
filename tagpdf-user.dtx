@@ -517,6 +517,16 @@
 % or do a first step to apply tagpdf commands to document commands.
 % This part should be regularly revisited to check if the code should go to a
 % better place or can be improved.
+% 
+% \subsection{new ref system}
+% Until l3ref is in the kernel, we provide a definition for \cs{newlabeldata} in 
+% the aux-file to avoid errors if a document switches between tagging and non-tagging.
+%    \begin{macrocode}
+%</package>
+%<base>\AddToHook{begindocument}
+%<base> {\immediate\write\@mainaux{\string\providecommand\string\newlabeldata[2]{}}}
+%<*package>
+%    \end{macrocode}
 % \subsection{Document structure}
 % \begin{macro}{\g_@@_root_default_tl,activate (setup-key)}
 %    \begin{macrocode}
@@ -840,9 +850,11 @@
        \bool_gset_false:N \g_@@_in_mc_bool
      }
     \tag_mc_begin:n {artifact}
+    \tag_stop:n{headfoot}
  }
 \cs_new_protected:Npn \@@_exclude_headfoot_end:
  {
+    \tag_start:n{headfoot}
     \tag_mc_end:
     \bool_if:NTF \g_@@_mode_lua_bool
      {
@@ -869,10 +881,12 @@
      }
     \tag_struct_begin:n{tag=Artifact,attribute-class=@@/attr/#1}
     \tag_mc_begin:n {artifact=#1}
+    \tag_stop:n{headfoot}
  }
 
 \cs_new_protected:Npn \@@_exclude_struct_headfoot_end:
  {
+    \tag_start:n{headfoot}
     \tag_mc_end:
     \tag_struct_end:
     \bool_if:NTF \g_@@_mode_lua_bool
