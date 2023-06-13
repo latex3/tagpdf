@@ -517,6 +517,16 @@
 % or do a first step to apply tagpdf commands to document commands.
 % This part should be regularly revisited to check if the code should go to a
 % better place or can be improved.
+% 
+% \subsection{new ref system}
+% Until l3ref is in the kernel, we provide a definition for \cs{newlabeldata} in 
+% the aux-file to avoid errors if a document switches between tagging and non-tagging.
+%    \begin{macrocode}
+%</package>
+%<base>\AddToHook{begindocument}
+%<base> {\immediate\write\@mainaux{\string\providecommand\string\newlabeldata[2]{}}}
+%<*package>
+%    \end{macrocode}
 % \subsection{Document structure}
 % \begin{macro}{\g_@@_root_default_tl,activate (setup-key)}
 %    \begin{macrocode}
