@@ -5,16 +5,19 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2023-06-14]
 
 ### Added
  - lua backend: added function to update attributes in a box.
- - keyword struct `struct_abs` and `mc_abs` to `\tag_get:n`.
- - \tag_if_box_tagged:N to allow to test if store boxes have tags.
+ - new keywords struct `struct_abs` and `mc_abs` for `\tag_get:n`.
+ - \tag_if_box_tagged:N to allow to test if stored boxes have tags.
  - \tag_mc_box_reset:N to reset the attributes in a box (lua mode).
- 
+ - a definition for \newlabeldata is provided in the aux-file to ease
+   switch between tagged and untagged documents.
+   
 ### Fixed
  - tagging of header/footer if fancyhdr is used: tagging is now correctly stopped. 
+  
   
 ## 2023-06-06
 Version: 0.98h
