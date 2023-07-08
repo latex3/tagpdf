@@ -48,7 +48,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98i, released 2023-06-14}
+% \date{Version 0.98j, released 2023-07-08}
 % \maketitle
 % \begin{documentation}
 % \section{Commands}
@@ -312,7 +312,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-checks-code} {2023-06-14} {0.98i}
+\ProvidesExplPackage {tagpdf-checks-code} {2023-07-08} {0.98j}
  {part of tagpdf - code related to checks, conditionals, debugging and messages}
 %</header>
 %    \end{macrocode}
@@ -471,12 +471,11 @@
 %  parent tags.
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-parent-child} 
-  { Parent-Child~'#1'~-->~'#2'~is~#3~\msg_line_context:}
+  { Parent-Child~'#1'~-->~'#2'.\\Relation~is~#3~\msg_line_context:}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{role-parent-child}
-%  This is info and warning message about the containment rules between child and
-%  parent tags.
+% \begin{macro}{role-remapping}
+%  This is info and warning message about role-remapping
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-remapping} 
   { remapping~tag~to~#1 }
