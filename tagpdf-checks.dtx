@@ -48,7 +48,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98h, released 2023-06-06}
+% \date{Version 0.98i, released 2023-06-14}
 % \maketitle
 % \begin{documentation}
 % \section{Commands}
@@ -68,7 +68,7 @@
 %
 % \begin{function}[pTF,EXP]{\tag_if_box_tagged:N}
 %  \begin{syntax}
-%  \cs{\tag_if_box_tagged:N}\Arg{box}
+%  \cs{tag_if_box_tagged:N}\Arg{box}
 %  \end{syntax}
 % This tests if a box contains tagging commands. 
 % It relies currently on that the code that saved the box correctly set 
@@ -312,7 +312,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-checks-code} {2023-06-06} {0.98h}
+\ProvidesExplPackage {tagpdf-checks-code} {2023-06-14} {0.98i}
  {part of tagpdf - code related to checks, conditionals, debugging and messages}
 %</header>
 %    \end{macrocode}
@@ -471,7 +471,7 @@
 %  parent tags.
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-parent-child} 
-  { Rule~'#1'~-->~'#2'~is~#3~\msg_line_context:}
+  { Parent-Child~'#1'~-->~'#2'~is~#3~\msg_line_context:}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{role-parent-child}
