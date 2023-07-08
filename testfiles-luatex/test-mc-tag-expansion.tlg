@@ -1,9 +1,12 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: Rule 'StructTreeRoot' --> 'MC' is -1 (='∅')
+Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
+(tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
-Package tagpdf Warning: Rule 'StructTreeRoot/pdf' --> 'MC (realcontent)' is
-(tagpdf)                not allowed (struct 0, /StructTreeRoot) on line ...
+Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC
+(tagpdf)                (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on
+(tagpdf)                line 40
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
 Package tagpdf Info: -1 has been pushed to the mc stack

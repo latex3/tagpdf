@@ -1,25 +1,33 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='∅')
+Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
+(tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from: 'Document' --> 'MC' on line ...
-Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
-(tagpdf)                (struct 1, /Document) on line ...
+Package tagpdf Warning: Parent-Child 'Document/' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 1, /Document) on line
+(tagpdf)                26
 tagpdf: mc-current: abscnt=2==2 =>tag=P=15
-Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='∅')
+Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
+(tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from: 'Document' --> 'MC' on line ...
-Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
-(tagpdf)                (struct 1, /Document) on line ...
+Package tagpdf Warning: Parent-Child 'Document/' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 1, /Document) on line
+(tagpdf)                32
 tagpdf: mc-current: abscnt=3==3 =>tag=P=15
-Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='∅')
+Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
+(tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from: 'Document' --> 'MC' on line ...
-Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
-(tagpdf)                (struct 1, /Document) on line ...
+Package tagpdf Warning: Parent-Child 'Document/' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 1, /Document) on line
+(tagpdf)                38
 tagpdf: mc-current: abscnt=4==4 =>tag=H1=9
 Package tagpdf Warning: tag Blub is not known
-Package tagpdf Info: Rule 'Document' --> 'MC' is -1 (='∅')
+Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
+(tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from: 'Document' --> 'MC' on line ...
-Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
-(tagpdf)                (struct 1, /Document) on line ...
+Package tagpdf Warning: Parent-Child 'Document/' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 1, /Document) on line
+(tagpdf)                44
 tagpdf: mc-current: abscnt=5==5 =>tag=UNKNOWN=-1
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
