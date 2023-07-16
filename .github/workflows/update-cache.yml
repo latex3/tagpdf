@@ -1,0 +1,26 @@
+# Speedup builds by caching the TeXLive installation before any build
+name: Update TeXLive Cache
+
+on:
+  push:
+    paths:
+    - 'tl_packages'
+  schedule:
+    - cron: '5 1 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install TeX Live
+        uses: zauguin/install-texlive@v2
+        with:
+           package_file: tl_packages

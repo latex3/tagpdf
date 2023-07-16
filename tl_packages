@@ -1,0 +1,76 @@
+l3build
+
+l3kernel l3packages l3build latex latex-bin ctablestack  l3experimental l3backend
+
+collection-langgerman
+
+# luatex
+luacode luatex luatexbase luaotfload iftex
+
+# language
+babel babel-english babel-german hyph-utf8
+
+# class / content
+koma-script fancyhdr enumitem lipsum biblatex tcolorbox pgf marginnote
+enumitem listings
+
+# other tools
+oberdiek etoolbox unicode-data  xpatch  amsmath filehook
+
+# oberdiek split
+
+accsupp
+askinclude
+atbegshi
+atenddvi
+attachfile2
+atveryend
+auxhook
+bigintcalc
+bitset
+bookmark
+catchfile
+embedfile
+etexcmds
+gettitlestring
+grfext
+hobsub
+hologo
+hycolor
+iftex
+infwarerr
+inputenx
+intcalc
+kvdefinekeys
+kvoptions
+kvsetkeys
+letltxmacro
+ltxcmds
+luacolor
+magicnum
+mleftright
+pdfescape
+pdfcolmk
+pdflscape
+pdftexcmds
+refcount
+rerunfilecheck
+epstopdf-pkg
+stringenc
+transparent
+uniquecounter
+zref
+
+# fonts
+fontspec microtype amsfonts gnu-freefont ec cm-super heuristica
+
+# graphics
+graphics graphics-def duckuments
+
+# Required to build plain and LaTeX formats:
+# TeX90 plain for unpacking, pdfLaTeX, LuaLaTeX and XeTeX for tests
+cm etex knuth-lib latex-bin tex tex-ini-files unicode-data 
+ 
+# Assuming a 'basic' font set up, metafont is required to avoid
+# warnings with some packages and errors with others
+metafont mfware
