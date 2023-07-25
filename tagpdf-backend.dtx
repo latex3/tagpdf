@@ -588,11 +588,18 @@ end
 % This insert the emc node.
 %    \begin{macrocode}
 local function @@_insert_emc_node (head,current)
- local emcnode = nodenew("whatsit","pdf_literal")
+  if tex.outputmode == 0 then
+   local emcnode = nodenew("whatsit","special")
+       emcnode.data = "ps:SDict begin mark /EMC pdfmark end"
+       head = node.insert_before(head,current,emcnode)
+   return head
+  else
+   local emcnode = nodenew("whatsit","pdf_literal")
        emcnode.data = "EMC"
        emcnode.mode=1
        head = node.insert_before(head,current,emcnode)
- return head
+   return head
+  end
 end
 %    \end{macrocode}
 % \end{macro}
@@ -600,11 +607,18 @@ end
 % This inserts a simple bmc node
 %    \begin{macrocode}
 local function @@_insert_bmc_node (head,current,tag)
- local bmcnode = nodenew("whatsit","pdf_literal")
+ if tex.outputmode == 0 then
+  local bmcnode = nodenew("whatsit","special")
+       bmcnode.data = "ps:SDict begin mark/"..tag.." BMC pdfmark end"
+       head = node.insert_before(head,current,bmcnode)
+  return head
+ else
+  local bmcnode = nodenew("whatsit","pdf_literal")
        bmcnode.data = "/"..tag.." BMC"
        bmcnode.mode=1
        head = node.insert_before(head,current,bmcnode)
- return head
+  return head
+ end 
 end
 %    \end{macrocode}
 % \end{macro}
@@ -613,11 +627,18 @@ end
 %  TODO: check if this is still used, now that we create properties.
 %    \begin{macrocode}
 local function @@_insert_bdc_node (head,current,tag,dict)
- local bdcnode = nodenew("whatsit","pdf_literal")
+ if tex.outputmode == 0 then
+  local bdcnode = nodenew("whatsit","special")
+       bdcnode.data = "ps:SDict begin mark/"..tag.."<<"..dict..">> BDC pdfmark end"
+       head = node.insert_before(head,current,bdcnode)
+  return head
+ else
+  local bdcnode = nodenew("whatsit","pdf_literal")
        bdcnode.data = "/"..tag.."<<"..dict..">> BDC"
        bdcnode.mode=1
        head = node.insert_before(head,current,bdcnode)
- return head
+  return head
+ end
 end
 %    \end{macrocode}
 % \end{macro}

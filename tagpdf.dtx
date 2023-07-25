@@ -151,7 +151,7 @@
 %    \begin{macrocode}
 %<*package>
 \bool_new:N\g_@@_mode_lua_bool  
-\DeclareOption {luamode}    { \sys_if_engine_luatex:T { \bool_gset_true:N \g_@@_mode_lua_bool } }
+\DeclareOption {luamode}  { \sys_if_engine_luatex:T { \bool_gset_true:N \g_@@_mode_lua_bool } }
 \DeclareOption {genericmode}{ \bool_gset_false:N\g_@@_mode_lua_bool }
 \ExecuteOptions{luamode}
 \ProcessOptions
