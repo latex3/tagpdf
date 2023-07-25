@@ -665,11 +665,16 @@ ltx.@@.func.pdf_object_ref=@@_pdf_object_ref
 local function @@_show_spacemark (head,current,color,height)
  local markcolor = color or "1 0 0"
  local markheight = height or 10
- local pdfstring = node.new("whatsit","pdf_literal")
+ local pdfstring 
+ if tex.outputmode == 0 then
+  -- ignore dvi mode for now
+ else
+  pdfstring = node.new("whatsit","pdf_literal")
        pdfstring.data =
        string.format("q "..markcolor.." RG "..markcolor.." rg 0.4 w 0 %g m 0 %g l S Q",-3,markheight)
        head = node.insert_after(head,current,pdfstring)
- return head
+  return head
+ end
 end
 %    \end{macrocode}
 % \end{macro}
@@ -1095,10 +1100,16 @@ end
 function ltx.@@.func.mark_shipout (box)
  mcopen = ltx.@@.func.mark_page_elements (box,-1,-100,0,"Shipout",-1)
  if mcopen~=0 then -- there is a chunk open, close it (hope there is only one ...
-  local emcnode = nodenew("whatsit","pdf_literal")
+  local emcnode 
   local list = box.list
-  emcnode.data = "EMC"
-  emcnode.mode=1
+  if tex.outputmode == 0 then
+   emcnode = nodenew("whatsit","special")
+   emcnode.data = "ps:SDict begin mark/EMC pdfmark end"
+  else
+   emcnode = nodenew("whatsit","pdf_literal")
+   emcnode.data = "EMC"
+   emcnode.mode=1
+  end 
   if list then
      list = node.insert_after (list,node.tail(list),emcnode)
      mcopen = mcopen - 1
