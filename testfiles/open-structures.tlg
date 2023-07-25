@@ -1,9 +1,10 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Warning: Rule 'Span/pdf2' --> 'L/pdf2' is not allowed (struct
-(tagpdf)                4, /Span --> struct 5) on line ...
-Package tagpdf Warning: Rule 'L/pdf2' --> 'MC (realcontent)' is not allowed
-(tagpdf)                (struct 5, /L) on line ...
+Package tagpdf Warning: Parent-Child 'Span/pdf2' --> 'L/pdf2'.
+(tagpdf)                Relation is not allowed (struct 4, /Span --> struct 5)
+(tagpdf)                on line ...
+Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 5, /L) on line ...
 [1
 ] (open-structures.aux)
 The sequence \g__tag_struct_tag_stack_seq contains the items (without outer

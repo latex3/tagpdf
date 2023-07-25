@@ -48,7 +48,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98i, released 2023-06-14}
+% \date{Version 0.98j, released 2023-07-08}
 % \maketitle
 % \begin{documentation}
 % \section{Commands}
@@ -76,7 +76,7 @@
 % The LaTeX commands will do that automatically
 % at some time but it is in the responsability of the user to 
 % ensure that when using low-level code.
-% If the internal command doesn't exist the box is assumed to be tagged.
+% If the internal command doesn't exist the box is assumed to be untagged.
 % \end{function}
 % \section{Description of log messages}
 % \subsection{\cs{ShowTagging} command}
@@ -312,7 +312,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-checks-code} {2023-06-14} {0.98i}
+\ProvidesExplPackage {tagpdf-checks-code} {2023-07-08} {0.98j}
  {part of tagpdf - code related to checks, conditionals, debugging and messages}
 %</header>
 %    \end{macrocode}
@@ -471,12 +471,11 @@
 %  parent tags.
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-parent-child} 
-  { Parent-Child~'#1'~-->~'#2'~is~#3~\msg_line_context:}
+  { Parent-Child~'#1'~-->~'#2'.\\Relation~is~#3~\msg_line_context:}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{role-parent-child}
-%  This is info and warning message about the containment rules between child and
-%  parent tags.
+% \begin{macro}{role-remapping}
+%  This is info and warning message about role-remapping
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-remapping} 
   { remapping~tag~to~#1 }
@@ -579,19 +578,19 @@
 % The LaTeX commands will do that automatically
 % at some time but it is in the responsability of the user to 
 % ensure that when using low-level code.
-% If the internal command doesn't exist the box is assumed to be tagged.
+% If the internal command doesn't exist the box is assumed to be untagged.
 %    \begin{macrocode}
 %<*base>
 \prg_new_conditional:Npnn \tag_if_box_tagged:N #1 {p,T,F,TF} 
     {
       \tl_if_exist:cTF {l_tag_box_\int_use:N #1_tl}
        {
-         \int_compare:nNnTF {\tl_use:c{l_tag_box_\int_use:N #1_tl}}>{0}
+         \int_compare:nNnTF {0\tl_use:c{l_tag_box_\int_use:N #1_tl}}>{0}
           { \prg_return_true:  }
           { \prg_return_false: }      
        }
        {
-         \prg_return_true:     
+         \prg_return_false:     
          % warning?? 
        }
     }  

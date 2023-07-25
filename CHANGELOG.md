@@ -5,8 +5,14 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [2023-06-14]
+## [2023-07-08]
 
+### Changed
+ - parent-child message
+ 
+## 2023-06-14
+Version: 0.98i
+ 
 ### Added
  - lua backend: added function to update attributes in a box.
  - new keywords struct `struct_abs` and `mc_abs` for `\tag_get:n`.

@@ -16,8 +16,8 @@
  }
 \DebugBlocksOff
 \makeatletter
-\def\UlrikeFischer@package@version{0.98i}
-\def\UlrikeFischer@package@date{2023-06-14}
+\def\UlrikeFischer@package@version{0.98j}
+\def\UlrikeFischer@package@date{2023-07-08}
 \makeatother
 
 \documentclass[bibliography=totoc,a4paper]{article}
@@ -2221,6 +2221,164 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
  Artifact) to get the right page number. 
 
 \section{Storing and reusing boxes}\label{sec:savebox}
+
+\section{Saving and using boxes}
+
+\TeX{} allows to store material in boxes and to use these box once or 
+multiple times in other places. This poses some challenges to tagging. The 
+listings in the following examples uses low-level \TeX{} box commands to 
+avoid that changes in the \LaTeX{} commands that improve tagging interfere 
+in case you want to test this. To keep the examples short they don't show 
+the needed \cs{ExplSyntaxOn}/\cs{ExplSyntaxOff}.  
+
+\subsection{Boxes without tagging commands}
+
+
+If no tagging commands were used (or if they were inactive) when the box 
+was stored then there is no problem to use this box with 
+pdf\LaTeX{}/generic mode in various places. So 
+
+\begin{taglstlisting}
+\newbox\mybox
+The\setbox\mybox\hbox{yellow} duck
+
+The \box\mybox{} sun
+\end{taglstlisting}
+
+will produce (assuming para tagging is activated) the paragraph structures 
+\enquote{The duck} and \enquote{The yellow sun}. 
+
+
+With lua\LaTeX{}/lua mode this is different: The nodes in the box will have 
+the mc-attribute value attached which were active when the box was saved 
+and this value is recorded as kid of the first paragraph. So when the lua 
+code later wanders through the box to find all kids of structure it will 
+also find the content of the \cs{usebox}. This means with lua\LaTeX{} we 
+get the two paragraph structures \enquote{The duck yellow} and \enquote{The 
+sun}. 
+
+The solution here is to reset the attributes before using the box: 
+
+\begin{taglstlisting}
+The\setbox\mybox\hbox{yellow} duck
+
+The \tag_mc_reset_box:N\mybox\box\mybox{} sun
+\end{taglstlisting}
+
+
+The box can in both modes be used without problems many times. 
+
+
+\subsection{Boxes with tagging commands}
+
+We assume in the following that the box contains only well balanced tagging 
+commands and no parts that are \enquote{untagged}. It should be possible to 
+copy the whole box inside a \verb+\tagstructbegin+/\verb+\tagstructend+ 
+pair. So the following is fine as box content 
+\begin{taglstlisting}
+box=\tagstructbegin{...}\tagmcbegin{} balanced content\tagmcend\tagstructend
+box=
+  \tagmcbegin{}text\tagmcend 
+  \tagstructbegin{...}\tagmcbegin{} balanced content\tagmcend\tagstructend
+  \tagmcbegin{}text\tagmcend 
+\end{taglstlisting}
+but this not (this case could probably be handled nevertheless with a bit 
+care at least in lua mode) 
+\begin{taglstlisting}
+box= text\tagmcend\tagstructbegin{...}...\tagstructend\tagmcbegin{}text
+\end{taglstlisting}
+and this is absolutely unusable: 
+\begin{taglstlisting}
+box= text\tagmcend\tagstructbegin{...}\tagmcbegin{}text
+\end{taglstlisting}
+
+We also assume that we want to move the structure of the box to the place 
+where the box is used (if the structure should stay where the box is saved, 
+simply save it and that will happen). For this we must add a structure that 
+we can stash and label. 
+
+\begin{taglstlisting}
+\tag_mc_end_push: % interrupt an open mc
+\tagstructbegin{tag=NonStruct,stash}
+ \edef\myboxnum{\tag_get:n{struct_num}} % store structure number
+ \setbox\mybox\hbox %or \vbox or ...
+   {content}
+\tagstructend
+\tag_mc_begin_pop:n{}% restart open mc
+\end{taglstlisting}
+
+At the place where the box is then used we also have to inject this 
+structure: 
+
+\begin{taglstlisting}
+\tag_mc_end_push: % interrupt an open mc
+\tag_struct_use_num:n {\myboxnum} % use structure
+\box\mybox             % use box   
+\tag_mc_begin_pop:n{}% restart open mc
+\end{taglstlisting}
+
+With pdf\LaTeX{} Boxes with tagging commands can currently be used only 
+once. The tagging commands set labels and reusing the box gives multiple 
+label warnings. 
+
+With lua\LaTeX{} it is possible to reset the attributes as done with the 
+untagged box and then to reuse at least the content. 
+
+\subsection{Detecting tagging commands}
+
+It is possible to detect if a box contains tagging commands by comparing 
+the state of the mc and structure counter: 
+\begin{verbatim}
+\def\statebeforebox\inteval{\tag_get:n{struct_counter}+\tag_get:n{mc_counter}}
+\setbox\mybox ...
+%compare numbers against \statebeforebox
+\end{verbatim}
+
+
+
+\subsection{Putting everything together}
+
+To tag boxes that can be both (without tagging commands or with balanced 
+tagging commands) the following strategy can be used: 
+
+\begin{itemize}
+\item when storing the box put around it a structure as need by the 
+    tagged variant: 
+\begin{verbatim}
+\tag_mc_end_push: % interrupt an open mc
+\tagstructbegin{tag=NonStruct,stash} 
+\edef\myboxnum{\tag_get:n{struct_num}} % store structure number
+ \def\statebeforebox{\inteval{\tag_get:n{struct_counter}+\tag_get:n{mc_counter}}}
+ \setbox\mybox\hbox %or \vbox or ...
+   {content}
+ %check if there is tagging content and store that
+\tagstructend
+\tag_mc_begin_pop:n{}% restart open mc
+\end{verbatim}
+
+\item when using the box the first time 
+ \begin{itemize}
+ \item if it has no tagging commands then reset the attribute and use 
+     the box. 
+  \begin{verbatim}
+  The \tagmcresetbox\mybox\box\mybox{} sun
+  \end{verbatim}
+  The stashed \texttt{NonStruct} structure is then thrown away. 
+ \item  if there is a structure then use the stashed structure 
+  \begin{verbatim}
+  \tag_mc_end_push: % interrupt an open mc
+  \tag_struct_use_num:n {\myboxnum} % use structure
+  \box\mybox             % use box   
+  \tag_mc_begin_pop:n{}% restart open mc
+  \end{verbatim}
+ \end{itemize}
+ 
+ \item if the box is used a second time then throw an error with 
+     pdf\LaTeX{}. With lua\LaTeX{} reset the attributes and issue a 
+     warning. 
+ 
+\end{itemize}
+
 
 \section{Accessibility is not only tagging}
 

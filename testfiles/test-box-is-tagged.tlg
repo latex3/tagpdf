@@ -5,15 +5,17 @@ TEST 1: untagged box
 ============================================================
 UNTAGGED
 ============================================================
-Package tagpdf Warning: Rule 'Document/' --> 'Span/pdf2' is not allowed
-(tagpdf)                (struct 1, /Document --> struct 4) on line ...
+Package tagpdf Warning: Parent-Child 'Document/' --> 'Span/pdf2'.
+(tagpdf)                Relation is not allowed (struct 1, /Document -->
+(tagpdf)                struct 4) on line ...
 ============================================================
 TEST 2: box with structure
 ============================================================
 TAGGED
 ============================================================
-Package tagpdf Warning: Rule 'Document/' --> 'MC (realcontent)' is not allowed
-(tagpdf)                (struct 1, /Document) on line ...
+Package tagpdf Warning: Parent-Child 'Document/' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 1, /Document) on line
+(tagpdf)                41
 ============================================================
 TEST 3: box with mc-chunk
 ============================================================
