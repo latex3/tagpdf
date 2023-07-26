@@ -584,61 +584,107 @@ end
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Functions to insert the pdf literals}
-% \begin{macro}{@@_insert_emc_node}
-% This insert the emc node.
+% \begin{macro}{@@_backend_create_emc_node,@@_insert_emc_node}
+% This insert the emc node. We support also dvips and dvipdfmx backend
 %    \begin{macrocode}
-local function @@_insert_emc_node (head,current)
-  if tex.outputmode == 0 then
-   local emcnode = nodenew("whatsit","special")
-       emcnode.data = "ps:SDict begin mark /EMC pdfmark end"
-       head = node.insert_before(head,current,emcnode)
-   return head
-  else
-   local emcnode = nodenew("whatsit","pdf_literal")
-       emcnode.data = "EMC"
-       emcnode.mode=1
-       head = node.insert_before(head,current,emcnode)
-   return head
+local @@_backend_create_emc_node
+if tex.outputmode == 0 then
+ if token.get_macro("c_sys_backend_str") == "dvipdfmx" then
+  function @@_backend_create_emc_node ()
+    local emcnode = nodenew("whatsit","special")
+      emcnode.data = "pdf:code EMC"      
+    return emcnode
+  end  
+ else -- assume a dvips variant
+  function @@_backend_create_emc_node ()
+    local emcnode = nodenew("whatsit","special")
+      emcnode.data = "ps:SDict begin mark /EMC pdfmark end"      
+    return emcnode
   end
+ end 
+else -- pdf mode
+  function @@_backend_create_emc_node ()
+    local emcnode = nodenew("whatsit","pdf_literal")
+      emcnode.data = "EMC"
+      emcnode.mode=1
+    return emcnode
+  end
+end 
+   
+local function @@_insert_emc_node (head,current)
+  local emcnode= @@_backend_create_emc_node()
+  head = node.insert_before(head,current,emcnode)
+  return head
 end
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{@@_insert_bmc_node}
+% \begin{macro}{@@_backend_create_bmc_node,@@_insert_bmc_node}
 % This inserts a simple bmc node
 %    \begin{macrocode}
-local function @@_insert_bmc_node (head,current,tag)
- if tex.outputmode == 0 then
-  local bmcnode = nodenew("whatsit","special")
-       bmcnode.data = "ps:SDict begin mark/"..tag.." BMC pdfmark end"
-       head = node.insert_before(head,current,bmcnode)
-  return head
- else
-  local bmcnode = nodenew("whatsit","pdf_literal")
-       bmcnode.data = "/"..tag.." BMC"
-       bmcnode.mode=1
-       head = node.insert_before(head,current,bmcnode)
-  return head
+local @@_backend_create_bmc_node
+if tex.outputmode == 0 then
+ if token.get_macro("c_sys_backend_str") == "dvipdfmx" then
+  function @@_backend_create_bmc_node (tag)
+    local bmcnode = nodenew("whatsit","special")
+    bmcnode.data = "pdf:code /"..tag.." BMC"    
+    return bmcnode
+  end  
+ else -- assume a dvips variant
+  function @@_backend_create_bmc_node (tag)
+    local bmcnode = nodenew("whatsit","special")
+    bmcnode.data = "ps:SDict begin mark/"..tag.." BMC pdfmark end"
+    return bmcnode
+  end
  end 
+else -- pdf mode
+  function @@_backend_create_bmc_node (tag)
+    local bmcnode = nodenew("whatsit","pdf_literal")
+    bmcnode.data = "/"..tag.." BMC"
+    bmcnode.mode=1
+    return bmcnode
+  end
+end 
+
+local function @@_insert_bmc_node (head,current,tag)
+ local bmcnode = @@_backend_create_bmc_node (tag)
+ head = node.insert_before(head,current,bmcnode)
+ return head
 end
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{@@_insert_bdc_node}
+% \begin{macro}{@@_backend_create_bdc_node,@@_insert_bdc_node}
 %  This inserts a bcd node with a fix dict.
 %  TODO: check if this is still used, now that we create properties.
 %    \begin{macrocode}
+local @@_backend_create_bdc_node
+
+if tex.outputmode == 0 then
+ if token.get_macro("c_sys_backend_str") == "dvipdfmx" then
+  function @@_backend_create_bdc_node (tag,dict)
+    local bdcnode = nodenew("whatsit","special")
+    bdcnode.data = "pdf:code /"..tag.."<<"..dict..">> BDC"    
+    return bdcnode
+  end  
+ else -- assume a dvips variant
+  function @@_backend_create_bdc_node (tag,dict)
+    local bdcnode = nodenew("whatsit","special")
+    bdcnode.data = "ps:SDict begin mark/"..tag.."<<"..dict..">> BDC pdfmark end"
+    return bdcnode
+  end
+ end 
+else -- pdf mode
+  function @@_backend_create_bdc_node (tag,dict)
+    local bdcnode = nodenew("whatsit","pdf_literal")
+    bdcnode.data = "/"..tag.."<<"..dict..">> BDC"
+    bdcnode.mode=1
+    return bdcnode
+  end
+end 
+
 local function @@_insert_bdc_node (head,current,tag,dict)
- if tex.outputmode == 0 then
-  local bdcnode = nodenew("whatsit","special")
-       bdcnode.data = "ps:SDict begin mark/"..tag.."<<"..dict..">> BDC pdfmark end"
-       head = node.insert_before(head,current,bdcnode)
-  return head
- else
-  local bdcnode = nodenew("whatsit","pdf_literal")
-       bdcnode.data = "/"..tag.."<<"..dict..">> BDC"
-       bdcnode.mode=1
-       head = node.insert_before(head,current,bdcnode)
-  return head
- end
+ bdcnode= @@_backend_create_bdc_node (tag,dict)
+ head = node.insert_before(head,current,bdcnode)
+ return head
 end
 %    \end{macrocode}
 % \end{macro}
@@ -1100,16 +1146,8 @@ end
 function ltx.@@.func.mark_shipout (box)
  mcopen = ltx.@@.func.mark_page_elements (box,-1,-100,0,"Shipout",-1)
  if mcopen~=0 then -- there is a chunk open, close it (hope there is only one ...
-  local emcnode 
+  local emcnode = @@_backend_create_emc_node ()
   local list = box.list
-  if tex.outputmode == 0 then
-   emcnode = nodenew("whatsit","special")
-   emcnode.data = "ps:SDict begin mark/EMC pdfmark end"
-  else
-   emcnode = nodenew("whatsit","pdf_literal")
-   emcnode.data = "EMC"
-   emcnode.mode=1
-  end 
   if list then
      list = node.insert_after (list,node.tail(list),emcnode)
      mcopen = mcopen - 1
