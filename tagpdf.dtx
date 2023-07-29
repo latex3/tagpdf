@@ -34,7 +34,8 @@
 % \end{function}
 %
 % \begin{function}{ \tag_stop_group_begin:, \tag_stop_group_end:,
-%  \tag_stop:, \tag_start: }
+%  \tag_stop:, \tag_start:,
+%  \tagstop, \tagstart }
 % We need commands to stop tagging in some places.
 % They simply switches the two local booleans. The grouping commands
 % can be used to group the effect.
@@ -496,6 +497,8 @@
     \bool_set_true:N \l_@@_active_struct_bool
     \bool_set_true:N \l_@@_active_mc_bool
   }
+\cs_set_eq:NN\tagstop\tag_stop:
+\cs_set_eq:NN\tagstart\tag_start:  
 \prop_new:N\g_@@_state_prop
 \cs_set_protected:Npn \tag_stop:n #1
   {
@@ -522,6 +525,8 @@
 %<*base>
 \cs_new_protected:Npn \tag_stop:{}
 \cs_new_protected:Npn \tag_start:{}
+\cs_new_protected:Npn \tagstop{}
+\cs_new_protected:Npn \tagstart{}
 \cs_new_protected:Npn \tag_stop:n  #1 {}
 \cs_new_protected:Npn \tag_start:n #1 {}
 %</base>

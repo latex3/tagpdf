@@ -1324,13 +1324,9 @@ add the needed code.
 \tagpdfparaOff
 
 \tagstructbegin{tag=Figure,alt={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
-\ExplSyntaxOn
-\tag_stop:
-\ExplSyntaxOff
+\tagstop
 \input{link-figure-input}
-\ExplSyntaxOn
-\tag_start:
-\ExplSyntaxOff
+\tagstart
 \tagmcend\tagstructend
 
 \caption{Structure needed for a link annotation}\label{fig:linkannot}
@@ -1939,12 +1935,19 @@ quite possible that some of the commands will disappear again if we realize that
 
 \begin{docCommand}[nosep]{tag_stop:}{}\end{docCommand}
 \begin{docCommand}[nosep]{tag_start:}{}\end{docCommand}
+\begin{docCommand}[nosep]{tagstop}{}\end{docCommand}
+\begin{docCommand}[nosep]{tagstart}{}\end{docCommand}
 \begin{docCommand}[nosep]{tag_stop_group_begin:}{}\end{docCommand}
 \begin{docCommand}{tag_start_group_end:}{}\end{docCommand}
 
 This commands stop and start tagging in the current group 
 by switching \emph{local} booleans.
 The grouping commands also open and close a group.
+
+Restarting tagging is normally only needed if groups can't be used and then 
+must be done with care: |\tagstart| should normally only restart tagging if 
+the corresponding stop command actually stopped tagging. In complicated 
+case the following labeled version can be used: 
 
 \begin{docCommand}[nosep]{tag_stop:n}{\marg{label}}\end{docCommand}
 \begin{docCommand}{tag_start:n}{\marg{label}}\end{docCommand}
