@@ -191,7 +191,9 @@ but the xelatex and the latex-dvips-route are basically untested tested and they
 real space glyphs so I don't recommend them. 
 lualatex is the most powerful and safe modus and should be used for new documents, it is slower than pdflatex but requires less compilations to get tagging. pdflatex works ok and can be used for legacy documents; it needs more compilations to resolve all cross references needed for the tagging. 
 
-The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
+The package has two modes: the \emph{generic mode} which should work in 
+theory with every engine and the \emph{lua mode} which works only with 
+lualatex and (since version 0.98k) with dvilualatex. 
 
 I implemented the generic mode first. Mostly because my \TeX\ skills are much better than my lua skills and I wanted to get the \TeX\ side right before starting to fight with attributes and node traversing.
 
@@ -522,6 +524,18 @@ See~\ref{sec:paratagging} and also \texttt{latex-lab-block-tagging.dtx} for more
 \item The command |tag_struct_end:n| has been add to improve debugging.
 \end{itemize}
 
+\subsection{Changes in version 0.98k}
+
+The luamode has been adapted and now allows also the compilation with 
+dvilualatex. By default it will insert specials for \texttt{dvips} into the 
+dvi. But be aware that \texttt{dvips} can normally not be used as it can't 
+handle open type fonts, and extended version would be needed which isn't in 
+texlive yet. It is also possible to use \texttt{dvipdfmx} as backend (which 
+already has support for open type fonts), for this you need to use 
+\texttt{backend=dvipdfmx} in the \cs{DocumentMetadata} command. Real space 
+chars will work, but are currently not taken from the current font. This will 
+be improved in the next luaotfload version. The compilation with dvilualatex 
+is not much tested yet. 
 
 \subsection{Proof of concept: the tagging of the documentation itself}
 
