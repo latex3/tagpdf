@@ -263,6 +263,10 @@ local nodeinsertafter  = node.insert_after
 local nodeinsertbefore = node.insert_before
 local pdfpageref       = pdf.pageref
 
+local fonthashes      = fonts.hashes
+local identifiers     = fonthashes.identifiers
+local fontid          = font.id
+
 local HLIST          = node.id("hlist")
 local VLIST          = node.id("vlist")
 local RULE           = node.id("rule")
@@ -832,10 +836,23 @@ ltx.@@.func.markspaceoff=@@_deactivate_mark_space
 % \end{macro}
 % We need two local variable to setup a default space char.
 %    \begin{macrocode}
-local default_space_char = node.new(GLYPH)
-local default_fontid     = font.id("TU/lmr/m/n/10")
+local default_space_char = nodenew(GLYPH)
+local default_fontid     = fontid("TU/lmr/m/n/10")
 default_space_char.char  = 32
 default_space_char.font  = default_fontid
+%    \end{macrocode}
+% And a function to check as best as possible if a font has a space:
+%    \begin{macrocode}
+local function @@_font_has_space (fontid)
+ t= fonts.hashes.identifiers[fontid]
+ if luaotfload.aux.slot_of_name(fontid,"space") 
+    or t.characters and t.characters[32] and t.characters[32]["unicode"]==32 
+ then
+    return true
+ else
+    return false
+ end      
+end 
 %    \end{macrocode}
 % \begin{macro}
 %   {
@@ -865,7 +882,10 @@ local function @@_space_chars_shipout (box)
           local space_char = node.copy(default_space_char)
           local curfont    = nodegetattribute(n,iwfontattributeid)
           ltx.@@.trace.log ("INFO SPACE-FUNCTION-FONT: ".. tostring(curfont),3)
-          if curfont and luaotfload.aux.slot_of_name(curfont,"space") then
+          if curfont and 
+            -- luaotfload.aux.slot_of_name(curfont,"space") 
+            @@_font_has_space (curfont)
+          then
             space_char.font=curfont
           end
           head, space = node.insert_before(head, n, space_char) --
