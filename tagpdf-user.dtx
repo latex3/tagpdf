@@ -750,7 +750,7 @@
  
 \AddToHook{begindocument/before}
  {
-   \providecommand\@kernel@before@cclv@new{}
+   \providecommand\@kernel@tagsupport@@makecol{}
    \providecommand\@kernel@before@cclv{}
    \bool_if:NF \g_@@_mode_lua_bool
      {
@@ -763,7 +763,7 @@
                \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
                \@@_add_missing_mcs_to_stream:Nn \@cclv {main}
              }
-           \tl_put_right:Nn \@kernel@before@cclv@new
+           \tl_put_right:Nn \@kernel@tagsupport@@makecol
              {
                \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
                \@@_add_missing_mcs_to_stream:Nn \@outputbox {main}
