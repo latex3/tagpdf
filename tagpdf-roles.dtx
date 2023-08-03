@@ -651,17 +651,19 @@
  }  
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_role_read_namespace:n}
-% This command reads the namespace file.
+% 
+% \begin{macro}{\@@_role_read_namespace:nn}
+% This command reads a namespace file in the format
+% tagpdf-ns-XX.def
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
+\cs_new_protected:Npn \@@_role_read_namespace:nn #1 #2 %name of namespace #2 name of file
   { 
     \prop_if_exist:cF {g_@@_role_NS_#1_prop}
       { \msg_warning:nnn {tag}{namespace-unknown}{#1} }
-    \file_if_exist:nTF { tagpdf-ns-#1.def}
+    \file_if_exist:nTF { tagpdf-ns-#2.def }
      { 
-       \ior_open:Nn \g_tmpa_ior {tagpdf-ns-#1.def}
-       \msg_info:nnn {tag}{read-namespace}{#1}
+       \ior_open:Nn \g_tmpa_ior {tagpdf-ns-#2.def}
+       \msg_info:nnn {tag}{read-namespace}{#2}
        \ior_map_inline:Nn \g_tmpa_ior 
          {
            \@@_role_read_namespace_line:nw {#1} ##1,,,,\q_stop 
@@ -675,8 +677,16 @@
    
 %    \end{macrocode}
 % \end{macro}
-%
-
+% 
+% \begin{macro}{\@@_role_read_namespace:n}
+% This command reads the default namespace file.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
+  { 
+    \@@_role_read_namespace:nn {#1}{#1}
+  }  
+%    \end{macrocode}
+% \end{macro}
 % 
 % \subsection{Reading the default data}
 % The order is important as we want pdf2 and latex as default.
