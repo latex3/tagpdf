@@ -671,7 +671,7 @@
        \ior_close:N\g_tmpa_ior    
      }
      {
-      \msg_warning:nnn{tag}{namespace-missing}{#1}
+      \msg_info:nnn{tag}{namespace-missing}{#2}
      }
   }   
    
@@ -689,17 +689,24 @@
 % \end{macro}
 % 
 % \subsection{Reading the default data}
-% The order is important as we want pdf2 and latex as default.
+% The order is important as we want pdf2 and latex as default: if two 
+% namespace define the same tag, the last one defines which one is used
+% if the namespace is not explicitly given.
 %    \begin{macrocode}
 \@@_role_read_namespace:n {pdf}
 \@@_role_read_namespace:n {pdf2}
 \pdf_version_compare:NnF < {2.0}
   {\@@_role_read_namespace:n {mathml}} 
+%    \end{macrocode}
+% in pdf 1.7 the following namespaces should only store
+% the settings for later use:
+%    \begin{macrocode}
 \bool_set_false:N\l_@@_role_update_bool
-\@@_role_read_namespace:n {latex-inline} 
+\@@_role_read_namespace:n {latex-inline}
 \@@_role_read_namespace:n {latex-book}  
 \bool_set_true:N\l_@@_role_update_bool
 \@@_role_read_namespace:n {latex}
+\@@_role_read_namespace:nn {latex} {latex-lab}
 \@@_role_read_namespace:n {pdf}
 \@@_role_read_namespace:n {pdf2}
 %    \end{macrocode}
