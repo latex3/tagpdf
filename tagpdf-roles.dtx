@@ -580,8 +580,8 @@
 % This command will process a line in the name space file.
 % The first argument is the name of the name space. 
 % The definition differ for pdf 2.0. as we have proper name spaces there.
-% With pdf<2.0 not special name spaces shouldn't update the default role or add to the rolemap
-% again. We use a boolean here.
+% With pdf<2.0 special name spaces shouldn't update the default role or add to the rolemap
+% again, they only store the values for later uses. We use a boolean here.
 %    \begin{macrocode}
 \bool_new:N\l_@@_role_update_bool
 \bool_set_true:N \l_@@_role_update_bool
