@@ -15,18 +15,18 @@ Don't change this file in any respect.
 \newlabeldata{l3pdf3}{{abspage}{1}}^^M
 \newlabeldata{mcid-5}{{tagabspage}{1}{tagmcabs}{5}{tagmcid}{3}}^^M
 \newlabeldata{l3pdf4}{{abspage}{1}}^^M
-\newlabeldata{mcid-12}{{tagabspage}{1}{tagmcabs}{12}{tagmcid}{7}}^^M
-\newlabeldata{l3pdf8}{{abspage}{1}}^^M
 \newlabeldata{mcid-11}{{tagabspage}{1}{tagmcabs}{11}{tagmcid}{6}}^^M
 \newlabeldata{l3pdf7}{{abspage}{1}}^^M
-\newlabeldata{mcid-16}{{tagabspage}{2}{tagmcabs}{16}{tagmcid}{1}}^^M
-\newlabeldata{l3pdf10}{{abspage}{2}}^^M
+\newlabeldata{mcid-12}{{tagabspage}{1}{tagmcabs}{12}{tagmcid}{7}}^^M
+\newlabeldata{l3pdf8}{{abspage}{1}}^^M
 \newlabeldata{mcid-15}{{tagabspage}{2}{tagmcabs}{15}{tagmcid}{0}}^^M
 \newlabeldata{l3pdf9}{{abspage}{2}}^^M
-\newlabeldata{mcid-18}{{tagabspage}{2}{tagmcabs}{18}{tagmcid}{3}}^^M
-\newlabeldata{l3pdf12}{{abspage}{2}}^^M
+\newlabeldata{mcid-16}{{tagabspage}{2}{tagmcabs}{16}{tagmcid}{1}}^^M
+\newlabeldata{l3pdf10}{{abspage}{2}}^^M
 \newlabeldata{mcid-17}{{tagabspage}{2}{tagmcabs}{17}{tagmcid}{2}}^^M
 \newlabeldata{l3pdf11}{{abspage}{2}}^^M
+\newlabeldata{mcid-18}{{tagabspage}{2}{tagmcabs}{18}{tagmcid}{3}}^^M
+\newlabeldata{l3pdf12}{{abspage}{2}}^^M
 \newlabeldata{mcid-24}{{tagabspage}{3}{tagmcabs}{24}{tagmcid}{1}}^^M
 \newlabeldata{l3pdf14}{{abspage}{3}}^^M
 \newlabeldata{mcid-22}{{tagabspage}{3}{tagmcabs}{22}{tagmcid}{0}}^^M
@@ -96,6 +96,18 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 Package tagpdf Info: closing structure 8 tagged /text
 Package tagpdf Info: closing structure 7 tagged /text-unit
+====> In \@makecol 1
+Pick up new bot mark!
+=> first b-, 1, -1
+=> bot b+, 9, 8, text
+=> TMB not missing
+=> TME missing -- inserted
+The sequence \g__tag_mc_main_marks_seq contains the items (without outer
+braces):
+>  {b+}
+>  {9}
+>  {8}
+>  {text}.
 Pick up new bot mark!
 => first b-, 4, 6, Lbl
 => bot b+, 5, 4, Note
@@ -108,35 +120,23 @@ braces):
 >  {4}
 >  {Note}.
 ====> In \@makecol 1
-Pick up new bot mark!
-=> first b-, 1, -1
-=> bot b+, 5, 4, Note
-=> TMB not missing
+No marks so use saved bot mark: b+, 9, 8, text
+=> first b+, 9, 8, text
+=> bot b+, 9, 8, text
+=> TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
 braces):
 >  {b+}
->  {5}
->  {4}
->  {Note}.
+>  {9}
+>  {8}
+>  {text}.
 No marks so use saved bot mark: b+, 5, 4, Note
 => first b+, 5, 4, Note
 => bot b+, 5, 4, Note
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_footnote_marks_seq contains the items (without outer
-braces):
->  {b+}
->  {5}
->  {4}
->  {Note}.
-====> In \@makecol 1
-No marks so use saved bot mark: b+, 5, 4, Note
-=> first b+, 5, 4, Note
-=> bot b+, 5, 4, Note
-=> TMB missing -- inserted
-=> TME missing -- inserted
-The sequence \g__tag_mc_main_marks_seq contains the items (without outer
 braces):
 >  {b+}
 >  {5}
@@ -144,6 +144,18 @@ braces):
 >  {Note}.
 [1
 ]
+====> In \@makecol 2
+No marks so use saved bot mark: b+, 9, 8, text
+=> first b+, 9, 8, text
+=> bot b+, 9, 8, text
+=> TMB missing -- inserted
+=> TME missing -- inserted
+The sequence \g__tag_mc_main_marks_seq contains the items (without outer
+braces):
+>  {b+}
+>  {9}
+>  {8}
+>  {text}.
 No marks so use saved bot mark: b+, 5, 4, Note
 => first b+, 5, 4, Note
 => bot b+, 5, 4, Note
@@ -156,35 +168,23 @@ braces):
 >  {4}
 >  {Note}.
 ====> In \@makecol 2
-No marks so use saved bot mark: b+, 5, 4, Note
-=> first b+, 5, 4, Note
-=> bot b+, 5, 4, Note
+No marks so use saved bot mark: b+, 9, 8, text
+=> first b+, 9, 8, text
+=> bot b+, 9, 8, text
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
 braces):
 >  {b+}
->  {5}
->  {4}
->  {Note}.
+>  {9}
+>  {8}
+>  {text}.
 Pick up new bot mark!
 => first e-, 5, 4
 => bot e+, 5, 4
 => TMB missing -- inserted
 => TME not missing
 The sequence \g__tag_mc_footnote_marks_seq contains the items (without outer
-braces):
->  {b+}
->  {5}
->  {4}
->  {Note}.
-====> In \@makecol 2
-Pick up new bot mark!
-=> first e-, 5, 4
-=> bot e+, 5, 4
-=> TMB missing -- inserted
-=> TME not missing
-The sequence \g__tag_mc_main_marks_seq contains the items (without outer
 braces):
 >  {b+}
 >  {5}
@@ -210,9 +210,10 @@ Pick up new bot mark!
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer
 braces):
->  {e+}
->  {5}
->  {4}.
+>  {b+}
+>  {9}
+>  {8}
+>  {text}.
 ====> In \@makecol 3
 Pick up new bot mark!
 => first b-, 21, -1
