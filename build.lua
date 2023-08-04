@@ -196,7 +196,10 @@ sourcefiles  = {"*.dtx",
 
 typesetfiles =
  {
-   "tagpdf.tex","tagpdf-code.tex"
+   "tagpdf.tex","tagpdf-code.tex",
+   "examples/mc/ex-*.tex",
+   "examples/other/ex-*.tex",
+   "examples/structure/ex-*.tex",
 --   "tagpdf-tree.dtx",
 --   "tagpdf-checks.dtx",
 --   "tagpdf-space.dtx",
