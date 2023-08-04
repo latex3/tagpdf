@@ -8,22 +8,13 @@
 % when copied from adobe
 % sumatra doesn't understand this and copies Mi­nisterprä­sident
 
-
-
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{pdfversion=1.7,uncompress}
+\DocumentMetadata{testphase=phase-II,pdfversion=1.7,uncompress}
 \documentclass{book}
 
 \usepackage[ngerman]{babel} %to get some hyphenation
-\usepackage{tagpdf}
-\tagpdfsetup{tabsorder=structure,
-             activate, %deactivate to see the difference
-             interwordspace,
-             paratagging
-             }
 
 \usepackage{fontspec}
-% we must remove the invisible feature
+%with older luaotfload we must remove the invisible feature!
 \setmainfont{TeX Gyre Pagella}[RawFeature={-invisible}]
 \prehyphenchar"AD
 
@@ -38,17 +29,9 @@ Ministerpräsident
 \end{document}
 
 
-aaaaaaa-
-aaaaaa
-aaaaaaa-
-aaaaaa
-Mi­
-nisterprä­
-sident
-
 
 aaaaaaa-aaaaaa aaaaaaa-aaaaaa
 Ministerpräsident
 
 aaaaaaa-aaaaaa aaaaaaa-aaaaaa
-Ministerpräsident
+Ministerpräsident 
