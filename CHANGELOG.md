@@ -8,7 +8,7 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 - adapted parent-child rule to new ISO 32005
-- prepared for changes in the footnote code in latex-lab
+- prepare for changes in the footnote code in latex-lab
 - improved compatibility with dvilualatex.
 
 
