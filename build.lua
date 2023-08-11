@@ -167,8 +167,13 @@ docfiles = {"tagpdf.tex",
             "pac3.PNG",
             "acrobat.png",
             "global-ex.png",
-            "examples/**/ex-*.tex",
-            "examples/**/ex-*.pdf"}
+            "examples/mc/ex-*.tex",
+            "examples/mc/ex-*.pdf",
+            "examples/structure/ex-*.tex",
+            "examples/structure/ex-*.pdf",
+            "examples/other/ex-*.tex",
+            "examples/other/ex-*.pdf",
+            }
 
 textfiles= {"doc/CTANREADME.md"}
 binaryfiles = {"*.pdf", "*.png", "*.PNG", "*.zip"}
@@ -197,9 +202,7 @@ sourcefiles  = {"*.dtx",
 typesetfiles =
  {
    "tagpdf.tex","tagpdf-code.tex",
-   "examples/mc/ex-*.tex",
-   "examples/other/ex-*.tex",
-   "examples/structure/ex-*.tex",
+   "ex-*.tex",
 --   "tagpdf-tree.dtx",
 --   "tagpdf-checks.dtx",
 --   "tagpdf-space.dtx",
