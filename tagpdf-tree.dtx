@@ -342,9 +342,12 @@
               {% page#1:mcid##1:\l_@@_tmpa_tl :content
                 \tl_put_right:Nx \l_@@_parenttree_content_tl
                   {
-                    \pdf_object_if_exist:eT { @@/struct/\l_@@_tmpa_tl }
+                    \pdf_object_if_exist:eTF { @@/struct/\l_@@_tmpa_tl }
                      {
                        \pdf_object_ref:e { @@/struct/\l_@@_tmpa_tl }
+                     }
+                     {
+                       null
                      }
                     \c_space_tl
                   }
