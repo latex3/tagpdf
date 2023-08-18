@@ -516,11 +516,33 @@
 % in case luamode need something else.
 % change 04.08.2018: the commands do not check the validity of the arguments or try
 % to escape them, this should be done before using them.
+% change 2023-08-18: we are delaying the writing to the shipout.
 %    \begin{macrocode}
 % #1 tag, #2 properties
+\sys_if_engine_luatex:TF
+ {
+   \cs_new_protected:Npn \__kernel_backend_literal_page_shipout:n #1
+    {
+      \tex_pdfextension:D ~literal~shipout~page{ #1 }
+    }
+ }
+ {
+   \cs_new_protected:Npn \__kernel_backend_literal_page_shipout:n #1
+    {
+      \tex_pdfliteral:D~shipout~page{ #1 }
+    }
+ }   
+\cs_new_protected:Npn \__pdf_backend_bdc_contstream_shipout:nn #1 #2
+   {
+     \__kernel_backend_literal_page_shipout:n{ /#1~<<#2>>~BDC }
+   }
 \cs_set_eq:NN \@@_mc_bmc:n  \pdf_bmc:n
 \cs_set_eq:NN \@@_mc_emc:   \pdf_emc:
 \cs_set_eq:NN \@@_mc_bdc:nn \pdf_bdc:nn
+%    \end{macrocode}
+% delay to shipout:
+%    \begin{macrocode}
+\cs_set_eq:NN \@@_mc_bdc:nn \__pdf_backend_bdc_contstream_shipout:nn
 \cs_generate_variant:Nn \@@_mc_bdc:nn {nx}
 %    \end{macrocode}
 % \end{macro}
@@ -582,7 +604,27 @@
        {#1}
        { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~ \exp_not:n { #2 } }
  }
-\cs_new_protected:Npn \@@_mc_bdc_mcid:n #1
+%%%%%%%% new code only luatex/pdftex
+\flag_new:n { @@/mcid }     
+\AddToHook{shipout/before}
+    { \flag_clear:n { @@/mcid } }
+\ref_attribute_gset:nnnn {tagmcid }  {0} { shipout }
+  { \flag_height:n { @@/mcid } }
+\cs_set_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
+  {
+     \int_gincr:N \c@g_@@_MCID_abs_int
+     \@@_ref_label:en
+      {
+        mcid-\int_use:N \c@g_@@_MCID_abs_int
+      }
+      {mc}     
+     \@@_mc_bdc:nn
+       {#1}
+       { /MCID~\flag_height:n { @@/mcid }
+         \flag_raise:n { @@/mcid }~  #2  }
+  }
+%%% end new code   
+ \cs_new_protected:Npn \@@_mc_bdc_mcid:n #1
   {
     \@@_mc_bdc_mcid:nn {#1} {}
   }
