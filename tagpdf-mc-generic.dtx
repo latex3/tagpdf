@@ -66,16 +66,10 @@
 %
 %\subsection{Variables}
 %
-% \begin{variable}{\g_@@_MCID_byabspage_prop}
-% This property will hold the current maximum on a page
-% it will contain key-value of type \meta{abspagenum}=\meta{max mcid}
-%
 %    \begin{macrocode}
 %<*generic>
-\@@_prop_new:N \g_@@_MCID_byabspage_prop
 %    \end{macrocode}
-% \end{variable}
-
+%
 % \begin{variable}{\l_@@_mc_ref_abspage_tl}
 % We need a ref-label system to ensure that the MCID cnt
 % restarts at 0 on a new page
@@ -555,8 +549,10 @@
       {mc}     
      \@@_mc_bdc_shipout:ee
        {#1}
-       { /MCID~\flag_height:n { @@/mcid }
-         \flag_raise:n { @@/mcid }~  #2  }
+       { 
+         /MCID~\flag_height:n { @@/mcid }
+         \flag_raise:n { @@/mcid }~  #2  
+       }
   }
    
  \cs_new_protected:Npn \@@_mc_bdc_mcid:n #1
@@ -682,7 +678,7 @@
             \tl_if_empty:NF {\l_@@_mc_key_label_tl}
               {
                 \exp_args:NV
-                \@@_mc_handle_mc_label:n \l_@@_mc_key_label_tl
+                \@@_mc_handle_mc_label:e \l_@@_mc_key_label_tl
               }
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
