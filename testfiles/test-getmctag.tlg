@@ -40,9 +40,8 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\write1{\newlabeldata{mcid-1}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{1}{tagmcid}{0}}}
-...\pdfliteral page{/P /l3pdf1 BDC}
-...\write1{\newlabeldata{l3pdf1}{{abspage}{\__ref_attribute_abspage: }}}
+...\write1{\newlabeldata{mcid-1}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{1}{tagmcid}{\__ref_attribute_tagmcid: }}}
+...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ...\marks4{b-,1,0,P,,,}
 ...\marks4{b+,1,0,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
