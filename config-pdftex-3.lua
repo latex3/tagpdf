@@ -1,4 +1,4 @@
-testfiledir  = "testfiles-pdftex"
+testfiledir  = "testfiles-pdftex-3"
 checkengines = {"pdftex","pdftexmain"}
 stdengine     = "pdftex"
-checkruns    = 2
+checkruns    = 3

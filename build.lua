@@ -50,7 +50,7 @@ checkconfigs = {
                "config-luatex",
                 }
                 
-checkruns = 4
+checkruns = 2
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
 --excludetests = {"test-saveboxes-structure-dev","test-link"}
 
