@@ -38,8 +38,8 @@ jobs:
 
       - name: Prepare l3build
         run: |
-          kpsewhich --var-value TEXMFHOME
-          echo "TEXMFHOME=c:\temp\texmf" >> "$GITHUB_ENV"
+          # Ensure that "kpsewhich --var-value TEXMFHOME" returns something
+          initexmf --user-roots="%USERPROFILE%/texmf"
 
       - run: l3build install
 
