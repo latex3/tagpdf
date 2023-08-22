@@ -536,25 +536,88 @@
 % We also define a wrapper around the low-level command as luamode will need
 % something different.
 %    \begin{macrocode}
-
-\AddToHook{shipout/before}{ \flag_clear:n { @@/mcid } }
-
-\cs_set_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
-  {
-     \int_gincr:N \c@g_@@_MCID_abs_int
-     \@@_ref_label:en
+\bool_if:NTF \l__pdfmanagement_delayed_shipout_bool
+  { 
+    \hook_gput_code:nnn {shipout/before}{tagpdf}{ \flag_clear:n { @@/mcid } }
+    \cs_set_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
       {
-        mcid-\int_use:N \c@g_@@_MCID_abs_int
+        \int_gincr:N \c@g_@@_MCID_abs_int
+        \@@_ref_label:en
+         {
+           mcid-\int_use:N \c@g_@@_MCID_abs_int
+         }
+         {mc}     
+        \@@_mc_bdc_shipout:ee
+          {#1}
+          { 
+            /MCID~\flag_height:n { @@/mcid }
+            \flag_raise:n { @@/mcid }~  #2  
+          }
       }
-      {mc}     
-     \@@_mc_bdc_shipout:ee
-       {#1}
-       { 
-         /MCID~\flag_height:n { @@/mcid }
-         \flag_raise:n { @@/mcid }~  #2  
-       }
-  }
-   
+  } 
+%    \end{macrocode}
+% if the engine is too old, we have to revert to earlier method.
+%    \begin{macrocode}
+ { 
+   \msg_new:nnn { tagpdf } { old-engine }
+    { 
+      The~engine~is~too~old.\\
+      Fast~numbering~of~MC-chunks~not~available.\\
+      More~compilations~will~be~needed~in~generic~mode.
+    }  
+   \msg_warning:nn { tagpdf} { old-engine }   
+   \@@_prop_new:N \g_@@_MCID_byabspage_prop
+   \int_new:N \g_@@_MCID_tmp_bypage_int
+   \cs_generate_variant:Nn \@@_mc_bdc:nn {nx}
+%    \end{macrocode}
+% revert the attribute:
+%    \begin{macrocode}
+   \ref_attribute_gset:nnnn {tagmcid }  {0} { now }
+      { \int_use:N \g_@@_MCID_tmp_bypage_int }
+   \cs_new_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
+     {
+       \int_gincr:N \c@g_@@_MCID_abs_int
+       \tl_set:Nx \l_@@_mc_ref_abspage_tl
+         {
+           \@@_ref_value:enn %3 args
+             {
+               mcid-\int_use:N \c@g_@@_MCID_abs_int
+             }
+             { tagabspage }
+             {-1}
+         }
+       \prop_get:NoNTF
+         \g_@@_MCID_byabspage_prop
+         {
+           \l_@@_mc_ref_abspage_tl
+         }
+         \l_@@_mc_tmpa_tl
+         {
+           %key already present, use value for MCID and add 1 for the next
+           \int_gset:Nn \g_@@_MCID_tmp_bypage_int { \l_@@_mc_tmpa_tl }
+           \@@_prop_gput:Nxx
+             \g_@@_MCID_byabspage_prop
+             { \l_@@_mc_ref_abspage_tl }
+             { \int_eval:n {\l_@@_mc_tmpa_tl +1} }
+         }
+         {
+           %key not present, set MCID to 0 and insert 1
+           \int_gzero:N \g_@@_MCID_tmp_bypage_int
+           \@@_prop_gput:Nxx
+             \g_@@_MCID_byabspage_prop
+             { \l_@@_mc_ref_abspage_tl }
+             {1}
+         }
+       \@@_ref_label:en
+         {
+           mcid-\int_use:N \c@g_@@_MCID_abs_int
+         }
+         { mc }
+        \@@_mc_bdc:nx
+          {#1}
+          { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~ \exp_not:n { #2 } }
+      }        
+ }  
  \cs_new_protected:Npn \@@_mc_bdc_mcid:n #1
   {
     \@@_mc_bdc_mcid:nn {#1} {}
