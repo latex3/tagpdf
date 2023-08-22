@@ -39,7 +39,7 @@ jobs:
       - name: Prepare l3build
         run: |
           # Ensure that "kpsewhich --var-value TEXMFHOME" returns something
-          initexmf --user-roots="%USERPROFILE%/texmf"
+          initexmf --user-roots="C:/texmf"
 
       - run: l3build install
 
