@@ -30,17 +30,7 @@ jobs:
           miktex --admin --verbose packages update-package-database
           miktex --admin --verbose packages update
           miktex --verbose packages update
-
-      - name: Install MiKTeX packages
-        shell: bash
-        run: |
-          packages=$(grep -vE '^#' tl_packages | tr '\n' ' ' | tr -s ' ')
-          for package in $packages; do
-            miktex --admin --verbose packages install $package
-          done
-
-      - name: Final MiKTeX tweaks
-        run: |
+          miktex --admin --verbose packages install cm-super l3kernel l3packages l3build l3experimental l3backend 
           miktex --admin --verbose fndb refresh
           initexmf --admin --verbose --update-fndb
           initexmf --admin --verbose --mklinks --force
