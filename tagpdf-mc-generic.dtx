@@ -264,8 +264,8 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_insert_extra_tmb:n #1 % #1 stream: e.g. main or footnote
   {
-     \@@_check_typeout_v:n {=>~ first~ \seq_use:Nn \l__tag_mc_firstmarks_seq {,~}}
-     \@@_check_typeout_v:n {=>~ bot~ \seq_use:Nn \l__tag_mc_botmarks_seq {,~}}
+     \@@_check_typeout_v:n {=>~ first~ \seq_use:Nn \l_@@_mc_firstmarks_seq {,~}}
+     \@@_check_typeout_v:n {=>~ bot~ \seq_use:Nn \l_@@_mc_botmarks_seq {,~}}
      \@@_check_if_mc_tmb_missing:TF
        {
          \@@_check_typeout_v:n {=>~ TMB~ ~ missing~ --~ inserted}
@@ -292,7 +292,7 @@
                     {
                       \seq_item:cn { g_@@_mc_#1_marks_seq } {2}
                     }
-                    { \int_eval:n{\c@g__tag_MCID_abs_int} }
+                    { \int_eval:n{\c@g_@@_MCID_abs_int} }
                     {
                       \seq_item:cn { g_@@_mc_#1_marks_seq } {3}
                     }
@@ -429,7 +429,7 @@
 %    Some debugging info:
 %    \begin{macrocode}
 %    \iow_term:n { First~ mark~ from~ this~ box: }
-%    \seq_log:N \l__tag_mc_firstmarks_seq
+%    \seq_log:N \l_@@_mc_firstmarks_seq
 %    \end{macrocode}
 %    If this mark was empty then clearly the bottom mark will too be
 %    empty. Thus in this case we make use of the saved bot mark from
@@ -444,7 +444,7 @@
           \@@_check_typeout_v:n
             {
               No~ marks~ so~ use~ saved~ bot~ mark:~
-              \seq_use:cn {g__tag_mc_#2_marks_seq} {,~} \iow_newline:
+              \seq_use:cn {g_@@_mc_#2_marks_seq} {,~} \iow_newline:
             }
            \seq_set_eq:Nc \l_@@_mc_firstmarks_seq {g_@@_mc_#2_marks_seq}
 %    \end{macrocode}
@@ -504,7 +504,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{ \@@_mc_bmc:n,\@@_mc_emc:,\@@_mc_bdc:nn,\@@_mc_bdc:nx}
+% \begin{macro}{ \@@_mc_bmc:n,\@@_mc_emc:,\@@_mc_bdc:nn}
 % These are the low-level commands. There are now equal to the
 % pdfmanagement commands generic mode, but we use an indirection
 % in case luamode need something else.
