@@ -299,14 +299,12 @@
 % labels the mc-chunk with the |label| key. The argument is the
 % value provided by the user. It stores the attributes\\
 % |tagabspage|: the absolute page, |\g_shipout_readonly_int|,\\
-% |tagmcabs|: the absolute mc-counter |\c@g_@@_MCID_abs_int|,\\
-% |tagmcid|: the ID of the chunk on the page |\g_@@_MCID_tmp_bypage_int|, this
-%  typically settles down after a second compilation.
+% |tagmcabs|: the absolute mc-counter |\c@g_@@_MCID_abs_int|.
 %  The reference command is defined in tagpdf.dtx and is based on l3ref.
 %    \begin{macrocode}
-\cs_new:Nn \_@@_mc_handle_mc_label:n
+\cs_new:Npn \_@@_mc_handle_mc_label:e #1
   {
-    \@@_ref_label:en{tagpdf-#1}{mc}
+    \ref_label:en{tagpdf-#1}{tagabspage,tagmcabs}
   }
 %    \end{macrocode}
 % \end{macro}
