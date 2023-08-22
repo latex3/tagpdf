@@ -1,0 +1,20 @@
+\DocumentMetadata{testphase=phase-III}
+\input{regression-test}
+\documentclass{article}
+
+\newbox\mybox
+\ExplSyntaxOn
+\let\tagmcresetbox\tag_mc_reset_box:N
+\ExplSyntaxOff
+\begin{document}
+\START
+
+The\setbox\mybox\hbox{yellow} duck
+
+The \box\mybox\ sun
+
+The\setbox\mybox\hbox{brown} duck
+
+The \tagmcresetbox\mybox\box\mybox\ bear
+
+\end{document}

@@ -1,0 +1,147 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Sect-Em:no
+============================================================
+Package tagpdf Info: Parent-Child 'Sect' --> 'Span'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'Sect' --> 'Em' on line ...
+> \l_tmpa_tl=-1.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 2: Sect-blub:unknown
+============================================================
+Package tagpdf Warning: Parent-Child 'Sect' --> 'blub'.
+(tagpdf)                Relation is unknown! on line ...
+> \l_tmpa_tl=0.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 3: bla-Sect:unknown
+============================================================
+Package tagpdf Warning: Parent-Child 'bla' --> 'Sect'.
+(tagpdf)                Relation is unknown! on line ...
+> \l_tmpa_tl=0.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 4: bla-blub:unknown
+============================================================
+Package tagpdf Warning: Parent-Child 'bla' --> 'blub'.
+(tagpdf)                Relation is unknown! on line ...
+> \l_tmpa_tl=0.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 5: Sect-H2:allowed
+============================================================
+Package tagpdf Info: Parent-Child 'Sect' --> 'H2'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Sect' --> 'H2' on line ...
+> \l_tmpa_tl=1.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 6: Rolemapping: Sect-section allowed
+============================================================
+Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Sect' --> 'section' on line ...
+> \l_tmpa_tl=1.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 7: Double rolemapping: subsection-section no
+============================================================
+Package tagpdf Info: Parent-Child 'H2' --> 'H1'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'subsection' --> 'section' on line ...
+> \l_tmpa_tl=-1.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 8: Inherit: Part-P yes
+============================================================
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'Part' on line ...
+Package tagpdf Info: Parent-Child 'Part' --> 'P'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1')
+(tagpdf)             Rolemapped from: 'Part' --> 'P' on line ...
+Package tagpdf Info: closing structure 2 tagged /Part
+> \l_tmpa_tl=7.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 9: Inherit: NonStruct-Lbl no
+============================================================
+Package tagpdf Info: Parent-Child 'Document' --> 'NonStruct'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'NonStruct' on line ...
+Package tagpdf Info: Parent-Child 'NonStruct' --> 'Lbl'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1')
+(tagpdf)             Rolemapped from: 'NonStruct' --> 'Lbl' on line ...
+Package tagpdf Info: closing structure 3 tagged /NonStruct
+> \l_tmpa_tl=7.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 10: Special: Ruby-RT yes
+============================================================
+Package tagpdf Info: Parent-Child 'Ruby' --> 'RT'.
+(tagpdf)             Relation is 4 (='[a]')
+(tagpdf)             Rolemapped from: 'Ruby' --> 'RT' on line ...
+> \l_tmpa_tl=4.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 11: Special: H-Sect yes
+============================================================
+Package tagpdf Info: Parent-Child 'H' --> 'Sect'.
+(tagpdf)             Relation is 2 (='0..1')
+(tagpdf)             Rolemapped from: 'H' --> 'Sect' on line ...
+> \l_tmpa_tl=2.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 12: Content item: P-MC yes
+============================================================
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
+> \l_tmpa_tl=1.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 13: Content item: TBody-MC no
+============================================================
+Package tagpdf Info: Parent-Child 'TBody' --> 'MC'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'TBody' --> 'MC' on line ...
+> \l_tmpa_tl=-1.
+<recently read> }
+l. ... }
+============================================================
+============================================================
+TEST 14: Root: StructTreeRoot-MC no
+============================================================
+Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
+> \l_tmpa_tl=-1.
+<recently read> }
+l. ... }
+============================================================

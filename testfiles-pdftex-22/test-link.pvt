@@ -1,0 +1,38 @@
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{1000} % for the random namespace
+\ExplSyntaxOff
+
+\DocumentMetadata{pdfversion=2.0,xmp=false,testphase=phase-II,debug=para}
+\input{regression-test}
+\documentclass{article}
+
+\usepackage{hyperref}
+\usepackage{kantlipsum}
+\makeatletter %to make compilation faster, we ensure that the ??
+% has an mc-chunk directly.
+\def\@setref#1#2#3{% csname, extract group, refname
+  \ifx#1\relax
+    \protect\G@refundefinedtrue
+    \nfss@text{\reset@font\bfseries
+     \csname tag_mc_end_push:\endcsname\tagmcbegin{tag=P}??\tagmcend\csname tag_mc_begin_pop:n\endcsname{}}%
+    \@latex@warning{%
+      Reference `#3' on page \thepage \space undefined%
+    }%
+  \else
+    \expandafter\Hy@setref@link#1\@empty\@empty\@nil{#2}%
+  \fi
+}
+\makeatother
+\begin{document}
+\refstepcounter{section}\makeatletter\def\@currentlabelname{test}\makeatother\label{test}
+
+abc \pageref{test} xyz
+
+abc \nameref{test} xyz
+
+
+abc \url{https://www.tug.org} xyz
+
+abc \ref{test} xyz
+
+\end{document}

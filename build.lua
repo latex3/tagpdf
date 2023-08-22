@@ -5,6 +5,9 @@ packagedate="2023-08-04"
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
 
+local luatexstatus = status.list()
+local istl2023 = string.match (luatexstatus.banner,"2023")
+
 local ok, mydata = pcall(require, "ulrikefischerdata.lua")
 if not ok then
   mydata= {email="XXX",github="XXX",name="XXX"}
@@ -44,12 +47,16 @@ local luatexstatus = status.list()
 
 checkengines = {"pdftex","luatex","pdftexmain"}
 
-checkconfigs = {
-               "build",
-               "config-pdftex",
-               "config-luatex",
-                }
-                
+if istl2023 then
+  checkconfigs = {
+                 "build",
+                 "config-pdftex",
+                 "config-luatex",
+                  }
+else                
+ checkconfigs = { "config-pdftex-22" }
+end            
+      
 checkruns = 2
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
 --excludetests = {"test-saveboxes-structure-dev","test-link"}
