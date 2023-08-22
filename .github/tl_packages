@@ -1,65 +1,173 @@
 # The test framework itself
 l3build
 
-# Assuming a 'basic' font set up, metafont is required to avoid
-# warnings with some packages and errors with others
-metafont
-mfware
-texlive-scripts
-
+# this collection looks ok
 collection-basic
-collection-latexextra
-collection-latex
-collection-luatex
-collection-xetex
-collection-langgerman
-collection-latexrecommended
 
-pdfmanagement-testphase
+# from collection latex:
+        amsmath
+        atbegshi
+        babel
+        babel-english
+        bigintcalc
+        bookmark
+        carlisle
+        colortbl
+        epstopdf-pkg
+        etexcmds
+        fancyhdr
+        firstaid
+        geometry
+        gettitlestring
+        graphics
+        graphics-cfg
+        hopatch
+        hycolor
+        hyperref
+        intcalc
+        kvdefinekeys
+        kvoptions
+        kvsetkeys
+        l3backend
+        l3kernel
+        l3packages
+        latex
+        latex-bin
+        latex-fonts
+        latex-lab
+        latexconfig
+        letltxmacro
+        ltxcmds
+        ltxmisc
+        mfnfss
+        mptopdf
+        natbib
+        oberdiek
+        pdfescape
+        refcount
+        rerunfilecheck
+        stringenc
+        tools
+        uniquecounter
+        url
 
-# class / content
-koma-script pgf marginnote tikzducks tikzlings listings
+# From collection-latexextra
+        accsupp
+        acro
+        adjustbox
+        attachfile
+        bearwear
+        blindtext
+        cleveref
+        csquotes
+        doclicense
+        duckuments
+        embedfile
+        enumitem
+        etoc
+        filecontents
+        fonttable
+        getfiledate
+        hobsub
+        hvlogos
+        hypdoc
+        intopdf
+        kantlipsum
+        lastpage
+        latex-amsmath-dev
+        latex-base-dev
+        latex-bin-dev
+        latex-context-ppchtex
+        latex-firstaid-dev
+        latex-graphics-dev
+        latex-lab-dev
+        latex-tools-dev
+        lipsum
+        listing
+        listingsutf8
+        lua-check-hyphen
+        marginnote
+        mleftright
+        mlist
+        mmap
+        mwe
+        pdfcolmk
+        scrlayer-fancyhdr
+        scrwfile
+        tabularray
+        transparent
+        varwidth
+        xpatch
+        zref
+        
+# from collection-luatex
+        ctablestack
+        lua-ul
+        lua-uni-algos
+        luacode
+        luacolor
+        lualibs
+        luamplib
+        luaotfload
+        luatex85
+        luatexbase
+        newpax
 
-# other tools
-etoolbox
+# from collection xetex
+        realscripts
+        xelatex-dev
+        xetex
+        xetexconfig
 
-# oberdiek split
+# from collection-langgerman
+        babel-german
+        dehyph
+        dehyph-exptl
+        hyphen-german
+ 
+# from collection-latexrecommended
+        attachfile2
+        beamer
+        booktabs
+        caption
+        etoolbox
+        float
+        fontspec
+        hologo
+        index
+        infwarerr
+        koma-script
+        l3experimental
+        latexbug
+        lineno
+        listings
+        mathtools
+        memoir
+        microtype
+        parskip
+        pdfcolfoot
+        pdflscape
+        pdfmanagement-testphase
+        pdfpages
+        pdftexcmds
+        ragged2e
+        setspace
+        textcase
+        translator
+        unicode-math
+        xcolor
+        xkeyval
 
-accsupp
-atbegshi
-attachfile2
-bigintcalc
-bookmark
+# other
+pgf 
+marginnote 
+tikzducks 
+tikzlings 
 catchfile
-embedfile
-etexcmds
-gettitlestring
-hobsub
-hologo
-hycolor
-infwarerr
-intcalc
-kvdefinekeys
-kvoptions
-kvsetkeys
-letltxmacro
-ltxcmds
-luacolor
-mleftright
-pdfescape
-pdfcolmk
-pdflscape
-pdftexcmds
-refcount
-rerunfilecheck
-epstopdf-pkg
-stringenc
-transparent
-uniquecounter
-zref
 
 # fonts
-fontspec microtype amsfonts ec cm-super 
+amsfonts 
+cm-super 
 
 
 
