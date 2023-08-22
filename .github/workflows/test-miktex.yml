@@ -1,0 +1,59 @@
+name: MiKTeX (Windows)
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    - cron: '1 2 5 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install MiKTeX
+        run: |
+          choco install miktex --no-progress
+          echo "C:\Program Files\MiKTeX\miktex\bin\x64" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
+
+      - name: Configure MiKTeX
+        run: |
+          initexmf --admin --verbose --set-config-value=[MPM]AutoInstall=1
+          miktex --admin --verbose packages update-package-database
+          miktex --admin --verbose packages update
+          miktex --verbose packages update
+
+      - name: Install MiKTeX packages
+        shell: bash
+        run: |
+          packages=$(grep -vE '^#' tl_packages | tr '\n' ' ' | tr -s ' ')
+          for package in $packages; do
+            miktex --admin --verbose packages install $package
+          done
+
+      - name: Final MiKTeX tweaks
+        run: |
+          miktex --admin --verbose fndb refresh
+          initexmf --admin --verbose --update-fndb
+          initexmf --admin --verbose --mklinks --force
+          updmap --admin
+
+      - run: l3build install
+
+      - run: l3build check
+
+      - run: l3build ctan -H --show-log-on-error
+
+      - name: Upload build result
+        uses: actions/upload-artifact@v3
+        with:
+          name: CTAN
+          path: 'build/distrib/ctan/*.zip'
