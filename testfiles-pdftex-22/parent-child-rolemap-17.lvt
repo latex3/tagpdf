@@ -1,0 +1,13 @@
+\DocumentMetadata{uncompress,testphase=phase-I,debug={log=vv}}
+\input{regression-test} 
+\documentclass{article}
+\tagpdfsetup{add-new-tag=tpara/Div}
+\begin{document}
+\START
+
+\tagstructbegin{tag=tpara}
+ \tagstructbegin{tag=P}
+  \tagmcbegin{}Hello, world!\tagmcend 
+ \tagstructend
+\tagstructend 
+\end{document}

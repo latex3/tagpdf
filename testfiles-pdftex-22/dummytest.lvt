@@ -1,0 +1,10 @@
+\documentclass{article}
+\input{regression-test}
+\usepackage{tagpdf-base}
+\begin{document}
+\START
+\ExplSyntaxOn
+\show\tag_struct_begin:n
+\tag_if_active:TF{\TRUE}{\FALSE}
+\ExplSyntaxOff
+\end{document} 

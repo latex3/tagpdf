@@ -4,11 +4,8 @@ Don't change this file in any respect.
 (ptagging-002.aux) \relax^^M
 \providecommand\newlabeldata[2]{}^^M
 \newlabeldata{mcid-2}{{tagabspage}{1}{tagmcabs}{2}{tagmcid}{0}}^^M
-\newlabeldata{l3pdf1}{{abspage}{1}}^^M
 \newlabeldata{mcid-5}{{tagabspage}{1}{tagmcabs}{5}{tagmcid}{1}}^^M
-\newlabeldata{l3pdf2}{{abspage}{1}}^^M
 \newlabeldata{mcid-8}{{tagabspage}{1}{tagmcabs}{8}{tagmcid}{2}}^^M
-\newlabeldata{l3pdf3}{{abspage}{1}}^^M
 \newlabeldata{__tag_LastPage}{{abspage}{1}{tagmcabs}{11}{tagstruct}{7}}^^M
 \gdef \@abspage@last{1}^^M
 -------- ptagging-002.aux (end) -----------
@@ -98,9 +95,8 @@ Completed box being shipped out [1]
 .....\glue 2.36115 plus 1.04169 minus 0.69444
 ....\pdfcolorstack 0 pop
 ....\pdfliteral page{EMC}
-....\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{2}{tagmcid}{0}}}
-....\pdfliteral page{/text /l3pdf1 BDC}
-....\write1{\newlabeldata{l3pdf1}{{abspage}{\__ref_attribute_abspage: }}}
+....\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{2}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(0.0+0.0)x15.0
 ....\OT1/cmr/m/n/10 A
 ....\OT1/cmr/m/n/10 A
@@ -142,9 +138,8 @@ Completed box being shipped out [1]
 .....\glue 2.36115 plus 1.04169 minus 0.69444
 ....\pdfcolorstack 0 pop
 ....\pdfliteral page{EMC}
-....\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{5}{tagmcid}{1}}}
-....\pdfliteral page{/text /l3pdf2 BDC}
-....\write1{\newlabeldata{l3pdf2}{{abspage}{\__ref_attribute_abspage: }}}
+....\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{5}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(0.0+0.0)x15.0
 ....\OT1/cmr/m/n/10 B
 ....\OT1/cmr/m/n/10 B
@@ -186,9 +181,8 @@ Completed box being shipped out [1]
 .....\glue 2.36115 plus 1.04169 minus 0.69444
 ....\pdfcolorstack 0 pop
 ....\pdfliteral page{EMC}
-....\write1{\newlabeldata{mcid-8}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{8}{tagmcid}{2}}}
-....\pdfliteral page{/text /l3pdf3 BDC}
-....\write1{\newlabeldata{l3pdf3}{{abspage}{\__ref_attribute_abspage: }}}
+....\write1{\newlabeldata{mcid-8}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{8}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(0.0+0.0)x15.0
 ....\OT1/cmr/m/n/10 C
 ....\OT1/cmr/m/n/10 C

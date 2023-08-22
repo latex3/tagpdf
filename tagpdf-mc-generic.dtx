@@ -66,16 +66,10 @@
 %
 %\subsection{Variables}
 %
-% \begin{variable}{\g_@@_MCID_byabspage_prop}
-% This property will hold the current maximum on a page
-% it will contain key-value of type \meta{abspagenum}=\meta{max mcid}
-%
 %    \begin{macrocode}
 %<*generic>
-\@@_prop_new:N \g_@@_MCID_byabspage_prop
 %    \end{macrocode}
-% \end{variable}
-
+%
 % \begin{variable}{\l_@@_mc_ref_abspage_tl}
 % We need a ref-label system to ensure that the MCID cnt
 % restarts at 0 on a new page
@@ -270,8 +264,8 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_mc_insert_extra_tmb:n #1 % #1 stream: e.g. main or footnote
   {
-     \@@_check_typeout_v:n {=>~ first~ \seq_use:Nn \l__tag_mc_firstmarks_seq {,~}}
-     \@@_check_typeout_v:n {=>~ bot~ \seq_use:Nn \l__tag_mc_botmarks_seq {,~}}
+     \@@_check_typeout_v:n {=>~ first~ \seq_use:Nn \l_@@_mc_firstmarks_seq {,~}}
+     \@@_check_typeout_v:n {=>~ bot~ \seq_use:Nn \l_@@_mc_botmarks_seq {,~}}
      \@@_check_if_mc_tmb_missing:TF
        {
          \@@_check_typeout_v:n {=>~ TMB~ ~ missing~ --~ inserted}
@@ -298,7 +292,7 @@
                     {
                       \seq_item:cn { g_@@_mc_#1_marks_seq } {2}
                     }
-                    { \int_eval:n{\c@g__tag_MCID_abs_int} }
+                    { \int_eval:n{\c@g_@@_MCID_abs_int} }
                     {
                       \seq_item:cn { g_@@_mc_#1_marks_seq } {3}
                     }
@@ -435,7 +429,7 @@
 %    Some debugging info:
 %    \begin{macrocode}
 %    \iow_term:n { First~ mark~ from~ this~ box: }
-%    \seq_log:N \l__tag_mc_firstmarks_seq
+%    \seq_log:N \l_@@_mc_firstmarks_seq
 %    \end{macrocode}
 %    If this mark was empty then clearly the bottom mark will too be
 %    empty. Thus in this case we make use of the saved bot mark from
@@ -450,7 +444,7 @@
           \@@_check_typeout_v:n
             {
               No~ marks~ so~ use~ saved~ bot~ mark:~
-              \seq_use:cn {g__tag_mc_#2_marks_seq} {,~} \iow_newline:
+              \seq_use:cn {g_@@_mc_#2_marks_seq} {,~} \iow_newline:
             }
            \seq_set_eq:Nc \l_@@_mc_firstmarks_seq {g_@@_mc_#2_marks_seq}
 %    \end{macrocode}
@@ -510,18 +504,19 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{ \@@_mc_bmc:n,\@@_mc_emc:,\@@_mc_bdc:nn,\@@_mc_bdc:nx}
+% \begin{macro}{ \@@_mc_bmc:n,\@@_mc_emc:,\@@_mc_bdc:nn}
 % These are the low-level commands. There are now equal to the
 % pdfmanagement commands generic mode, but we use an indirection
 % in case luamode need something else.
 % change 04.08.2018: the commands do not check the validity of the arguments or try
 % to escape them, this should be done before using them.
+% change 2023-08-18: we are delaying the writing to the shipout.
 %    \begin{macrocode}
 % #1 tag, #2 properties
 \cs_set_eq:NN \@@_mc_bmc:n  \pdf_bmc:n
 \cs_set_eq:NN \@@_mc_emc:   \pdf_emc:
 \cs_set_eq:NN \@@_mc_bdc:nn \pdf_bdc:nn
-\cs_generate_variant:Nn \@@_mc_bdc:nn {nx}
+\cs_set_eq:NN \@@_mc_bdc_shipout:ee \pdf_bdc_shipout:ee
 %    \end{macrocode}
 % \end{macro}
 %
@@ -536,53 +531,94 @@
 % starting with 0 and then successively.
 % The first argument is the tag, e.g. |P| or |Span|, the second is used to pass
 % more properties.
+% Starting with texlive 2023 this is much simpler and faster as we can use
+% delay the numbering to the shipout. 
 % We also define a wrapper around the low-level command as luamode will need
 % something different.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
-  {
-    \int_gincr:N \c@g_@@_MCID_abs_int
-    \tl_set:Nx \l_@@_mc_ref_abspage_tl
+\bool_if:NTF \l__pdfmanagement_delayed_shipout_bool
+  { 
+    \hook_gput_code:nnn {shipout/before}{tagpdf}{ \flag_clear:n { @@/mcid } }
+    \cs_set_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
       {
-        \@@_ref_value:enn %3 args
-          {
-            mcid-\int_use:N \c@g_@@_MCID_abs_int
+        \int_gincr:N \c@g_@@_MCID_abs_int
+        \@@_ref_label:en
+         {
+           mcid-\int_use:N \c@g_@@_MCID_abs_int
+         }
+         {mc}     
+        \@@_mc_bdc_shipout:ee
+          {#1}
+          { 
+            /MCID~\flag_height:n { @@/mcid }
+            \flag_raise:n { @@/mcid }~  #2  
           }
-          { tagabspage }
-          {-1}
       }
-    \prop_get:NoNTF
-      \g_@@_MCID_byabspage_prop
-      {
-        \l_@@_mc_ref_abspage_tl
-      }
-      \l_@@_mc_tmpa_tl
-      {
-        %key already present, use value for MCID and add 1 for the next
-        \int_gset:Nn \g_@@_MCID_tmp_bypage_int { \l_@@_mc_tmpa_tl }
-        \@@_prop_gput:Nxx
-          \g_@@_MCID_byabspage_prop
-          { \l_@@_mc_ref_abspage_tl }
-          { \int_eval:n {\l_@@_mc_tmpa_tl +1} }
-      }
-      {
-        %key not present, set MCID to 0 and insert 1
-        \int_gzero:N \g_@@_MCID_tmp_bypage_int
-        \@@_prop_gput:Nxx
-          \g_@@_MCID_byabspage_prop
-          { \l_@@_mc_ref_abspage_tl }
-          {1}
-      }
-    \@@_ref_label:en
-      {
-        mcid-\int_use:N \c@g_@@_MCID_abs_int
-      }
-      { mc }
-     \@@_mc_bdc:nx
-       {#1}
-       { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~ \exp_not:n { #2 } }
- }
-\cs_new_protected:Npn \@@_mc_bdc_mcid:n #1
+  } 
+%    \end{macrocode}
+% if the engine is too old, we have to revert to earlier method.
+%    \begin{macrocode}
+ { 
+   \msg_new:nnn { tagpdf } { old-engine }
+    { 
+      The~engine~is~too~old.\\
+      Fast~numbering~of~MC-chunks~not~available.\\
+      More~compilations~will~be~needed~in~generic~mode.
+    }  
+   \msg_warning:nn { tagpdf} { old-engine }   
+   \@@_prop_new:N \g_@@_MCID_byabspage_prop
+   \int_new:N \g_@@_MCID_tmp_bypage_int
+   \cs_generate_variant:Nn \@@_mc_bdc:nn {nx}
+%    \end{macrocode}
+% revert the attribute:
+%    \begin{macrocode}
+   \ref_attribute_gset:nnnn {tagmcid }  {0} { now }
+      { \int_use:N \g_@@_MCID_tmp_bypage_int }
+   \cs_new_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
+     {
+       \int_gincr:N \c@g_@@_MCID_abs_int
+       \tl_set:Nx \l_@@_mc_ref_abspage_tl
+         {
+           \@@_ref_value:enn %3 args
+             {
+               mcid-\int_use:N \c@g_@@_MCID_abs_int
+             }
+             { tagabspage }
+             {-1}
+         }
+       \prop_get:NoNTF
+         \g_@@_MCID_byabspage_prop
+         {
+           \l_@@_mc_ref_abspage_tl
+         }
+         \l_@@_mc_tmpa_tl
+         {
+           %key already present, use value for MCID and add 1 for the next
+           \int_gset:Nn \g_@@_MCID_tmp_bypage_int { \l_@@_mc_tmpa_tl }
+           \@@_prop_gput:Nxx
+             \g_@@_MCID_byabspage_prop
+             { \l_@@_mc_ref_abspage_tl }
+             { \int_eval:n {\l_@@_mc_tmpa_tl +1} }
+         }
+         {
+           %key not present, set MCID to 0 and insert 1
+           \int_gzero:N \g_@@_MCID_tmp_bypage_int
+           \@@_prop_gput:Nxx
+             \g_@@_MCID_byabspage_prop
+             { \l_@@_mc_ref_abspage_tl }
+             {1}
+         }
+       \@@_ref_label:en
+         {
+           mcid-\int_use:N \c@g_@@_MCID_abs_int
+         }
+         { mc }
+        \@@_mc_bdc:nx
+          {#1}
+          { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~ \exp_not:n { #2 } }
+      }        
+ }  
+ \cs_new_protected:Npn \@@_mc_bdc_mcid:n #1
   {
     \@@_mc_bdc_mcid:nn {#1} {}
   }

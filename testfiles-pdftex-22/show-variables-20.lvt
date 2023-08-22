@@ -1,0 +1,76 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{1000}
+\ExplSyntaxOff
+\DocumentMetadata{testphase=phase-II,pdfversion=2.0}
+\input{regression-test}
+\documentclass{article}
+
+\START
+
+\ExplSyntaxOn
+%tag-NS
+\TEST{show~tags~->~NS}
+ {
+   \prop_show:N \g__tag_role_tags_NS_prop
+ }
+ 
+\TEST{show~tags~->classes~(1.7)}
+ {
+   \prop_show:N \g__tag_role_tags_class_prop
+ }
+ 
+\TEST{show~namespaces}
+ {
+   \prop_show:N \g__tag_role_NS_prop
+ }
+ 
+\TEST{show~RoleMap dict~(1.7)}
+ {
+   \pdfdict_show:n { g__tag_role/RoleMap_dict }
+ }
+ 
+
+\prop_map_inline:Nn \g__tag_role_NS_prop
+ {
+   \TEST{show~tags~of~namespace~#1}
+     {
+      \prop_show:c{g__tag_role_NS_#1_prop}
+     }
+ }
+ 
+ 
+\prop_map_inline:Nn \g__tag_role_NS_prop
+ {
+   \TEST{show~class~of~tags~in~namespace~#1}
+     {
+      \prop_show:c{g__tag_role_NS_#1_class_prop}
+     }
+ } 
+
+
+\prop_map_inline:Nn \g__tag_role_NS_prop
+ {
+   \TEST{show~namespace~dict~#1}
+     {
+      \pdfdict_show:n{g__tag_role/Namespace_#1_dict}
+     }
+   \TEST{show~RoleMap~dict~#1}
+     {
+      \pdfdict_show:n{g__tag_role/RoleMapNS_#1_dict}
+     }   
+ } 
+
+\TEST{show~tagindex}
+ {
+   \prop_show:N\g__tag_role_index_prop
+ }
+
+\TEST{show~tag rules}
+ {
+   \intarray_show:N\g__tag_role_parent_child_intarray
+ }
+
+ 
+\END

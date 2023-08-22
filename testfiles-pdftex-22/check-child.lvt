@@ -1,0 +1,40 @@
+\DocumentMetadata{testphase=phase-II}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START \tagpdfparaOff
+
+\ExplSyntaxOn
+
+\TEST{tag-check-child: false} 
+ {
+   \tagstructbegin{tag=Table}
+   \tag_check_child:nnTF {FENote}{pdf2}{\TRUE}{\FALSE}   
+   \tagstructend 
+ } 
+
+\TEST{tag-check-child: true} 
+ {
+   \tagstructbegin{tag=P}
+   \tag_check_child:nnTF {FENote}{pdf2}{\TRUE}{\FALSE}   \tagstructend 
+ } 
+ 
+\TEST{tag-check-child: true}  
+ { 
+   \tagstructbegin{tag=Div} 
+   \tag_check_child:nnTF {FENote}{pdf2}{\TRUE}{\FALSE}   
+   \tagstructend 
+ } 
+ 
+
+\TEST{tag-check-child: false}  
+ { 
+   \tagstructbegin{tag=Table}
+   \tagstructbegin{tag=NonStruct} 
+   \tag_check_child:nnTF {FENote}{pdf2}{\TRUE}{\FALSE}   
+   \tagstructend
+   \tagstructend 
+ } 
+ 
+\ExplSyntaxOff 
+\end{document}

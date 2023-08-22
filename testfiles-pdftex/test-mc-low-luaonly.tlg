@@ -7,7 +7,7 @@ Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC
 (tagpdf)                (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on
 (tagpdf)                line 35
-<example-image-duck.pdf, id=12, 184.55048pt x 114.2107pt>
+<example-image-duck.pdf, id=11, 184.55048pt x 114.2107pt>
 File: example-image-duck.pdf Graphic file (type pdf)
 <use example-image-duck.pdf>
 Package pdftex.def Info: example-image-duck.pdf  used on input line ....
@@ -28,7 +28,7 @@ Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC
 (tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on
 (tagpdf)                line 43
 Overfull \hbox (145.16354pt too wide) in paragraph at lines 21--43
-[]\T1/cmr/m/n/10.95 some things un-tagged. [][]Artifact[][]Artifact[][][][][][]somethingsuntagged.[][][]marginparblblb[][][][]As
+[]\T1/cmr/m/n/10.95 some things un-tagged. [][]Artifact[][]Artifact[][][][][]somethingsuntagged.[][]marginparblblb[][][]As
 \hbox(114.2104+2.12863)x418.25555, glue set - 1.0
 .\hbox(0.0+0.0)x10.88788
 .\T1/cmr/m/n/10.95 s
@@ -78,9 +78,8 @@ Overfull \hbox (145.16354pt too wide) in paragraph at lines 21--43
 .\T1/cmr/m/n/10.95 c
 .\T1/cmr/m/n/10.95 t
 .\pdfliteral page{EMC}
-.\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{3}{tagmcid}{0}}}
-.\pdfliteral page{/Figure /l3pdf2 BDC}
-.\write1{\newlabeldata{l3pdf2}{{abspage}{\__ref_attribute_abspage: }}}
+.\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{3}{tagmcid}{\__ref_attribute_tagmcid: }}}
+.\pdfliteral shipout page{/Figure <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 .\hbox(114.2104+0.0)x184.55002
 ..\hbox(114.2107+0.0)x184.55048
 ...\hbox(114.2107+0.0)x184.55048
@@ -112,9 +111,8 @@ Overfull \hbox (145.16354pt too wide) in paragraph at lines 21--43
 .\T1/cmr/m/n/10.95 e
 .\T1/cmr/m/n/10.95 d
 .\T1/cmr/m/n/10.95 .
-.\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{4}{tagmcid}{1}}}
-.\pdfliteral page{/P /l3pdf3 BDC}
-.\write1{\newlabeldata{l3pdf3}{{abspage}{\__ref_attribute_abspage: }}}
+.\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{4}{tagmcid}{\__ref_attribute_tagmcid: }}}
+.\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 .\T1/cmr/m/n/10.95 m
 .\T1/cmr/m/n/10.95 a
 .\T1/cmr/m/n/10.95 r
@@ -130,9 +128,8 @@ Overfull \hbox (145.16354pt too wide) in paragraph at lines 21--43
 .\T1/cmr/m/n/10.95 l
 .\T1/cmr/m/n/10.95 b
 .\pdfliteral page{EMC}
-.\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{5}{tagmcid}{2}}}
-.\pdfliteral page{/P /l3pdf4 BDC}
-.\write1{\newlabeldata{l3pdf4}{{abspage}{\__ref_attribute_abspage: }}}
+.\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{5}{tagmcid}{\__ref_attribute_tagmcid: }}}
+.\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 .\T1/cmr/m/n/10.95 A
 .\T1/cmr/m/n/10.95 s
 .\glue(\rightskip) 0.0
@@ -242,9 +239,8 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 c
 ....\T1/cmr/m/n/10.95 t
 ....\pdfliteral page{EMC}
-....\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{3}{tagmcid}{0}}}
-....\pdfliteral page{/Figure /l3pdf2 BDC}
-....\write1{\newlabeldata{l3pdf2}{{abspage}{\__ref_attribute_abspage: }}}
+....\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{3}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/Figure <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(114.2104+0.0)x184.55002
 .....\hbox(114.2107+0.0)x184.55048
 ......\hbox(114.2107+0.0)x184.55048
@@ -276,9 +272,8 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 e
 ....\T1/cmr/m/n/10.95 d
 ....\T1/cmr/m/n/10.95 .
-....\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{4}{tagmcid}{1}}}
-....\pdfliteral page{/P /l3pdf3 BDC}
-....\write1{\newlabeldata{l3pdf3}{{abspage}{\__ref_attribute_abspage: }}}
+....\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{4}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\T1/cmr/m/n/10.95 m
 ....\T1/cmr/m/n/10.95 a
 ....\T1/cmr/m/n/10.95 r
@@ -294,9 +289,8 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 l
 ....\T1/cmr/m/n/10.95 b
 ....\pdfliteral page{EMC}
-....\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{5}{tagmcid}{2}}}
-....\pdfliteral page{/P /l3pdf4 BDC}
-....\write1{\newlabeldata{l3pdf4}{{abspage}{\__ref_attribute_abspage: }}}
+....\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{5}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\T1/cmr/m/n/10.95 A
 ....\T1/cmr/m/n/10.95 s
 ....\glue(\rightskip) 0.0
@@ -1361,9 +1355,8 @@ Completed box being shipped out [1]
 ...\pdfliteral page{EMC}
 ...\marks4{e-,5,0,}
 ...\marks4{e+,5,0,}
-...\write1{\newlabeldata{mcid-6}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{6}{tagmcid}{3}}}
-...\pdfliteral page{/P /l3pdf5 BDC}
-...\write1{\newlabeldata{l3pdf5}{{abspage}{\__ref_attribute_abspage: }}}
+...\write1{\newlabeldata{mcid-6}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{6}{tagmcid}{\__ref_attribute_tagmcid: }}}
+...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ...\marks4{b-,6,0,P,,,}
 ...\marks4{b+,6,0,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
@@ -2276,9 +2269,8 @@ Completed box being shipped out [1]
 ...\pdfliteral page{EMC}
 ...\marks4{e-,6,0,}
 ...\marks4{e+,6,0,}
-...\write1{\newlabeldata{mcid-7}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{7}{tagmcid}{4}}}
-...\pdfliteral page{/P /l3pdf6 BDC}
-...\write1{\newlabeldata{l3pdf6}{{abspage}{\__ref_attribute_abspage: }}}
+...\write1{\newlabeldata{mcid-7}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{7}{tagmcid}{\__ref_attribute_tagmcid: }}}
+...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ...\marks4{b-,7,0,P,,,}
 ...\marks4{b+,7,0,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
@@ -3191,9 +3183,8 @@ Completed box being shipped out [1]
 ...\pdfliteral page{EMC}
 ...\marks4{e-,7,0,}
 ...\marks4{e+,7,0,}
-...\write1{\newlabeldata{mcid-8}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{8}{tagmcid}{5}}}
-...\pdfliteral page{/P /l3pdf7 BDC}
-...\write1{\newlabeldata{l3pdf7}{{abspage}{\__ref_attribute_abspage: }}}
+...\write1{\newlabeldata{mcid-8}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{8}{tagmcid}{\__ref_attribute_tagmcid: }}}
+...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ...\marks4{b-,8,0,P,,,}
 ...\marks4{b+,8,0,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
@@ -3740,9 +3731,8 @@ Completed box being shipped out [2]
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 258.37251fil
 ...\hbox(0.0+0.0)x0.0
-....\write1{\newlabeldata{mcid-13}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{13}{tagmcid}{2}}}
-....\pdfliteral page{/P /l3pdf10 BDC}
-....\write1{\newlabeldata{l3pdf10}{{abspage}{\__ref_attribute_abspage: }}}
+....\write1{\newlabeldata{mcid-13}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{13}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ...\glue(\topskip) 3.45851
 ...\hbox(7.54149+2.12863)x418.25555, glue set - 0.73294
 ....\T1/cmr/m/n/10.95 c
@@ -4181,9 +4171,8 @@ Completed box being shipped out [2]
 ...\pdfliteral page{EMC}
 ...\marks4{e-,10,0,}
 ...\marks4{e+,10,0,}
-...\write1{\newlabeldata{mcid-11}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{11}{tagmcid}{0}}}
-...\pdfliteral page{/P /l3pdf8 BDC}
-...\write1{\newlabeldata{l3pdf8}{{abspage}{\__ref_attribute_abspage: }}}
+...\write1{\newlabeldata{mcid-11}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{11}{tagmcid}{\__ref_attribute_tagmcid: }}}
+...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ...\marks4{b-,11,0,P,,,}
 ...\marks4{b+,11,0,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
@@ -5096,9 +5085,8 @@ Completed box being shipped out [2]
 ...\pdfliteral page{EMC}
 ...\marks4{e-,11,0,}
 ...\marks4{e+,11,0,}
-...\write1{\newlabeldata{mcid-12}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{12}{tagmcid}{1}}}
-...\pdfliteral page{/P /l3pdf9 BDC}
-...\write1{\newlabeldata{l3pdf9}{{abspage}{\__ref_attribute_abspage: }}}
+...\write1{\newlabeldata{mcid-12}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{12}{tagmcid}{\__ref_attribute_tagmcid: }}}
+...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ...\marks4{b-,12,0,P,,,}
 ...\marks4{b+,12,0,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0

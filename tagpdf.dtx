@@ -388,8 +388,11 @@
   { \int_use:N \g_shipout_readonly_int }
 \ref_attribute_gset:nnnn { tagmcabs } {0} { now }
   { \int_use:N \c@g_@@_MCID_abs_int }
-\ref_attribute_gset:nnnn {tagmcid }  {0} { now }
-  { \int_use:N \g_@@_MCID_tmp_bypage_int }
+
+\flag_new:n { @@/mcid }     
+\ref_attribute_gset:nnnn {tagmcid }  {0} { shipout }
+  { \flag_height:n { @@/mcid } }
+  
 %    \end{macrocode}
 % \end{macro}
 %
