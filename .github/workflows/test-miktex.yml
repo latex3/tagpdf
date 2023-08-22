@@ -36,6 +36,9 @@ jobs:
           initexmf --admin --verbose --mklinks --force
           updmap --admin
 
+      - name: Prepare l3build
+        run: echo "TEXMFHOME=c:\temp\texmf" >> "$GITHUB_ENV"
+
       - run: l3build install
 
       - run: l3build check
