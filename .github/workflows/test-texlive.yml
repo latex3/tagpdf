@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install TeX Live
-        uses: koppor/install-texlive@fix-cache
+        uses: koppor/install-texlive@fix-caching
         with:
            package_file: tl_packages
 
