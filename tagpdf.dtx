@@ -34,7 +34,8 @@
 % \end{function}
 %
 % \begin{function}{ \tag_stop_group_begin:, \tag_stop_group_end:,
-%  \tag_stop:, \tag_start: }
+%  \tag_stop:, \tag_start:,
+%  \tagstop, \tagstart }
 % We need commands to stop tagging in some places.
 % They simply switches the two local booleans. The grouping commands
 % can be used to group the effect.
@@ -92,7 +93,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*package>
-\ProvidesExplPackage {tagpdf} {2023-07-08} {0.98j}
+\ProvidesExplPackage {tagpdf} {2023-08-04} {0.98k}
   { A package to experiment with pdf tagging }
 
 \bool_if:nF
@@ -118,7 +119,7 @@
 %    \end{macrocode}
 %<*debug>
 %    \begin{macrocode}
-\ProvidesExplPackage {tagpdf-debug} {2023-07-08} {0.98j}
+\ProvidesExplPackage {tagpdf-debug} {2023-08-04} {0.98k}
   { debug code for tagpdf }
 \@ifpackageloaded{tagpdf}{}{\PackageWarning{tagpdf-debug}{tagpdf~not~loaded,~quitting}\endinput}
 %    \end{macrocode}
@@ -141,7 +142,7 @@
 % we define a base package with dummy functions
 %    \begin{macrocode}
 %<*base>
-\ProvidesExplPackage {tagpdf-base} {2023-07-08} {0.98j}
+\ProvidesExplPackage {tagpdf-base} {2023-08-04} {0.98k}
   {part of tagpdf - provide base, no-op versions of the user commands }
 %</base>
 %    \end{macrocode} 
@@ -151,7 +152,7 @@
 %    \begin{macrocode}
 %<*package>
 \bool_new:N\g_@@_mode_lua_bool  
-\DeclareOption {luamode}    { \sys_if_engine_luatex:T { \bool_gset_true:N \g_@@_mode_lua_bool } }
+\DeclareOption {luamode}  { \sys_if_engine_luatex:T { \bool_gset_true:N \g_@@_mode_lua_bool } }
 \DeclareOption {genericmode}{ \bool_gset_false:N\g_@@_mode_lua_bool }
 \ExecuteOptions{luamode}
 \ProcessOptions
@@ -496,6 +497,8 @@
     \bool_set_true:N \l_@@_active_struct_bool
     \bool_set_true:N \l_@@_active_mc_bool
   }
+\cs_set_eq:NN\tagstop\tag_stop:
+\cs_set_eq:NN\tagstart\tag_start:  
 \prop_new:N\g_@@_state_prop
 \cs_set_protected:Npn \tag_stop:n #1
   {
@@ -522,6 +525,8 @@
 %<*base>
 \cs_new_protected:Npn \tag_stop:{}
 \cs_new_protected:Npn \tag_start:{}
+\cs_new_protected:Npn \tagstop{}
+\cs_new_protected:Npn \tagstart{}
 \cs_new_protected:Npn \tag_stop:n  #1 {}
 \cs_new_protected:Npn \tag_start:n #1 {}
 %</base>

@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98j, released 2023-07-08}
+% \date{Version 0.98k, released 2023-08-04}
 % \maketitle
 % \begin{implementation}
 % The code is splitted into three parts: code shared by all engines,
@@ -86,7 +86,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*luamode>
-\ProvidesExplPackage {tagpdf-mc-code-lua} {2023-07-08} {0.98j}
+\ProvidesExplPackage {tagpdf-mc-code-lua} {2023-08-04} {0.98k}
   {tagpdf - mc code only for the luamode }
 %</luamode>
 %    \end{macrocode}
@@ -100,10 +100,13 @@
       {
         \lua_now:e
           {
-           if~luatexbase.callbacktypes.pre_shipout_filter~then~
+            if~luatexbase.callbacktypes.pre_shipout_filter~then~
               luatexbase.add_to_callback("pre_shipout_filter", function(TAGBOX)~
               ltx.@@.func.space_chars_shipout(TAGBOX)~return~true~
               end, "tagpdf")~
+              if~luatexbase.declare_callback_rule~then~
+                luatexbase.declare_callback_rule("pre_shipout_filter", "luaotfload.dvi", "after", "tagpdf")
+              end~
             end
           }
        \lua_now:e

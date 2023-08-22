@@ -1,14 +1,12 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\RequirePackage{pdfmanagement-testphase}
-\DeclareDocumentMetadata{
+\DocumentMetadata{
+   testphase=phase-I,
    pdfversion=1.7
   ,lang=de-DE
   ,uncompress}
 \documentclass{article}
-\usepackage{tagpdf}
 
-\tagpdfsetup{tabsorder=structure,
-             activate}
+\tagpdfsetup{tabsorder=structure}
 \usepackage{iftex}             
 \iftutex
   \usepackage{fontspec}

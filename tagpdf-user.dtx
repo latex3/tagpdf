@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98j, released 2023-07-08}
+% \date{Version 0.98k, released 2023-08-04}
 % \maketitle
 % \begin{documentation}
 % \section{Setup commands}
@@ -250,7 +250,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-user} {2023-07-08} {0.98j}
+\ProvidesExplPackage {tagpdf-user} {2023-08-04} {0.98k}
   {tagpdf - user commands}
 %</header>
 %    \end{macrocode}
@@ -741,11 +741,17 @@
          }  
   }
 %    \end{macrocode}
-% In generic mode we need the additional code from the ptagging tests.
+% We need at least the new-or-1 code.
+% In generic mode we also must insert the code to finish the MC-chunks 
 %    \begin{macrocode}
+\@ifpackageloaded{footmisc}
+  {\PackageWarning{tagpdf}{tagpdf~has~been~loaded~too~late!}} %
+  {\RequirePackage{latex-lab-testphase-new-or-1}}
+ 
 \AddToHook{begindocument/before}
  {
-   \@ifundefined{@mult@ptagging@hook}{\RequirePackage{output-patches-tmp-ltx}}{} %
+   \providecommand\@kernel@tagsupport@@@@makecol{}
+   \providecommand\@kernel@before@cclv{}
    \bool_if:NF \g_@@_mode_lua_bool
      {
         \cs_if_exist:NT \@kernel@before@footins
@@ -757,6 +763,11 @@
                \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
                \@@_add_missing_mcs_to_stream:Nn \@cclv {main}
              }
+           \tl_put_right:Nn \@kernel@tagsupport@@@@makecol
+             {
+               \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
+               \@@_add_missing_mcs_to_stream:Nn \@outputbox {main}
+             }  
            \tl_put_right:Nn \@mult@ptagging@hook
              {
                \@@_check_typeout_v:n {====>~In~\string\page@sofar}

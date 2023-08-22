@@ -16,8 +16,8 @@
  }
 \DebugBlocksOff
 \makeatletter
-\def\UlrikeFischer@package@version{0.98j}
-\def\UlrikeFischer@package@date{2023-07-08}
+\def\UlrikeFischer@package@version{0.98k}
+\def\UlrikeFischer@package@date{2023-08-04}
 \makeatother
 
 \documentclass[bibliography=totoc,a4paper]{article}
@@ -191,7 +191,9 @@ but the xelatex and the latex-dvips-route are basically untested tested and they
 real space glyphs so I don't recommend them. 
 lualatex is the most powerful and safe modus and should be used for new documents, it is slower than pdflatex but requires less compilations to get tagging. pdflatex works ok and can be used for legacy documents; it needs more compilations to resolve all cross references needed for the tagging. 
 
-The package has two modes: the \emph{generic mode} which should work in theory with every engine and the \emph{lua mode} which works only with lualatex.
+The package has two modes: the \emph{generic mode} which should work in 
+theory with every engine and the \emph{lua mode} which works only with 
+lualatex and (since version 0.98k) with dvilualatex. 
 
 I implemented the generic mode first. Mostly because my \TeX\ skills are much better than my lua skills and I wanted to get the \TeX\ side right before starting to fight with attributes and node traversing.
 
@@ -522,6 +524,18 @@ See~\ref{sec:paratagging} and also \texttt{latex-lab-block-tagging.dtx} for more
 \item The command |tag_struct_end:n| has been add to improve debugging.
 \end{itemize}
 
+\subsection{Changes in version 0.98k}
+
+The luamode has been adapted and now allows also the compilation with 
+dvilualatex. By default it will insert specials for \texttt{dvips} into the 
+dvi. But be aware that \texttt{dvips} can normally not be used as it can't 
+handle open type fonts, and extended version would be needed which isn't in 
+texlive yet. It is also possible to use \texttt{dvipdfmx} as backend (which 
+already has support for open type fonts), for this you need to use 
+\texttt{backend=dvipdfmx} in the \cs{DocumentMetadata} command. Real space 
+chars will work, but are currently not taken from the current font. This will 
+be improved in the next luaotfload version. The compilation with dvilualatex 
+is not much tested yet. 
 
 \subsection{Proof of concept: the tagging of the documentation itself}
 
@@ -1310,13 +1324,9 @@ add the needed code.
 \tagpdfparaOff
 
 \tagstructbegin{tag=Figure,alt={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
-\ExplSyntaxOn
-\tag_stop:
-\ExplSyntaxOff
+\tagstop
 \input{link-figure-input}
-\ExplSyntaxOn
-\tag_start:
-\ExplSyntaxOff
+\tagstart
 \tagmcend\tagstructend
 
 \caption{Structure needed for a link annotation}\label{fig:linkannot}
@@ -1925,12 +1935,19 @@ quite possible that some of the commands will disappear again if we realize that
 
 \begin{docCommand}[nosep]{tag_stop:}{}\end{docCommand}
 \begin{docCommand}[nosep]{tag_start:}{}\end{docCommand}
+\begin{docCommand}[nosep]{tagstop}{}\end{docCommand}
+\begin{docCommand}[nosep]{tagstart}{}\end{docCommand}
 \begin{docCommand}[nosep]{tag_stop_group_begin:}{}\end{docCommand}
 \begin{docCommand}{tag_start_group_end:}{}\end{docCommand}
 
 This commands stop and start tagging in the current group 
 by switching \emph{local} booleans.
 The grouping commands also open and close a group.
+
+Restarting tagging is normally only needed if groups can't be used and then 
+must be done with care: |\tagstart| should normally only restart tagging if 
+the corresponding stop command actually stopped tagging. In complicated 
+case the following labeled version can be used: 
 
 \begin{docCommand}[nosep]{tag_stop:n}{\marg{label}}\end{docCommand}
 \begin{docCommand}{tag_start:n}{\marg{label}}\end{docCommand}
@@ -2111,9 +2128,8 @@ The \PDF{} references formulate various rules about whether a structure can be
 a child of another structure, e.g. a \texttt{Sect} can not be a child of \texttt{P}. 
 In the \PDF{} 1.7 reference this rules were 
 rather vage, in the \PDF{} 2.0  reference there is a quite specific matrix, 
-which sadly misses some of the tags from \PDF{} 1.7. The upcoming 
-ISO norm 32005 will 
-address this problem and extend the matrix to cover tags from 
+which sadly misses some of the tags from \PDF{} 1.7. The now released 
+ISO norm 32005 addresses this problem and extends the matrix to cover tags from 
 \PDF{} 1.7 and 2.0 (but it still misses the \texttt{math} tag and mathml 
 tags). 
 

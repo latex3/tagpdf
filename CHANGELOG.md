@@ -5,7 +5,16 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [2023-07-08]
+## [2023-08-04]
+Version: 0.98k
+
+- adapted parent-child rule to new ISO 32005
+- prepare for changes in the footnote code in latex-lab
+- improved compatibility with dvilualatex.
+
+
+## 2023-07-08
+Version: 0.98j
 
 ### Changed
  - parent-child message

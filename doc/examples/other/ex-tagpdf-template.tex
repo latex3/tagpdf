@@ -5,17 +5,13 @@
 
 % \DocumentMetadata requires a new pdfmanagement-testphase version! Older versions
 % should use \DeclareDocumentMetadata
-
-% with a new LaTeX it will not longer be needed to load pdfmanagment-testphase!
-\IfFormatAtLeastTF{2022-06-01}{}
-  {\RequirePackage{pdfmanagement-testphase}}
 \DocumentMetadata
- {uncompress,
+ {uncompress, %only for debugging!!
   pdfversion=2.0,
-  testphase=tagpdf %load and activate tagpdf
+  testphase=phase-III %load and activate tagpdf and uses all the phase-III code
   }
 
-\documentclass{scrartcl}
+\documentclass{article}
 \usepackage[english]{babel}
 
 \usepackage{iftex}

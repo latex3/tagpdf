@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.98j"
-packagedate="2023-07-08"
+packageversion="0.98k"
+packagedate="2023-08-04"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -167,8 +167,13 @@ docfiles = {"tagpdf.tex",
             "pac3.PNG",
             "acrobat.png",
             "global-ex.png",
-            "examples/**/ex-*.tex",
-            "examples/**/ex-*.pdf"}
+            "examples/mc/ex-*.tex",
+            "examples/mc/ex-*.pdf",
+            "examples/structure/ex-*.tex",
+            "examples/structure/ex-*.pdf",
+            "examples/other/ex-*.tex",
+            "examples/other/ex-*.pdf",
+            }
 
 textfiles= {"doc/CTANREADME.md"}
 binaryfiles = {"*.pdf", "*.png", "*.PNG", "*.zip"}
@@ -196,7 +201,8 @@ sourcefiles  = {"*.dtx",
 
 typesetfiles =
  {
-   "tagpdf.tex","tagpdf-code.tex"
+   "tagpdf.tex","tagpdf-code.tex",
+   "ex-*.tex",
 --   "tagpdf-tree.dtx",
 --   "tagpdf-checks.dtx",
 --   "tagpdf-space.dtx",
