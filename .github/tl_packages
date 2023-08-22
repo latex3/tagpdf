@@ -1,6 +1,22 @@
+# The test framework itself
+l3build
+
+# Required to build plain and LaTeX formats:
+# TeX90 plain for unpacking, pdfLaTeX, LuaLaTeX and XeTeX for tests
+latex-bin
+luahbtex
+tex
+xetex
+
+# Assuming a 'basic' font set up, metafont is required to avoid
+# warnings with some packages and errors with others
+metafont
+mfware
+texlive-scripts
+
 l3kernel l3packages l3build l3experimental l3backend
 
-latex latex-bin ctablestack
+latex ctablestack
 
 collection-langgerman
 
