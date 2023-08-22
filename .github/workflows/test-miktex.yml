@@ -21,7 +21,7 @@ jobs:
 
       - name: Install MiKTeX
         run: |
-          choco install miktex --no-progress
+          choco install miktex --no-progress --params "/Set:essential"
           echo "C:\Program Files\MiKTeX\miktex\bin\x64" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8
 
       - name: Configure MiKTeX
