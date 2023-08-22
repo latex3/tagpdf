@@ -536,7 +536,9 @@
 % We also define a wrapper around the low-level command as luamode will need
 % something different.
 %    \begin{macrocode}
-\bool_if:NTF \l__pdfmanagement_delayed_shipout_bool
+\bool_lazy_and:nnTF 
+  { \bool_if_exist_p:N \l__pdfmanagement_delayed_shipout_bool }
+  { \l__pdfmanagement_delayed_shipout_bool }
   { 
     \hook_gput_code:nnn {shipout/before}{tagpdf}{ \flag_clear:n { @@/mcid } }
     \cs_set_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
@@ -561,7 +563,7 @@
  { 
    \msg_new:nnn { tagpdf } { old-engine }
     { 
-      The~engine~is~too~old.\\
+      The~engine~or~the~PDF management~is~too~old.\\
       Fast~numbering~of~MC-chunks~not~available.\\
       More~compilations~will~be~needed~in~generic~mode.
     }  
