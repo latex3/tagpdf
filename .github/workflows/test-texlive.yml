@@ -1,4 +1,4 @@
-name: Tests
+name: Tests (TeX Live)
 
 on:
   push:
@@ -16,19 +16,16 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    #container:
-    #  image: registry.gitlab.com/islandoftex/images/texlive:latest-small
-    #  options: --user root
     steps:
       - name: Check out code
         uses: actions/checkout@v3
 
       - name: Install TeX Live
-        uses: zauguin/install-texlive@v2
+        uses: zauguin/install-texlive@v3
         with:
            package_file: tl_packages
 
-      - run: l3build install 
+      - run: l3build install
 
       - run: l3build check
 
