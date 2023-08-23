@@ -58,37 +58,13 @@ else
 end            
       
 checkruns = 2
-checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat","tagpdf-regressiontest.sty"}
+checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}
 --excludetests = {"test-saveboxes-structure-dev","test-link"}
 
 
-
-if os.getenv('TRAVIS')  then
-   checkconfigs = {"build","config-pdftex","config-luatex"}
-   excludetests = {"test-pdfresources-exist","test-saveboxes-structure-dev"}
-end
-
--- currently probably not needed. files in texmfhome are found.
--- local extratexmf=os.getenv('TEXDEVDIR')
-
-
---local file = io.open ("support/texmf.cnf","w")
---io.output(file)
---if extratexmf then
---io.write("TEXMFAUXTREES= "..extratexmf..",")
---else
---io.write("")
---end
---io.close(file)
-
 docfiledir = "./doc"
 
---%docfiles     =
---%  {
---%    "./doc/tagpdfdocu-patches.sty",
---%    "**/*.tex",
---%    "**/*.png"
---%  }
+
 tagfiles = {"*.md",
             "tag*.sty",
             "tag*.def",
