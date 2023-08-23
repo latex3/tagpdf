@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - "*"
-
+      - "!test*"
 jobs:
   run-checks:
     runs-on: ubuntu-latest
