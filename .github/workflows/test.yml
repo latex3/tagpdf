@@ -1,4 +1,4 @@
-name: Tests (TeX Live)
+name: Tests
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install TeX Live
-        uses: koppor/install-texlive@fix-caching
+        uses: zauguin/install-texlive@v3
         with:
            package_file: tl_packages
 
