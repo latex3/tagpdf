@@ -1319,6 +1319,7 @@
         \group_begin:
         \int_gincr:N \c@g_@@_struct_abs_int
         \@@_prop_new:c  { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
+%<debug>         \prop_new:c { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }    
         \@@_new_output_prop_handler:n {\int_eval:n { \c@g_@@_struct_abs_int }}
         \@@_seq_new:c  { g_@@_struct_kids_\int_eval:n { \c@g_@@_struct_abs_int }_seq}
         \exp_args:Ne
@@ -1461,6 +1462,8 @@
               {
                 \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
               }
+%    \end{macrocode}
+%    \begin{macrocode}
             %record this structure as kid:
             %\tl_show:N \g_@@_struct_stack_current_tl
             %\tl_show:N \l_@@_struct_stack_parent_tmpa_tl
@@ -1470,6 +1473,26 @@
             %\prop_show:c { g_@@_struct_\g_@@_struct_stack_current_tl _prop }
             %\seq_show:c {g_@@_struct_kids_\l_@@_struct_stack_parent_tmpa_tl _seq}
           }
+%    \end{macrocode}
+% the debug mode stores in second prop and replaces value with more suitable ones.
+% This must be done outside of the stash boolean.
+%    \begin{macrocode}
+%<debug>           \prop_gset_eq:cc 
+%<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+%<debug>             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+%<debug>           \prop_gput:cnx
+%<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+%<debug>             { P }
+%<debug>             { 
+%<debug>               \bool_if:NTF \l_@@_struct_elem_stash_bool
+%<debug>                 {no~parent:~stashed}
+%<debug>                 {
+%<debug>                   \l_@@_get_parent_tmpa_tl\c_space_tl
+%<debug>                    (\l_@@_struct_stack_parent_tmpa_tl)
+%<debug>                 }  
+%<debug>             }
+%    \end{macrocode}
+%    \begin{macrocode}
         %\prop_show:c { g_@@_struct_\g_@@_struct_stack_current_tl _prop }
         %\seq_show:c {g_@@_struct_kids_\l_@@_struct_stack_parent_tmpa_tl _seq}
 %<debug> \@@_debug_struct_begin_insert:n { #1 }
@@ -1526,7 +1549,7 @@
 % TODO: decide how it should be guarded. Probably by the struct-check.
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_struct_use:n #1 {}
-%<*package>
+%<*package|debug>
 \cs_set_protected:Npn \tag_struct_use:n #1 %#1 is the label
   { 
     \@@_check_if_active_struct:T
@@ -1546,6 +1569,19 @@
               {
                 \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
               }
+%    \end{macrocode}
+% debug code
+%    \begin{macrocode}
+%<debug>           \prop_gset_eq:cc 
+%<debug>             { g_@@_struct_debug_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+%<debug>             { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+%<debug>           \prop_gput:cnx
+%<debug>             { g_@@_struct_debug_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+%<debug>             { P }
+%<debug>             { 
+%<debug>               \g_@@_struct_tag_tl\c_space_tl
+%<debug>               (\l_@@_struct_stack_parent_tmpa_tl) 
+%<debug>             }
 %    \end{macrocode}
 %   check if the tag is allowed as child. Here we have to retrieve the 
 %   tag info for the child, while the data for the parent is in 
@@ -1572,14 +1608,14 @@
                   { \int_eval:n {\c@g_@@_struct_abs_int} }
                     \g_@@_struct_tag_tl               
                     \g_@@_struct_tag_NS_tl                                 
-              }
+              }              
           }
           {
             \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
           }
       }
   }
-%</package>
+%</package|debug>
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\tag_struct_use_num:n}
