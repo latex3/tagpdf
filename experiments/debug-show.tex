@@ -1,0 +1,17 @@
+\DocumentMetadata{testphase=phase-III}
+\RequirePackage{tagpdf-debug}
+\documentclass{article}
+\usepackage{hyperref}
+\begin{document}
+\section{blub}\label{a}
+blub\ref{a}
+
+\ExplSyntaxOn\makeatletter
+\int_step_inline:nn{\c@g__tag_struct_abs_int}
+ {
+   \prop_log:c{g__tag_struct_debug_#1_prop}
+   %\seq_show:c{g__tag_struct_kids_#1_seq}
+   \seq_log:c{g__tag_struct_debug_kids_#1_seq}
+ }
+\ExplSyntaxOff
+\end{document}
