@@ -626,23 +626,30 @@
        /MCID \c_space_tl \@@_ref_value:enn{mcid-#1}{tagmcid}{1}
      >>
   }
+%</package>  
 %    \end{macrocode}
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_kid_mc_gput_right:nn #1 #2 %#1 structure num, #2 MCID absnum%
+%<*package|debug>
+%<package>\cs_new_protected:Npn \@@_struct_kid_mc_gput_right:nn #1 #2 %#1 structure num, #2 MCID absnum%
+%<debug>\cs_set_protected:Npn \@@_struct_kid_mc_gput_right:nn #1 #2 %#1 structure num, #2 MCID absnum%
   {
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
       {
         \@@_struct_mcid_dict:n {#2}
       }
+%<debug>    \@@_seq_gput_right:cn
+%<debug>      { g_@@_struct_debug_kids_#1_seq }
+%<debug>      {
+%<debug>        MC~#2
+%<debug>      }      
     \@@_seq_gput_right:cn
       { g_@@_struct_kids_#1_seq }
       {
         \prop_item:Nn \g_@@_struct_cont_mc_prop {#2}
       }
   }
-\cs_generate_variant:Nn \@@_struct_kid_mc_gput_right:nn {nx}
-
+%<package>\cs_generate_variant:Nn \@@_struct_kid_mc_gput_right:nn {nx}
 %    \end{macrocode}
 % \end{macro}
 %  \begin{macro}
@@ -652,16 +659,22 @@
 %  This commands adds a structure as kid. We only need to record the object
 %  reference in the sequence.
 %    \begin{macrocode}
-\cs_new_protected:Npn\@@_struct_kid_struct_gput_right:nn #1 #2 %#1 num of parent struct, #2 kid struct
+%<package>\cs_new_protected:Npn\@@_struct_kid_struct_gput_right:nn #1 #2 %#1 num of parent struct, #2 kid struct
+%<debug>\cs_set_protected:Npn\@@_struct_kid_struct_gput_right:nn #1 #2 %#1 num of parent struct, #2 kid struct
   {
     \@@_seq_gput_right:cx
       { g_@@_struct_kids_#1_seq }
       {
         \pdf_object_ref:n { @@/struct/#2 }
       }
- }
+%<debug>    \@@_seq_gput_right:cn
+%<debug>      { g_@@_struct_debug_kids_#1_seq }
+%<debug>      {
+%<debug>        Struct~#2
+%<debug>      }            
+  }
 
-\cs_generate_variant:Nn \@@_struct_kid_struct_gput_right:nn {xx}
+%<package>\cs_generate_variant:Nn \@@_struct_kid_struct_gput_right:nn {xx}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}
@@ -672,9 +685,10 @@
 % object reference
 %
 %    \begin{macrocode}
-\cs_new_protected:Npn\@@_struct_kid_OBJR_gput_right:nnn #1 #2 #3 %#1 num of parent struct,
-                                                             %#2 obj reference
-                                                             %#3 page object reference
+%<package>\cs_new_protected:Npn\@@_struct_kid_OBJR_gput_right:nnn #1 #2 #3 %#1 num of parent struct,
+%<package>                                                             %#2 obj reference
+%<package>                                                             %#3 page object reference
+%<debug>\cs_set_protected:Npn\@@_struct_kid_OBJR_gput_right:nnn #1 #2 #3
   {
     \pdf_object_unnamed_write:nn
       { dict }
@@ -686,10 +700,15 @@
       {
         \pdf_object_ref_last:
       }
+%<debug>    \@@_seq_gput_right:cx
+%<debug>      { g_@@_struct_debug_kids_#1_seq }
+%<debug>      {
+%<debug>        OBJR~reference
+%<debug>      }      
   }
-
+%</package|debug>  
+%<*package>
 \cs_generate_variant:Nn\@@_struct_kid_OBJR_gput_right:nnn { xxx }
-
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}
@@ -1322,6 +1341,7 @@
 %<debug>         \prop_new:c { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }    
         \@@_new_output_prop_handler:n {\int_eval:n { \c@g_@@_struct_abs_int }}
         \@@_seq_new:c  { g_@@_struct_kids_\int_eval:n { \c@g_@@_struct_abs_int }_seq}
+%<debug>         \seq_new:c { g_@@_struct_debug_kids_\int_eval:n {\c@g_@@_struct_abs_int}_seq }            
         \exp_args:Ne
           \pdf_object_new:n
             { @@/struct/\int_eval:n { \c@g_@@_struct_abs_int } }
