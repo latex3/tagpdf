@@ -1,7 +1,8 @@
-Version 0.98k [2023-08-04]
+Version 0.98l [2023-08-30]
 
 ### Changed
-- adapted parent-child rule to new ISO 32005
-- prepare for changes in the footnote code in latex-lab
-- improved compatibility with dvilualatex.
+- use in generic mode the shipout keyword of \special/\pdfliteral if available
+
+### Added
+- \ShowTagging{debug/structures}
 
