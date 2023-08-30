@@ -9,7 +9,6 @@ The structure 0 contains:
 >  S  =>  /StructTreeRoot
 >  rolemap  =>  {StructTreeRoot}{pdf}
 >  parentrole  =>  {StructTreeRoot}{pdf}
->  Namespaces  =>  7 0 R
 The structure has the following kids:
 >  Struct 1
 =========================
@@ -20,7 +19,7 @@ The structure 1 contains:
 >  NS  =>  pdf2
 >  rolemap  =>  {Document}{pdf2}
 >  parentrole  =>  {Document}{pdf2}
->  P  =>  parent structure 0 = StructTreeRoot
+>  P  =>  parent structure: 0 = StructTreeRoot
 The structure has the following kids:
 >  Struct 4
 =========================
@@ -53,7 +52,7 @@ The structure 4 contains:
 >  NS  =>  pdf2
 >  rolemap  =>  {Sect}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
->  P  =>  parent structure 1 = Document
+>  P  =>  parent structure: 1 = Document
 The structure has the following kids:
 >  Struct 5
 >  Struct 7
@@ -67,7 +66,7 @@ The structure 5 contains:
 >  NS  =>  latex
 >  rolemap  =>  {H1}{pdf2}
 >  parentrole  =>  {H1}{pdf2}
->  P  =>  parent structure 4 = Sect
+>  P  =>  parent structure: 4 = Sect
 The structure has the following kids:
 >  Struct 6
 >  MC 3
@@ -79,7 +78,7 @@ The structure 6 contains:
 >  NS  =>  pdf2
 >  rolemap  =>  {Lbl}{pdf2}
 >  parentrole  =>  {Lbl}{pdf2}
->  P  =>  parent structure 5 = H1
+>  P  =>  parent structure: 5 = H1
 The structure has the following kids:
 >  MC 1
 >  MC 2
@@ -91,7 +90,7 @@ The structure 7 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
->  P  =>  parent structure 4 = Sect
+>  P  =>  parent structure: 4 = Sect
 The structure has the following kids:
 >  Struct 8
 =========================
@@ -103,7 +102,7 @@ The structure 8 contains:
 >  NS  =>  latex
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure 7 = Sect
+>  P  =>  parent structure: 7 = Sect
 The structure has the following kids:
 >  MC 4
 >  Struct 9
@@ -116,7 +115,7 @@ The structure 9 contains:
 >  NS  =>  10 0 R 
 >  rolemap  =>  {Link}{pdf2}
 >  parentrole  =>  {Link}{pdf2}
->  P  =>  parentstructure 4 = Sect
+>  P  =>  parent structure: 4 = Sect
 The structure has the following kids:
 >  MC 5
 >  OBJR reference
@@ -139,7 +138,7 @@ The structure 11 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
->  P  =>  parent structure 4 = Sect
+>  P  =>  parent structure: 4 = Sect
 The structure has the following kids:
 >  Struct 12
 =========================
@@ -151,7 +150,7 @@ The structure 12 contains:
 >  NS  =>  latex
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure 11 = Sect
+>  P  =>  parent structure: 11 = Sect
 The structure has the following kids:
 >  MC 7
 =========================
