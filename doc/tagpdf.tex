@@ -537,6 +537,11 @@ chars will work, but are currently not taken from the current font. This will
 be improved in the next luaotfload version. The compilation with dvilualatex 
 is not much tested yet. 
 
+\subsection{Changes in version 0.98l}
+
+In 2023 the primitives to write literal code into the pdf have been extended in all engines
+and now allow to delay the expansion of their argument to the shipout. This made it possible to greatly simplify and speed up the code used in generic mode to number the MC-chunks. In most cases building the structure should now need only two or three compilations. The new code requires a current pdfmanagement-testphase and is then used automatically if the new engines are detected. 
+
 \subsection{Proof of concept: the tagging of the documentation itself}
 
 Starting with version 0.6 the documentation itself has been tagged. The 

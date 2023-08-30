@@ -147,13 +147,23 @@
 %</base>
 %    \end{macrocode} 
 %\section{Package options}
-% There are only two options to switch for luatex between generic and luamode,
+% There are only two documented options to switch for luatex between generic and luamode,
 % TODO try to get rid of them.
+% The option \textttt{disabledelayedshipout} is only temporary to be able to debug 
+% problem with the new shipout keyword if needed.
 %    \begin{macrocode}
 %<*package>
 \bool_new:N\g_@@_mode_lua_bool  
+\bool_new:N\g_@@_delayed_shipout_bool
+\bool_lazy_and:nnT 
+  { \bool_if_exist_p:N \l__pdfmanagement_delayed_shipout_bool }
+  { \l__pdfmanagement_delayed_shipout_bool }
+  {
+    \bool_gset_true:N\g_@@_delayed_shipout_bool
+  }
 \DeclareOption {luamode}  { \sys_if_engine_luatex:T { \bool_gset_true:N \g_@@_mode_lua_bool } }
 \DeclareOption {genericmode}{ \bool_gset_false:N\g_@@_mode_lua_bool }
+\DeclareOption {disabledelayedshipout}{ \bool_gset_false:N\g_@@_delayed_shipout_bool }
 \ExecuteOptions{luamode}
 \ProcessOptions
 %    \end{macrocode}
