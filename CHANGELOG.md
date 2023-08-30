@@ -10,6 +10,9 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed
 - use in generic mode the shipout keyword of \special/\pdfliteral if available
 
+### Added
+- \ShowTagging{debug/structures}
+
 ## [2023-08-04]
 Version: 0.98k
 

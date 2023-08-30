@@ -2451,6 +2451,13 @@ This command takes as argument a key-val list which implements a number of show 
   With the value |log| the info is only
   written to the log-file, |show| stops the compilation and shows on the terminal.
   If no value is used, then the default is |show|.
+  
+   \item[\PrintKeyName{debug/structures}] This key is only available if 
+       the package \pkg{tagpdf-debug} has been loaded too. It takes as 
+       value a number (the default is 0), and shows on the terminal and 
+       in the log information about all structures with a number equal or 
+       larger than the number. The data avoids to show PDF object numbers 
+       to make it more usable for test suites. 
 \end{description}
 
 
