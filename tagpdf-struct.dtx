@@ -508,7 +508,15 @@
   { g_@@_struct_0_prop }
   { parentrole }
   { {StructTreeRoot}{pdf} }
-
+%</package>
+%<*debug>
+\prop_new:c { g_@@_struct_debug_0_prop }
+\prop_gset_eq:cc 
+   { g_@@_struct_debug_0_prop }
+   { g_@@_struct_0_prop }
+\seq_new:c  { g_@@_struct_debug_kids_0_seq }
+%</debug>
+%<*package>
 %    \end{macrocode}
 % Namespaces are pdf 2.0.
 % If the code moves into the kernel, the setting must be probably delayed.
@@ -638,7 +646,7 @@
       {
         \@@_struct_mcid_dict:n {#2}
       }
-%<debug>    \@@_seq_gput_right:cn
+%<debug>    \seq_gput_right:cn
 %<debug>      { g_@@_struct_debug_kids_#1_seq }
 %<debug>      {
 %<debug>        MC~#2
@@ -667,7 +675,7 @@
       {
         \pdf_object_ref:n { @@/struct/#2 }
       }
-%<debug>    \@@_seq_gput_right:cn
+%<debug>    \seq_gput_right:cn
 %<debug>      { g_@@_struct_debug_kids_#1_seq }
 %<debug>      {
 %<debug>        Struct~#2
@@ -700,7 +708,7 @@
       {
         \pdf_object_ref_last:
       }
-%<debug>    \@@_seq_gput_right:cx
+%<debug>    \seq_gput_right:cx
 %<debug>      { g_@@_struct_debug_kids_#1_seq }
 %<debug>      {
 %<debug>        OBJR~reference
@@ -1507,8 +1515,8 @@
 %<debug>               \bool_if:NTF \l_@@_struct_elem_stash_bool
 %<debug>                 {no~parent:~stashed}
 %<debug>                 {
-%<debug>                   \l_@@_get_parent_tmpa_tl\c_space_tl
-%<debug>                    (\l_@@_struct_stack_parent_tmpa_tl)
+%<debug>                   parent~structure~\l_@@_struct_stack_parent_tmpa_tl\c_space_tl =~
+%<debug>                   \l_@@_get_parent_tmpa_tl
 %<debug>                 }  
 %<debug>             }
 %    \end{macrocode}
@@ -1599,8 +1607,8 @@
 %<debug>             { g_@@_struct_debug_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
 %<debug>             { P }
 %<debug>             { 
-%<debug>               \g_@@_struct_tag_tl\c_space_tl
-%<debug>               (\l_@@_struct_stack_parent_tmpa_tl) 
+%<debug>               parent structure~\l_@@_struct_stack_parent_tmpa_tl\c_space_tl=~
+%<debug>               \g_@@_struct_tag_tl
 %<debug>             }
 %    \end{macrocode}
 %   check if the tag is allowed as child. Here we have to retrieve the 

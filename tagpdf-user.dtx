@@ -508,6 +508,44 @@
     ,struct-stack / show .code:n = \seq_show:N \g_@@_struct_tag_stack_seq
     ,struct-stack .default:n = show
   }
+%</package>  
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{debug/structures (show-key)}
+%  The following key is available only if the tagpdf-debug package is loaded
+%  and shows all structures starting with the one with the number 
+%  given by the key.
+%    \begin{macrocode}
+%<*debug>
+\keys_define:nn { @@ / show }
+  {
+    ,debug/structures .code:n = 
+      {
+        \int_step_inline:nnn{#1}{\c@g__tag_struct_abs_int}
+           {
+            \msg_term:nnxxxx 
+                   { tag/debug } { show-struct }
+                   { ##1 }
+                   { 
+                     \prop_map_function:cN 
+                       {g_@@_struct_debug_##1_prop} 
+                       \msg_show_item_unbraced:nn 
+                   }
+                   { } { }
+            \msg_term:nnxxxx  
+                   { tag/debug } { show-kids }
+                   {  ##1 }
+                   { 
+                     \seq_map_function:cN 
+                       {g_@@_struct_debug_kids_##1_seq} 
+                       \msg_show_item_unbraced:n
+                   }
+                   { } { }       
+          }
+      }    
+    ,debug/structures .default:n = 0
+  }
+%</debug>  
 %    \end{macrocode}
 % \end{macro}
 %
@@ -522,7 +560,6 @@
 % Until l3ref is in the kernel, we provide a definition for \cs{newlabeldata} in 
 % the aux-file to avoid errors if a document switches between tagging and non-tagging.
 %    \begin{macrocode}
-%</package>
 %<base>\AddToHook{begindocument}
 %<base> {\immediate\write\@mainaux{\string\providecommand\string\newlabeldata[2]{}}}
 %<*package>

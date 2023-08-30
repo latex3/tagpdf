@@ -85,6 +85,7 @@
 %  \cs{ShowTagging}{mc-data = num}    & log+term       & lua-only\\
 %  \cs{ShowTagging}{mc-current} & log+term       & \\
 %  \cs{ShowTagging}{struck-stack= [log\verb+|+show]}  & log or term+stop \\
+%  \cs{ShowTagging}{debug/structures = num} & log+termn & debug mode only
 %  \end{tabular}
 %
 % \subsection{Messages in checks and commands}
@@ -446,13 +447,40 @@
     The~structures~are~automatically~closed,\\
     but~their~nesting~can~be~wrong.  
   }
+%</package>  
 %    \end{macrocode}
 % \end{macro} 
-%
+% The following messages are only needed in debug mode.
+% \begin{macro}{show-struct,show-kids}
+% This two messages are used to show the current structures in the log and terminal.
+%    \begin{macrocode}
+%<*debug>
+\msg_new:nnn { tag/debug } { show-struct }
+  {
+    =========================\\
+    The~structure~#1~
+    \tl_if_empty:nTF {#2}
+      { is~empty \\>~ . }
+      { contains: #2  }
+    \\  
+  }
+\msg_new:nnn { tag/debug } { show-kids }
+  {
+    The~structure~has~the~following~kids:
+    \tl_if_empty:nTF {#2}
+      { \\>~ NONE }
+      { #2  }
+    \\
+    =========================
+  }
+%</debug>
+%    \end{macrocode}
+% \end{macro}
 % \subsection{Attributes}
 % Not much yet, as attributes aren't used so much.
 % \begin{macro}{attr-unknown}
 %    \begin{macrocode}
+%<*package>  
 \msg_new:nnn { tag } {attr-unknown}  { attribute~#1~is~unknown}
 %    \end{macrocode}
 % \end{macro}

@@ -89,6 +89,10 @@
 \ProvidesExplPackage {tagpdf-mc-code-lua} {2023-08-04} {0.98k}
   {tagpdf - mc code only for the luamode }
 %</luamode>
+%<*debug>
+\ProvidesExplPackage {tagpdf-debug-lua} {2023-08-04} {0.98k}
+ {part of tagpdf - debugging code related to marking chunks - lua mode}
+%</debug>
 %    \end{macrocode}
 % The main function which wanders through the shipout box to inject the literals.
 % if the new callback is there, it is used.
@@ -261,7 +265,10 @@
 % This is the lua variant for the command to
 % put an mcid absolute number in the current structure.
 %    \begin{macrocode}
-\cs_new:Nn \@@_mc_handle_stash:n %1 mcidnum
+%</luamode>
+%<*luamode|debug>
+%<luamode>\cs_new_protected:Npn \@@_mc_handle_stash:n #1 %1 mcidnum
+%<debug>\cs_set_protected:Npn \@@_mc_handle_stash:n #1 %1 mcidnum
   {
     \@@_check_mc_used:n { #1 }
     \seq_gput_right:cn % Don't fill a lua table due to the command in the item,
@@ -270,6 +277,12 @@
       {
         \@@_mc_insert_mcid_kids:n {#1}%
       }
+%<debug>    \seq_gput_right:cn % Don't fill a lua table due to the command in the item,
+%<debug>                       % so use the kernel command
+%<debug>      { g_@@_struct_debug_kids_\g_@@_struct_stack_current_tl _seq }
+%<debug>      {
+%<debug>        MC~#1%
+%<debug>      }      
     \lua_now:e
       {
         ltx.@@.func.store_struct_mcabs
@@ -282,7 +295,8 @@
       { #1 }
       { \g_@@_struct_stack_current_tl }
   }
-
+%</luamode|debug>
+%<*luamode>
 \cs_generate_variant:Nn \@@_mc_handle_stash:n { x }
 %    \end{macrocode}
 % \end{macro}

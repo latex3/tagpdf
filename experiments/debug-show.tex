@@ -3,15 +3,48 @@
 \documentclass{article}
 \usepackage{hyperref}
 \begin{document}
+
+
 \section{blub}\label{a}
 blub\ref{a}
 
-\ExplSyntaxOn\makeatletter
-\int_step_inline:nn{\c@g__tag_struct_abs_int}
- {
-   \prop_log:c{g__tag_struct_debug_#1_prop}
-   %\seq_show:c{g__tag_struct_kids_#1_seq}
-   \seq_log:c{g__tag_struct_debug_kids_#1_seq}
- }
+\AddToHook{tagpdf/finish/before}{\ShowTagging{debug/structures}}
+%\ExplSyntaxOn\makeatletter
+%
+%\msg_new:nnn { tag/debug } { show-struct }
+%  {
+%    =========================\\
+%    The~structure~#1~
+%    \tl_if_empty:nTF {#2}
+%      { is~empty \\>~ . }
+%      { contains: #2  }
+%    \\  
+%  }
+%\msg_new:nnn { tag/debug } { show-kids }
+%  {
+%    The~structure~has~the~following~kids:
+%    \tl_if_empty:nTF {#2}
+%      { \\>~ NONE }
+%      { #2  }
+%    \\
+%    =========================
+%  }
+%
+%\int_step_inline:nnn{0}{\c@g__tag_struct_abs_int}
+% {
+%   \msg_term:nnxxxx 
+%          { tag/debug } { show-struct }
+%          { #1 }
+%          { \prop_map_function:cN {g__tag_struct_debug_#1_prop} \msg_show_item_unbraced:nn }
+%          { } { }
+%   \msg_term:nnxxxx  
+%          { tag/debug } { show-kids }
+%          {  #1 }
+%          { \seq_map_function:cN {g__tag_struct_debug_kids_#1_seq} \msg_show_item_unbraced:n }
+%          { } { }       
+%   %\prop_log:c{g__tag_struct_debug_#1_prop}
+%   %\seq_show:c{g__tag_struct_kids_#1_seq}
+%   %\seq_log:c{g__tag_struct_debug_kids_#1_seq}
+% }
 \ExplSyntaxOff
 \end{document}
