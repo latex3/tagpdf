@@ -581,7 +581,7 @@
              { \l_@@_get_tmpc_tl } %
          }
      } 
- }     
+ }
 \cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {eVV}
 %    \end{macrocode}
 % \end{macro}
@@ -1515,10 +1515,14 @@
 %<debug>               \bool_if:NTF \l_@@_struct_elem_stash_bool
 %<debug>                 {no~parent:~stashed}
 %<debug>                 {
-%<debug>                   parent~structure~\l_@@_struct_stack_parent_tmpa_tl\c_space_tl =~
+%<debug>                   parent~structure:~\l_@@_struct_stack_parent_tmpa_tl\c_space_tl =~
 %<debug>                   \l_@@_get_parent_tmpa_tl
 %<debug>                 }  
 %<debug>             }
+%<debug>           \prop_gput:cnx
+%<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+%<debug>             { NS }
+%<debug>             { \g_@@_struct_tag_NS_tl } 
 %    \end{macrocode}
 %    \begin{macrocode}
         %\prop_show:c { g_@@_struct_\g_@@_struct_stack_current_tl _prop }
@@ -1607,9 +1611,13 @@
 %<debug>             { g_@@_struct_debug_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
 %<debug>             { P }
 %<debug>             { 
-%<debug>               parent structure~\l_@@_struct_stack_parent_tmpa_tl\c_space_tl=~
+%<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
 %<debug>               \g_@@_struct_tag_tl
 %<debug>             }
+%<debug>           \prop_gput:cnx
+%<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+%<debug>             { NS }
+%<debug>             { \g_@@_struct_tag_NS_tl } 
 %    \end{macrocode}
 %   check if the tag is allowed as child. Here we have to retrieve the 
 %   tag info for the child, while the data for the parent is in 

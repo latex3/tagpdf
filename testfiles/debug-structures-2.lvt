@@ -1,0 +1,18 @@
+\DocumentMetadata{testphase=phase-III,pdfversion=2.0}
+\input{regression-test}
+
+\RequirePackage{tagpdf-debug} 
+\documentclass{article}
+\usepackage{hyperref}
+\begin{document}
+\START
+
+\section{blub}\label{a}
+blub\ref{a}
+
+\tagstructbegin{stash,label=blub,tag=Span}\tagstructend
+
+\tagstructuse{blub} xxx 
+
+\AddToHook{tagpdf/finish/before}{\ShowTagging{debug/structures}}
+\end{document}

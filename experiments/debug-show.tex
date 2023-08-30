@@ -1,5 +1,5 @@
-\DocumentMetadata{testphase=phase-III}
-\RequirePackage{tagpdf-debug}
+\DocumentMetadata{testphase=phase-III,pdfversion=2.0} 
+\RequirePackage{tagpdf-debug} 
 \documentclass{article}
 \usepackage{hyperref}
 \begin{document}
@@ -7,6 +7,10 @@
 
 \section{blub}\label{a}
 blub\ref{a}
+
+\tagstructbegin{stash,label=blub,tag=Span}\tagstructend
+
+\tagstructuse{blub} xxx 
 
 \AddToHook{tagpdf/finish/before}{\ShowTagging{debug/structures}}
 %\ExplSyntaxOn\makeatletter
