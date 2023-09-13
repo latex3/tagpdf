@@ -631,8 +631,8 @@
       /Type \c_space_tl /MCR \c_space_tl
       /Pg
         \c_space_tl
-      \pdf_pageobject_ref:n { \@@_ref_value:enn{mcid-#1}{tagabspage}{1} }
-       /MCID \c_space_tl \@@_ref_value:enn{mcid-#1}{tagmcid}{1}
+      \pdf_pageobject_ref:n { \@@_property_ref:enn{mcid-#1}{tagabspage}{1} }
+       /MCID \c_space_tl \@@_property_ref:enn{mcid-#1}{tagmcid}{1}
      >>
   }
 %</package>  
@@ -939,7 +939,7 @@
           }
         %put the obj number of the annot in the kid entry, this also creates
         %the OBJR object
-        \ref_label:nn {__tag_objr_page_#2 }{ tagabspage }
+        \@@_property_record:nn {__tag_objr_page_#2 }{ tagabspage }
         \@@_struct_kid_OBJR_gput_right:xxx
           {
             \l_@@_struct_stack_parent_tmpa_tl
@@ -948,7 +948,7 @@
             #1 %
           }
           {
-            \pdf_pageobject_ref:n { \@@_ref_value:nnn {__tag_objr_page_#2 }{ tagabspage }{1} }
+            \pdf_pageobject_ref:n { \@@_property_ref:nnn {__tag_objr_page_#2 }{ tagabspage }{1} }
           }
         % add the parent obj number to the parent tree:
         \exp_args:Nnx
@@ -1370,7 +1370,7 @@
         \tl_if_empty:NF
           \l_@@_struct_key_label_tl
           {
-            \@@_ref_label:en{tagpdfstruct-\l_@@_struct_key_label_tl}{struct}
+            \@@_property_ref_list:en{tagpdfstruct-\l_@@_struct_key_label_tl}{struct}
           }
 %    \end{macrocode}
 % The structure number of the parent is either taken from the stack or
@@ -1588,16 +1588,16 @@
     \@@_check_if_active_struct:T
       {
         \prop_if_exist:cTF
-          { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
+          { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
           {
             \@@_check_struct_used:n {#1}
             %add the label structure as kid to the current structure (can be the root)
             \@@_struct_kid_struct_gput_right:xx
               { \g_@@_struct_stack_current_tl }
-              { \@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0} }
+              { \@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0} }
             %add the current structure to the labeled one as parents
             \@@_prop_gput:cnx
-              { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+              { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
               { P }
               {
                 \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
@@ -1606,10 +1606,10 @@
 % debug code
 %    \begin{macrocode}
 %<debug>           \prop_gset_eq:cc 
-%<debug>             { g_@@_struct_debug_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
-%<debug>             { g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+%<debug>             { g_@@_struct_debug_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+%<debug>             { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
 %<debug>           \prop_gput:cnx
-%<debug>             { g_@@_struct_debug_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+%<debug>             { g_@@_struct_debug_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
 %<debug>             { P }
 %<debug>             { 
 %<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~

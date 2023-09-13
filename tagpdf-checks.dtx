@@ -717,7 +717,7 @@
 \cs_new_protected:Npn \@@_check_struct_used:n #1 %#1 label
   {
     \prop_get:cnNT
-      {g_@@_struct_\@@_ref_value:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
+      {g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
       {P}
       \l_@@_tmpa_tl
       {
@@ -884,7 +884,7 @@
   {
     \tl_set:Nx \l_@@_tmpa_tl
       {
-        \@@_ref_value_lastpage:nn
+        \@@_property_ref_lastpage:nn
           {abspage}
           {-1}
       }
@@ -898,14 +898,14 @@
           {1}
           {1}
           {
-            \@@_ref_value_lastpage:nn
+            \@@_property_ref_lastpage:nn
               {tagmcabs}
               {-1}
           }
           {
             \int_compare:nT
               {
-                \@@_ref_value:enn
+                \@@_property_ref:enn
                   {mcid-####1}
                   {tagabspage}
                   {-1}
@@ -916,7 +916,7 @@
                \seq_gput_right:Nx \l_tmpa_seq
                  {
                    Page##1-####1-
-                   \@@_ref_value:enn
+                   \@@_property_ref:enn
                      {mcid-####1}
                      {tagmcid}
                      {-1}

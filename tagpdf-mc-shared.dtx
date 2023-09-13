@@ -297,7 +297,7 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_mc_handle_mc_label:e #1
   {
-    \ref_label:en{tagpdf-#1}{tagabspage,tagmcabs}
+    \@@_property_record:en{tagpdf-#1}{tagabspage,tagmcabs}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -328,7 +328,7 @@
   {
     \@@_check_if_active_struct:T
       {
-        \tl_set:Nx  \l_@@_tmpa_tl { \@@_ref_value:nnn{tagpdf-#1}{tagmcabs}{} }
+        \tl_set:Nx  \l_@@_tmpa_tl { \@@_property_ref:nnn{tagpdf-#1}{tagmcabs}{} }
         \tl_if_empty:NTF\l_@@_tmpa_tl
           {
             \msg_warning:nnn {tag} {mc-label-unknown} {#1}

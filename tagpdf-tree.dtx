@@ -136,7 +136,7 @@
 \hook_gput_code:nnn{begindocument}{tagpdf}
  {
    \int_gset:Nn\g_@@_tree_id_pad_int 
-    {\tl_count:e { \@@_ref_value_lastpage:nn{tagstruct}{1000}}+1}
+    {\tl_count:e { \@@_property_ref_lastpage:nn{tagstruct}{1000}}+1}
  }
 
 %    \end{macrocode}
@@ -273,7 +273,7 @@
   {
     \int_gset:Nn
       \c@g_@@_parenttree_obj_int
-      { \@@_ref_value_lastpage:nn{abspage}{100}  }
+      { \@@_property_ref_lastpage:nn{abspage}{100}  }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -313,18 +313,18 @@
 \cs_new_protected:Npn \@@_tree_parenttree_rerun_msg: {}
 \cs_new_protected:Npn \@@_tree_fill_parenttree:
   {
-    \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{abspage}{-1}} %not quite clear if labels are needed. See lua code
+    \int_step_inline:nnnn{1}{1}{\@@_property_ref_lastpage:nn{abspage}{-1}} %not quite clear if labels are needed. See lua code
       { %page ##1
         \prop_clear:N \l_@@_tmpa_prop
-        \int_step_inline:nnnn{1}{1}{\@@_ref_value_lastpage:nn{tagmcabs}{-1}}
+        \int_step_inline:nnnn{1}{1}{\@@_property_ref_lastpage:nn{tagmcabs}{-1}}
           {
             %mcid####1
             \int_compare:nT
-              {\@@_ref_value:enn{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
+              {\@@_property_ref:enn{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
               {% yes
                 \prop_put:Nxx
                   \l_@@_tmpa_prop
-                  {\@@_ref_value:enn{mcid-####1}{tagmcid}{-1}}
+                  {\@@_property_ref:enn{mcid-####1}{tagmcid}{-1}}
                   {\prop_item:Nn \g_@@_mc_parenttree_prop {####1}}
               }
           }
