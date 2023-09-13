@@ -279,7 +279,12 @@ braces):
 >  {footnotemark}  =>  {latex}
 >  {footnotelabel}  =>  {latex}
 >  {text-unit}  =>  {latex}
->  {text}  =>  {latex}.
+>  {text}  =>  {latex}
+>  {theorem-like}  =>  {latex}
+>  {codeline}  =>  {latex}
+>  {float}  =>  {latex}
+>  {figures}  =>  {latex}
+>  {tables}  =>  {latex}.
 <recently read> }
 l. ... }
 ============================================================
@@ -562,7 +567,12 @@ outer braces):
 >  {footnotemark}  =>  {--UNUSED--}
 >  {footnotelabel}  =>  {--UNUSED--}
 >  {text-unit}  =>  {--UNUSED--}
->  {text}  =>  {--UNUSED--}.
+>  {text}  =>  {--UNUSED--}
+>  {theorem-like}  =>  {--UNUSED--}
+>  {codeline}  =>  {--UNUSED--}
+>  {float}  =>  {--UNUSED--}
+>  {figures}  =>  {--UNUSED--}
+>  {tables}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================
@@ -932,7 +942,7 @@ braces):
 >  {description}  =>  {{L}{pdf2}}
 >  {quote}  =>  {{BlockQuote}{pdf}}
 >  {quotation}  =>  {{BlockQuote}{pdf}}
->  {verbatim}  =>  {{Div}{pdf2}}
+>  {verbatim}  =>  {{P}{pdf2}}
 >  {item}  =>  {{LI}{pdf2}}
 >  {itemlabel}  =>  {{Lbl}{pdf2}}
 >  {itembody}  =>  {{LBody}{pdf2}}
@@ -940,7 +950,12 @@ braces):
 >  {footnotemark}  =>  {{Lbl}{pdf2}}
 >  {footnotelabel}  =>  {{Lbl}{pdf2}}
 >  {text-unit}  =>  {{Part}{pdf2}}
->  {text}  =>  {{P}{pdf2}}.
+>  {text}  =>  {{P}{pdf2}}
+>  {theorem-like}  =>  {{Sect}{pdf2}}
+>  {codeline}  =>  {{Sub}{pdf2}}
+>  {float}  =>  {{Aside}{pdf2}}
+>  {figures}  =>  {{Sect}{pdf2}}
+>  {tables}  =>  {{Sect}{pdf2}}.
 <recently read> }
 l. ... }
 ============================================================
@@ -1324,7 +1339,7 @@ outer braces):
 >  {description}  =>  {BI}
 >  {quote}  =>  {G}
 >  {quotation}  =>  {G}
->  {verbatim}  =>  {G}
+>  {verbatim}  =>  {B}
 >  {item}  =>  {L}
 >  {itemlabel}  =>  {I}
 >  {itembody}  =>  {L}
@@ -1332,7 +1347,12 @@ outer braces):
 >  {footnotemark}  =>  {I}
 >  {footnotelabel}  =>  {I}
 >  {text-unit}  =>  {G}
->  {text}  =>  {B}.
+>  {text}  =>  {B}
+>  {theorem-like}  =>  {G}
+>  {codeline}  =>  {I}
+>  {float}  =>  {G}
+>  {figures}  =>  {G}
+>  {tables}  =>  {G}.
 <recently read> }
 l. ... }
 ============================================================
@@ -1455,7 +1475,7 @@ The global dictionary 'g__tag_role/RoleMapNS_latex_dict' contains the pairs
 >  {description}  =>  {[/L 10 0 R]}
 >  {quote}  =>  {[/BlockQuote 8 0 R]}
 >  {quotation}  =>  {[/BlockQuote 8 0 R]}
->  {verbatim}  =>  {[/Div 10 0 R]}
+>  {verbatim}  =>  {[/P 10 0 R]}
 >  {item}  =>  {[/LI 10 0 R]}
 >  {itemlabel}  =>  {[/Lbl 10 0 R]}
 >  {itembody}  =>  {[/LBody 10 0 R]}
@@ -1463,7 +1483,12 @@ The global dictionary 'g__tag_role/RoleMapNS_latex_dict' contains the pairs
 >  {footnotemark}  =>  {[/Lbl 10 0 R]}
 >  {footnotelabel}  =>  {[/Lbl 10 0 R]}
 >  {text-unit}  =>  {[/Part 10 0 R]}
->  {text}  =>  {[/P 10 0 R]}.
+>  {text}  =>  {[/P 10 0 R]}
+>  {theorem-like}  =>  {[/Sect 10 0 R]}
+>  {codeline}  =>  {[/Sub 10 0 R]}
+>  {float}  =>  {[/Aside 10 0 R]}
+>  {figures}  =>  {[/Sect 10 0 R]}
+>  {tables}  =>  {[/Sect 10 0 R]}.
 <recently read> }
 l. ... }
 ============================================================
