@@ -45,7 +45,7 @@ braces):
 >  {description}  =>  {L}
 >  {quote}  =>  {BlockQuote}
 >  {quotation}  =>  {BlockQuote}
->  {verbatim}  =>  {Div}
+>  {verbatim}  =>  {P}
 >  {item}  =>  {LI}
 >  {itemlabel}  =>  {Lbl}
 >  {itembody}  =>  {LBody}
@@ -54,6 +54,11 @@ braces):
 >  {footnotelabel}  =>  {Lbl}
 >  {text-unit}  =>  {Part}
 >  {text}  =>  {P}
+>  {theorem-like}  =>  {Sect}
+>  {codeline}  =>  {Span}
+>  {float}  =>  {Note}
+>  {figures}  =>  {Sect}
+>  {tables}  =>  {Sect}
 >  {wrongtag}  =>  {HX}.
 <recently read> }
 l. ...\prop_show:N\g__tag_role_rolemap_prop
