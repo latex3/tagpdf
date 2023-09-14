@@ -22,7 +22,7 @@ abc
     h2
 
      \ExplSyntaxOn
-      \tagstructbegin{tag=H3,parent=\ref_value:nn{tagpdfstruct-h1}{tagstruct}}
+      \tagstructbegin{tag=H3,parent=\__tag_property_ref:nn{tagpdfstruct-h1}{tagstruct}}
      \ExplSyntaxOff 
       h3 \par
      \tagstructend
