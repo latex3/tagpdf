@@ -140,7 +140,7 @@
 % must refer to an already existing, previously created structure. Such a structure
 % number can for example be have been stored with \cs{tag_get:n}, but one can also use
 % a label on the parent structure and then use
-% \cs{ref_value:nn}|{tagpdfstruct-label}{tagstruct}| to retrieve it.
+% \cs{property_ref:nn}|{tagpdfstruct-label}{tagstruct}| to retrieve it.
 % \end{function}
 % \begin{function}{title (struct-key),title-o (struct-key)}
 % This keys allows to set the dictionary entry
@@ -1139,7 +1139,7 @@
         \clist_map_inline:on {#1}
           {
             \tl_put_right:Nx \l_@@_tmpa_tl
-              {~\ref_value:nn{tagpdfstruct-##1}{tagstructobj} }
+              {~\@@_property_ref:en{tagpdfstruct-##1}{tagstructobj} }
           }
         \@@_struct_gput_data_ref:ee { \int_eval:n {\c@g_@@_struct_abs_int} } {\l_@@_tmpa_tl}
       },
@@ -1627,7 +1627,7 @@
 %   the global tl-vars:
 %    \begin{macrocode}
              \@@_struct_get_parentrole:eNN  
-              {\__tag_ref_value:enn{tagpdfstruct-#1}{tagstruct}{0}}
+              {\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}}
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
             \@@_check_parent_child:VVVVN

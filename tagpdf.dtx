@@ -200,23 +200,43 @@
 % \begin{macro}{\@@_lastpagelabel:}
 %    \begin{macrocode}
 %<*package>
- \cs_new_protected:Npn \@@_lastpagelabel:
-   {
-     \legacy_if:nT { @filesw }
-       {
-         \exp_args:NNnx \exp_args:NNx\iow_now:Nn \@auxout
-            {
-              \token_to_str:N \newlabeldata
-                {@@_LastPage}
-                {
-                  {abspage} { \int_use:N \g_shipout_readonly_int}
-                  {tagmcabs}{ \int_use:N \c@g_@@_MCID_abs_int }
-                  {tagstruct}{\int_use:N \c@g_@@_struct_abs_int }
-                }
-            }
-       }
-   }
-
+\cs_if_exist:NTF \property_new:nnnn
+  {
+   \cs_new_protected:Npn \@@_lastpagelabel:
+     {
+       \legacy_if:nT { @filesw }
+         {
+           \exp_args:NNnx \exp_args:NNx\iow_now:Nn \@auxout
+              {
+                \token_to_str:N \new@label@record
+                  {@@_LastPage}
+                  {
+                    {abspage} { \int_use:N \g_shipout_readonly_int}
+                    {tagmcabs}{ \int_use:N \c@g_@@_MCID_abs_int }
+                    {tagstruct}{\int_use:N \c@g_@@_struct_abs_int }
+                  }
+              }
+         }
+     }  
+  }
+  {
+   \cs_new_protected:Npn \@@_lastpagelabel:
+     {
+       \legacy_if:nT { @filesw }
+         {
+           \exp_args:NNnx \exp_args:NNx\iow_now:Nn \@auxout
+              {
+                \token_to_str:N \newlabeldata
+                  {@@_LastPage}
+                  {
+                    {abspage} { \int_use:N \g_shipout_readonly_int}
+                    {tagmcabs}{ \int_use:N \c@g_@@_MCID_abs_int }
+                    {tagstruct}{\int_use:N \c@g_@@_struct_abs_int }
+                  }
+              }
+         }
+     }
+  }
  \AddToHook{enddocument/afterlastpage}
   {\@@_lastpagelabel:}
 %    \end{macrocode}
@@ -367,7 +387,12 @@
 %    \end{macrocode}
 % The command to record     
 %    \begin{macrocode}
-    \cs_new_eq:NN \@@_property_record:nn \property_record:nn
+    \cs_new_protected:Npn \@@_property_record:nn #1#2
+      {
+        \@bsphack
+        \property_record:nn{#1}{#2}
+        \@esphack
+      }  
   }
 %    \end{macrocode}
 % now the same with l3ref-tmp
@@ -392,9 +417,19 @@
            }
        }  
      \cs_new_eq:NN \@@_property_ref:nn \ref_value:nn   
-     \cs_new_eq:NN \@@_property_record:nn \ref_label:nn          
+     \cs_new_protected:Npn \@@_property_record:nn #1#2
+       {
+         \@bsphack
+         \ref_label:nn {#1}{#2}
+         \@esphack
+       }  
+%    \end{macrocode}
+% to provide problems when switching between main and dev format:
+%    \begin{macrocode}
+     \providecommand\new@label@record[2]{}         
   }
 %    \end{macrocode}
+% And a few variants
 %    \begin{macrocode}
 \cs_generate_variant:Nn \@@_property_ref:nnn {enn}
 \cs_generate_variant:Nn \@@_property_ref:nn {en}
