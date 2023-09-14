@@ -371,7 +371,7 @@
 % \section{Label and Reference commands}
 % To ease transition to properties we setup internal definition. They can be replaced
 % by the property definitions once that is released.
-% \begin{macro}{\@@_property_new:nnnn,\@@_property_ref:nnn}
+% \begin{macro}{\@@_property_new:nnnn,\@@_property_gset:nnnn,\@@_property_ref:nnn}
 %    \begin{macrocode}
 \cs_if_exist:NTF \property_new:nnnn
   {
@@ -379,6 +379,10 @@
 % At first a command to define new properties
 %    \begin{macrocode}
     \cs_new_eq:NN \@@_property_new:nnnn \property_new:nnnn
+%    \end{macrocode}
+% For the non-shipout code we need also the option to reset property
+%    \begin{macrocode}
+    \cs_new_eq:NN \@@_property_gset:nnnn \property_gset:nnnn
 %    \end{macrocode}
 % The command to reference while giving a local default.
 %    \begin{macrocode}
@@ -402,6 +406,10 @@
       {
         \ref_attribute_gset:nnnn {#1}{#3}{#2}{#4}
       }
+    \cs_new_protected:Npn \@@_property_gset:nnnn #1 #2 #3 #4
+      {
+        \ref_attribute_gset:nnnn {#1}{#3}{#2}{#4}
+      }      
     \cs_new:Npn \@@_property_ref:nnn #1#2#3
        {
          \exp_args:Nee
