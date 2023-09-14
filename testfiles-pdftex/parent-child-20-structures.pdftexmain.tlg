@@ -1,0 +1,325 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
+(tagpdf)             line 12
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
+(tagpdf)             12
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+Package tagpdf Info: closing structure 3 tagged /text
+Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2' on line
+(tagpdf)             13
+Package tagpdf Info: Parent-Child 'Sect' --> 'Div'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'Div/pdf2' on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'P/pdf2' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'P'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'P/pdf2' on line ...
+Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'P/pdf2'.
+(tagpdf)                Relation is not allowed (struct 6, /P --> struct 7) on
+(tagpdf)                line 16
+Package tagpdf Info: Parent-Child 'P' --> 'H1'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'chapter/latex-book' on line
+(tagpdf)             17
+Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'chapter/latex-book'.
+(tagpdf)                Relation is not allowed (struct 7, /P --> struct 8) on
+(tagpdf)                line 17
+Package tagpdf Info: Parent-Child 'H1' --> 'Strong'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'Strong/pdf2' on line ...
+Package tagpdf Info: closing structure 9 tagged /Strong
+Package tagpdf Info: closing structure 8 tagged /chapter
+Package tagpdf Info: closing structure 7 tagged /P
+Package tagpdf Info: closing structure 6 tagged /P
+Package tagpdf Info: closing structure 5 tagged /Div
+Package tagpdf Info: closing structure 4 tagged /Sect
+Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'MC' on line ...
+Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 2, /text-unit) on line
+(tagpdf)                25
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'P/pdf2' on line ...
+Package tagpdf Info: closing structure 10 tagged /P
+Package tagpdf Info: closing structure 2 tagged /text-unit
+============================================================
+TEST 1: Parent Key
+============================================================
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
+(tagpdf)             line 33
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
+(tagpdf)             33
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'H1/pdf2' on line ...
+Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC' on line ...
+Package tagpdf Info: closing structure 13 tagged /H1
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+============================================================
+Package tagpdf Info: closing structure 12 tagged /text
+Package tagpdf Info: closing structure 11 tagged /text-unit
+============================================================
+TEST 2: Label later use
+============================================================
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
+(tagpdf)             line 45
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
+(tagpdf)             45
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC' on line ...
+Package tagpdf Info: closing structure 16 tagged /H1
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+Package tagpdf Info: closing structure 15 tagged /text
+Package tagpdf Info: closing structure 14 tagged /text-unit
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
+(tagpdf)             line 45
+Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2' on line
+(tagpdf)             45
+Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85')
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC' on line ...
+Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 18, /Sect) on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Sect/pdf2' --> 'H1/pdf2' on line ...
+Package tagpdf Info: closing structure 18 tagged /Sect
+Package tagpdf Info: closing structure 17 tagged /text-unit
+============================================================
+====> In \@makecol 1
+Pick up new bot mark!
+=> first b-, 1, 3, text
+=> bot e+, 9, 18
+=> TMB not missing
+=> TME not missing
+The sequence \g__tag_mc_main_marks_seq is empty
+> .
+Completed box being shipped out [1]
+\vbox(633.0+0.0)x407.0
+.\hbox(0.0+0.0)x0.0
+..\kern -72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil
+...\kern -72.26999
+...\hbox(0.0+0.0)x0.0
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue 16.0
+.\vbox(617.0+0.0)x345.0, shifted 62.0
+..\vbox(12.0+0.0)x345.0, glue set 12.0fil
+...\glue 0.0 plus 1.0fil
+...\pdfrunninglinkoff
+...\pdfliteral page{/Artifact BMC}
+...\marks4{b-,10,-1,}
+...\marks4{b+,10,-1,}
+...\hbox(0.0+0.0)x345.0
+....\hbox(0.0+0.0)x345.0
+...\pdfliteral page{EMC}
+...\marks4{e-,10,1,}
+...\marks4{e+,10,1,}
+...\pdfrunninglinkon
+..\glue 25.0
+..\glue(\lineskip) 0.0
+..\vbox(550.0+0.0)x345.0, glue set 503.94617fil
+...\hbox(0.0+0.0)x0.0
+...\pdfinterwordspaceon
+...\write-{}
+...\glue(\topskip) 3.05556
+...\hbox(6.94444+0.0)x345.0, glue set 268.0555fil
+....\write1{\newlabeldata{mcid-1}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{1}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\hbox(0.0+0.0)x15.0
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\pdfliteral page{EMC}
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{2}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\penalty 10000
+....\glue 0.0
+....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 a
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,1,3,text,,,}
+...\marks4{b+,1,3,text,,,}
+...\marks4{e-,1,3,}
+...\marks4{e+,1,3,}
+...\marks4{b-,2,2,P,,,}
+...\marks4{b+,2,2,P,,,}
+...\marks4{e-,2,10,}
+...\marks4{e+,2,10,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 5.05556
+...\hbox(6.94444+0.0)x345.0, glue set 278.8888fil
+....\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{3}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\hbox(0.0+0.0)x15.0
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\pdfliteral page{EMC}
+....\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{4}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/H1 <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\OT1/cmr/m/n/10 h
+....\OT1/cmr/m/n/10 1
+....\pdfliteral page{EMC}
+....\write1{\newlabeldata{mcid-5}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{5}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,3,12,text,,,}
+...\marks4{b+,3,12,text,,,}
+...\marks4{e-,3,12,}
+...\marks4{e+,3,12,}
+...\marks4{b-,4,13,H1,,,}
+...\marks4{b+,4,13,H1,,,}
+...\marks4{e-,4,13,}
+...\marks4{e+,4,13,}
+...\marks4{b-,5,12,P,,,}
+...\marks4{b+,5,12,P,,,}
+...\marks4{e-,5,12,}
+...\marks4{e+,5,12,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 5.05556
+...\hbox(6.94444+0.0)x345.0, glue set 286.94434fil
+....\write1{\newlabeldata{mcid-6}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{6}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\hbox(0.0+0.0)x15.0
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\pdfliteral page{EMC}
+....\write1{\newlabeldata{tagpdfstruct-blub}{{tagstruct}{16}{tagstructobj}{38 0 R}}}
+....\write1{\newlabeldata{mcid-7}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{7}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/H1 <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\OT1/cmr/m/n/10 H
+....\OT1/cmr/m/n/10 1
+....\pdfliteral page{EMC}
+....\write1{\newlabeldata{mcid-8}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{8}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\OT1/cmr/m/n/10 a
+....\OT1/cmr/m/n/10 b
+....\kern0.27779
+....\OT1/cmr/m/n/10 c
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,6,15,text,,,}
+...\marks4{b+,6,15,text,,,}
+...\marks4{e-,6,15,}
+...\marks4{e+,6,15,}
+...\marks4{b-,7,16,H1,,,}
+...\marks4{b+,7,16,H1,,,}
+...\marks4{e-,7,16,}
+...\marks4{e+,7,16,}
+...\marks4{b-,8,15,P,,,}
+...\marks4{b+,8,15,P,,,}
+...\marks4{e-,8,15,}
+...\marks4{e+,8,15,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 7.69446
+...\hbox(4.30554+0.0)x345.0, glue set 321.38887fil
+....\write1{\newlabeldata{mcid-9}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{9}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\pdfliteral shipout page{/Sect <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\hbox(0.0+0.0)x15.0
+....\glue 3.33333 plus 1.66666 minus 1.11111
+....\OT1/cmr/m/n/10 x
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,9,18,Sect,,,}
+...\marks4{b+,9,18,Sect,,,}
+...\marks4{e-,9,18,}
+...\marks4{e+,9,18,}
+...\glue 0.0 plus 1.0fil
+...\kern 0.0
+...\hbox(0.0+0.0)x0.0
+...\glue 0.0
+...\glue 0.0 plus 0.0001fil
+..\pdfrunninglinkoff
+..\pdfliteral page{/Artifact BMC}
+..\marks4{b-,11,-1,}
+..\marks4{b+,11,-1,}
+..\glue(\baselineskip) 23.55556
+..\hbox(6.44444+0.0)x345.0
+...\hbox(6.44444+0.0)x345.0, glue set 170.0fil
+....\glue 0.0 plus 1.0fil
+....\OT1/cmr/m/n/10 1
+....\glue 0.0 plus 1.0fil
+..\pdfliteral page{EMC}
+..\marks4{e-,11,1,}
+..\marks4{e+,11,1,}
+..\pdfrunninglinkon
+.\kern 0.0
+.\kern -633.0
+.\hbox(0.0+0.0)x0.0
+.\kern 633.0
+(parent-child-20-structures.aux)
+Package tagpdf Info: closing structure 1 tagged /Document

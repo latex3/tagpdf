@@ -87,7 +87,12 @@ braces):
 >  {footnotemark}  =>  {user}
 >  {footnotelabel}  =>  {user}
 >  {text-unit}  =>  {user}
->  {text}  =>  {user}.
+>  {text}  =>  {user}
+>  {theorem-like}  =>  {user}
+>  {codeline}  =>  {user}
+>  {float}  =>  {user}
+>  {figures}  =>  {user}
+>  {tables}  =>  {user}.
 <recently read> }
 l. ... }
 ============================================================
@@ -170,7 +175,7 @@ outer braces):
 >  {description}  =>  {BI}
 >  {quote}  =>  {G}
 >  {quotation}  =>  {G}
->  {verbatim}  =>  {G}
+>  {verbatim}  =>  {B}
 >  {item}  =>  {L}
 >  {itemlabel}  =>  {I}
 >  {itembody}  =>  {L}
@@ -178,7 +183,12 @@ outer braces):
 >  {footnotemark}  =>  {I}
 >  {footnotelabel}  =>  {I}
 >  {text-unit}  =>  {G}
->  {text}  =>  {B}.
+>  {text}  =>  {B}
+>  {theorem-like}  =>  {G}
+>  {codeline}  =>  {I}
+>  {float}  =>  {G}
+>  {figures}  =>  {G}
+>  {tables}  =>  {G}.
 <recently read> }
 l. ... }
 ============================================================
@@ -234,7 +244,7 @@ braces):
 >  {description}  =>  {L}
 >  {quote}  =>  {BlockQuote}
 >  {quotation}  =>  {BlockQuote}
->  {verbatim}  =>  {Div}
+>  {verbatim}  =>  {P}
 >  {item}  =>  {LI}
 >  {itemlabel}  =>  {Lbl}
 >  {itembody}  =>  {LBody}
@@ -242,7 +252,12 @@ braces):
 >  {footnotemark}  =>  {Lbl}
 >  {footnotelabel}  =>  {Lbl}
 >  {text-unit}  =>  {Part}
->  {text}  =>  {P}.
+>  {text}  =>  {P}
+>  {theorem-like}  =>  {Sect}
+>  {codeline}  =>  {Span}
+>  {float}  =>  {Note}
+>  {figures}  =>  {Sect}
+>  {tables}  =>  {Sect}.
 <recently read> }
 l. ... }
 ============================================================
@@ -390,7 +405,7 @@ braces):
 >  {description}  =>  {{L}{}}
 >  {quote}  =>  {{BlockQuote}{}}
 >  {quotation}  =>  {{BlockQuote}{}}
->  {verbatim}  =>  {{Div}{}}
+>  {verbatim}  =>  {{P}{}}
 >  {item}  =>  {{LI}{}}
 >  {itemlabel}  =>  {{Lbl}{}}
 >  {itembody}  =>  {{LBody}{}}
@@ -398,7 +413,12 @@ braces):
 >  {footnotemark}  =>  {{Lbl}{}}
 >  {footnotelabel}  =>  {{Lbl}{}}
 >  {text-unit}  =>  {{Part}{}}
->  {text}  =>  {{P}{}}.
+>  {text}  =>  {{P}{}}
+>  {theorem-like}  =>  {{Sect}{}}
+>  {codeline}  =>  {{Sub}{}}
+>  {float}  =>  {{Aside}{}}
+>  {figures}  =>  {{Sect}{}}
+>  {tables}  =>  {{Sect}{}}.
 <recently read> }
 l. ... }
 ============================================================
@@ -469,7 +489,12 @@ braces):
 >  {footnotemark}  =>  {{}{}}
 >  {footnotelabel}  =>  {{}{}}
 >  {text-unit}  =>  {{}{}}
->  {text}  =>  {{}{}}.
+>  {text}  =>  {{}{}}
+>  {theorem-like}  =>  {{}{}}
+>  {codeline}  =>  {{}{}}
+>  {float}  =>  {{}{}}
+>  {figures}  =>  {{}{}}
+>  {tables}  =>  {{}{}}.
 <recently read> }
 l. ... }
 ============================================================
@@ -625,7 +650,12 @@ outer braces):
 >  {footnotemark}  =>  {--UNUSED--}
 >  {footnotelabel}  =>  {--UNUSED--}
 >  {text-unit}  =>  {--UNUSED--}
->  {text}  =>  {--UNUSED--}.
+>  {text}  =>  {--UNUSED--}
+>  {theorem-like}  =>  {--UNUSED--}
+>  {codeline}  =>  {--UNUSED--}
+>  {float}  =>  {--UNUSED--}
+>  {figures}  =>  {--UNUSED--}
+>  {tables}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================
@@ -696,7 +726,12 @@ outer braces):
 >  {footnotemark}  =>  {--UNUSED--}
 >  {footnotelabel}  =>  {--UNUSED--}
 >  {text-unit}  =>  {--UNUSED--}
->  {text}  =>  {--UNUSED--}.
+>  {text}  =>  {--UNUSED--}
+>  {theorem-like}  =>  {--UNUSED--}
+>  {codeline}  =>  {--UNUSED--}
+>  {float}  =>  {--UNUSED--}
+>  {figures}  =>  {--UNUSED--}
+>  {tables}  =>  {--UNUSED--}.
 <recently read> }
 l. ... }
 ============================================================
