@@ -258,10 +258,10 @@
 % \end{variable}
 % Attribute lists for the label command. We have a list for
 % mc-related labels, and one for structures.
-% \begin{macro}{\c_@@_refmc_clist,\c_@@_refstruct_clist}
+% \begin{macro}{\c_@@_property_mc_clist,\c_@@_property_struct_clist}
 %    \begin{macrocode}
-\clist_const:Nn \c_@@_refmc_clist     {tagabspage,tagmcabs,tagmcid}
-\clist_const:Nn \c_@@_refstruct_clist {tagstruct,tagstructobj}
+\clist_const:Nn \c_@@_property_mc_clist     {tagabspage,tagmcabs,tagmcid}
+\clist_const:Nn \c_@@_property_struct_clist {tagstruct,tagstructobj}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -397,26 +397,10 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 \cs_generate_variant:Nn \@@_property_ref:nnn {enn}
-\cs_generate_variant:Nn \@@_property_ref:nn {nv}
-\cs_generate_variant:Nn \@@_property_record:nn {en}
+\cs_generate_variant:Nn \@@_property_ref:nn {en}
+\cs_generate_variant:Nn \@@_property_record:nn {en,eV}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_property_ref_list:nn}
-% A version of |\@@_property_ref:nn| to set a label
-% which takes a keyword |mc| or |struct| to
-% call the relevant lists.
-% TODO: check if |\@bsphack| and |\@esphack| make sense here.
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_property_ref_list:nn #1 #2 %#1 label, #2 name of list mc or struct
-  {
-    \@bsphack
-    \@@_property_ref:nv {#1}{c_@@_ref#2_clist}
-    \@esphack
-  }
-\cs_generate_variant:Nn \@@_property_ref_list:nn {en}
-%    \end{macrocode}
-% \end{macro}
-
 %
 % \begin{macro}{\@@_property_ref_lastpage:nn}
 % A command to retrieve the lastpage label, this will be adapted when there

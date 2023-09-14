@@ -542,11 +542,11 @@
     \cs_set_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
       {
         \int_gincr:N \c@g_@@_MCID_abs_int
-        \@@_property_ref_list:en
+        \@@_property_record:eV
          {
            mcid-\int_use:N \c@g_@@_MCID_abs_int
          }
-         {mc}     
+         \c_@@_property_mc_clist     
         \@@_mc_bdc_shipout:ee
           {#1}
           { 
@@ -609,11 +609,11 @@
              { \l_@@_mc_ref_abspage_tl }
              {1}
          }
-       \@@_property_ref_list:en
+       \@@_property_record:eV
          {
            mcid-\int_use:N \c@g_@@_MCID_abs_int
          }
-         { mc }
+         \c_@@_property_mc_clist
         \@@_mc_bdc:nx
           {#1}
           { /MCID~\int_eval:n { \g_@@_MCID_tmp_bypage_int }~ \exp_not:n { #2 } }
