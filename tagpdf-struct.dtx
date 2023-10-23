@@ -939,7 +939,7 @@
           }
         %put the obj number of the annot in the kid entry, this also creates
         %the OBJR object
-        \@@_property_record:nn {__tag_objr_page_#2 }{ tagabspage }
+        \@@_property_record:nn {@tag@objr@page@#2 }{ tagabspage }
         \@@_struct_kid_OBJR_gput_right:xxx
           {
             \l_@@_struct_stack_parent_tmpa_tl
@@ -948,7 +948,7 @@
             #1 %
           }
           {
-            \pdf_pageobject_ref:n { \@@_property_ref:nnn {__tag_objr_page_#2 }{ tagabspage }{1} }
+            \pdf_pageobject_ref:n { \@@_property_ref:nnn {@tag@objr@page@#2 }{ tagabspage }{1} }
           }
         % add the parent obj number to the parent tree:
         \exp_args:Nnx

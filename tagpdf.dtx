@@ -209,7 +209,7 @@
            \exp_args:NNnx \exp_args:NNx\iow_now:Nn \@auxout
               {
                 \token_to_str:N \new@label@record
-                  {@@_LastPage}
+                  {@tag@LastPage}
                   {
                     {abspage} { \int_use:N \g_shipout_readonly_int}
                     {tagmcabs}{ \int_use:N \c@g_@@_MCID_abs_int }
@@ -227,7 +227,7 @@
            \exp_args:NNnx \exp_args:NNx\iow_now:Nn \@auxout
               {
                 \token_to_str:N \newlabeldata
-                  {@@_LastPage}
+                  {@tag@LastPage}
                   {
                     {abspage} { \int_use:N \g_shipout_readonly_int}
                     {tagmcabs}{ \int_use:N \c@g_@@_MCID_abs_int }
@@ -451,7 +451,7 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_property_ref_lastpage:nn #1 #2
   {
-    \@@_property_ref:nnn {@@_LastPage}{#1}{#2}
+    \@@_property_ref:nnn {@tag@LastPage}{#1}{#2}
   }
 %    \end{macrocode}
 %\end{macro}
