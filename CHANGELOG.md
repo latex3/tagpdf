@@ -6,9 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
-- switch to the use of the new properties if the format is new enough.
- 
+## [2023-10-23]
+Version: 0.98m
+
+### Changed
+ - use new LaTeX properties if available
+ - change name of label to avoid problems with active underscore.
+
 ## [2023-08-30]
+Version: 0.98l
 
 ### Changed
 - use in generic mode the shipout keyword of \special/\pdfliteral if available

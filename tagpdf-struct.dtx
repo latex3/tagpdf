@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98l, released 2023-08-30}
+% \date{Version 0.98m, released 2023-10-23}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -247,7 +247,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-struct-code} {2023-08-30} {0.98l}
+\ProvidesExplPackage {tagpdf-struct-code} {2023-10-23} {0.98m}
  {part of tagpdf - code related to storing structure}
 %</header>
 %    \end{macrocode}
@@ -939,7 +939,7 @@
           }
         %put the obj number of the annot in the kid entry, this also creates
         %the OBJR object
-        \@@_property_record:nn {__tag_objr_page_#2 }{ tagabspage }
+        \@@_property_record:nn {@tag@objr@page@#2 }{ tagabspage }
         \@@_struct_kid_OBJR_gput_right:xxx
           {
             \l_@@_struct_stack_parent_tmpa_tl
@@ -948,7 +948,7 @@
             #1 %
           }
           {
-            \pdf_pageobject_ref:n { \@@_property_ref:nnn {__tag_objr_page_#2 }{ tagabspage }{1} }
+            \pdf_pageobject_ref:n { \@@_property_ref:nnn {@tag@objr@page@#2 }{ tagabspage }{1} }
           }
         % add the parent obj number to the parent tree:
         \exp_args:Nnx
@@ -1815,7 +1815,7 @@
 % \section{Attributes and attribute classes}
 %    \begin{macrocode}
 %<*header>
-\ProvidesExplPackage {tagpdf-attr-code} {2023-08-30} {0.98l}
+\ProvidesExplPackage {tagpdf-attr-code} {2023-10-23} {0.98m}
   {part of tagpdf - code related to attributes and attribute classes}
 %</header>
 %    \end{macrocode}
