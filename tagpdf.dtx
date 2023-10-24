@@ -443,6 +443,11 @@
 \cs_generate_variant:Nn \@@_property_ref:nn {en}
 \cs_generate_variant:Nn \@@_property_record:nn {en,eV}
 %    \end{macrocode}
+% The graphic code in latex-lab uses an internal tagpdf command, so until the next 
+% release we need to provide it
+%    \begin{macrocode}
+\cs_set_eq:NN \@@_ref_value:enn \@@_property_ref:enn
+%    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_property_ref_lastpage:nn}
