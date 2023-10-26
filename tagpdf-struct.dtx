@@ -463,9 +463,27 @@
         \@@_struct_output_prop_aux:nn {#1}{##1}
       }
   }
+%</package>  
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_struct_prop_gput:nnn}
+% The structure props must be filled in various places.
+% For this we use a common command which also takes care of the debug package: 
+%    \begin{macrocode}
+%<*package|debug>
+%<package>\cs_new_protected:Npn \@@_struct_prop_gput:nnn #1 #2 #3
+%<debug>\cs_set_protected:Npn \@@_struct_prop_gput:nnn #1 #2 #3
+ {
+   \@@_prop_gput:cnn
+        { g_@@_struct_#1_prop }{#2}{#3}
+%<debug>\prop_gput:cnn { g_@@_struct_debug_#1_prop } {#2} {#3}        
+ }
+\cs_generate_variant:Nn \@@_struct_prop_gput:nnn {nne,nee,nno} 
+%</package|debug>
+%    \end{macrocode}
+% \end{macro}
+
 % \subsection{Initialization of the StructTreeRoot}
 % The first structure element, the StructTreeRoot is special, so
 % created manually. The underlying object is |@@/struct/0| which is currently
@@ -475,60 +493,62 @@
 % code. This avoid timing issues.
 %
 %    \begin{macrocode}
+%<*package>
 \tl_gset:Nn \g_@@_struct_stack_current_tl {0}
 %    \end{macrocode}
 % \begin{macro}{\@@_pdf_name_e:n}
 %    \begin{macrocode}
 \cs_new:Npn \@@_pdf_name_e:n #1{\pdf_name_from_unicode_e:n{#1}}
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{variable}{g_@@_struct_0_prop,g_@@_struct_kids_0_seq}
 %    \begin{macrocode}
+%<*package>
 \@@_prop_new:c { g_@@_struct_0_prop }
 \@@_new_output_prop_handler:n {0}
 \@@_seq_new:c  { g_@@_struct_kids_0_seq }
 
-\@@_prop_gput:cnx
-  { g_@@_struct_0_prop }
+\@@_struct_prop_gput:nne
+  { 0 }            
   { Type }
   { \pdf_name_from_unicode_e:n {StructTreeRoot} }
 
-\@@_prop_gput:cnx
-  { g_@@_struct_0_prop }
+\@@_struct_prop_gput:nne
+  { 0 }            
   { S }
   { \pdf_name_from_unicode_e:n {StructTreeRoot} }
 
-\@@_prop_gput:cnx
-  { g_@@_struct_0_prop }
+\@@_struct_prop_gput:nne
+  { 0 }            
   { rolemap }
   { {StructTreeRoot}{pdf} }
 
-\@@_prop_gput:cnx
-  { g_@@_struct_0_prop }
+\@@_struct_prop_gput:nne
+  { 0 }            
   { parentrole }
   { {StructTreeRoot}{pdf} }
-%</package>
-%<*debug>
-\prop_new:c { g_@@_struct_debug_0_prop }
-\prop_gset_eq:cc 
-   { g_@@_struct_debug_0_prop }
-   { g_@@_struct_0_prop }
-\prop_gremove:cn { g_@@_struct_debug_0_prop }{Namespaces}  
-\seq_new:c  { g_@@_struct_debug_kids_0_seq }
-%</debug>
-%<*package>
+  
 %    \end{macrocode}
 % Namespaces are pdf 2.0.
 % If the code moves into the kernel, the setting must be probably delayed.
 %    \begin{macrocode}
 \pdf_version_compare:NnF < {2.0}
  {
-   \@@_prop_gput:cnx
-    { g_@@_struct_0_prop }
+   \@@_struct_prop_gput:nne
+    { 0 }            
     { Namespaces }
     { \pdf_object_ref:n { @@/tree/namespaces } }
- }   
+ } 
+%</package>
+%    \end{macrocode}
+% In debug mode we have to copy the root manually as it is already setup:
+%    \begin{macrocode}
+%<debug>\prop_new:c { g_@@_struct_debug_0_prop }
+%<debug>\seq_new:c  { g_@@_struct_debug_kids_0_seq }
+%<debug>\prop_gset_eq:cc { g_@@_struct_debug_0_prop }{ g_@@_struct_0_prop }
+%<debug>\prop_gremove:cn { g_@@_struct_debug_0_prop }{Namespaces}   
 %    \end{macrocode}
 % \end{variable}
 % 
@@ -537,6 +557,7 @@
 % simply calculated from the structure number.
 % \begin{macro}{\@@_struct_get_id:n}
 %    \begin{macrocode}
+%<*package>
 \cs_new:Npn \@@_struct_get_id:n #1 %#1=struct num
   {
     (
@@ -561,8 +582,8 @@
    \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
      %#1 structure number, #2 tag, #3 NS
      { 
-       \@@_prop_gput:cnx
-         { g_@@_struct_#1_prop }         
+       \@@_struct_prop_gput:nne
+         { #1 }            
          { S }
          { \pdf_name_from_unicode_e:n {#2}  } %
      }
@@ -570,14 +591,14 @@
  {     
    \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
      {  
-       \@@_prop_gput:cnx
-         { g_@@_struct_#1_prop }
+       \@@_struct_prop_gput:nne
+         { #1 }            
          { S }
          { \pdf_name_from_unicode_e:n {#2} } %
        \prop_get:NnNT \g_@@_role_NS_prop {#3} \l_@@_get_tmpc_tl
          {
-           \@@_prop_gput:cnx
-             { g_@@_struct_#1_prop }
+           \@@_struct_prop_gput:nne
+             { #1 }            
              { NS }
              { \l_@@_get_tmpc_tl } %
          }
@@ -599,8 +620,8 @@
          { parentrole }
          \l_@@_get_tmpc_tl
          {
-           \tl_set:Nx #2{\exp_last_unbraced:NV\use_i:nn  \l_@@_get_tmpc_tl}
-           \tl_set:Nx #3{\exp_last_unbraced:NV\use_ii:nn \l_@@_get_tmpc_tl}
+           \tl_set:Ne #2{\exp_last_unbraced:NV\use_i:nn  \l_@@_get_tmpc_tl}
+           \tl_set:Ne #3{\exp_last_unbraced:NV\use_ii:nn \l_@@_get_tmpc_tl}
          }         
          {
            \tl_clear:N#2
@@ -614,7 +635,7 @@
 % Commands to store the kids. Kids in a structure can be a reference to a mc-chunk,
 % an object reference to another structure element, or a object reference to an
 % annotation (through an OBJR object).
-% \begin{macro}{\@@_struct_kid_mc_gput_right:nn,\@@_struct_kid_mc_gput_right:nx}
+% \begin{macro}{\@@_struct_kid_mc_gput_right:nn,\@@_struct_kid_mc_gput_right:ne}
 % The command to store an mc-chunk, this is a dictionary of type MCR.
 % It would be possible to write out the content directly as unnamed object
 % and to store only the object reference, but probably this would be slower,
@@ -658,12 +679,12 @@
         \prop_item:Nn \g_@@_struct_cont_mc_prop {#2}
       }
   }
-%<package>\cs_generate_variant:Nn \@@_struct_kid_mc_gput_right:nn {nx}
+%<package>\cs_generate_variant:Nn \@@_struct_kid_mc_gput_right:nn {ne}
 %    \end{macrocode}
 % \end{macro}
 %  \begin{macro}
 %    {
-%      \@@_struct_kid_struct_gput_right:nn,\@@_struct_kid_struct_gput_right:xx
+%      \@@_struct_kid_struct_gput_right:nn,\@@_struct_kid_struct_gput_right:ee
 %    }
 %  This commands adds a structure as kid. We only need to record the object
 %  reference in the sequence.
@@ -683,11 +704,11 @@
 %<debug>      }            
   }
 
-%<package>\cs_generate_variant:Nn \@@_struct_kid_struct_gput_right:nn {xx}
+%<package>\cs_generate_variant:Nn \@@_struct_kid_struct_gput_right:nn {ee}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}
-%  {\@@_struct_kid_OBJR_gput_right:nnn,\@@_struct_kid_OBJR_gput_right:xxx}
+%  {\@@_struct_kid_OBJR_gput_right:nnn,\@@_struct_kid_OBJR_gput_right:eee}
 % At last the command to add an OBJR object. This has to write an object first.
 % The first argument is the number of the parent structure, the second the
 % (expanded) object reference of the annotation. The last argument is the page
@@ -709,7 +730,7 @@
       {
         \pdf_object_ref_last:
       }
-%<debug>    \seq_gput_right:cx
+%<debug>    \seq_gput_right:ce
 %<debug>      { g_@@_struct_debug_kids_#1_seq }
 %<debug>      {
 %<debug>        OBJR~reference
@@ -717,7 +738,7 @@
   }
 %</package|debug>  
 %<*package>
-\cs_generate_variant:Nn\@@_struct_kid_OBJR_gput_right:nnn { xxx }
+\cs_generate_variant:Nn\@@_struct_kid_OBJR_gput_right:nnn { eee }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}
@@ -752,7 +773,7 @@
      {
         \seq_clear:N \l_@@_tmpa_seq
         \seq_map_inline:cn { g_@@_struct_kids_#1_seq }
-         { \seq_put_right:Nx \l_@@_tmpa_seq { ##1 } }
+         { \seq_put_right:Ne \l_@@_tmpa_seq { ##1 } }
         %\seq_show:c { g_@@_struct_kids_#1_seq }
         %\seq_show:N \l_@@_tmpa_seq
         \seq_remove_all:Nn \l_@@_tmpa_seq {}
@@ -779,7 +800,9 @@
                \@@_struct_exchange_kid_command:c
                 {g_@@_struct_kids_#1_seq}
              }
-           \@@_prop_gput:cnx { g_@@_struct_#1_prop } {K}
+           \@@_struct_prop_gput:nne
+             {#1}            
+             {K}
              {
                \seq_item:cn
                  {
@@ -790,7 +813,9 @@
          } %
       }
       { %many kids, use an array
-        \@@_prop_gput:cnx { g_@@_struct_#1_prop } {K}
+        \@@_struct_prop_gput:nne
+          {#1} 
+          {K}
           {
             [
               \seq_use:cn
@@ -823,7 +848,7 @@
          _entries_seq
       }
       {
-        \tl_put_right:Nx
+        \tl_put_right:Ne
           #2
           {
              \prop_if_in:cnT
@@ -872,11 +897,11 @@
 %    \begin{macrocode}
         \prop_get:cnNF { g_@@_struct_#1_prop } {P}\l_@@_tmpb_tl
           { 
-            \prop_gput:cnx { g_@@_struct_#1_prop } {P}{\pdf_object_ref:n { @@/struct/0  }}
-            \prop_gput:cnx { g_@@_struct_#1_prop } {S}{/Artifact}
+            \prop_gput:cne { g_@@_struct_#1_prop } {P}{\pdf_object_ref:n { @@/struct/0  }}
+            \prop_gput:cne { g_@@_struct_#1_prop } {S}{/Artifact}
             \seq_if_empty:cF {g_@@_struct_kids_#1_seq}
               {
-                \msg_warning:nnxx 
+                \msg_warning:nnee 
                   {tag} 
                   {struct-orphan} 
                   { #1 }
@@ -885,8 +910,8 @@
           }              
         \@@_struct_fill_kid_key:n { #1 }
         \@@_struct_get_dict_content:nN { #1 } \l_@@_tmpa_tl
-        \exp_args:Nx
-              \pdf_object_write:nnx
+        \exp_args:Ne
+              \pdf_object_write:nne
                 { @@/struct/#1 }
                 {dict}
                 {
@@ -940,7 +965,7 @@
         %put the obj number of the annot in the kid entry, this also creates
         %the OBJR object
         \@@_property_record:nn {@tag@objr@page@#2 }{ tagabspage }
-        \@@_struct_kid_OBJR_gput_right:xxx
+        \@@_struct_kid_OBJR_gput_right:eee
           {
             \l_@@_struct_stack_parent_tmpa_tl
           }
@@ -951,7 +976,7 @@
             \pdf_pageobject_ref:n { \@@_property_ref:nnn {@tag@objr@page@#2 }{ tagabspage }{1} }
           }
         % add the parent obj number to the parent tree:
-        \exp_args:Nnx
+        \exp_args:Nne
         \@@_parenttree_add_objr:nn
           {
             #2
@@ -1053,9 +1078,9 @@
           {
             \int_compare_p:nNn {#1}<{\c@g_@@_struct_abs_int}
           }
-          { \tl_set:Nx \l_@@_struct_stack_parent_tmpa_tl { \int_eval:n {#1} } }
+          { \tl_set:Ne \l_@@_struct_stack_parent_tmpa_tl { \int_eval:n {#1} } }
           {
-            \msg_warning:nnxx { tag } { struct-unknown }
+            \msg_warning:nnee { tag } { struct-unknown }
               { \int_eval:n {#1} }
               { parent~key~ignored }
           }
@@ -1064,8 +1089,8 @@
     tag   .code:n        = % S property
       {
         \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:Ne\g__tag_role_tags_NS_prop{#1}}
-        \tl_gset:Nx \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
-        \tl_gset:Nx \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }  
+        \tl_gset:Ne \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
+        \tl_gset:Ne \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }  
         \@@_check_structure_tag:N \g_@@_struct_tag_tl
       },
     title .code:n        = % T property
@@ -1075,8 +1100,8 @@
           { #1 }
           { default }
           { utf16/hex }
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+        \@@_struct_prop_gput:nne
+          { \int_use:N \c@g_@@_struct_abs_int }
           { T }
           { <\l_@@_tmpa_str> }
       },
@@ -1087,8 +1112,8 @@
           { #1 }
           { default }
           { utf16/hex }
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+        \@@_struct_prop_gput:nne
+          { \int_use:N \c@g_@@_struct_abs_int }
           { T }
           { <\l_@@_tmpa_str> }
       },
@@ -1101,8 +1126,8 @@
             { #1 }
             { default }
             { utf16/hex }
-          \@@_prop_gput:cnx
-            { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+          \@@_struct_prop_gput:nne
+            { \int_use:N \c@g_@@_struct_abs_int }
             { Alt }
             { <\l_@@_tmpa_str> }
          }   
@@ -1117,16 +1142,16 @@
              { #1 }
              { default }
              { utf16/hex }
-           \@@_prop_gput:cnx
-             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+           \@@_struct_prop_gput:nne
+             { \int_use:N \c@g_@@_struct_abs_int }
              { ActualText }
              { <\l_@@_tmpa_str>}
           }  
       },
     lang .code:n        = % Lang property
       {
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+        \@@_struct_prop_gput:nne
+          { \int_use:N \c@g_@@_struct_abs_int }
           { Lang }
           { (#1) }
       },
@@ -1138,10 +1163,11 @@
         \tl_clear:N\l_@@_tmpa_tl
         \clist_map_inline:on {#1}
           {
-            \tl_put_right:Nx \l_@@_tmpa_tl
+            \tl_put_right:Ne \l_@@_tmpa_tl
               {~\@@_property_ref:en{tagpdfstruct-##1}{tagstructobj} }
           }
-        \@@_struct_gput_data_ref:ee { \int_eval:n {\c@g_@@_struct_abs_int} } {\l_@@_tmpa_tl}
+        \@@_struct_gput_data_ref:ee 
+         { \int_use:N \c@g_@@_struct_abs_int } {\l_@@_tmpa_tl}
       },
     E .code:n        = % E property
       {
@@ -1150,8 +1176,8 @@
           { #1 }
           { default }
           { utf16/hex }
-        \@@_prop_gput:cnx
-          { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+        \@@_struct_prop_gput:nne
+          { \int_use:N \c@g_@@_struct_abs_int }
           { E }
           { <\l_@@_tmpa_str> }
       },
@@ -1191,10 +1217,10 @@
               {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
               {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
             \@@_struct_add_AF:ee
-              { \int_eval:n {\c@g_@@_struct_abs_int} }
+              { \int_use:N \c@g_@@_struct_abs_int }
               { \pdf_object_ref:e {@@/fileobj\int_use:N\g_@@_struct_AFobj_int} }
-            \@@_prop_gput:cnx
-              { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+            \@@_struct_prop_gput:nne
+              { \int_use:N \c@g_@@_struct_abs_int } 
               { AF }
               {
                 [
@@ -1218,10 +1244,10 @@
           {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
           \l_@@_tmpa_tl          
           \@@_struct_add_AF:ee
-            { \int_eval:n {\c@g_@@_struct_abs_int} }
+            { \int_use:N \c@g_@@_struct_abs_int }
             { \l_@@_tmpa_tl }
-          \@@_prop_gput:cnx
-            { g_@@_struct_\int_use:N\c@g_@@_struct_abs_int _prop }
+          \@@_struct_prop_gput:nne
+            { \int_use:N \c@g_@@_struct_abs_int } 
             { AF }
             {
               [
@@ -1243,14 +1269,14 @@
          g_@@_struct_#1_AF_tl
        }
        {
-         \tl_gput_right:cx
+         \tl_gput_right:ce
            { g_@@_struct_#1_AF_tl }
            {  \c_space_tl #2 }
        }
        {
           \tl_new:c
             { g_@@_struct_#1_AF_tl }
-          \tl_gset:cx
+          \tl_gset:ce
             { g_@@_struct_#1_AF_tl }
             { #2 }
        }
@@ -1262,9 +1288,9 @@
       {
         \pdf_object_if_exist:nTF {#1}
           {
-            \@@_struct_add_AF:ee { \int_eval:n {\c@g_@@_struct_abs_int} }{\pdf_object_ref:n {#1}}
-            \@@_prop_gput:cnx
-             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+            \@@_struct_add_AF:ee { \int_use:N \c@g_@@_struct_abs_int }{\pdf_object_ref:n {#1}}
+            \@@_struct_prop_gput:nne
+             { \int_use:N \c@g_@@_struct_abs_int }            
              { AF }
              {
                [
@@ -1274,7 +1300,7 @@
              }
           }
           {
-
+             % message?
           }
       },
    ,AFinline .code:n =
@@ -1312,8 +1338,8 @@
         \pdf_object_if_exist:nTF {#1}
           {
             \@@_struct_add_AF:ee { 0 }{\pdf_object_ref:n {#1}}
-            \@@_prop_gput:cnx
-             { g_@@_struct_0_prop }
+            \@@_struct_prop_gput:nne
+             { 0 } 
              { AF }
              {
                [
@@ -1354,19 +1380,19 @@
         \exp_args:Ne
           \pdf_object_new:n
             { @@/struct/\int_eval:n { \c@g_@@_struct_abs_int } }
-        \@@_prop_gput:cno
-          { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
-          { Type }
-          { /StructElem }
+         \@@_struct_prop_gput:nnn
+            { \int_use:N \c@g_@@_struct_abs_int }          
+            { Type }
+            { /StructElem }
         \tl_set:Nn \l_@@_struct_stack_parent_tmpa_tl {-1}
         \keys_set:nn { @@ / struct} { #1 }
 %    \end{macrocode}
 %    \begin{macrocode}
         \@@_struct_set_tag_info:eVV 
-          { \int_eval:n {\c@g_@@_struct_abs_int} }
+          { \int_use:N \c@g_@@_struct_abs_int }
            \g_@@_struct_tag_tl               
            \g_@@_struct_tag_NS_tl   
-        \@@_check_structure_has_tag:n { \int_eval:n {\c@g_@@_struct_abs_int} }           
+        \@@_check_structure_has_tag:n { \int_use:N \c@g_@@_struct_abs_int }           
         \tl_if_empty:NF
           \l_@@_struct_key_label_tl
           {
@@ -1396,12 +1422,12 @@
 %    \end{macrocode}
 % to target role and role NS 
 %    \begin{macrocode}
-        \@@_prop_gput:cnx
-              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-              { rolemap }
-              {
-                {\l_@@_struct_roletag_tl}{\l_@@_struct_roletag_NS_tl} 
-              }  
+         \@@_struct_prop_gput:nne
+           { \int_use:N \c@g_@@_struct_abs_int }           
+           { rolemap }
+           {
+             {\l_@@_struct_roletag_tl}{\l_@@_struct_roletag_NS_tl} 
+           }  
 %    \end{macrocode}
 % we also store which role to use for parent/child test. If the role is
 % one of Part, Div, NonStruct we have to retrieve it from the parent.
@@ -1419,8 +1445,8 @@
             { parentrole }
             \l_@@_get_tmpc_tl
             {
-              \@@_prop_gput:cno
-                { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+              \@@_struct_prop_gput:nno
+                { \int_use:N \c@g_@@_struct_abs_int }          
                 { parentrole }
                 {
                   \l_@@_get_tmpc_tl
@@ -1428,8 +1454,8 @@
             }  
          }
          {
-           \@@_prop_gput:cnx
-              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+            \@@_struct_prop_gput:nne
+              { \int_use:N \c@g_@@_struct_abs_int }            
               { parentrole }
               {
                 {\l_@@_struct_roletag_tl}{\l_@@_struct_roletag_NS_tl} 
@@ -1437,7 +1463,7 @@
          }
 %    \end{macrocode}
 %    \begin{macrocode}
-        \seq_gpush:Nx \g_@@_struct_tag_stack_seq 
+        \seq_gpush:Ne \g_@@_struct_tag_stack_seq 
           {{\g_@@_struct_tag_tl}{\l_@@_struct_roletag_tl}}
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
         %\seq_show:N   \g_@@_struct_stack_seq
@@ -1465,7 +1491,7 @@
                   { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _prop}
                   {S}
                   \l_@@_tmpa_tl
-                \msg_warning:nnxxx 
+                \msg_warning:nneee 
                  { tag } 
                  {role-parent-child} 
                  { \l_@@_get_parent_tmpa_tl/\l_@@_get_parent_tmpb_tl } 
@@ -1480,15 +1506,15 @@
                 \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
                 \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
                 \@@_struct_set_tag_info:eVV 
-                  { \int_eval:n {\c@g_@@_struct_abs_int} }
+                  { \int_use:N \c@g_@@_struct_abs_int }
                     \g_@@_struct_tag_tl               
                     \g_@@_struct_tag_NS_tl                                 
               }
 %    \end{macrocode}
 % Set the Parent.
 %    \begin{macrocode}
-            \@@_prop_gput:cnx
-              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+             \@@_struct_prop_gput:nne
+              { \int_use:N \c@g_@@_struct_abs_int }           
               { P }
               {
                 \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
@@ -1498,7 +1524,7 @@
             %record this structure as kid:
             %\tl_show:N \g_@@_struct_stack_current_tl
             %\tl_show:N \l_@@_struct_stack_parent_tmpa_tl
-            \@@_struct_kid_struct_gput_right:xx
+            \@@_struct_kid_struct_gput_right:ee
                { \l_@@_struct_stack_parent_tmpa_tl }
                { \g_@@_struct_stack_current_tl }
             %\prop_show:c { g_@@_struct_\g_@@_struct_stack_current_tl _prop }
@@ -1506,12 +1532,13 @@
           }
 %    \end{macrocode}
 % the debug mode stores in second prop and replaces value with more suitable ones.
+% (If the structure is updated later this gets perhaps lost, but well ...)
 % This must be done outside of the stash boolean.
 %    \begin{macrocode}
 %<debug>           \prop_gset_eq:cc 
 %<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
 %<debug>             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-%<debug>           \prop_gput:cnx
+%<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
 %<debug>             { P }
 %<debug>             { 
@@ -1522,7 +1549,7 @@
 %<debug>                   \l_@@_get_parent_tmpa_tl
 %<debug>                 }  
 %<debug>             }
-%<debug>           \prop_gput:cnx
+%<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
 %<debug>             { NS }
 %<debug>             { \g_@@_struct_tag_NS_tl } 
@@ -1559,11 +1586,11 @@
           }
        \seq_get:NNT \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
           {
-            \tl_gset:Nx \g_@@_struct_tag_tl 
+            \tl_gset:Ne \g_@@_struct_tag_tl 
               { \exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl }
             \prop_get:NVNT\g_@@_role_tags_NS_prop \g_@@_struct_tag_tl\l_@@_tmpa_tl
              {
-               \tl_gset:Nx \g_@@_struct_tag_NS_tl { \l_@@_tmpa_tl } 
+               \tl_gset:Ne \g_@@_struct_tag_NS_tl { \l_@@_tmpa_tl } 
              }  
           }
 %<debug>\@@_debug_struct_end_insert:
@@ -1594,7 +1621,7 @@
           {
             \@@_check_struct_used:n {#1}
             %add the label structure as kid to the current structure (can be the root)
-            \@@_struct_kid_struct_gput_right:xx
+            \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
               { \@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0} }
             %add the current structure to the labeled one as parents
@@ -1607,20 +1634,13 @@
 %    \end{macrocode}
 % debug code
 %    \begin{macrocode}
-%<debug>           \prop_gset_eq:cc 
-%<debug>             { g_@@_struct_debug_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
-%<debug>             { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
-%<debug>           \prop_gput:cnx
+%<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
 %<debug>             { P }
 %<debug>             { 
 %<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
 %<debug>               \g_@@_struct_tag_tl
 %<debug>             }
-%<debug>           \prop_gput:cnx
-%<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-%<debug>             { NS }
-%<debug>             { \g_@@_struct_tag_NS_tl } 
 %    \end{macrocode}
 %   check if the tag is allowed as child. Here we have to retrieve the 
 %   tag info for the child, while the data for the parent is in 
@@ -1644,7 +1664,7 @@
                 \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
                 \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
                 \@@_struct_set_tag_info:eVV 
-                  { \int_eval:n {\c@g_@@_struct_abs_int} }
+                  { \int_use:N \c@g_@@_struct_abs_int }
                     \g_@@_struct_tag_tl               
                     \g_@@_struct_tag_NS_tl                                 
               }              
@@ -1664,7 +1684,7 @@
 % TODO: decide how it should be guarded. Probably by the struct-check.
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_struct_use_num:n #1 {}
-%<*package>
+%<*package|debug>
 \cs_set_protected:Npn \tag_struct_use_num:n #1 %#1 is structure number
   { 
     \@@_check_if_active_struct:T
@@ -1680,16 +1700,23 @@
                 \msg_warning:nnn { tag } {struct-used-twice} {#1}
               }
             %add the label structure as kid to the current structure (can be the root)
-            \@@_struct_kid_struct_gput_right:xx
+            \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
               { #1 }
             %add the current structure to the labeled one as parents
-            \@@_prop_gput:cnx
-              { g_@@_struct_#1_prop }
+             \@@_struct_prop_gput:nne
+              { #1 }            
               { P }
               {
                 \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
               }
+%<debug>           \prop_gput:cne
+%<debug>             { g_@@_struct_debug_#1_prop }
+%<debug>             { P }
+%<debug>             { 
+%<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
+%<debug>               \g_@@_struct_tag_tl
+%<debug>             }
 %    \end{macrocode}
 %   check if the tag is allowed as child. Here we have to retrieve the 
 %   tag info for the child, while the data for the parent is in 
@@ -1713,7 +1740,7 @@
                 \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
                 \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
                 \@@_struct_set_tag_info:eVV 
-                  { \int_eval:n {\c@g_@@_struct_abs_int} }
+                  { \int_use:N \c@g_@@_struct_abs_int }
                     \g_@@_struct_tag_tl               
                     \g_@@_struct_tag_NS_tl                                 
               }
@@ -1723,7 +1750,7 @@
           }
       }
   }
-%</package>
+%</package|debug>
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}[EXP]{\tag_struct_object_ref:n}
@@ -1743,9 +1770,13 @@
 %
 % \begin{macro}{\tag_struct_gput:nnn}
 % This is a command that allows to update the data of a structure.
-% The first argument is the
-% number of the structure, the second a keyword referring to a function,
-% the third the value. Currently the only keyword is \texttt{ref}
+% This often can't done simply by replacing the value, as we have to 
+% preserve and extend existing content. We use therefore dedicated functions
+% adjusted to the key in question. 
+% The first argument is the number of the structure, 
+% the second a keyword referring to a function,
+% the third the value. Currently the only keyword is \texttt{ref} which updates
+% the Ref key (an array)
 %    \begin{macrocode}
 \cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3
  {
@@ -1756,31 +1787,33 @@
     {#1}{#3}
  }
 \cs_generate_variant:Nn \tag_struct_gput:nnn {ene,nne}
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_struct_gput_data_ref:nn}
 %    \begin{macrocode}
+%<*package>
 \cs_new_protected:Npn \@@_struct_gput_data_ref:nn #1 #2
-   % #1 receiving struct num, #2 list of object ref
+  % #1 receiving struct num, #2 list of object ref
    {
      \prop_get:cnN
         { g_@@_struct_#1_prop }
         {Ref}
         \l_@@_get_tmpc_tl
-     \@@_prop_gput:cnx
-        { g_@@_struct_#1_prop }
+     \@@_struct_prop_gput:nne
+        { #1 }
         { Ref }
         { \quark_if_no_value:NF\l_@@_get_tmpc_tl { \l_@@_get_tmpc_tl\c_space_tl }#2 }
     }
 \cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee}
 %    \end{macrocode}
 % \end{macro}
-
 % \begin{macro}
 %   {
 %     \tag_struct_insert_annot:nn,
-%     \tag_struct_insert_annot:xx
+%     \tag_struct_insert_annot:xx,
+%     \tag_struct_insert_annot:ee
 %   }
 % \begin{macro}[EXP]
 %   {
@@ -1804,7 +1837,7 @@
       }
   }
 
-\cs_generate_variant:Nn \tag_struct_insert_annot:nn {xx}
+\cs_generate_variant:Nn \tag_struct_insert_annot:nn {xx,ee}
 \cs_new:Npn \tag_struct_parent_int: {\int_use:c { c@g_@@_parenttree_obj_int }}
 
 %</package>
@@ -1882,7 +1915,7 @@
   {
     attribute-class .code:n =
      {
-       \clist_set:Nx \l_@@_tmpa_clist { #1 }
+       \clist_set:Ne \l_@@_tmpa_clist { #1 }
        \seq_set_from_clist:NN \l_@@_tmpb_seq \l_@@_tmpa_clist
 %    \end{macrocode}
 %    we convert the names into pdf names with slash
@@ -1899,7 +1932,7 @@
              }
            \seq_gput_left:Nn\g_@@_attr_class_used_seq { ##1}
          }
-       \tl_set:Nx \l_@@_tmpa_tl
+       \tl_set:Ne \l_@@_tmpa_tl
          {
            \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{[}
            \seq_use:Nn \l_@@_tmpa_seq  { \c_space_tl  }
@@ -1907,8 +1940,8 @@
          }
        \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 0 }
          {
-           \@@_prop_gput:cnx
-             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+           \@@_struct_prop_gput:nne
+             { \int_use:N \c@g_@@_struct_abs_int }          
              { C }
              { \l_@@_tmpa_tl }
           %\prop_show:c  { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
@@ -1923,7 +1956,7 @@
   {
     attribute .code:n  = % A property (attribute, value currently a dictionary)
       {
-        \clist_set:Nx          \l_@@_tmpa_clist { #1 }
+        \clist_set:Ne          \l_@@_tmpa_clist { #1 }
         \clist_if_empty:NF \l_@@_tmpa_clist
          {
             \seq_set_from_clist:NN \l_@@_tmpb_seq \l_@@_tmpa_clist
@@ -1934,7 +1967,7 @@
              {
                \pdf_name_from_unicode_e:n {##1}
              }
-            \tl_set:Nx \l_@@_attr_value_tl
+            \tl_set:Ne \l_@@_attr_value_tl
               {
                 \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{[}%]
               }
@@ -1946,27 +1979,27 @@
                   }
                 \prop_if_in:NnF \g_@@_attr_objref_prop {##1}
                   {%\prop_show:N \g_@@_attr_entries_prop
-                    \pdf_object_unnamed_write:nx
+                    \pdf_object_unnamed_write:ne
                       { dict }
                       {
                         \prop_item:Nn\g_@@_attr_entries_prop {##1}
                       }
-                    \prop_gput:Nnx \g_@@_attr_objref_prop {##1} {\pdf_object_ref_last:}
+                    \prop_gput:Nne \g_@@_attr_objref_prop {##1} {\pdf_object_ref_last:}
                   }
-                \tl_put_right:Nx \l_@@_attr_value_tl
+                \tl_put_right:Ne \l_@@_attr_value_tl
                   {
                     \c_space_tl
                     \prop_item:Nn \g_@@_attr_objref_prop {##1}
                   }
      %     \tl_show:N \l_@@_attr_value_tl
               }
-            \tl_put_right:Nx \l_@@_attr_value_tl
+            \tl_put_right:Ne \l_@@_attr_value_tl
               { %[
                 \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{]}%
               }
      %     \tl_show:N \l_@@_attr_value_tl
-            \@@_prop_gput:cnx
-              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
+            \@@_struct_prop_gput:nne
+              { \int_use:N \c@g_@@_struct_abs_int }           
               { A }
               { \l_@@_attr_value_tl }
          }    
