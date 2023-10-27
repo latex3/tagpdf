@@ -446,7 +446,14 @@
 % The graphic code in latex-lab uses an internal tagpdf command, so until the next 
 % release we need to provide it
 %    \begin{macrocode}
-\cs_set_eq:NN \@@_ref_value:enn \@@_property_ref:enn
+\cs_new:Npn \@@_ref_value:enn #1#2#3
+  {
+    \tl_if_exist:cTF { g__ref_label_ #1 _ #2 _tl }
+           { \tl_use:c { g__ref_label_ #1 _ #2 _tl } }
+           {
+             #3
+           }
+  }
 %    \end{macrocode}
 % \end{macro}
 %
