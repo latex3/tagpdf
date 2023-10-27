@@ -4,15 +4,18 @@ All notable changes to the `tagpdf` package since the
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
-## [Unreleased]
 
-## [2023-10-23]
+## [2023-10-27]
 Version: 0.98m
 
 ### Changed
  - use new LaTeX properties if available
  - change name of label to avoid problems with active underscore.
-
+ - start to move x-type functions to e-type functions
+ 
+### Fixed
+ - debugging code for structures didn't correctly reflect later changes  
+ 
 ## [2023-08-30]
 Version: 0.98l
 

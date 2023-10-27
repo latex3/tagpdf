@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98m, released 2023-10-23}
+% \date{Version 0.98m, released 2023-10-27}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -247,7 +247,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-struct-code} {2023-10-23} {0.98m}
+\ProvidesExplPackage {tagpdf-struct-code} {2023-10-27} {0.98m}
  {part of tagpdf - code related to storing structure}
 %</header>
 %    \end{macrocode}
@@ -1848,7 +1848,7 @@
 % \section{Attributes and attribute classes}
 %    \begin{macrocode}
 %<*header>
-\ProvidesExplPackage {tagpdf-attr-code} {2023-10-23} {0.98m}
+\ProvidesExplPackage {tagpdf-attr-code} {2023-10-27} {0.98m}
   {part of tagpdf - code related to attributes and attribute classes}
 %</header>
 %    \end{macrocode}
@@ -1907,6 +1907,19 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% TEMP!!!!
+% we temporarly use an internal function for the mapping. This can go 
+% at the next update
+%    \begin{macrocode}
+\cs_if_free:NTF \seq_set_map_e:NNn
+  {
+    \cs_new_eq:NN \@@_seq_set_map_e:NNn \seq_set_map_x:NNn
+  }
+  {
+    \cs_new_eq:NN \@@_seq_set_map_e:NNn \seq_set_map_e:NNn
+  }  
+%    \end{macrocode}
+%
 % \begin{macro}{attribute-class (struct-key)}
 % attribute-class has to store the used attribute names so that
 % they can be added to the ClassMap later.
@@ -1920,7 +1933,7 @@
 %    \end{macrocode}
 %    we convert the names into pdf names with slash
 %    \begin{macrocode}
-       \seq_set_map_x:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
+       \@@_seq_set_map_e:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
          {
            \pdf_name_from_unicode_e:n {##1}
          }
@@ -1963,7 +1976,7 @@
 %    \end{macrocode}
 %    we convert the names into pdf names with slash
 %    \begin{macrocode}
-           \seq_set_map_x:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
+           \@@_seq_set_map_e:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
              {
                \pdf_name_from_unicode_e:n {##1}
              }

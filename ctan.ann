@@ -1,6 +1,10 @@
-Version 0.98m [2023-10-23]
+Version 0.98m [2023-10-27]
 
 ### Changed
-- use new LaTeX properties if available
-
+ - use new LaTeX properties if available
+ - change name of label to avoid problems with active underscore.
+ - start to move x-type functions to e-type functions
+ 
+### Fixed
+ - debugging code for structures didn't correctly reflect later changes  
 
