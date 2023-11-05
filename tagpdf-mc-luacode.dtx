@@ -194,7 +194,7 @@
 \cs_new:Nn \@@_mc_lua_set_mc_type_attr:n % #1 is a tag name
   {
     %TODO ltx.@@.func.get_num_from("#1") seems not to return a suitable number??
-    \tl_set:Nx\l_@@_tmpa_tl{\lua_now:e{ltx.@@.func.output_num_from ("#1")} }
+    \tl_set:Ne\l_@@_tmpa_tl{\lua_now:e{ltx.@@.func.output_num_from ("#1")} }
     \lua_now:e
       {
         tex.setattribute
@@ -261,7 +261,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%\begin{macro}{\@@_mc_handle_stash:n,\@@_mc_handle_stash:x}
+%\begin{macro}{\@@_mc_handle_stash:n,\@@_mc_handle_stash:e}
 % This is the lua variant for the command to
 % put an mcid absolute number in the current structure.
 %    \begin{macrocode}
@@ -290,14 +290,14 @@
             \g_@@_struct_stack_current_tl,#1
           )
       }
-    \prop_gput:Nxx
+    \prop_gput:Nee
       \g_@@_mc_parenttree_prop
       { #1 }
       { \g_@@_struct_stack_current_tl }
   }
 %</luamode|debug>
 %<*luamode>
-\cs_generate_variant:Nn \@@_mc_handle_stash:n { x }
+\cs_generate_variant:Nn \@@_mc_handle_stash:n { e }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -355,7 +355,7 @@
                     { g_@@_struct_ \g_@@_struct_stack_current_tl _prop}
                     {S}
                     \l_@@_tmpa_tl
-                   \msg_warning:nnxxx 
+                   \msg_warning:nneee 
                      { tag } 
                      {role-parent-child} 
                      { \l_@@_get_parent_tmpa_tl/\l_@@_get_parent_tmpb_tl  } 
@@ -365,7 +365,7 @@
                        (struct~\g_@@_struct_stack_current_tl,~\l_@@_tmpa_tl)
                      } 
                  }    
-                \@@_mc_handle_stash:x { \@@_get_mc_abs_cnt: }
+                \@@_mc_handle_stash:e { \@@_get_mc_abs_cnt: }
               }
           }
         \group_end:
@@ -432,8 +432,8 @@
   {
     tag .code:n = %
       {
-        \tl_set:Nx   \l_@@_mc_key_tag_tl { #1 }
-        \tl_gset:Nx  \g_@@_mc_key_tag_tl { #1 }
+        \tl_set:Ne   \l_@@_mc_key_tag_tl { #1 }
+        \tl_gset:Ne  \g_@@_mc_key_tag_tl { #1 }
         \lua_now:e
           {
             ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","#1")
@@ -441,7 +441,7 @@
       },
     raw .code:n =
       {
-        \tl_put_right:Nx \l_@@_mc_key_properties_tl { #1 }
+        \tl_put_right:Ne \l_@@_mc_key_properties_tl { #1 }
         \lua_now:e
           {
             ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","#1")
@@ -513,11 +513,11 @@
       },
     artifact .code:n       =
       {
-        \exp_args:Nnx
+        \exp_args:Nne
           \keys_set:nn
             { @@ / mc}
             { __artifact-bool, __artifact-type=#1, tag=Artifact }
-        \exp_args:Nnx
+        \exp_args:Nne
           \keys_set:nn
             { @@ / mc }
             { __artifact-store=\l_@@_mc_artifact_type_tl }
