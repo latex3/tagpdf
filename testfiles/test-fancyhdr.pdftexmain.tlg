@@ -88,7 +88,7 @@ Completed box being shipped out [1]
 ...\write-{}
 ...\glue(\topskip) 0.72002
 ...\hbox(9.27998+0.0)x345.0, glue set 251.37675fil
-....\write1{\newlabeldata{mcid-1}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{1}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\write1{\new@label@record{mcid-1}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{1}{tagmcid}{\__property_code_tagmcid: }}}
 ....\pdfliteral shipout page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(9.27998+0.0)x24.29997
 .....\glue 0.0
@@ -99,7 +99,7 @@ Completed box being shipped out [1]
 .....\OT1/cmr/bx/n/14.4 1
 .....\glue 16.19998
 ....\pdfliteral page{EMC}
-....\write1{\newlabeldata{mcid-2}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{2}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
 ....\pdfliteral shipout page{/section <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\OT1/cmr/bx/n/14.4 s
 ....\OT1/cmr/bx/n/14.4 o
@@ -132,7 +132,7 @@ Completed box being shipped out [1]
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.66669
 ...\hbox(8.33331+0.0)x345.0, glue set 288.0fil
-....\write1{\newlabeldata{mcid-3}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{3}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\write1{\new@label@record{mcid-3}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{3}{tagmcid}{\__property_code_tagmcid: }}}
 ....\pdfliteral shipout page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(7.73332+0.0)x30.75
 .....\glue 0.0
@@ -145,7 +145,7 @@ Completed box being shipped out [1]
 .....\OT1/cmr/bx/n/12 1
 .....\glue 13.5
 ....\pdfliteral page{EMC}
-....\write1{\newlabeldata{mcid-4}{{tagabspage}{\__ref_attribute_tagabspage: }{tagmcabs}{4}{tagmcid}{\__ref_attribute_tagmcid: }}}
+....\write1{\new@label@record{mcid-4}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{4}{tagmcid}{\__property_code_tagmcid: }}}
 ....\pdfliteral shipout page{/subsection <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\OT1/cmr/bx/n/12 b
 ....\OT1/cmr/bx/n/12 l
@@ -172,8 +172,10 @@ Completed box being shipped out [1]
 ...\penalty 10000
 ...\glue 6.45831 plus 0.86108
 ...\glue 0.0 plus 1.0fil
+...\glue 0.0 plus -1.0fil
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
+...\glue 0.0 plus 1.0fil
 ...\glue 0.0
 ...\glue 0.0 plus 0.0001fil
 ..\pdfrunninglinkoff
