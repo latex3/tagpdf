@@ -1699,11 +1699,11 @@
               {
                 \msg_warning:nnn { tag } {struct-used-twice} {#1}
               }
-            %add the label structure as kid to the current structure (can be the root)
+            %add the \#1 structure as kid to the current structure (can be the root)
             \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
               { #1 }
-            %add the current structure to the labeled one as parents
+            %add the current structure to \#1 as parent
              \@@_struct_prop_gput:nne
               { #1 }            
               { P }
