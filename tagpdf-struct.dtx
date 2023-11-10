@@ -663,7 +663,7 @@
 %<package>\cs_new_protected:Npn \@@_struct_kid_mc_gput_right:nn #1 #2 %#1 structure num, #2 MCID absnum%
 %<debug>\cs_set_protected:Npn \@@_struct_kid_mc_gput_right:nn #1 #2 %#1 structure num, #2 MCID absnum%
   {
-    \@@_seq_gput_right:cx
+    \@@_seq_gput_right:ce
       { g_@@_struct_kids_#1_seq }
       {
         \@@_struct_mcid_dict:n {#2}
@@ -692,7 +692,7 @@
 %<package>\cs_new_protected:Npn\@@_struct_kid_struct_gput_right:nn #1 #2 %#1 num of parent struct, #2 kid struct
 %<debug>\cs_set_protected:Npn\@@_struct_kid_struct_gput_right:nn #1 #2 %#1 num of parent struct, #2 kid struct
   {
-    \@@_seq_gput_right:cx
+    \@@_seq_gput_right:ce
       { g_@@_struct_kids_#1_seq }
       {
         \pdf_object_ref:n { @@/struct/#2 }
@@ -725,7 +725,7 @@
       {
         /Type/OBJR/Obj~#2/Pg~#3
       }
-    \@@_seq_gput_right:cx
+    \@@_seq_gput_right:ce
       { g_@@_struct_kids_#1_seq }
       {
         \pdf_object_ref_last:
@@ -940,7 +940,7 @@
 % \begin{verbatim}
 %         \tag_struct_begin:n { tag=Link }
 %         \tag_mc_begin:n { tag=Link }
-% (1)     \pdfannot_dict_put:nnx
+% (1)     \pdfannot_dict_put:nne
 %           { link/URI }
 %           { StructParent }
 %           { \int_use:N\c@g_@@_parenttree_obj_int }
@@ -1212,7 +1212,7 @@
         \int_gincr:N \g_@@_struct_AFobj_int
         \pdf_object_if_exist:eF {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
           {
-            \pdffile_embed_stream:nxx
+            \pdffile_embed_stream:nee
               {#1}
               {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
               {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
@@ -1233,13 +1233,13 @@
       }  
    }  
    {
-     \cs_generate_variant:Nn \pdffile_embed_stream:nnN {nxN}
+     \cs_generate_variant:Nn \pdffile_embed_stream:nnN {neN}
      \cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
      % #1 content, #2 extension
       {
         \group_begin:
         \int_gincr:N \g_@@_struct_AFobj_int
-        \pdffile_embed_stream:nxN
+        \pdffile_embed_stream:neN
           {#1}
           {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
           \l_@@_tmpa_tl          
@@ -1318,7 +1318,7 @@
 %    \end{macrocode}
 % we set the mime type as pdfresources uses currently text/plain
 %    \begin{macrocode}
-      \pdfdict_put:nnx 
+      \pdfdict_put:nne 
         { l_pdffile }{Subtype} 
         { \pdf_name_from_unicode_e:n{application/x-tex} }
       \@@_struct_add_inline_AF:on {#1}{tex}
@@ -1625,7 +1625,7 @@
               { \g_@@_struct_stack_current_tl }
               { \@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0} }
             %add the current structure to the labeled one as parents
-            \@@_prop_gput:cnx
+            \@@_prop_gput:cne
               { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
               { P }
               {
@@ -1699,11 +1699,11 @@
               {
                 \msg_warning:nnn { tag } {struct-used-twice} {#1}
               }
-            %add the label structure as kid to the current structure (can be the root)
+            %add the \#1 structure as kid to the current structure (can be the root)
             \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
               { #1 }
-            %add the current structure to the labeled one as parents
+            %add the current structure to \#1 as parent
              \@@_struct_prop_gput:nne
               { #1 }            
               { P }
@@ -1812,7 +1812,7 @@
 % \begin{macro}
 %   {
 %     \tag_struct_insert_annot:nn,
-%     \tag_struct_insert_annot:xx,
+%     \tag_struct_insert_annot:ee,
 %     \tag_struct_insert_annot:ee
 %   }
 % \begin{macro}[EXP]
@@ -1910,18 +1910,6 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% TEMP!!!!
-% we temporarly use an internal function for the mapping. This can go 
-% at the next update
-%    \begin{macrocode}
-\cs_if_free:NTF \seq_set_map_e:NNn
-  {
-    \cs_new_eq:NN \@@_seq_set_map_e:NNn \seq_set_map_x:NNn
-  }
-  {
-    \cs_new_eq:NN \@@_seq_set_map_e:NNn \seq_set_map_e:NNn
-  }  
-%    \end{macrocode}
 %
 % \begin{macro}{attribute-class (struct-key)}
 % attribute-class has to store the used attribute names so that
@@ -1936,7 +1924,7 @@
 %    \end{macrocode}
 %    we convert the names into pdf names with slash
 %    \begin{macrocode}
-       \@@_seq_set_map_e:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
+       \seq_set_map_e:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
          {
            \pdf_name_from_unicode_e:n {##1}
          }
@@ -1979,7 +1967,7 @@
 %    \end{macrocode}
 %    we convert the names into pdf names with slash
 %    \begin{macrocode}
-           \@@_seq_set_map_e:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
+           \seq_set_map_e:NNn \l_@@_tmpa_seq \l_@@_tmpb_seq
              {
                \pdf_name_from_unicode_e:n {##1}
              }

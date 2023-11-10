@@ -79,9 +79,9 @@
 \keys_define:nn { @@ / setup }
   {
     interwordspace .choices:nn = { true, on }
-      { \msg_warning:nnx {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
+      { \msg_warning:nne {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
     interwordspace .choices:nn = { false, off }
-      { \msg_warning:nnx {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
+      { \msg_warning:nne {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
     interwordspace .default:n = true,
     show-spaces .bool_set:N = \l_@@_showspaces_bool
   }

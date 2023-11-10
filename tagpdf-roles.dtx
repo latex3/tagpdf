@@ -292,7 +292,7 @@
     {
       \prop_new:c { g_@@_role_NS_#1_prop }
       \prop_new:c { g_@@_role_NS_#1_class_prop }
-      \prop_gput:Nnx \g_@@_role_NS_prop {#1}{}
+      \prop_gput:Nne \g_@@_role_NS_prop {#1}{}
     }
  }
  {
@@ -311,7 +311,7 @@
       \pdf_string_from_unicode:nnN{utf8/string}{#2}\l_@@_tmpa_str
       \tl_if_empty:NF \l_@@_tmpa_str
         {
-          \pdfdict_gput:nnx
+          \pdfdict_gput:nne
             {g_@@_role/Namespace_#1_dict}
             {NS}
             {\l_@@_tmpa_str}
@@ -319,10 +319,10 @@
       %RoleMapNS is added in tree
       \tl_if_empty:nF  {#3}
        {
-         \pdfdict_gput:nnx{g_@@_role/Namespace_#1_dict}
+         \pdfdict_gput:nne{g_@@_role/Namespace_#1_dict}
           {Schema}{#3}
        }
-      \prop_gput:Nnx \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{tag/NS/#1}~}
+      \prop_gput:Nne \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{tag/NS/#1}~}
     }
  }  
 %    \end{macrocode}
@@ -334,7 +334,7 @@
 %
 % \begin{variable}{\c_@@_role_userNS_id_str}
 %    \begin{macrocode}
-\str_const:Nx \c_@@_role_userNS_id_str
+\str_const:Ne \c_@@_role_userNS_id_str
   { data:,
     \int_to_Hex:n{\int_rand:n {65535}}
     \int_to_Hex:n{\int_rand:n {65535}}
@@ -362,7 +362,7 @@
 \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
 \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
 \@@_role_NS_new:nnn {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
-\exp_args:Nnx
+\exp_args:Nne
   \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
 %    \end{macrocode}
 %
@@ -462,7 +462,7 @@
         \prop_get:NnN \g_@@_role_rolemap_prop {#2}\l_@@_tmpa_tl
         \quark_if_no_value:NTF \l_@@_tmpa_tl
           {          
-            \prop_gput:Nnx \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#2}}
+            \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#2}}
           }
           {
             \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
@@ -516,7 +516,7 @@
 %    \begin{macrocode}
     \tl_if_in:nnF {-pdf-pdf2-mathml-}{-#2-} 
      {
-       \pdfdict_gput:nnx {g_@@_role/RoleMapNS_#2_dict}{#1}
+       \pdfdict_gput:nne {g_@@_role/RoleMapNS_#2_dict}{#1}
           {
             [
               \pdf_name_from_unicode_e:n{#3}
@@ -534,7 +534,7 @@
         \prop_get:cnN { g_@@_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
         \quark_if_no_value:NTF \l_@@_tmpa_tl
           {          
-            \prop_gput:cnx { g_@@_role_NS_#2_prop } {#1}
+            \prop_gput:cne { g_@@_role_NS_#2_prop } {#1}
               {{\tl_to_str:n{#3}}{\tl_to_str:n{#4}}}
           }
           {
@@ -560,8 +560,8 @@
     {
       \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_tmpa_tl
         {
-         \tl_set:Nx #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_tmpa_tl}         
-         \tl_set:Nx #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_tmpa_tl}
+         \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_tmpa_tl}         
+         \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_tmpa_tl}
         } 
         {
          \tl_set:Nn #3 {#1}
@@ -807,7 +807,7 @@
           {         
             \seq_map_indexed_inline:Nn \l_@@_tmpa_seq
               {
-                \prop_gput:Nnx\g_@@_role_index_prop 
+                \prop_gput:Nne\g_@@_role_index_prop 
                   {##2}
                   {\int_compare:nNnT{##1}<{10}{0}##1}           
               }  
@@ -836,7 +836,7 @@
 %    \begin{macrocode}
            \seq_map_indexed_inline:Nn \l_@@_tmpa_seq 
              {       
-               \exp_args:Nnx 
+               \exp_args:Nne 
                \@@_store_parent_child_rule:nnn {##1}{\l_@@_tmpb_tl}{ ##2 }       
              }        
          }
@@ -851,19 +851,19 @@
 % Hn and mathml tags are special and need to be added explicitly
 %    \begin{macrocode}
 \prop_get:NnN\g_@@_role_index_prop{StructTreeRoot}\l_@@_tmpa_tl
-\prop_gput:Nnx\g_@@_role_index_prop{Root}{\l_@@_tmpa_tl}
+\prop_gput:Nne\g_@@_role_index_prop{Root}{\l_@@_tmpa_tl}
 \prop_get:NnN\g_@@_role_index_prop{Hn}\l_@@_tmpa_tl
 \pdf_version_compare:NnTF < {2.0}
   {
     \int_step_inline:nn{6}
       {
-        \prop_gput:Nnx\g_@@_role_index_prop{H#1}{\l_@@_tmpa_tl}
+        \prop_gput:Nne\g_@@_role_index_prop{H#1}{\l_@@_tmpa_tl}
       }
   }
   {
     \int_step_inline:nn{10}
       {
-        \prop_gput:Nnx\g_@@_role_index_prop{H#1}{\l_@@_tmpa_tl}
+        \prop_gput:Nne\g_@@_role_index_prop{H#1}{\l_@@_tmpa_tl}
       }
 %    \end{macrocode}
 % all mathml tags are currently handled identically
@@ -908,7 +908,7 @@
 %    \end{macrocode}
 % Get the rule from the intarray
 %    \begin{macrocode}
-         \tl_set:Nx#4 
+         \tl_set:Ne#4 
            { 
              \intarray_item:Nn 
               \g_@@_role_parent_child_intarray 
@@ -938,7 +938,7 @@
                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
                }
              \tl_set:Nn \l_@@_tmpb_tl {#1}
-             \msg_note:nnxxx 
+             \msg_note:nneee 
                { tag } 
                { role-parent-child } 
                { #1 } 
@@ -953,7 +953,7 @@
        }
        {         
          \tl_set:Nn#4 {0}
-         \msg_warning:nnxxx 
+         \msg_warning:nneee 
            { tag } 
            {role-parent-child} 
            { #1 } 
@@ -1025,7 +1025,7 @@
          }   
          {
            \tl_set:Nn #5 {0}
-           \msg_warning:nnxxx 
+           \msg_warning:nneee 
             { tag } 
             {role-parent-child} 
             { #1 } 
@@ -1061,7 +1061,7 @@
          }        
          {
            \tl_set:Nn #3 {0}
-           \msg_warning:nnxxx 
+           \msg_warning:nneee 
             { tag } 
             {role-parent-child} 
             { #1 } 
@@ -1090,7 +1090,7 @@
                {#1}
                \l_@@_tmpa_tl
                {
-                 \tl_set:Nx \l_@@_tmpa_tl {\tl_head:N\l_@@_tmpa_tl}
+                 \tl_set:Ne \l_@@_tmpa_tl {\tl_head:N\l_@@_tmpa_tl}
                  \tl_if_empty:NT\l_@@_tmpa_tl
                    {
                      \tl_set:Nn \l_@@_tmpa_tl {#1}
@@ -1115,7 +1115,7 @@
               {#3}
               \l_@@_tmpb_tl
               {
-                \tl_set:Nx \l_@@_tmpb_tl { \tl_head:N\l_@@_tmpb_tl }
+                \tl_set:Ne \l_@@_tmpb_tl { \tl_head:N\l_@@_tmpb_tl }
                 \tl_if_empty:NT\l_@@_tmpb_tl
                   {
                     \tl_set:Nn \l_@@_tmpb_tl {#3}
@@ -1139,7 +1139,7 @@
          }   
          {
            \tl_set:Nn #5 {0}
-           \msg_warning:nnxxx 
+           \msg_warning:nneee 
             { tag } 
             {role-parent-child} 
             { #1 } 
@@ -1220,18 +1220,18 @@
       {
         \prop_get:cVNT { g_@@_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
           {
-            \tl_set:Nx\l_@@_role_remap_tag_tl
+            \tl_set:Ne\l_@@_role_remap_tag_tl
               {
                 \exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl
               }
-            \tl_set:Nx\l_@@_role_remap_NS_tl 
+            \tl_set:Ne\l_@@_role_remap_NS_tl 
               {
                 \exp_last_unbraced:NV\use_ii:nn \l_@@_tmpa_tl
               }
           }
         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
           {
-            \msg_note:nnx { tag } { role-remapping }{ \l_@@_role_remap_tag_tl }
+            \msg_note:nne { tag } { role-remapping }{ \l_@@_role_remap_tag_tl }
           }  
       }
   }
@@ -1244,7 +1244,7 @@
           }
         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
           {
-            \msg_note:nnx { tag } { role-remapping }{ \l_@@_role_remap_tag_tl/latex-inline }
+            \msg_note:nne { tag } { role-remapping }{ \l_@@_role_remap_tag_tl/latex-inline }
           }  
       }    
   }    
@@ -1284,8 +1284,8 @@
        \tl_if_empty:NF \l_tmpa_tl
          {
            \exp_args:NNno \seq_set_split:Nnn \l_tmpa_seq { / } {\l_tmpa_tl/}
-           \tl_set:Nx \l_@@_role_tag_tmpa_tl  { \seq_item:Nn \l_tmpa_seq {1} }
-           \tl_set:Nx \l_@@_role_role_tmpa_tl { \seq_item:Nn \l_tmpa_seq {2} }
+           \tl_set:Ne \l_@@_role_tag_tmpa_tl  { \seq_item:Nn \l_tmpa_seq {1} }
+           \tl_set:Ne \l_@@_role_role_tmpa_tl { \seq_item:Nn \l_tmpa_seq {2} }
          }
       \tl_if_empty:NT \l_@@_role_role_namespace_tmpa_tl
          {

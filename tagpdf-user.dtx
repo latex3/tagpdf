@@ -523,7 +523,7 @@
       {
         \int_step_inline:nnn{#1}{\c@g__tag_struct_abs_int}
            {
-            \msg_term:nnxxxx 
+            \msg_term:nneeee 
                    { tag/debug } { show-struct }
                    { ##1 }
                    { 
@@ -532,7 +532,7 @@
                        \msg_show_item_unbraced:nn 
                    }
                    { } { }
-            \msg_term:nnxxxx  
+            \msg_term:nneeee  
                    { tag/debug } { show-kids }
                    {  ##1 }
                    { 
@@ -760,7 +760,7 @@
       }  
     \int_compare:nNnF {\g_@@_para_main_begin_int}={\g_@@_para_main_end_int}
          {
-           \msg_error:nnxxx
+           \msg_error:nneee
              {tag}
              {para-hook-count-wrong}
              {\int_use:N\g_@@_para_main_begin_int}
@@ -769,7 +769,7 @@
          }
     \int_compare:nNnF {\g_@@_para_begin_int}={\g_@@_para_end_int}
          {
-           \msg_error:nnxxx
+           \msg_error:nneee
              {tag}
              {para-hook-count-wrong}
              {\int_use:N\g_@@_para_begin_int}
@@ -992,7 +992,7 @@
     \tag_mc_end_push:
     \tag_struct_begin:n { tag=Link }
     \tag_mc_begin:n { tag=Link }
-    \pdfannot_dict_put:nnx
+    \pdfannot_dict_put:nne
       { link/URI }
       { StructParent }
       { \tag_struct_parent_int: }
@@ -1002,7 +1002,7 @@
   {pdfannot/link/URI/after}
   {tagpdf}
   {
-     \tag_struct_insert_annot:xx {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+     \tag_struct_insert_annot:ee {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
      \tag_mc_end:
      \tag_struct_end:
      \tag_mc_begin_pop:n{}
@@ -1015,7 +1015,7 @@
      \tag_mc_end_push:
      \tag_struct_begin:n{tag=Link}
      \tag_mc_begin:n{tag=Link}
-     \pdfannot_dict_put:nnx
+     \pdfannot_dict_put:nne
        { link/GoTo }
        { StructParent }
        { \tag_struct_parent_int: }
@@ -1025,7 +1025,7 @@
   {pdfannot/link/GoTo/after}
   {tagpdf}
   {
-    \tag_struct_insert_annot:xx {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+    \tag_struct_insert_annot:ee {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
     \tag_mc_end:
     \tag_struct_end:
     \tag_mc_begin_pop:n{}

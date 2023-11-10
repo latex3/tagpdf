@@ -328,7 +328,7 @@
   {
     \@@_check_if_active_struct:T
       {
-        \tl_set:Nx  \l_@@_tmpa_tl { \@@_property_ref:nnn{tagpdf-#1}{tagmcabs}{} }
+        \tl_set:Ne  \l_@@_tmpa_tl { \@@_property_ref:nnn{tagpdf-#1}{tagmcabs}{} }
         \tl_if_empty:NTF\l_@@_tmpa_tl
           {
             \msg_warning:nnn {tag} {mc-label-unknown} {#1}
@@ -336,7 +336,7 @@
           {
             \cs_if_free:cTF { g_@@_mc_label_\tl_to_str:n{#1}_used_tl }
               {
-                \@@_mc_handle_stash:x { \l_@@_tmpa_tl }
+                \@@_mc_handle_stash:e { \l_@@_tmpa_tl }
                 \@@_mc_set_label_used:n {#1}
               }
               {
@@ -395,7 +395,7 @@
       {
         \@@_mc_if_in:TF
           {
-            \seq_gpush:Nx \g_@@_mc_stack_seq { \tag_get:n {mc_tag} }
+            \seq_gpush:Ne \g_@@_mc_stack_seq { \tag_get:n {mc_tag} }
             \@@_check_mc_pushed_popped:nn
               { pushed }
               { \tag_get:n {mc_tag} }

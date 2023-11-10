@@ -111,7 +111,7 @@
     \bool_if:NT \g_@@_active_tree_bool
       {
         \pdfmanagement_add:nnn { Catalog / MarkInfo } { Marked } { true }
-        \pdfmanagement_add:nnx
+        \pdfmanagement_add:nne
           { Catalog }
           { StructTreeRoot }
           { \pdf_object_ref:n { @@/struct/0 } }
@@ -152,34 +152,34 @@
     \int_step_inline:nn {\c@g_@@_struct_abs_int}
       {     
         \int_incr:N\l_@@_tmpa_int
-        \tl_put_right:Nx \l_@@_tmpa_tl
+        \tl_put_right:Ne \l_@@_tmpa_tl
           {
             \@@_struct_get_id:n{##1}~\pdf_object_ref:n{@@/struct/##1}~
           }        
         \int_compare:nNnF {\l_@@_tmpa_int}<{50} %
           {
-            \pdf_object_unnamed_write:nx {dict}
+            \pdf_object_unnamed_write:ne {dict}
               { /Limits~[\@@_struct_get_id:n{##1-\l_@@_tmpa_int+1}~\@@_struct_get_id:n{##1}]
                 /Names~[\l_@@_tmpa_tl]
               }
-            \tl_put_right:Nx\l_@@_tmpb_tl {\pdf_object_ref_last:\c_space_tl}   
+            \tl_put_right:Ne\l_@@_tmpb_tl {\pdf_object_ref_last:\c_space_tl}   
             \int_zero:N \l_@@_tmpa_int
             \tl_clear:N \l_@@_tmpa_tl
           }
       }
      \tl_if_empty:NF \l_@@_tmpa_tl
       {
-        \pdf_object_unnamed_write:nx {dict}
+        \pdf_object_unnamed_write:ne {dict}
           {
            /Limits~
              [\@@_struct_get_id:n{\c@g_@@_struct_abs_int-\l_@@_tmpa_int+1}~
               \@@_struct_get_id:n{\c@g_@@_struct_abs_int}]
            /Names~[\l_@@_tmpa_tl]
           }
-        \tl_put_right:Nx\l_@@_tmpb_tl {\pdf_object_ref_last:}     
+        \tl_put_right:Ne\l_@@_tmpb_tl {\pdf_object_ref_last:}     
       }
-      \pdf_object_unnamed_write:nx {dict}{/Kids~[\l_@@_tmpb_tl]}
-      \@@_prop_gput:cnx
+      \pdf_object_unnamed_write:ne {dict}{/Kids~[\l_@@_tmpb_tl]}
+      \@@_prop_gput:cne
           { g_@@_struct_0_prop }
           { IDTree }
           { \pdf_object_ref_last: }
@@ -195,17 +195,17 @@
  { 
    \cs_new_protected:Npn \@@_tree_write_structtreeroot:
      {
-        \@@_prop_gput:cnx
+        \@@_prop_gput:cne
           { g_@@_struct_0_prop }
           { ParentTree }
           { \pdf_object_ref:n { @@/tree/parenttree } }
-        \@@_prop_gput:cnx
+        \@@_prop_gput:cne
           { g_@@_struct_0_prop }
           { RoleMap }
           { \pdf_object_ref:n { @@/tree/rolemap } } 
         \@@_struct_fill_kid_key:n { 0 }   
         \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
-        \pdf_object_write:nnx
+        \pdf_object_write:nne
             { @@/struct/0 }
             {dict}
             {
@@ -219,13 +219,13 @@
  {
    \cs_new_protected:Npn \@@_tree_write_structtreeroot:
      {
-        \@@_prop_gput:cnx
+        \@@_prop_gput:cne
           { g_@@_struct_0_prop }
           { ParentTree }
           { \pdf_object_ref:n { @@/tree/parenttree } }
         \@@_struct_fill_kid_key:n { 0 }  
         \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
-        \pdf_object_write:nnx
+        \pdf_object_write:nne
             { @@/struct/0 }
             {dict}
             {
@@ -291,7 +291,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_parenttree_add_objr:nn #1 #2 %#1 StructParent number, #2 objref
   {
-    \tl_gput_right:Nx \g_@@_parenttree_objr_tl
+    \tl_gput_right:Ne \g_@@_parenttree_objr_tl
       {
         #1 \c_space_tl #2 ^^J
       }
@@ -322,13 +322,13 @@
             \int_compare:nT
               {\@@_property_ref:enn{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
               {% yes
-                \prop_put:Nxx
+                \prop_put:Nee
                   \l_@@_tmpa_prop
                   {\@@_property_ref:enn{mcid-####1}{tagmcid}{-1}}
                   {\prop_item:Nn \g_@@_mc_parenttree_prop {####1}}
               }
           }
-        \tl_put_right:Nx\l_@@_parenttree_content_tl
+        \tl_put_right:Ne\l_@@_parenttree_content_tl
           {
             \int_eval:n {##1-1}\c_space_tl
             [\c_space_tl %]
@@ -340,7 +340,7 @@
           {
             \prop_get:NnNTF \l_@@_tmpa_prop {####1} \l_@@_tmpa_tl
               {% page#1:mcid##1:\l_@@_tmpa_tl :content
-                \tl_put_right:Nx \l_@@_parenttree_content_tl
+                \tl_put_right:Ne \l_@@_parenttree_content_tl
                   {
                     \pdf_object_if_exist:eTF { @@/struct/\l_@@_tmpa_tl }
                      {
@@ -404,7 +404,7 @@
       }
     \@@_tree_parenttree_rerun_msg:  
     \tl_put_right:NV \l_@@_parenttree_content_tl\g_@@_parenttree_objr_tl
-    \pdf_object_write:nnx  { @@/tree/parenttree }{dict}
+    \pdf_object_write:nne  { @@/tree/parenttree }{dict}
       {
         /Nums\c_space_tl [\l_@@_parenttree_content_tl]
       }
@@ -438,12 +438,12 @@
         {
           \tl_if_eq:nnF {##1}{##2}
            {
-             \pdfdict_gput:nnx {g_@@_role/RoleMap_dict}
+             \pdfdict_gput:nne {g_@@_role/RoleMap_dict}
               {##1}
               {\pdf_name_from_unicode_e:n{##2}}
            }   
         }
-      \pdf_object_write:nnx  { @@/tree/rolemap }{dict}
+      \pdf_object_write:nne  { @@/tree/rolemap }{dict}
        {
         \pdfdict_use:n{g_@@_role/RoleMap_dict}
        }
@@ -474,7 +474,7 @@
             {##1}
         >>
       }
-    \tl_set:Nx \l_@@_tmpa_tl
+    \tl_set:Ne \l_@@_tmpa_tl
       {
         \seq_use:Nn
           \l_@@_tmpa_seq
@@ -484,11 +484,11 @@
       \l_@@_tmpa_tl
       {
         \pdf_object_new:n { @@/tree/classmap }
-        \pdf_object_write:nnx
+        \pdf_object_write:nne
           { @@/tree/classmap }
           {dict}
           { \l_@@_tmpa_tl }
-        \@@_prop_gput:cnx
+        \@@_prop_gput:cne
           { g_@@_struct_0_prop }
           { ClassMap }
           { \pdf_object_ref:n { @@/tree/classmap }  }
@@ -514,19 +514,19 @@
         {
           \pdfdict_if_empty:nF {g_@@_role/RoleMapNS_##1_dict}
             {
-              \pdf_object_write:nnx {@@/RoleMapNS/##1}{dict}
+              \pdf_object_write:nne {@@/RoleMapNS/##1}{dict}
                 {
                   \pdfdict_use:n {g_@@_role/RoleMapNS_##1_dict}
                 }
-              \pdfdict_gput:nnx{g_@@_role/Namespace_##1_dict}
+              \pdfdict_gput:nne{g_@@_role/Namespace_##1_dict}
                 {RoleMapNS}{\pdf_object_ref:n {@@/RoleMapNS/##1}}
             }
-          \pdf_object_write:nnx{tag/NS/##1}{dict}
+          \pdf_object_write:nne{tag/NS/##1}{dict}
             {
                \pdfdict_use:n {g_@@_role/Namespace_##1_dict}
             }
         }
-      \pdf_object_write:nnx {@@/tree/namespaces}{array}
+      \pdf_object_write:nne {@@/tree/namespaces}{array}
         {
           \prop_map_tokens:Nn \g_@@_role_NS_prop{\use_ii:nn}
         }
@@ -568,7 +568,7 @@
       {
        \hook_gput_code:nnn{shipout/before} { tagpdf/structparents }
          {
-           \pdfmanagement_add:nnx
+           \pdfmanagement_add:nne
              { Page }
              { StructParents }
              { \int_eval:n { \g_shipout_readonly_int} }

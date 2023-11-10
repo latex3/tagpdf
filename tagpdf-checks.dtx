@@ -681,7 +681,7 @@
   {
     \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
       {
-        \msg_warning:nnx { tag } {role-unknown-tag} {#1}
+        \msg_warning:nne { tag } {role-unknown-tag} {#1}
       }
   }
 %    \end{macrocode}
@@ -698,7 +698,7 @@
       }
   }
 
-\cs_generate_variant:Nn \@@_check_info_closing_struct:n {o,x}
+\cs_generate_variant:Nn \@@_check_info_closing_struct:n {o,e}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_check_no_open_struct:}
@@ -785,7 +785,7 @@
   {
     \@@_mc_if_in:T
       {
-        \msg_warning:nnx { tag } {mc-nested} { \@@_get_mc_abs_cnt: }
+        \msg_warning:nne { tag } {mc-nested} { \@@_get_mc_abs_cnt: }
       }
   }
 
@@ -793,7 +793,7 @@
   {
     \@@_mc_if_in:F
       {
-        \msg_warning:nnx { tag } {mc-not-open} { \@@_get_mc_abs_cnt: }
+        \msg_warning:nne { tag } {mc-not-open} { \@@_get_mc_abs_cnt: }
       }
   }
 %    \end{macrocode}
@@ -807,11 +807,11 @@
   {
     \int_compare:nNnT
       { \l_@@_loglevel_int } ={ 2 }
-      { \msg_info:nnx {tag}{mc-#1}{#2} }
+      { \msg_info:nne {tag}{mc-#1}{#2} }
     \int_compare:nNnT
       { \l_@@_loglevel_int } > { 2 }
       {
-        \msg_info:nnx {tag}{mc-#1}{#2}
+        \msg_info:nne {tag}{mc-#1}{#2}
         \seq_log:N \g_@@_mc_stack_seq
       }
   }
@@ -824,11 +824,11 @@
   {
     \tl_if_empty:NT #1
       {
-        \msg_error:nnx { tag } {mc-tag-missing} { \@@_get_mc_abs_cnt: }
+        \msg_error:nne { tag } {mc-tag-missing} { \@@_get_mc_abs_cnt: }
       }
    \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
      {
-       \msg_warning:nnx { tag } {role-unknown-tag} {#1}
+       \msg_warning:nne { tag } {role-unknown-tag} {#1}
      }
   }
 %    \end{macrocode}
@@ -882,7 +882,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_show_MCID_by_page:
   {
-    \tl_set:Nx \l_@@_tmpa_tl
+    \tl_set:Ne \l_@@_tmpa_tl
       {
         \@@_property_ref_lastpage:nn
           {abspage}
@@ -913,7 +913,7 @@
                 ##1
              }
              {
-               \seq_gput_right:Nx \l_tmpa_seq
+               \seq_gput_right:Ne \l_tmpa_seq
                  {
                    Page##1-####1-
                    \@@_property_ref:enn
@@ -1081,7 +1081,7 @@
            {#1}
            {\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}      
            {
-             \msg_warning:nnxx { tag/debug }{ struct-end-wrong } 
+             \msg_warning:nnee { tag/debug }{ struct-end-wrong } 
               {#1}
               {\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}
            }                    
