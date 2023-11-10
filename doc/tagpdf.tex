@@ -16,8 +16,8 @@
  }
 \DebugBlocksOff
 \makeatletter
-\def\UlrikeFischer@package@version{0.98m}
-\def\UlrikeFischer@package@date{2023-10-27}
+\def\UlrikeFischer@package@version{0.98n}
+\def\UlrikeFischer@package@date{2023-11-10}
 \makeatother
 
 \documentclass[bibliography=totoc,a4paper]{article}
@@ -117,27 +117,31 @@
 \tagstructbegin{tag=Div}
 \begin{tcolorbox}[colframe=red,before upper=\tagpdfparaOn]
 
-This package is not meant for normal document production. It is mainly a tool to \emph{research}
-tagging.
+This package is not meant for normal use in a document. It is on one mainly a tool to \emph{research}
+tagging. On the other side it is the base of the code developed in the \texttt{latex-lab} bundle for the
+Tagged PDF project \url{https://www.latex-project.org/publications/indexbytopic/pdf/}.
 
-You need a very current \LaTeX{} format.
-You need a very current L3 programming layer.
-You need the new \LaTeX{} PDF management bundle.
+The package develops together with the code in the \texttt{latex-lab} bundle, in the 
+\LaTeX{} format, in the \texttt{pdfmanagement-testphase} package (the \LaTeX{} PDF management bundle)
+and the L3 programming layer. 
+That means you should ensure that all these components are up-to-date and in sync which each 
+other. 
 
-This package is incomplete, experimental and quite probably contains bugs. It is in parts
-quite slow as the code prefers readability over speed.
+This package quite probably contains bugs. It is in parts
+quite slow as the code currently prefers readability over speed.
 At some time it will disappear when the code has been integrated into the \LaTeX{} format.
 
-This package can change in an incompatible way.
+This package can still change in an incompatible way.
 
 You need some knowledge about \TeX, \PDF{} and perhaps even lua to use it.
 
 \medskip
 
-Issues, comments, suggestions should be added as issues to the github tracker:
+Issues, comments, suggestions can be added as issues to these two github tracker:
 
 \medskip
 \centering
+\url{https://github.com/latex3/tagging-project}\par
 \url{https://github.com/u-fischer/tagpdf}
 
 \end{tcolorbox}

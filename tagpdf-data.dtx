@@ -47,7 +47,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98m, released 2023-10-27}
+% \date{Version 0.98n, released 2023-11-10}
 % \maketitle
 % \begin{documentation}
 % This files contains a various data files which are read in
@@ -60,7 +60,7 @@
 % It lists the new tag, the rolemap and the namespace of the rolemap.
 %    \begin{macrocode}
 %<*ns-latex>
-%% \ProvidesExplFile {tagpdf-ns-latex.def} {2023-10-27} {0.98m}
+%% \ProvidesExplFile {tagpdf-ns-latex.def} {2023-11-10} {0.98n}
 %% {latex} {https://www.latex-project.org/ns/dflt/2022}{}
 title,        Title,    pdf2,
 part,         Title,    pdf2,
@@ -92,7 +92,7 @@ text,         P,        pdf2,
 % It is bound to change
 %    \begin{macrocode}
 %<*ns-latex-book>
-%% \ProvidesExplFile {tagpdf-ns-latex-book.def} {2023-10-27} {0.98m}
+%% \ProvidesExplFile {tagpdf-ns-latex-book.def} {2023-11-10} {0.98n}
 %% {latex-book} {https://www.latex-project.org/ns/book/2022}{}
 chapter,       H1,pdf2,
 section,       H2,pdf2,
@@ -108,7 +108,7 @@ subparagraph,  H6,pdf2,
 % loaded. 
 %    \begin{macrocode}
 %<*ns-latex-inline>
-%% \ProvidesExplFile {tagpdf-ns-latex-inline.def} {2023-10-27} {0.98m}
+%% \ProvidesExplFile {tagpdf-ns-latex-inline.def} {2023-11-10} {0.98n}
 %% {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
 chapter,       Span, pdf2,    
 section,       Span, pdf2,
@@ -122,7 +122,7 @@ P,             Span, pdf2,
 % \section{The pdf namespace data}
 %    \begin{macrocode}
 %<*ns-pdf>
-%% \ProvidesExplFile {tagpdf-ns-pdf.def} {2023-10-27} {0.98m}
+%% \ProvidesExplFile {tagpdf-ns-pdf.def} {2023-11-10} {0.98n}
 %%  {pdf}   {http://iso.org/pdf/ssn}{}
 StructTreeRoot,StructTreeRoot,pdf,D,
 Document,Document,pdf,D,   
@@ -190,7 +190,7 @@ Strong,Span,pdf,I,
 % \section{The pdf 2.0 namespace data}
 %    \begin{macrocode}
 %<*ns-pdf2>
-%% \ProvidesExplFile {tagpdf-ns-pdf2.def} {2023-10-27} {0.98m} 
+%% \ProvidesExplFile {tagpdf-ns-pdf2.def} {2023-11-10} {0.98n} 
 %%  {pdf2}  {http://iso.org/pdf2/ssn}{}
 Document,Document,pdf2,D,   
 Part,Part,pdf2,G,       
@@ -246,7 +246,7 @@ Strong,Strong,pdf2,I,
 % \section{The mathml namespace data}
 %    \begin{macrocode}
 %<*ns-mathml>
-%% \ProvidesExplFile {tagpdf-ns-mathml.def} {2023-10-27} {0.98m}
+%% \ProvidesExplFile {tagpdf-ns-mathml.def} {2023-11-10} {0.98n}
 % {mathml}{http://www.w3.org/1998/Math/MathML}{}
 abs,abs,mathml,
 and,and,mathml,
@@ -481,7 +481,7 @@ xor,xor,mathml,
 % This will perhaps change in future.
 %    \begin{macrocode}
 %<*parent-child>
-%% \ProvidesExplFile {tagpdf-parent-child.csv} {2023-10-27} {0.98m}
+%% \ProvidesExplFile {tagpdf-parent-child.csv} {2023-11-10} {0.98n}
 ,,,StructTreeRoot,Document,Art,Part,Div,Sect,BlockQuote,NonStruct,TOC,TOCI,Index,Private,Quote,Note,Reference,BibEntry,P,Hn,H,Lbl,Code,Span,Link,Annot,Form,Ruby,RB,RT,RP,Warichu,WT,WP,L,LI,LBody,Table,TR,TH,TD,THead,TBody,TFoot,Caption,Figure,Formula,MC
 Document,both,document level,1,0..n,∅,‡,‡,∅,0..n,‡,∅,∅,∅,0..n,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅
 Art,1.7,grouping,∅,0..n,∅,‡,‡,0..n,0..n,‡,∅,∅,∅,0..n,∅,0..n,∅,∅,∅,0..1,0..1,∅,∅,∅,0..n,0..n,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,0..n,∅,∅,0..n,0..n,∅,∅,∅,0..n,0..n,∅,∅
@@ -536,7 +536,7 @@ MC,both,---,∅,∅,∅,∅,∅,∅,0..n,‡,∅,∅,∅,0..n,0..n,0..n,0..n,0..
 % This will perhaps change in future.
 %    \begin{macrocode}
 %<*parent-child-2>
-%% \ProvidesExplFile {tagpdf-parent-child-2.csv} {2023-10-27} {0.98m}
+%% \ProvidesExplFile {tagpdf-parent-child-2.csv} {2023-11-10} {0.98n}
 ,,,StructTreeRoot,Document,DocumentFragment,Art,Part,Div,Sect,Aside,BlockQuote,NonStruct,TOC,TOCI,Index,Private,Title,Sub,Quote,Note,Reference,BibEntry,P,Hn,H,Lbl,Code,Em,Strong,Span,Link,Annot,Form,Ruby,RB,RT,RP,Warichu,WT,WP,FENote,L,LI,LBody,Table,TR,TH,TD,THead,TBody,TFoot,Caption,Figure,Formula,math,mathml,Artifact,MC
 Document,both,document level,1,0..n,0..n,∅,‡,‡,∅,0..n,0..n,‡,∅,∅,∅,0..n,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,0..n,∅
 DocumentFragment,2.0,document level,∅,0..n,0..n,0..n,‡,‡,0..n,0..n,0..n,‡,∅,∅,∅,0..n,∅,∅,∅,∅*,∅,∅,∅,∅,∅,∅,∅*,∅,∅,∅,∅*,∅*,∅,∅,∅,∅,∅,∅,∅,∅,∅*,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅*,∅,∅,∅,∅,0..n,∅
