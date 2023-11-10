@@ -112,15 +112,15 @@
 % better hook is needed.
 
 
-%\def\blx@endbibliography{%
-%  \csuse{blx@endenv@\blx@theenv}%
-%  \blx@noitem
-%  \blx@locallabelwidth@finish
+\def\blx@endbibliography{%
+  \csuse{blx@endenv@\blx@theenv}%
+  \blx@noitem
+  \blx@locallabelwidth@finish
+  \endgroup
+  \blx@bibnote\blx@thepostnote
 %  \endgroup
-%  \blx@bibnote\blx@thepostnote
-%%  \endgroup
-%   \expandafter\endgroup\if@endpe\@doendpe\fi
-%}
+   \expandafter\endgroup\if@endpe\@doendpe\fi
+}
 
 % ====== hyperref ========
 % this should probably go into tagpdf, but it is related to
