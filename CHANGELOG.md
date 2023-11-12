@@ -5,6 +5,15 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [2023-11-10]
+Version: 0.98n
+
+### Changed
+ - all commands use now e-types
+
+### Fixed
+ - deprecation error from \seq_set_map_x:
+
 ## [2023-10-27]
 Version: 0.98m
 
