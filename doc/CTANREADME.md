@@ -1,6 +1,6 @@
 #tagpdf — A package to create tagged pdf
-Packageversion: 0.98n 
-Packagedate: 2023/11/10
+Packageversion: 0.98o 
+Packagedate: 2023/11/13
 Author: Ulrike Fischer
 
 ## License
