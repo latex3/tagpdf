@@ -63,7 +63,7 @@ TEST 7: Rolemapping: Sect-section allowed
 Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Sect/pdf2' --> 'section/latex' on line
-(tagpdf)             52
+(tagpdf)             56
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -74,7 +74,7 @@ TEST 8: Double rolemapping: subsection-section no
 Package tagpdf Info: Parent-Child 'H2' --> 'H1'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'subsection/latex' --> 'section/latex' on
-(tagpdf)             line 58
+(tagpdf)             line 62
 > \l_tmpa_tl=-1.
 <recently read> }
 l. ... }
@@ -85,7 +85,7 @@ TEST 9: Inherit: Part-P yes
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'Part/pdf2' on line
-(tagpdf)             68
+(tagpdf)             72
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1')
 (tagpdf)             Rolemapped from 'Part/pdf2' --> 'P/pdf2' on line ...
@@ -100,11 +100,11 @@ TEST 10: Inherit: NonStruct-Lbl no
 Package tagpdf Info: Parent-Child 'Document' --> 'NonStruct'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'NonStruct/pdf2' on
-(tagpdf)             line 76
+(tagpdf)             line 80
 Package tagpdf Info: Parent-Child 'NonStruct' --> 'Lbl'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1')
 (tagpdf)             Rolemapped from 'NonStruct/pdf2' --> 'Lbl/pdf2' on line
-(tagpdf)             76
+(tagpdf)             80
 Package tagpdf Info: closing structure 3 tagged /NonStruct
 > \l_tmpa_tl=7.
 <recently read> }
@@ -166,7 +166,7 @@ TEST 16: Math: math-abs yes
 Package tagpdf Info: Parent-Child 'math' --> 'abs'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'math/mathml' --> 'abs/mathml' on line
-(tagpdf)             111
+(tagpdf)             115
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }
@@ -177,7 +177,7 @@ TEST 17: Math: Formula-math yes
 Package tagpdf Info: Parent-Child 'Formula' --> 'math'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Formula/pdf2' --> 'math/mathml' on line
-(tagpdf)             117
+(tagpdf)             121
 > \l_tmpa_tl=1.
 <recently read> }
 l. ... }

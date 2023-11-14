@@ -3,13 +3,14 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\documentclass{article}
+\PassOptionsToPackage{disabledelayedshipout}{tagpdf}
+\DocumentMetadata{testphase=phase-II}
 \input{regression-test}
-\usepackage{tagpdf-base}
+\documentclass{article}
 \begin{document}
 \START
-\ExplSyntaxOn
-\show\tag_struct_begin:n
-\tag_if_active:TF{\TRUE}{\FALSE}
-\ExplSyntaxOff
+
+\section{abc}
+
+text
 \end{document} 

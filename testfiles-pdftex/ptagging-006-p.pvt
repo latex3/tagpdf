@@ -1,3 +1,8 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+
 \DocumentMetadata{xmp=false,testphase=phase-II,debug=para}
 \input{regression-test}
 

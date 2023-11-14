@@ -5,14 +5,20 @@
 
 \DocumentMetadata{testphase=phase-III}
 \input{regression-test}
+
+\RequirePackage{tagpdf-debug} 
 \documentclass{article}
+\usepackage{hyperref}
 \begin{document}
 \START
 
-some text \tagmcend\tagstructbegin{tag=Div,parent=1}\tagstructbegin{tag=P} 
-xxx\tagstructend\tagstructend \tagmcbegin{} more text 
+\section{blub}\label{a}
+blub\ref{a}
 
-some text \tagmcend\tagstructbegin{tag=Part}\tagstructbegin{tag=P} 
-xxx\tagstructend\tagstructend \tagmcbegin{} more text 
+\tagstructbegin{stash,label=blub,tag=Span}\tagstructend
 
+\tagstructuse{blub} xxx 
+
+
+\AddToHook{tagpdf/finish/before}{\ShowTagging{debug/structures}}
 \end{document}

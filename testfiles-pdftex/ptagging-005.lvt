@@ -2,6 +2,10 @@
 %%
 %%  tagpdf  "develop" branch
 %%  pdfresources "main"
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
 
 
 \DocumentMetadata{uncompress}
