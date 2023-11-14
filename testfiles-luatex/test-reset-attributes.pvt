@@ -1,3 +1,7 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
 \DocumentMetadata{testphase=phase-III}
 \input{regression-test}
 \documentclass{article}
@@ -17,4 +21,4 @@ The\setbox\mybox\hbox{brown} duck
 
 The \tagmcresetbox\mybox\box\mybox\ bear
 
-\end{document}
+\end{document} 

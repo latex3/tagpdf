@@ -1,4 +1,8 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
 \DocumentMetadata{testphase=phase-II,xmp=false}
 \input{regression-test}
 \documentclass{article}

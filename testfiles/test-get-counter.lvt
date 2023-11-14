@@ -1,3 +1,7 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
 \DocumentMetadata{testphase=phase-III}
 \input{regression-test}
 \documentclass{article}
@@ -12,4 +16,4 @@
 \TYPE{structure:~\tag_get:n{struct_counter},~mc:~\tag_get:n{mc_counter}}
 
 \ExplSyntaxOff
-\end{document}
+\end{document} 

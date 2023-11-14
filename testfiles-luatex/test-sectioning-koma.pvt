@@ -1,5 +1,10 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\DocumentMetadata{}
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{xmp=false}
+\input{regression-test}
 %This example shows how one can patch sectioning command and toc entries
 %to add tags.
 %The patches are layout/option dependant
@@ -7,9 +12,8 @@
 %if the sectioning commands are redefined more/different patches are perhaps needed
 
 %no page break involved. So the example works in lua and generic mode
-\input{regression-test}
+
 \documentclass[sfdefaults=true]{scrbook}
-\usepackage{graphicx}
 \usepackage[english]{babel}
 
 
@@ -22,10 +26,10 @@
   \usepackage[T1]{fontenc}
 \fi
 
+
 \tagpdfsetup{tabsorder=structure,
              activate-all,
-             uncompress,
-             log=vv
+             uncompress
              }
 
 %
@@ -105,11 +109,11 @@
 
 \ExplSyntaxOn
 \prop_new:N   \g_tag_section_level_prop
-\prop_put:Nnn \g_tag_section_level_prop {chapter}{H1}
-\prop_put:Nnn \g_tag_section_level_prop {section}{H2}
-\prop_put:Nnn \g_tag_section_level_prop {subsection}{H3}
-\prop_put:Nnn \g_tag_section_level_prop {subsubsection}{H4}
-\prop_put:Nnn \g_tag_section_level_prop {paragraph}{H5}
+\prop_gput:Nnn \g_tag_section_level_prop {chapter}{H1}
+\prop_gput:Nnn \g_tag_section_level_prop {section}{H2}
+\prop_gput:Nnn \g_tag_section_level_prop {subsection}{H3}
+\prop_gput:Nnn \g_tag_section_level_prop {subsubsection}{H4}
+\prop_gput:Nnn \g_tag_section_level_prop {paragraph}{H5}
 
 \renewcommand{\chapterlinesformat}[3]
  {
@@ -151,7 +155,6 @@
 
 
 \begin{document}
-\START
 %I don't want to handle pagestyles, so set everything to empty:
 \pagestyle{empty}\renewcommand\chapterpagestyle{empty}
 
@@ -164,7 +167,7 @@
 \section{section}
 \subsection{subsection}
 \subsubsection{subsubsection}
-\showoutput
+
  \tagstructbegin{tag=P}
    \tagmcbegin{tag=P}%
     a paragraph\par x%
@@ -172,5 +175,4 @@
  \tagstructend
 
 
-\newpage
 \end{document}

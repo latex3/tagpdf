@@ -1,3 +1,7 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
 \DocumentMetadata{testphase=phase-III}
 \input{regression-test}
 \documentclass{article}
@@ -46,4 +50,4 @@
  }
 \ExplSyntaxOff
 
-\end{document}
+\end{document} 

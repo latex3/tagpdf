@@ -1,6 +1,11 @@
 %this tests if the tagging of the header has side-effect on the text.
 %this is mostly relevant for luatex where the global attributes can
 %spill over.
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+
 \DocumentMetadata{
    testphase={tagpdf},xmp=false
   }

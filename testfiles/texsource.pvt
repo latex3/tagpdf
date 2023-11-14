@@ -1,4 +1,8 @@
-\DocumentMetadata{uncompress,testphase=phase-I}
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{testphase=phase-I}
 \input{regression-test}
 \documentclass{article}
 
@@ -7,4 +11,4 @@
 \tagstructbegin{tag=P,texsource=ABC,texsource=CDE,texsource= abc\blub }
 \tagmcbegin{}xxxx\tagmcend\tagstructend
 
-\end{document}
+\end{document} 
