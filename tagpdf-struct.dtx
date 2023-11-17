@@ -174,9 +174,11 @@
 %  abbreviation or an acronym
 %  (I couldn't think of a better name, so I sticked to E).
 % \end{function}
-% \begin{function}{AF (struct-key),AFinline (struct-key),AFinline-o (struct-key)}
+% \begin{function}{AF (struct-key),AFref (struct-key), 
+%  AFinline (struct-key),AFinline-o (struct-key),texsource}
 % \begin{syntax}
 % AF = \meta{object name}\\
+% AFref = \meta{object reference}\\
 % AF-inline = \meta{text content}\\
 % \end{syntax}
 % These keys allows to reference an associated file in the structure element.
@@ -190,9 +192,24 @@
 %
 % Future versions will perhaps extend this to more mime types, but it is
 % still a research task to find out what is really needed.
+% 
+% |texsource| is a special variant of |AF-inline-o| which embeds the file 
+% as |.tex| source with the |/AFrelationship| key set to |/Source|.
 %
-% |AF| can be used more than once, to associate more than one file. The inline
-% keys can be used only once per structure. Additional calls are ignored.
+% The argument of |AF| is an object name referring an embedded file as declared for example with 
+% \cs{pdf_object_new:n} or with the l3pdffile module. |AF| expands its argument 
+% (this allows e.g. to use some variable for automatic numbering) 
+% and can be used more than once, to associate more than one file. 
+% 
+% The argument of |AFref| is an object reference to an embedded file
+% or a variable expanding to such a object reference in the format 
+% as you would get e.g. from \cs{pdf_object_ref_last:} or \cs{pdf_object_ref:n} 
+% (and which is different for the various engines!). The key allows to make
+% use of anonymous objects. Like |AF| the |AFref| key expands its argument 
+% and can be used more than once, to associate more than one file. \emph{It
+% does not check if the reference is valid!}
+% 
+% The inline keys can be used only once per structure. Additional calls are ignored.
 % \end{function}
 %
 % \begin{function}{attribute (struct-key)}
@@ -1184,12 +1201,13 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{AF (struct-key),AFinline (struct-key),AFinline-o (struct-key)}
+% \begin{macro}{AF (struct-key), AFref (struct-key),
+%   AFinline (struct-key),AFinline-o (struct-key)}
 % keys for the AF keys (associated files). They use commands from l3pdffile!
 % The stream variants use txt as extension to get the mimetype.
 % TODO: check if this should be configurable. For math we will perhaps need another
 % extension.
-% AF is an array and can be used more than once, so we store it in a tl.
+% AF/AFref is an array and can be used more than once, so we store it in a tl.
 % which is expanded.
 % AFinline currently uses the fix extention txt. 
 % texsource is a special variant which creates a tex-file, it expects a
@@ -1203,61 +1221,31 @@
 % \end{variable}
 % 
 %    \begin{macrocode}
-\cs_if_free:NTF \pdffile_embed_stream:nnN
+\cs_generate_variant:Nn \pdffile_embed_stream:nnN {neN}
+\cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
+% #1 content, #2 extension
  {
-   \cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
-     % #1 content, #2 extension
-     {
-        \group_begin:
-        \int_gincr:N \g_@@_struct_AFobj_int
-        \pdf_object_if_exist:eF {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
-          {
-            \pdffile_embed_stream:nee
-              {#1}
-              {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
-              {@@/fileobj\int_use:N\g_@@_struct_AFobj_int}
-            \@@_struct_add_AF:ee
-              { \int_use:N \c@g_@@_struct_abs_int }
-              { \pdf_object_ref:e {@@/fileobj\int_use:N\g_@@_struct_AFobj_int} }
-            \@@_struct_prop_gput:nne
-              { \int_use:N \c@g_@@_struct_abs_int } 
-              { AF }
-              {
-                [
-                  \tl_use:c
-                   { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
-                ]
-              }
-          }     
-        \group_end:
-      }  
-   }  
-   {
-     \cs_generate_variant:Nn \pdffile_embed_stream:nnN {neN}
-     \cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
-     % #1 content, #2 extension
-      {
-        \group_begin:
-        \int_gincr:N \g_@@_struct_AFobj_int
-        \pdffile_embed_stream:neN
-          {#1}
-          {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
-          \l_@@_tmpa_tl          
-          \@@_struct_add_AF:ee
-            { \int_use:N \c@g_@@_struct_abs_int }
-            { \l_@@_tmpa_tl }
-          \@@_struct_prop_gput:nne
-            { \int_use:N \c@g_@@_struct_abs_int } 
-            { AF }
-            {
-              [
-                \tl_use:c
-                 { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
-              ]
-            }               
-        \group_end:
-      } 
-   }     
+   \group_begin:
+   \int_gincr:N \g_@@_struct_AFobj_int
+   \pdffile_embed_stream:neN
+     {#1}
+     {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
+     \l_@@_tmpa_tl          
+     \@@_struct_add_AF:ee
+       { \int_use:N \c@g_@@_struct_abs_int }
+       { \l_@@_tmpa_tl }
+     \@@_struct_prop_gput:nne
+       { \int_use:N \c@g_@@_struct_abs_int } 
+       { AF }
+       {
+         [
+           \tl_use:c
+            { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+         ]
+       }               
+   \group_end:
+ } 
+     
 \cs_generate_variant:Nn \@@_struct_add_inline_AF:nn {on} 
 %    \end{macrocode}
 % 
@@ -1286,9 +1274,9 @@
  {
     AF .code:n        = % AF property
       {
-        \pdf_object_if_exist:nTF {#1}
+        \pdf_object_if_exist:eTF {#1}
           {
-            \@@_struct_add_AF:ee { \int_use:N \c@g_@@_struct_abs_int }{\pdf_object_ref:n {#1}}
+            \@@_struct_add_AF:ee { \int_use:N \c@g_@@_struct_abs_int }{\pdf_object_ref:e {#1}}
             \@@_struct_prop_gput:nne
              { \int_use:N \c@g_@@_struct_abs_int }            
              { AF }
@@ -1303,6 +1291,19 @@
              % message?
           }
       },
+    AFref .code:n        = % AF property
+      {
+        \@@_struct_add_AF:ee { \int_use:N \c@g_@@_struct_abs_int }{#1}
+        \@@_struct_prop_gput:nne
+          { \int_use:N \c@g_@@_struct_abs_int }            
+          { AF }
+          {
+            [
+              \tl_use:c
+              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+            ]
+          }
+      },      
    ,AFinline .code:n =
      {
        \@@_struct_add_inline_AF:nn {#1}{txt}
@@ -1315,14 +1316,15 @@
     {
       \group_begin:
       \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Source }
-%    \end{macrocode}
-% we set the mime type as pdfresources uses currently text/plain
-%    \begin{macrocode}
-      \pdfdict_put:nne 
-        { l_pdffile }{Subtype} 
-        { \pdf_name_from_unicode_e:n{application/x-tex} }
       \@@_struct_add_inline_AF:on {#1}{tex}
       \group_end:
+    }  
+   ,mathml .code:n =
+     {
+      \group_begin:
+      \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Supplement }
+      \@@_struct_add_inline_AF:on {#1}{xml}
+      \group_end:  
     }  
  }
 %    \end{macrocode}
