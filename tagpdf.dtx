@@ -554,17 +554,20 @@
     \group_begin:
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
+    \@@_stop_para_ints:
   }
 \cs_set_eq:NN \tag_stop_group_end: \group_end:
 \cs_set_protected:Npn \tag_stop:
   {
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
+    \@@_stop_para_ints:
   }
 \cs_set_protected:Npn \tag_start:
   {
     \bool_set_true:N \l_@@_active_struct_bool
     \bool_set_true:N \l_@@_active_mc_bool
+    \@@_start_para_ints:
   }
 \cs_set_eq:NN\tagstop\tag_stop:
 \cs_set_eq:NN\tagstart\tag_start:  
@@ -575,6 +578,7 @@
       {
         \bool_set_false:N \l_@@_active_struct_bool
         \bool_set_false:N \l_@@_active_mc_bool
+        \@@_stop_para_ints:
         \prop_gput:Nnn \g_@@_state_prop { #1 }{ 1 }
       }
       {
@@ -588,6 +592,7 @@
       {
         \bool_set_true:N \l_@@_active_struct_bool
         \bool_set_true:N \l_@@_active_mc_bool
+        \@@_start_para_ints:
       }
   }
 %</package>
