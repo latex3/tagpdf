@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.98n, released 2023-11-10}
+% \date{Version 0.98o, released 2023-11-13}
 % \maketitle
 % \begin{documentation}
 % \section{Setup commands}
@@ -250,7 +250,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-user} {2023-11-10} {0.98n}
+\ProvidesExplPackage {tagpdf-user} {2023-11-13} {0.98o}
   {tagpdf - user commands}
 %</header>
 %    \end{macrocode}
@@ -400,7 +400,7 @@
                      {
                         tex.print
                          (tex.getattribute
-                           (luatexbase.attributes.g__tag_mc_cnt_attr))
+                           (luatexbase.attributes.g_@@_mc_cnt_attr))
                      }
                  }
                  {
@@ -521,7 +521,7 @@
   {
     ,debug/structures .code:n = 
       {
-        \int_step_inline:nnn{#1}{\c@g__tag_struct_abs_int}
+        \int_step_inline:nnn{#1}{\c@g_@@_struct_abs_int}
            {
             \msg_term:nneeee 
                    { tag/debug } { show-struct }
@@ -603,7 +603,7 @@
         { \cs_if_exist_p:N \pdf_activate_structure_destination: }
       }
       {
-        \tl_set:Nn \l_pdf_current_structure_destination_tl { __tag/struct/\g_@@_struct_stack_current_tl }
+        \tl_set:Nn \l_pdf_current_structure_destination_tl { _@@/struct/\g_@@_struct_stack_current_tl }
         \pdf_activate_structure_destination:
       }
    }
@@ -660,8 +660,138 @@
 \tl_set:Nn  \l_@@_para_main_tag_tl {text-unit}
 %    \end{macrocode}
 % \end{macro}
+
+% \begin{macro}
+%   {
+%   \@@_gincr_para_main_begin_int:,
+%   \@@_gincr_para_main_end_int:,
+%   \@@_gincr_para_begin_int:,
+%   \@@_gincr_para_end_int:
+%   }
+% The global para counter should be set through commands so
+% that \cs{tag_stop:} can stop them.  
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_gincr_para_main_begin_int:
+ {
+   \int_gincr:N \g_@@_para_main_begin_int
+ }
+\cs_new_protected:Npn \@@_gincr_para_begin_int:
+ {
+   \int_gincr:N \g_@@_para_begin_int
+ }
+\cs_new_protected:Npn \@@_gincr_para_main_end_int:
+ {
+   \int_gincr:N \g_@@_para_main_end_int
+ }
+\cs_new_protected:Npn \@@_gincr_para_end_int:
+ {
+   \int_gincr:N \g_@@_para_end_int
+ }
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\@@_start_para_ints:,\@@_stop_para_ints:}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_start_para_ints:
+ {
+   \cs_set_protected:Npn \@@_gincr_para_main_begin_int:
+     {
+       \int_gincr:N \g_@@_para_main_begin_int
+     }
+   \cs_set_protected:Npn \@@_gincr_para_begin_int:
+    {
+      \int_gincr:N \g_@@_para_begin_int
+    }
+   \cs_set_protected:Npn \@@_gincr_para_main_end_int:
+    {
+      \int_gincr:N \g_@@_para_main_end_int
+    }
+   \cs_set_protected:Npn \@@_gincr_para_end_int:
+    {
+      \int_gincr:N \g_@@_para_end_int
+    }  
+ }
+\cs_new_protected:Npn \@@_stop_para_ints:
+ {
+   \cs_set_eq:NN \@@_gincr_para_main_begin_int:\prg_do_nothing:
+   \cs_set_eq:NN \@@_gincr_para_begin_int: \prg_do_nothing:
+   \cs_set_eq:NN \@@_gincr_para_main_end_int: \prg_do_nothing:
+   \cs_set_eq:NN \@@_gincr_para_end_int: \prg_do_nothing:
+ } 
+%    \end{macrocode}
+% \end{macro}
 %
-%
+% TEMPORARLY FIX (2023-11-17). Until latex-lab is update we must adapt a sec command:
+%    \begin{macrocode}
+\AddToHook{package/latex-lab-testphase-sec/after}
+ {
+   \cs_set_protected:Npn \@kernel@tag@hangfrom #1
+    {
+     \tagstructbegin{tag=\l__tag_para_tag_tl}
+     \__tag_gincr_para_begin_int:
+     \tagstructbegin{tag=Lbl}
+     \setbox\@tempboxa
+       \hbox
+         {
+           \bool_lazy_and:nnT
+            {\tag_if_active_p:}
+            {\g__tag_mode_lua_bool}
+            {\tagmcbegin{tag=Lbl}}
+           {#1}
+         }
+   \tag_stop:n{hangfrom}
+   \hangindent \wd\@tempboxa\noindent
+   \tag_start:n{hangfrom}
+   \tagmcbegin{}\box\@tempboxa\tagmcend\tagstructend\tagmcbegin{}
+   }
+ } 
+%    \end{macrocode}
+% and two adaptions from the block module:
+%    \begin{macrocode}
+\AddToHook{package/latex-lab-testphase-block/after}
+ {
+   \cs_set_protected:Npn \__block_start_para_structure:n #1 {
+     \__block_debug_typeout:n
+        { @endpe = \legacy_if:nTF { @endpe }{true}{false}
+          \on@line }
+     \legacy_if:nF { @endpe }
+       {
+         \bool_if:NF \l__tag_para_flattened_bool
+            {
+              \@@_gincr_para_main_begin_int:
+              \tag_struct_begin:n{tag=\l__tag_para_main_tag_tl}
+            }
+        }
+     \@@_gincr_para_begin_int:
+     \__block_debug_typeout:n{increment~ P \on@line }
+     \tag_struct_begin:n
+         {
+            tag=\l__tag_para_tag_tl
+           ,attribute-class=\l_tag_para_attr_class_tl
+         }
+     \__tag_check_para_begin_show:nn {green}{#1}    
+     \tag_mc_begin:n {}
+  }
+  \RemoveFromHook{para/end}[latex-lab-testphase-block]
+  \AddToHook{para/end}[latex-lab-testphase-block]
+   {
+    \bool_if:NT \l__tag_para_bool
+      {
+        \__tag_gincr_para_end_int:
+        \__block_debug_typeout:n{increment~ /P \on@line }
+        \tag_mc_end:
+        \__tag_check_para_end_show:nn {red}{}
+        \tag_struct_end:
+        \bool_if:NF \l__tag_para_flattened_bool
+         {
+           \__tag_gincr_para_main_end_int:
+           \tag_struct_end:
+         }
+      }
+   }
+} 
+  
+%    \end{macrocode}
 %\begin{macro}
 % {
 %  paratagging (setup-key),
@@ -720,13 +850,13 @@
      {
        \bool_if:NF \l_@@_para_flattened_bool
          {
-           \int_gincr:N \g_@@_para_main_begin_int
+           \@@_gincr_para_main_begin_int:
            \tag_struct_begin:n
              {
                tag=\l_@@_para_main_tag_tl,
              }
          }
-       \int_gincr:N \g_@@_para_begin_int
+       \@@_gincr_para_begin_int:
        \tag_struct_begin:n {tag=\l_@@_para_tag_tl}
        \@@_check_para_begin_show:nn {green}{}
        \tag_mc_begin:n {}
@@ -736,13 +866,13 @@
   {
     \bool_if:NT \l_@@_para_bool
       {
-        \int_gincr:N \g_@@_para_end_int
+        \@@_gincr_para_end_int:
         \tag_mc_end:
         \@@_check_para_end_show:nn {red}{}
         \tag_struct_end:
         \bool_if:NF \l_@@_para_flattened_bool
          {
-           \int_gincr:N \g_@@_para_main_end_int
+           \@@_gincr_para_main_end_int:
            \tag_struct_end:
          }
       }

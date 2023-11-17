@@ -16,8 +16,8 @@
  }
 \DebugBlocksOff
 \makeatletter
-\def\UlrikeFischer@package@version{0.98n}
-\def\UlrikeFischer@package@date{2023-11-10}
+\def\UlrikeFischer@package@version{0.98o}
+\def\UlrikeFischer@package@date{2023-11-13}
 \makeatother
 
 \documentclass[bibliography=totoc,a4paper]{article}
@@ -1751,12 +1751,13 @@ The key-val list understands the following keys:
    \tagstructbegin{tag=P,AF=tag/AFtest}
    \end{taglstlisting}
 
-   As shown, the wanted AFRelationship can be set
-   by filling the dictionary with the value. The mime type
-   is here detected automatically, but for unknown types it can be set too.
-   See the \texttt{l3pdffile} documentation for details.  Associated files are
-   a concept new in PDF 2.0, but the code currently doesn't check the pdf version, it is your responsability
-   to set it (this can be done with the \texttt{pdfversion} key in \verb+\DeclareDocumentMetadata+).
+   As shown, the wanted AFRelationship can be set by filling the dictionary 
+   with the value. The mime type is here detected automatically, but for 
+   unknown types it can be set too. See the \texttt{l3pdffile} 
+   documentation for details.  Associated files are a concept new in PDF 
+   2.0, but the code currently doesn't check the pdf version, it is your 
+   responsability to set it (this can be done with the \texttt{pdfversion} 
+   key in \verb+\DocumentMetadata+). 
 
    \item[\PrintKeyName{root-AF}]
    This key allows to reference an associated file in the root structure element. Using the root
