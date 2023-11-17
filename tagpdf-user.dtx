@@ -400,7 +400,7 @@
                      {
                         tex.print
                          (tex.getattribute
-                           (luatexbase.attributes.g__tag_mc_cnt_attr))
+                           (luatexbase.attributes.g_@@_mc_cnt_attr))
                      }
                  }
                  {
@@ -521,7 +521,7 @@
   {
     ,debug/structures .code:n = 
       {
-        \int_step_inline:nnn{#1}{\c@g__tag_struct_abs_int}
+        \int_step_inline:nnn{#1}{\c@g_@@_struct_abs_int}
            {
             \msg_term:nneeee 
                    { tag/debug } { show-struct }
@@ -603,7 +603,7 @@
         { \cs_if_exist_p:N \pdf_activate_structure_destination: }
       }
       {
-        \tl_set:Nn \l_pdf_current_structure_destination_tl { __tag/struct/\g_@@_struct_stack_current_tl }
+        \tl_set:Nn \l_pdf_current_structure_destination_tl { _@@/struct/\g_@@_struct_stack_current_tl }
         \pdf_activate_structure_destination:
       }
    }
