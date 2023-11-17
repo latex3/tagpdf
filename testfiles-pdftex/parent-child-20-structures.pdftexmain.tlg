@@ -3,11 +3,11 @@ Don't change this file in any respect.
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
-(tagpdf)             line 12
+(tagpdf)             line 16
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
-(tagpdf)             12
+(tagpdf)             16
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
@@ -15,7 +15,7 @@ Package tagpdf Info: closing structure 3 tagged /text
 Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2' on line
-(tagpdf)             13
+(tagpdf)             17
 Package tagpdf Info: Parent-Child 'Sect' --> 'Div'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Sect/pdf2' --> 'Div/pdf2' on line ...
@@ -27,14 +27,14 @@ Package tagpdf Info: Parent-Child 'P' --> 'P'.
 (tagpdf)             Rolemapped from 'P/pdf2' --> 'P/pdf2' on line ...
 Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'P/pdf2'.
 (tagpdf)                Relation is not allowed (struct 6, /P --> struct 7) on
-(tagpdf)                line 16
+(tagpdf)                line 20
 Package tagpdf Info: Parent-Child 'P' --> 'H1'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'P/pdf2' --> 'chapter/latex-book' on line
-(tagpdf)             17
+(tagpdf)             21
 Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'chapter/latex-book'.
 (tagpdf)                Relation is not allowed (struct 7, /P --> struct 8) on
-(tagpdf)                line 17
+(tagpdf)                line 21
 Package tagpdf Info: Parent-Child 'H1' --> 'Strong'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H1/pdf2' --> 'Strong/pdf2' on line ...
@@ -49,7 +49,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 2, /text-unit) on line
-(tagpdf)                25
+(tagpdf)                29
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'P/pdf2' on line ...
@@ -61,11 +61,11 @@ TEST 1: Parent Key
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
-(tagpdf)             line 33
+(tagpdf)             line 37
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
-(tagpdf)             33
+(tagpdf)             37
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
@@ -88,11 +88,11 @@ TEST 2: Label later use
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
-(tagpdf)             line 45
+(tagpdf)             line 49
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line
-(tagpdf)             45
+(tagpdf)             49
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
@@ -108,11 +108,11 @@ Package tagpdf Info: closing structure 14 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on
-(tagpdf)             line 45
+(tagpdf)             line 49
 Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'Sect/pdf2' on line
-(tagpdf)             45
+(tagpdf)             49
 Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC' on line ...
