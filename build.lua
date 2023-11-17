@@ -47,6 +47,10 @@ local luatexstatus = status.list()
 
 checkengines = {"pdftex","luatex","pdftexmain"}
 
+-- force once in a while the full run to find wrong saves
+
+forcecheckruns=true
+
 if istl2023 then
   checkconfigs = {
                  "build",

@@ -1,9 +1,7 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Warning: structure with label blub has already been used
 [1
 ] (debug-structures-2.aux)
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 =========================
 The structure 0 contains:
 >  Type  =>  /StructTreeRoot
@@ -57,7 +55,7 @@ The structure 4 contains:
 The structure has the following kids:
 >  Struct 5
 >  Struct 7
->  Struct 9
+>  Struct 10
 >  Struct 11
 =========================
 =========================
@@ -115,7 +113,7 @@ The structure 9 contains:
 >  NS  =>  pdf2
 >  rolemap  =>  {Link}{pdf2}
 >  parentrole  =>  {Link}{pdf2}
->  P  =>  parent structure: 4 = Sect
+>  P  =>  parent structure: 8 = P
 The structure has the following kids:
 >  MC 4
 >  OBJR reference
@@ -123,11 +121,11 @@ The structure has the following kids:
 =========================
 The structure 10 contains:
 >  Type  =>  /StructElem
->  S  =>  /Span
->  NS  =>  pdf2
+>  S  =>  /Sect
+>  NS  =>  10 0 R 
 >  rolemap  =>  {Span}{pdf2}
 >  parentrole  =>  {Span}{pdf2}
->  P  =>  no parent: stashed
+>  P  =>  parent structure: 4 = Sect
 The structure has the following kids:
 > NONE
 =========================
