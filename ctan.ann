@@ -1,4 +1,10 @@
-Version 0.98o [2023-11-13]
+Version 0.98p [2023-11-17]
 
-### Fixed
- - added missing variant still needed by graphic code.
+### Changed
+ - AF key now expands its argument
+ - \tagstop etc now stops also the para-counter (to fix 
+    tagging-project issue #34)
+  
+### Added
+ - AFref and mathml key
+ 

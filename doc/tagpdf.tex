@@ -16,8 +16,8 @@
  }
 \DebugBlocksOff
 \makeatletter
-\def\UlrikeFischer@package@version{0.98o}
-\def\UlrikeFischer@package@date{2023-11-13}
+\def\UlrikeFischer@package@version{0.98p}
+\def\UlrikeFischer@package@date{2023-11-17}
 \makeatother
 
 \documentclass[bibliography=totoc,a4paper]{article}
@@ -34,13 +34,9 @@
 \addbibresource{tagpdf.bib}
 
 \usepackage[noparboxrestore]{marginnote}
-\makeatletter 
-\renewcommand*{\mn@parboxrestore}{\tagpdfparaOff}%
-\makeatother
 \reversemarginpar
 
 \usepackage{tcolorbox}
-%think later ...
 
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -61,11 +57,7 @@
 \makeatletter \def\lst@visiblespace{\lst@ttfamily{\char32}{\char32}}\makeatother
 
 
-\tagpdfsetup{
- tabsorder=structure,
- %log=v
- %show-spaces
- }
+\tagpdfsetup{tabsorder=structure}
 
 \usepackage[pdfdisplaydoctitle=true]{hyperref}
 
@@ -81,10 +73,8 @@
 \newcommand\PrintKeyName[1]{\textsf{#1}}
 \newcommand\pkg[1]{\texttt{#1}}
 \newcommand\DescribeKey[1]{\texttt{#1}}
-%\newcommand\cs[1]{\texttt{\textbackslash #1}}
-%\usepackage{ydoc-desc} %hm hyperref ist ein Problem ...
 
-
+%tagging patches:
 \usepackage{tagpdfdocu-patches}
 
 \newcommand\PDF{PDF}
@@ -98,38 +88,25 @@
 
 \begin{document}
 
-\tagstructbegin{tag=Title}
-\begin{center}%
-\let\thanks\footnote
-\makeatletter
-\huge \@title \par
-\vskip .5em
-\@author \par
-\vskip 1em%
-\@date \par
-\end{center}%
-\tagstructend
-
-
-
-
+\maketitle
 
 \tagstructbegin{tag=Div}
 \begin{tcolorbox}[colframe=red,before upper=\tagpdfparaOn]
 
-This package is not meant for normal use in a document. It is on one mainly a tool to \emph{research}
-tagging. On the other side it is the base of the code developed in the \texttt{latex-lab} bundle for the
-Tagged PDF project \url{https://www.latex-project.org/publications/indexbytopic/pdf/}.
+This package is not meant for normal use in a document. It started in 2018 as 
+a tool to \emph{research} tagging. It is now the base of the code developed 
+in the \texttt{latex-lab} bundle for the Tagged PDF project 
+\url{https://www.latex-project.org/publications/indexbytopic/pdf/}. 
 
-The package develops together with the code in the \texttt{latex-lab} bundle, in the 
-\LaTeX{} format, in the \texttt{pdfmanagement-testphase} package (the \LaTeX{} PDF management bundle)
-and the L3 programming layer. 
-That means you should ensure that all these components are up-to-date and in sync which each 
-other. 
+The package is developed together with the code in the \texttt{latex-lab} 
+bundle, in the \LaTeX{} format, in the \texttt{pdfmanagement-testphase} 
+package (the \LaTeX{} PDF management bundle) and the L3 programming layer. 
+That means you should ensure that all these components are up-to-date and in 
+sync which each other. 
 
-This package quite probably contains bugs. It is in parts
-quite slow as the code currently prefers readability over speed.
-At some time it will disappear when the code has been integrated into the \LaTeX{} format.
+This package quite probably still contains bugs. It is in parts quite slow as 
+the code currently prefers readability over speed. At some time the code will 
+be integrated into the \LaTeX{} format and the package will disappear. 
 
 This package can still change in an incompatible way.
 
@@ -157,64 +134,106 @@ Issues, comments, suggestions can be added as issues to these two github tracker
 
 \section{Introduction}
 
-Since many years the creation of accessible, tagged \PDF{}-files with \LaTeX\ which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. Many people agree that this is important and Ross Moore has done quite some work on it. There is also a TUG-mailing list and a web page \parencite{tugaccess} dedicated to this theme.
+Since many years the creation of accessible, tagged \PDF{}-files with \LaTeX\ 
+which conform to the PDF/UA standard has been on the agenda of \TeX-meetings. 
+Many people agree that this is important and Ross Moore has done quite some 
+work on it. There is also a TUG-mailing list and a web page 
+\parencite{tugaccess} dedicated to this topic. 
 
-In my opinion missing were means to \emph{experiment} with tagging and accessibility. Means to try out, how difficult it is to tag some structures, means to try out, how much tagging is really needed (standards and validators don't need to be right \ldots), means to test what else is needed so that a \PDF{} works e.g. with a screen reader, means to try out how core \LaTeX\ commands behave if tagging is used. Without such experiments it is in my opinion
-quite difficult to get a feeling about what has to be done, which kernel changes are needed, how packages should be adapted.
+In my opinion missing were means to \emph{experiment} with tagging and 
+accessibility. Means to try out, how difficult it is to tag some structures, 
+means to try out, how much tagging is really needed (standards and validators 
+don't need to be right \ldots), means to test what else is needed so that a 
+\PDF{} works e.g. with a screen reader, means to try out how core \LaTeX\ 
+commands behave if tagging is used. Without such experiments it is in my 
+opinion quite difficult to get a feeling about what has to be done, which 
+kernel changes are needed, how packages should be adapted. 
 
-This package was developed to close this gap by offering \emph{core} commands to tag a \PDF{}%
-\footnote{In case you don't know what this means: there will be some explanations later on.}.
-My hope was that the knowledge gained by the use of this package will at the end 
-allow to decide if and how code to do tagging should be part of the \LaTeX\ kernel.
+This package was developed to close this gap by offering \emph{core} commands 
+to tag a \PDF{}\footnote{In case you don't know what this means: there will 
+be some explanations later on.}. My hope was that the knowledge gained by the 
+use of this package would at the end allow to decide if and how code to do 
+tagging should be part of the \LaTeX\ kernel. 
 
 
-The code has been written so that it can be added as module to the \LaTeX{} kernel itself if it turns out to be usable. 
-It therefore avoid to patch commands from other packages and is also not an aim of the package to develop such patches. While at the end changes to various commands in many classes and packages will be needed to get tagged \PDF{} files 
-these changes should be done by the class, package and document writers themselves using a sensible API provided by the kernel and not by some external package that adds patches everywhere and would need constant maintenance -- one only need to look at packages like tex4ht or bidi or hyperref to see how difficult and sometimes fragile this is.
+The code has been written so that it can be added as module to the \LaTeX{} 
+kernel itself if it turns out to be usable. It therefore avoid to patch 
+commands from other packages and wasn't also not an aim of the package to 
+develop such patches. While at the end changes to various commands in many 
+classes and packages will be needed to get tagged \PDF{} files these changes 
+should be done by class, package and document writers themselves using a 
+sensible API provided by the kernel and not by some external package that 
+adds patches everywhere and would need constant maintenance -- one only need 
+to look at packages like tex4ht or bidi or hyperref to see how difficult and 
+sometimes fragile this is. 
 
-The package is now a part of the Tagged PDF project and triggered already various changes in the LaTeX kernel and the engines: There is a new PDF management,
-the new para hooks allows to automatically tag paragraphs, after changes in the output routine
-page breaks and header and footer are handled correctly, the engines support
-now structure destinations. More changes are in the latex-lab bundle and can be loaded through testphase keys.
+The package is now a part of the Tagged PDF project and triggered already 
+various changes in the LaTeX kernel and the engines: There is a new PDF 
+management, the new para hooks allows to automatically tag paragraphs, after 
+changes in the output routine page breaks and header and footer are handled 
+correctly, the engines support now structure destinations. More changes are 
+in the latex-lab bundle and can be loaded through testphase keys. 
 
-I'm sure that tagpdf still has bugs. Bugs reports, suggestions and comments can be added to the issue tracker on github. \url{https://github.com/u-fischer/tagpdf}.
+I'm sure that tagpdf still has bugs. Bugs reports, suggestions and comments 
+can be added to the issue tracker on github. 
+\url{https://github.com/u-fischer/tagpdf} and 
+\url{https://github.com/latex3/tagging-project}. 
 
 Please also check the github site and latex-lab for new examples and improvements.
 
 \subsection{Tagging and accessibility}
 
-While the package is named \texttt{tagpdf} the goal is also \emph{accessible} \PDF{}-files. Tagging is \emph{one} (the most difficult) requirement for accessibility but there are others. I will mention some later on in this documentation, and -- if sensible -- I will also try to add code, keys or tips for them.
+While the package is named \texttt{tagpdf} the goal is also \emph{accessible} 
+\PDF{}-files. Tagging is \emph{one} (the most difficult) requirement for 
+accessibility but there are others. I will mention some later on in this 
+documentation, and -- if sensible -- I will also try to add code, keys or 
+tips for them. 
 
-So the name of the package is a bit wrong. As excuse I can only say that it is shorter and easier to pronounce.
+So the name of the package is a bit wrong. As excuse I can only say that it 
+is short and easy to pronounce. 
 
 
 \subsection{Engines and modes}
 
-The package works theoretically with all engines,
-but the xelatex and the latex-dvips-route are basically untested tested and they also don't support
-real space glyphs so I don't recommend them. 
-lualatex is the most powerful and safe modus and should be used for new documents, it is slower than pdflatex but requires less compilations to get tagging. pdflatex works ok and can be used for legacy documents; it needs more compilations to resolve all cross references needed for the tagging. 
+The package works theoretically with all engines, but the xelatex and the 
+latex-dvips-route are basically untested and they also don't support real 
+space glyphs so I don't recommend them. lualatex is the most powerful and 
+safe modus and should be used for new documents, it is slower than pdflatex 
+but requires less compilations. pdflatex works ok and can be used for legacy 
+documents; it needs more compilations to resolve all cross references needed 
+for the tagging. 
 
 The package has two modes: the \emph{generic mode} which should work in 
 theory with every engine and the \emph{lua mode} which works only with 
 lualatex and (since version 0.98k) with dvilualatex. 
 
-I implemented the generic mode first. Mostly because my \TeX\ skills are much better than my lua skills and I wanted to get the \TeX\ side right before starting to fight with attributes and node traversing.
+I implemented the generic mode first. Mostly because my \TeX\ skills are much 
+better than my lua skills and I wanted to get the \TeX\ side right before 
+starting to fight with attributes and node traversing. 
 
-While the generic mode is not bad and I spent quite some time to get it working I nevertheless think that the lua mode is the future and the only one that will be usable for larger documents. \PDF{} is a page orientated format and so the ability of luatex to manipulate pages and nodes after the \TeX-processing is really useful here. Also with luatex characters are normally already given as unicode.
+While the generic mode is not bad and I spent quite some time to get it 
+working I nevertheless think that the lua mode is the future and the only one 
+that will be usable for larger documents. \PDF{} is a page orientated format 
+and so the ability of luatex to manipulate pages and nodes after the 
+\TeX-processing is really useful here. Also with luatex characters are 
+normally already given as unicode. 
 
-The package uses quite a lot labels (in generic mode more than with luamode). At the begin it relied on the \pkg{zref} package, but switched now to a new experimental implementation for labels. The drawback of the new method is that they don't give yet good rerun messages if they have changed. I advise to use the \pkg{rerunfilecheck} package as a intermediate work-around and when using pdflatex compile
-at best at least once or twice more often then normal.
+The package uses quite a lot labels (in generic mode more than with luamode). 
+It is now based on the property module of the \LaTeX{} kernel. This module 
+provide expandable references but the drawback is that they don't always give 
+yet good rerun messages if they have changed. I advise to use the 
+\pkg{rerunfilecheck} package as a intermediate work-around and when using 
+pdflatex compile at best at least once or twice more often then normal. 
 
 
 \subsection{References and target PDF version}
 
 My main reference for the first versions of this package was the free 
-reference for \PDF{} 1.7. \parencite{pdfreference} and so the first versions 
-of the package implemented only \PDF{} 1.7. 
+reference for \PDF{} 1.7. \parencite{pdfreference} and so they implemented 
+only support for \PDF{} 1.7. 
 
-In 2018 \PDF{} 2.0. has been released. The reference can be bought at no cost 
-through the PDF association. 
+In 2018 \PDF{} 2.0. has been released. The reference can now be bought at no 
+cost through the PDF association. 
 
 \PDF{} 2.0 has a number of features that are really needed for good tagging: 
 it knows more structure types, it allows to add associated files to 
@@ -222,16 +241,16 @@ structures---these are small, embedded files which can for example contain
 the mathML or source code of an equation---, it knows structure destinations 
 which allows to link to a structure. 
 
-
-\PDF{}~2.0 features are currently (mid 2023) not well supported by 
+\PDF{}~2.0 features are currently (end of 2023) not well supported by 
 \PDF~consumer. No PDF viewer (including Acrobat) for example can handle name 
-spaces and associated files. PAC~3 even crashes if one tries to load a \PDF{} 
-2.0 file, and pdftk will create a \PDF{}~1.0 from it. 
+spaces and associated files. The PDF Accessibility Checker (PAC) even crashes 
+if one tries to load a \PDF{} 2.0 file, and pdftk will create a \PDF{}~1.0 
+from it. 
 
 Nevertheless \LaTeX{} targets \PDF{} 2.0, tagpdf has added support for 
-associated files, for name spaces and other \PDF{} 2.0 features tagpdf and we 
-recommend to use \PDF{} 2.0 if possible and then to complain to the PDF{} 
-consumer if something doesn't work.   
+associated files, for name spaces and other \PDF{} 2.0 features. We recommend 
+to use \PDF{} 2.0 if possible and then to complain to the PDF{} consumer if 
+something doesn't work.   
 
 The package doesn't try to suppress all 2.0 features if an older \PDF{} 
 version is produced. It normally doesn't harm if a \PDF{} contains keys 
@@ -253,22 +272,23 @@ incompabilities.
  e.g. if a chunk is opened on one page but closed 
  on the next page or if the document isn't compiled often enough.
 
-\item One must check how good the requirements of the PDF/UA standard are 
-    followed \emph{formally}\footnote{The PDF/UA-2 standard for \PDF~2.0 
-    will hopefully be released in 2023}. 
+\item One must check how good the PDF follows requirements of standards 
+    like PDF/UA \emph{formally}\footnote{The PDF/UA-2 standard for \PDF~2.0 
+    will hopefully be released begin of 2024.}. 
 
 \item
 One must check how good the accessibility is \emph{practically}.
 \end{itemize}
 
 
-Syntax validation and formal standard validation can be done with preflight 
-of the (non-free) adobe acrobat. It can also be done also with the free 
-\PDF{} Accessibility Checker (PAC~2021) \parencite{pac3}. There is also the 
-validator veraPDF \parencite{verapdf}. A rather new and quite useful tool is 
-\enquote{Next Generation PDF} \parencite{ngpdf}, a browser application which 
-converts a tagged PDF to html, allows to inspect its structure and also to 
-edit the structure. 
+Syntax validation and formal standard validation can be done for example with 
+preflight of the (non-free) Adobe Acrobat. It can also be done also with the 
+free \PDF{} Accessibility Checker (PAC~2021) \parencite{pac3}. There is also 
+the validator veraPDF \parencite{verapdf}. A rather new and quite useful tool 
+is \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application 
+which converts a tagged PDF to html, allows to inspect its structure and also 
+to edit the structure. For PDF~2.0 files there is also a checker based on the 
+arlington model from veraPDF. 
 
 Practical validation is naturally the more complicated part. 
 It needs screen reader, users which actually knows how to handle them, 
@@ -283,18 +303,15 @@ don't like the list structure \texttt{L}.
 It is also possible that validators contradict: that the one says everything is okay, 
 while the other complains.
 
-
-
 \subsection{Examples wanted!}
 
-
-To make the package usable examples are needed: 
-examples that demonstrate how various structures can be tagged and which patches are needed, 
-examples for the test suite, examples that demonstrates problems.
+To make the package usable examples are needed: examples that demonstrate how 
+various structures can be tagged and which patches are needed, examples for 
+the test suite, examples that demonstrates problems. 
 
 
 \begin{tcolorbox}
-Feedback, contribuations and corrections are welcome!
+Feedback, contributions and corrections are welcome!
 \end{tcolorbox}
 
 
@@ -303,248 +320,6 @@ so that uncompressed \PDF{} are created and the internal objects and
 structures can be inspected and be compared by the l3build checks.%
 
 
-\section{Changes}
-
-This section lists only important changes. More can be found in the \texttt{CHANGELOG.MD} and by checking the git commits.
-
-\subsection{Changes in 0.3}
-
-
-In this version I improved the handling of alternative and actual text. See section~\ref{sec:alt}. This change meant that the package relies on the module \texttt{l3str-convert}.
-
-I no longer try to (pdf-)escape the tag names: it is a bit unclear how to do it at best with luatex. This will perhaps later change again.
-
-
-\subsection{Changes in 0.5}
-
-
-I added code to handle attributes and attribute classes, see section~\ref{sec:attributes} and corrected a small number of code errors.
-
-I added code to add \enquote{real} space glyphs to the \PDF{}, see section \ref{sec:spacechars}.
-
-
-
-\subsection{Changes in 0.6}
-
-
-\textbf{Breaking change!} The attributes used in luamode to mark the MC-chunks are no longer set globally. I thought that global attributes would make it easier to tag, but it only leads to problem when e.g. header and footer are inserted. So from this version on the attributes are set locally and the effect of a \verb+\tagmcbegin+ ends with the current group. This means that in some cases more \verb+\tagmcbegin+ are needed and  this affected some of the examples, e.g. the patching commands for sections with KOMA. On the other side it means that quite often one can omit the \verb+\tagmcend+ command.
-
-
-\subsection{Changes in version 0.61}
-
-\begin{itemize}
-\item internal code adaptions to expl3 changes.
-\item dropped the compresslevel key  -- probably not needed.
-\end{itemize}
-
-
-\subsection{Changes in version 0.8}
-
-\begin{itemize}
-\item  As a first step to include the code proper in the \LaTeX\ kernel the module name has changed from \texttt{uftag} to \texttt{tag}. The commands starting with |\uftag| will stay valid for some time but then be deprecated.
-
-\item \textbf{Breaking change!} The argument of \texttt{newattribute} option should no longer add the dictionary bracket \verb+<<..>>+, they are added by the code.
-
-
-\item \textbf{Breaking change!} The package now requires the new PDF management as provided for now by the package \pkg{pdfmanagement-testphase}. \pkg{pdfmanagement-testphase},
-prepares the ground for better support for tagged PDF in \LaTeX{}.
-It is part of a larger project to automatically generate tagged PDF \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/}
-
-\item Support to add associated files to structures has been added with new keys \texttt{AF}, \texttt{AFinline} and \texttt{AFinline-o}.
-
-\item \textbf{Breaking change!} The support for other 8-bit input encodings has been removed.
-utf8 is now the required encoding.
-
-\item The keys |lang|, |ref| and |E| have been added for structures.
-
-\item The new hooks of LaTeX are used to tagged many paragraphs automatically. The small red numbers around paragraphs in the documentation show them in action. The main problem here is not to tag a paragraph, but to avoid to tag too many: paragraphs pop up in many places.
-\end{itemize}
-
-\subsection{Changes in version 0.81}
-
-\begin{itemize}
-\item Hook code to tag links (URI and GoTo type) have been added. So normally they should simply work if tagging
-is activated.
-
-\item Commands and keys to allow automatic paragraph tagging have been added. See section~\ref{sec:paratagging}.
-As can be seen in this documentation the code works quite good already, but one should be aware that \enquote{paragraphs} can appear in many places and sometimes there are even more paragraph begin than ends.
-
-\item A key to test if local or global setting of the mc-attributes in luamode is more sensible, see \ref{sec:global-local} for more details.
-
-\item New commands to store and reset mc-tags.
-
-\item PDF 2.0 namespaces are now supported.
-\end{itemize}
-
-\subsection{Changes in version 0.82}
-
-A command |\tag_if_active:TF| to test if tagging is active has been added. This allow external packages to write conditional code.
-
-The commands |\tag_struct_parent_int:| and |\tag_struct_insert_annot:nn| have been added. They allow to
-add annotations to the structure.
-
-
-\subsection{Changes in version 0.83}
-
-|\tag_finish_structure:| has been removed, it is no longer a public command.
-
-\subsection{Changes in version 0.90}
-
-\begin{itemize}
-\item Code has been cleaned up and better documented.
-
-\item \textbf{More engines supported} The generic mode of \pkg{tagpdf} now works
-(theoretically, it is not much tested) with all engines supported
-by the \PDF\ management. 
-So compilations with Xe\LaTeX{} or with dvips should work. But it should be noted that
-these engines and backends don't support the |interspaceword| option. With Xe\LaTeX{} it is perhaps possible
-implement something with |\XeTeXinterchartoks|, but for the dvips route I don't see an option (apart from lots
-of manual macros everywhere).
-\item \textbf{MC-attributes are global again} In\sidenote{Breaking change!} version 0.6 the attributes used in
-luamode to mark the MC-chunks were no longer set globally. This avoided a number of problems with header and footer
-and background material, but further tests showed that it makes it difficult to correctly mark things like
-links which have to interrupt the current marking code---the attributes couldn't easily escape groups added by
-users. See section~\ref{sec:global-local} for more details.
-\item \textbf{key global-mc removed:} Due to the changes in the attribute keys this key is not longer needed.
-\item \textbf{key check-tags removed:} It doesn't fit. Checks are handled over the logging level.
-\item |\tagpdfget| has been removed, use the expl3 version if needed.
-\item The show commands |\showtagpdfmcdata|, |\showtagpdfattributes|, |\showtagstack| have been removed and replaced
-by a more flexible command |\ShowTagging|.
-\item The commands |\tagmcbegin| and |\tagmcend| no longer ignore following spaces or remove earlier one. While this
-is nice in some places, it also ate spaces in places where this wasn't expected. From now on both commands behave exactly
-like the expl3 versions.
-\item The lua-code to add real space glyphs has been separated from the tagging code. This means that |interwordspace| now
-works also if tagging is not active.
-\item The key |activate| has been added, it open the first structure, see below.
-\end{itemize}
-
-\subsection{Changes in version 0.92}
-
-\begin{itemize}
-\item support for page breaks in pdftex has been added, see  section~\ref{sec:splitpara},
-
-
-\item header and footer are tagged as artifacts automatically, see section~\ref{sec:header-footer}.
-
-\item keys \texttt{alttext-o} and \texttt{actualtext-o} has been removed. \texttt{alttext} and \texttt{actualtext}
-will now expand once.
-
-\end{itemize}
-
-
-
-
-\subsection{Changes in version 0.93}
-
-\begin{itemize}
-\item Support for associated files in the root element (key \texttt{root-AF})
-has been added. This allow e.g. to add a css-file which is be used if the \PDF\ is converted to
-html.
-
-\item First steps have been done to adapt the package to planed changes in \LaTeX{}:
-The command \cs{DocumentMetadata} will be
-added to the format and will take over the role of \cs{DeclareDocumentMetadata}
-from \pkg{pdfmanagement-testphase} and additionally
-will also load the pdf management code. This will simplify the documents
-as it will no longer be needed to load the package.
-
-\item The package has now support for \enquote{structure destinations}.
-This is a new type of destinations in \PDF~2.0.
-For pdftex and luatex this requires new binaries. They will be included
-in texlive 2022, miktex already has the new pdftex, the new luatex will probably follow soon.
-
-\item The commands \cs{tagpdfifluatexT}, \cs{tagpdfifluatexTF} has been removed \cs{tagpdfifpdftexT},
-
-\end{itemize}
-
-\subsection{Changes in version 0.94}
-
-In this version a small package, \pkg{tagpdf-base} has been added. It provides
-no-op versions of the main expl3 user commands for packages that want to support
-tagging but can't be sure if the \pkg{tagpdf} package has been loaded.
-
-\subsection{Changes in version 0.95}
-
-Small bug fixes.
-
-\subsection{Changes in version 0.96}
-
-\begin{itemize}
-\item The \texttt{alttext} key has been renamed to \texttt{alt}, the other key name exists as alias.
-
-\item The new command |\tag_struct_object_ref:n| allows to
-   create the object reference of a structure.
-
-\item a new key \texttt{parent} has been added
-   to allow structures to choose their parent structure.
-
-\item a new option \texttt{paratag} allows to change the tag name used for the
-   automatically tagged paragraphs.
-
-\item the commands |\tag_start:|, |\tag_stop:|, |\tag_stop:n| and |\tag_start:n| allow
-    to stop and start tagging (for example in trial typesetting).
-
-\item Small bug fixes.
-\end{itemize}
-
-\subsection{Changes in version 0.98}
-
-\begin{itemize}
-\item The declarations of tag namespaces have been externalized and are now
-read from files when \pkg{tagpdf} is loaded. 
-
-\item The \PDF{} format (and some of the standards) declare various parent-child rules for
-structure tags. A first step to implement this rules and check if they are fullfilled have
-been done. More information can be found in section~\ref{sec:parent-child}.
-
-\item As a side effect of the new rule checking, the requirements for new tags
- have been tightened: Adding a new tag with add-new-tag now requires that the target role is 
-    defined. Unknown roles error. 
-    
-\item |\tagmcbegin| no longer requires that a tag is set, instead if will pick up
-the tag name from the surrounding structure. 
-
-\item Structure destination are now created also with \PDF \textless\,2.0. They shouldn't harm and
-can improve the html export.
-
-\end{itemize}
-
-\subsection{Changes in version 0.98a}
-Small bug fixes in code and documentation.
-
-\subsection{Changes in version 0.98b}
-The main change is from now on every structure has an ID and an IDtree is 
-added. The ID of a structure can be retrieved with |\tag_get:n| 
-see~\ref{sec:retrieve}. 
-
-
-\subsection{Changes in version 0.98e}
-
-\begin{itemize}
-\item The main change is that the automatic paratagging uses now a two-level structure. This accompanies development
-in the LaTeX github inthe \texttt{latex-lab} package regarding the tagging of blocks like lists or verbatim.
-See~\ref{sec:paratagging} and also \texttt{latex-lab-block-tagging.dtx} for more background.
-
-\item The command |tag_struct_end:n| has been add to improve debugging.
-\end{itemize}
-
-\subsection{Changes in version 0.98k}
-
-The luamode has been adapted and now allows also the compilation with 
-dvilualatex. By default it will insert specials for \texttt{dvips} into the 
-dvi. But be aware that \texttt{dvips} can normally not be used as it can't 
-handle open type fonts, and extended version would be needed which isn't in 
-texlive yet. It is also possible to use \texttt{dvipdfmx} as backend (which 
-already has support for open type fonts), for this you need to use 
-\texttt{backend=dvipdfmx} in the \cs{DocumentMetadata} command. Real space 
-chars will work, but are currently not taken from the current font. This will 
-be improved in the next luaotfload version. The compilation with dvilualatex 
-is not much tested yet. 
-
-\subsection{Changes in version 0.98l}
-
-In 2023 the primitives to write literal code into the pdf have been extended in all engines
-and now allow to delay the expansion of their argument to the shipout. This made it possible to greatly simplify and speed up the code used in generic mode to number the MC-chunks. In most cases building the structure should now need only two or three compilations. The new code requires a current pdfmanagement-testphase and is then used automatically if the new engines are detected. 
 
 \subsection{Proof of concept: the tagging of the documentation itself}
 
@@ -554,24 +329,29 @@ complain, but PAC~3 wanted alternative text for all links (no idea why) and
 so I put everywhere simple text like \enquote{link} and \enquote{ref}. The 
 links to footnotes gave warnings, so I disabled them. I used types from the 
 \PDF{} version 1.7, mostly as I had no idea what should be used for code in 
-2.0. Margin notes were simply wrong \ldots 
+2.0. Margin notes were simply wrong and there were tagging commands 
+everywhere \ldots 
 
 The tagging has been improved and automated over time in sync with 
-improvements and new features in the LaTeX kernel and the \PDF\ management 
-code and is now much better. Sadly the output of the validators don't quite 
-reflect the improvements. The documentation uses now \PDF~2.0  and PAC~3 
-can't handle this, it claims that the file is damaged. The Adobe validator 
-has a bug and doesn't like the (valid) use of  the \texttt{Lbl} tag for the 
-section numbers (see figure~\ref{fig:adobe}).  
+improvements and new features in the LaTeX kernel, the latex-lab bundle and 
+the \PDF\ management code and is now much better. Only a few 
+structures---mostly some from currenty unsupported packages--- still need 
+manual tagging. But sadly the output of the validators don't quite reflect 
+the improvements. The documentation uses now \PDF~2.0  and PAC~3 can't handle 
+this, it claims that the file is damaged. The Adobe validator has a bug and 
+doesn't like the (valid) use of  the \texttt{Lbl} tag for the section numbers 
+(see figure~\ref{fig:adobe}).  
 
 
-
-But even if the documentation passed the tests of the validators:  as mentioned above passing a formal test doesn't mean that the content is really good and usable. I have a lot doubts that the code parts are really readable. The bibliography and the references must be improved. The user commands used for the tagging and also some of the patches used are still rather crude. So there is lot space for improvement.
+But even if the documentation passed the tests of the validators:  as 
+mentioned above passing a formal test doesn't mean that the content is really 
+good and usable. The user commands used for the tagging and also some of the 
+patches used are still rather crude. So there is lot space for improvement. 
 
 \begin{tcolorbox}[before upper=\tagpdfparaOn]
-Be aware that to create the tagged version a current lualatex-dev and a current version of the pdfmanagment-testphase package is needed.
+Be aware that to create the tagged version a current lualatex-dev and a 
+current version of the pdfmanagment-testphase package is needed. 
 \end{tcolorbox}
-
 
 \includegraphics[alt=PAC 3 report]{pac3}
 
@@ -1049,12 +829,13 @@ This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
 
 While in generic mode the commands insert the literals directly and so have 
 all the problems described above the lua mode works quite differently: The 
-tagging commands don't insert literals but set some \emph{attributes} which 
-are attached to all the following nodes. When the page is shipped out some 
-lua code is called which wanders through the shipout box and injects the 
-literals at the places where the attributes changes. 
+tagging commands don't insert literals but set some (global) 
+\emph{attributes}  which are attached to all the following nodes. When the 
+page is shipped out some lua code is called which wanders through the shipout 
+box and injects the literals at the places where the attributes changes. 
 
-This means that quite a number of problems mentioned above are not relevant for the lua mode:
+This means that quite a number of problems mentioned above are not relevant 
+for the lua mode: 
 
 \begin{enumerate} 
 \item Pagebreaks between start and end of the marker are 
@@ -1091,6 +872,9 @@ subsection~\ref{sec:splitpara}.
 These commands insert the begin of the marked content code in the \PDF{}. 
 They don't start a paragraph. \emph{They don't start a group}. Such markers 
 should not be nested. The command will warn you if this happens. 
+
+In the generic mode the commands insert literals. These are whatsits and so 
+can affect spacing. In lua mode they set an attribute \emph{globally}.  
 
 The key-val list understands the following keys:
 
@@ -1259,12 +1043,17 @@ This (expandable) command give back some variables. Currently the working key wo
 
 \subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}
 
-In\sidenote{Luamode mode only} luamode the mc-commands set and unset an attribute to mark the nodes. One can view such an attribute like a font change or a color: they affect all following chars and glue nodes until stopped.
+In\sidenote{Luamode mode only} luamode the mc-commands set and unset an 
+attribute to mark the nodes. One can view such an attribute like a font 
+change or a color: they affect all following chars and glue nodes until 
+stopped. 
 
-From version 0.6 to 0.82 the attributes were set locally.
-This had the advantage that the attributes didn't spill over in area where they are not wanted like the header and footer or the background pictures.
-But it had the disadvantage that it was difficult for an inner structure to correctly interrupt the outer
-mc-chunk if it can't control the group level. For example this didn't work due to the grouping inserted by the user:
+From version 0.6 to 0.82 the attributes were set locally. This had the 
+advantage that the attributes didn't spill over in area where they are not 
+wanted like the header and footer or the background pictures. But it had the 
+disadvantage that it was difficult for an inner structure to correctly 
+interrupt the outer mc-chunk if it can't control the group level. For example 
+this didn't work due to the grouping inserted by the user: 
 
 \begin{taglstlisting}
 \tagstructbegin{tag=P}
@@ -1506,25 +1295,26 @@ rerun.
 
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
 
-Another feature that emerged from the \LaTeX{} tagged PDF project are hooks at the begin and end of paragraphs.
-\pkg{tagpdf} makes use of these hooks to tag paragraphs. In the first version it added only one structure, but this proved to be not adequate:
+Another feature that emerged from the \LaTeX{} tagged PDF project are hooks 
+at the begin and end of paragraphs. \pkg{tagpdf} makes use of these hooks to 
+tag paragraphs. In the first version it added only one structure, but this 
+proved to be not adequate: 
 
 Paragraphs in \LaTeX{} can be nested, e.g., you can have a paragraph
 containing a display quote, which in turn consists of more than one
 (sub)paragraph, followed by some more text which all belongs to the
 same outer paragraph.
 
-In the \PDF{} model and in the HTML model that is not supported: the rules
-in \PDF{} specification do not allow \texttt{P}-structures to be nested --- a
-limitation that conflicts with real live, given that such
-constructs are quite normal in spoken and written language.
+In the \PDF{} model and in the HTML model that is not supported: the rules in 
+\PDF{} specification do not allow \texttt{P}-structures to be nested --- a 
+limitation that conflicts with real live, given that such constructs are 
+quite normal in spoken and written language. 
 
-The approach we take (starting with march 2023, version 0.98e)
-to resolve this is to model such \enquote{big}
-paragraphs with a structure named \texttt{text-unit} and use \texttt{P} (under the name \texttt{text})
-only for (portions of) the actual paragraph text in a way that the
-\texttt{P}s are not nested. As a result we have for a simple
-paragraph two structures:
+The approach we take (starting with march 2023, version 0.98e) to resolve 
+this is to model such \enquote{big} paragraphs with a structure named 
+\texttt{text-unit} and use \texttt{P} (under the name \texttt{text}) only for 
+(portions of) the actual paragraph text in a way that the \texttt{P}s are not 
+nested. As a result we have for a simple paragraph two structures: 
 
 \begin{taglstlisting}
 <text-unit>
@@ -1550,41 +1340,54 @@ paragraph two structures:
 </text-unit>
 \end{taglstlisting}  
 
-In other words such a display block is always embedded in a
-|<text-unit>| structure, possibly preceded by a |<text>|\ldots|</text>| block
-and possibly followed by one, though both such blocks are optional.
-More information about this can be found in the documentation of \texttt{latex-lab-block-tagging}.
 
-As a consequence \pkg{tagpdf} now adds two structures if paratagging is activated. The new code
-to tag display blocks extends this code to handle the nesting of lists and other display structures.
+In other words such a display block is always embedded in a |<text-unit>| 
+structure, possibly preceded by a |<text>|\ldots|</text>| block and possibly 
+followed by one, though both such blocks are optional. More information about 
+this can be found in the documentation of \texttt{latex-lab-block-tagging}. 
 
-The automatic tagging require that for every begin of a paragraph with the begin hook code
-there a corresponding end with the closing hook code. This can fail, e.g if a |vbox| doesn't correctly issue a |\par| at the end.
-If this happens the tagging structure can get very confused. At the end of the document \pkg{tagpdf} checks if
-the number of outer and inner start and end paragraph structures created with the automatic paratagging code
-are equal and it will error if not. 
+As a consequence \pkg{tagpdf} now adds two structures if paratagging is 
+activated. The new code to tag display blocks extends this code to handle the 
+nesting of lists and other display structures. 
 
-The automatic tagging of paragraphs can be deactivated completely or only the outer level with the |\tagtool| keys
-|para| and |para-flattened| or with the (now deprecated) commands |\tagpdfparaOn|  and |\tagpdfparaOff|.
+The automatic tagging require that for every begin of a paragraph with the 
+begin hook code there a corresponding end with the closing hook code. This 
+can fail, e.g if a |vbox| doesn't correctly issue a |\par| at the end. If 
+this happens the tagging structure can get very confused. At the end of the 
+document \pkg{tagpdf} checks if the number of outer and inner start and end 
+paragraph structures created with the automatic paratagging code are equal 
+and it will error if not. 
 
+The automatic tagging of paragraphs can be deactivated completely or only the 
+outer level with the |\tagtool| keys |para| and |para-flattened| or with the 
+(now deprecated) commands |\tagpdfparaOn|  and |\tagpdfparaOff|. 
 
-Nesting the activation and deactivation of the tagging of paragraphs can be quite difficult.  For example if it is unclear if the inner code issues a |\par| or not it is not trivial to exclude an end hook for every excluded begin hook.
-In such cases it can be easier to use the |paratag| key with the value |NonStruct| to convert some |P|-structures
-into |NonStruct|-structures without real meaning.
+Nesting the activation and deactivation of the tagging of paragraphs can be 
+quite difficult.  For example if it is unclear if the inner code issues a 
+|\par| or not it is not trivial to exclude an end hook for every excluded 
+begin hook. In such cases it can be easier to use the |paratag| key with the 
+value |NonStruct| to convert some |P|-structures into |NonStruct|-structures 
+without real meaning. 
 
 \subsection{Task 2: Marking the structure}
 
-
-
-The structure is represented in the \PDF{} with a number of objects of type \texttt{StructElem} which build a tree: each of this objects points back to its parent and normally has a number of kid elements, which are either again structure elements or -- as leafs of the tree -- the marked contents chunks marked up with the \verb+tagmc+-commands. The root of the tree is the \texttt{StructTreeRoot}.
+The structure is represented in the \PDF{} with a number of objects of type 
+\texttt{StructElem} which build a tree: each of this objects points back to 
+its parent and normally has a number of kid elements, which are either again 
+structure elements or -- as leafs of the tree -- the marked contents chunks 
+marked up with the \verb+tagmc+-commands. The root of the tree is the 
+\texttt{StructTreeRoot}. 
 
 
 
 \subsubsection{Structure types}
 
-
-
-The tree should reflect the \emph{semantic} meaning of the text. That means that the text should be marked as section, list, table head, table cell and so on. A number of standard structure types is predefined, see section \ref{sec:new-tag} but it is allowed to create more. If you want to use types of your own you must declare them. E.g. this declares two new types \texttt{TAB} and {FIG} and bases them on \texttt{P}:
+The tree should reflect the \emph{semantic} meaning of the text. That means 
+that the text should be marked as section, list, table head, table cell and 
+so on. A number of standard structure types is predefined, see section 
+\ref{sec:new-tag} but it is allowed to create more. If you want to use types 
+of your own you must declare them. E.g. this declares two new types 
+\texttt{TAB} and {FIG} and bases them on \texttt{P}: 
 
 
 \begin{taglstlisting}
@@ -1598,10 +1401,9 @@ The tree should reflect the \emph{semantic} meaning of the text. That means that
 
 \subsubsection{Sectioning}
 
-
-
-The sectioning units can be structured in two ways: a flat, html-like and a more (in pdf/UA2 basically deprecated) xml-like version.
-The flat version creates a structure like this:
+The sectioning units can be structured in two ways: a flat, html-like and a 
+more (in pdf/UA2 basically deprecated) xml-like version. The flat version 
+creates a structure like this: 
 
 
 \begin{taglstlisting}
@@ -1614,7 +1416,10 @@ The flat version creates a structure like this:
 
 So here the headings are marked according their level with \texttt{H1}, \texttt{H2}, etc.
 
-In the xml-like tree the complete text of a sectioning unit is surrounded with the \texttt{Sect} tag, and all headers with the tag \texttt{H}. Here the nesting defines the level of a sectioning heading.
+
+In the xml-like tree the complete text of a sectioning unit is surrounded 
+with the \texttt{Sect} tag, and all headers with the tag \texttt{H}. Here the 
+nesting defines the level of a sectioning heading. 
 
 
 \begin{taglstlisting}
@@ -1629,7 +1434,12 @@ In the xml-like tree the complete text of a sectioning unit is surrounded with t
 \end{taglstlisting}
 
 
-The flat version is more \LaTeX-like and it is rather straightforward to patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates \texttt{H\ldots} start and end markers. The xml-like tree is more difficult to automate. If such a tree is wanted I would recommend to use -- like the context format -- explicit commands to start and end a sectioning unit.
+
+The flat version is more \LaTeX-like and it is rather straightforward to 
+patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates 
+\texttt{H\ldots} start and end markers. The xml-like tree is more difficult 
+to automate. If such a tree is wanted I would recommend to use -- like the 
+context format -- explicit commands to start and end a sectioning unit. 
 
 
 
@@ -1663,13 +1473,13 @@ The key-val list understands the following keys:
    the two attributes \texttt{tagstruct} (the structure number) and \texttt{tagstructobj} (the
    object reference).
 
-  \item[\PrintKeyName{parent}]
-  % By default a structure is added as kid to the currently active structure.
-   With the parent key one can choose another parent. The value is a structure number which
-   must refer to an already existing, previously created structure. Such a structure
-   number can have been stored previously with \cs{tag\_get:n}, but one can also use
-   a label on the parent structure and then use
-   \cs{ref\_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve it.
+  \item[\PrintKeyName{parent}]  With the parent key one can choose another 
+      parent. The value is a structure number which must refer to an 
+      already existing, previously created structure. Such a structure 
+      number can have been stored previously with \cs{tag\_get:n}, but one 
+      can also use a label on the parent structure and then use 
+      \cs{ref\_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve 
+      it. 
 
   \item[\PrintKeyName{alt}] This key inserts an \texttt{/Alt} value in the 
       dictionary of structure object, see section~\ref{sec:alt}. The value 
@@ -1801,44 +1611,52 @@ The key-val list understands the following keys:
 \begin{docCommand}[nosep]{tagstructend}{}\end{docCommand}
 \begin{docCommand}{tag_struct_end:}{}\end{docCommand}
 
-These commands end a structure. They don't end a group and it doesn't matter if they are in another group as the starting commands.
+
+These commands end a structure. They don't end a group and it doesn't 
+matter if they are in another group as the starting commands. 
 
 \begin{docCommand}[nosep]{tagstructuse}{\marg{label}}\end{docCommand}
 \begin{docCommand}{tag_struct_use:n}{\marg{label}}\end{docCommand}
 
-
-These commands insert a structure previously stashed away as kid into the currently active structure. A structure should be used only once, if the structure already has a parent you will get a warning.
-
+These commands insert a structure previously stashed away as kid into the 
+currently active structure. A structure should be used only once, if the 
+structure already has a parent you will get a warning. 
 
 
 \subsubsection{Root structure}
 
-
-
-A document should have at least one structure which contains the whole document. A suitable tag is \texttt{Document}.
-Such a root is now always added automatically. Its type can be changed with the key \texttt{activate}. 
-
-
-
+A document should have at least one structure which contains the whole 
+document. A suitable tag is \texttt{Document}. Such a root is now always 
+added automatically. Its type can be changed with the key 
+\texttt{activate}. 
 
 \subsubsection{Attributes and attribute classes}\label{sec:attributes}
 
 
-Structure Element can have so-called attributes. A single attribute is a dictionary%\footnote{
-(or a stream but this is currently not supported by the package as I don't know an use-case)
-with at least the required key \verb+/O+ (for \enquote{Owner} which describes the scope the attribute applies too.
-As an example here an attribute that can be attached to tabular header (type TH) and adds the info that the header is a column header:
+Structure Element can have so-called attributes. A single attribute is a 
+dictionary (or a stream but this is currently not supported by the package 
+as I don't know an use-case) with at least the required key \verb+/O+ (for 
+\enquote{Owner} which describes the scope the attribute applies too. As an 
+example here an attribute that can be attached to tabular header (type TH) 
+and adds the info that the header is a column header: 
 
 \begin{taglstlisting}
 <</O /Table /Scope /Column>>
 \end{taglstlisting}
 
-One or more such attributes can be attached to a structure element. It is also possible to store such an attribute under a symbolic name in a so-called \enquote{ClassedMap} and then to attach references to such classes to a structure.
 
-To use such attributes you must at first declare it in \verb+\tagpdfsetup+ with the key \texttt{newattribute}. This key takes two argument, a name and the content of the attribute.
-The name should be a sensible key name, it is converted to a pdf name with
-\verb+\pdf_name_from_unicode_e:n+, so slashes and spaces are allow. The content should be a dictionary without the braket.
+One or more such attributes can be attached to a structure element. It is 
+also possible to store such an attribute under a symbolic name in a 
+so-called \enquote{ClassedMap} and then to attach references to such 
+classes to a structure. 
 
+
+To use such attributes you must at first declare it in \verb+\tagpdfsetup+ 
+with the key \texttt{newattribute}. This key takes two argument, a name and 
+the content of the attribute. The name should be a sensible key name, it is 
+converted to a pdf name with \verb+\pdf_name_from_unicode_e:n+, so slashes 
+and spaces are allow. The content should be a dictionary without the 
+bracket. 
 
 
 \begin{taglstlisting}
@@ -1852,17 +1670,17 @@ The name should be a sensible key name, it is converted to a pdf name with
 \end{taglstlisting}
 
 
-
-Attributes are only written to the \PDF{} when used, so it is not a problem to predeclare a number of standard attributes.
-
-
-It is your responsability that the content of the dictionary is valid \PDF{} and that the values are sensible!
+Attributes are only written to the \PDF{} when used, so it is not a problem 
+to predeclare a number of standard attributes. 
 
 
-Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyName{attribute-class} which both take a comma list of attribute names as argument:
-%\footnote{That's not really a sensible example}:
+It is your responsability that the content of the dictionary is valid 
+\PDF{} and that the values are sensible! 
 
 
+Attributes can then be used with the key \PrintKeyName{attribute} or 
+\PrintKeyName{attribute-class} which both take a comma list of attribute 
+names as argument: 
 
 
 \begin{taglstlisting}
@@ -1876,17 +1694,27 @@ Attributes can then be used with the key \PrintKeyName{attribute} or \PrintKeyNa
 
 \subsection{Task 3: tree Management}
 
-When all the document content has been correctly marked and the data for the trees has been collected they must be flushed to the \PDF{}. This is done automatically (if the package has been activated) with an internal command in an end document hook.
+When all the document content has been correctly marked and the data for 
+the trees has been collected they must be flushed to the \PDF{}. This is 
+done automatically (if the package has been activated) with an internal 
+command in an end document hook. 
 
 \begin{docCommand}{__tag_finish_structure:}{}\end{docCommand}
 
-This will hopefully write all the needed objects and values to the \PDF{}. (Beside the already mentioned  \texttt{StructTreeRoot} and \texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} is needed which records the parents of all the marked contents bits, a \texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the attributes, and a few more values and dictionaries).
+This will hopefully write all the needed objects and values to the \PDF{}. 
+(Beside the already mentioned  \texttt{StructTreeRoot} and 
+\texttt{StructElem} objects, additionally a so-called \texttt{ParentTree} 
+is needed which records the parents of all the marked contents bits, a 
+\texttt{Rolemap}, perhaps a \texttt{ClassMap} and object for the 
+attributes, and a few more values and dictionaries). 
 
 \subsection{A fully marked up document body}
 
 
-
-The following shows the marking needed for a section, a sentence and a list with two items. It is obvious that one wouldn't like to have to do this for real documents. If tagging should be usable, the commands must be hidden as much as possible inside suitable \LaTeX\ commands and enviroments.
+The following shows the marking needed for a section, a sentence and a list 
+with two items. It is obvious that one wouldn't like to have to do this for 
+real documents. If tagging should be usable, the commands must be hidden as 
+much as possible inside suitable \LaTeX\ commands and environments. 
 
 
 \begin{taglstlisting}
@@ -1941,10 +1769,12 @@ The following shows the marking needed for a section, a sentence and a list with
 
 \subsection{Interrupting the tagging}
 
-Experience showed that it must be possible to interrupt tagging in some places.
-For example various packages do trial typesetting to measure text and this shouldn't create
-structures. There are therefore a number of commands for various use cases\footnote{it is 
-quite possible that some of the commands will disappear again if we realize that they are not fitting!}
+
+Experience showed that it must be possible to interrupt tagging in some 
+places. For example various packages do trial typesetting to measure text 
+and this shouldn't create structures. There are therefore a number of 
+commands for various use cases\footnote{it is quite possible that some of 
+the commands will disappear again if we realize that they are not fitting!} 
 
 
 \begin{docCommand}[nosep]{tag_stop:}{}\end{docCommand}
@@ -1954,9 +1784,10 @@ quite possible that some of the commands will disappear again if we realize that
 \begin{docCommand}[nosep]{tag_stop_group_begin:}{}\end{docCommand}
 \begin{docCommand}{tag_start_group_end:}{}\end{docCommand}
 
-This commands stop and start tagging in the current group 
-by switching \emph{local} booleans.
-The grouping commands also open and close a group.
+This commands stop and start tagging in the current group by switching 
+\emph{local} booleans. They also stop the increasing of the counters which 
+keep track of paragraphs if the correct wrapper commands are used. The 
+grouping commands also open and close a group. 
 
 Restarting tagging is normally only needed if groups can't be used and then 
 must be done with care: |\tagstart| should normally only restart tagging if 
@@ -2155,8 +1986,9 @@ to be the first element in the parent structure, and elements like \texttt{Part}
 inherit restrictions from parent structures.
 External standards like \PDF/UA can add more rules.
 
-Altogether this doesn't make it easy to check if a structure tree is conformant or not without slowing down 
-the compilation a lot.
+
+Altogether this doesn't make it easy to check if a structure tree is 
+conformant or not without slowing down the compilation a lot. 
 
 With version 0.98 some first steps to do checks (and to react to the result of a change)
 have been implemented. Some checks will led to warning directly, but the majority
@@ -2172,8 +2004,12 @@ Package tagpdf Info: The rule between parent 'H2 (from subsection/latex)'
 (tagpdf)             and child 'H1 (from section/latex)' is '-1 ($\emptyset$)'
 \end{taglstlisting}
 
-The descriptions of the parent and childs are rather verbose as the checks have to take role mapping and name spaces into account. The result of a check is a number---negative if the relation is not allowed,
-positive if allowed. The text in the parentheses show the symbols used in the \PDF-matrix. 
+
+The descriptions of the parent and childs are rather verbose as the checks 
+have to take role mapping and name spaces into account. The result of a 
+check is a number---negative if the relation is not allowed, positive if 
+allowed. The text in the parentheses show the symbols used in the 
+\PDF-matrix. 
 
 Be aware
 \begin{itemize}
@@ -2183,35 +2019,54 @@ in \PDF~1.7 and then has different containment rules.
 \item The special tag \texttt{MC} stands for mc-chunks, so \enquote{real content} (the matrix has containments rules for this too).
 \item  Currently there is as only negative number \texttt{\textminus1} but that is bound to change, depending on if (and how) it is possible to \enquote{repair} a disallowed parent-child relation.  
 \item Warnings can be wrong. 
-\end{itemize}
-
-
-
-
-  
+\end{itemize} 
   
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
 
-
-TeX uses only spaces (horizontal movements) to separate words. That means that a \PDF{} reader has to use some heuristic when copying text or reflowing the text to decide if a space is meant as a word boundary or e.g. as a kerning. Accessible document should use real space glyphs (U+0032) from a font in such places.
+TeX uses only spaces (horizontal movements) to separate words. That means 
+that a \PDF{} reader has to use some heuristic when copying text or 
+reflowing the text to decide if a space is meant as a word boundary or e.g. 
+as a kerning. Accessible document should use real space glyphs (U+0032) 
+from a font in such places. 
 
 With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
 
-With pdftex this will simply call the primitive \verb+\pdfinterwordspaceon+. pdftex will then insert at various places a char from a font called dummy-space. Attention! This means that at every space there are additional font switches in the \PDF{}: from the current font to the dummy-space font and back again. This will make the \PDF{} larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be fine tuned or adapted. You can only turn it on and off and insert manually such a space glyph with \verb+\pdffakespace+.
+With pdftex this will simply call the primitive 
+\verb+\pdfinterwordspaceon+. pdftex will then insert at various places a 
+char from a font called dummy-space. Attention! This means that at every 
+space there are additional font switches in the \PDF{}: from the current 
+font to the dummy-space font and back again. This will make the \PDF{} 
+larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be 
+fine tuned or adapted. You can only turn it on and off and insert manually 
+such a space glyph with \verb+\pdffakespace+. 
 
-With luatex (in luamode) |interwordspace| is implemented with a lua-function which is inserted in two callbacks and marks up the places where it seems sensible to inter a space glyph. Later in the process the space glyphs are injected -- the code will take the glyph from the current font if this has a space glyph or switch to the default latin modern font. The current code works reasonable well in normal text.
-|interwordspace| can be used without actually tagging a document.
+With luatex (in luamode) |interwordspace| is implemented with a 
+lua-function which is inserted in two callbacks and marks up the places 
+where it seems sensible to inter a space glyph. Later in the process the 
+space glyphs are injected -- the code will take the glyph from the current 
+font if this has a space glyph or switch to the default latin modern font. 
+The current code works reasonable well in normal text. |interwordspace| can 
+be used without actually tagging a document. 
 
-The key \PrintKeyName{show-spaces} will show lines at the places where in lua mode spaces are inserted and so can help you to find problematic places. For listings -- which have a quite specific handling of spaces -- you can find a suggestion in the example \texttt{ex-space-glyph-listings}.
+The key \PrintKeyName{show-spaces} will show lines at the places where in 
+lua mode spaces are inserted and so can help you to find problematic 
+places. For listings -- which have a quite specific handling of spaces -- 
+you can find a suggestion in the example \texttt{ex-space-glyph-listings}. 
 
-\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need to give the correct results: you get spaces but not necessarly the right number of spaces. The \PDF{} viewers I tried all copied four real space glyphs as one space. I only got the four spaces with the export to text or xml in the AdobePro.
+\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need 
+to give the correct results: you get spaces but not necessarly the right 
+number of spaces. The \PDF{} viewers I tried all copied four real space 
+glyphs as one space. I only got the four spaces with the export to text or 
+xml in the AdobePro. 
 
 \begin{docCommand}{pdffakespace}{}\end{docCommand}
 
 
-This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} defines this command also for luatex -- attention if can perhaps insert break points.
+This is in pdftex a primitive. It inserts the dummy space glyph. 
+\pkg{tagpdf} defines this command also for luatex -- attention if can 
+perhaps insert break points. 
 
 \section{Structure destinations}\label{sec:struct-dest}
 
@@ -2221,33 +2076,33 @@ This is in pdftex a primitive. It inserts the dummy space glyph. \pkg{tagpdf} de
  of the viewer and so give the impression that a link jumped to the word in this place.
  But in reality they are not connected to the content.
 
- Starting with pdf~2.0 destinations can in a tagged PDF also point
- to a structure (to a \texttt{/StructElem} object).
- GoTo links can then additionally to the \texttt{/D} key which points to a
- standard page destination also point to such a structure destination with an \texttt{/SD} key.
- Programs that e.g. convert such a PDF to html can then create better links.
- (According to the reference, PDF-viewer should prefer the structure destination
- over the page destination, but as far as it is known this isn't done yet.)
+ Starting with pdf~2.0 destinations can in a tagged PDF also point to a 
+ structure (to a \texttt{/StructElem} object). GoTo links can then 
+ additionally to the \texttt{/D} key which points to a standard page 
+ destination also point to such a structure destination with an 
+ \texttt{/SD} key. Programs that e.g. convert such a PDF to html can then 
+ create better links. (According to the reference, PDF-viewer should prefer 
+ the structure destination over the page destination, but as far as it is 
+ known this isn't done yet.) 
 
- Currently structure destinations (and GoTo links making use of it) could natively only
- be created with the dvipdfmx backend. With pdftex and lualatex it was only possible to create
- a restricted type which used only the \enquote{Fit} mode. Starting with
- \TeX{}live 2022  (earlier in miktex) both engines will knew new keywords which allow
- to create structure destination easily.
-
- Support for this has been already added to the \PDF\ management and 
- \pkg{tagpdf} will make use of it if possible. In most cases it should simply 
- work, but one should be aware that as one now has a destination that is 
- actually tied to the content it gets more important to actually consider the 
- context and the place where such destinations are created. It now makes a 
- difference if the destination is created before the structure is opened or 
- after so in some cases code that place destinations should be changed to 
- place them inside the structure they belong too. One also has to consider 
- the pages connected to the destinations: The structure destination is bound 
- to the page where the structure \emph{begins}, if this differ from the page 
- of the page destination (e.g. if the destination is created by a 
- \verb+\phantomsection+  in the middle of a longer paragraph) then may be 
- necessary to surround destinations with a dummy structure (a Span or an 
+ At first structure destinations (and GoTo links making use of it) could 
+ natively only be created with the dvipdfmx backend. With pdftex and 
+ lualatex it was only possible to create a restricted type which used only 
+ the \enquote{Fit} mode. Starting with \TeX{}live 2022 (earlier in miktex) 
+ both engines knew new keywords which allowed to create structure 
+ destination easily and support has been already added to the \PDF\ 
+ management and \pkg{tagpdf}. In most cases it should simply work, but one 
+ should be aware that as one now has a destination that is actually tied to 
+ the content it gets more important to actually consider the context and 
+ the place where such destinations are created. It now makes a difference 
+ if the destination is created before the structure is opened or after so 
+ in some cases code that place destinations should be changed to place them 
+ inside the structure they belong too. One also has to consider the pages 
+ connected to the destinations: The structure destination is bound to the 
+ page where the structure \emph{begins}, if this differ from the page of 
+ the page destination (e.g. if the destination is created by a 
+ \verb+\phantomsection+  in the middle of a longer paragraph) then it may 
+ be necessary to surround destinations with a dummy structure (a Span or an 
  Artifact) to get the right page number. 
 
 \section{Storing and reusing boxes}\label{sec:savebox}
@@ -2413,30 +2268,38 @@ tagging commands) the following strategy can be used:
 \section{Accessibility is not only tagging}
 
 
-
-A tagged \PDF{} is needed for accessibility but this is not enough. As already mentioned there are more requirements:
+A tagged \PDF{} is needed for accessibility but this is not enough. As 
+already mentioned there are more requirements: 
 
  \begin{itemize}
- \item The language must be declared by adding a \texttt{/Lang xx-XX} to the \PDF{} catalog or -- if the language changes for a part of the text to the structure or the marked content. Setting the document language can be rather easily done with existing packages. With the new \PDF{} resource management it should be done with \verb+\pdfmanagement_add:nnn{Catalog}{Lang}{(en-US)}+. For settings in marked content and structure I will have to add keys.
- \item All characters must have an unicode representation or a suitable alternative text.
-      With lualatex and open type (unicode) fonts this is normally not a problem. With pdflatex it could need
-      \begin{taglstlisting}
-      \input{glyphtounicode}
-      \pdfgentounicode=1
-      \end{taglstlisting}
-
- and perhaps some\verb+\pdfglyphtounicode+ commands.
+ \item The language must be declared by adding a \texttt{/Lang xx-XX} to 
+     the \PDF{} catalog or -- if the language changes for a part of the 
+     text to the structure or the marked content. Setting the document 
+     language can be done with the \texttt{lang} option of 
+     \cs{DocumentMetadata}. For settings in marked content and structure 
+     the \texttt{lang} key can be used too. 
+ 
+ \item All characters must have an unicode representation or a suitable 
+     alternative text. With lualatex and open type (unicode) fonts this 
+     is normally not a problem. With pdflatex it could need additional 
+     \verb+\pdfglyphtounicode+ commands. 
+     
  \item Hard and soft hyphen must be distinct.
- \item Spaces between words should be space glyphs and not only a horizontal movement. See section~\ref{sec:spacechars}.
- \item Various small infos must be present in the catalog dictionary, info dictionary and the page dictionaries, e.g. metadata like title.
+ 
+ \item Spaces between words should be space glyphs and not only a 
+     horizontal movement. See section~\ref{sec:spacechars}. 
+ 
+ \item Various small infos must be present in the catalog dictionary, 
+     info dictionary and the page dictionaries, e.g. metadata like title.
+     This can be done with the options of \cs{DocumentMetadata}. See the 
+     documentation of \texttt{l3pdfmeta} for details. 
 \end{itemize}
 
-If suitable I will add code for this tasks to this packages. But some of them can also be done already with existing packages like hyperref, hyperxmp, pdfx.
 
 \section{Debugging}
 
-While developing commands and tagging a document, it can be useful to get some info about the current structure. For this
-a show command is provided
+While developing commands and tagging a document, it can be useful to get 
+some info about the current structure. For this a show command is provided 
 
 \begin{docCommand}{ShowTagging}{\marg{key-val}}\end{docCommand}
 
@@ -2474,7 +2337,6 @@ This command takes as argument a key-val list which implements a number of show 
 \section{To-do}
 
 
-
 \begin{itemize}
 \item Add commands and keys to enable/disable the checks.
 \item Check/extend the code for language tags.
@@ -2497,10 +2359,304 @@ This command takes as argument a key-val list which implements a number of show 
 \item Find someone to check and improve the lua code
 \item Move more things to lua in the luamode
 \item Find someone to check and improve the rest of the code
-\item Check differences between \PDF{} versions 1.7 and 2.0. (progress: WIP, namespaces done)
+\item Check differences between \PDF{} versions 1.7 and 2.0.  (progress: 
+    WIP, namespaces done) 
 \item bidi?
 \end{itemize}
 
+\section{History}
+
+This section lists important changes during the development of the package. 
+More can be found in the \texttt{CHANGELOG.MD} and by checking the git 
+commits. 
+
+\subsection{Changes in 0.3}
+
+In this version I improved the handling of alternative and actual text. See 
+section~\ref{sec:alt}. This change meant that the package relies on the 
+module \texttt{l3str-convert}. 
+
+I no longer try to (pdf-)escape the tag names: it is a bit unclear how to 
+do it at best with luatex. This will perhaps later change again. 
+
+\subsection{Changes in 0.5}
+
+I added code to handle attributes and attribute classes, see 
+section~\ref{sec:attributes} and corrected a small number of code errors. 
+
+I added code to add \enquote{real} space glyphs to the \PDF{}, see section 
+\ref{sec:spacechars}. 
+
+\subsection{Changes in 0.6}
+
+\textbf{Breaking change!} The attributes used in luamode to mark the 
+MC-chunks are no longer set globally. I thought that global attributes 
+would make it easier to tag, but it only leads to problem when e.g. header 
+and footer are inserted. So from this version on the attributes are set 
+locally and the effect of a \verb+\tagmcbegin+ ends with the current group. 
+This means that in some cases more \verb+\tagmcbegin+ are needed and  this 
+affected some of the examples, e.g. the patching commands for sections with 
+KOMA. On the other side it means that quite often one can omit the 
+\verb+\tagmcend+ command. 
+
+
+\subsection{Changes in version 0.61}
+
+\begin{itemize}
+\item internal code adaptions to expl3 changes. 
+\item dropped the compresslevel key  -- probably not needed. 
+\end{itemize}
+
+
+\subsection{Changes in version 0.8}
+
+\begin{itemize}
+\item  As a first step to include the code proper in the \LaTeX\ kernel 
+    the module name has changed from \texttt{uftag} to \texttt{tag}. The 
+    commands starting with |\uftag| will stay valid for some time but 
+    then be deprecated. 
+
+\item \textbf{Breaking change!} The argument of \texttt{newattribute} 
+    option should no longer add the dictionary bracket \verb+<<..>>+, 
+    they are added by the code. 
+
+
+\item \textbf{Breaking change!} The package now requires the new PDF 
+    management as provided for now by the package 
+    \pkg{pdfmanagement-testphase}. \pkg{pdfmanagement-testphase}, 
+    prepares the ground for better support for tagged PDF in \LaTeX{}. It 
+    is part of a larger project to automatically generate tagged PDF 
+    \url{https://www.latex-project.org/news/2020/11/30/tagged-pdf-FS-study/} 
+
+\item Support to add associated files to structures has been added with 
+    new keys \texttt{AF}, \texttt{AFinline} and \texttt{AFinline-o}. 
+
+\item \textbf{Breaking change!} The support for other 8-bit input 
+    encodings has been removed. utf8 is now the required encoding. 
+
+\item The keys |lang|, |ref| and |E| have been added for structures. 
+
+\item The new hooks of LaTeX are used to tagged many paragraphs 
+    automatically. The small red numbers around paragraphs in the 
+    documentation show them in action. The main problem here is not to 
+    tag a paragraph, but to avoid to tag too many: paragraphs pop up in 
+    many places. 
+\end{itemize}
+
+\subsection{Changes in version 0.81}
+
+\begin{itemize}
+\item Hook code to tag links (URI and GoTo type) have been added. So 
+    normally they should simply work if tagging is activated. 
+
+\item Commands and keys to allow automatic paragraph tagging have been 
+    added. See section~\ref{sec:paratagging}. As can be seen in this 
+    documentation the code works quite good already, but one should be 
+    aware that \enquote{paragraphs} can appear in many places and 
+    sometimes there are even more paragraph begin than ends. 
+
+\item A key to test if local or global setting of the mc-attributes in 
+    luamode is more sensible, see \ref{sec:global-local} for more 
+    details. 
+
+\item New commands to store and reset mc-tags. 
+
+\item PDF 2.0 namespaces are now supported. 
+\end{itemize}
+
+\subsection{Changes in version 0.82}
+
+A command |\tag_if_active:TF| to test if tagging is active has been added. 
+This allow external packages to write conditional code. 
+
+The commands |\tag_struct_parent_int:| and |\tag_struct_insert_annot:nn| 
+have been added. They allow to add annotations to the structure. 
+
+
+\subsection{Changes in version 0.83}
+
+|\tag_finish_structure:| has been removed, it is no longer a public 
+command. 
+
+\subsection{Changes in version 0.90}
+
+\begin{itemize}
+\item Code has been cleaned up and better documented. 
+
+\item \textbf{More engines supported} The generic mode of \pkg{tagpdf} 
+    now works (theoretically, it is not much tested) with all engines 
+    supported by the \PDF\ management. So compilations with Xe\LaTeX{} or 
+    with dvips should work. But it should be noted that these engines and 
+    backends don't support the |interspaceword| option. With Xe\LaTeX{} 
+    it is perhaps possible implement something with 
+    |\XeTeXinterchartoks|, but for the dvips route I don't see an option 
+    (apart from lots of manual macros everywhere). 
+\item \textbf{MC-attributes are global again} In\sidenote{Breaking 
+    change!} version 0.6 the attributes used in luamode to mark the 
+    MC-chunks were no longer set globally. This avoided a number of 
+    problems with header and footer and background material, but further 
+    tests showed that it makes it difficult to correctly mark things like 
+    links which have to interrupt the current marking code---the 
+    attributes couldn't easily escape groups added by users. See 
+    section~\ref{sec:global-local} for more details. 
+\item \textbf{key global-mc removed:} Due to the changes in the attribute 
+    keys this key is not longer needed. 
+\item \textbf{key check-tags removed:} It doesn't fit. Checks are handled 
+    over the logging level. 
+\item |\tagpdfget| has been removed, use the expl3 version if needed. 
+\item The show commands |\showtagpdfmcdata|, |\showtagpdfattributes|, 
+    |\showtagstack| have been removed and replaced by a more flexible 
+    command |\ShowTagging|. 
+\item The commands |\tagmcbegin| and |\tagmcend| no longer ignore 
+    following spaces or remove earlier one. While this is nice in some 
+    places, it also ate spaces in places where this wasn't expected. From 
+    now on both commands behave exactly like the expl3 versions. 
+\item The lua-code to add real space glyphs has been separated from the 
+    tagging code. This means that |interwordspace| now works also if 
+    tagging is not active. 
+\item The key |activate| has been added, it open the first structure, see 
+    below. 
+\end{itemize}
+
+\subsection{Changes in version 0.92}
+
+\begin{itemize}
+\item support for page breaks in pdftex has been added, see  
+    section~\ref{sec:splitpara}, 
+
+
+\item header and footer are tagged as artifacts automatically, see 
+    section~\ref{sec:header-footer}. 
+
+\item keys \texttt{alttext-o} and \texttt{actualtext-o} has been removed. 
+    \texttt{alttext} and \texttt{actualtext} will now expand once. 
+
+\end{itemize}
+
+\subsection{Changes in version 0.93}
+
+\begin{itemize}
+\item Support for associated files in the root element (key 
+    \texttt{root-AF}) has been added. This allow e.g. to add a css-file 
+    which is be used if the \PDF\ is converted to html. 
+
+\item First steps have been done to adapt the package to planed changes 
+    in \LaTeX{}: The command \cs{DocumentMetadata} will be added to the 
+    format and will take over the role of \cs{DeclareDocumentMetadata} 
+    from \pkg{pdfmanagement-testphase} and additionally will also load 
+    the pdf management code. This will simplify the documents as it will 
+    no longer be needed to load the package. 
+
+\item The package has now support for \enquote{structure destinations}. 
+    This is a new type of destinations in \PDF~2.0. For pdftex and luatex 
+    this requires new binaries. They will be included in texlive 2022, 
+    miktex already has the new pdftex, the new luatex will probably 
+    follow soon. 
+
+\item The commands \cs{tagpdfifluatexT}, \cs{tagpdfifluatexTF} has been 
+    removed \cs{tagpdfifpdftexT}, 
+
+\end{itemize}
+
+\subsection{Changes in version 0.94}
+
+In this version a small package, \pkg{tagpdf-base} has been added. It 
+provides no-op versions of the main expl3 user commands for packages that 
+want to support tagging but can't be sure if the \pkg{tagpdf} package has 
+been loaded. 
+
+\subsection{Changes in version 0.95}
+
+Small bug fixes. 
+
+\subsection{Changes in version 0.96}
+
+\begin{itemize}
+\item The \texttt{alttext} key has been renamed to \texttt{alt}, the 
+    other key name exists as alias. 
+
+\item The new command |\tag_struct_object_ref:n| allows to create the 
+    object reference of a structure. 
+
+\item a new key \texttt{parent} has been added to allow structures to 
+    choose their parent structure. 
+
+\item a new option \texttt{paratag} allows to change the tag name used 
+    for the automatically tagged paragraphs. 
+
+\item the commands |\tag_start:|, |\tag_stop:|, |\tag_stop:n| and 
+    |\tag_start:n| allow to stop and start tagging (for example in trial 
+    typesetting). 
+
+\item Small bug fixes. 
+\end{itemize}
+
+\subsection{Changes in version 0.98}
+
+\begin{itemize}
+\item The declarations of tag namespaces have been externalized and are 
+    now read from files when \pkg{tagpdf} is loaded. 
+
+\item The \PDF{} format (and some of the standards) declare various 
+    parent-child rules for structure tags. A first step to implement this 
+    rules and check if they are fullfilled have been done. More 
+    information can be found in section~\ref{sec:parent-child}. 
+
+\item As a side effect of the new rule checking, the requirements for new 
+    tags have been tightened: Adding a new tag with add-new-tag now 
+    requires that the target role is defined. Unknown roles error. 
+    
+\item |\tagmcbegin| no longer requires that a tag is set, instead if will 
+    pick up the tag name from the surrounding structure. 
+
+\item Structure destination are now created also with \PDF 
+    \textless\,2.0. They shouldn't harm and can improve the html export. 
+
+\end{itemize}
+
+\subsection{Changes in version 0.98a}
+Small bug fixes in code and documentation. 
+
+\subsection{Changes in version 0.98b}
+The main change is from now on every structure has an ID and an IDtree is 
+added. The ID of a structure can be retrieved with |\tag_get:n| 
+see~\ref{sec:retrieve}. 
+
+
+\subsection{Changes in version 0.98e}
+
+\begin{itemize}
+\item The main change is that the automatic paratagging uses now a 
+    two-level structure. This accompanies development in the LaTeX github 
+    inthe \texttt{latex-lab} package regarding the tagging of blocks like 
+    lists or verbatim. See~\ref{sec:paratagging} and also 
+    \texttt{latex-lab-block-tagging.dtx} for more background. 
+
+\item The command |tag_struct_end:n| has been add to improve debugging. 
+\end{itemize}
+
+\subsection{Changes in version 0.98k}
+
+The luamode has been adapted and now allows also the compilation with 
+dvilualatex. By default it will insert specials for \texttt{dvips} into the 
+dvi. But be aware that \texttt{dvips} can normally not be used as it can't 
+handle open type fonts, and extended version would be needed which isn't in 
+texlive yet. It is also possible to use \texttt{dvipdfmx} as backend (which 
+already has support for open type fonts), for this you need to use 
+\texttt{backend=dvipdfmx} in the \cs{DocumentMetadata} command. Real space 
+chars will work, but are currently not taken from the current font. This 
+will be improved in the next luaotfload version. The compilation with 
+dvilualatex is not much tested yet. 
+
+\subsection{Changes in version 0.98l}
+
+In 2023 the primitives to write literal code into the pdf have been 
+extended in all engines and now allow to delay the expansion of their 
+argument to the shipout. This made it possible to greatly simplify and 
+speed up the code used in generic mode to number the MC-chunks. In most 
+cases building the structure should now need only two or three 
+compilations. The new code requires a current pdfmanagement-testphase and 
+is then used automatically if the new engines are detected. 
 
 
 \printbibliography[heading=bibintoc]
@@ -2514,8 +2670,8 @@ This command takes as argument a key-val list which implements a number of show 
 \section{Some remarks about the \PDF{} syntax}
 
 
-This is not meant as a full reference only as a background to make the examples and remarks easier to understand.
-
+This is not meant as a full reference only as a background to make the 
+examples and remarks easier to understand. 
 
 
 \begin{description}
@@ -2628,12 +2784,29 @@ Dictionaries are enclosed by double angle brackets. They contain key-value pairs
 
 
 
- \item[(indirect) objects] These are enclosed by the keywords \texttt{obj} (which has two numbers as prefix arguments) and \texttt{endobj}. The first argument is the object number, the second a generation number -- if a \PDF{} is edited objects with a larger generation number can be added. As with pdflatex/lualatex the \PDF{} is always new we can safely assume that the number is always 0. Objects can be referenced in other places with the \texttt{R} operator. The content of an object can be all sort of things.
+ \item[(indirect) objects] These are enclosed by the keywords 
+     \texttt{obj} (which has two numbers as prefix arguments) and 
+     \texttt{endobj}. The first argument is the object number, the second 
+     a generation number -- if a \PDF{} is edited objects with a larger 
+     generation number can be added. As with pdflatex/lualatex the \PDF{} 
+     is always new we can safely assume that the number is always 0. 
+     Objects can be referenced in other places with the \texttt{R} 
+     operator. The content of an object can be all sort of things. 
 
- \item[streams] A stream is a sequence of bytes. It can be long and is used for the real content of \PDF{}: text, fonts, content of graphics.
- A stream starts with a dictionary which at least sets the \texttt{/Length} name to the length of the stream followed by the stream content enclosed by the keywords \texttt{stream} and \texttt{endstream}.
+ \item[streams] A stream is a sequence of bytes. It can be long and is 
+     used for the real content of \PDF{}: text, fonts, content of 
+     graphics. A stream starts with a dictionary which at least sets the 
+     \texttt{/Length} name to the length of the stream followed by the 
+     stream content enclosed by the keywords \texttt{stream} and 
+     \texttt{endstream}. 
 
-  Here an example of a stream, an object definition and reference. In the object 2 (a page object) the \texttt{/Contents} key references the object 3 and this then contains the text of the page in a stream. \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the first chooses the font with the name \texttt{/F15} at the size 10.9, the second displaces the reference point on the page and the third inserts the text.
+  Here an example of a stream, an object definition and reference. In the 
+  object 2 (a page object) the \texttt{/Contents} key references the 
+  object 3 and this then contains the text of the page in a stream. 
+  \texttt{Tf}, \texttt{Tm} and \texttt{TJ} are (postfix) operators, the 
+  first chooses the font with the name \texttt{/F15} at the size 10.9, 
+  the second displaces the reference point on the page and the third 
+  inserts the text. 
 
   \begin{taglstlisting}
   % a page object (shortened)
@@ -2657,9 +2830,12 @@ Dictionaries are enclosed by double angle brackets. They contain key-value pairs
   endobj
   \end{taglstlisting}
 
- In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while drawing and graphics are outside of such pairs.
+ In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while 
+ drawing and graphics are outside of such pairs. 
 
-\item[Number tree] This is a more complex data structure that is meant to index objects by numbers. In the core is an array with number-value pairs. A simple version of number tree which has the keys 0 and 3 is
+\item[Number tree] This is a more complex data structure that is meant to 
+    index objects by numbers. In the core is an array with number-value 
+    pairs. A simple version of number tree which has the keys 0 and 3 is 
 
 \begin{taglstlisting}
 6 0 obj
@@ -2672,10 +2848,11 @@ Dictionaries are enclosed by double angle brackets. They contain key-value pairs
 endobj
 \end{taglstlisting}
 
-This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. Number trees can be split over various nodes -- root, intermediate and leaf nodes. We will need such a tree for the \emph{parent tree}.
+This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. 
+Number trees can be split over various nodes -- root, intermediate and 
+leaf nodes. We will need such a tree for the \emph{parent tree}. 
 
 \end{description}
 
 
 \end{document}
-%http://msf.mathmlcloud.org/file_formats/8 %sample \PDF{} for math

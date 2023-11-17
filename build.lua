@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.98o"
-packagedate="2023-11-13"
+packageversion="0.98p"
+packagedate="2023-11-17"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -49,7 +49,7 @@ checkengines = {"pdftex","luatex","pdftexmain"}
 
 -- force once in a while the full run to find wrong saves
 
-forcecheckruns=true
+-- forcecheckruns=true
 
 if istl2023 then
   checkconfigs = {
