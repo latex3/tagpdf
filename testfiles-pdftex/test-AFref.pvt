@@ -23,10 +23,10 @@
  <mo>=</mo>
  <mrow intent="absolute-value($x)"><mo>|</mo><mi>x</mi><mo>|</mo></mrow>
 </math>}
-\newcommand\mathmltmpa
+\newcommand\mathmltmpa{}
 \ExplSyntaxOn
-\cs_generate_variant:Nn\pdffile_embed_stream:nnN {nVN}
-\pdffile_embed_stream:nnN\mathmlcontent{test.xml}\mathmltmpa
+\cs_generate_variant:Nn\pdffile_embed_stream:nnN {VnN}
+\pdffile_embed_stream:VnN\mathmlcontent{test.xml}\mathmltmpa
 \ExplSyntaxOff
 \tagstructbegin{tag=P,AFref=\mathmltmpa}
    Ein Satz ohne Umlaute.

@@ -6,12 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
 ## [2023-11-17]
+Version: 0.98p
 
-### Fixed
- - added missing variant still needed by graphic code.
+### Changed
+ - AF key expands it argument
+ - \tagstop etc now stops also the para-counter (for tagging-project issue #34)
+  
+### Added
+ - AFref key and mathml key
+ - wrapper for para counter
 
 ## [2023-11-13]
-Version: 0.98n
+Version: 0.98o
 
 ### Fixed
  - added missing variant still needed by graphic code.
