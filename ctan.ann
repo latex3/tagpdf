@@ -1,10 +1,4 @@
-Version 0.98p [2023-11-17]
+Version 0.98q [2023-11-19]
 
-### Changed
- - AF key now expands its argument
- - \tagstop etc now stops also the para-counter (to fix 
-    tagging-project issue #34)
-  
-### Added
- - AFref and mathml key
- 
+### Fixed
+ - removed l3ref-tmp.sty was still loaded
