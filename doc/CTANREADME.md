@@ -1,7 +1,7 @@
 #tagpdf — A package to create tagged pdf
 Packageversion: 0.98q 
 Packagedate: 2023/11/19
-Author: Ulrike Fischer
+Author: Ulrike Fischer, LaTeX Project Team
 
 ## License
 The tagpdf package may be modified and distributed under the terms and conditions of the 
@@ -43,4 +43,4 @@ where they can be found.
 
 ## Issues, comments, etc
 
-https://github.com/u-fischer/tagpdf
+https://github.com/latex3/tagpdf
