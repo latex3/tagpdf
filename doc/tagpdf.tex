@@ -414,19 +414,25 @@ To suppress the loading of the package altogether you can try
 
 \minisec{Loading as package needs activation!}
 
-It is not recommended anymore, but the package can also be loaded normally with |\usepackage| 
-(but it is
-still required to use \cs{DocumentMetadata} to load the \PDF\ management) but
-it will then -- apart from loading more packages and defining a lot of things -- not do much. You will have to \emph{activate} it with \verb+\tagpdfsetup+.
+It is not recommended anymore, but the package can also be loaded
+normally with |\usepackage| (but it is still required to
+use \cs{DocumentMetadata} to load the \PDF\ management) but it will
+then -- apart from loading more packages and defining a lot of things
+-- not do much. You will have to \emph{activate} it
+with \verb+\tagpdfsetup+.
 
-The \PDF\ management loaded with \cs{DocumentMetadata} will in any case load \pkg{tagpdf-base} a
-small package that provides no-op versions of the main tagging commands.
+The \PDF\ management loaded with \cs{DocumentMetadata} will in any
+case load \pkg{tagpdf-base} a small package that provides no-op
+versions of the main tagging commands.
 
-Most commands do nothing if tagging is not activated, but in case a test is needed a command (with the usual p,T,F variants) is provided:
+Most commands do nothing if tagging is not activated, but in case a
+test is needed a command (with the usual p,T,F variants) is provided:
 
 \begin{docCommand}{tag_if_active:TF}{}\end{docCommand}
 
-The check is true only if \emph{everything} is activated. In all other cases (including if tagging has been stopped locally) it will be false.
+The check is true only if \emph{everything} is activated. In all other
+cases (including if tagging has been stopped locally) it will be
+false.
 
 \subsection{Modes and package options}
 
@@ -434,11 +440,16 @@ The check is true only if \emph{everything} is activated. In all other cases (in
 %TODO think about tagging of the keys. Aside? Header?
 
 
-The package has two different modes: The \textbf{generic mode} works (in theory, currently only fully tested with pdflatex) probably with all engines, the \textbf{lua mode} only with lualatex. The differences between both modes  will be described later. The mode can be set with package options:
+The package has two different modes: The \textbf{generic mode} works
+(in theory, currently only fully tested with pdflatex) probably with
+all engines, the \textbf{lua mode} only with lualatex. The differences
+between both modes will be described later. The mode can be set with
+package options:
 
 \DescribeKey{luamode}
 
-This is the default mode. It will use the generic mode if the document is processed with pdflatex and the lua mode with lualatex.
+This is the default mode. It will use the generic mode if the document
+is processed with pdflatex and the lua mode with lualatex.
 
 \DescribeKey{genericmode}
 
@@ -457,50 +468,98 @@ The command should be normally used only in the preamble
 The key-val list understands the following keys:
 
 \begin{description}
-\item[\PrintKeyName{activate-all}]
- Boolean, initially false. Activates everything, that's normally the sensible thing to do.
-\item [\PrintKeyName{activate}] Like |activate-all|, \emph{additionally} is opens at begin document
-a structure with |\tagstructbegin| and closes it at end document. The key accepts as value a tag name which is used as the tag of the structure.
-The default value is |Document|.
-\item[\PrintKeyName{activate-mc}]
- Boolean, initially false. Activates the code related to marked content.
-\item[\PrintKeyName{activate-struct}]
- Boolean, initially false. Activates the code related to structures. Should be used only if \PrintKeyName{activate-mc} has been used too.
-\item[\PrintKeyName{no-struct-dest}]
- Starting with version 0.93 \pkg{tagpdf} will create automatically structure destinations (see section~\ref{sec:struct-dest} if \pkg{hyperref} is used, if
- the engine supports it and if the pdf version is 2.0. With this key this can be suppressed.
-\item[\PrintKeyName{activate-tree}]
-Boolean, initially false. Activates the code related to trees. Should be used only if the two other keys has been used too.
-\item[\PrintKeyName{add-new-tag}]
- Allows to define new tag names, see section \ref{sec:new-tag} for a description.
-\item[\PrintKeyName{interwordspace}]
- Choice key, possible values are \PrintKeyName{true}/""\PrintKeyName{on} and \PrintKeyName{false}/\PrintKeyName{off}. The key activates/deactivates the insertion of space glyphs, see section~\ref{sec:spacechars}. In the luamode it only works if at least \PrintKeyName{activate-mc} has been used.
+\item[\PrintKeyName{activate-all}] Boolean, initially false. Activates
+  everything, that's normally the sensible thing to do.
 
-\item[\PrintKeyName{log}]
- Choice key, possible values \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv}, \PrintKeyName{vvv},  \PrintKeyName{all}.  Setups the log level.  Changing the value affects currently mostly the luamode: \enquote{higher} values gives more messages in the log. The current levels and messages have been setup in a quite ad-hoc manner and will need improvement.
-\item[\PrintKeyName{newattribute}]
- This key takes two arguments and declares an attribute. See \ref{sec:attributes}.
-\item[\PrintKeyName{show-spaces}]
+\item [\PrintKeyName{activate}] Like |activate-all|,
+  \emph{additionally} is opens at begin document a structure with
+  |\tagstructbegin| and closes it at end document. The key accepts as
+  value a tag name which is used as the tag of the structure.  The
+  default value is |Document|.
 
-Boolean.\sidenote{luamode}
-That's a debug option, it helps in lua mode to see where space glyph will be inserted if \PrintKeyName{interwordspace} is activated.
+\item[\PrintKeyName{activate-mc}] Boolean, initially false. Activates
+  the code related to marked content.
 
-\item[\PrintKeyName{paratagging}] Boolean. This activate/deactivates the automatic tagging of paragraphs, see 
- \ref{sec:paratagging} for more background.
- It uses the \texttt{para/begin} and \texttt{para/end} hooks of the newest \LaTeX{} version (2021-05-01).
- With more tagging support conditions will be added, that means the code is bound to change! Paragraphs can appear in many unexpected  places and the code can easily break, so there is also an option to see where such paragraphs are:
+\item[\PrintKeyName{activate-struct}] Boolean, initially
+  false. Activates the code related to structures. Should be used only
+  if \PrintKeyName{activate-mc} has been used too.
 
-\item[\PrintKeyName{paratagging-show}] Boolean. This activate/deactivates small red and green numbers in the places where the paratagging hook code is used.
+\item[\PrintKeyName{no-struct-dest}] Starting with version 0.93
+  \pkg{tagpdf} will create automatically structure destinations (see
+  section~\ref{sec:struct-dest} if \pkg{hyperref} is used, if the
+  engine supports it and if the pdf version is 2.0. With this key this
+  can be suppressed.
 
-\item[\PrintKeyName{paratag}] String. This key changes the second tag used by the paratagging code. The default tag is \texttt{text}, a \LaTeX{} specific tag that is role mapped to \texttt{P}. A useful local setting here can be \texttt{NonStruct}, which creates a structure \enquote{without meaning}. For local changes it is recommended
-    to use the newer \cs{tagtool} command described below instead of \cs{tagpdfsetup}.
+\item[\PrintKeyName{activate-tree}] Boolean, initially
+  false. Activates the code related to trees. Should be used only if
+  the two other keys has been used too.
 
-\item[\PrintKeyName{tabsorder}]
- Choice key, possible values are \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure}, \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is written to the dictionary of the page objects. Not really needed for tagging itself, but one of the things you probably need for accessibility checks. So I added it. Currently the tabsorder is the same for all pages. Perhaps this should be changed \ldots.
-\item[\PrintKeyName{tagunmarked}]
- Boolean,\sidenote{luamode} initially true. When this boolean is true, the lua code will try to mark everything that has not been marked yet as an artifact. The benefit is that one doesn't have to mark up every deco rule oneself. The danger is that it perhaps marks things that shouldn't be marked -- it hasn't been tested yet with complicated documents containing annotations etc. See also section~\ref{sec:lazy} for a discussion about automatic tagging.
-\item[\PrintKeyName{uncompress}]
- Sets both the \PDF{} compresslevel and the \PDF{} objcompresslevel to 0 and so allows to inspect the \PDF{}.
+\item[\PrintKeyName{add-new-tag}] Allows to define new tag names, see
+  section \ref{sec:new-tag} for a description.
+
+\item[\PrintKeyName{interwordspace}] Choice key, possible values are
+  \PrintKeyName{true}/""\PrintKeyName{on} and
+  \PrintKeyName{false}/\PrintKeyName{off}. The key
+  activates/deactivates the insertion of space glyphs, see
+  section~\ref{sec:spacechars}. In the luamode it only works if at
+  least \PrintKeyName{activate-mc} has been used.
+
+\item[\PrintKeyName{log}] Choice key, possible values
+  \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv},
+  \PrintKeyName{vvv}, \PrintKeyName{all}.  Setups the log level.
+  Changing the value affects currently mostly the luamode:
+  \enquote{higher} values gives more messages in the log. The current
+  levels and messages have been setup in a quite ad-hoc manner and
+  will need improvement.
+
+\item[\PrintKeyName{newattribute}] This key takes two arguments and
+  declares an attribute. See \ref{sec:attributes}.
+
+\item[\PrintKeyName{show-spaces}] Boolean.\sidenote{luamode} That's a
+  debug option, it helps in lua mode to see where space glyph will be
+  inserted if \PrintKeyName{interwordspace} is activated.
+
+\item[\PrintKeyName{paratagging}] Boolean. This activate/deactivates
+  the automatic tagging of paragraphs, see \ref{sec:paratagging} for
+  more background.  It uses the \texttt{para/begin} and
+  \texttt{para/end} hooks of the newest \LaTeX{} version (2021-05-01).
+  With more tagging support conditions will be added, that means the
+  code is bound to change! Paragraphs can appear in many unexpected
+  places and the code can easily break, so there is also an option to
+  see where such paragraphs are:
+
+\item[\PrintKeyName{paratagging-show}] Boolean. This
+  activate/deactivates small red and green numbers in the places where
+  the paratagging hook code is used.
+
+\item[\PrintKeyName{paratag}] String. This key changes the second tag
+  used by the paratagging code. The default tag is \texttt{text}, a
+  \LaTeX{} specific tag that is role mapped to \texttt{P}. A useful
+  local setting here can be \texttt{NonStruct}, which creates a
+  structure \enquote{without meaning}. For local changes it is
+  recommended to use the newer \cs{tagtool} command described below
+  instead of \cs{tagpdfsetup}.
+
+\item[\PrintKeyName{tabsorder}] Choice key, possible values are
+  \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure},
+  \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is
+  written to the dictionary of the page objects. Not really needed for
+  tagging itself, but one of the things you probably need for
+  accessibility checks. So I added it. Currently the tabsorder is the
+  same for all pages. Perhaps this should be changed \ldots.
+
+\item[\PrintKeyName{tagunmarked}] Boolean,\sidenote{luamode} initially
+  true. When this boolean is true, the lua code will try to mark
+  everything that has not been marked yet as an artifact. The benefit
+  is that one doesn't have to mark up every deco rule oneself. The
+  danger is that it perhaps marks things that shouldn't be marked --
+  it hasn't been tested yet with complicated documents containing
+  annotations etc. See also section~\ref{sec:lazy} for a discussion
+  about automatic tagging.
+
+\item[\PrintKeyName{uncompress}] Sets both the \PDF{} compresslevel
+  and the \PDF{} objcompresslevel to 0 and so allows to inspect the
+  \PDF{}.
 
 
 \end{description}
@@ -508,19 +567,30 @@ That's a debug option, it helps in lua mode to see where space glyph will be ins
 \begin{docCommand}[nosep]{tagtool}{\marg{key-val}}\end{docCommand}
 \begin{docCommand}{tag_tool:n}{\marg{key-val}}\end{docCommand}
 
-The tagging of document elements requires a variety of small commands. This command
-will unify them under a common interface. This is work-in-progress and syntax and implementation
-can change! While the argument looks like a key-val \emph{list} (and currently is actually one), 
-this should not be relied on. Instead only
-one argument should be used as the implementation will change to improve the speed. Currently the following 
-arguments are supported
+The tagging of document elements requires a variety of small
+commands. This command will unify them under a common interface. This
+is work-in-progress and syntax and implementation can change! While
+the argument looks like a key-val \emph{list} (and currently is
+actually one), this should not be relied on. Instead only one argument
+should be used as the implementation will change to improve the
+speed. Currently the following arguments are supported
 
 \begin{description}
-\item[\PrintKeyName{para}] Boolean. It will replace the \cs{tagpdfparaOn} and \cs{tagpdfparaOff} command.
-\item[\PrintKeyName{unittag}] String. It allows to change the outer tag used in the following automatically tagged paragraphs. The setting is local.
-\item[\PrintKeyName{paratag}] String. It allows to change the inner tag used in the following automatically tagged paragraphs. The setting is local.
-\item[\PrintKeyName{para-flattened}] Boolean. If set it will suppress the outer structure in the automatic paratagging. 
-This should be applied to the start and end hook in the same way! The setting is local.
+\item[\PrintKeyName{para}] Boolean. It will replace the
+  \cs{tagpdfparaOn} and \cs{tagpdfparaOff} command.
+
+\item[\PrintKeyName{unittag}] String. It allows to change the outer
+  tag used in the following automatically tagged paragraphs. The
+  setting is local.
+
+\item[\PrintKeyName{paratag}] String. It allows to change the inner
+  tag used in the following automatically tagged paragraphs. The
+  setting is local.
+
+\item[\PrintKeyName{para-flattened}] Boolean. If set it will suppress
+  the outer structure in the automatic paratagging.  This should be
+  applied to the start and end hook in the same way! The setting is
+  local.
 
 \end{description}
 
@@ -529,7 +599,10 @@ This should be applied to the start and end hook in the same way! The setting is
 \section{Tagging}
 
 
-pdf is a page orientated graphic format. It simply puts ink and glyphs at various coordinates on a page. A simple stream of a page can look like this\footnote{The appendix contains some remarks about the syntax of a \PDF{} file}:
+PDF is a page orientated graphic format. It simply puts ink and glyphs
+at various coordinates on a page. A simple stream of a page can look
+like this\footnote{The appendix contains some remarks about the syntax
+of a \PDF{} file}:
 
 \begin{taglstlisting}[columns=fixed]
 stream
@@ -1023,10 +1096,12 @@ In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't te
 
 \begin{docCommand}{tag_mc_reset_box:N}{\marg{box}}\end{docCommand}
 
-In lua mode this command will process the given box and reset all mc related attributes in the box to the current values.
-This means that if the box is used all its contents will be a kid of the current structure.
-This should (probably) only be used on boxes which don't contain tagging commands.
-See below section~\ref{sec:savebox} for more details.
+In lua mode this command will process the given box and reset all mc
+related attributes in the box to the current values.  This means that
+if the box is used all its contents will be a kid of the current
+structure.  This should (probably) only be used on boxes which don't
+contain tagging commands.  See below section~\ref{sec:savebox} for
+more details.
 
 
 \subsubsection{Retrieving data} \label{sec:retrieve}
@@ -1038,10 +1113,31 @@ This (expandable) command returns the values of some variables. Currently, the w
 \begin{itemize} 
 \item \verb+mc_tag+: the tag name of the current mc-chunk
 \item  \verb+struct_tag+: the tag name of the current structure
-\item \verb+struct_id+: The ID of the current structure. This is a string and is returned including parentheses. 
-\item \verb+struct_num+: This returns a number and works also if only \pkg{tagpdf-base} has been loaded, but then doesn't give the same output: if \pkg{tagpdf} is loaded and tagging is active, \verb+struct_num+ gives the number of currently active structure, so it reverts to the parent number if a structure is closed. If only \pkg{tagpdf-base} is loaded nesting of structure is not tracked and so the command gives back the number of the last structure that has been created.
-\item \verb+struct_counter+:  This returns a number and works also if only \pkg{tagpdf-base} has been loaded. It gives back the state of the absolute structure counter and so number of the last structure that has been created. This can be used to detect if in a piece of code there are structure commands. Be aware that this is a \LaTeX{} counter and so reset in some places.
-\item \verb+mc_counter+:  This returns a number and works also if only \pkg{tagpdf-base} has been loaded. It gives back the state of the absolute mc-counter and so number of the last mc-chunk that has been created. This can be used to detect if in a piece of code there are mc-commands.
+
+\item \verb+struct_id+: The ID of the current structure. This is a
+  string and is returned including parentheses.
+
+\item \verb+struct_num+: This returns a number and works also if only
+  \pkg{tagpdf-base} has been loaded, but then doesn't give the same
+  output: if \pkg{tagpdf} is loaded and tagging is active,
+  \verb+struct_num+ gives the number of currently active structure, so
+  it reverts to the parent number if a structure is closed. If only
+  \pkg{tagpdf-base} is loaded nesting of structure is not tracked and
+  so the command gives back the number of the last structure that has
+  been created.
+
+\item \verb+struct_counter+: This returns a number and works also if
+  only \pkg{tagpdf-base} has been loaded. It gives back the state of
+  the absolute structure counter and so number of the last structure
+  that has been created. This can be used to detect if in a piece of
+  code there are structure commands. Be aware that this is a \LaTeX{}
+  counter and so reset in some places.
+
+\item \verb+mc_counter+: This returns a number and works also if only
+  \pkg{tagpdf-base} has been loaded. It gives back the state of the
+  absolute mc-counter and so number of the last mc-chunk that has been
+  created. This can be used to detect if in a piece of code there are
+  mc-commands.
 \end{itemize}              
 
 
@@ -1114,11 +1210,20 @@ add the needed code.
 \begin{itemize}
 \item Mark commands inside floats should work fine (but need perhaps some compilation rounds in generic mode).
 
-\item In case you want to use it inside a \verb+\savebox+ (or some command that saves the text internally in a box): If the box is used directly, there is probably no problem. If the use is later, stash the marked content and add the needed \verb+\tagmcuse+ directly  before oder after the box when you use it.
+\item In case you want to use it inside a \verb+\savebox+ (or some
+  command that saves the text internally in a box): If the box is used
+  directly, there is probably no problem. If the use is later, stash
+  the marked content and add the needed \verb+\tagmcuse+ directly
+  before oder after the box when you use it.
 
 \item Don't use a saved box with markers twice.
-\item If boxes are unboxed you will have to analyze the \PDF{} to check if everything is ok.
-\item If you use complicated structures and commands (breakable boxes like the one from \pkg{tcolorbox}, \pkg{multicol}, many footnotes) you will have to check the \PDF{}.
+
+\item If boxes are unboxed you will have to analyze the \PDF{} to
+  check if everything is ok.
+
+\item If you use complicated structures and commands (breakable boxes
+  like the one from \pkg{tcolorbox}, \pkg{multicol}, many footnotes)
+  you will have to check the \PDF{}.
  \end{itemize}
 
 
@@ -1158,8 +1263,10 @@ providing support for header and footers.
 For now tagpdf added some first support for automatically tagging:
 Starting with version 0.92 header and footer are by default automatically marked up as (simple) artifacts.
 
-With the key \PrintKeyName{exclude-header-footer} the behavior can be changed: The value \texttt{false} disables the
-automatic tagging, the value \texttt{pagination} add additionally an \texttt{/Artifact} structure with the attribute \texttt{/Pagination}.
+With the key \PrintKeyName{exclude-header-footer} the behavior can be
+changed: The value \texttt{false} disables the automatic tagging, the
+value \texttt{pagination} add additionally an \texttt{/Artifact}
+structure with the attribute \texttt{/Pagination}.
 
 
 If some additional markup (or even a structure) is wanted, something like this should be used (here with
@@ -1178,38 +1285,59 @@ the syntax of the \pkg{fancyhdr} package) to close the open mc-chunk and restart
 
 \subsubsection{Links and other annotations}\label{sec:link+annot}
 
-Annotations (like links or form field annotations) are objects associated with a geometric region of the page rather than with a particular object in its content stream. Any connection between a link or a form field and the text is based solely on visual appearance (the link text is in the same region, or there is empty space for the form field annotation) rather than on an explicitly specified association.
+Annotations (like links or form field annotations) are objects
+associated with a geometric region of the page rather than with a
+particular object in its content stream. Any connection between a link
+or a form field and the text is based solely on visual appearance (the
+link text is in the same region, or there is empty space for the form
+field annotation) rather than on an explicitly specified association.
 
-To connect such a annotation with the structure and so with surrounding or underlying text a specific structure has to be added, see \ref{fig:linkannot}:
-The annotation is added to a structure element as an object reference. It is not referenced directly but through an intermediate object of type OBJR. To the dictionary of the annotation a \texttt{/StructParent} entry must be added, the value is a number which is then
-used in the ParentTree to define a relationship between the annotation and the parent structure element.
+To connect such a annotation with the structure and so with
+surrounding or underlying text a specific structure has to be added,
+see \ref{fig:linkannot}: The annotation is added to a structure
+element as an object reference. It is not referenced directly but
+through an intermediate object of type OBJR. To the dictionary of the
+annotation a \texttt{/StructParent} entry must be added, the value is
+a number which is then used in the ParentTree to define a relationship
+between the annotation and the parent structure element.
 
 To support this, \pkg{tagpdf} offers currently two commands
 
 \begin{docCommand}{tag_struct_parent_int:}{}\end{docCommand}
 
-This insert the current value of a global counter used to track such objects. It can be used to add the \texttt{/StructParent} value to
-the annotation dictionary.
+This insert the current value of a global counter used to track such
+objects. It can be used to add the \texttt{/StructParent} value to the
+annotation dictionary.
 
 \begin{docCommand}{tag_struct_insert_annot:nn}{\marg{object reference}\marg{struct parent number}}\end{docCommand}
 
-This will insert the annotation described by the object reference into the current structure by creating the OBJR object. It will
-also add the necessary entry to the parent tree and increase the global counter referred to by |\tag_struct_parent_int:|.
-It does nothing if (structure) tagging is not activated.
+This will insert the annotation described by the object reference into
+the current structure by creating the OBJR object. It will also add
+the necessary entry to the parent tree and increase the global counter
+referred to by |\tag_struct_parent_int:|.  It does nothing if
+(structure) tagging is not activated.
 
-Attention! As the second command increases the global counter at the end it changes the value given back by the first.
-That means that if nesting is involved care must be taken that the correct numbers is used. This should be easy to fulfill for most annotations, as there are boxes.
-There the second command should at best be used directly behind the annotation and it can make use of |\tag_struct_parent_int:|. For links nesting is theoretically possible, and it
-could be that future versions need more sophisticated handling here.
+Attention! As the second command increases the global counter at the
+end it changes the value given back by the first.  That means that if
+nesting is involved care must be taken that the correct numbers is
+used. This should be easy to fulfill for most annotations, as there
+are boxes.  There the second command should at best be used directly
+behind the annotation and it can make use of
+|\tag_struct_parent_int:|. For links nesting is theoretically
+possible, and it could be that future versions need more sophisticated
+handling here.
 
-In environments which process their content twice like tabularx or align it would be the
-best to exclude the second command from the trial step, but this will need better support from these environments.
+In environments which process their content twice like tabularx or
+align it would be the best to exclude the second command from the
+trial step, but this will need better support from these environments.
 
 Typically using this commands is not often needed: Since version 0.81
-\pkg{tagpdf} already handles (unnested) links, and form fields created with
-the \pkg{l3pdffield-testphase} package will be handle by this package.
+\pkg{tagpdf} already handles (unnested) links, and form fields created
+with the \pkg{l3pdffield-testphase} package will be handle by this
+package.
 
-The following listing shows low-level to create link where the two commands are used:
+The following listing shows low-level to create link where the two
+commands are used:
 
 
 \begin{taglstlisting}
@@ -1238,8 +1366,10 @@ The following listing shows low-level to create link where the two commands are 
 
 
 
-Math is a problem. I have seen an example where \emph{every single symbol} has been marked up with tags from MathML along with an \texttt{/ActualText} entry and an entry with alternate text which describes how to read the symbol.
-The \PDF{} then looked like this
+Math is a problem. I have seen an example where \emph{every single
+symbol} has been marked up with tags from MathML along with an
+\texttt{/ActualText} entry and an entry with alternate text which
+describes how to read the symbol.  The \PDF{} then looked like this
 
 
 \begin{taglstlisting}
@@ -1251,9 +1381,21 @@ The \PDF{} then looked like this
 \end{taglstlisting}
 
 
-If this is really the way to go one would need some script to add the mark-up as doing it manually is too much work and would make the source unreadable -- at least with pdflatex and the generic mode. In lua mode is it possible to hook into the \texttt{mlist\_to\_hlist} callback and add marker automatically. Some first implementation is done by Marcel Krüger in the luamml project.
+If this is really the way to go one would need some script to add the
+mark-up as doing it manually is too much work and would make the
+source unreadable -- at least with pdflatex and the generic mode. In
+lua mode is it possible to hook into the \texttt{mlist\_to\_hlist}
+callback and add marker automatically. Some first implementation is
+done by Marcel Krüger in the luamml project.
 
-But I'm not sure that this is the best way to do math. It looks rather odd that a document should have to tell a screen reader in such detail how to read an equation. It would be much more efficient, sensible and flexible if a complete representation of the equation in mathML could be stored in the \PDF{} and the task how to read this aloud delegated to the screen reader. As \PDF{}~2.0 introduced associated files it is probable that this will be the way to go but more investigations are needed here.
+But I'm not sure that this is the best way to do math. It looks rather
+odd that a document should have to tell a screen reader in such detail
+how to read an equation. It would be much more efficient, sensible and
+flexible if a complete representation of the equation in mathML could
+be stored in the \PDF{} and the task how to read this aloud delegated
+to the screen reader. As \PDF{}~2.0 introduced associated files it is
+probable that this will be the way to go but more investigations are
+needed here.
 
 See also section~\ref{sec:alt} for some more remarks and tests.
 
@@ -1262,11 +1404,19 @@ See also section~\ref{sec:alt} for some more remarks and tests.
 
 %TODO: think about marginnote! Aside?
 
-A\sidenote{Generic mode only} problem in generic mode are paragraphs with page breaks.  As already mentioned the end marker \texttt{EMC} must be added on the same page as the begin marker. But it is in pdflatex \emph{very} difficult to inject something at the page break automatically. One can manipulate the shipout box to some extend in the output routine, but this is not easy and it gets even more difficult if inserts like footnotes and floats are involved: the end of the paragraph is then somewhere in the middle of the box.
+A\sidenote{Generic mode only} problem in generic mode are paragraphs
+with page breaks.  As already mentioned the end marker \texttt{EMC}
+must be added on the same page as the begin marker. But it is in
+pdflatex \emph{very} difficult to inject something at the page break
+automatically. One can manipulate the shipout box to some extend in
+the output routine, but this is not easy and it gets even more
+difficult if inserts like footnotes and floats are involved: the end
+of the paragraph is then somewhere in the middle of the box.
 
 So with pdflatex in generic mode one until now had to do the splitting manually.
 
-The example \texttt{mc-manual-para-split} demonstrates how this can be done. The general idea was to use \verb+\vadjust+ in the right place:
+The example \texttt{mc-manual-para-split} demonstrates how this can be
+done. The general idea was to use \verb+\vadjust+ in the right place:
 
 
 \begin{taglstlisting}
@@ -1280,21 +1430,27 @@ Pellentesque scelerisque
 sit amet, lacus.\tagmcend
 \end{taglstlisting}
 
-Starting with version 0.92 there is code which tries to resolve this problem. Basically it works like this: every mc-command
-issues a mark command (actually two slightly different). When the page is built in the output routine this mark commands are inspected
-and from them \LaTeX{} can deduce if there is a mc-chunk which must be closed or reopened.
-The method is described in Frank Mittelbach's talk at TUG~2021
-\enquote{Taming the beast — Advances in paragraph tagging with pdfTeX and XeTeX}
-\url{https://youtu.be/SZHIeevyo3U?t=19551}.
+Starting with version 0.92 there is code which tries to resolve this
+problem. Basically it works like this: every mc-command issues a mark
+command (actually two slightly different). When the page is built in
+the output routine this mark commands are inspected and from them
+\LaTeX{} can deduce if there is a mc-chunk which must be closed or
+reopened.  The method is described in Frank Mittelbach's talk at
+TUG~2021 \enquote{Taming the beast — Advances in paragraph tagging
+  with pdfTeX and XeTeX} \url{https://youtu.be/SZHIeevyo3U?t=19551}.
 
 
 Please note
 
 \begin{itemize}
 \item The code requires a \pkg{pdfmanagement-testphase} version v0.95i or newer.
-\item Typically you will need more compilations than previously, don't rely on the rerun messages, but if something looks wrong
-rerun.
-\item The code relies on that related |\tagmcbegin| and |\tagmcend| are in the same boxing level. If one is in a box (which hides the marks) and the other in the main galley, things will go wrong.
+
+\item Typically you will need more compilations than previously, don't
+  rely on the rerun messages, but if something looks wrong rerun.
+
+\item The code relies on that related |\tagmcbegin| and |\tagmcend|
+  are in the same boxing level. If one is in a box (which hides the
+  marks) and the other in the main galley, things will go wrong.
 \end{itemize}
 
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
@@ -1461,21 +1617,29 @@ These commands start a new structure. They don't start a group. They set all the
 The key-val list understands the following keys:
 
 \begin{description}
-  \item[\PrintKeyName{tag}]
-   This is required. The value of the key is normally one of the standard types listed in section \ref{sec:new-tag}. It is possible to setup new tags/types, see the same section. The value can also be of the form |type/NS|, where |NS| is the
-   shorthand of a declared name space. Currently the names spaces |pdf|, |pdf2|, |mathml| and |user| are defined. This allows to use a different name space than the one connected by default to the tag. But normally this should not be needed.
+  \item[\PrintKeyName{tag}] This is required. The value of the key is
+    normally one of the standard types listed in section
+    \ref{sec:new-tag}. It is possible to setup new tags/types, see the
+    same section. The value can also be of the form |type/NS|, where
+    |NS| is the shorthand of a declared name space. Currently the
+    names spaces |pdf|, |pdf2|, |mathml| and |user| are defined. This
+    allows to use a different name space than the one connected by
+    default to the tag. But normally this should not be needed.
 
-  \item[\PrintKeyName{stash}]
-   Normally a new structure inserts itself as a kid into the currently active structure. This key prohibits this. The structure is nevertheless from now on \enquote{the current active structure} and parent for following  marked content and structures.
+  \item[\PrintKeyName{stash}] Normally a new structure inserts itself
+    as a kid into the currently active structure. This key prohibits
+    this. The structure is nevertheless from now on \enquote{the
+      current active structure} and parent for following marked
+    content and structures.
 
-  \item[\PrintKeyName{label}]
-   This key sets a label by which one can refer to the structure. It is e.g.
-   used by \cs{tag\_struct\_use:n} (where a real label is actually not
-   needed as you can only use structures already defined), and by the
-   |ref| key (which can refer to future structures).
-   Internally the label name will start with \texttt{tagpdfstruct-} and it stores
-   the two attributes \texttt{tagstruct} (the structure number) and \texttt{tagstructobj} (the
-   object reference).
+  \item[\PrintKeyName{label}] This key sets a label by which one can
+    refer to the structure. It is e.g.  used by
+    \cs{tag\_struct\_use:n} (where a real label is actually not needed
+    as you can only use structures already defined), and by the |ref|
+    key (which can refer to future structures).  Internally the label
+    name will start with \texttt{tagpdfstruct-} and it stores the two
+    attributes \texttt{tagstruct} (the structure number) and
+    \texttt{tagstructobj} (the object reference).
 
   \item[\PrintKeyName{parent}]  With the parent key one can choose another 
       parent. The value is a structure number which must refer to an 
@@ -1502,8 +1666,9 @@ The key-val list understands the following keys:
 
 
 
-   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}. In case that the text begins with a command that should not be
-   expanded protect it e.g. with a \verb+\empty+.
+   and it will insert \verb+\frac{a}{b}+ (hex encoded) in the
+   \PDF{}. In case that the text begins with a command that should not
+   be expanded protect it e.g. with a \verb+\empty+.
 
 
   \item[\PrintKeyName{actualtext}] This key inserts an \texttt{/ActualText} 
@@ -1522,11 +1687,15 @@ The key-val list understands the following keys:
 
 
 
-   and it will insert \verb+X+ (hex encoded)  in the \PDF{}. In case that the text begins with a command that should not be
-   expanded protect it e.g. with a \verb+\empty+
+   and it will insert \verb+X+ (hex encoded) in the \PDF{}. In case
+   that the text begins with a command that should not be expanded
+   protect it e.g. with a \verb+\empty+
 
-   \item[\PrintKeyName{attribute}]
-    This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add one or more attribute dictionary entries in the structure object. As an example
+   \item[\PrintKeyName{attribute}] This key takes as argument a comma
+     list of attribute names (use braces to protect the commas from
+     the external key-val parser) and allows to add one or more
+     attribute dictionary entries in the structure object. As an
+     example
 
       \begin{taglstlisting}
       \tagstructbegin{tag=TH,attribute= TH-row}
@@ -1534,8 +1703,10 @@ The key-val list understands the following keys:
 
     See also section~\ref{sec:attributes}.
 
-  \item[\PrintKeyName{attribute-class}]
-   This key takes as argument a comma list of attribute names (use braces to protect the commas from the external key-val parser) and allows to add them as attribute classes to the structure object. As an example
+  \item[\PrintKeyName{attribute-class}] This key takes as argument a
+    comma list of attribute names (use braces to protect the commas
+    from the external key-val parser) and allows to add them as
+    attribute classes to the structure object. As an example
 
 
       \begin{taglstlisting}
@@ -1544,18 +1715,21 @@ The key-val list understands the following keys:
 
   See also section~\ref{sec:attributes}.
 
-  \item[\PrintKeyName{title}]
-  This key allows to set the dictionary entry \texttt{/T} (for a title) in the structure object. The value is handled as verbatim string and hex encoded. Commands are not expanded.
+  \item[\PrintKeyName{title}] This key allows to set the dictionary
+    entry \texttt{/T} (for a title) in the structure object. The value
+    is handled as verbatim string and hex encoded. Commands are not
+    expanded.
 
-  \item[\PrintKeyName{title-o}]
-  This key allows to set the dictionary entry \texttt{/T} in the structure object.
-  The value is expanded once and then handled as verbatim string like the \PrintKeyName{title} key.
+  \item[\PrintKeyName{title-o}] This key allows to set the dictionary
+    entry \texttt{/T} in the structure object.  The value is expanded
+    once and then handled as verbatim string like the
+    \PrintKeyName{title} key.
 
-   \item[\PrintKeyName{AF}]
-   This key allows to reference an associated file in the structure element.
-   The value should be the name of an object pointing to the \texttt{/Filespec} dictionary as expected by
-   \verb+\pdf_object_ref:n+ from a current \texttt{l3kernel}.
-   For example:
+   \item[\PrintKeyName{AF}] This key allows to reference an associated
+     file in the structure element.  The value should be the name of
+     an object pointing to the \texttt{/Filespec} dictionary as
+     expected by \verb+\pdf_object_ref:n+ from a current
+     \texttt{l3kernel}.  For example:
 
    \begin{taglstlisting}
    \group_begin:
@@ -1573,15 +1747,17 @@ The key-val list understands the following keys:
    responsibility to set it (this can be done with the \texttt{pdfversion} 
    key in \verb+\DocumentMetadata+). 
 
-   \item[\PrintKeyName{root-AF}]
-   This key allows to reference an associated file in the root structure element. Using the root
-   can be e.g. useful to add a css-file. When converting the pdf to a html with e.g. ngpdf this css-file is then
-   referenced in the head of the html.
+   \item[\PrintKeyName{root-AF}] This key allows to reference an
+     associated file in the root structure element. Using the root can
+     be e.g. useful to add a css-file. When converting the pdf to a
+     html with e.g. ngpdf this css-file is then referenced in the head
+     of the html.
 
 
-   \item[\PrintKeyName{AFinline}]
-    This key allows to embed an associated file with inline content. The value is some text,
-    which is embedded in the PDF as a text file with mime type text/plain.
+   \item[\PrintKeyName{AFinline}] This key allows to embed an
+     associated file with inline content. The value is some text,
+     which is embedded in the PDF as a text file with mime type
+     text/plain.
 
    \begin{taglstlisting}
    \tagstructbegin{tag=P,AFinline=Some extra text}
@@ -1590,26 +1766,28 @@ The key-val list understands the following keys:
    \item[\PrintKeyName{AFinline-o}]
     This is like \verb+AFinline+, but it expands the value once.
 
-   \item[\PrintKeyName{texsource}] This is like \verb+AFinline-o+, but it 
-    creates a tex-file, with mime type \texttt{application/x-tex} and the 
-    AFRelationship \texttt{Source}. 
+   \item[\PrintKeyName{texsource}] This is like \verb+AFinline-o+, but
+     it creates a tex-file, with mime type \texttt{application/x-tex}
+     and the AFRelationship \texttt{Source}.
 
-   \item[\PrintKeyName{mathml}] This is like \verb+AFinline-o+, but it 
-    creates a xml-file, with mime type \texttt{application/xml} and the 
-    AFRelationship \texttt{Supplement}.     
+   \item[\PrintKeyName{mathml}] This is like \verb+AFinline-o+, but it
+     creates a xml-file, with mime type \texttt{application/xml} and
+     the AFRelationship \texttt{Supplement}.
 
-   \item[\PrintKeyName{lang}]
-     This key allows to set the language for a structure element. The value should be a bcp-identifier,
+   \item[\PrintKeyName{lang}] This key allows to set the language for
+     a structure element. The value should be a bcp-identifier,
      e.g. |de-De|.
 
-   \item[\PrintKeyName{ref}]
-     This key allows to add references to other structure elements, it adds the |/Ref| array to the structure.
-       The value should be a comma separated list of structure labels set with the |label| key.
-     e.g. |ref={label1,label2}|. It can be used more than once in the key/value argument and combines the
-     references.
+   \item[\PrintKeyName{ref}] This key allows to add references to
+     other structure elements, it adds the |/Ref| array to the
+     structure.  The value should be a comma separated list of
+     structure labels set with the |label| key.
+     e.g. |ref={label1,label2}|. It can be used more than once in the
+     key/value argument and combines the references.
 
-   \item[\PrintKeyName{E}]
-     This key sets the |/E| key, the expanded form of an abbreviation or an acronym (I couldn't think of a better name, so I sticked to E).
+   \item[\PrintKeyName{E}] This key sets the |/E| key, the expanded
+     form of an abbreviation or an acronym (I couldn't think of a
+     better name, so I sticked to E).
 \end{description}
 
 \begin{docCommand}[nosep]{tagstructend}{}\end{docCommand}
@@ -1821,10 +1999,20 @@ where you don't want that the inner |\tag_start:n| restarts tagging.
 \subsection{Lazy and automatic tagging}\label{sec:lazy}
 
 
-A number of features of \PDF{} readers need a fully tagged \PDF{}. As an example screen readers tend to ignore alternative text (see section~\ref{sec:alt}) if the \PDF{} is not fully tagged. Also reflowing a \PDF{} only works for me (even if real space chars are in the \PDF{}) if the \PDF{} is fully tagged (recent versions of the adobe reader manage to 
-reflow also not tagged \PDF{} but it is very slow).
+A number of features of \PDF{} readers need a fully tagged \PDF{}. As
+an example screen readers tend to ignore alternative text (see
+section~\ref{sec:alt}) if the \PDF{} is not fully tagged. Also
+reflowing a \PDF{} only works for me (even if real space chars are in
+the \PDF{}) if the \PDF{} is fully tagged (recent versions of the
+adobe reader manage to reflow also not tagged \PDF{} but it is very
+slow).
 
-This means that even if you don't care about a proper structure you should try to add at least some minimal tagging. With the now available automatic tagging of paragraphs all that is needed, is to use |testphase=phase-II| in |\DocumentMetadata|.  With lualatex this can work quite OK if you don't have unbalanced paragraphs in your document (pdflatex is more fragile).
+This means that even if you don't care about a proper structure you
+should try to add at least some minimal tagging. With the now
+available automatic tagging of paragraphs all that is needed, is to
+use |testphase=phase-II| in |\DocumentMetadata|.  With lualatex this
+can work quite OK if you don't have unbalanced paragraphs in your
+document (pdflatex is more fragile).
 
 
 \subsection{Adding tagging to commands}
@@ -1840,29 +2028,49 @@ As mentioned above the mc-markers should not be nested. Basically you write:
 \end{taglstlisting}
 
 
-This is quite workable as long as you mark everything manually. But when defining commands you have to ensure that they correctly push and pop the mc-chunks where needed. 
+This is quite workable as long as you mark everything manually. But
+when defining commands you have to ensure that they correctly push and
+pop the mc-chunks where needed.
 
 
 \section{Alternative text, ActualText and text-to-speech software}\label{sec:alt}
 
 
 
-The \PDF{} format allows to add alternative text through the  \PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.
-Both can be added either to the marked content in the page stream or to the object describing the structure.
+The \PDF{} format allows to add alternative text through the
+\PrintKeyName{/Alt} and the \PrintKeyName{/ActualText} key.  Both can
+be added either to the marked content in the page stream or to the
+object describing the structure.
 
 
-The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf} with \PrintKeyName{actualtext}) is meant to replace single characters or rather small pieces of text. It can be used also without any tagging (e.g. with the package accsupp). If the \PDF{} reader support this (adobe reader does, sumatra not) one can change with it how a piece of text is copied and pasted e.g. to split up a ligature.
+The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf}
+with \PrintKeyName{actualtext}) is meant to replace single characters
+or rather small pieces of text. It can be used also without any
+tagging (e.g. with the package accsupp). If the \PDF{} reader support
+this (adobe reader does, sumatra not) one can change with it how a
+piece of text is copied and pasted e.g. to split up a ligature.
 
-\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with \PrintKeyName{alt}) is a key to improve accessibility: with it one can add to a picture or something else an alternative text.
+\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with
+\PrintKeyName{alt}) is a key to improve accessibility: with it one can
+add to a picture or something else an alternative text.
 
-The file \texttt{ex-alt-actualtext.tex} shows some experiments I made with both keys and text-to-speech software (the in-built of adobe and nvda).
-To sum them up:
+The file \texttt{ex-alt-actualtext.tex} shows some experiments I made
+with both keys and text-to-speech software (the in-built of adobe and
+nvda).  To sum them up:
 
 \begin{itemize}
-\item The keys have an impact on text-to-speech software only if the document is fully tagged.
-\item \PrintKeyName{/ActualText} should be at best used around short pieces of marked content.
-\item \PrintKeyName{/Alt} is used at best with a structure -- this avoids problems with luatex where marked contents blocks can be split over pages.
-\item To some extend one can get a not so bad reading of math with the alternative text.
+\item The keys have an impact on text-to-speech software only if the
+  document is fully tagged.
+  
+\item \PrintKeyName{/ActualText} should be at best used around short
+  pieces of marked content.
+
+\item \PrintKeyName{/Alt} is used at best with a structure -- this
+  avoids problems with luatex where marked contents blocks can be
+  split over pages.
+
+\item To some extend one can get a not so bad reading of math with the
+  alternative text.
 \end{itemize}
 
 
@@ -1870,20 +2078,24 @@ To sum them up:
 
 \section{Standard types and new tags}\label{sec:new-tag}
 
-The tags used to describe the type of a structure element can be rather freely chosen.
-PDF 1.7 and earlier only requires that in a tagged PDF all types should be either from
-a known set of standard types or are \enquote{role mapped} to such a standard type. Such a role mapping is a simple key-value in the RoleMap dictionary.
+The tags used to describe the type of a structure element can be
+rather freely chosen.  PDF 1.7 and earlier only requires that in a
+tagged PDF all types should be either from a known set of standard
+types or are \enquote{role mapped} to such a standard type. Such a
+role mapping is a simple key-value in the RoleMap dictionary.
 
-So instead of |H1| the type |section| could be used. The role mapping can then be declared
-with the |add-new-tag| key:
+So instead of |H1| the type |section| could be used. The role mapping
+can then be declared with the |add-new-tag| key:
 
 \begin{taglstlisting}
  \tagpdfsetup{add-new-tag = section/H1}
 \end{taglstlisting}
 
-In PDF 2.0 the situation is a bit more complicated. At first PDF~2.0 introduced \emph{name spaces}.
-That means that a type can have more than one \enquote{meaning} depending on the name space it belongs to.
-|section (name space A)| and |section (name space B)| are two different types.
+In PDF 2.0 the situation is a bit more complicated. At first PDF~2.0
+introduced \emph{name spaces}.  That means that a type can have more
+than one \enquote{meaning} depending on the name space it belongs to.
+|section (name space A)| and |section (name space B)| are two
+different types.
 
 At second PDF 2.0 still requires that a tagged PDF maps all types to a 
 standard type, but now there are three sets of standard types (The meanings 
@@ -1891,20 +2103,20 @@ of the PDF types can be looked up in the \PDF{}-references
 \parencite{pdfspec-iso32000-1,pdfspec-iso32000-2_2020}): 
 
 \begin{enumerate}
-\item The \emph{standard structure namespace for PDF 1.7}, also called the \emph{default standard structure namespace}. The public name of the namespace is |tag/NS/pdf|. This can be used to reference
-    the namespace e.g. in attributes. These are the structure names from PDF 1.7:
-\ExplSyntaxOn
-\clist_clear:N\l_tmpa_clist
-\prop_map_inline:cn 
-  { g__tag_role_NS_pdf_prop }
-  { \clist_put_right:Nn \l_tmpa_clist {#1} }
-\clist_use:Nn \l_tmpa_clist {,\c_space_tl }
-\ExplSyntaxOff
+\item The \emph{standard structure namespace for PDF 1.7}, also called
+  the \emph{default standard structure namespace}. The public name of
+  the namespace is |tag/NS/pdf|. This can be used to reference the
+  namespace e.g. in attributes. These are the structure names from PDF
+  1.7: \ExplSyntaxOn \clist_clear:N\l_tmpa_clist \prop_map_inline:cn {
+    g__tag_role_NS_pdf_prop } { \clist_put_right:Nn \l_tmpa_clist {#1}
+  } \clist_use:Nn \l_tmpa_clist {,\c_space_tl } \ExplSyntaxOff
 
-\item The \emph{standard structure namespace for PDF 2.0}.
-The public name of the namespace is |tag/NS/pdf2|. This can be used to reference
-the namespace e.g. in attributes.
-These are more or less same types as in PDF. The following types have been removed from this set:\\
+\item The \emph{standard structure namespace for PDF 2.0}.  The public
+  name of the namespace is |tag/NS/pdf2|. This can be used to
+  reference the namespace e.g. in attributes.  These are more or less
+  same types as in PDF. The following types have been removed from
+  this set:\\
+%
 \ExplSyntaxOn
 \clist_clear:N\l_tmpa_clist
 \prop_map_inline:cn { g__tag_role_NS_pdf_prop }
@@ -1929,31 +2141,46 @@ and the following are new:\\
 \clist_use:Nn \l_tmpa_clist {,\c_space_tl }
 \ExplSyntaxOff
 
-\item MathML 3.0 as an \emph{other namespaces}.
-The public name of the namespace is |tag/NS/mathml|. This can be used to reference
-    the namespace e.g. in attributes.
-There are nearly 200 types in this name space, so I refrain from listing them here.
+\item MathML 3.0 as an \emph{other namespaces}.  The public name of
+  the namespace is |tag/NS/mathml|. This can be used to reference the
+  namespace e.g. in attributes.  There are nearly 200 types in this
+  name space, so I refrain from listing them here.
 \end{enumerate}
 
-To allow to this more complicated setup
-the syntax of the \texttt{add-new-tag} key has been extended.
-It now takes as argument a key-value list with the following keys.
-A normal document shouldn't need the extended syntax, the simple
-syntax |section/H1| should in most cases do the right thing.
+To allow to this more complicated setup the syntax of the
+\texttt{add-new-tag} key has been extended.  It now takes as argument
+a key-value list with the following keys.  A normal document shouldn't
+need the extended syntax, the simple syntax |section/H1| should in
+most cases do the right thing.
 
 \begin{description}
-\item[\PrintKeyName{tag}] This is the name of the new type as it should then be used in \cs{tagstructbegin}.
+\item[\PrintKeyName{tag}] This is the name of the new type as it
+  should then be used in \cs{tagstructbegin}.
+
 \item[\PrintKeyName{tag-namespace}] This is the namespace of the new type. 
     The value should be a shorthand of a namespace. The allowed values are 
     currently |pdf|, |pdf2|, |mathml| and |user|. The default value (and 
     recommended value for a new tag) is |user|. The public name of the user 
     namespace is |tag/NS/user|. This can be used to reference the namespace 
     e.g. in attributes. 
-\item[\PrintKeyName{role}] This is the type the tag should be mapped too. In a PDF 1.7 or earlier this is normally a type from the |pdf| set, in PDF 2.0 from the |pdf|, |pdf2| or |mathml| set. It can also be a user type, then this user tag must have been declared before. The PDF format allows mapping to be done transitively. But you should be aware that tagpdf can't (or more precisely won't) check if some unusual role mapping makes really sense, this lies in the responsibility of the author.
+
+\item[\PrintKeyName{role}] This is the type the tag should be mapped
+  too. In a PDF 1.7 or earlier this is normally a type from the |pdf|
+  set, in PDF 2.0 from the |pdf|, |pdf2| or |mathml| set. It can also
+  be a user type, then this user tag must have been declared
+  before. The PDF format allows mapping to be done transitively. But
+  you should be aware that tagpdf can't (or more precisely won't)
+  check if some unusual role mapping makes really sense, this lies in
+  the responsibility of the author.
     
-\item[\PrintKeyName{role-namespace}] The default value is the default namespace of the role: |pdf2| for all types in this set, |pdf| for the type which exist only in PDF 1.7,  |mathml| for the MathML types, and  for previously defined user types whatever namespace has been set there. With this key the value can be overwritten.
+\item[\PrintKeyName{role-namespace}] The default value is the default
+  namespace of the role: |pdf2| for all types in this set, |pdf| for
+  the type which exist only in PDF 1.7, |mathml| for the MathML types,
+  and for previously defined user types whatever namespace has been
+  set there. With this key the value can be overwritten.
     
- \item[unknown key] An unknown key is interpreted as a |tag/role|, this preserves the old syntax. So this two calls are equivalent:
+ \item[unknown key] An unknown key is interpreted as a |tag/role|,
+   this preserves the old syntax. So this two calls are equivalent:
 
    \begin{taglstlisting}
     \tagpdfsetup{add-new-tag = section/H1}
@@ -1962,7 +2189,11 @@ syntax |section/H1| should in most cases do the right thing.
 
 \end{description}
 
-The exact effects of the keys depend on the PDF version. With PDF 1.7 or older the namespace keys are ignored, with PDF 2.0 the namespace keys are use to setup the correct rolemaps. The |namespace| key is also used to define the default namespace if the type is used as a role or as tag in a structure.
+The exact effects of the keys depend on the PDF version. With PDF 1.7
+or older the namespace keys are ignored, with PDF 2.0 the namespace
+keys are use to setup the correct rolemaps. The |namespace| key is
+also used to define the default namespace if the type is used as a
+role or as tag in a structure.
 
 \subsection{The \texttt{latex} namespace}
 
@@ -1973,30 +2204,32 @@ tags are role mapped. This is work in progress and bound to change.
 
 \section{Checking parent-child rules}\label{sec:parent-child}
 
-The \PDF{} references formulate various rules about whether a structure can be 
-a child of another structure, e.g. a \texttt{Sect} can not be a child of \texttt{P}. 
-In the \PDF{} 1.7 reference this rules were 
-rather vague, in the \PDF{} 2.0  reference there is a quite specific matrix, 
-which sadly misses some of the tags from \PDF{} 1.7. The now released 
-ISO norm 32005 addresses this problem and extends the matrix to cover tags from 
-\PDF{} 1.7 and 2.0 (but it still misses the \texttt{math} tag and mathml 
-tags). 
+The \PDF{} references formulate various rules about whether a
+structure can be a child of another structure, e.g. a \texttt{Sect}
+can not be a child of \texttt{P}.  In the \PDF{} 1.7 reference this
+rules were rather vague, in the \PDF{} 2.0 reference there is a quite
+specific matrix, which sadly misses some of the tags from \PDF{}
+1.7. The now released ISO norm 32005 addresses this problem and
+extends the matrix to cover tags from \PDF{} 1.7 and 2.0 (but it still
+misses the \texttt{math} tag and mathml tags).
 
-The rules in the matrix are not a simple allowed/not allowed. Instead some rules determine 
-that structure elements
-can appear only once in a parent, or that  additional requirements can be found in the  
-descriptions of the standard structure types, e.g. \texttt{Caption} often has
-to be the first element in the parent structure, and elements like \texttt{Part} and \texttt{Div}
-inherit restrictions from parent structures.
-External standards like \PDF/UA can add more rules.
+The rules in the matrix are not a simple allowed/not allowed. Instead
+some rules determine that structure elements can appear only once in a
+parent, or that additional requirements can be found in the
+descriptions of the standard structure types, e.g. \texttt{Caption}
+often has to be the first element in the parent structure, and
+elements like \texttt{Part} and \texttt{Div} inherit restrictions from
+parent structures.  External standards like \PDF/UA can add more
+rules.
 
 
 Altogether this doesn't make it easy to check if a structure tree is 
 conformant or not without slowing down the compilation a lot. 
 
-With version 0.98 some first steps to do checks (and to react to the result of a change)
-have been implemented. Some checks will led to warning directly, but the majority
-will only be visible if the log-level is increased. 
+With version 0.98 some first steps to do checks (and to react to the
+result of a change) have been implemented. Some checks will led to
+warning directly, but the majority will only be visible if the
+log-level is increased.
 
 Typical messages will look then like this
 
@@ -2017,11 +2250,20 @@ allowed. The text in the parentheses show the symbols used in the
 
 Be aware
 \begin{itemize}
-\item This doesn't test all rules, it only implements (hopefully correctly) the matrix.
-\item There can be differences between \PDF~1.7 and 2.0, e.g. \texttt{FENote} is role-mapped to \texttt{Note}
-in \PDF~1.7 and then has different containment rules.
-\item The special tag \texttt{MC} stands for mc-chunks, so \enquote{real content} (the matrix has containments rules for this too).
-\item  Currently there is as only negative number \texttt{\textminus1} but that is bound to change, depending on if (and how) it is possible to \enquote{repair} a disallowed parent-child relation.  
+\item This doesn't test all rules, it only implements (hopefully
+  correctly) the matrix.
+
+\item There can be differences between \PDF~1.7 and 2.0,
+  e.g. \texttt{FENote} is role-mapped to \texttt{Note} in \PDF~1.7 and
+  then has different containment rules.
+
+\item The special tag \texttt{MC} stands for mc-chunks, so
+  \enquote{real content} (the matrix has containments rules for this
+  too).
+
+\item Currently there is as only negative number \texttt{\textminus1}
+  but that is bound to change, depending on if (and how) it is
+  possible to \enquote{repair} a disallowed parent-child relation.
 \item Warnings can be wrong. 
 \end{itemize} 
   
@@ -2029,56 +2271,61 @@ in \PDF~1.7 and then has different containment rules.
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
 
 
-TeX uses only spaces (horizontal movements) to separate words. That means 
-that a \PDF{} reader has to use some heuristic when copying text or 
-reflowing the text to decide if a space is meant as a word boundary or e.g. 
-as a kerning. Accessible document should use real space glyphs (U+0032) 
-from a font in such places. 
+TeX uses only spaces (horizontal movements) to separate words. That
+means that a \PDF{} reader has to use some heuristic when copying text
+or reflowing the text to decide if a space is meant as a word boundary
+or e.g.  as a kerning. Accessible document should use real space
+glyphs (U+0032) from a font in such places.
 
-With the key \PrintKeyName{interwordspace} you can activate such space glyphs.
+With the key \PrintKeyName{interwordspace} you can activate such space
+glyphs.
 
-With pdftex this will simply call the primitive 
-\verb+\pdfinterwordspaceon+. pdftex will then insert at various places a 
-char from a font called dummy-space. Attention! This means that at every 
-space there are additional font switches in the \PDF{}: from the current 
-font to the dummy-space font and back again. This will make the \PDF{} 
-larger. As \verb+\pdfinterwordspaceon+ is a primitive function it can't be 
-fine tuned or adapted. You can only turn it on and off and insert manually 
-such a space glyph with \verb+\pdffakespace+. 
+With pdftex this will simply call the primitive
+\verb+\pdfinterwordspaceon+. pdftex will then insert at various places
+a char from a font called dummy-space. Attention! This means that at
+every space there are additional font switches in the \PDF{}: from the
+current font to the dummy-space font and back again. This will make
+the \PDF{} larger. As \verb+\pdfinterwordspaceon+ is a primitive
+function it can't be fine tuned or adapted. You can only turn it on
+and off and insert manually such a space glyph with
+\verb+\pdffakespace+.
 
-With luatex (in luamode) |interwordspace| is implemented with a 
-lua-function which is inserted in two callbacks and marks up the places 
-where it seems sensible to inter a space glyph. Later in the process the 
-space glyphs are injected -- the code will take the glyph from the current 
-font if this has a space glyph or switch to the default latin modern font. 
-The current code works reasonable well in normal text. |interwordspace| can 
-be used without actually tagging a document. 
+With luatex (in luamode) |interwordspace| is implemented with a
+lua-function which is inserted in two callbacks and marks up the
+places where it seems sensible to inter a space glyph. Later in the
+process the space glyphs are injected -- the code will take the glyph
+from the current font if this has a space glyph or switch to the
+default latin modern font.  The current code works reasonable well in
+normal text. |interwordspace| can be used without actually tagging a
+document.
 
-The key \PrintKeyName{show-spaces} will show lines at the places where in 
-lua mode spaces are inserted and so can help you to find problematic 
-places. For listings -- which have a quite specific handling of spaces -- 
-you can find a suggestion in the example \texttt{ex-space-glyph-listings}. 
+The key \PrintKeyName{show-spaces} will show lines at the places where
+in lua mode spaces are inserted and so can help you to find
+problematic places. For listings -- which have a quite specific
+handling of spaces -- you can find a suggestion in the example
+\texttt{ex-space-glyph-listings}.
 
-\emph{Attention:} Even with real spaces copy\& pasting of code doesn't need 
-to give the correct results: you get spaces but not necessarily the right 
-number of spaces. The \PDF{} viewers I tried all copied four real space 
-glyphs as one space. I only got the four spaces with the export to text or 
-xml in the AdobePro. 
+\emph{Attention:} Even with real spaces copy\& pasting of code doesn't
+need to give the correct results: you get spaces but not necessarily
+the right number of spaces. The \PDF{} viewers I tried all copied four
+real space glyphs as one space. I only got the four spaces with the
+export to text or xml in the AdobePro.
 
 \begin{docCommand}{pdffakespace}{}\end{docCommand}
 
 
-This is in pdftex a primitive. It inserts the dummy space glyph. 
-\pkg{tagpdf} defines this command also for luatex -- attention if can 
-perhaps insert break points. 
+This is in pdftex a primitive. It inserts the dummy space glyph.
+\pkg{tagpdf} defines this command also for luatex -- attention if can
+perhaps insert break points.
 
 \section{Structure destinations}\label{sec:struct-dest}
 
- Standard destinations (anchors for internal links)
- consist of a reference to a page in the pdf and instructions
- how to display it---typically they will put a specific coordinate in the left top corner
- of the viewer and so give the impression that a link jumped to the word in this place.
- But in reality they are not connected to the content.
+ Standard destinations (anchors for internal links) consist of a
+ reference to a page in the pdf and instructions how to display
+ it---typically they will put a specific coordinate in the left top
+ corner of the viewer and so give the impression that a link jumped to
+ the word in this place.  But in reality they are not connected to the
+ content.
 
  Starting with pdf~2.0 destinations can in a tagged PDF also point to a 
  structure (to a \texttt{/StructElem} object). GoTo links can then 
@@ -2685,7 +2932,8 @@ examples and remarks easier to understand.
 
 
 \begin{description}
-\item[postfix notation] \PDF{} uses in various places postfix notation. This means that the operator is behind its arguments:
+\item[postfix notation] \PDF{} uses in various places postfix
+  notation. This means that the operator is behind its arguments:
 
 \tagpdfparaOff
 
@@ -2736,17 +2984,31 @@ examples and remarks easier to understand.
 
 \tagpdfparaOn
 
-\item[Names] \PDF{} knows a sort of variable called a \enquote{name}. Names start with a slash and may include any regular characters, but not delimiter or white-space characters. Uppercase and lowercase letters are considered distinct: \texttt{/A} and \texttt{/a} are different names. \verb+/.notdef+ and \verb+/Adobe#20Green+  are valid names.
+\item[Names] \PDF{} knows a sort of variable called a
+  \enquote{name}. Names start with a slash and may include any regular
+  characters, but not delimiter or white-space characters. Uppercase
+  and lowercase letters are considered distinct: \texttt{/A} and
+  \texttt{/a} are different names. \verb+/.notdef+ and
+  \verb+/Adobe#20Green+ are valid names.
 
-    Quite a number of the options of \texttt{tagpdf} actually define such a name which is  later added to the \PDF{}. I recommend \emph{strongly} not to use spaces and exotic chars in such names. While it is possible to escape such names it is rather a pain when moving them through the various lists and commands and quite probably I forgot some place where it is needed.
+  Quite a number of the options of \texttt{tagpdf} actually define
+  such a name which is later added to the \PDF{}. I recommend
+  \emph{strongly} not to use spaces and exotic chars in such
+  names. While it is possible to escape such names it is rather a pain
+  when moving them through the various lists and commands and quite
+  probably I forgot some place where it is needed.
 
-\item[Strings]There are two types of strings: \emph{Literal strings} are enclosed in round parentheses. They normally contain a mix of ascii chars and octal numbers:
+\item[Strings]There are two types of strings: \emph{Literal strings}
+  are enclosed in round parentheses. They normally contain a mix of
+  ascii chars and octal numbers:
 
 
     \verb+(gr\374\377ehello[]\050\051)+.
 
 
-    \emph{Hexadezimal strings} are enclosed in angle brackets. They allow for a representation of all characters the whole Unicode ranges. This is the default output of lualatex.
+    \emph{Hexadezimal strings} are enclosed in angle brackets. They
+    allow for a representation of all characters the whole Unicode
+    ranges. This is the default output of lualatex.
 
 
     \texttt{<003B00600243013D0032>}.
@@ -2754,7 +3016,11 @@ examples and remarks easier to understand.
 
 
 
-\item[Arrays] Arrays are enclosed by square brackets. They can contain all sort of objects including more arrays. As an example here an array which contains five objects: a number, an object reference, a string, a dictionary and another array. Be aware that despite the spaces \texttt{15 0 R} is \emph{one} element of the array.
+\item[Arrays] Arrays are enclosed by square brackets. They can contain
+  all sort of objects including more arrays. As an example here an
+  array which contains five objects: a number, an object reference, a
+  string, a dictionary and another array. Be aware that despite the
+  spaces \texttt{15 0 R} is \emph{one} element of the array.
 
 
     \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
@@ -2775,11 +3041,14 @@ examples and remarks easier to understand.
 \tagpdfparaOn
 
 
-\item[Dictionaries]
-Dictionaries are enclosed by double angle brackets. They contain key-value pairs. The key is always a name. The value can be all sort of objects including more dictionaries. It doesn't matter in which order the keys are given.
+\item[Dictionaries] Dictionaries are enclosed by double angle
+  brackets. They contain key-value pairs. The key is always a
+  name. The value can be all sort of objects including more
+  dictionaries. It doesn't matter in which order the keys are given.
 
- Dictionaries can be written all in one line:\\ \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}\\
-    but at least for examples a layout with line breaks and indentation is more readable:
+  Dictionaries can be written all in one line:\\
+  \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}\\
+  but at least for examples a layout with line breaks and indentation is more readable:
 
     \begin{taglstlisting}
     <<
@@ -2794,14 +3063,15 @@ Dictionaries are enclosed by double angle brackets. They contain key-value pairs
 
 
 
- \item[(indirect) objects] These are enclosed by the keywords 
-     \texttt{obj} (which has two numbers as prefix arguments) and 
-     \texttt{endobj}. The first argument is the object number, the second 
-     a generation number -- if a \PDF{} is edited objects with a larger 
-     generation number can be added. As with pdflatex/lualatex the \PDF{} 
-     is always new we can safely assume that the number is always 0. 
-     Objects can be referenced in other places with the \texttt{R} 
-     operator. The content of an object can be all sort of things. 
+ \item[(indirect) objects] These are enclosed by the keywords
+   \texttt{obj} (which has two numbers as prefix arguments) and
+   \texttt{endobj}. The first argument is the object number, the
+   second a generation number -- if a \PDF{} is edited objects with a
+   larger generation number can be added. As with pdflatex/lualatex
+   the \PDF{} is always new we can safely assume that the number is
+   always 0.  Objects can be referenced in other places with the
+   \texttt{R} operator. The content of an object can be all sort of
+   things.
 
  \item[streams] A stream is a sequence of bytes. It can be long and is 
      used for the real content of \PDF{}: text, fonts, content of 
