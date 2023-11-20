@@ -8,7 +8,7 @@ ctanpkg  = "tagpdf"
 local luatexstatus = status.list()
 local istl2023 = string.match (luatexstatus.banner,"2023")
 
-local ok, mydata = pcall(require, "ulrikefischerdata.lua")
+local ok, mydata = pcall(require, "ulrikefischerlatex3data.lua")
 if not ok then
   mydata= {email="XXX",github="XXX",name="XXX"}
 end
