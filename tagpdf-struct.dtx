@@ -1225,25 +1225,28 @@
 \cs_new_protected:Npn \@@_struct_add_inline_AF:nn #1 #2  
 % #1 content, #2 extension
  {
-   \group_begin:
-   \int_gincr:N \g_@@_struct_AFobj_int
-   \pdffile_embed_stream:neN
-     {#1}
-     {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
-     \l_@@_tmpa_tl          
-     \@@_struct_add_AF:ee
-       { \int_use:N \c@g_@@_struct_abs_int }
-       { \l_@@_tmpa_tl }
-     \@@_struct_prop_gput:nne
-       { \int_use:N \c@g_@@_struct_abs_int } 
-       { AF }
-       {
-         [
-           \tl_use:c
-            { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
-         ]
-       }               
-   \group_end:
+   \tl_if_empty:nF{#1}
+     {
+      \group_begin:
+      \int_gincr:N \g_@@_struct_AFobj_int
+      \pdffile_embed_stream:neN
+        {#1}
+        {tag-AFfile\int_use:N\g_@@_struct_AFobj_int.#2}
+        \l_@@_tmpa_tl          
+        \@@_struct_add_AF:ee
+          { \int_use:N \c@g_@@_struct_abs_int }
+          { \l_@@_tmpa_tl }
+        \@@_struct_prop_gput:nne
+          { \int_use:N \c@g_@@_struct_abs_int } 
+          { AF }
+          {
+            [
+              \tl_use:c
+               { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+            ]
+          }               
+      \group_end:
+     } 
  } 
      
 \cs_generate_variant:Nn \@@_struct_add_inline_AF:nn {on} 

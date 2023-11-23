@@ -8,7 +8,7 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 ### Changed
- - ignore AFref key with empty value.
+ - ignore AFref, AFinline-key with empty value.
  - Documentation changes
 
 ## [2023-11-19]
