@@ -9,6 +9,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Changed
  - ignore AFref key with empty value.
+ - Documentation changes
 
 ## [2023-11-19]
 Version: 0.98q
