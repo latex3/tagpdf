@@ -68,10 +68,11 @@
      \endblockenv
    }
       
-      % ======== marginnote ==========
+% ======== marginnote ==========
 % TODO marginnote has a bug (a \par is missing) so it messes up tagging.
 % but currently unneeded as we marked them up as artifacts anyway as they don't contain
 % meaningful contents
+\renewcommand*{\mn@parboxrestore}{\tagpdfparaOff}%
 
 \NewDocumentCommand\sidenote{m}
  {
@@ -145,8 +146,20 @@
         {bbox}{/O /Layout /BBox [0 0 100 100]}
   }
 
+% ======= maketitle
 
-%====== floats ========
+\renewcommand\maketitle{%
+   \tagstructbegin{tag=Title}
+   \begin{center}%
+   \let\thanks\footnote
+   \makeatletter
+   \huge \@title \par
+   \vskip .5em
+   \@author \par
+   \vskip 1em%
+   \@date \par
+   \end{center}%
+   \tagstructend}
 
 
 \endinput

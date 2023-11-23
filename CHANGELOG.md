@@ -20,11 +20,11 @@ Version: 0.98q
 Version: 0.98p
 
 ### Changed
- - AF key expands it argument
- - \tagstop etc now stops also the para-counter (for tagging-project issue #34)
+ - AF key now expands its argument
+ - \tagstop etc now stops also the para-counter (to fix tagging-project issue #34)
   
 ### Added
- - AFref key and mathml key
+ - AFref and mathml key
  - wrapper for para counter
 
 ## [2023-11-13]
