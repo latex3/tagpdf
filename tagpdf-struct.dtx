@@ -1293,16 +1293,19 @@
       },
     AFref .code:n        = % AF property
       {
-        \@@_struct_add_AF:ee { \int_use:N \c@g_@@_struct_abs_int }{#1}
-        \@@_struct_prop_gput:nne
-          { \int_use:N \c@g_@@_struct_abs_int }            
-          { AF }
-          {
-            [
-              \tl_use:c
-              { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
-            ]
-          }
+        \tl_if_empty:eF {#1}
+         {
+           \@@_struct_add_AF:ee { \int_use:N \c@g_@@_struct_abs_int }{#1}
+           \@@_struct_prop_gput:nne
+             { \int_use:N \c@g_@@_struct_abs_int }            
+             { AF }
+             {
+               [
+                 \tl_use:c
+                 { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_AF_tl }
+               ]
+             }
+         } 
       },      
    ,AFinline .code:n =
      {
