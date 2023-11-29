@@ -1608,7 +1608,7 @@
 
 \cs_set_protected:Npn \tag_struct_end:n #1
  {
-%<debug>\@@_debug_struct_end_check:n{#1}
+%<debug>    \@@_check_if_active_struct:T{\@@_debug_struct_end_check:n{#1}}
    \tag_struct_end:
  }  
 %</package|debug>
