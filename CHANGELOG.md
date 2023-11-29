@@ -10,6 +10,10 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed
  - ignore AFref, AFinline-key with empty value.
  - Documentation changes
+ - move para bool to tagpdf-base
+
+### Fixed
+ - test for structure end if tagging has been stopped.
 
 ## [2023-11-19]
 Version: 0.98q
