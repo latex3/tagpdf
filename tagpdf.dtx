@@ -456,6 +456,7 @@
 \cs_generate_variant:Nn \@@_seq_new:N    { c }
 \cs_generate_variant:Nn \@@_seq_show:N   { c }
 \cs_generate_variant:Nn \@@_prop_show:N  { c }
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -470,54 +471,79 @@
 % In some cases tagging should only restart, if
 % it actually was stopped before. For this it is possible
 % to label a stop.
+
+% \begin{variable}{\l_@@_tag_stop_int}
+% When stop/start pairs are nested we do not want the inner 
+% start command to restart tagging. To control this we use a 
+% local int: The stop command will increase it. The starting
+% will decrease it and only restart tagging, if it is zero.
+% This will replace the label version.
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_stop_group_begin:
+%<*package|debug>
+%<package>\int_new:N \l_@@_tag_stop_int
+%    \end{macrocode}
+% \end{variable}
+% 
+%    \begin{macrocode}
+%<package>\cs_new_protected:Npn \tag_stop_group_begin:
+%<debug>\cs_set_protected:Npn \tag_stop_group_begin:
   {
     \group_begin:
+    \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
     \@@_stop_para_ints:
+    \msg_note:nnx {tag / debug }{tag-stop}{ \int_use:N \l_@@_tag_stop_int }
   }
-\cs_set_eq:NN \tag_stop_group_end: \group_end:
+%<package>\cs_set_eq:NN \tag_stop_group_end: \group_end:
+%<debug>\cs_set_protected:Npn \tag_stop_group_end:
+%<debug>  { 
+%<debug>    \group_end:
+%<debug>    \msg_note:nnx {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }
+%<debug>  } 
 \cs_set_protected:Npn \tag_stop:
   {
+    \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
     \@@_stop_para_ints:
+%<debug>     \msg_note:nnx {tag / debug }{tag-stop}{ \int_use:N \l_@@_tag_stop_int }    
   }
 \cs_set_protected:Npn \tag_start:
   {
-    \bool_set_true:N \l_@@_active_struct_bool
-    \bool_set_true:N \l_@@_active_mc_bool
-    \@@_start_para_ints:
-  }
-\cs_set_eq:NN\tagstop\tag_stop:
-\cs_set_eq:NN\tagstart\tag_start:  
-\prop_new:N\g_@@_state_prop
-\cs_set_protected:Npn \tag_stop:n #1
-  {
-    \tag_if_active:TF
-      {
-        \bool_set_false:N \l_@@_active_struct_bool
-        \bool_set_false:N \l_@@_active_mc_bool
-        \@@_stop_para_ints:
-        \prop_gput:Nnn \g_@@_state_prop { #1 }{ 1 }
-      }
-      {
-        \prop_gremove:Nn \g_@@_state_prop { #1 }
-      }
-  }
-\cs_set_protected:Npn \tag_start:n #1
-  {
-    \prop_gpop:NnN \g_@@_state_prop {#1}\l_@@_tmpa_tl
-     \quark_if_no_value:NF \l_@@_tmpa_tl
+    \int_decr:N \l_@@_tag_stop_int
+    \int_if_zero:nT { \l_@@_tag_stop_int }
       {
         \bool_set_true:N \l_@@_active_struct_bool
         \bool_set_true:N \l_@@_active_mc_bool
         \@@_start_para_ints:
-      }
+      }  
+%<debug>    \msg_note:nnx {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }                   
   }
-%</package>
+\cs_set_eq:NN\tagstop\tag_stop:
+\cs_set_eq:NN\tagstart\tag_start:  
+%    \end{macrocode}
+%    \begin{macrocode}
+\cs_set_protected:Npn \tag_stop:n #1
+  {
+    \int_incr:N \l_@@_tag_stop_int
+    \bool_set_false:N \l_@@_active_struct_bool
+    \bool_set_false:N \l_@@_active_mc_bool
+    \@@_stop_para_ints:
+%<debug>    \msg_note:nnxx {tag / debug }{tag-stop}{ \int_use:N \l_@@_tag_stop_int }{#1}       
+  }
+\cs_set_protected:Npn \tag_start:n #1
+  {
+    \int_decr:N \l_@@_tag_stop_int
+    \int_if_zero:nT { \l_@@_tag_stop_int }
+      {
+        \bool_set_true:N \l_@@_active_struct_bool
+        \bool_set_true:N \l_@@_active_mc_bool
+        \@@_start_para_ints:
+      }  
+%<debug>    \msg_note:nnxx {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }{#1}             
+  }
+%</package|debug>
 %<*base>
 \cs_new_protected:Npn \tag_stop:{}
 \cs_new_protected:Npn \tag_start:{}

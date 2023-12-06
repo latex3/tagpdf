@@ -1088,7 +1088,25 @@
         }
      }
  }
- 
+%    \end{macrocode}
+% This tracks tag stop and start.
+%    \begin{macrocode}
+\msg_new:nnn { tag / debug } {tag-stop}
+  {
+    \int_if_zero:nTF
+      {#1}
+      {Tagging~stopped}
+      {Tagging~(not)~stopped~(already~inactive)}\\    
+    level:~\int_eval:n{#1-1}~==>~#1\tl_if_empty:nF{#2}{,~label:~#2}~[\msg_line_context:]
+  }
+\msg_new:nnn { tag / debug } {tag-start}
+  {
+    \int_if_zero:nTF
+      {#1}
+      {Tagging~restarted}
+      {Tagging~(not)~restarted}\\
+    level:~\int_eval:n{#1+1}~==>~#1\tl_if_empty:nF{#2}{,~label:~#2}~[\msg_line_context:]
+  }  
 %    \end{macrocode}
 %    \begin{macrocode}
 %</debug>
