@@ -1,5 +1,5 @@
 \ExplSyntaxOn
-\debug_on:n { check-declarations , deprecation }
+%\debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 \DocumentMetadata{xmp=false}
@@ -18,12 +18,14 @@
 \begin{document}
 
 \ExplSyntaxOn
+\begingroup
 \tagmcbegin{tag=XXX}abc\tagmcend
 
+%do not do this over pagebreaks! Use the proper \tagstop which changes both booleans!
 \bool_set_false:N \l__tag_active_mc_bool
 
 \tagmcbegin{tag=XXX}abc\tagmcend
-
+\endgroup
 \ExplSyntaxOff
 
 \end{document} 
