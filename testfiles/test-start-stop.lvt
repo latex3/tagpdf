@@ -36,14 +36,28 @@
    \ASSERTSTR{\tag_status:}{ACTIVE}
  }
 
-\TEST{tag-stop-label2}
+\TEST{tag-stop-label1}
  {
    \ASSERTSTR{\tag_status:}{ACTIVE}
    \tag_stop:n{L1}
    \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
-   \tag_start:n{LXX}
-   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_start:n{L1}
+   \ASSERTSTR{\tag_status:}{ACTIVE}
  }
+
+\TEST{tag-stop-label-nested}
+ {
+   \ASSERTSTR{\tag_status:}{ACTIVE}
+   \tag_stop:n{L1}
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_stop:n{L2}
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_start:n{L2}
+   \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
+   \tag_start:n{L1}
+   \ASSERTSTR{\tag_status:}{ACTIVE}
+ }
+
 
 \tag_stop:
 

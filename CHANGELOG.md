@@ -11,10 +11,14 @@ this project uses date-based 'snapshot' version identifiers.
  - ignore AFref, AFinline-key with empty value.
  - Documentation changes
  - move para bool to tagpdf-base
-
+ - \tag_stop:/\tag_start: keep tracking of nesting with a counter.  
+ 
 ### Fixed
  - test for structure end if tagging has been stopped.
-
+ 
+### Removed 
+ - \tag_stop_group_begin: and \tag_stop_group_end:
+ 
 ## [2023-11-19]
 Version: 0.98q
 
