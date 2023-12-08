@@ -1961,27 +1961,19 @@ the commands will disappear again if we realize that they are not fitting!}
 \begin{docCommand}[nosep]{tag_start:}{}\end{docCommand}
 \begin{docCommand}[nosep]{tagstop}{}\end{docCommand}
 \begin{docCommand}[nosep]{tagstart}{}\end{docCommand}
-\begin{docCommand}[nosep]{tag_stop_group_begin:}{}\end{docCommand}
-\begin{docCommand}{tag_start_group_end:}{}\end{docCommand}
-
-This commands stop and start tagging in the current group by switching 
-\emph{local} booleans. They also stop the increasing of the counters which 
-keep track of paragraphs if the correct wrapper commands are used. The 
-grouping commands also open and close a group. 
-
-Restarting tagging is normally only needed if groups can't be used and then 
-must be done with care: |\tagstart| should normally only restart tagging if 
-the corresponding stop command actually stopped tagging. In complicated 
-case the following labeled version can be used: 
-
 \begin{docCommand}[nosep]{tag_stop:n}{\marg{label}}\end{docCommand}
 \begin{docCommand}{tag_start:n}{\marg{label}}\end{docCommand}
 
-This commands stop and start tagging in the current group 
-by switching \emph{local} booleans, but |\tag_start:n| 
-only restarts if the corresponding |tag_stop:n| actually
-stopped something. This is meant for a situation like the following,
-where you don't want that the inner |\tag_start:n| restarts tagging.
+This commands stop and start tagging in the current group by switching 
+\emph{local} booleans. They also stop the increasing of the counters which 
+keep track of paragraphs if the correct wrapper commands are used. 
+
+Restarting tagging is normally only needed if groups can't be used and then 
+must be done with care: |\tagstart| should normally only restart tagging if 
+the corresponding stop command actually stopped tagging. This is implement 
+through a local counter which keeps track of the level.  
+
+The \meta{label} can be used to identify the command in debugging message. 
 
 \begin{taglstlisting}
 \tag_stop:n{outer}

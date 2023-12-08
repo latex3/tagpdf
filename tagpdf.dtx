@@ -33,12 +33,11 @@
 % \end{syntax}
 % \end{function}
 %
-% \begin{function}{ \tag_stop_group_begin:, \tag_stop_group_end:,
+% \begin{function}{
 %  \tag_stop:, \tag_start:,
 %  \tagstop, \tagstart }
 % We need commands to stop tagging in some places.
-% They simply switches the two local booleans. The grouping commands
-% can be used to group the effect.
+% They simply switches the two local booleans. 
 % \end{function}
 %
 % \begin{function}{\tag_stop:n, \tag_start:n }%
@@ -462,16 +461,17 @@
 %
 % \section{General tagging commands}
 %
-% \begin{macro}{\tag_stop_group_begin:,
-%   \tag_stop_group_end:,
+% \begin{macro}{
 %   \tag_stop:,\tag_start:,
 %   \tag_stop:n,\tag_start:n}
 % We need commands to stop tagging in some places.
 % This simply switches the two local booleans.
-% In some cases tagging should only restart, if
-% it actually was stopped before. For this it is possible
-% to label a stop.
-
+% The commands keep track of the nesting with a local
+% counter. Tagging only is only restarted at the outer level,
+% if the current level is 1.
+% The commands with argument allow to give a label. This is only used
+% in debugging messages to allow to follow the nesting.
+% 
 % \begin{variable}{\l_@@_tag_stop_int}
 % When stop/start pairs are nested we do not want the inner 
 % start command to restart tagging. To control this we use a 
@@ -485,22 +485,6 @@
 % \end{variable}
 % 
 %    \begin{macrocode}
-%<package>\cs_new_protected:Npn \tag_stop_group_begin:
-%<debug>\cs_set_protected:Npn \tag_stop_group_begin:
-  {
-    \group_begin:
-%<debug>    \msg_note:nnx {tag / debug }{tag-stop}{ \int_use:N \l_@@_tag_stop_int }    
-    \int_incr:N \l_@@_tag_stop_int
-    \bool_set_false:N \l_@@_active_struct_bool
-    \bool_set_false:N \l_@@_active_mc_bool
-    \@@_stop_para_ints:
-  }
-%<package>\cs_set_eq:NN \tag_stop_group_end: \group_end:
-%<debug>\cs_set_protected:Npn \tag_stop_group_end:
-%<debug>  { 
-%<debug>    \group_end:
-%<debug>    \msg_note:nnx {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }
-%<debug>  } 
 \cs_set_protected:Npn \tag_stop:
   {
 %<debug>     \msg_note:nnx {tag / debug }{tag-stop}{ \int_use:N \l_@@_tag_stop_int }      
@@ -511,13 +495,13 @@
   }
 \cs_set_protected:Npn \tag_start:
   {
-    \int_decr:N \l_@@_tag_stop_int
+    \int_if_zero:nF { \l_@@_tag_stop_int } { \int_decr:N \l_@@_tag_stop_int }
     \int_if_zero:nT { \l_@@_tag_stop_int }
       {
         \bool_set_true:N \l_@@_active_struct_bool
         \bool_set_true:N \l_@@_active_mc_bool
         \@@_start_para_ints:
-      }  
+      }
 %<debug>    \msg_note:nnx {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }                   
   }
 \cs_set_eq:NN\tagstop\tag_stop:
@@ -534,13 +518,13 @@
   }
 \cs_set_protected:Npn \tag_start:n #1
   {
-    \int_decr:N \l_@@_tag_stop_int
+    \int_if_zero:nF { \l_@@_tag_stop_int } { \int_decr:N \l_@@_tag_stop_int }
     \int_if_zero:nT { \l_@@_tag_stop_int }
       {
         \bool_set_true:N \l_@@_active_struct_bool
         \bool_set_true:N \l_@@_active_mc_bool
         \@@_start_para_ints:
-      }  
+      } 
 %<debug>    \msg_note:nnxx {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }{#1}             
   }
 %</package|debug>
