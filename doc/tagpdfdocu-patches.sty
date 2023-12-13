@@ -96,13 +96,42 @@
 \AddToHook{env/tcolorbox/begin}{\tagpdfparaOff \tcbset{before upper=\tagpdfparaOn}}
 \AddToHook{env/tcolorbox/after}{\par\tagstructend}
 
-% this is not good and only temporary, but it is still unclear how to handle internal lists.
-\ExplSyntaxOn
-\AddToHook{env/docCommand/before}{\par\tagtool{para=false}\tagstructbegin{tag=Code}\tagmcbegin{}\tag_stop:}
-\AddToHook{env/docCommand/after}{\par\tag_start:\tagmcend\tagstructend\tagtool{para=true}}
-\ExplSyntaxOff
+% ========= doc Commands from tcolorbox
+% Not sure if this is generally usable but one must avoid tagstop if there can
+% be a pagebreak 
+\DeclareInstance{blockenv}{docCommand}{display}
+{
+  env-name       = docCommand,
+  tag-name       = Div,
+  tag-class      = ,
+  tagging-recipe = standalone,
+  inner-level-counter  = ,
+  level-increase = false,
+  setup-code     = ,
+  block-instance = displayblock ,
+}
 
-%\AddToHook{env/docCommand/begin}{\tagpdfparaOff \tcbset{before upper=\tagpdfparaOn}\tagtool{paratag=Code}\tagtool{para-flattened=true}}
+\RenewDocumentEnvironment{tcb@manual@entry}{}
+    {\UseInstance{blockenv}{docCommand} 
+      {tag-name=Div,
+       leftmargin=\kvtcb@doc@left,
+       rightmargin=\kvtcb@doc@right,
+       }%
+     \tagtool{para=false}% 
+     \AssignSocketPlug{tagsupport/minipage/before}{noop}
+     \AssignSocketPlug{tagsupport/minipage/after}{noop}      
+     \AssignSocketPlug{tagsupport/parbox/before}{noop}
+     \AssignSocketPlug{tagsupport/parbox/after}{noop}  
+    }   
+    {\endblockenv } 
+
+\tcbset{
+ doc head command=
+   {before upper=\tagstructbegin{tag=Code}\tagmcbegin{},
+    after upper=\tagmcend\tagstructend},
+ }
+ 
+ 
 
 % ======= footnote ========
 % done in testphase code

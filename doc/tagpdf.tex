@@ -11,7 +11,7 @@
  {
    % comment the following line to compile an untagged documentation:
    testphase=phase-III,
-   pdfversion=2.0,lang=en-UK,pdfstandard=a-4,
+   pdfversion=2.0,lang=en-UK,pdfstandard=a-4,pdfstandard=ua-2
    %uncompress
  }
 \DebugBlocksOff
@@ -68,8 +68,6 @@
   colorlinks}
 
 \tcbuselibrary{documentation}
-%less space between docCommand
-\tcbset{nosep/.style={doc raster command={raster after skip=-10pt}}}
 \definecolor{Definition}{rgb}{0,0.2,0.6}
 \newcommand\PrintKeyName[1]{\textsf{#1}}
 \newcommand\pkg[1]{\texttt{#1}}
@@ -562,8 +560,12 @@ The key-val list understands the following keys:
 
 \end{description}
 
-\begin{docCommand}[nosep]{tagtool}{\marg{key-val}}\end{docCommand}
-\begin{docCommand}{tag_tool:n}{\marg{key-val}}\end{docCommand}
+\begin{docCommands}
+ {
+   {doc name=tagtool,doc parameter=\marg{key-val}},
+   {doc name=tag_tool:n,doc parameter=\marg{key-val}}
+ }
+\end{docCommands}
 
 The tagging of document elements requires a variety of small
 commands. This command will unify them under a common interface. This
@@ -940,8 +942,12 @@ executed on the same page as the begin command. So think carefully how to
 place them. For strategies how to handle paragraphs that split over pages see 
 subsection~\ref{sec:splitpara}. 
 
-\begin{docCommand}[nosep]{tagmcbegin}{\marg{key-val-list}}\end{docCommand}
-\begin{docCommand}{tag_mc_begin:n}{\marg{key-val-list}}\end{docCommand}
+\begin{docCommands}
+ {
+   {doc name=tagmcbegin,doc parameter={\marg{key-val-list}}},
+   {doc name=tag_mc_begin:n,doc parameter={\marg{key-val-list}}}
+ }  
+ \end{docCommands}
 
 
 These commands insert the begin of the marked content code in the \PDF{}. 
@@ -1048,8 +1054,12 @@ The key-val list understands the following keys:
 \end{description}
 
 
-\begin{docCommand}[nosep]{tagmcend}{}\end{docCommand}
-\begin{docCommand}{tag_mc:end}{}\end{docCommand}
+\begin{docCommands}
+ {
+   {doc name=tagmcend},
+   {doc name=tag_mc:end}
+ }
+\end{docCommands}
 
 These commands insert the end code of the marked content. They don't end a 
 group and it doesn't matter if they are in another group as the starting 
@@ -1059,8 +1069,12 @@ the command, as the effect of the begin command ends  with a new
 \verb+\tagmcbegin+ anyway. 
 
 
-\begin{docCommand}[nosep]{tagmcuse}{}\end{docCommand}
-\begin{docCommand}{tag_mc_use:n}{}\end{docCommand}
+\begin{docCommands}
+ {
+   {doc name=tagmcuse},
+   {doc name=tag_mc_use:n}
+ }
+\end{docCommands}
 
 
 These commands allow you to record a marked content that you stashed away 
@@ -1068,8 +1082,11 @@ into the current structure. Be aware that a marked content can be used only
 once -- the command will warn you if you try to use it a second time. 
 
 
-\begin{docCommand}[nosep]{tag_mc_end_push:}{}\end{docCommand}
-\begin{docCommand}{tag_mc_begin_pop:n}{\marg{key-val-list}}\end{docCommand}
+\begin{docCommands}
+ {
+   {doc name=tag_mc_end_push:},
+   {doc name=tag_mc_begin_pop:n,doc parameter=\marg{key-val-list}}
+ }\end{docCommands}
 
 If there is an open mc chunk,
 the first command ends it and pushes its tag on a stack. If there is no
@@ -1080,8 +1097,11 @@ definitions so there is only an expl3 version. Perhaps other content of the mc-d
 
 
 
-\begin{docCommand}[nosep]{tagmcifinTF}{\marg{true code}\marg{false code}}\end{docCommand}
-\begin{docCommand}{tag_mc_if_in:TF}{\marg{true code}\marg{false code}}\end{docCommand}
+\begin{docCommands}
+ {
+  {doc name=tagmcifinTF,doc parameter=\marg{true code}\marg{false code}},
+  {doc name=tag_mc_if_in:TF,doc parameter=\marg{true code}\marg{false code}}
+ }\end{docCommands}
 
 
 These commands check if a marked content is currently open and allows you to e.g. add the end marker if yes.
@@ -1607,8 +1627,11 @@ context format -- explicit commands to start and end a sectioning unit.
 The following commands can be used to define the tree structure:
 
 
-\begin{docCommand}[nosep]{tagstructbegin}{\marg{key-val-list}}\end{docCommand}
-\begin{docCommand}{tag_struct_begin:n}{\marg{key-val-list}}\end{docCommand}
+\begin{docCommands}
+ {
+  {doc name=tagstructbegin,doc parameter=\marg{key-val-list}},
+  {doc name=tag_struct_begin:n,doc parameter=\marg{key-val-list}}
+ }\end{docCommands}
 
 These commands start a new structure. They don't start a group. They set all their values globally.
 
@@ -1788,15 +1811,19 @@ The key-val list understands the following keys:
      better name, so I sticked to E).
 \end{description}
 
-\begin{docCommand}[nosep]{tagstructend}{}\end{docCommand}
-\begin{docCommand}{tag_struct_end:}{}\end{docCommand}
+\begin{docCommands}
+ { {doc name=tagstructend}, {doc name=tag_struct_end:}}
+\end{docCommands} 
 
 
 These commands end a structure. They don't end a group and it doesn't 
 matter if they are in another group as the starting commands. 
 
-\begin{docCommand}[nosep]{tagstructuse}{\marg{label}}\end{docCommand}
-\begin{docCommand}{tag_struct_use:n}{\marg{label}}\end{docCommand}
+\begin{docCommands}
+ {  
+  {doc name=tagstructuse,doc parameter=\marg{label}},
+  {doc name=tag_struct_use:n,doc parameter=\marg{label}}
+ }\end{docCommands}
 
 These commands insert a structure previously stashed away as kid into the 
 currently active structure. A structure should be used only once, if the 
@@ -1957,12 +1984,16 @@ commands for various use cases\footnote{it is quite possible that some of
 the commands will disappear again if we realize that they are not fitting!} 
 
 
-\begin{docCommand}[nosep]{tag_stop:}{}\end{docCommand}
-\begin{docCommand}[nosep]{tag_start:}{}\end{docCommand}
-\begin{docCommand}[nosep]{tagstop}{}\end{docCommand}
-\begin{docCommand}[nosep]{tagstart}{}\end{docCommand}
-\begin{docCommand}[nosep]{tag_stop:n}{\marg{label}}\end{docCommand}
-\begin{docCommand}{tag_start:n}{\marg{label}}\end{docCommand}
+\begin{docCommands}
+ {
+  {doc name=tag_stop:},
+  {doc name=tag_start:},
+  {doc name=tagstop},
+  {doc name=tagstart},
+  {doc name=tag_stop:n,doc parameter=\marg{label}},
+  {doc name=tag_start:n,doc parameter=\marg{label}}
+ } 
+\end{docCommands}
 
 This commands stop and start tagging in the current group by switching 
 \emph{local} booleans. They also stop the increasing of the counters which 
