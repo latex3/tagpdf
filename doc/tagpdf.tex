@@ -1983,6 +1983,10 @@ and this shouldn't create structures. There are therefore a number of
 commands for various use cases\footnote{it is quite possible that some of 
 the commands will disappear again if we realize that they are not fitting!} 
 
+Warning! Stopping tagging should be done only with care and when it is 
+ensured that no code inside the stopped part gets confused. Most importantly
+currently tagging should not be stopped if a page break can occur 
+or the output routine is called. 
 
 \begin{docCommands}
  {
