@@ -346,7 +346,91 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \section{Socket support}
+% The next \LaTeX{} will use special sockets for the tagging.
+% 
+% These sockets will use names starting
+% with \texttt{tagsupport/}. Usually, these sockets have exactly two
+% plugs defined: \texttt{noop} (when no tagging is requested or 
+% tagging is not wanted for some reason) and 
+% a second plug that enables the tagging. There
+% may be more, e.g., tagging with special debugging, etc., but right
+% now it is usually just on or off.
 %
+% Given that we sometimes have to suspend tagging, it would be fairly
+% inefficient to put different plugs into these sockets whenever that
+% happens. We therefore offer \cs{UseTaggingSocket} which is like
+%  \cs{UseSocket} except that the socket name is specified without
+%  \texttt{tagsupport/}, i.e.,
+% \begin{quote}
+%   \verb=\UseTaggingSocket{foo}=      $\to$
+%   \verb=\UseSocket{tagsupport/foo}=
+% \end{quote}
+%  Beside being slightly shorter, the big advantage is that this way
+%  we can change \cs{UseTaggingSocket} to do nothing by switching a boolean
+%  instead of changing the plugs of the tagging support sockets back and forth.
+%
+%  It is possible to use the tagging support sockets with
+%  \cs{UseSocket} directly, but in this case the socket remains active
+%  if e.g. \cs{SuspendTagging} is in force. There may be reasons for doing
+%  that but in general we expect to always use \cs{UseTaggingSocket}.
+%
+%  The L3 programming layer versions \cs{tag_socket_use:n} and
+%  \cs{tag_socket_use:nn} are slightly more efficient than
+%  \cs{UseTaggingSocket} because they do not have to determine how
+%  many arguments the socket takes when disabling it.
+%
+% Until we can be sure that the kernel defines the commands we provide them before
+% redefining them:
+%    \begin{macrocode}
+%<*base>
+\providecommand\tag_socket_use:n[1]{}
+\providecommand\tag_socket_use:nn[2]{}
+\providecommand\UseTaggingSocket[1]{}
+%</base>
+%    \end{macrocode}
+%
+% \begin{macro}{\tag_socket_use:n,\tag_socket_use:nn,\UseTaggingSocket}
+%    \begin{macrocode}
+%<*package>
+\cs_set_protected:Npn \tag_socket_use:n #1 
+  {
+    \bool_if:NT \l_@@_active_socket_bool
+      { \UseSocket {tagsupport/#1} }
+  }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\cs_set_protected:Npn \tag_socket_use:nn #1#2 
+  {
+    \bool_if:NT \l_@@_active_socket_bool
+       { \UseSocket {tagsupport/#1} {#2} }
+  }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\cs_set_protected:Npn \UseTaggingSocket #1 
+  {
+    \bool_if:NTF \l_@@_active_socket_bool
+      { \UseSocket{tagsupport/#1} }
+      {
+        \int_case:nnF
+            { \int_use:c { c__socket_tagsupport/#1_args_int } }
+            {
+              0 \prg_do_nothing:
+              1 \use_none:n
+              2 \use_none:nn
+%    \end{macrocode}
+%    We do not expect tagging sockets with more than one or two
+%    arguments, so for now we only provide those.
+%    \begin{macrocode}
+            }
+            \ERRORusetaggingsocket
+      }
+  }
+%</package>  
+%    \end{macrocode}
+% \end{macro}
 %
 % \section{Debugging}
 % \begin{macro}{\ShowTagging}
@@ -556,16 +640,11 @@
 % This part should be regularly revisited to check if the code should go to a
 % better place or can be improved.
 % 
-% \subsection{new ref system}
-% Until l3ref is in the kernel, we provide a definition for \cs{newlabeldata} in 
-% the aux-file to avoid errors if a document switches between tagging and non-tagging.
 %    \begin{macrocode}
-%<base>\AddToHook{begindocument}
-%<base> {\immediate\write\@mainaux{\string\providecommand\string\newlabeldata[2]{}}}
 %<*package>
 %    \end{macrocode}
 % \subsection{Document structure}
-% \begin{macro}{\g_@@_root_default_tl,activate (setup-key)}
+% \begin{macro}{\g_@@_root_default_tl,activate (setup-key),activate-socket (setup-key)}
 %    \begin{macrocode}
 \tl_new:N\g_@@_root_default_tl
 \tl_gset:Nn\g_@@_root_default_tl {Document}
@@ -574,11 +653,12 @@
 \hook_gput_code:nnn{tagpdf/finish/before}{tagpdf}{\tagstructend}
 
 \keys_define:nn { @@ / setup}
- {    
+ {  
+   activate-socket .bool_set:N  = \l_@@_active_socket_bool, 
    activate  .code:n =
     {
       \keys_set:nn { @@ / setup }
-        { activate-mc,activate-tree,activate-struct }
+        { activate-mc,activate-tree,activate-struct,activate-socket }
       \tl_gset:Nn\g_@@_root_default_tl {#1}  
     },
    activate .default:n = Document
@@ -586,6 +666,7 @@
  
 %    \end{macrocode}
 % \end{macro}
+% 
 % \subsection{Structure destinations}
 % In TeXlive 2022 pdftex and luatex will offer support for structure destinations.
 % The  pdfmanagement has already backend support. We activate them if the

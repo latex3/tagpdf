@@ -37,7 +37,9 @@
 %  \tag_stop:, \tag_start:,
 %  \tagstop, \tagstart }
 % We need commands to stop tagging in some places.
-% They simply switches the two local booleans. 
+% They switches three local booleans and also stop the counting
+% of paragraphs. If they are nested an inner \cs{tag_start:} will not
+% restart tagging.
 % \end{function}
 %
 % \begin{function}{\tag_stop:n, \tag_start:n }%
@@ -45,9 +47,8 @@
 % \cs{tag_stop:n}\Arg{label}
 % \cs{tag_start:n}\Arg{label}\\
 % \end{syntax}
-% This commands are intended as a pair. The start command
-% will only restart tagging if the previous stop command
-% with the same label actually stopped tagging.
+% The commands with argument allow to give a label. This is only used
+% in debugging messages to allow to follow the nesting.
 % \end{function}
 %
 % \begin{function}{activate-space (setup-key)}
@@ -280,7 +281,7 @@
 %  }
 % These booleans should help to control the global behaviour of tagpdf.
 % Ideally it should more or less do nothing if all are false.
-% The space-boolean controles the interword space code,
+% The space-boolean controls the interword space code,
 % the mc-boolean activates \cs{tag_mc_begin:n},
 % the tree-boolean activates writing the finish code and the pdfmanagement related
 % commands, the struct-boolean activates the storing of the structure data.
@@ -305,7 +306,8 @@
 % \begin{variable}
 %  {
 %    \l_@@_active_mc_bool,
-%    \l_@@_active_struct_bool
+%    \l_@@_active_struct_bool,
+%    \l_@@_active_socket_bool
 %  }
 % These booleans should help to control the \emph{local} behaviour of tagpdf.
 % In some cases it could e.g. be necessary to stop tagging completely.
@@ -316,6 +318,7 @@
 \bool_set_true:N \l_@@_active_mc_bool
 \bool_new:N \l_@@_active_struct_bool
 \bool_set_true:N \l_@@_active_struct_bool
+\bool_new:N \l_@@_active_socket_bool
 %    \end{macrocode}
 % \end{variable}
 %
@@ -465,7 +468,7 @@
 %   \tag_stop:,\tag_start:,
 %   \tag_stop:n,\tag_start:n}
 % We need commands to stop tagging in some places.
-% This simply switches the two local booleans.
+% They switch local booleans and also stop the counting of paragraphs.
 % The commands keep track of the nesting with a local
 % counter. Tagging only is only restarted at the outer level,
 % if the current level is 1.
@@ -491,6 +494,7 @@
     \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
+    \bool_set_false:N \l_@@_active_socket_bool
     \@@_stop_para_ints:
   }
 \cs_set_protected:Npn \tag_start:
@@ -500,6 +504,7 @@
       {
         \bool_set_true:N \l_@@_active_struct_bool
         \bool_set_true:N \l_@@_active_mc_bool
+        \bool_set_true:N \l_@@_active_socket_bool
         \@@_start_para_ints:
       }
 %<debug>    \msg_note:nnx {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }                   
@@ -514,6 +519,7 @@
     \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
+    \bool_set_false:N \l_@@_active_socket_bool
     \@@_stop_para_ints:
   }
 \cs_set_protected:Npn \tag_start:n #1
@@ -523,6 +529,7 @@
       {
         \bool_set_true:N \l_@@_active_struct_bool
         \bool_set_true:N \l_@@_active_mc_bool
+        \bool_set_true:N \l_@@_active_socket_bool
         \@@_start_para_ints:
       } 
 %<debug>    \msg_note:nnxx {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }{#1}             
@@ -551,7 +558,7 @@
 %    activate-tree (setup-key),
 %    activate-struct (setup-key),
 %    activate-all (setup-key),
-%    no-struct-dest (setup-key)
+%    no-struct-dest (setup-key),
 %  }
 %  Keys to (globally) activate tagging.
 %  |activate-space| activates the additional parsing needed for

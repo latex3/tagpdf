@@ -1,0 +1,16 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\ExplSyntaxOff
+\input{regression-test}
+\DocumentMetadata{testphase=phase-III} 
+\documentclass{article}
+\begin{document}
+\START \showoutput \NewSocket{tagsupport/blub}{0} 
+\NewSocketPlug{tagsupport/blub}{test}{hallo} 
+\AssignSocketPlug{tagsupport/blub}{test} 
+
+test\UseTaggingSocket{blub} %
+out \tagstop \UseTaggingSocket{blub} %
+on \tagstart \UseTaggingSocket{blub} 
+ 
+\end{document}  
