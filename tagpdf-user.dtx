@@ -159,7 +159,7 @@
 % \end{function}
 %
 % \section{Extension commands}
-% The following commands and code parts are not core command of tagpdf.
+% The following commands and code parts are not core commands of tagpdf.
 % They either provide work-arounds for missing functionality elsewhere,
 % or do a first step to apply tagpdf commands to document commands.
 %
@@ -634,7 +634,7 @@
 % \end{macro}
 %
 % \section{Commands to extend document commands}
-% The following commands and code parts are not core command of tagpdf.
+% The following commands and code parts are not core commands of tagpdf.
 % They either provide work-arounds for missing functionality elsewhere,
 % or do a first step to apply tagpdf commands to document commands.
 % This part should be regularly revisited to check if the code should go to a
@@ -668,23 +668,20 @@
 % \end{macro}
 % 
 % \subsection{Structure destinations}
-% In TeXlive 2022 pdftex and luatex will offer support for structure destinations.
-% The  pdfmanagement has already backend support. We activate them if the
-% prerequisites are there: structures should be activated,
-% the code in the pdfmanagement must be there.
+% Since TeXlive 2022 pdftex and luatex offer support for structure destinations
+% and the pdfmanagement has backend support for. We activate them if
+% structures are actually created.
 % Structure destinations are actually PDF 2.0  only but they don't harm in 
 % older PDF and can improve html export. 
 %    \begin{macrocode}
 \AddToHook{begindocument/before}
   {
-    \bool_lazy_all:nT
+    \bool_lazy_and:nnT
+      { \g_@@_active_struct_dest_bool }
+      { \g_@@_active_struct_bool }
       {
-        { \g_@@_active_struct_dest_bool }
-        { \g_@@_active_struct_bool }
-        { \cs_if_exist_p:N \pdf_activate_structure_destination: }
-      }
-      {
-        \tl_set:Nn \l_pdf_current_structure_destination_tl { _@@/struct/\g_@@_struct_stack_current_tl }
+        \tl_set:Nn \l_pdf_current_structure_destination_tl 
+           { _@@/struct/\g_@@_struct_stack_current_tl }
         \pdf_activate_structure_destination:
       }
    }
@@ -801,7 +798,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% TEMPORARLY FIX (2023-11-17). Until latex-lab is update we must adapt a sec command:
+% TEMPORARLY FIX (2023-11-17). Until latex-lab is updated we must adapt a sec command:
 %    \begin{macrocode}
 \AddToHook{package/latex-lab-testphase-sec/after}
  {
