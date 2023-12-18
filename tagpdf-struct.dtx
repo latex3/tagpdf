@@ -175,7 +175,7 @@
 %  (I couldn't think of a better name, so I sticked to E).
 % \end{function}
 % \begin{function}{AF (struct-key),AFref (struct-key), 
-%  AFinline (struct-key),AFinline-o (struct-key),texsource}
+%  AFinline (struct-key),AFinline-o (struct-key),texsource,mathml}
 % \begin{syntax}
 % AF = \meta{object name}\\
 % AFref = \meta{object reference}\\
@@ -194,7 +194,12 @@
 % still a research task to find out what is really needed.
 % 
 % |texsource| is a special variant of |AF-inline-o| which embeds the file 
-% as |.tex| source with the |/AFrelationship| key set to |/Source|.
+% as |.tex| source with the |/AFrelationship| key set to |/Source|. It also sets the |/Desc| key
+% to a (currently) fix text. 
+% 
+% |mathml|  is a special variant of |AF-inline-o| which embeds the file 
+% as |.xml| file with the |/AFrelationship| key set to |/Supplement|. 
+% It also sets the |/Desc| key to a (currently) fix text. 
 %
 % The argument of |AF| is an object name referring an embedded file as declared for example with 
 % \cs{pdf_object_new:n} or with the l3pdffile module. |AF| expands its argument 
@@ -1321,6 +1326,7 @@
    ,texsource .code:n =
     {
       \group_begin:
+      \pdfdict_put:nnn { l_pdffile/Filespec } {Desc}{(TeX~source)}
       \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Source }
       \@@_struct_add_inline_AF:on {#1}{tex}
       \group_end:
@@ -1328,6 +1334,7 @@
    ,mathml .code:n =
      {
       \group_begin:
+      \pdfdict_put:nnn { l_pdffile/Filespec } {Desc}{(mathml~representation)}
       \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Supplement }
       \@@_struct_add_inline_AF:on {#1}{xml}
       \group_end:  

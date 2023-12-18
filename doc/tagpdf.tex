@@ -1789,11 +1789,13 @@ The key-val list understands the following keys:
 
    \item[\PrintKeyName{texsource}] This is like \verb+AFinline-o+, but
      it creates a tex-file, with mime type \texttt{application/x-tex}
-     and the AFRelationship \texttt{Source}.
+     and the AFRelationship \texttt{Source}. It also sets the /Desc key to a 
+     (currently) fix text to satisfy some validators.
 
    \item[\PrintKeyName{mathml}] This is like \verb+AFinline-o+, but it
      creates a xml-file, with mime type \texttt{application/xml} and
-     the AFRelationship \texttt{Supplement}.
+     the AFRelationship \texttt{Supplement}. It also sets the /Desc key to a 
+     (currently) fix text to satisfy some validators.
 
    \item[\PrintKeyName{lang}] This key allows to set the language for
      a structure element. The value should be a bcp-identifier,

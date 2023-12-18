@@ -7,11 +7,15 @@ this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
 
+### Added 
+  - support for tagging-sockets 
+  - /Desc key to AF-files added with the texsource and mathml keys.
+  
 ### Changed
  - ignore AFref, AFinline-key with empty value.
  - Documentation changes
  - move para bool to tagpdf-base
- - \tag_stop:/\tag_start: keep tracking of nesting with a counter.  
+ - \tag_stop:/\tag_start: keep tracking of nesting with a counter. 
  
 ### Fixed
  - test for structure end if tagging has been stopped.
