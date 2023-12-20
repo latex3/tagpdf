@@ -63,9 +63,10 @@
 %  it will check if the \Arg{tag} (after expansion)
 %  is identical to the current structure on the stack. The tag is not role mapped!
 % \end{function}
-%  \begin{function}{\tag_struct_use:n}
+%  \begin{function}{\tag_struct_use:n,\tag_struct_use_num:n}
 %   \begin{syntax}
-%     \cs{tag_struct_use:n}\Arg{label}
+%     \cs{tag_struct_use:n}\Arg{label}\\
+%     \cs{tag_struct_use_num:n}\Arg{structure number}
 %   \end{syntax}
 % These commands insert a structure previously stashed away as kid
 % into the currently active structure.
@@ -105,6 +106,21 @@
 % This gives back the next free /StructParent number (assuming that it is
 % together with \cs{tag_struct_insert_annot:nn} which will increase the number.
 % \end{function}
+% 
+% \begin{function}{\tag_struct_gput:nnn}
+% \begin{syntax}
+%  \cs{tag_struct_gput:nnn}\Arg{structure number}\Arg{keyword}\Arg{value}
+%  \end{syntax}
+% This is a command that allows to update the data of a structure.
+% This often can't done simply by replacing the value, as we have to 
+% preserve and extend existing content. We use therefore dedicated functions
+% adjusted to the key in question. 
+% The first argument is the number of the structure, 
+% the second a keyword referring to a function,
+% the third the value. Currently the only keyword is \texttt{ref} which updates
+% the Ref key (an array)
+% \end{function}
+% 
 % \section{Public keys}
 % \subsection{Keys for the structure commands}
 % \begin{function}{tag (struct-key)}
