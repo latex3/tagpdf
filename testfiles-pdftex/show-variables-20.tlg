@@ -5,7 +5,7 @@ TEST 1: show tags -> NS
 ============================================================
 The property list \g__tag_role_tags_NS_prop contains the pairs (without outer
 braces):
->  {StructTreeRoot}  =>  {pdf}
+>  {StructTreeRoot}  =>  {pdf2}
 >  {Document}  =>  {pdf2}
 >  {Part}  =>  {pdf2}
 >  {Sect}  =>  {pdf2}
@@ -673,6 +673,7 @@ TEST 6: show tags of namespace pdf2
 ============================================================
 The property list \g__tag_role_NS_pdf2_prop contains the pairs (without outer
 braces):
+>  {StructTreeRoot}  =>  {{StructTreeRoot}{pdf2}}
 >  {Document}  =>  {{Document}{pdf2}}
 >  {Part}  =>  {{Part}{pdf2}}
 >  {Sect}  =>  {{Sect}{pdf2}}
@@ -1070,6 +1071,7 @@ TEST 13: show class of tags in namespace pdf2
 ============================================================
 The property list \g__tag_role_NS_pdf2_class_prop contains the pairs (without
 outer braces):
+>  {StructTreeRoot}  =>  {D}
 >  {Document}  =>  {D}
 >  {Part}  =>  {G}
 >  {Sect}  =>  {G}

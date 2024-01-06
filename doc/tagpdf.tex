@@ -2130,21 +2130,32 @@ of the PDF types can be looked up in the \PDF{}-references
 \parencite{pdfspec-iso32000-1,pdfspec-iso32000-2_2020}): 
 
 \begin{enumerate}
-\item The \emph{standard structure namespace for PDF 1.7}, also called
-  the \emph{default standard structure namespace}. The public name of
-  the namespace is |tag/NS/pdf|. This can be used to reference the
-  namespace e.g. in attributes. These are the structure names from PDF
-  1.7: \ExplSyntaxOn \clist_clear:N\l_tmpa_clist \prop_map_inline:cn {
-    g__tag_role_NS_pdf_prop } { \clist_put_right:Nn \l_tmpa_clist {#1}
-  } \clist_use:Nn \l_tmpa_clist {,\c_space_tl } \ExplSyntaxOff
+\item The \emph{standard structure namespace for PDF 1.7}, also called 
+    the \emph{default standard structure namespace}. The public name of 
+    the namespace is |tag/NS/pdf|. This can be used to reference the 
+    namespace e.g. in attributes. These are the structure names from PDF 
+    1.7 (\texttt{StructTreeRoot} is a bit special, it is not really a structure
+    name but nevertheless listed here): 
+    \ExplSyntaxOn %%
+    \clist_clear:N\l_tmpa_clist 
+    \prop_map_inline:cn 
+      {g__tag_role_NS_pdf_prop} 
+      {
+       \str_if_eq:eeT 
+         {#1} 
+         {\use_i:nn #2}  
+         { \clist_put_right:Nn \l_tmpa_clist {#1}  } 
+      }
+    \clist_use:Nn \l_tmpa_clist {,\c_space_tl }. %%
+    \ExplSyntaxOff 
 
 \item The \emph{standard structure namespace for PDF 2.0}.  The public
   name of the namespace is |tag/NS/pdf2|. This can be used to
   reference the namespace e.g. in attributes.  These are more or less
   same types as in PDF. The following types have been removed from
-  this set:\\
+  this set\footnote{They still can be used in a PDF 2.0 document!}:\\
 %
-\ExplSyntaxOn
+\ExplSyntaxOn %
 \clist_clear:N\l_tmpa_clist
 \prop_map_inline:cn { g__tag_role_NS_pdf_prop }
  { 
@@ -2153,20 +2164,19 @@ of the PDF types can be looked up in the \PDF{}-references
     {#1}
     { \clist_put_right:Nn \l_tmpa_clist {#1} } 
  }
-\clist_use:Nn \l_tmpa_clist {,\c_space_tl }\\
-\ExplSyntaxOff
+\clist_use:Nn \l_tmpa_clist {,\c_space_tl },\\
+\ExplSyntaxOff %
 and the following are new:\\
-\ExplSyntaxOn
-\clist_clear:N\l_tmpa_clist
-\prop_map_inline:cn { g__tag_role_NS_pdf2_prop }
- { 
-  \prop_if_in:cnF 
-    { g__tag_role_NS_pdf_prop }
-    {#1}
-    { \clist_put_right:Nn \l_tmpa_clist {#1}  } 
- }
-\clist_use:Nn \l_tmpa_clist {,\c_space_tl }
-\ExplSyntaxOff
+\ExplSyntaxOn %
+ \clist_clear:N\l_tmpa_clist %
+ \prop_map_inline:cn { g__tag_role_NS_pdf_prop } 
+   { 
+    \str_if_eq:eeF {#1}
+     {\use_i:nn #2}  
+     { \clist_put_right:Nn \l_tmpa_clist {#1}  } 
+   } 
+ \clist_use:Nn \l_tmpa_clist {,\c_space_tl }. 
+\ExplSyntaxOff %
 
 \item MathML 3.0 as an \emph{other namespaces}.  The public name of
   the namespace is |tag/NS/mathml|. This can be used to reference the
