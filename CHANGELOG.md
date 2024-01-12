@@ -4,8 +4,13 @@ All notable changes to the `tagpdf` package since the
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
+## [Unreleased]
+
+### Fixed
+ - do not use null with luatex if there is no Kid.
 
 ## [2023-12-18]
+Version 0.98r
 
 ### Added 
   - support for tagging-sockets 

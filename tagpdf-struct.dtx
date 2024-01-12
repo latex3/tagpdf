@@ -312,6 +312,12 @@
 \@@_seq_new:N  \g_@@_struct_objR_seq
 %    \end{macrocode}
 % \end{variable}
+% \begin{variable}{\c_@@_struct_null_tl}
+% In lua mode we have to test if the kids a null
+%    \begin{macrocode}
+\tl_const:Nn\c_@@_struct_null_tl {null}
+%    \end{macrocode}
+% \end{variable}
 
 % \begin{variable}{\g_@@_struct_cont_mc_prop}
 % in generic mode it can happen after
@@ -833,20 +839,40 @@
          {
            % in this case we need a special command in
            % luamode to get the array right. See issue #13
-           \bool_if:NT\g_@@_mode_lua_bool
+           \bool_if:NTF\g_@@_mode_lua_bool
              {
                \@@_struct_exchange_kid_command:c
                 {g_@@_struct_kids_#1_seq}
+%    \end{macrocode}
+% check if we get null
+%    \begin{macrocode}
+                \tl_set:Ne\l_@@_tmpa_tl
+                  {\use:e{\seq_item:cn {g__tag_struct_kids_#1_seq} {1}}}
+                \tl_if_eq:NNF\l__tag_tmpa_tl \c_@@_struct_null_tl 
+                  {   
+                    \@@_struct_prop_gput:nne
+                      {#1}            
+                      {K}
+                      {
+                        \seq_item:cn
+                          {
+                            g_@@_struct_kids_#1_seq
+                          }
+                          {1}
+                      } 
+                  }                 
              }
-           \@@_struct_prop_gput:nne
-             {#1}            
-             {K}
              {
-               \seq_item:cn
+               \@@_struct_prop_gput:nne
+                 {#1}            
+                 {K}
                  {
-                   g_@@_struct_kids_#1_seq
+                   \seq_item:cn
+                     {
+                       g_@@_struct_kids_#1_seq
+                     }
+                     {1}
                  }
-                 {1}
              }
          } %
       }
