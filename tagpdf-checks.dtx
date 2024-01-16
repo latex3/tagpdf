@@ -284,16 +284,30 @@
 %  mc-current}
 %  Various messages related to mc-chunks. TODO document their meaning.
 % \end{function}
-% \begin{function}{struct-no-objnum,struct-faulty-nesting,
+% \begin{function}{struct-unknown,struct-no-objnum,struct-orphan,struct-faulty-nesting,
 %  struct-missing-tag,struct-used-twice,struct-label-unknown,struct-show-closing}
-% Various messages related to structure. TODO document their meaning.
+%  Various messages related to structure. Check the definition in the code for their
+%  meaning and the arguments they take.
 % \end{function}
 %
+% \begin{function}{tree-struct-still-open}
+% Message issued at the end of the compilation 
+% if there are (beside Root) other open structures on the stack.
+% \end{function}
+% 
+
+% \begin{function}{show-struct,show-kids}
+% These two messages are used in debug mode
+% to show the current structures in the log and terminal.
+% \end{function}
+% 
+
 % \begin{function}{attr-unknown}
 % Message if an attribute i sunknown.
 % \end{function}
 %
-% \begin{function}{role-missing,role-unknown,role-unknown-tag,role-tag,new-tag}
+% \begin{function}{role-missing,role-unknown,role-unknown-tag,role-tag,new-tag,
+% role-parent-child,role-remapping}
 % Messages related to role mapping.
 % \end{function}
 %

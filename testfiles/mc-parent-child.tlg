@@ -6,12 +6,12 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             line 17
 Package tagpdf Info: Parent-Child 'Document' --> 'StructTreeRoot'.
 (tagpdf)             Relation is 0 (='unknown')
-(tagpdf)             Rolemapped from 'Document/pdf2' --> 'StructTreeRoot/pdf'
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'StructTreeRoot/pdf2'
 (tagpdf)             on line ...
 Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'StructTreeRoot/pdf' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC
+(tagpdf)             Rolemapped from 'StructTreeRoot/pdf2' --> 'MC' on line ...
+Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf2' --> 'MC
 (tagpdf)                (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 3, /StructTreeRoot) on
 (tagpdf)                line 17

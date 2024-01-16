@@ -120,7 +120,7 @@
 %   \cs{ShowTagging} \Arg{key-val}
 %   \end{syntax}
 % This is a generic function to output various debugging helps. It not
-% necessarly stops the compilation. The keys and their function are described below.
+% necessarily stops the compilation. The keys and their function are described below.
 % \end{function}
 %
 % \begin{function}{mc-data (show-key)}
@@ -158,6 +158,15 @@
 % If no value is used, then the default is |show|.
 % \end{function}
 %
+% \begin{function}{debug/structures (show-key)}
+%  \begin{syntax}
+%    |debug/structures| = \meta{structure number}
+%  \end{syntax}
+%  This key is available only if the tagpdf-debug package is loaded
+%  and shows all structures starting with the one with the number 
+%  given by the key.
+% \end{function}
+
 % \section{Extension commands}
 % The following commands and code parts are not core commands of tagpdf.
 % They either provide work-arounds for missing functionality elsewhere,
@@ -243,6 +252,50 @@
 % { Contents }
 % { (ref) }
 % \end{verbatim}
+% 
+% \section{Socket support}
+% 
+% \begin{function}{\tag_socket_use:n,\tag_socket_use:nn,\UseTaggingSocket}
+% \begin{syntax}
+%  \cs{tag_socket_use:n} \Arg{socket name}\\
+%  \cs{tag_socket_use:nn} \Arg{socket name} \Arg{socket argument}\\
+%  \cs{UseTaggingSocket} \Arg{socket name} \\
+%  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument}\\
+% \end{syntax}
+% \end{function}
+
+% The next \LaTeX{} will use special sockets for the tagging.
+% 
+% These sockets will use names starting
+% with \texttt{tagsupport/}. Usually, these sockets have exactly two
+% plugs defined: \texttt{noop} (when no tagging is requested or 
+% tagging is not wanted for some reason) and 
+% a second plug that enables the tagging. There
+% may be more, e.g., tagging with special debugging, etc., but right
+% now it is usually just on or off.
+%
+% Given that we sometimes have to suspend tagging, it would be fairly
+% inefficient to put different plugs into these sockets whenever that
+% happens. We therefore offer \cs{UseTaggingSocket} which is like
+%  \cs{UseSocket} except that the socket name is specified without
+%  \texttt{tagsupport/}, i.e.,
+% \begin{quote}
+%   \verb=\UseTaggingSocket{foo}=      $\to$
+%   \verb=\UseSocket{tagsupport/foo}=
+% \end{quote}
+%  Beside being slightly shorter, the big advantage is that this way
+%  we can change \cs{UseTaggingSocket} to do nothing by switching a boolean
+%  instead of changing the plugs of the tagging support sockets back and forth.
+%
+%  It is possible to use the tagging support sockets with
+%  \cs{UseSocket} directly, but in this case the socket remains active
+%  if e.g. \cs{SuspendTagging} is in force. There may be reasons for doing
+%  that but in general we expect to always use \cs{UseTaggingSocket}.
+%
+%  The L3 programming layer versions \cs{tag_socket_use:n} and
+%  \cs{tag_socket_use:nn} are slightly more efficient than
+%  \cs{UseTaggingSocket} because they do not have to determine how
+%  many arguments the socket takes when disabling it.
 % \end{documentation}
 %
 % \begin{implementation}
@@ -347,39 +400,6 @@
 % \end{macro}
 %
 % \section{Socket support}
-% The next \LaTeX{} will use special sockets for the tagging.
-% 
-% These sockets will use names starting
-% with \texttt{tagsupport/}. Usually, these sockets have exactly two
-% plugs defined: \texttt{noop} (when no tagging is requested or 
-% tagging is not wanted for some reason) and 
-% a second plug that enables the tagging. There
-% may be more, e.g., tagging with special debugging, etc., but right
-% now it is usually just on or off.
-%
-% Given that we sometimes have to suspend tagging, it would be fairly
-% inefficient to put different plugs into these sockets whenever that
-% happens. We therefore offer \cs{UseTaggingSocket} which is like
-%  \cs{UseSocket} except that the socket name is specified without
-%  \texttt{tagsupport/}, i.e.,
-% \begin{quote}
-%   \verb=\UseTaggingSocket{foo}=      $\to$
-%   \verb=\UseSocket{tagsupport/foo}=
-% \end{quote}
-%  Beside being slightly shorter, the big advantage is that this way
-%  we can change \cs{UseTaggingSocket} to do nothing by switching a boolean
-%  instead of changing the plugs of the tagging support sockets back and forth.
-%
-%  It is possible to use the tagging support sockets with
-%  \cs{UseSocket} directly, but in this case the socket remains active
-%  if e.g. \cs{SuspendTagging} is in force. There may be reasons for doing
-%  that but in general we expect to always use \cs{UseTaggingSocket}.
-%
-%  The L3 programming layer versions \cs{tag_socket_use:n} and
-%  \cs{tag_socket_use:nn} are slightly more efficient than
-%  \cs{UseTaggingSocket} because they do not have to determine how
-%  many arguments the socket takes when disabling it.
-%
 % Until we can be sure that the kernel defines the commands we provide them before
 % redefining them:
 %    \begin{macrocode}
