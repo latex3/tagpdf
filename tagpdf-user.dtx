@@ -738,7 +738,10 @@
 %   \g_@@_para_main_end_int,
 %   \l_@@_para_tag_default_tl,
 %   \l_@@_para_tag_tl,
-%   \l_@@_para_main_tag_tl}
+%   \l_@@_para_main_tag_tl,
+%   \l_@@_para_attr_class_tl,
+%   \l_@@_para_main_attr_class_tl,
+%   }
 %  At first some variables.
 %    \begin{macrocode}
 %</package>
@@ -755,6 +758,12 @@
 \tl_set:Nn  \l_@@_para_tag_tl { \l_@@_para_tag_default_tl }
 \tl_new:N   \l_@@_para_main_tag_tl
 \tl_set:Nn  \l_@@_para_main_tag_tl {text-unit}
+%    \end{macrocode}
+% this is perhaps already defined by the block code
+%    \begin{macrocode}
+\tl_if_exist:NF \l_@@_para_attr_class_tl
+ {\tl_new:N \l_@@_para_attr_class_tl }
+\tl_new:N \l_@@_para_main_attr_class_tl 
 %    \end{macrocode}
 % \end{macro}
 
@@ -847,6 +856,10 @@
 %    \begin{macrocode}
 \AddToHook{package/latex-lab-testphase-block/after}
  {
+   \tl_if_exist:NT \l_tag_para_attr_class_tl
+    {
+      \tl_set:Nn \l_@@_para_attr_class_tl { \l_tag_para_attr_class_tl }
+    }
    \cs_set_protected:Npn \__block_start_para_structure:n #1 {
      \__block_debug_typeout:n
         { @endpe = \legacy_if:nTF { @endpe }{true}{false}
@@ -856,7 +869,11 @@
          \bool_if:NF \l__tag_para_flattened_bool
             {
               \@@_gincr_para_main_begin_int:
-              \tag_struct_begin:n{tag=\l__tag_para_main_tag_tl}
+              \tag_struct_begin:n
+               {
+                tag=\l_@@_para_main_tag_tl,
+                attribute-class=\l_@@_para_main_attr_class_tl,
+               }
             }
         }
      \@@_gincr_para_begin_int:
@@ -864,7 +881,7 @@
      \tag_struct_begin:n
          {
             tag=\l__tag_para_tag_tl
-           ,attribute-class=\l_tag_para_attr_class_tl
+           ,attribute-class=\l_@@_para_attr_class_tl
          }
      \__tag_check_para_begin_show:nn {green}{#1}    
      \tag_mc_begin:n {}
