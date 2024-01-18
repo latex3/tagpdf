@@ -8,6 +8,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Fixed
  - do not use null with luatex if there is no Kid.
+ - font of real space chars in luatex after penalties, issue #72
 
 ## [2023-12-18]
 Version 0.98r

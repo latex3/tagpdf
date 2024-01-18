@@ -754,6 +754,7 @@ local function @@_mark_spaces (head)
     local id = n.id
     if id == GLYPH then
       local glyph = n
+      default_currfontid = glyph.font
       if glyph.next and (glyph.next.id == GLUE)
         and not inside_math  and (glyph.next.width >0)
       then
@@ -790,8 +791,9 @@ local function @@_mark_spaces (head)
       if glyph.next and (glyph.next.id == GLUE)
         and not inside_math  and (glyph.next.width >0) and n.subtype==0
       then
-        nodesetattribute(glyph.next,iwspaceattributeid,1)
-      --  nodesetattribute(glyph.next,iwfontattributeid,glyph.font)
+        nodesetattribute(glyph.next,iwspaceattributeid,1) 
+        --  changed 2024-01-18, issue #72
+        nodesetattribute(glyph.next,iwfontattributeid,default_currfontid)
       -- for debugging
        if ltx.@@.trace.showspaces then
         @@_show_spacemark (head,glyph)
@@ -838,6 +840,7 @@ ltx.@@.func.markspaceoff=@@_deactivate_mark_space
 %    \begin{macrocode}
 local default_space_char = nodenew(GLYPH)
 local default_fontid     = fontid("TU/lmr/m/n/10")
+local default_currfontid = fontid("TU/lmr/m/n/10")
 default_space_char.char  = 32
 default_space_char.font  = default_fontid
 %    \end{macrocode}

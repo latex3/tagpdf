@@ -1,0 +1,24 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\input{regression-test}
+\DocumentMetadata{xmp=false,testphase=phase-III}
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{texgyreheros}
+\pagestyle{empty}
+\begin{document}
+\START
+a~~~~~~b
+
+\begin{verbatim}
+xxx xxx   xxxx
+\end{verbatim}
+
+a\ b
+
+a\penalty10\ b
+ 
+\end{document} 
