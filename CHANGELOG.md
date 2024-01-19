@@ -4,13 +4,16 @@ All notable changes to the `tagpdf` package since the
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
-## [Unreleased]
+
+## [2024-01-19]
+Version 0.98s
 
 ### Fixed
- - do not use null with luatex if there is no Kid.
- - font of real space chars in luatex after penalties, issue #72
- - counter in OBJR code
-
+ - do not use keyword 'null' with luatex if there is no Kid.
+ - font of real space chars in luatex after penalties, issue #72.
+ - counter in OBJR code didn't follow structure counter.
+ - documentation errors (issues #90, #91, #92)
+ 
 ### Added
  - support for attribute-class in paragraphs in the block code. 
 

@@ -1,17 +1,10 @@
-Version 0.98r [2023-12-18]
+Version 0.98s [2024-01-19]
 
-### Added 
-  - support for tagging-sockets 
-  - /Desc key to AF-files added with the texsource and mathml keys.
-  
-### Changed
- - ignore AFref, AFinline-key with empty value.
- - Documentation changes
- - move para bool to tagpdf-base
- - \tag_stop:/\tag_start: keep tracking of nesting with a counter. 
- 
 ### Fixed
- - test for structure end if tagging has been stopped.
- 
-### Removed 
- - \tag_stop_group_begin: and \tag_stop_group_end:
+ - do not use keyword 'null' with luatex if there is no Kid.
+ - font of real space chars in luatex after penalties, issue #72.
+ - counter in OBJR code didn't follow structure counter.
+ - documentation errors (issues #90, #91, #92) 
+
+### Added
+ - support for attribute-class in paragraphs in the block code. 
