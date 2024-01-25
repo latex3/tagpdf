@@ -5,6 +5,11 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [Unreleased]
+### Changed 
+ - add RoleMap (currently without mathml tag) 
+   also with pdf 2.0 (see pdf-UA-meeting)
+
 ## [2024-01-19]
 Version 0.98s
 

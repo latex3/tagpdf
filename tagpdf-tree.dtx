@@ -191,48 +191,25 @@
 % \begin{macro}{\@@_tree_write_structtreeroot:}
 % This writes out the root object.
 %    \begin{macrocode}
-\pdf_version_compare:NnTF < {2.0}   
- { 
-   \cs_new_protected:Npn \@@_tree_write_structtreeroot:
-     {
-        \@@_prop_gput:cne
-          { g_@@_struct_0_prop }
-          { ParentTree }
-          { \pdf_object_ref:n { @@/tree/parenttree } }
-        \@@_prop_gput:cne
-          { g_@@_struct_0_prop }
-          { RoleMap }
-          { \pdf_object_ref:n { @@/tree/rolemap } } 
-        \@@_struct_fill_kid_key:n { 0 }   
-        \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
-        \pdf_object_write:nne
-            { @@/struct/0 }
-            {dict}
-            {
-             \l_@@_tmpa_tl            
-            }
-     }
- } 
-%    \end{macrocode}
-% no RoleMap in pdf 2.0
-%    \begin{macrocode}
- {
-   \cs_new_protected:Npn \@@_tree_write_structtreeroot:
-     {
-        \@@_prop_gput:cne
-          { g_@@_struct_0_prop }
-          { ParentTree }
-          { \pdf_object_ref:n { @@/tree/parenttree } }
-        \@@_struct_fill_kid_key:n { 0 }  
-        \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
-        \pdf_object_write:nne
-            { @@/struct/0 }
-            {dict}
-            {
-             \l_@@_tmpa_tl            
-            }
-     }  
- } 
+\cs_new_protected:Npn \@@_tree_write_structtreeroot:
+  {
+     \@@_prop_gput:cne
+       { g_@@_struct_0_prop }
+       { ParentTree }
+       { \pdf_object_ref:n { @@/tree/parenttree } }
+     \@@_prop_gput:cne
+       { g_@@_struct_0_prop }
+       { RoleMap }
+       { \pdf_object_ref:n { @@/tree/rolemap } } 
+     \@@_struct_fill_kid_key:n { 0 }   
+     \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
+     \pdf_object_write:nne
+         { @@/struct/0 }
+         {dict}
+         {
+          \l_@@_tmpa_tl            
+         }
+  } 
 %    \end{macrocode}
 % \end{macro}
 %
@@ -417,12 +394,10 @@
 % The main part here is handled in the role module, here we only define the
 % command which writes it to the PDF.
 % \begin{variable}{@@/tree/rolemap}
-% At first we reserve again an object.
+% At first we reserve again an object. 
+% Rolemap is also used in PDF 2.0 as a fallback.
 %    \begin{macrocode}
-\pdf_version_compare:NnT < {2.0}
-  {
-    \pdf_object_new:n { @@/tree/rolemap }
-  }  
+\pdf_object_new:n { @@/tree/rolemap }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -430,29 +405,22 @@
 % This writes out the rolemap, basically it simply pushes out
 % the dictionary which has been filled in the role module.
 %    \begin{macrocode}
-\pdf_version_compare:NnTF < {2.0}
-  {
-   \cs_new_protected:Npn \@@_tree_write_rolemap:
-    {     
-      \prop_map_inline:Nn\g_@@_role_rolemap_prop
+\cs_new_protected:Npn \@@_tree_write_rolemap:
+ {     
+   \prop_map_inline:Nn\g_@@_role_rolemap_prop
+     {
+       \tl_if_eq:nnF {##1}{##2}
         {
-          \tl_if_eq:nnF {##1}{##2}
-           {
-             \pdfdict_gput:nne {g_@@_role/RoleMap_dict}
-              {##1}
-              {\pdf_name_from_unicode_e:n{##2}}
-           }   
-        }
-      \pdf_object_write:nne  { @@/tree/rolemap }{dict}
-       {
-        \pdfdict_use:n{g_@@_role/RoleMap_dict}
-       }
+          \pdfdict_gput:nne {g_@@_role/RoleMap_dict}
+           {##1}
+           {\pdf_name_from_unicode_e:n{##2}}
+        }   
+     }
+   \pdf_object_write:nne  { @@/tree/rolemap }{dict}
+    {
+     \pdfdict_use:n{g_@@_role/RoleMap_dict}
     }
-  }
-  {
-    \cs_new_protected:Npn \@@_tree_write_rolemap:{}
-  }
-    
+ }
 %    \end{macrocode}
 % \end{macro}
 %
