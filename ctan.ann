@@ -1,10 +1,6 @@
-Version 0.98s [2024-01-19]
+Version 0.98t [2024-01-26]
 
-### Fixed
- - do not use keyword 'null' with luatex if there is no Kid.
- - font of real space chars in luatex after penalties, issue #72.
- - counter in OBJR code didn't follow structure counter.
- - documentation errors (issues #90, #91, #92) 
 
-### Added
- - support for attribute-class in paragraphs in the block code. 
+### Changed 
+ - add RoleMap also with pdf 2.0 to improve compability to 1.7-processor
+ - add option 'mathml-tags' to add mathml to this fallback RoleMap  
