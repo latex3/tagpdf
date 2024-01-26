@@ -9,6 +9,7 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed 
  - add RoleMap (currently without mathml tag) 
    also with pdf 2.0 (see pdf-UA-meeting)
+ - add option mathml-tags to add mathml to the fallback RoleMap  
 
 ## [2024-01-19]
 Version 0.98s

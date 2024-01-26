@@ -407,6 +407,13 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_rolemap:
  {     
+   \bool_if:NT \g_@@_role_add_mathml_bool 
+     { 
+       \prop_map_inline:Nn \g_@@_role_NS_mathml_prop
+        {
+          \prop_gput:Nnn \g_@@_role_rolemap_prop {##1}{Span}
+        }
+     }
    \prop_map_inline:Nn\g_@@_role_rolemap_prop
      {
        \tl_if_eq:nnF {##1}{##2}

@@ -2,15 +2,15 @@ This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 luatex
 Package tagpdf Info: mapping tag section to role H1
-! Package tagpdf Error: tag mn has no role assigned
+! Package tagpdf Error: tag mnx has no role assigned
 Type <return> to continue.
  ...                                              
-l. ...\__tag_role_add_tag:nn {mn}{}
+l. ...\__tag_role_add_tag:nn {mnx}{}
 LaTeX does not know anything more about this error, sorry.
 Try typing <return> to proceed.
 If that doesn't work, type X <return> to quit.
-Package tagpdf Info: adding new tag mn
-tagpdf: Add mn 89
+Package tagpdf Info: adding new tag mnx
+tagpdf: Add mnx 280
 ! Package tagpdf Error: role HX is not known
 Type <return> to continue.
  ...                                              
@@ -19,7 +19,7 @@ LaTeX does not know anything more about this error, sorry.
 Try typing <return> to proceed.
 If that doesn't work, type X <return> to quit.
 Package tagpdf Info: adding new tag wrongtag
-tagpdf: Add wrongtag 90
+tagpdf: Add wrongtag 281
 The property list \g__tag_role_rolemap_prop contains the pairs (without outer
 braces):
 >  {Artifact}  =>  {NonStruct}
@@ -67,4 +67,4 @@ l. ...\prop_show:N\g__tag_role_rolemap_prop
 > \testname=macro:
 ->user.
 l. ...\show\testname
-89
+170

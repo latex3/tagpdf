@@ -2238,6 +2238,23 @@ Starting with version 0.98 work has started to setup specific latex tags. In
 \PDF{} 2.0 in form of a special name space,  with \PDF{} 1.7 or older the 
 tags are role mapped. This is work in progress and bound to change.
 
+\subsection{Fallback RoleMap}
+
+As mentioned above PDF 2.0 support name spaces for tags. This is quite nice. At first because it
+avoid name clashes, but also because it allow to build a cleaner model of the document structure. 
+
+But sadly support for PDF 2.0 is still quite scarce and while most PDF readers have no problems
+to open and render a PDF 2.0 file they don't \enquote{see} the role mapping if name spaces are used.
+Therefore since version 0.98t \pkg{tagpdf} adds in PDF 2.0 files additionally also a global |/RoleMap|
+dictionary as a fallback for  such processors. 
+
+\subsection{Mathml}
+
+In PDF 2.0 mathml tags have their own name space and can be freely used. 
+In PDF 1.7. they can only be used if they are rolemapped to a standard type. 
+By default they are not added to the |/RoleMap| dictionary, but this can be
+forced with |\tagpdfsetup{mathml-tags}|. Please note that this adds mathml at the end of the document and overwrites tag with the same name without warning.
+
 
 \section{Checking parent-child rules}\label{sec:parent-child}
 

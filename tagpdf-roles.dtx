@@ -353,14 +353,14 @@
 %    \end{macrocode}
 % \end{variable}
 % Now we setup the standard names spaces. 
-% The mathml space is currently only loaded for pdf 2.0.
+% The mathml space is loaded also for pdf < 2.0
+% but not added to RoleMap unless a boolean is set to true with
+% |tagpdf-setup{mathml-tags}|.
 %    \begin{macrocode}
+\bool_new:N \g_@@_role_add_mathml_bool
 \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
 \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
-\pdf_version_compare:NnF < {2.0}
-  {    
-    \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
-  }  
+\@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
 \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
 \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
 \@@_role_NS_new:nnn {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
@@ -715,8 +715,7 @@
 %    \begin{macrocode}
 \@@_role_read_namespace:n {pdf}
 \@@_role_read_namespace:n {pdf2}
-\pdf_version_compare:NnF < {2.0}
-  {\@@_role_read_namespace:n {mathml}} 
+\@@_role_read_namespace:n {mathml}
 %    \end{macrocode}
 % in pdf 1.7 the following namespaces should only store
 % the settings for later use:
@@ -1292,7 +1291,8 @@
 
 \keys_define:nn { @@ / setup }
   {
-    add-new-tag .code:n =
+     mathml-tags .bool_gset:N = \g_@@_role_add_mathml_bool
+    ,add-new-tag .code:n =
      {
        \keys_set_known:nnnN
          {@@/tag-role}
