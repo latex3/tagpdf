@@ -5,6 +5,15 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [2024-02-02]
+Version 0.98u
+
+### Changed
+ - the para/begin and para/end hook now use sockets and properly support the block 
+   code in latex-lab.
+ - the structure number of the current para-main structure is stored to allow 
+   manipulations of the structure.
+   
 ## [2024-01-26]
 Version 0.98t
 
