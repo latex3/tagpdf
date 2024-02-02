@@ -964,32 +964,35 @@
  {
    \bool_if:NT \l_@@_para_bool
      {
-      \__block_debug_typeout:n
-        { @endpe = \legacy_if:nTF { @endpe }{true}{false}
-          \on@line }
-      \legacy_if:nF { @endpe }
-       {
-         \bool_if:NF \l_@@_para_flattened_bool
+       \legacy_if:nF { @inlabel }
+         {     
+           \__block_debug_typeout:n
+             { @endpe = \legacy_if:nTF { @endpe }{true}{false}
+               \on@line }
+           \legacy_if:nF { @endpe }
             {
-              \@@_gincr_para_main_begin_int:
-              \tag_struct_begin:n
-               {
-                tag=\l_@@_para_main_tag_tl,
-                attribute-class=\l_@@_para_main_attr_class_tl,
-               }
-              \@@_para_main_store_struct: 
-            }
-        }
-       \@@_gincr_para_begin_int:
-       \__block_debug_typeout:n{increment~ P \on@line }
-       \tag_struct_begin:n
-         {
-           tag=\l_@@_para_tag_tl
-           ,attribute-class=\l_@@_para_attr_class_tl
-         }
-       \@@_check_para_begin_show:nn {green}{\PARALABEL}    
-       \tag_mc_begin:n {}
+              \bool_if:NF \l_@@_para_flattened_bool
+                 {
+                   \@@_gincr_para_main_begin_int:
+                   \tag_struct_begin:n
+                    {
+                     tag=\l_@@_para_main_tag_tl,
+                     attribute-class=\l_@@_para_main_attr_class_tl,
+                    }
+                   \@@_para_main_store_struct: 
+                 }
+             }
+            \@@_gincr_para_begin_int:
+            \__block_debug_typeout:n{increment~ P \on@line }
+            \tag_struct_begin:n
+              {
+                tag=\l_@@_para_tag_tl
+                ,attribute-class=\l_@@_para_attr_class_tl
+              }
+            \@@_check_para_begin_show:nn {green}{\PARALABEL}    
+            \tag_mc_begin:n {}
       }
+    }  
  }
 
 \socket_new_plug:nnn{tagsupport/para/end}{plain}
