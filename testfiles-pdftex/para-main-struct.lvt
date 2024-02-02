@@ -1,0 +1,18 @@
+\DocumentMetadata{uncompress,testphase=phase-III}
+\input{regression-test}
+\documentclass{article}
+\usepackage{tagpdf-debug}
+
+\begin{document}
+\START
+abc \ExplSyntaxOn
+\tl_show:N \g__tag_para_main_struct_tl
+\ExplSyntaxOff
+
+abc \ExplSyntaxOn
+\tl_show:N \g__tag_para_main_struct_tl
+\ExplSyntaxOff
+
+\ShowTagging{debug/structures}
+xxxx
+\end{document}

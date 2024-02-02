@@ -1,0 +1,107 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+> \g__tag_para_main_struct_tl=4.
+<recently read> }
+l. ...\tl_show:N \g__tag_para_main_struct_tl
+> \g__tag_para_main_struct_tl=6.
+<recently read> }
+l. ...\tl_show:N \g__tag_para_main_struct_tl
+=========================
+The structure 0 contains:
+>  Type  =>  /StructTreeRoot
+>  S  =>  /StructTreeRoot
+>  rolemap  =>  {StructTreeRoot}{pdf}
+>  parentrole  =>  {StructTreeRoot}{pdf}
+The structure has the following kids:
+>  Struct 1
+=========================
+=========================
+The structure 1 contains:
+>  Type  =>  /StructElem
+>  S  =>  /Document
+>  rolemap  =>  {Document}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 0 = StructTreeRoot
+>  NS  =>  pdf2
+The structure has the following kids:
+>  Struct 4
+>  Struct 6
+=========================
+=========================
+The structure 2 contains:
+>  Type  =>  /StructElem
+>  S  =>  /figures
+>  rolemap  =>  {Sect}{}
+>  parentrole  =>  {Sect}{}
+>  P  =>  no parent: stashed
+>  NS  =>  user
+The structure has the following kids:
+> NONE
+=========================
+=========================
+The structure 3 contains:
+>  Type  =>  /StructElem
+>  S  =>  /tables
+>  rolemap  =>  {Sect}{}
+>  parentrole  =>  {Sect}{}
+>  P  =>  no parent: stashed
+>  NS  =>  user
+The structure has the following kids:
+> NONE
+=========================
+=========================
+The structure 4 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  rolemap  =>  {Part}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 1 = Document
+>  NS  =>  user
+The structure has the following kids:
+>  Struct 5
+=========================
+=========================
+The structure 5 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  rolemap  =>  {P}{}
+>  parentrole  =>  {P}{}
+>  P  =>  parent structure: 4 = Document
+>  NS  =>  user
+The structure has the following kids:
+>  MC 1
+=========================
+=========================
+The structure 6 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  rolemap  =>  {Part}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 1 = Document
+>  NS  =>  user
+The structure has the following kids:
+>  Struct 7
+=========================
+=========================
+The structure 7 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  rolemap  =>  {P}{}
+>  parentrole  =>  {P}{}
+>  P  =>  parent structure: 6 = Document
+>  NS  =>  user
+The structure has the following kids:
+>  MC 2
+=========================
+tagpdf DEBUG Info: Tagging stopped
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging restarted
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging stopped
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging restarted
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+[1
+] (para-main-struct.aux)
