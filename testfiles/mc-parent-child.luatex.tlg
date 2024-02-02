@@ -15,6 +15,7 @@ Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf2' --> 'MC
 (tagpdf)                (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 3, /StructTreeRoot) on
 (tagpdf)                line 17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 3 tagged /StructTreeRoot
 Package tagpdf Info: closing structure 2 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -31,6 +32,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 5, /Document) on line
 (tagpdf)                17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 5 tagged /Document
 Package tagpdf Info: closing structure 4 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -46,6 +48,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 7, /Part) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 7 tagged /Part
 Package tagpdf Info: closing structure 6 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -61,6 +64,7 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 9, /Sect) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 9 tagged /Sect
 Package tagpdf Info: closing structure 8 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -75,6 +79,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 11, /Div) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 11 tagged /Div
 Package tagpdf Info: closing structure 10 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -91,6 +96,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Caption/pdf2'.
 Package tagpdf Info: Parent-Child 'Caption' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Caption/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 13 tagged /Caption
 Package tagpdf Info: closing structure 12 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -107,6 +113,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 15, /NonStruct) on
 (tagpdf)                line 17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 15 tagged /NonStruct
 Package tagpdf Info: closing structure 14 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -119,6 +126,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H'.
 Package tagpdf Info: Parent-Child 'H' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 17 tagged /H
 Package tagpdf Info: closing structure 16 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -131,6 +139,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 19 tagged /H1
 Package tagpdf Info: closing structure 18 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -143,6 +152,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H2'.
 Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H2/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 21 tagged /H2
 Package tagpdf Info: closing structure 20 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -155,6 +165,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H3'.
 Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H3/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 23 tagged /H3
 Package tagpdf Info: closing structure 22 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -167,6 +178,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H4'.
 Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H4/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 25 tagged /H4
 Package tagpdf Info: closing structure 24 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -179,6 +191,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H5'.
 Package tagpdf Info: Parent-Child 'H5' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H5/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 27 tagged /H5
 Package tagpdf Info: closing structure 26 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -191,6 +204,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H6'.
 Package tagpdf Info: Parent-Child 'H6' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H6/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 29 tagged /H6
 Package tagpdf Info: closing structure 28 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -203,6 +217,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 31 tagged /P
 Package tagpdf Info: closing structure 30 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -217,6 +232,7 @@ Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 (tagpdf)             Rolemapped from 'L/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 33, /L) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 33 tagged /L
 Package tagpdf Info: closing structure 32 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -232,6 +248,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'LI/pdf2'.
 Package tagpdf Info: Parent-Child 'LI' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'LI/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 35 tagged /LI
 Package tagpdf Info: closing structure 34 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -247,6 +264,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Lbl/pdf2'.
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Lbl/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 37 tagged /Lbl
 Package tagpdf Info: closing structure 36 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -263,6 +281,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'LBody/pdf2'.
 Package tagpdf Info: Parent-Child 'LBody' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'LBody/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 39 tagged /LBody
 Package tagpdf Info: closing structure 38 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -278,6 +297,7 @@ Package tagpdf Info: Parent-Child 'Table' --> 'MC'.
 (tagpdf)             Rolemapped from 'Table/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Table/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 41, /Table) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 41 tagged /Table
 Package tagpdf Info: closing structure 40 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -295,6 +315,7 @@ Package tagpdf Info: Parent-Child 'TR' --> 'MC'.
 (tagpdf)             Rolemapped from 'TR/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'TR/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 43, /TR) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 43 tagged /TR
 Package tagpdf Info: closing structure 42 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -310,6 +331,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'TH/pdf2'.
 Package tagpdf Info: Parent-Child 'TH' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'TH/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 45 tagged /TH
 Package tagpdf Info: closing structure 44 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -325,6 +347,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'TD/pdf2'.
 Package tagpdf Info: Parent-Child 'TD' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'TD/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 47 tagged /TD
 Package tagpdf Info: closing structure 46 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -343,6 +366,7 @@ Package tagpdf Info: Parent-Child 'THead' --> 'MC'.
 (tagpdf)             Rolemapped from 'THead/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'THead/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 49, /THead) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 49 tagged /THead
 Package tagpdf Info: closing structure 48 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -361,6 +385,7 @@ Package tagpdf Info: Parent-Child 'TBody' --> 'MC'.
 (tagpdf)             Rolemapped from 'TBody/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'TBody/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 51, /TBody) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 51 tagged /TBody
 Package tagpdf Info: closing structure 50 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -379,6 +404,7 @@ Package tagpdf Info: Parent-Child 'TFoot' --> 'MC'.
 (tagpdf)             Rolemapped from 'TFoot/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'TFoot/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 53, /TFoot) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 53 tagged /TFoot
 Package tagpdf Info: closing structure 52 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -395,6 +421,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Span/pdf2'.
 Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Span/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 55 tagged /Span
 Package tagpdf Info: closing structure 54 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -408,6 +435,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Link'.
 Package tagpdf Info: Parent-Child 'Link' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Link/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 57 tagged /Link
 Package tagpdf Info: closing structure 56 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -421,6 +449,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Annot'.
 Package tagpdf Info: Parent-Child 'Annot' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Annot/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 59 tagged /Annot
 Package tagpdf Info: closing structure 58 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -434,6 +463,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Figure'.
 Package tagpdf Info: Parent-Child 'Figure' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Figure/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 61 tagged /Figure
 Package tagpdf Info: closing structure 60 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -447,6 +477,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Formula'.
 Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Formula/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 63 tagged /Formula
 Package tagpdf Info: closing structure 62 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -460,6 +491,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Form'.
 Package tagpdf Info: Parent-Child 'Form' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Form/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 65 tagged /Form
 Package tagpdf Info: closing structure 64 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -476,6 +508,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Ruby/pdf2'.
 Package tagpdf Info: Parent-Child 'Ruby' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Ruby/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 67 tagged /Ruby
 Package tagpdf Info: closing structure 66 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -491,6 +524,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'RB/pdf2'.
 Package tagpdf Info: Parent-Child 'RB' --> 'MC'.
 (tagpdf)             Relation is 7 (='‡')
 (tagpdf)             Rolemapped from 'RB/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 69 tagged /RB
 Package tagpdf Info: closing structure 68 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -506,6 +540,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'RT/pdf2'.
 Package tagpdf Info: Parent-Child 'RT' --> 'MC'.
 (tagpdf)             Relation is 7 (='‡')
 (tagpdf)             Rolemapped from 'RT/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 71 tagged /RT
 Package tagpdf Info: closing structure 70 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -522,6 +557,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Warichu/pdf2'.
 Package tagpdf Info: Parent-Child 'Warichu' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Warichu/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 73 tagged /Warichu
 Package tagpdf Info: closing structure 72 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -537,6 +573,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'WT/pdf2'.
 Package tagpdf Info: Parent-Child 'WT' --> 'MC'.
 (tagpdf)             Relation is 7 (='‡')
 (tagpdf)             Rolemapped from 'WT/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 75 tagged /WT
 Package tagpdf Info: closing structure 74 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -552,6 +589,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'WP/pdf2'.
 Package tagpdf Info: Parent-Child 'WP' --> 'MC'.
 (tagpdf)             Relation is 7 (='‡')
 (tagpdf)             Rolemapped from 'WP/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 77 tagged /WP
 Package tagpdf Info: closing structure 76 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -565,6 +603,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Artifact'.
 Package tagpdf Info: Parent-Child 'Artifact' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Artifact/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 79 tagged /Artifact
 Package tagpdf Info: closing structure 78 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -579,6 +618,7 @@ Package tagpdf Info: Parent-Child 'Art' --> 'MC'.
 (tagpdf)             Rolemapped from 'Art/pdf' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Art/pdf' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 81, /Art) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 81 tagged /Art
 Package tagpdf Info: closing structure 80 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -592,6 +632,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'BlockQuote'.
 Package tagpdf Info: Parent-Child 'BlockQuote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'BlockQuote/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 83 tagged /BlockQuote
 Package tagpdf Info: closing structure 82 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -606,6 +647,7 @@ Package tagpdf Info: Parent-Child 'TOC' --> 'MC'.
 (tagpdf)             Rolemapped from 'TOC/pdf' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'TOC/pdf' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 85, /TOC) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 85 tagged /TOC
 Package tagpdf Info: closing structure 84 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -623,6 +665,7 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'MC'.
 (tagpdf)             Rolemapped from 'TOCI/pdf' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'TOCI/pdf' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 87, /TOCI) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 87 tagged /TOCI
 Package tagpdf Info: closing structure 86 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -638,6 +681,7 @@ Package tagpdf Info: Parent-Child 'Index' --> 'MC'.
 (tagpdf)             Rolemapped from 'Index/pdf' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Index/pdf' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 89, /Index) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 89 tagged /Index
 Package tagpdf Info: closing structure 88 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -651,6 +695,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Private'.
 Package tagpdf Info: Parent-Child 'Private' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Private/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 91 tagged /Private
 Package tagpdf Info: closing structure 90 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -667,6 +712,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Quote/pdf'.
 Package tagpdf Info: Parent-Child 'Quote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Quote/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 93 tagged /Quote
 Package tagpdf Info: closing structure 92 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -679,6 +725,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Note'.
 Package tagpdf Info: Parent-Child 'Note' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Note/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 95 tagged /Note
 Package tagpdf Info: closing structure 94 tagged /text-unit
 [1
@@ -697,6 +744,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Reference/pdf'.
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Reference/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 97 tagged /Reference
 Package tagpdf Info: closing structure 96 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -713,6 +761,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'BibEntry/pdf'.
 Package tagpdf Info: Parent-Child 'BibEntry' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'BibEntry/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 99 tagged /BibEntry
 Package tagpdf Info: closing structure 98 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -725,6 +774,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Code'.
 Package tagpdf Info: Parent-Child 'Code' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Code/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 101 tagged /Code
 Package tagpdf Info: closing structure 100 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -743,6 +793,7 @@ Package tagpdf Warning: Parent-Child 'DocumentFragment/pdf2' --> 'MC
 (tagpdf)                (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 103,
 (tagpdf)                /DocumentFragment) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 103 tagged /DocumentFragment
 Package tagpdf Info: closing structure 102 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -756,6 +807,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Aside'.
 Package tagpdf Info: Parent-Child 'Aside' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Aside/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 105 tagged /Aside
 Package tagpdf Info: closing structure 104 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -768,6 +820,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H7'.
 Package tagpdf Info: Parent-Child 'H7' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H7/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 107 tagged /H7
 Package tagpdf Info: closing structure 106 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -780,6 +833,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H8'.
 Package tagpdf Info: Parent-Child 'H8' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H8/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 109 tagged /H8
 Package tagpdf Info: closing structure 108 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -792,6 +846,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H9'.
 Package tagpdf Info: Parent-Child 'H9' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H9/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 111 tagged /H9
 Package tagpdf Info: closing structure 110 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -804,6 +859,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H10'.
 Package tagpdf Info: Parent-Child 'H10' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H10/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 113 tagged /H10
 Package tagpdf Info: closing structure 112 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -817,6 +873,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Title'.
 Package tagpdf Info: Parent-Child 'Title' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Title/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 115 tagged /Title
 Package tagpdf Info: closing structure 114 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -830,6 +887,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'FENote'.
 Package tagpdf Info: Parent-Child 'FENote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'FENote/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 117 tagged /FENote
 Package tagpdf Info: closing structure 116 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -845,6 +903,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Sub/pdf2'.
 Package tagpdf Info: Parent-Child 'Sub' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Sub/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 119 tagged /Sub
 Package tagpdf Info: closing structure 118 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -860,6 +919,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Em/pdf2'.
 Package tagpdf Info: Parent-Child 'Em' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Em/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 121 tagged /Em
 Package tagpdf Info: closing structure 120 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -876,6 +936,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Strong/pdf2'.
 Package tagpdf Info: Parent-Child 'Strong' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Strong/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 123 tagged /Strong
 Package tagpdf Info: closing structure 122 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -892,6 +953,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'abs/mathml'.
 Package tagpdf Info: Parent-Child 'abs' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'abs/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 125 tagged /abs
 Package tagpdf Info: closing structure 124 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -908,6 +970,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'and/mathml'.
 Package tagpdf Info: Parent-Child 'and' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'and/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 127 tagged /and
 Package tagpdf Info: closing structure 126 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -924,6 +987,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'annotation/mathml'.
 Package tagpdf Info: Parent-Child 'annotation' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'annotation/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 129 tagged /annotation
 Package tagpdf Info: closing structure 128 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -940,6 +1004,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'apply/mathml'.
 Package tagpdf Info: Parent-Child 'apply' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'apply/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 131 tagged /apply
 Package tagpdf Info: closing structure 130 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -956,6 +1021,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'approx/mathml'.
 Package tagpdf Info: Parent-Child 'approx' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'approx/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 133 tagged /approx
 Package tagpdf Info: closing structure 132 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -972,6 +1038,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arccos/mathml'.
 Package tagpdf Info: Parent-Child 'arccos' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arccos/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 135 tagged /arccos
 Package tagpdf Info: closing structure 134 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -988,6 +1055,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arccosh/mathml'.
 Package tagpdf Info: Parent-Child 'arccosh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arccosh/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 137 tagged /arccosh
 Package tagpdf Info: closing structure 136 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1004,6 +1072,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arccot/mathml'.
 Package tagpdf Info: Parent-Child 'arccot' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arccot/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 139 tagged /arccot
 Package tagpdf Info: closing structure 138 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1020,6 +1089,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arccoth/mathml'.
 Package tagpdf Info: Parent-Child 'arccoth' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arccoth/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 141 tagged /arccoth
 Package tagpdf Info: closing structure 140 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1036,6 +1106,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arccsc/mathml'.
 Package tagpdf Info: Parent-Child 'arccsc' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arccsc/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 143 tagged /arccsc
 Package tagpdf Info: closing structure 142 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1052,6 +1123,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arccsch/mathml'.
 Package tagpdf Info: Parent-Child 'arccsch' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arccsch/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 145 tagged /arccsch
 Package tagpdf Info: closing structure 144 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1068,6 +1140,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arcsec/mathml'.
 Package tagpdf Info: Parent-Child 'arcsec' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arcsec/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 147 tagged /arcsec
 Package tagpdf Info: closing structure 146 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1084,6 +1157,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arcsech/mathml'.
 Package tagpdf Info: Parent-Child 'arcsech' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arcsech/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 149 tagged /arcsech
 Package tagpdf Info: closing structure 148 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1100,6 +1174,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arcsin/mathml'.
 Package tagpdf Info: Parent-Child 'arcsin' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arcsin/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 151 tagged /arcsin
 Package tagpdf Info: closing structure 150 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1116,6 +1191,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arcsinh/mathml'.
 Package tagpdf Info: Parent-Child 'arcsinh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arcsinh/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 153 tagged /arcsinh
 Package tagpdf Info: closing structure 152 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1132,6 +1208,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arctan/mathml'.
 Package tagpdf Info: Parent-Child 'arctan' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arctan/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 155 tagged /arctan
 Package tagpdf Info: closing structure 154 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1148,6 +1225,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arctanh/mathml'.
 Package tagpdf Info: Parent-Child 'arctanh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arctanh/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 157 tagged /arctanh
 Package tagpdf Info: closing structure 156 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1164,6 +1242,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'arg/mathml'.
 Package tagpdf Info: Parent-Child 'arg' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'arg/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 159 tagged /arg
 Package tagpdf Info: closing structure 158 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1180,6 +1259,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'bind/mathml'.
 Package tagpdf Info: Parent-Child 'bind' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'bind/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 161 tagged /bind
 Package tagpdf Info: closing structure 160 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1196,6 +1276,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'bvar/mathml'.
 Package tagpdf Info: Parent-Child 'bvar' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'bvar/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 163 tagged /bvar
 Package tagpdf Info: closing structure 162 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1212,6 +1293,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'card/mathml'.
 Package tagpdf Info: Parent-Child 'card' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'card/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 165 tagged /card
 Package tagpdf Info: closing structure 164 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1230,6 +1312,7 @@ Package tagpdf Info: Parent-Child 'cartesianproduct' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'cartesianproduct/mathml' --> 'MC' on
 (tagpdf)             line 17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 167 tagged /cartesianproduct
 Package tagpdf Info: closing structure 166 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1246,6 +1329,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'cbytes/mathml'.
 Package tagpdf Info: Parent-Child 'cbytes' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'cbytes/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 169 tagged /cbytes
 Package tagpdf Info: closing structure 168 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1262,6 +1346,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'ceiling/mathml'.
 Package tagpdf Info: Parent-Child 'ceiling' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'ceiling/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 171 tagged /ceiling
 Package tagpdf Info: closing structure 170 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1278,6 +1363,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'cerror/mathml'.
 Package tagpdf Info: Parent-Child 'cerror' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'cerror/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 173 tagged /cerror
 Package tagpdf Info: closing structure 172 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1294,6 +1380,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'ci/mathml'.
 Package tagpdf Info: Parent-Child 'ci' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'ci/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 175 tagged /ci
 Package tagpdf Info: closing structure 174 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1310,6 +1397,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'cn/mathml'.
 Package tagpdf Info: Parent-Child 'cn' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'cn/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 177 tagged /cn
 Package tagpdf Info: closing structure 176 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1326,6 +1414,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'codomain/mathml'.
 Package tagpdf Info: Parent-Child 'codomain' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'codomain/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 179 tagged /codomain
 Package tagpdf Info: closing structure 178 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1342,6 +1431,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'complexes/mathml'.
 Package tagpdf Info: Parent-Child 'complexes' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'complexes/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 181 tagged /complexes
 Package tagpdf Info: closing structure 180 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1358,6 +1448,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'compose/mathml'.
 Package tagpdf Info: Parent-Child 'compose' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'compose/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 183 tagged /compose
 Package tagpdf Info: closing structure 182 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1374,6 +1465,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'condition/mathml'.
 Package tagpdf Info: Parent-Child 'condition' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'condition/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 185 tagged /condition
 Package tagpdf Info: closing structure 184 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1390,6 +1482,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'conjugate/mathml'.
 Package tagpdf Info: Parent-Child 'conjugate' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'conjugate/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 187 tagged /conjugate
 Package tagpdf Info: closing structure 186 tagged /text-unit
 [2]
@@ -1407,6 +1500,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'cos/mathml'.
 Package tagpdf Info: Parent-Child 'cos' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'cos/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 189 tagged /cos
 Package tagpdf Info: closing structure 188 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1423,6 +1517,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'cosh/mathml'.
 Package tagpdf Info: Parent-Child 'cosh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'cosh/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 191 tagged /cosh
 Package tagpdf Info: closing structure 190 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1439,6 +1534,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'cot/mathml'.
 Package tagpdf Info: Parent-Child 'cot' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'cot/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 193 tagged /cot
 Package tagpdf Info: closing structure 192 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1455,6 +1551,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'coth/mathml'.
 Package tagpdf Info: Parent-Child 'coth' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'coth/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 195 tagged /coth
 Package tagpdf Info: closing structure 194 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1471,6 +1568,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'cs/mathml'.
 Package tagpdf Info: Parent-Child 'cs' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'cs/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 197 tagged /cs
 Package tagpdf Info: closing structure 196 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1487,6 +1585,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'csc/mathml'.
 Package tagpdf Info: Parent-Child 'csc' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'csc/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 199 tagged /csc
 Package tagpdf Info: closing structure 198 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1503,6 +1602,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'csch/mathml'.
 Package tagpdf Info: Parent-Child 'csch' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'csch/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 201 tagged /csch
 Package tagpdf Info: closing structure 200 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1519,6 +1619,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'csymbol/mathml'.
 Package tagpdf Info: Parent-Child 'csymbol' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'csymbol/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 203 tagged /csymbol
 Package tagpdf Info: closing structure 202 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1535,6 +1636,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'curl/mathml'.
 Package tagpdf Info: Parent-Child 'curl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'curl/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 205 tagged /curl
 Package tagpdf Info: closing structure 204 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1551,6 +1653,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'declare/mathml'.
 Package tagpdf Info: Parent-Child 'declare' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'declare/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 207 tagged /declare
 Package tagpdf Info: closing structure 206 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1567,6 +1670,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'degree/mathml'.
 Package tagpdf Info: Parent-Child 'degree' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'degree/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 209 tagged /degree
 Package tagpdf Info: closing structure 208 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1583,6 +1687,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'determinant/mathml'.
 Package tagpdf Info: Parent-Child 'determinant' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'determinant/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 211 tagged /determinant
 Package tagpdf Info: closing structure 210 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1599,6 +1704,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'diff/mathml'.
 Package tagpdf Info: Parent-Child 'diff' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'diff/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 213 tagged /diff
 Package tagpdf Info: closing structure 212 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1615,6 +1721,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'divergence/mathml'.
 Package tagpdf Info: Parent-Child 'divergence' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'divergence/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 215 tagged /divergence
 Package tagpdf Info: closing structure 214 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1631,6 +1738,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'divide/mathml'.
 Package tagpdf Info: Parent-Child 'divide' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'divide/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 217 tagged /divide
 Package tagpdf Info: closing structure 216 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1647,6 +1755,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'domain/mathml'.
 Package tagpdf Info: Parent-Child 'domain' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'domain/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 219 tagged /domain
 Package tagpdf Info: closing structure 218 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1665,6 +1774,7 @@ Package tagpdf Info: Parent-Child 'domainofapplication' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'domainofapplication/mathml' --> 'MC' on
 (tagpdf)             line 17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 221 tagged /domainofapplication
 Package tagpdf Info: closing structure 220 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1681,6 +1791,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'emptyset/mathml'.
 Package tagpdf Info: Parent-Child 'emptyset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'emptyset/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 223 tagged /emptyset
 Package tagpdf Info: closing structure 222 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1697,6 +1808,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'eq/mathml'.
 Package tagpdf Info: Parent-Child 'eq' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'eq/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 225 tagged /eq
 Package tagpdf Info: closing structure 224 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1713,6 +1825,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'equivalent/mathml'.
 Package tagpdf Info: Parent-Child 'equivalent' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'equivalent/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 227 tagged /equivalent
 Package tagpdf Info: closing structure 226 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1729,6 +1842,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'eulergamma/mathml'.
 Package tagpdf Info: Parent-Child 'eulergamma' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'eulergamma/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 229 tagged /eulergamma
 Package tagpdf Info: closing structure 228 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1745,6 +1859,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'exists/mathml'.
 Package tagpdf Info: Parent-Child 'exists' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'exists/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 231 tagged /exists
 Package tagpdf Info: closing structure 230 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1761,6 +1876,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'exp/mathml'.
 Package tagpdf Info: Parent-Child 'exp' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'exp/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 233 tagged /exp
 Package tagpdf Info: closing structure 232 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1778,6 +1894,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' -->
 Package tagpdf Info: Parent-Child 'exponentiale' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'exponentiale/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 235 tagged /exponentiale
 Package tagpdf Info: closing structure 234 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1794,6 +1911,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'factorial/mathml'.
 Package tagpdf Info: Parent-Child 'factorial' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'factorial/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 237 tagged /factorial
 Package tagpdf Info: closing structure 236 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1810,6 +1928,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'factorof/mathml'.
 Package tagpdf Info: Parent-Child 'factorof' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'factorof/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 239 tagged /factorof
 Package tagpdf Info: closing structure 238 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1826,6 +1945,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'false/mathml'.
 Package tagpdf Info: Parent-Child 'false' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'false/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 241 tagged /false
 Package tagpdf Info: closing structure 240 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1842,6 +1962,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'floor/mathml'.
 Package tagpdf Info: Parent-Child 'floor' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'floor/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 243 tagged /floor
 Package tagpdf Info: closing structure 242 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1858,6 +1979,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'fn/mathml'.
 Package tagpdf Info: Parent-Child 'fn' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'fn/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 245 tagged /fn
 Package tagpdf Info: closing structure 244 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1874,6 +1996,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'forall/mathml'.
 Package tagpdf Info: Parent-Child 'forall' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'forall/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 247 tagged /forall
 Package tagpdf Info: closing structure 246 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1890,6 +2013,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'gcd/mathml'.
 Package tagpdf Info: Parent-Child 'gcd' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'gcd/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 249 tagged /gcd
 Package tagpdf Info: closing structure 248 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1906,6 +2030,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'geq/mathml'.
 Package tagpdf Info: Parent-Child 'geq' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'geq/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 251 tagged /geq
 Package tagpdf Info: closing structure 250 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1922,6 +2047,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'grad/mathml'.
 Package tagpdf Info: Parent-Child 'grad' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'grad/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 253 tagged /grad
 Package tagpdf Info: closing structure 252 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1938,6 +2064,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'gt/mathml'.
 Package tagpdf Info: Parent-Child 'gt' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'gt/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 255 tagged /gt
 Package tagpdf Info: closing structure 254 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1954,6 +2081,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'ident/mathml'.
 Package tagpdf Info: Parent-Child 'ident' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'ident/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 257 tagged /ident
 Package tagpdf Info: closing structure 256 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1970,6 +2098,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'image/mathml'.
 Package tagpdf Info: Parent-Child 'image' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'image/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 259 tagged /image
 Package tagpdf Info: closing structure 258 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -1986,6 +2115,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'imaginary/mathml'.
 Package tagpdf Info: Parent-Child 'imaginary' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'imaginary/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 261 tagged /imaginary
 Package tagpdf Info: closing structure 260 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2002,6 +2132,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'imaginaryi/mathml'.
 Package tagpdf Info: Parent-Child 'imaginaryi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'imaginaryi/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 263 tagged /imaginaryi
 Package tagpdf Info: closing structure 262 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2018,6 +2149,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'implies/mathml'.
 Package tagpdf Info: Parent-Child 'implies' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'implies/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 265 tagged /implies
 Package tagpdf Info: closing structure 264 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2034,6 +2166,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'in/mathml'.
 Package tagpdf Info: Parent-Child 'in' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'in/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 267 tagged /in
 Package tagpdf Info: closing structure 266 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2050,6 +2183,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'infinity/mathml'.
 Package tagpdf Info: Parent-Child 'infinity' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'infinity/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 269 tagged /infinity
 Package tagpdf Info: closing structure 268 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2066,6 +2200,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'int/mathml'.
 Package tagpdf Info: Parent-Child 'int' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'int/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 271 tagged /int
 Package tagpdf Info: closing structure 270 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2082,6 +2217,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'integers/mathml'.
 Package tagpdf Info: Parent-Child 'integers' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'integers/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 273 tagged /integers
 Package tagpdf Info: closing structure 272 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2098,6 +2234,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'intersect/mathml'.
 Package tagpdf Info: Parent-Child 'intersect' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'intersect/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 275 tagged /intersect
 Package tagpdf Info: closing structure 274 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2114,6 +2251,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'interval/mathml'.
 Package tagpdf Info: Parent-Child 'interval' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'interval/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 277 tagged /interval
 Package tagpdf Info: closing structure 276 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2130,6 +2268,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'inverse/mathml'.
 Package tagpdf Info: Parent-Child 'inverse' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'inverse/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 279 tagged /inverse
 Package tagpdf Info: closing structure 278 tagged /text-unit
 [3]
@@ -2147,6 +2286,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'lambda/mathml'.
 Package tagpdf Info: Parent-Child 'lambda' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'lambda/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 281 tagged /lambda
 Package tagpdf Info: closing structure 280 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2163,6 +2303,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'laplacian/mathml'.
 Package tagpdf Info: Parent-Child 'laplacian' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'laplacian/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 283 tagged /laplacian
 Package tagpdf Info: closing structure 282 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2179,6 +2320,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'lcm/mathml'.
 Package tagpdf Info: Parent-Child 'lcm' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'lcm/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 285 tagged /lcm
 Package tagpdf Info: closing structure 284 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2195,6 +2337,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'leq/mathml'.
 Package tagpdf Info: Parent-Child 'leq' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'leq/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 287 tagged /leq
 Package tagpdf Info: closing structure 286 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2211,6 +2354,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'limit/mathml'.
 Package tagpdf Info: Parent-Child 'limit' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'limit/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 289 tagged /limit
 Package tagpdf Info: closing structure 288 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2227,6 +2371,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'ln/mathml'.
 Package tagpdf Info: Parent-Child 'ln' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'ln/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 291 tagged /ln
 Package tagpdf Info: closing structure 290 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2243,6 +2388,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'log/mathml'.
 Package tagpdf Info: Parent-Child 'log' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'log/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 293 tagged /log
 Package tagpdf Info: closing structure 292 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2259,6 +2405,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'logbase/mathml'.
 Package tagpdf Info: Parent-Child 'logbase' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'logbase/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 295 tagged /logbase
 Package tagpdf Info: closing structure 294 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2275,6 +2422,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'lowlimit/mathml'.
 Package tagpdf Info: Parent-Child 'lowlimit' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'lowlimit/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 297 tagged /lowlimit
 Package tagpdf Info: closing structure 296 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2291,6 +2439,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'lt/mathml'.
 Package tagpdf Info: Parent-Child 'lt' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'lt/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 299 tagged /lt
 Package tagpdf Info: closing structure 298 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2307,6 +2456,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'maction/mathml'.
 Package tagpdf Info: Parent-Child 'maction' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'maction/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 301 tagged /maction
 Package tagpdf Info: closing structure 300 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2323,6 +2473,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'maligngroup/mathml'.
 Package tagpdf Info: Parent-Child 'maligngroup' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'maligngroup/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 303 tagged /maligngroup
 Package tagpdf Info: closing structure 302 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2339,6 +2490,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'malignmark/mathml'.
 Package tagpdf Info: Parent-Child 'malignmark' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'malignmark/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 305 tagged /malignmark
 Package tagpdf Info: closing structure 304 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2357,6 +2509,7 @@ Package tagpdf Info: Parent-Child 'math' --> 'MC'.
 (tagpdf)             Rolemapped from 'math/mathml' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'math/mathml' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 307, /math) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 307 tagged /math
 Package tagpdf Info: closing structure 306 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2373,6 +2526,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'matrix/mathml'.
 Package tagpdf Info: Parent-Child 'matrix' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'matrix/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 309 tagged /matrix
 Package tagpdf Info: closing structure 308 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2389,6 +2543,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'matrixrow/mathml'.
 Package tagpdf Info: Parent-Child 'matrixrow' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'matrixrow/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 311 tagged /matrixrow
 Package tagpdf Info: closing structure 310 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2405,6 +2560,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'max/mathml'.
 Package tagpdf Info: Parent-Child 'max' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'max/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 313 tagged /max
 Package tagpdf Info: closing structure 312 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2421,6 +2577,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mean/mathml'.
 Package tagpdf Info: Parent-Child 'mean' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mean/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 315 tagged /mean
 Package tagpdf Info: closing structure 314 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2437,6 +2594,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'median/mathml'.
 Package tagpdf Info: Parent-Child 'median' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'median/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 317 tagged /median
 Package tagpdf Info: closing structure 316 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2453,6 +2611,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'menclose/mathml'.
 Package tagpdf Info: Parent-Child 'menclose' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'menclose/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 319 tagged /menclose
 Package tagpdf Info: closing structure 318 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2469,6 +2628,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'merror/mathml'.
 Package tagpdf Info: Parent-Child 'merror' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'merror/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 321 tagged /merror
 Package tagpdf Info: closing structure 320 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2485,6 +2645,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mfenced/mathml'.
 Package tagpdf Info: Parent-Child 'mfenced' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mfenced/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 323 tagged /mfenced
 Package tagpdf Info: closing structure 322 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2501,6 +2662,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mfrac/mathml'.
 Package tagpdf Info: Parent-Child 'mfrac' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mfrac/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 325 tagged /mfrac
 Package tagpdf Info: closing structure 324 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2517,6 +2679,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mglyph/mathml'.
 Package tagpdf Info: Parent-Child 'mglyph' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mglyph/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 327 tagged /mglyph
 Package tagpdf Info: closing structure 326 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2533,6 +2696,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mi/mathml'.
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mi/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 329 tagged /mi
 Package tagpdf Info: closing structure 328 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2549,6 +2713,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'min/mathml'.
 Package tagpdf Info: Parent-Child 'min' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'min/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 331 tagged /min
 Package tagpdf Info: closing structure 330 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2565,6 +2730,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'minus/mathml'.
 Package tagpdf Info: Parent-Child 'minus' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'minus/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 333 tagged /minus
 Package tagpdf Info: closing structure 332 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2581,6 +2747,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mlabeledtr/mathml'.
 Package tagpdf Info: Parent-Child 'mlabeledtr' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mlabeledtr/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 335 tagged /mlabeledtr
 Package tagpdf Info: closing structure 334 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2597,6 +2764,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mlongdiv/mathml'.
 Package tagpdf Info: Parent-Child 'mlongdiv' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mlongdiv/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 337 tagged /mlongdiv
 Package tagpdf Info: closing structure 336 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2615,6 +2783,7 @@ Package tagpdf Info: Parent-Child 'mmultiscripts' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mmultiscripts/mathml' --> 'MC' on line
 (tagpdf)             17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 339 tagged /mmultiscripts
 Package tagpdf Info: closing structure 338 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2631,6 +2800,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mn/mathml'.
 Package tagpdf Info: Parent-Child 'mn' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mn/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 341 tagged /mn
 Package tagpdf Info: closing structure 340 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2647,6 +2817,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mo/mathml'.
 Package tagpdf Info: Parent-Child 'mo' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mo/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 343 tagged /mo
 Package tagpdf Info: closing structure 342 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2663,6 +2834,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mode/mathml'.
 Package tagpdf Info: Parent-Child 'mode' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mode/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 345 tagged /mode
 Package tagpdf Info: closing structure 344 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2679,6 +2851,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'moment/mathml'.
 Package tagpdf Info: Parent-Child 'moment' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'moment/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 347 tagged /moment
 Package tagpdf Info: closing structure 346 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2695,6 +2868,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'momentabout/mathml'.
 Package tagpdf Info: Parent-Child 'momentabout' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'momentabout/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 349 tagged /momentabout
 Package tagpdf Info: closing structure 348 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2711,6 +2885,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mover/mathml'.
 Package tagpdf Info: Parent-Child 'mover' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mover/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 351 tagged /mover
 Package tagpdf Info: closing structure 350 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2727,6 +2902,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mpadded/mathml'.
 Package tagpdf Info: Parent-Child 'mpadded' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mpadded/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 353 tagged /mpadded
 Package tagpdf Info: closing structure 352 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2743,6 +2919,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mphantom/mathml'.
 Package tagpdf Info: Parent-Child 'mphantom' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mphantom/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 355 tagged /mphantom
 Package tagpdf Info: closing structure 354 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2759,6 +2936,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mprescripts/mathml'.
 Package tagpdf Info: Parent-Child 'mprescripts' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mprescripts/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 357 tagged /mprescripts
 Package tagpdf Info: closing structure 356 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2775,6 +2953,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mroot/mathml'.
 Package tagpdf Info: Parent-Child 'mroot' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mroot/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 359 tagged /mroot
 Package tagpdf Info: closing structure 358 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2791,6 +2970,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mrow/mathml'.
 Package tagpdf Info: Parent-Child 'mrow' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mrow/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 361 tagged /mrow
 Package tagpdf Info: closing structure 360 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2807,6 +2987,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'ms/mathml'.
 Package tagpdf Info: Parent-Child 'ms' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'ms/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 363 tagged /ms
 Package tagpdf Info: closing structure 362 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2823,6 +3004,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mscarries/mathml'.
 Package tagpdf Info: Parent-Child 'mscarries' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mscarries/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 365 tagged /mscarries
 Package tagpdf Info: closing structure 364 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2839,6 +3021,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mscarry/mathml'.
 Package tagpdf Info: Parent-Child 'mscarry' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mscarry/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 367 tagged /mscarry
 Package tagpdf Info: closing structure 366 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2855,6 +3038,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'msgroup/mathml'.
 Package tagpdf Info: Parent-Child 'msgroup' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'msgroup/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 369 tagged /msgroup
 Package tagpdf Info: closing structure 368 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2871,6 +3055,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'msline/mathml'.
 Package tagpdf Info: Parent-Child 'msline' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'msline/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 371 tagged /msline
 Package tagpdf Info: closing structure 370 tagged /text-unit
 [4]
@@ -2888,6 +3073,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mspace/mathml'.
 Package tagpdf Info: Parent-Child 'mspace' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mspace/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 373 tagged /mspace
 Package tagpdf Info: closing structure 372 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2904,6 +3090,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'msqrt/mathml'.
 Package tagpdf Info: Parent-Child 'msqrt' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'msqrt/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 375 tagged /msqrt
 Package tagpdf Info: closing structure 374 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2920,6 +3107,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'msrow/mathml'.
 Package tagpdf Info: Parent-Child 'msrow' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'msrow/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 377 tagged /msrow
 Package tagpdf Info: closing structure 376 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2936,6 +3124,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mstack/mathml'.
 Package tagpdf Info: Parent-Child 'mstack' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mstack/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 379 tagged /mstack
 Package tagpdf Info: closing structure 378 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2952,6 +3141,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mstyle/mathml'.
 Package tagpdf Info: Parent-Child 'mstyle' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mstyle/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 381 tagged /mstyle
 Package tagpdf Info: closing structure 380 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2968,6 +3158,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'msub/mathml'.
 Package tagpdf Info: Parent-Child 'msub' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'msub/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 383 tagged /msub
 Package tagpdf Info: closing structure 382 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -2984,6 +3175,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'msubsup/mathml'.
 Package tagpdf Info: Parent-Child 'msubsup' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'msubsup/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 385 tagged /msubsup
 Package tagpdf Info: closing structure 384 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3000,6 +3192,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'msup/mathml'.
 Package tagpdf Info: Parent-Child 'msup' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'msup/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 387 tagged /msup
 Package tagpdf Info: closing structure 386 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3016,6 +3209,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mtable/mathml'.
 Package tagpdf Info: Parent-Child 'mtable' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mtable/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 389 tagged /mtable
 Package tagpdf Info: closing structure 388 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3032,6 +3226,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mtd/mathml'.
 Package tagpdf Info: Parent-Child 'mtd' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mtd/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 391 tagged /mtd
 Package tagpdf Info: closing structure 390 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3048,6 +3243,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mtext/mathml'.
 Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mtext/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 393 tagged /mtext
 Package tagpdf Info: closing structure 392 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3064,6 +3260,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'mtr/mathml'.
 Package tagpdf Info: Parent-Child 'mtr' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'mtr/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 395 tagged /mtr
 Package tagpdf Info: closing structure 394 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3080,6 +3277,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'munder/mathml'.
 Package tagpdf Info: Parent-Child 'munder' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'munder/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 397 tagged /munder
 Package tagpdf Info: closing structure 396 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3096,6 +3294,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'munderover/mathml'.
 Package tagpdf Info: Parent-Child 'munderover' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'munderover/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 399 tagged /munderover
 Package tagpdf Info: closing structure 398 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3114,6 +3313,7 @@ Package tagpdf Info: Parent-Child 'naturalnumbers' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'naturalnumbers/mathml' --> 'MC' on line
 (tagpdf)             17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 401 tagged /naturalnumbers
 Package tagpdf Info: closing structure 400 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3130,6 +3330,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'neq/mathml'.
 Package tagpdf Info: Parent-Child 'neq' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'neq/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 403 tagged /neq
 Package tagpdf Info: closing structure 402 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3146,6 +3347,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'none/mathml'.
 Package tagpdf Info: Parent-Child 'none' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'none/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 405 tagged /none
 Package tagpdf Info: closing structure 404 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3162,6 +3364,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'not/mathml'.
 Package tagpdf Info: Parent-Child 'not' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'not/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 407 tagged /not
 Package tagpdf Info: closing structure 406 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3178,6 +3381,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'notanumber/mathml'.
 Package tagpdf Info: Parent-Child 'notanumber' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'notanumber/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 409 tagged /notanumber
 Package tagpdf Info: closing structure 408 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3194,6 +3398,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'notin/mathml'.
 Package tagpdf Info: Parent-Child 'notin' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'notin/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 411 tagged /notin
 Package tagpdf Info: closing structure 410 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3210,6 +3415,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'notprsubset/mathml'.
 Package tagpdf Info: Parent-Child 'notprsubset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'notprsubset/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 413 tagged /notprsubset
 Package tagpdf Info: closing structure 412 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3226,6 +3432,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'notsubset/mathml'.
 Package tagpdf Info: Parent-Child 'notsubset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'notsubset/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 415 tagged /notsubset
 Package tagpdf Info: closing structure 414 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3242,6 +3449,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'or/mathml'.
 Package tagpdf Info: Parent-Child 'or' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'or/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 417 tagged /or
 Package tagpdf Info: closing structure 416 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3258,6 +3466,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'otherwise/mathml'.
 Package tagpdf Info: Parent-Child 'otherwise' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'otherwise/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 419 tagged /otherwise
 Package tagpdf Info: closing structure 418 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3275,6 +3484,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' -->
 Package tagpdf Info: Parent-Child 'outerproduct' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'outerproduct/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 421 tagged /outerproduct
 Package tagpdf Info: closing structure 420 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3291,6 +3501,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'partialdiff/mathml'.
 Package tagpdf Info: Parent-Child 'partialdiff' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'partialdiff/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 423 tagged /partialdiff
 Package tagpdf Info: closing structure 422 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3307,6 +3518,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'pi/mathml'.
 Package tagpdf Info: Parent-Child 'pi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'pi/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 425 tagged /pi
 Package tagpdf Info: closing structure 424 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3323,6 +3535,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'piece/mathml'.
 Package tagpdf Info: Parent-Child 'piece' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'piece/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 427 tagged /piece
 Package tagpdf Info: closing structure 426 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3339,6 +3552,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'piecewise/mathml'.
 Package tagpdf Info: Parent-Child 'piecewise' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'piecewise/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 429 tagged /piecewise
 Package tagpdf Info: closing structure 428 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3355,6 +3569,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'plus/mathml'.
 Package tagpdf Info: Parent-Child 'plus' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'plus/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 431 tagged /plus
 Package tagpdf Info: closing structure 430 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3371,6 +3586,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'power/mathml'.
 Package tagpdf Info: Parent-Child 'power' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'power/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 433 tagged /power
 Package tagpdf Info: closing structure 432 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3387,6 +3603,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'primes/mathml'.
 Package tagpdf Info: Parent-Child 'primes' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'primes/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 435 tagged /primes
 Package tagpdf Info: closing structure 434 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3403,6 +3620,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'product/mathml'.
 Package tagpdf Info: Parent-Child 'product' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'product/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 437 tagged /product
 Package tagpdf Info: closing structure 436 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3419,6 +3637,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'prsubset/mathml'.
 Package tagpdf Info: Parent-Child 'prsubset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'prsubset/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 439 tagged /prsubset
 Package tagpdf Info: closing structure 438 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3435,6 +3654,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'quotient/mathml'.
 Package tagpdf Info: Parent-Child 'quotient' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'quotient/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 441 tagged /quotient
 Package tagpdf Info: closing structure 440 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3451,6 +3671,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'rationals/mathml'.
 Package tagpdf Info: Parent-Child 'rationals' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'rationals/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 443 tagged /rationals
 Package tagpdf Info: closing structure 442 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3467,6 +3688,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'real/mathml'.
 Package tagpdf Info: Parent-Child 'real' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'real/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 445 tagged /real
 Package tagpdf Info: closing structure 444 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3483,6 +3705,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'reals/mathml'.
 Package tagpdf Info: Parent-Child 'reals' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'reals/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 447 tagged /reals
 Package tagpdf Info: closing structure 446 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3499,6 +3722,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'reln/mathml'.
 Package tagpdf Info: Parent-Child 'reln' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'reln/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 449 tagged /reln
 Package tagpdf Info: closing structure 448 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3515,6 +3739,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'rem/mathml'.
 Package tagpdf Info: Parent-Child 'rem' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'rem/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 451 tagged /rem
 Package tagpdf Info: closing structure 450 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3531,6 +3756,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'root/mathml'.
 Package tagpdf Info: Parent-Child 'root' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'root/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 453 tagged /root
 Package tagpdf Info: closing structure 452 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3549,6 +3775,7 @@ Package tagpdf Info: Parent-Child 'scalarproduct' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'scalarproduct/mathml' --> 'MC' on line
 (tagpdf)             17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 455 tagged /scalarproduct
 Package tagpdf Info: closing structure 454 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3565,6 +3792,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'sdev/mathml'.
 Package tagpdf Info: Parent-Child 'sdev' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'sdev/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 457 tagged /sdev
 Package tagpdf Info: closing structure 456 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3581,6 +3809,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'sec/mathml'.
 Package tagpdf Info: Parent-Child 'sec' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'sec/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 459 tagged /sec
 Package tagpdf Info: closing structure 458 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3597,6 +3826,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'sech/mathml'.
 Package tagpdf Info: Parent-Child 'sech' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'sech/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 461 tagged /sech
 Package tagpdf Info: closing structure 460 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3613,6 +3843,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'selector/mathml'.
 Package tagpdf Info: Parent-Child 'selector' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'selector/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 463 tagged /selector
 Package tagpdf Info: closing structure 462 tagged /text-unit
 [5]
@@ -3630,6 +3861,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'semantics/mathml'.
 Package tagpdf Info: Parent-Child 'semantics' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'semantics/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 465 tagged /semantics
 Package tagpdf Info: closing structure 464 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3646,6 +3878,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'sep/mathml'.
 Package tagpdf Info: Parent-Child 'sep' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'sep/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 467 tagged /sep
 Package tagpdf Info: closing structure 466 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3662,6 +3895,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'set/mathml'.
 Package tagpdf Info: Parent-Child 'set' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'set/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 469 tagged /set
 Package tagpdf Info: closing structure 468 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3678,6 +3912,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'setdiff/mathml'.
 Package tagpdf Info: Parent-Child 'setdiff' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'setdiff/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 471 tagged /setdiff
 Package tagpdf Info: closing structure 470 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3694,6 +3929,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'share/mathml'.
 Package tagpdf Info: Parent-Child 'share' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'share/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 473 tagged /share
 Package tagpdf Info: closing structure 472 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3710,6 +3946,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'sin/mathml'.
 Package tagpdf Info: Parent-Child 'sin' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'sin/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 475 tagged /sin
 Package tagpdf Info: closing structure 474 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3726,6 +3963,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'sinh/mathml'.
 Package tagpdf Info: Parent-Child 'sinh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'sinh/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 477 tagged /sinh
 Package tagpdf Info: closing structure 476 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3742,6 +3980,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'subset/mathml'.
 Package tagpdf Info: Parent-Child 'subset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'subset/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 479 tagged /subset
 Package tagpdf Info: closing structure 478 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3758,6 +3997,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'sum/mathml'.
 Package tagpdf Info: Parent-Child 'sum' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'sum/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 481 tagged /sum
 Package tagpdf Info: closing structure 480 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3774,6 +4014,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'tan/mathml'.
 Package tagpdf Info: Parent-Child 'tan' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'tan/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 483 tagged /tan
 Package tagpdf Info: closing structure 482 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3790,6 +4031,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'tanh/mathml'.
 Package tagpdf Info: Parent-Child 'tanh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'tanh/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 485 tagged /tanh
 Package tagpdf Info: closing structure 484 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3806,6 +4048,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'tendsto/mathml'.
 Package tagpdf Info: Parent-Child 'tendsto' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'tendsto/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 487 tagged /tendsto
 Package tagpdf Info: closing structure 486 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3822,6 +4065,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'times/mathml'.
 Package tagpdf Info: Parent-Child 'times' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'times/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 489 tagged /times
 Package tagpdf Info: closing structure 488 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3838,6 +4082,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'transpose/mathml'.
 Package tagpdf Info: Parent-Child 'transpose' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'transpose/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 491 tagged /transpose
 Package tagpdf Info: closing structure 490 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3854,6 +4099,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'true/mathml'.
 Package tagpdf Info: Parent-Child 'true' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'true/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 493 tagged /true
 Package tagpdf Info: closing structure 492 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3870,6 +4116,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'union/mathml'.
 Package tagpdf Info: Parent-Child 'union' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'union/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 495 tagged /union
 Package tagpdf Info: closing structure 494 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3886,6 +4133,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'uplimit/mathml'.
 Package tagpdf Info: Parent-Child 'uplimit' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'uplimit/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 497 tagged /uplimit
 Package tagpdf Info: closing structure 496 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3902,6 +4150,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'variance/mathml'.
 Package tagpdf Info: Parent-Child 'variance' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'variance/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 499 tagged /variance
 Package tagpdf Info: closing structure 498 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3918,6 +4167,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'vector/mathml'.
 Package tagpdf Info: Parent-Child 'vector' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'vector/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 501 tagged /vector
 Package tagpdf Info: closing structure 500 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3936,6 +4186,7 @@ Package tagpdf Info: Parent-Child 'vectorproduct' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'vectorproduct/mathml' --> 'MC' on line
 (tagpdf)             17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 503 tagged /vectorproduct
 Package tagpdf Info: closing structure 502 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3952,6 +4203,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'xor/mathml'.
 Package tagpdf Info: Parent-Child 'xor' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'xor/mathml' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 505 tagged /xor
 Package tagpdf Info: closing structure 504 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3965,6 +4217,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 507 tagged /chapter
 Package tagpdf Info: closing structure 506 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3978,6 +4231,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H1/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 509 tagged /section
 Package tagpdf Info: closing structure 508 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -3991,6 +4245,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H2'.
 Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H2/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 511 tagged /subsection
 Package tagpdf Info: closing structure 510 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4004,6 +4259,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H3'.
 Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H3/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 513 tagged /subsubsection
 Package tagpdf Info: closing structure 512 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4017,6 +4273,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H4'.
 Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H4/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 515 tagged /paragraph
 Package tagpdf Info: closing structure 514 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4030,6 +4287,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H5'.
 Package tagpdf Info: Parent-Child 'H5' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'H5/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 517 tagged /subparagraph
 Package tagpdf Info: closing structure 516 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4043,6 +4301,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Title'.
 Package tagpdf Info: Parent-Child 'Title' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Title/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 519 tagged /title
 Package tagpdf Info: closing structure 518 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4056,6 +4315,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Title'.
 Package tagpdf Info: Parent-Child 'Title' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Title/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 521 tagged /part
 Package tagpdf Info: closing structure 520 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4071,6 +4331,7 @@ Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 (tagpdf)             Rolemapped from 'L/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 523, /list) on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 523 tagged /list
 Package tagpdf Info: closing structure 522 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4087,6 +4348,7 @@ Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 525, /itemize) on line
 (tagpdf)                17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 525 tagged /itemize
 Package tagpdf Info: closing structure 524 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4103,6 +4365,7 @@ Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 527, /enumerate) on
 (tagpdf)                line 17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 527 tagged /enumerate
 Package tagpdf Info: closing structure 526 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4119,6 +4382,7 @@ Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 529, /description) on
 (tagpdf)                line 17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 529 tagged /description
 Package tagpdf Info: closing structure 528 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4132,6 +4396,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'BlockQuote'.
 Package tagpdf Info: Parent-Child 'BlockQuote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'BlockQuote/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 531 tagged /quote
 Package tagpdf Info: closing structure 530 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4145,6 +4410,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'BlockQuote'.
 Package tagpdf Info: Parent-Child 'BlockQuote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'BlockQuote/pdf' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 533 tagged /quotation
 Package tagpdf Info: closing structure 532 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4158,6 +4424,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 535 tagged /verbatim
 Package tagpdf Info: closing structure 534 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4174,6 +4441,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'item/latex'.
 Package tagpdf Info: Parent-Child 'LI' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'LI/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 537 tagged /item
 Package tagpdf Info: closing structure 536 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4190,6 +4458,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'itemlabel/latex'.
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Lbl/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 539 tagged /itemlabel
 Package tagpdf Info: closing structure 538 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4206,6 +4475,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'itembody/latex'.
 Package tagpdf Info: Parent-Child 'LBody' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'LBody/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 541 tagged /itembody
 Package tagpdf Info: closing structure 540 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4219,6 +4489,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'FENote'.
 Package tagpdf Info: Parent-Child 'FENote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'FENote/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 543 tagged /footnote
 Package tagpdf Info: closing structure 542 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4235,6 +4506,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'footnotemark/latex'.
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Lbl/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 545 tagged /footnotemark
 Package tagpdf Info: closing structure 544 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4252,6 +4524,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' -->
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Lbl/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 547 tagged /footnotelabel
 Package tagpdf Info: closing structure 546 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4268,6 +4541,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 549, /text-unit) on
 (tagpdf)                line 17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 549 tagged /text-unit
 Package tagpdf Info: closing structure 548 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4281,6 +4555,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 551 tagged /text
 Package tagpdf Info: closing structure 550 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4297,6 +4572,7 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 553, /theorem-like) on
 (tagpdf)                line 17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 553 tagged /theorem-like
 Package tagpdf Info: closing structure 552 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4313,6 +4589,7 @@ Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'codeline/latex'.
 Package tagpdf Info: Parent-Child 'Sub' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Sub/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 555 tagged /codeline
 Package tagpdf Info: closing structure 554 tagged /text-unit
 [6]
@@ -4327,6 +4604,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Aside'.
 Package tagpdf Info: Parent-Child 'Aside' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Aside/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 557 tagged /float
 Package tagpdf Info: closing structure 556 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4343,6 +4621,7 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 559, /figures) on line
 (tagpdf)                17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 559 tagged /figures
 Package tagpdf Info: closing structure 558 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4359,6 +4638,7 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 561, /tables) on line
 (tagpdf)                17
+==> increment /P on input line ...
 Package tagpdf Info: closing structure 561 tagged /tables
 Package tagpdf Info: closing structure 560 tagged /text-unit
 [7] (mc-parent-child.aux)
