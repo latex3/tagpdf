@@ -847,15 +847,15 @@
  {
    \cs_set_protected:Npn \@kernel@tag@hangfrom #1
     {
-     \tagstructbegin{tag=\l__tag_para_tag_tl}
-     \__tag_gincr_para_begin_int:
+     \tagstructbegin{tag=\l_@@_para_tag_tl}
+     \@@_gincr_para_begin_int:
      \tagstructbegin{tag=Lbl}
      \setbox\@tempboxa
        \hbox
          {
            \bool_lazy_and:nnT
             {\tag_if_active_p:}
-            {\g__tag_mode_lua_bool}
+            {\g_@@_mode_lua_bool}
             {\tagmcbegin{tag=Lbl}}
            {#1}
          }
@@ -1023,9 +1023,9 @@
         \tag_mc_end:
         \@@_check_para_end_show:nn {red}{}
         \tag_struct_end:
-        \bool_if:NF \l__tag_para_flattened_bool
+        \bool_if:NF \l_@@_para_flattened_bool
          {
-           \__tag_gincr_para_main_end_int:
+           \@@_gincr_para_main_end_int:
            \tag_struct_end:
          }
       }  
