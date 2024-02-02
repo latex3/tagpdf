@@ -965,10 +965,9 @@
    \bool_if:NT \l_@@_para_bool
      {
        \legacy_if:nF { @inlabel }
-         {     
-           \__block_debug_typeout:n
-             { @endpe = \legacy_if:nTF { @endpe }{true}{false}
-               \on@line }
+         {
+           \@@_check_typeout_v:n
+             {==>~ @endpe = \legacy_if:nTF { @endpe }{true}{false} \on@line }
            \legacy_if:nF { @endpe }
             {
               \bool_if:NF \l_@@_para_flattened_bool
@@ -983,7 +982,7 @@
                  }
              }
             \@@_gincr_para_begin_int:
-            \__block_debug_typeout:n{increment~ P \on@line }
+            \@@_check_typeout_v:n {==>~increment~ P \on@line }
             \tag_struct_begin:n
               {
                 tag=\l_@@_para_tag_tl
@@ -994,32 +993,17 @@
       }
     }  
  }
-
+%    \end{macrocode}
+% there was no real difference between the original and
+% in the block variant, only a debug message. We therefore
+% define only a plain variant.
+%    \begin{macrocode}
 \socket_new_plug:nnn{tagsupport/para/end}{plain}
   {
     \bool_if:NT \l_@@_para_bool
       {
         \@@_gincr_para_end_int:
-        \tag_mc_end:
-        \@@_check_para_end_show:nn {red}{}
-        \tag_struct_end:
-        \bool_if:NF \l_@@_para_flattened_bool
-         {
-           \@@_gincr_para_main_end_int:
-           \tag_struct_end:
-         }
-      }
-  }
-%    \end{macrocode}
-% there is no real difference in the block variant. Only 
-% a debug message. TODO: unify this. 
-%    \begin{macrocode}
-\socket_new_plug:nnn{tagsupport/para/end}{block}
-  {
-    \bool_if:NT \l_@@_para_bool
-      {
-        \@@_gincr_para_end_int:
-        \__block_debug_typeout:n{increment~ /P \on@line }
+        \@@_check_typeout_v:n {==>~increment~ /P \on@line }
         \tag_mc_end:
         \@@_check_para_end_show:nn {red}{}
         \tag_struct_end:
@@ -1030,27 +1014,23 @@
          }
       }  
   }
- 
 %    \end{macrocode}
 % By default we assign the plain plug:
 %    \begin{macrocode}
 \socket_assign_plug:nn { tagsupport/para/begin}{plain}
 \socket_assign_plug:nn { tagsupport/para/end}{plain}
 %    \end{macrocode}
-% And use the sockets in the hooks:
+% And use the sockets in the hooks. Once tagging sockets exist, this
+% can be adapted.
 %    \begin{macrocode}
-\AddToHook{para/begin}
-  {
-    \socket_use:n { tagsupport/para/begin }
+\AddToHook{para/begin}{ \socket_use:n { tagsupport/para/begin }
   }
-\AddToHook{para/end}
-  {
-    \socket_use:n { tagsupport/para/end }
-  }
+\AddToHook{para/end} { \socket_use:n { tagsupport/para/end } }
 %    \end{macrocode}
 %
-% If the block code is loaded we need to ensure that it doesn't overwrite
-% the hook again. And we must reassign the plug.
+% If the block code is loaded we must ensure that it doesn't overwrite
+% the hook again. And we must reassign the para/begin plug.
+% This can go once the block code no longer tries to adapt the hooks.
 %    \begin{macrocode}
 \AddToHook{package/latex-lab-testphase-block/after}
  {
@@ -1065,8 +1045,7 @@
       \socket_use:n { tagsupport/para/end }
     }
   \socket_assign_plug:nn { tagsupport/para/begin}{block}
-  \socket_assign_plug:nn { tagsupport/para/end}{block}
- } 
+ }
 
 %    \end{macrocode}
 %
