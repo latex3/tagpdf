@@ -547,20 +547,23 @@
 % We also store into the pdf 1.7 rolemapping so that we can
 % add that as fallback for pdf 1.7 processor
 %    \begin{macrocode}
-     \tl_if_empty:nF { #3 }
-      {
-        \tl_if_eq:nnF{#1}{#3}
-         {
-          \prop_get:NnN \g_@@_role_rolemap_prop {#3}\l_@@_tmpa_tl
-           \quark_if_no_value:NTF \l_@@_tmpa_tl
-            {          
-              \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#3}}
-            }
-            {
-              \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
-            } 
-          }         
-       }
+     \bool_if:NT \l__tag_role_update_bool
+       { 
+         \tl_if_empty:nF { #3 }
+          {
+            \tl_if_eq:nnF{#1}{#3}
+             {
+              \prop_get:NnN \g_@@_role_rolemap_prop {#3}\l_@@_tmpa_tl
+               \quark_if_no_value:NTF \l_@@_tmpa_tl
+                {          
+                  \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#3}}
+                }
+                {
+                  \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
+                } 
+              }         
+           }
+       }  
    }
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
 %    \end{macrocode}
