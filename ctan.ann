@@ -1,8 +1,9 @@
-Version 0.98u [2024-02-02]
+## [2024-02-04]
+Version 0.98v
 
-
+### Fixed
+ - some rolemap entries in the pdf 2.0 fallback were wrong.
+ - corrected fallback rolemap if a book class is used.
+ 
 ### Changed
- - the para/begin and para/end hook now use sockets and properly support the block 
-   code in latex-lab.
- - the structure number of the current para-main structure is stored to allow 
-   manipulations of the structure.
+ - removed the experimental name space latex-inline. It is unused. 
