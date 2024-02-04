@@ -584,7 +584,6 @@ braces):
 >  {mathml}  =>  {}
 >  {latex}  =>  {}
 >  {latex-book}  =>  {}
->  {latex-inline}  =>  {}
 >  {user}  =>  {}.
 <recently read> }
 l. ... }
@@ -1020,22 +1019,7 @@ outer braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 11: show tags of namespace latex-inline
-============================================================
-The property list \g__tag_role_NS_latex-inline_prop contains the pairs
-(without outer braces):
->  {chapter}  =>  {{Span}{}}
->  {section}  =>  {{Span}{}}
->  {subsection}  =>  {{Span}{}}
->  {subsubsection}  =>  {{Span}{}}
->  {paragraph}  =>  {{Span}{}}
->  {subparagraph}  =>  {{Span}{}}
->  {P}  =>  {{Span}{}}.
-<recently read> }
-l. ... }
-============================================================
-============================================================
-TEST 12: show tags of namespace user
+TEST 11: show tags of namespace user
 ============================================================
 The property list \g__tag_role_NS_user_prop contains the pairs (without outer
 braces):
@@ -1082,7 +1066,7 @@ braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 13: show class of tags in namespace pdf
+TEST 12: show class of tags in namespace pdf
 ============================================================
 The property list \g__tag_role_NS_pdf_class_prop contains the pairs (without
 outer braces):
@@ -1151,7 +1135,7 @@ outer braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 14: show class of tags in namespace pdf2
+TEST 13: show class of tags in namespace pdf2
 ============================================================
 The property list \g__tag_role_NS_pdf2_class_prop contains the pairs (without
 outer braces):
@@ -1209,7 +1193,7 @@ outer braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 15: show class of tags in namespace mathml
+TEST 14: show class of tags in namespace mathml
 ============================================================
 The property list \g__tag_role_NS_mathml_class_prop contains the pairs
 (without outer braces):
@@ -1408,7 +1392,7 @@ The property list \g__tag_role_NS_mathml_class_prop contains the pairs
 l. ... }
 ============================================================
 ============================================================
-TEST 16: show class of tags in namespace latex
+TEST 15: show class of tags in namespace latex
 ============================================================
 The property list \g__tag_role_NS_latex_class_prop contains the pairs (without
 outer braces):
@@ -1443,7 +1427,7 @@ outer braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 17: show class of tags in namespace latex-book
+TEST 16: show class of tags in namespace latex-book
 ============================================================
 The property list \g__tag_role_NS_latex-book_class_prop contains the pairs
 (without outer braces):
@@ -1457,22 +1441,7 @@ The property list \g__tag_role_NS_latex-book_class_prop contains the pairs
 l. ... }
 ============================================================
 ============================================================
-TEST 18: show class of tags in namespace latex-inline
-============================================================
-The property list \g__tag_role_NS_latex-inline_class_prop contains the pairs
-(without outer braces):
->  {chapter}  =>  {--UNUSED--}
->  {section}  =>  {--UNUSED--}
->  {subsection}  =>  {--UNUSED--}
->  {subsubsection}  =>  {--UNUSED--}
->  {paragraph}  =>  {--UNUSED--}
->  {subparagraph}  =>  {--UNUSED--}
->  {P}  =>  {--UNUSED--}.
-<recently read> }
-l. ... }
-============================================================
-============================================================
-TEST 19: show class of tags in namespace user
+TEST 17: show class of tags in namespace user
 ============================================================
 The property list \g__tag_role_NS_user_class_prop contains the pairs (without
 outer braces):
@@ -1519,7 +1488,7 @@ outer braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 20: show namespace dict pdf
+TEST 18: show namespace dict pdf
 ============================================================
 The dictionary 'g__tag_role/Namespace_pdf_dict' is unknown.
 > .
@@ -1527,7 +1496,7 @@ The dictionary 'g__tag_role/Namespace_pdf_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 21: show RoleMap dict pdf
+TEST 19: show RoleMap dict pdf
 ============================================================
 The dictionary 'g__tag_role/RoleMapNS_pdf_dict' is unknown.
 > .
@@ -1535,7 +1504,7 @@ The dictionary 'g__tag_role/RoleMapNS_pdf_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 22: show namespace dict pdf2
+TEST 20: show namespace dict pdf2
 ============================================================
 The dictionary 'g__tag_role/Namespace_pdf2_dict' is unknown.
 > .
@@ -1543,7 +1512,7 @@ The dictionary 'g__tag_role/Namespace_pdf2_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 23: show RoleMap dict pdf2
+TEST 21: show RoleMap dict pdf2
 ============================================================
 The dictionary 'g__tag_role/RoleMapNS_pdf2_dict' is unknown.
 > .
@@ -1551,7 +1520,7 @@ The dictionary 'g__tag_role/RoleMapNS_pdf2_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 24: show namespace dict mathml
+TEST 22: show namespace dict mathml
 ============================================================
 The dictionary 'g__tag_role/Namespace_mathml_dict' is unknown.
 > .
@@ -1559,7 +1528,7 @@ The dictionary 'g__tag_role/Namespace_mathml_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 25: show RoleMap dict mathml
+TEST 23: show RoleMap dict mathml
 ============================================================
 The dictionary 'g__tag_role/RoleMapNS_mathml_dict' is unknown.
 > .
@@ -1567,7 +1536,7 @@ The dictionary 'g__tag_role/RoleMapNS_mathml_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 26: show namespace dict latex
+TEST 24: show namespace dict latex
 ============================================================
 The dictionary 'g__tag_role/Namespace_latex_dict' is unknown.
 > .
@@ -1575,7 +1544,7 @@ The dictionary 'g__tag_role/Namespace_latex_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 27: show RoleMap dict latex
+TEST 25: show RoleMap dict latex
 ============================================================
 The dictionary 'g__tag_role/RoleMapNS_latex_dict' is unknown.
 > .
@@ -1583,7 +1552,7 @@ The dictionary 'g__tag_role/RoleMapNS_latex_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 28: show namespace dict latex-book
+TEST 26: show namespace dict latex-book
 ============================================================
 The dictionary 'g__tag_role/Namespace_latex-book_dict' is unknown.
 > .
@@ -1591,7 +1560,7 @@ The dictionary 'g__tag_role/Namespace_latex-book_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 29: show RoleMap dict latex-book
+TEST 27: show RoleMap dict latex-book
 ============================================================
 The dictionary 'g__tag_role/RoleMapNS_latex-book_dict' is unknown.
 > .
@@ -1599,23 +1568,7 @@ The dictionary 'g__tag_role/RoleMapNS_latex-book_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 30: show namespace dict latex-inline
-============================================================
-The dictionary 'g__tag_role/Namespace_latex-inline_dict' is unknown.
-> .
-<recently read> }
-l. ... }
-============================================================
-============================================================
-TEST 31: show RoleMap dict latex-inline
-============================================================
-The dictionary 'g__tag_role/RoleMapNS_latex-inline_dict' is unknown.
-> .
-<recently read> }
-l. ... }
-============================================================
-============================================================
-TEST 32: show namespace dict user
+TEST 28: show namespace dict user
 ============================================================
 The dictionary 'g__tag_role/Namespace_user_dict' is unknown.
 > .
@@ -1623,7 +1576,7 @@ The dictionary 'g__tag_role/Namespace_user_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 33: show RoleMap dict user
+TEST 29: show RoleMap dict user
 ============================================================
 The dictionary 'g__tag_role/RoleMapNS_user_dict' is unknown.
 > .
@@ -1631,7 +1584,7 @@ The dictionary 'g__tag_role/RoleMapNS_user_dict' is unknown.
 l. ... }
 ============================================================
 ============================================================
-TEST 34: show tagindex
+TEST 30: show tagindex
 ============================================================
 The property list \g__tag_role_index_prop contains the pairs (without outer
 braces):
@@ -1692,7 +1645,7 @@ braces):
 l. ... }
 ============================================================
 ============================================================
-TEST 35: show tagrules
+TEST 31: show tagrules
 ============================================================
 The integer array \g__tag_role_parent_child_intarray contains 6000 items:
 >  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

@@ -211,7 +211,6 @@
 % \item[user]   \cs{c_@@_role_userNS_id_str} (random id, for user tags)
 % \item[latex]  https://www.latex-project.org/ns/dflt/2022
 % \item[latex-book] https://www.latex-project.org/ns/book/2022
-% \item[latex-inline]     https://www.latex-project.org/ns/inline/2022
 % \end{description}
 % More namespaces are possible and
 % their objects references and their rolemaps must be collected
@@ -363,7 +362,6 @@
 \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
 \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
 \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
-\@@_role_NS_new:nnn {latex-inline} {https://www.latex-project.org/ns/inline/2022}{}
 \exp_args:Nne
   \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
 %    \end{macrocode}
@@ -724,7 +722,6 @@
 % the settings for later use:
 %    \begin{macrocode}
 \bool_set_false:N\l_@@_role_update_bool
-\@@_role_read_namespace:n {latex-inline}
 \@@_role_read_namespace:n {latex-book}  
 \bool_set_true:N\l_@@_role_update_bool
 \@@_role_read_namespace:n {latex}
@@ -756,6 +753,8 @@
            \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
              {
                \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
+               \prop_gput:Nne 
+                \g_@@_role_rolemap_prop {#1}{\use_i:nn  #2\c_empty_tl\c_empty_tl}
              }
          }
       }  
@@ -1230,48 +1229,6 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_role_remap_inline:}
-% The mapping is meant to \enquote{degrade} tags, e.g. if used
-% inside some complex object. 
-% The pdf<2.0 code maps the tag to the new role, the pdf 2.0 code only
-% switch the NS.
-%    \begin{macrocode}
-\pdf_version_compare:NnTF < {2.0}
-  {
-    \cs_new_protected:Npn \@@_role_remap_inline:
-      {
-        \prop_get:cVNT { g_@@_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
-          {
-            \tl_set:Ne\l_@@_role_remap_tag_tl
-              {
-                \exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl
-              }
-            \tl_set:Ne\l_@@_role_remap_NS_tl 
-              {
-                \exp_last_unbraced:NV\use_ii:nn \l_@@_tmpa_tl
-              }
-          }
-        \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-          {
-            \msg_note:nne { tag } { role-remapping }{ \l_@@_role_remap_tag_tl }
-          }  
-      }
-  }
-  {
-    \cs_new_protected:Npn \@@_role_remap_inline:
-      {
-        \prop_get:cVNT { g_@@_role_NS_latex-inline_prop }\l_@@_role_remap_tag_tl\l_@@_tmpa_tl
-          {
-            \tl_set:Nn\l_@@_role_remap_NS_tl {latex-inline}
-          }
-        \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
-          {
-            \msg_note:nne { tag } { role-remapping }{ \l_@@_role_remap_tag_tl/latex-inline }
-          }  
-      }    
-  }    
-%    \end{macrocode}
-% \end{macro}
 %
 % \subsection{Key-val user interface}
 %  The user interface uses the key |add-new-tag|, which takes either a
