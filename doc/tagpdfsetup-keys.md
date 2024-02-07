@@ -52,37 +52,42 @@ Currently we have setup keys for four document elements: `page`, `para`, `math`,
 ### page key path
 
 ```
-page / tabsorder     (old tabsorder)
-page / header-footer (old exclude header-footer)
+page/tabsorder     (old tabsorder)
+page/header-footer (old exclude header-footer)
 ```
 
 ### para key path
 
 ```
-para / tagging .choice: = true/false (other options are possible)
+para/tagging .choice: = true/false (other options are possible)
 
-para / text-tag = sets P-tag (old paratag)
-para / unit-tag = sets text-unit-Tag 
+para/text-tag = sets P-tag (old paratag)
+para/unit-tag = sets text-unit-Tag 
 ```
 
 ### math key path
+
+Key definitions are in latex-lab-math
+
 ```
-math  /  mathml / write-dummy (no value, activates the writing of the template, old mathml/writehash)
-math  /  alt / use            (boolean, use the /Alt key, currently clashes with mathml-AF in foxit, so false
+math/mathml/write-dummy (no value, activates the writing of the template, old mathml/writehash)
+math/alt/use            (boolean, use the /Alt key, currently clashes with mathml-AF in foxit, so false
                           if mathml handling is activated)  
-math  /  mathml / sources  (additional clist of mathml-files to read)
-math  /  mathml / AF       (boolean, TODO, attach mathml-AF)
-math  /  tex    / AF       (boolean, TODO, attach texsource as AF)
-math  /  alt     / type = source|manual|     (later)                                                                               
+math/mathml/sources  (additional clist of mathml-files to read)
+math/mathml/AF       (boolean, TODO, attach mathml-AF)
+math/tex/AF       (boolean, TODO, attach texsource as AF)
+math/alt/type = source|manual|     (later)                                                                               
 ```
 
 
 
 ### table key path
 
+key definitions are in latex-lab-table.dtx
+
 ```           
-table / tagging      .choice:       (true/false/layout, old: table-tagging)
-table / header-rows  .clist_set:N   (old: table-header-rows)
+table/tagging      .choice:       (true/false/layout, old: table-tagging)
+table/header-rows  .clist_set:N   (old: table-header-rows)
 ```
 
 ## Example
