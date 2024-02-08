@@ -493,12 +493,13 @@ The key-val list understands the following keys:
 \item[\PrintKeyName{add-new-tag}] Allows to define new tag names, see
   section \ref{sec:new-tag} for a description.
 
-\item[\PrintKeyName{interwordspace}] Choice key, possible values are
+\item[\PrintKeyName{activate/spaces}] Choice key, possible values are
   \PrintKeyName{true}/""\PrintKeyName{on} and
   \PrintKeyName{false}/\PrintKeyName{off}. The key
   activates/deactivates the insertion of space glyphs, see
   section~\ref{sec:spacechars}. In the luamode it only works if at
   least \PrintKeyName{activate-mc} has been used.
+  The old name of the key |interwordspace| is still supported but deprecated.
 
 \item[\PrintKeyName{log}] Choice key, possible values
   \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv},
@@ -557,6 +558,17 @@ The key-val list understands the following keys:
   and the \PDF{} objcompresslevel to 0 and so allows to inspect the
   \PDF{}.
 
+\item[\PrintKeyName{debug}] This keys knows a number of sub-keys to
+  set various debug options. 
+  \begin{description}
+  \item[\PrintKeyName{debug/show}] This takes a comma list of keywords:
+  
+  \texttt{spaces}: \sidenote{luamode} 
+   That helps in lua mode to see where space glyph will be
+   inserted if \PrintKeyName{activate/spaces} is activated. 
+   This can also be activate with the now deprecated key |show-spaces|
+  
+   \end{description}
 
 \end{description}
 

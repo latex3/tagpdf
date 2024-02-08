@@ -561,7 +561,6 @@
 %<*package>
 \keys_define:nn { @@ / setup }
   {
-    activate-space  .bool_gset:N = \g_@@_active_space_bool,
     activate-mc     .bool_gset:N = \g_@@_active_mc_bool,
     activate-tree   .bool_gset:N = \g_@@_active_tree_bool,
     activate-struct .bool_gset:N = \g_@@_active_struct_bool,
@@ -571,20 +570,26 @@
     no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,
  %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{log (setup-key)}
+% \begin{macro}{debug/show (setup-key)}
+% Subkeys are defined in various other places.
+%    \begin{macrocode}
+    debug/show            .choice:,
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{debug/log (setup-key)}
 % The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
 % The description of the log levels is in tagpdf-checks.
 %    \begin{macrocode}
-    log             .choice:,
-    log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
-    log / v         .code:n =
+    debug/log             .choice:,
+    debug/log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
+    debug/log / v         .code:n =
       {
         \int_set:Nn \l_@@_loglevel_int { 1 }
         \cs_set_protected:Nn \@@_check_typeout_v:n { \iow_term:e {##1} }
       },
-    log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
-    log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
-    log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
+    debug/log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
+    debug/log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
+    debug/log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{tagunmarked (setup-key)}
