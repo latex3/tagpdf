@@ -1957,7 +1957,8 @@
     \prop_gput:Nen \g_@@_attr_entries_prop
       {\pdf_name_from_unicode_e:n{#1}}{#2}
   }
-
+  
+\cs_generate_variant:Nn \__tag_attr_new_entry:nn {ee}
 \keys_define:nn { @@ / setup }
   {
     newattribute .code:n =
