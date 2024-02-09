@@ -1,9 +1,3 @@
-  l3build save test-add-new-tag-2
-  l3build save -c config-pdftex test-struct-OBJR test-root-AF test-ref test-AFref show-variables-17 test-beast-1 test-namespace-pdfII-book test-namespace-pdfII-article test-link test-AF-file test-header-footer test-beast-2 parent-child-20-structures show-variables-20
-  l3build save -c config-luatex parent-child-20-structures test-header-footer test-struct-OBJR test-root-AF test-ref test-link test-AF-file
-
-
-
-  l3build check --show-saves test-add-new-tag-2
-  l3build check --show-saves -c config-pdftex test-struct-OBJR test-root-AF test-ref test-AFref show-variables-17 test-beast-1 test-namespace-pdfII-book test-namespace-pdfII-article test-link test-AF-file test-header-footer test-beast-2 parent-child-20-structures show-variables-20
-  l3build check --show-saves -c config-luatex parent-child-20-structures test-header-footer test-struct-OBJR test-root-AF test-ref test-link test-AF-file
+l3build save -c config-pdftex -e pdftexmain ptagging-004 ptagging-001b test-showattributes test-mc-manual-para-split parent-child-17-nonstruct test-mc-low-luaonly parent-child-20-nonstruct parent-child-17-structures ptagging-002 test-mc-tag-expansion test-patch-koma ptagging-005 parent-child-20-structures
+ 
+l3build check --show-saves -c config-pdftex ptagging-004 test-mc-low-luaonly parent-child-20-structures test-mc-user parent-child-17-nonstruct test-mc-manual-para-split show-variables-17 test-mc-savebox ptagging-001b base show-variables-20 test-showattributes ptagging-005 parent-child-20 test-parentkey parent-child-17-structures test-patch-koma test-mc-tag-expansion ptagging-002 parent-child-20-nonstruct
