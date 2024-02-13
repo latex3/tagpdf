@@ -591,6 +591,10 @@
     debug/log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
     debug/log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
 %    \end{macrocode}
+% deprecated but still needed as the documentmetadata key uses it.
+%    \begin{macrocode}
+    log             .meta:n = {debug/log={#1}},
+%    \end{macrocode}
 % \end{macro}
 % \begin{macro}{tagunmarked (setup-key)}
 % This key allows to set if (in luamode) unmarked text should be
