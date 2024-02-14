@@ -6,16 +6,14 @@ TEST 1: untagged box
 UNTAGGED
 ============================================================
 Package tagpdf Warning: Parent-Child 'Document/' --> 'Span/pdf2'.
-(tagpdf)                Relation is not allowed (struct 1, /Document -->
-(tagpdf)                struct 4) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /Document --> struct 4) on line ...
 ============================================================
 TEST 2: box with structure
 ============================================================
 TAGGED
 ============================================================
 Package tagpdf Warning: Parent-Child 'Document/' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 1, /Document) on line
-(tagpdf)                45
+(tagpdf)                Relation is not allowed (struct 1, /Document) on line ...
 ============================================================
 TEST 3: box with mc-chunk
 ============================================================
