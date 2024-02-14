@@ -1,0 +1,111 @@
+% !Mode:: "TeX:UTF-8:Main"
+\begin{filecontents}[overwrite]{\jobname-mathml.html}
+<!DOCTYPE html>
+<html>
+<div>
+<h2>\mml 1</h2>
+<p>\begin{math}x>y\end{math}</p>
+<p>69913C2E9334C77484512A937DB76D2D</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
+ <mi>x</mi>
+ <mo>&gt;</mo>
+ <mi>y</mi>
+</math>
+</div>
+<div>
+<h2>\mml 2</h2>
+<p>\begin{equation*}x=\frac {-b \pm \sqrt {b^2-4ac}}{2a}\end{equation*}</p>
+<p>2258740F29569955350F38D9A43B5910</p>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+ <mi>𝑥</mi>
+ <mo>=</mo>
+ <mfrac>
+  <mrow>
+   <mo>−</mo>
+   <mi>𝑏</mi>
+   <mo>±</mo>
+   <msqrt>
+    <msup>
+     <mi>𝑏</mi>
+     <mn>2</mn>
+    </msup>
+    <mo>−</mo>
+    <mn>4</mn>
+    <mo>&#x2062;</mo>
+    <mi>𝑎</mi>
+    <mo>&#x2062;</mo>
+    <mi>𝑐</mi>
+   </msqrt>
+  </mrow>
+  <mrow>
+   <mn>2</mn>
+   <mo>&#x2062;</mo>
+   <mi>𝑎</mi>
+  </mrow>
+ </mfrac>
+</math>
+</div>
+<div>
+</html>
+\end{filecontents}
+\DocumentMetadata{uncompress,pdfversion=2.0,testphase={phase-III,math,title},pdfstandard=ua-2}
+\documentclass{article}
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\bfseries}}
+\makeatother
+\title{Test reader behaviour}
+\author{Ulrike Fischer}
+\usepackage{unicode-math}
+\begin{document}
+%\maketitle
+
+
+\section {mathml AF,  texsource AF, no /Alt}
+
+$x>y$
+
+\[
+x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
+\]
+
+
+\section {only texsource AF}
+\tagpdfsetup{math/mathml/AF=false}
+
+$x>y$
+
+\[
+x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
+\]
+
+
+\section {mathml AF,  texsource AF, /Alt}
+\tagpdfsetup{math/mathml/AF, math/alt/use}%
+
+$x>y$ 
+
+\tagpdfsetup{math/mathml/AF=false, math/alt/use}%
+\section {no mathml AF,  texsource AF, /Alt}
+
+$x>y$ 
+
+\[
+x=\frac{-b \pm \sqrt{b^2-4ac}}{2a}
+\]
+
+
+\tagpdfsetup{math/mathml/AF=false,math/tex/AF=false}
+\section {no AF, /Alt + internal math structure}
+
+$\tagstructbegin{tag=math}
+ \tagstructbegin{tag=mi}\tagmcbegin{}x\tagmcend\tagstructend
+ \tagstructbegin{tag=mo}\tagmcbegin{}<\tagmcend\tagstructend
+ \tagstructbegin{tag=mi}\tagmcbegin{}y\tagmcend\tagstructend
+ \tagstructend$
+
+
+
+\end{document}
