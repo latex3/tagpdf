@@ -17,10 +17,85 @@ l. ... }
 ============================================================
 TEST 3: get known role title, unknown name space
 ============================================================
-> \l_tmpa_tl=title.
+! Use of \__prop_get_linked:w doesn't match its definition.
+<recently read> \g__tag_role_NS_blub_prop 
+l. ... }
+If you say, e.g., `\def\a1{...}', then you must always
+put `1' after `\a', since control sequence names are
+made up of letters only. The macro here has not been
+followed by the required stuff, so I'm ignoring it.
+! Argument of \tl_set:Nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \tl_set:Nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l. ... }
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+! Argument of \use_i:nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \use_i:nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l. ... }
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+! Argument of \use_ii:nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \use_ii:nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+> \l_tmpa_tl={Span}{pdf}.
 <recently read> }
 l. ... }
-> \l_tmpb_tl=blub.
+> \l_tmpb_tl=.
 <recently read> }
 l. ... }
 ============================================================
@@ -37,20 +112,170 @@ l. ... }
 ============================================================
 TEST 5: get standard role: Sect
 ============================================================
-> \l_tmpa_tl=Sect.
+! Use of \__prop_get_linked:w doesn't match its definition.
+<recently read> \g__tag_role_NS_xxx_prop 
+l. ... }
+If you say, e.g., `\def\a1{...}', then you must always
+put `1' after `\a', since control sequence names are
+made up of letters only. The macro here has not been
+followed by the required stuff, so I'm ignoring it.
+! Argument of \tl_set:Nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \tl_set:Nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l. ... }
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+! Argument of \use_i:nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \use_i:nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l. ... }
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+! Argument of \use_ii:nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \use_ii:nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+> \l_tmpa_tl={Span}{pdf}.
 <recently read> }
 l. ... }
-> \l_tmpb_tl=xxx.
+> \l_tmpb_tl=.
 <recently read> }
 l. ... }
 ============================================================
 ============================================================
 TEST 6: get standard role: Aside
 ============================================================
-> \l_tmpa_tl=Aside.
+! Use of \__prop_get_linked:w doesn't match its definition.
+<recently read> \g__tag_role_NS_xxx_prop 
+l. ... }
+If you say, e.g., `\def\a1{...}', then you must always
+put `1' after `\a', since control sequence names are
+made up of letters only. The macro here has not been
+followed by the required stuff, so I'm ignoring it.
+! Argument of \tl_set:Nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \tl_set:Nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l. ... }
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+! Argument of \use_i:nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \use_i:nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+! Missing number, treated as zero.
+<to be read again> 
+                   }
+l. ... }
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+! Argument of \use_ii:nn has an extra }.
+<inserted text> 
+                \par 
+l. ... }
+I've run across a `}' that doesn't seem to match anything.
+For example, `\def\a#1{...}' and `\a}' would produce
+this error. If you simply proceed now, the `\par' that
+I've just inserted will cause me to report a runaway
+argument that might be the root of the problem. But if
+your `}' was spurious, just type `2' and it will go away.
+Runaway argument?
+! Paragraph ended before \use_ii:nn was complete.
+<to be read again> 
+                   \par 
+l. ... }
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+> \l_tmpa_tl={Span}{pdf}.
 <recently read> }
 l. ... }
-> \l_tmpb_tl=xxx.
+> \l_tmpb_tl=.
 <recently read> }
 l. ... }
 ============================================================
