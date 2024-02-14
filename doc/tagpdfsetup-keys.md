@@ -10,11 +10,11 @@ to the PDF processing.
 ```
 activate .meta:n
 OK activate/spaces    (boolean, old interwordspace) in tagpdf-space.dtx
-activate/mc        (boolean, old: activate-mc)
-activate/tree      (boolean, old: activate-tree)
-activate/struct    (boolean, old: activate-struct)
-activate/all       (boolean, old: activate-all)
-activate/tagunmarked (boolean, old: tagunmarked)
+OK activate/mc        (boolean, old: activate-mc)
+OK activate/tree      (boolean, old: activate-tree)
+OK activate/struct    (boolean, old: activate-struct)
+OK activate/all       (boolean, old: activate-all)
+OK activate/tagunmarked (boolean, old: tagunmarked)
 activate/socket (boolean, temporary until tagging-sockets are in the kernel)
 activate/struct-dest (boolean, old: no-struct-dest)
 activate/mathml-tags (boolean, old: mathml-tags, adds them to the global rolemap)

@@ -60,7 +60,7 @@
 %
 % \begin{function}{activate (setup-key)}
 % And additional setup key which combine the other activate keys
-% |activate-mc|, |activate-tree|, |activate-struct| and additionally
+% |activate/mc|, |activate/tree|, |activate/struct| and additionally
 % add a document structure.
 % \end{function}
 %
@@ -664,7 +664,7 @@
 %<*package>
 %    \end{macrocode}
 % \subsection{Document structure}
-% \begin{macro}{\g_@@_root_default_tl,activate (setup-key),activate-socket (setup-key)}
+% \begin{macro}{\g_@@_root_default_tl,activate (setup-key),activate/socket (setup-key)}
 %    \begin{macrocode}
 \tl_new:N\g_@@_root_default_tl
 \tl_gset:Nn\g_@@_root_default_tl {Document}
@@ -674,11 +674,11 @@
 
 \keys_define:nn { @@ / setup}
  {  
-   activate-socket .bool_set:N  = \l_@@_active_socket_bool, 
+   activate/socket .bool_set:N  = \l_@@_active_socket_bool, 
    activate  .code:n =
     {
       \keys_set:nn { @@ / setup }
-        { activate-mc,activate-tree,activate-struct,activate-socket }
+        { activate/mc,activate/tree,activate/struct,activate/socket }
       \tl_gset:Nn\g_@@_root_default_tl {#1}  
     },
    activate .default:n = Document

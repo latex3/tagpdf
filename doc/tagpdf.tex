@@ -396,7 +396,7 @@ some text
 
 When loading \pkg{tagpdf} through the \texttt{testphase} keys, it is automatically activated. 
 To deactivate it while still retaining all the other new code from the latex-lab testphase files,
-use in the preamble |\tagpdfsetup{activate-all=false}|. You can additionally also deactivate the 
+use in the preamble |\tagpdfsetup{activate/all=false}|. You can additionally also deactivate the 
 paratagging and the interword space code. 
 To suppress the loading of the package altogether you can try
 
@@ -464,29 +464,30 @@ The command should be normally used only in the preamble
 The key-val list understands the following keys:
 
 \begin{description}
-\item[\PrintKeyName{activate-all}] Boolean, initially false. Activates
+\item[\PrintKeyName{activate/all}] Boolean, initially false. Activates
   everything, that's normally the sensible thing to do.
 
-\item [\PrintKeyName{activate}] Like |activate-all|,
+\item [\PrintKeyName{activate}] Like |activate/all|,
   \emph{additionally} is opens at begin document a structure with
   |\tagstructbegin| and closes it at end document. The key accepts as
   value a tag name which is used as the tag of the structure.  The
   default value is |Document|.
 
-\item[\PrintKeyName{activate-mc}] Boolean, initially false. Activates
+\item[\PrintKeyName{activate/mc}] Boolean, initially false. Activates
   the code related to marked content.
 
-\item[\PrintKeyName{activate-struct}] Boolean, initially
+\item[\PrintKeyName{activate/struct}] Boolean, initially
   false. Activates the code related to structures. Should be used only
-  if \PrintKeyName{activate-mc} has been used too.
+  if \PrintKeyName{activate/mc} has been used too.
 
-\item[\PrintKeyName{no-struct-dest}] Starting with version 0.93
+\item[\PrintKeyName{activate/struct-dest}] Boolean, initially true.
+  Starting with version 0.93
   \pkg{tagpdf} will create automatically structure destinations (see
-  section~\ref{sec:struct-dest} if \pkg{hyperref} is used, if the
-  engine supports it and if the pdf version is 2.0. With this key this
+  section~\ref{sec:struct-dest} if \pkg{hyperref} is used and if the
+  engine supports it. With this key this
   can be suppressed.
 
-\item[\PrintKeyName{activate-tree}] Boolean, initially
+\item[\PrintKeyName{activate/tree}] Boolean, initially
   false. Activates the code related to trees. Should be used only if
   the two other keys has been used too.
 
@@ -498,10 +499,10 @@ The key-val list understands the following keys:
   \PrintKeyName{false}/\PrintKeyName{off}. The key
   activates/deactivates the insertion of space glyphs, see
   section~\ref{sec:spacechars}. In the luamode it only works if at
-  least \PrintKeyName{activate-mc} has been used.
+  least \PrintKeyName{activate/mc} has been used.
   The old name of the key |interwordspace| is still supported but deprecated.
 
-\item[\PrintKeyName{log}] Choice key, possible values
+\item[\PrintKeyName{debug/log}] Choice key, possible values
   \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv},
   \PrintKeyName{vvv}, \PrintKeyName{all}.  Setups the log level.
   Changing the value affects currently mostly the luamode:
@@ -545,7 +546,7 @@ The key-val list understands the following keys:
   accessibility checks. So I added it. Currently the tabsorder is the
   same for all pages. Perhaps this should be changed \ldots.
 
-\item[\PrintKeyName{tagunmarked}] Boolean,\sidenote{luamode} initially
+\item[\PrintKeyName{activate/tagunmarked}] Boolean,\sidenote{luamode} initially
   true. When this boolean is true, the lua code will try to mark
   everything that has not been marked yet as an artifact. The benefit
   is that one doesn't have to mark up every deco rule oneself. The
@@ -1004,7 +1005,7 @@ The key-val list understands the following keys:
 
   The\sidenote{lua mode only} lua mode will mark up everything unmarked as 
   \texttt{artifact=notype}. You can suppress this behavior by setting the 
-  tagpdfsetup key \texttt{tagunmarked} to false. See section 
+  tagpdfsetup key \texttt{activate/tagunmarked} to false. See section 
   \ref{ssec:setup}. 
 
   \item[\PrintKeyName{stash}] Normally marked content will be stored in the 

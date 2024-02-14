@@ -47,11 +47,16 @@
 %  interword spaces. It replaces the deprecated key |interwordspace|.
 % \end{function}
 %
-% \begin{function}{activate-mc (setup-key),
-%    activate-tree (setup-key),
-%    activate-struct (setup-key),
-%    activate-all (setup-key)}
-% Keys to activate the various tagging steps
+% \begin{function}{activate/mc (setup-key),
+%    activate/tree (setup-key),
+%    activate/struct (setup-key),
+%    activate/all (setup-key),
+%    activate-mc (deprecated),
+%    activate-tree (deprecated),
+%    activate-struct (deprecated),
+%    activate-all (deprecated),
+%    }
+% Keys to activate the various tagging steps. 
 % \end{function}
 %\begin{function}{no-struct-dest (setup-key)}
 % The key allows to suppress the creation of structure destinations
@@ -537,36 +542,43 @@
 %
 %
 % \section{Keys for tagpdfsetup}
-
+%
 % TODO: the log-levels must be sorted
 %
 % \begin{macro}
 %  {
-%    activate-space (setup-key),
-%    activate-mc (setup-key),
-%    activate-tree (setup-key),
-%    activate-struct (setup-key),
-%    activate-all (setup-key),
-%    no-struct-dest (setup-key),
+%    activate/mc (setup-key),
+%    activate/tree (setup-key),
+%    activate/struct (setup-key),
+%    activate/all (setup-key),
+%    activate/struct-dest (setup-key),
 %  }
 %  Keys to (globally) activate tagging.
-%  |activate-space| activates the additional parsing needed for
-%  interword spaces. It is not documented, the parsing is currently
-%  implicitly activated by the known key |interwordspace|, as the code will
-%  perhaps move to some other place, now that it is better separated.
-%  |no-struct-dest| allows to suppress structure destinations.
+%  |activate/spaces| activates the additional parsing needed for
+%  interword spaces. It is defined in tagpdf-space. 
+%  |activate/struct-dest| allows to activate or suppress structure destinations.
 %    \begin{macrocode}
 %<*package>
 \keys_define:nn { @@ / setup }
   {
+    activate/mc     .bool_gset:N = \g_@@_active_mc_bool,
+    activate/tree   .bool_gset:N = \g_@@_active_tree_bool,
+    activate/struct .bool_gset:N = \g_@@_active_struct_bool,
+    activate/all    .meta:n =
+      {activate/mc={#1},activate/tree={#1},activate/struct={#1}},
+    activate/all  .default:n = true,
+    activate/struct-dest .bool_gset:N = \g_@@_active_struct_dest_bool,
+%    \end{macrocode}
+% old, deprecated names
+%    \begin{macrocode}
     activate-mc     .bool_gset:N = \g_@@_active_mc_bool,
     activate-tree   .bool_gset:N = \g_@@_active_tree_bool,
     activate-struct .bool_gset:N = \g_@@_active_struct_bool,
     activate-all    .meta:n =
-      {activate-mc={#1},activate-tree={#1},activate-struct={#1}},
+      {activate/mc={#1},activate/tree={#1},activate/struct={#1}},
     activate-all  .default:n = true,
-    no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,
- %    \end{macrocode}
+    no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,    
+%    \end{macrocode}
 % \end{macro}
 % \begin{macro}{debug/show (setup-key)}
 % Subkeys are defined in various other places.
@@ -598,8 +610,12 @@
 % This key allows to set if (in luamode) unmarked text should be
 % marked up as artifact. The initial value is true.
 %    \begin{macrocode}
-    tagunmarked     .bool_gset:N = \g_@@_tagunmarked_bool,
-    tagunmarked     .initial:n  = true,
+    activate/tagunmarked     .bool_gset:N = \g_@@_tagunmarked_bool,
+    activate/tagunmarked     .initial:n  = true,
+%    \end{macrocode}
+% deprecated name
+%    \begin{macrocode}
+    tagunmarked .meta:n = {activate/tagunmarked ={#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{tabsorder (setup-key)}
