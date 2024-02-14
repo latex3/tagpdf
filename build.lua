@@ -50,6 +50,11 @@ checkengines = {"pdftex","luatex","pdftexmain"}
 
 -- forcecheckruns=true
 
+checkconfigs = {
+                 "build",
+                 "config-pdftex",
+                 "config-luatex",
+                  }
       
       
 checkruns = 2
