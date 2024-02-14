@@ -6,7 +6,6 @@ module   = "tagpdf"
 ctanpkg  = "tagpdf"
 
 local luatexstatus = status.list()
-local istl2023 = string.match (luatexstatus.banner,"2023")
 
 local ok, mydata = pcall(require, "ulrikefischerlatex3data.lua")
 if not ok then
@@ -51,15 +50,7 @@ checkengines = {"pdftex","luatex","pdftexmain"}
 
 -- forcecheckruns=true
 
-if istl2023 then
-  checkconfigs = {
-                 "build",
-                 "config-pdftex",
-                 "config-luatex",
-                  }
-else                
- checkconfigs = { "config-pdftex-22" }
-end            
+      
       
 checkruns = 2
 checksuppfiles = {"pdfaPilotSyntaxChecks.kfpx","checksyntax.bat","checksyntax-all.bat"}
