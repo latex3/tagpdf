@@ -9,7 +9,7 @@ to the PDF processing.
 
 ```
 activate .meta:n
-activate/spaces    (boolean, old interwordspace) 
+OK activate/spaces    (boolean, old interwordspace) in tagpdf-space.dtx
 activate/mc        (boolean, old: activate-mc)
 activate/tree      (boolean, old: activate-tree)
 activate/struct    (boolean, old: activate-struct)
@@ -18,6 +18,7 @@ activate/tagunmarked (boolean, old: tagunmarked)
 activate/socket (boolean, temporary until tagging-sockets are in the kernel)
 activate/struct-dest (boolean, old: no-struct-dest)
 activate/mathml-tags (boolean, old: mathml-tags, adds them to the global rolemap)
+activate/latex-namespace (boolean, default true)
 ```
 
 ## debug key path
@@ -39,9 +40,9 @@ viewer keys influence some display options in a pdf viewer. There is an overlap 
 similar "non-tagging" options. 
 
 ```
-viewer/pane/mathml     show mathml-files in attachment pane (old mathml-panel)
-viewer/pane/mathsource show math sources files in attachment pane (old texsource-panel)
-viewer/display-title   TODO
+OK/math viewer/pane/mathml     show mathml-files in attachment pane (old mathml-panel)
+OK/math viewer/pane/mathsource show math sources files in attachment pane (old texsource-panel)
+TODO viewer/display-title   
 ``` 
 
 ## „Document element“ keys
@@ -70,13 +71,13 @@ para/unit-tag = sets text-unit-Tag
 Key definitions are in latex-lab-math
 
 ```
-math/mathml/write-dummy (no value, activates the writing of the template, old mathml/writehash)
-math/alt/use            (boolean, use the /Alt key, currently clashes with mathml-AF in foxit, so false
+OK math/mathml/write-dummy (no value, activates the writing of the template, old mathml/writehash)
+OK math/alt/use            (boolean, use the /Alt key, currently clashes with mathml-AF in foxit, so false
                           if mathml handling is activated)  
-math/mathml/sources  (additional clist of mathml-files to read)
-math/mathml/AF       (boolean, TODO, attach mathml-AF)
-math/tex/AF       (boolean, TODO, attach texsource as AF)
-math/alt/type = source|manual|     (later)                                                                               
+OK math/mathml/sources  (additional clist of mathml-files to read)
+OK math/mathml/AF       (boolean, TODO, attach mathml-AF)
+OK math/tex/AF       (boolean, TODO, attach texsource as AF)
+TODO math/alt/type = source|manual|     (later)                                                                               
 ```
 
 
@@ -86,8 +87,8 @@ math/alt/type = source|manual|     (later)
 key definitions are in latex-lab-table.dtx
 
 ```           
-table/tagging      .choice:       (true/false/layout, old: table-tagging)
-table/header-rows  .clist_set:N   (old: table-header-rows)
+OK table/tagging      .choice:       (true/false/layout, old: table-tagging)
+OK table/header-rows  .clist_set:N   (old: table-header-rows)
 ```
 
 ## Example
