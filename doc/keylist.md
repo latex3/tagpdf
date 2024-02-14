@@ -1,6 +1,7 @@
-# Keys of tagpdfsetup
+# (Old) Keys of tagpdfsetup
 
 ## latex-lab-math
+all corrected.
 ~~~~
 math-tagging  =  
              mathml/writehash .code:n =  {... write template ...}
@@ -12,7 +13,8 @@ math-tagging  =
              texsource/panel .bool_set:N = \l__tag_math_texsource_panel_bool, 
 ~~~~
              
-## latex-lab-table  
+## latex-lab-table 
+corrected 
 ~~~~           
 table-tagging      .choice:     = true/false/layout     
 table-header-rows  .clist_set:N = \l_@@_header_rows_clist  
