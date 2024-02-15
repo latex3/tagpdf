@@ -58,21 +58,21 @@
 %    }
 % Keys to activate the various tagging steps. 
 % \end{function}
-%\begin{function}{no-struct-dest (setup-key)}
+%\begin{function}{activate/struct-dest (setup-key),no-struct-dest (deprecated)}
 % The key allows to suppress the creation of structure destinations
 % \end{function}
 %
-% \begin{function}{log (setup-key)}
-% The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
+% \begin{function}{debug/log (setup-key)}
+% The |debug/log| key takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
 % More details are in \texttt{tagpdf-checks}.
 % \end{function}
 %
-% \begin{function}{tagunmarked (setup-key)}
+% \begin{function}{activate/tagunmarked (setup-key), tagunmarked (deprecated) }
 % This key allows to set if (in luamode) unmarked text should be
 % marked up as artifact. The initial value is true.
 % \end{function}
 %
-% \begin{function}{tabsorder (setup-key)}
+% \begin{function}{page/tabsorder (setup-key), tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be
 % added if needed.
@@ -281,7 +281,7 @@
 % commands, the struct-boolean activates the storing of the structure data.
 % In a normal document all should be active, the split is only there for
 % debugging purpose.
-% Structure destination will be activated automatically if pdf version 2.0 is detected,
+% Structure destination will be activated automatically,
 % but with the boolean struct-dest-boolean one can suppress them.
 % Also we assume currently that they are set only at begin document. But
 % if some control passing over groups are needed they could be perhaps
@@ -332,10 +332,10 @@
 \cs_generate_variant:Nn \pdf_object_ref:n {e}
 \cs_generate_variant:Nn \pdfannot_dict_put:nnn {nne}
 \cs_generate_variant:Nn \pdffile_embed_stream:nnn {nee,oee}
-\cs_generate_variant:Nn \prop_gput:Nnn {Nee,Nen}
-\cs_generate_variant:Nn \prop_put:Nnn  {Nee}
-\cs_generate_variant:Nn \prop_item:Nn {No,Ne}
-\cs_generate_variant:Nn \seq_set_split:Nnn{Nne}
+\cs_generate_variant:Nn \prop_gput:Nnn {Nee,Nen} %** unneeded
+\cs_generate_variant:Nn \prop_put:Nnn  {Nee}     %** unneeded
+\cs_generate_variant:Nn \prop_item:Nn {No,Ne}    %**  unneeded
+\cs_generate_variant:Nn \seq_set_split:Nnn{Nne}  %**  unneeded
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
 \cs_generate_variant:Nn \clist_map_inline:nn {on}
 %    \end{macrocode}
@@ -343,6 +343,7 @@
 % \section{Label and Reference commands}
 % To ease transition to properties we setup internal definition. They can be replaced
 % by the property definitions once that is released.
+% %** do it!
 % \begin{macro}{\@@_property_new:nnnn,\@@_property_gset:nnnn,\@@_property_ref:nnn}
 % At first a command to define new properties
 %    \begin{macrocode}
@@ -601,12 +602,12 @@
     debug/log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
     debug/log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
 %    \end{macrocode}
-% deprecated but still needed as the documentmetadata key uses it.
+% deprecated but still needed as the documentmetadata key argument uses it.
 %    \begin{macrocode}
     log             .meta:n = {debug/log={#1}},
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{tagunmarked (setup-key)}
+% \begin{macro}{activate/tagunmarked (setup-key),tagunmarked (deprecated)}
 % This key allows to set if (in luamode) unmarked text should be
 % marked up as artifact. The initial value is true.
 %    \begin{macrocode}
@@ -615,24 +616,28 @@
 %    \end{macrocode}
 % deprecated name
 %    \begin{macrocode}
-    tagunmarked .meta:n = {activate/tagunmarked ={#1}}
+    tagunmarked .bool_gset:N = \g_@@_tagunmarked_bool
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{tabsorder (setup-key)}
+% \begin{macro}{page/tabsorder (setup-key),tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be
 % added if needed.
 %    \begin{macrocode}
-    tabsorder       .choice:,
-    tabsorder / row       .code:n =
+    page/tabsorder       .choice:,
+    page/tabsorder / row       .code:n =
       \pdfmanagement_add:nnn { Page } {Tabs}{/R},
-    tabsorder / column    .code:n =
+    page/tabsorder / column    .code:n =
       \pdfmanagement_add:nnn { Page } {Tabs}{/C},
-    tabsorder / structure .code:n =
+    page/tabsorder / structure .code:n =
       \pdfmanagement_add:nnn { Page } {Tabs}{/S},
-    tabsorder / none      .code:n =
+    page/tabsorder / none      .code:n =
       \pdfmanagement_remove:nn {Page} {Tabs},
-    tabsorder       .initial:n = structure,
+    page/tabsorder       .initial:n = structure,
+%    \end{macrocode}
+% deprecated name
+%    \begin{macrocode}
+    tabsorder .meta:n = {page/tabsorder={#1}},
     uncompress      .code:n = { \pdf_uncompress:  },
   }
 %    \end{macrocode}
