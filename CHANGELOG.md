@@ -11,6 +11,8 @@ this project uses date-based 'snapshot' version identifiers.
    * interwordspace (new name: activate/spaces)
    * show-spaces    (new: debug/show=spaces)
    *
+### Fixed
+ - missing slashes in dvilualatex backend, issue #96
 
 ## [2024-02-04]
 Version 0.98v
