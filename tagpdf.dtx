@@ -582,12 +582,12 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{debug/show (setup-key)}
-% Subkeys are defined in various other places.
+% Subkeys/values are defined in various other places.
 %    \begin{macrocode}
     debug/show            .choice:,
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{debug/log (setup-key)}
+% \begin{macro}{debug/log (setup-key), debug/uncompress (setup-key), log (deprecated), uncompress (deprecated)}
 % The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
 % The description of the log levels is in tagpdf-checks.
 %    \begin{macrocode}
@@ -601,10 +601,12 @@
     debug/log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
     debug/log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
     debug/log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
+    debug/uncompress .code:n = { \pdf_uncompress:  },    
 %    \end{macrocode}
 % deprecated but still needed as the documentmetadata key argument uses it.
 %    \begin{macrocode}
     log             .meta:n = {debug/log={#1}},
+    uncompress      .code:n = { \pdf_uncompress:  },
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{activate/tagunmarked (setup-key),tagunmarked (deprecated)}
@@ -637,8 +639,7 @@
 %    \end{macrocode}
 % deprecated name
 %    \begin{macrocode}
-    tabsorder .meta:n = {page/tabsorder={#1}},
-    uncompress      .code:n = { \pdf_uncompress:  },
+    tabsorder .meta:n = {page/tabsorder={#1}},    
   }
 %    \end{macrocode}
 % \end{macro}

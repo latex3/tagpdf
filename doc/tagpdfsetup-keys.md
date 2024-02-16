@@ -2,6 +2,10 @@
 
 The keys are split in a number of key pathes. 
 
+## Unhandled key
+
+root-AF (in tagpdf-struct)
+
 ## activate key path
 
 `activate` is used for keys that enable general, typically document wide tagging options related
@@ -27,12 +31,23 @@ The (new) debug key aligns various logging and debugging option with the debug k
 of `\DocumentMetadata`-
 
 ```
-debug/show = {para,spaces,false} (old: paratagging-show, show-spaces)
+debug/show = {para,spaces,paraOff,spacesOff} (old: paratagging-show, show-spaces)
 debug/log  = v|vv|vvv|none|all   (old: log) 
 debug/uncompress  (old: uncompress, not really needed anymore) 
 ```
 
 Check: does both `debug / show=` and `debug={show=, log=}` work?
+
+## role key path
+
+These are keys related to tags and attribute names.
+
+```
+role/new-tag       (old: add-new-tag)
+role/new-attribute (old: newattribute)
+role/mathml-tags   (old: mathml-tags)  
+role/tagset (choice, default is latex, with pdf only PDF-tags are used)
+```
 
 ## viewer keys 
 

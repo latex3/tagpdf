@@ -61,7 +61,7 @@
 % \begin{function}{activate (setup-key)}
 % And additional setup key which combine the other activate keys
 % |activate/mc|, |activate/tree|, |activate/struct| and additionally
-% add a document structure.
+% adds a document structure.
 % \end{function}
 %
 % \begin{function}{\tag_tool:n,\tagtool}
@@ -109,7 +109,7 @@
 % \end{syntax}
 % These are direct wrappers around |\tag_struct_begin:n|,
 % |\tag_struct_end:| and |\tag_struct_use:n|.
-% The commands and their argument are documentated in the \pkg{tagpdf-struct} module.
+% The commands and their argument are documented in the \pkg{tagpdf-struct} module.
 % \end{function}
 
 
@@ -183,22 +183,24 @@
 % pdftex.
 % \end{function}
 %
-% \subsection{Paratagging}
+% \subsection{Tagging of paragraphs}
 %
-% This is a first try to make use of the new paragraph hooks in a current LaTeX to
+% This makes use of the paragraph hooks in LaTeX to
 % automate the tagging of paragraph. It requires sane paragraph nesting,
 % faulty code, e.g. a missing |\par| at the end of a low-level vbox can highly
 % confuse the tagging. The tags should be carefully checked if this is used.
 %
-% \begin{function}{paratagging (setup-key),paratagging-show (setup-key)}
+% \begin{function}{para/tagging (setup-key),paratagging-show (deprecated),paratagging (deprecated)}
 %  \begin{syntax}
-%    |paratagging| = |true|\verb+|+|false|\\
-%    |paratagging-show| = |true|\verb+|+|false|\\
+%    |para/tagging| = |true|\verb+|+|false|\\
+%    |debug/show=para|\\
+%    |debug/show=paraOff|   
 %  \end{syntax}
-% This keys can be used in |\tagpdfsetup| and enable/disable paratagging.
-% |paratagging-show| puts small red numbers at the begin and end of a paragraph.
+% The |para/tagging| key can be used in |\tagpdfsetup| and enable/disables tagging
+% of paragraphics.
+% |debug/show=para| puts small colored numbers at the begin and end of a paragraph.
 % This is meant as a debugging help. The number are boxes and have a (tiny) height,
-% so they can affect typesetting.
+% so they can affect typesetting. 
 % \end{function}
 %
 % \begin{function}{\tagpdfparaOn,\tagpdfparaOff}
