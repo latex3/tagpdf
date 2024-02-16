@@ -636,7 +636,7 @@ if tex.outputmode == 0 then
  else -- assume a dvips variant
   function @@_backend_create_bmc_node (tag)
     local bmcnode = nodenew("whatsit","special")
-    bmcnode.data = "ps:SDict begin mark/"..tag.." BMC pdfmark end"
+    bmcnode.data = "ps:SDict begin mark/"..tag.." /BMC pdfmark end"
     return bmcnode
   end
  end 
@@ -672,7 +672,7 @@ if tex.outputmode == 0 then
  else -- assume a dvips variant
   function @@_backend_create_bdc_node (tag,dict)
     local bdcnode = nodenew("whatsit","special")
-    bdcnode.data = "ps:SDict begin mark/"..tag.."<<"..dict..">> BDC pdfmark end"
+    bdcnode.data = "ps:SDict begin mark/"..tag.."<<"..dict..">> /BDC pdfmark end"
     return bdcnode
   end
  end 
