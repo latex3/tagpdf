@@ -504,21 +504,10 @@ The key-val list understands the following keys:
   least \PrintKeyName{activate/mc} has been used.
   The old name of the key |interwordspace| is still supported but deprecated.
 
-\item[\PrintKeyName{debug/log}] Choice key, possible values
-  \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv},
-  \PrintKeyName{vvv}, \PrintKeyName{all}.  Setups the log level.
-  Changing the value affects currently mostly the luamode:
-  \enquote{higher} values gives more messages in the log. The current
-  levels and messages have been setup in a quite ad-hoc manner and
-  will need improvement.
 
 \item[\PrintKeyName{role/new-attribute}] This key takes two arguments and
   declares an attribute. See \ref{sec:attributes}.
 
-\item[\PrintKeyName{debug/show=spaces}] That's\sidenote{luamode} a
-  debug option, it helps in lua mode to see where space glyph will be
-  inserted if \PrintKeyName{activate/spaces} is activated. The debugging
-  can be deactivated again with  \PrintKeyName{debug/show=spacesOff}.
 
 \item[\PrintKeyName{para/tagging}] Boolean. This activate/deactivates
   the automatic tagging of paragraphs, see \ref{sec:paratagging} for
@@ -529,10 +518,6 @@ The key-val list understands the following keys:
   places and the code can easily break, so there is also an option to
   see where such paragraphs are:
 
-\item[\PrintKeyName{debug/show=para}] This (locally)
-  activate small red and green numbers in the places where
-  the paratagging hook code is used. It get be deactivated with 
-  \PrintKeyName{debug/show=paraOff}.
 
 \item[\PrintKeyName{para/tag}] String. This key changes the second tag
   used by the paratagging code. The default tag is \texttt{text}, a
@@ -579,12 +564,21 @@ The key-val list understands the following keys:
   \texttt{spaces}/\texttt{spacesOff}: \sidenote{luamode} 
    That helps in lua mode to see where space glyph will be
    inserted if \PrintKeyName{activate/spaces} is activated. 
-   This can also be activate with the now deprecated key |show-spaces|
+   This can also be activated with the now deprecated key |show-spaces|
 
-   \texttt{para}/\texttt{paraOff}: Shows where the para-hooks insert
-    tagging commands.
+  \texttt{para}/\texttt{paraOff}: This (locally)
+  activates/deactivates small red and green numbers in the places where
+  the paratagging hook code is used. 
+
   
-  \item[\PrintKeyName{debug/log}] This allows to set the log-level.
+  \item[\PrintKeyName{debug/log}] Choice key, possible values
+  \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv},
+  \PrintKeyName{vvv}, \PrintKeyName{all}.  Setups the log level.
+  Changing the value affects currently mostly the luamode:
+  \enquote{higher} values gives more messages in the log. The current
+  levels and messages have been setup in a quite ad-hoc manner and
+  will need improvement.
+
   
    \end{description}
 
@@ -606,18 +600,18 @@ should be used as the implementation will change to improve the
 speed. Currently the following arguments are supported
 
 \begin{description}
-\item[\PrintKeyName{para}] Boolean. It will replace the
+\item[\PrintKeyName{para/tagging}] Boolean. It will replace the
   \cs{tagpdfparaOn} and \cs{tagpdfparaOff} command.
 
-\item[\PrintKeyName{unittag}] String. It allows to change the outer
+\item[\PrintKeyName{para/maintag}] String. It allows to change the outer
   tag used in the following automatically tagged paragraphs. The
   setting is local.
 
-\item[\PrintKeyName{paratag}] String. It allows to change the inner
+\item[\PrintKeyName{para/tag}] String. It allows to change the inner
   tag used in the following automatically tagged paragraphs. The
   setting is local.
 
-\item[\PrintKeyName{para-flattened}] Boolean. If set it will suppress
+\item[\PrintKeyName{para/flattened}] Boolean. If set it will suppress
   the outer structure in the automatic paratagging.  This should be
   applied to the start and end hook in the same way! The setting is
   local.
@@ -1411,8 +1405,6 @@ commands are used:
 
 
 \subsubsection{Math}
-
-
 
 Math is a problem. I have seen an example where \emph{every single
 symbol} has been marked up with tags from MathML along with an
