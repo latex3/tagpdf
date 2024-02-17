@@ -464,7 +464,7 @@
 % It is currently used by the toc-tagging and sec-tagging code.
 %    \begin{macrocode}
 %</package>
-%<base>\prop_new:N \g_@@_struct_dest_num_prop
+%<base>\prop_new_linked:N \g_@@_struct_dest_num_prop
 %<*package>
 %    \end{macrocode}
 % \end{variable}
@@ -474,7 +474,7 @@
 % at the end to point to structured related with this destination.
 % As this is probably need in other places too, it is not only a toc-variable.
 %    \begin{macrocode}
-\prop_new:N \g_@@_struct_ref_by_dest_prop
+\prop_new_linked:N \g_@@_struct_ref_by_dest_prop
 %    \end{macrocode}
 % \end{variable} 
 % 
