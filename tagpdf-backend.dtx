@@ -97,6 +97,12 @@
     \lua_now:e { ltx.@@.tables.\cs_to_str:N#1 = {} }
   }
 
+\cs_set_protected:Npn \@@_prop_new_linked:N #1
+  {
+    \prop_new_linked:N #1
+    \lua_now:e { ltx.@@.tables.\cs_to_str:N#1 = {} }
+  }
+
 
 \cs_set_protected:Npn \@@_seq_new:N #1
   {
