@@ -13,6 +13,9 @@ this project uses date-based 'snapshot' version identifiers.
    *
 ### Fixed
  - missing slashes in dvilualatex backend, issue #96
+ 
+### Changed
+ - speed gain by using linked properties
 
 ## [2024-02-04]
 Version 0.98v
