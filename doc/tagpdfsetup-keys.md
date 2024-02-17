@@ -69,7 +69,7 @@ Currently we have setup keys for four document elements: `page`, `para`, `math`,
 
 ```
 page/tabsorder     (old tabsorder)
-page/header-footer (old exclude header-footer)
+page/exclude-header-footer (old exclude-header-footer)
 ```
 
 ### para key path

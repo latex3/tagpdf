@@ -1117,7 +1117,8 @@
 % This socket is used by the tag key. It allows to switch between
 % the latex-tabs and the standard tags.
 %    \begin{macrocode}
-\socket_new:nn { tag/struct/tag }{0}
+%<*package>
+\socket_new:nn { tag/struct/tag }{1}
 \socket_new_plug:nnn { tag/struct/tag }{ latex-tags }
  {
    \seq_set_split:Nne \l_@@_tmpa_seq { / } {#1/\prop_item:Ne\g__tag_role_tags_NS_prop{#1}}
@@ -1154,7 +1155,6 @@
 %    E (struct-key)
 %  }
 %    \begin{macrocode}
-%<*package>
 \keys_define:nn { @@ / struct }
   {
     label .tl_set:N      = \l_@@_struct_key_label_tl,
@@ -1178,7 +1178,7 @@
     parent .default:n    = {-1},
     tag   .code:n        = % S property
       {
-        \socket_use:n { tag/struct/tag }
+        \socket_use:nn { tag/struct/tag }{#1}
       },
     title .code:n        = % T property
       {

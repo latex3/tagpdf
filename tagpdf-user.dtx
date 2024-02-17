@@ -225,17 +225,21 @@
 % \end{function}
 %
 % \subsection{Header and footer}
-% Header and footer are automatically excluded from tagging. This can
-% be disabled with the following key.
+% Header and footer are automatically tagged as artifact:
+% They are surrounded by an artifact-mc and inside tagging is stopped.
 % If some real content is in the header and
 % footer, tagging must be restarted there explicitly.
-% The key accepts the values |true| which surrounds the header with an artifact
-% mc-chunk, |false| which disables the automatic tagging, and |pagination| which
+% The behaviour can be changed with the following key.
+% The key accepts the values |true| (the default),
+% |false| which disables the header tagging code. This can be useful
+% if the page style is empty (it then avoids empty mc-chunks) or
+% if the head and foot should be tagged in some special way.
+% The last value, |pagination|, is like |true| but
 % additionally adds an artifact structure with an pagination attribute.
 %
-% \begin{function}{exclude-header-footer (setup-key)}
+% \begin{function}{page/exclude-header-footer (setup-key)}
 %  \begin{syntax}
-%    |exclude-header-footer| = |true|\verb+|+|false|\verb+|+pagination
+%    |page/exclude-header-footer| = |true|\verb+|+|false|\verb+|+pagination
 %  \end{syntax}%
 % \end{function}
 
@@ -266,7 +270,7 @@
 % \end{syntax}
 % \end{function}
 
-% The next \LaTeX{} will use special sockets for the tagging.
+% The next \LaTeX{} (2024-06-01) will use special sockets for the tagging.
 % 
 % These sockets will use names starting
 % with \texttt{tagsupport/}. Usually, these sockets have exactly two
@@ -881,17 +885,47 @@
 %    \end{macrocode}
 %\begin{macro}
 % {
-%  paratagging (setup-key),
-%  paratagging-show (setup-key),
-%  paratag (setup-key),
-%  paratag (tool-key),
-%  unittag (tool-key),
-%  para-flattened (tool-key),
+%  para/tagging (setup-key),
+%  para/tag (setup-key),
+%  para/maintag (setup-key),
+%  para/tag (tool-key),
+%  para/maintag (tool-key),
+%  para/flattened (tool-key),
+%  unittag (deprecated),
+%  para-flattened (deprecated),
+%  paratagging (deprecated),
+%  paratagging-show (deprecated),
+%  paratag (deprecated),
 %  }
-% These keys enable/disable locally paratagging, and the debug modus.
-% It can affect the typesetting if |paratagging-show| is used. The small numbers
-% are boxes and they have a (small) height. The |paratag| key sets the tag used by
-% the next automatic paratagging, it can also be changed with |\tag_tool:n|
+% These keys enable/disable locally paratagging. 
+% Paragraphs are typically tagged with two structure: A main structure
+% around the whole paragraph, and inner structures around the various chunks.
+% Debugging can be
+% activated locally with |debug/show=para|, this can affect the typesetting 
+% as the small numbers
+% are boxes and they have a (small) height. Debugging can be deactivated
+% with |debug/show=paraOff| 
+% The |para/tag| key sets the tag used by
+% the inner structure, |para/maintag| the tag of the outer structure,
+% both can also be changed with |\tag_tool:n|
+%    \begin{macrocode}
+\keys_define:nn { @@ / setup }
+  {
+    para/tagging      .bool_set:N = \l_@@_para_bool,
+    debug/show/para   .code:n = {\bool_set_true:N \l_@@_para_show_bool},
+    debug/show/paraOff  .code:n = {\bool_set_false:N \l_@@_para_show_bool},
+    para/tag          .tl_set:N   = \l_@@_para_tag_tl,
+    para/tag          .tl_set:N   = \l_@@_para_main_tag_tl
+  }
+\keys_define:nn { tag / tool} 
+  {
+    para/tagging   .bool_set:N = \l_@@_para_bool,
+    para/tag       .tl_set:N = \l_@@_para_tag_tl,
+    para/maintag   .tl_set:N = \l_@@_para_main_tag_tl,
+    para/flattened .bool_set:N = \l_@@_para_flattened_bool
+  }
+%    \end{macrocode}
+% the deprecated names
 %    \begin{macrocode}
 \keys_define:nn { @@ / setup }
   {
@@ -901,6 +935,7 @@
   }
 \keys_define:nn { tag / tool} 
   {
+    para    .bool_set:N = \l_@@_para_bool,
     paratag .tl_set:N = \l_@@_para_tag_tl,
     unittag .tl_set:N = \l_@@_para_main_tag_tl,
     para-flattened .bool_set:N = \l_@@_para_flattened_bool
@@ -1135,11 +1170,6 @@
 %<*package>
 \renewcommand\tagpdfparaOn {\bool_set_true:N \l_@@_para_bool}
 \renewcommand\tagpdfparaOff{\bool_set_false:N \l_@@_para_bool}
-\keys_define:nn { tag / tool} 
-  {
-    para .bool_set:N = \l_@@_para_bool,
-    para-flattened .bool_set:N = \l_@@_para_flattened_bool,
-  }  
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1250,34 +1280,38 @@
  }
 %    \end{macrocode}
 % And now the keys
-% \begin{macro}{exclude-header-footer (setup-key)}
+% \begin{macro}{page/exclude-header-footer (setup-key),exclude-header-footer (deprecated)}
 %    \begin{macrocode}
 \keys_define:nn { @@ / setup }
   {
-    exclude-header-footer .choice:,
-    exclude-header-footer / true .code:n =
+    page/exclude-header-footer .choice:,
+    page/exclude-header-footer / true .code:n =
      {
        \cs_set_eq:NN \@@_hook_kernel_before_head: \@@_exclude_headfoot_begin:
        \cs_set_eq:NN \@@_hook_kernel_before_foot: \@@_exclude_headfoot_begin:
        \cs_set_eq:NN \@@_hook_kernel_after_head:  \@@_exclude_headfoot_end:
        \cs_set_eq:NN \@@_hook_kernel_after_foot:  \@@_exclude_headfoot_end:
      },
-    exclude-header-footer / pagination .code:n =
+    page/exclude-header-footer / pagination .code:n =
      {
        \cs_set:Nn \@@_hook_kernel_before_head: { \@@_exclude_struct_headfoot_begin:n {pagination} }
        \cs_set:Nn \@@_hook_kernel_before_foot: { \@@_exclude_struct_headfoot_begin:n {pagination} }
        \cs_set_eq:NN \@@_hook_kernel_after_head:  \@@_exclude_struct_headfoot_end:
        \cs_set_eq:NN \@@_hook_kernel_after_foot:  \@@_exclude_struct_headfoot_end:
      },
-    exclude-header-footer / false .code:n =
+    page/exclude-header-footer / false .code:n =
      {
        \cs_set_eq:NN \@@_hook_kernel_before_head: \prg_do_nothing:
        \cs_set_eq:NN \@@_hook_kernel_before_foot: \prg_do_nothing:
        \cs_set_eq:NN \@@_hook_kernel_after_head:  \prg_do_nothing:
        \cs_set_eq:NN \@@_hook_kernel_after_foot:  \prg_do_nothing:
      },
-   exclude-header-footer .default:n = true,
-   exclude-header-footer .initial:n = true
+   page/exclude-header-footer .default:n = true,
+   page/exclude-header-footer .initial:n = true,
+%    \end{macrocode}
+% deprecated name
+%    \begin{macrocode}
+   exclude-header-footer .meta:n = { page/exclude-header-footer = {#1} }
   }
 %    \end{macrocode}
 % \end{macro}
