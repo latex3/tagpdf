@@ -282,9 +282,11 @@ One must check how good the accessibility is \emph{practically}.
 
 
 Syntax validation and formal standard validation can be done for example with 
-preflight of the (non-free) Adobe Acrobat. It can also be done also with the 
-free \PDF{} Accessibility Checker (PAC~2021) \parencite{pac3}. There is also 
-the validator veraPDF \parencite{verapdf}. A rather new and quite useful tool 
+preflight of the (non-free) Adobe Acrobat. It can also be done 
+(only for PDF 1.7 and older) also with the 
+free \PDF{} Accessibility Checker (PAC~2024) \parencite{pac2024}. There is also 
+the validator veraPDF \parencite{verapdf} which can also handle PDF 2.0 files. 
+A quite useful tool 
 is \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application 
 which converts a tagged PDF to html, allows to inspect its structure and also 
 to edit the structure. For PDF~2.0 files there is also a checker based on the 
@@ -337,7 +339,7 @@ improvements and new features in the \LaTeX\ kernel, the latex-lab bundle and
 the \PDF\ management code and is now much better. Only a few 
 structures---mostly some from currently unsupported packages--- still need 
 manual tagging. But sadly the output of the validators don't quite reflect 
-the improvements. The documentation uses now \PDF~2.0  and PAC~3 can't handle 
+the improvements. The documentation uses now \PDF~2.0  and PAC~2024 can't handle 
 this, it claims that the file is damaged. The Adobe validator has a bug and 
 doesn't like the (valid) use of  the \texttt{Lbl} tag for the section numbers 
 (see figure~\ref{fig:adobe}).  
@@ -491,7 +493,7 @@ The key-val list understands the following keys:
   false. Activates the code related to trees. Should be used only if
   the two other keys has been used too.
 
-\item[\PrintKeyName{add-new-tag}] Allows to define new tag names, see
+\item[\PrintKeyName{role/new-tag}] Allows to define new tag names, see
   section \ref{sec:new-tag} for a description.
 
 \item[\PrintKeyName{activate/spaces}] Choice key, possible values are
@@ -510,27 +512,29 @@ The key-val list understands the following keys:
   levels and messages have been setup in a quite ad-hoc manner and
   will need improvement.
 
-\item[\PrintKeyName{newattribute}] This key takes two arguments and
+\item[\PrintKeyName{role/new-attribute}] This key takes two arguments and
   declares an attribute. See \ref{sec:attributes}.
 
-\item[\PrintKeyName{show-spaces}] Boolean.\sidenote{luamode} That's a
+\item[\PrintKeyName{debug/show=spaces}] That's\sidenote{luamode} a
   debug option, it helps in lua mode to see where space glyph will be
-  inserted if \PrintKeyName{interwordspace} is activated.
+  inserted if \PrintKeyName{activate/spaces} is activated. The debugging
+  can be deactivated again with  \PrintKeyName{debug/show=spacesOff}.
 
-\item[\PrintKeyName{paratagging}] Boolean. This activate/deactivates
+\item[\PrintKeyName{para/tagging}] Boolean. This activate/deactivates
   the automatic tagging of paragraphs, see \ref{sec:paratagging} for
   more background.  It uses the \texttt{para/begin} and
-  \texttt{para/end} hooks of the newest \LaTeX{} version (2021-05-01).
+  \texttt{para/end} hooks.
   With more tagging support conditions will be added, that means the
   code is bound to change! Paragraphs can appear in many unexpected
   places and the code can easily break, so there is also an option to
   see where such paragraphs are:
 
-\item[\PrintKeyName{paratagging-show}] Boolean. This
-  activate/deactivates small red and green numbers in the places where
-  the paratagging hook code is used.
+\item[\PrintKeyName{debug/show=para}] This (locally)
+  activate small red and green numbers in the places where
+  the paratagging hook code is used. It get be deactivated with 
+  \PrintKeyName{debug/show=paraOff}.
 
-\item[\PrintKeyName{paratag}] String. This key changes the second tag
+\item[\PrintKeyName{para/tag}] String. This key changes the second tag
   used by the paratagging code. The default tag is \texttt{text}, a
   \LaTeX{} specific tag that is role mapped to \texttt{P}. A useful
   local setting here can be \texttt{NonStruct}, which creates a
@@ -538,7 +542,14 @@ The key-val list understands the following keys:
   recommended to use the newer \cs{tagtool} command described below
   instead of \cs{tagpdfsetup}.
 
-\item[\PrintKeyName{tabsorder}] Choice key, possible values are
+\item[\PrintKeyName{para/maintag}] String. This key changes the first tag
+  used by the paratagging code. The default tag is \texttt{text-unit}, a
+  \LaTeX{} specific tag that is role mapped to \texttt{Part}. 
+  For local changes it is
+  recommended to use the newer \cs{tagtool} command described below
+  instead of \cs{tagpdfsetup}.
+
+\item[\PrintKeyName{page/tabsorder}] Choice key, possible values are
   \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure},
   \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is
   written to the dictionary of the page objects. Not really needed for
@@ -555,19 +566,25 @@ The key-val list understands the following keys:
   annotations etc. See also section~\ref{sec:lazy} for a discussion
   about automatic tagging.
 
-\item[\PrintKeyName{uncompress}] Sets both the \PDF{} compresslevel
+\item[\PrintKeyName{debug/uncompress}] Sets both the \PDF{} compresslevel
   and the \PDF{} objcompresslevel to 0 and so allows to inspect the
-  \PDF{}.
+  \PDF{}. No really useful anymore as this can also 
+  be set in \cs{DocumentMetadata}.
 
 \item[\PrintKeyName{debug}] This keys knows a number of sub-keys to
   set various debug options. 
   \begin{description}
   \item[\PrintKeyName{debug/show}] This takes a comma list of keywords:
   
-  \texttt{spaces}: \sidenote{luamode} 
+  \texttt{spaces}/\texttt{spacesOff}: \sidenote{luamode} 
    That helps in lua mode to see where space glyph will be
    inserted if \PrintKeyName{activate/spaces} is activated. 
    This can also be activate with the now deprecated key |show-spaces|
+
+   \texttt{para}/\texttt{paraOff}: Shows where the para-hooks insert
+    tagging commands.
+  
+  \item[\PrintKeyName{debug/log}] This allows to set the log-level.
   
    \end{description}
 
