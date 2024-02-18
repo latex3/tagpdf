@@ -705,7 +705,7 @@ end
 %    \begin{macrocode}
 local function @@_pdf_object_ref (name)
    local tokenname = 'c__pdf_backend_object_'..name..'_int'
-   local object = token.create(tokenname).index..' 0 R'
+   local object = token.create(tokenname).mode ..' 0 R'
    return object
 end
 ltx.@@.func.pdf_object_ref=@@_pdf_object_ref
