@@ -1406,7 +1406,25 @@ commands are used:
 
 \subsubsection{Math}
 
-Math is a problem. I have seen an example where \emph{every single
+Math is still a problem but some progress has been made.
+To tag math you have to surround it with a \texttt{Formula} structure. But the content of such a structure is handled by readers as a black box so additional data is needed for accessibility.
+
+There are a number of theoretical options here:
+\begin{enumerate}
+\item One can add an alternative text (\texttt{/Alt}) or an \texttt{/ActualText}
+to the structure element either some text manually provided by the author or (with
+the math module in the latex-lab bundle) the \LaTeX-source).
+\item One can add an alternative text (\texttt{/Alt} or \texttt{/ActualText})
+to the MC-chunks.
+\item One can build inside the \texttt{Formula} structure element a tree with MathML structure elements --- with PDF 2.0 this not require to declare new tags as the MathML name space is built-in. 
+\item One can in PDF 2.0 attach a MathML file and/or the \LaTeX-source as associated file to the \texttt{Formula} structure (or to one or more MC-chunks).
+\end{enumerate}        
+
+Option 1 and 2 give not too bad results with a screen reader, but can require manual work and if you are unlucky the reader drops important part of the math (like punctuation symbols). Exploring the equation is not possible. 
+
+
+Option 3 creates many structure elements. 
+I have seen an example where \emph{every single
 symbol} has been marked up with tags from MathML along with an
 \texttt{/ActualText} entry and an entry with alternate text which
 describes how to read the symbol.  The \PDF{} then looked like this
@@ -1426,18 +1444,19 @@ mark-up as doing it manually is too much work and would make the
 source unreadable -- at least with pdflatex and the generic mode. In
 lua mode is it possible to hook into the \texttt{mlist\_to\_hlist}
 callback and add marker automatically. Some first implementation is
-done by Marcel Krüger in the luamml project.
+done by Marcel Krüger in the luamml project. But up-to-now it was not possible 
+to test the usability of this approach: With the exception of the html derivation
+with ngpdf no PDF-viewer/screen reader combination
+seems to make use of such structures. 
 
-But I'm not sure that this is the best way to do math. It looks rather
+But I'm not sure anyway that this is the best way to do math. It looks rather
 odd that a document should have to tell a screen reader in such detail
-how to read an equation. It would be much more efficient, sensible and
-flexible if a complete representation of the equation in mathML could
-be stored in the \PDF{} and the task how to read this aloud delegated
-to the screen reader. As \PDF{}~2.0 introduced associated files it is
-probable that this will be the way to go but more investigations are
-needed here.
+how to read an equation. 
 
-See also section~\ref{sec:alt} for some more remarks and tests.
+The last option 4 has been implemented in the math module. Here happily a proof of
+concept was possible: With development versions of foxit and the NVDA reader
+it was possible to access an attached MathML and get speech output from it \cite{todasoifferdeims2024,mittelbachfischerdeims2024}. See also \cite{mathexamples} for some
+examples and section~\ref{sec:alt} for some more remarks and tests.
 
 
 \subsubsection{Split paragraphs}\label{sec:splitpara}
@@ -1483,14 +1502,13 @@ TUG~2021 \enquote{Taming the beast — Advances in paragraph tagging
 Please note
 
 \begin{itemize}
-\item The code requires a \pkg{pdfmanagement-testphase} version v0.95i or newer.
-
 \item Typically you will need more compilations than previously, don't
   rely on the rerun messages, but if something looks wrong rerun.
 
 \item The code relies on that related |\tagmcbegin| and |\tagmcend|
   are in the same boxing level. If one is in a box (which hides the
-  marks) and the other in the main galley, things will go wrong.
+  marks) and the other in the main galley, things will go wrong (\texttt{longtable} 
+  is for example problematic).
 \end{itemize}
 
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
@@ -1592,8 +1610,8 @@ of your own you must declare them. E.g. this declares two new types
 
 \begin{taglstlisting}
 \tagpdfsetup{
-  add-new-tag = TAB/P,
-  add-new-tag = FIG/P,
+  role/new-tag = TAB/P,
+  role/new-tag = FIG/P,
             }
 \end{taglstlisting}
 
@@ -1638,8 +1656,8 @@ nesting defines the level of a sectioning heading.
 The flat version is more \LaTeX-like and it is rather straightforward to 
 patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates 
 \texttt{H\ldots} start and end markers. The xml-like tree is more difficult 
-to automate. If such a tree is wanted I would recommend to use -- like the 
-context format -- explicit commands to start and end a sectioning unit. 
+to automate. It has been implemented in the sec module in latex-lab, but can break
+if sectioning commands are hidden inside boxes.
 
 
 
