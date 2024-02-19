@@ -14,6 +14,7 @@ this project uses date-based 'snapshot' version identifiers.
 ### Fixed
  - missing slashes in dvilualatex backend, issue #96
  - lua error with large object numbers, issue #97
+ - existence tests for unknown props (issue latex3/latex3#1455)
  
 ### Changed
  - speed gain by using linked properties

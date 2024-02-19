@@ -505,11 +505,16 @@
       {
         \msg_info:nnn { tag }{new-tag}{#1}
       }
-    \prop_get:cnN { g_@@_role_NS_#4_class_prop } {#3}\l_@@_tmpa_tl
-    \quark_if_no_value:NT \l_@@_tmpa_tl 
-      {
-        \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
-      }         
+    \prop_if_exist:cTF
+     { g_@@_role_NS_#4_class_prop }  
+     {
+       \prop_get:cnN { g_@@_role_NS_#4_class_prop } {#3}\l_@@_tmpa_tl
+       \quark_if_no_value:NT \l_@@_tmpa_tl 
+        {
+          \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
+        }                     
+     }
+     { \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--} } 
     \@@_role_alloctag:nnV {#1}{#2}\l_@@_tmpa_tl  
 %    \end{macrocode}
 % Do not remap standard tags. TODO add warning?
@@ -579,15 +584,24 @@
      %#3 tlvar which hold the role tag
      %#4 tlvar which hold the name of the target NS
     {
-      \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_tmpa_tl
-        {
-         \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_tmpa_tl}         
-         \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_tmpa_tl}
-        } 
-        {
-         \tl_set:Nn #3 {#1}
-         \tl_set:Nn #4 {#2}
-        }
+      \prop_if_exist:cTF {g_@@_role_NS_#2_prop}
+       {      
+        \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_tmpa_tl
+          {
+           \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_tmpa_tl}         
+           \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_tmpa_tl}
+          } 
+          {
+           \msg_warning:nnn { tag } {role-unknown-tag} { #1 }
+           \tl_set:Nn #3 {#1}
+           \tl_set:Nn #4 {#2}
+          }
+       }
+       {
+          \msg_warning:nnn { tag } {role-unknown-NS} { #2 }
+          \tl_set:Nn #3 {#1}
+          \tl_set:Nn #4 {#2}          
+       }   
     }
    \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN} 
  }   
@@ -1106,20 +1120,27 @@
             \tl_set:Nn \l_@@_tmpa_tl {#1}
           } 
           {           
-            \prop_get:cnNTF 
-               { g_@@_role_NS_#2_prop }
-               {#1}
-               \l_@@_tmpa_tl
-               {
-                 \tl_set:Ne \l_@@_tmpa_tl {\tl_head:N\l_@@_tmpa_tl}
-                 \tl_if_empty:NT\l_@@_tmpa_tl
-                   {
-                     \tl_set:Nn \l_@@_tmpa_tl {#1}
-                   } 
-               }
-               { 
-                 \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
-               }  
+            \prop_if_exist:cTF { g_@@_role_NS_#2_prop }
+              {
+               \prop_get:cnNTF 
+                  { g_@@_role_NS_#2_prop }
+                  {#1}
+                  \l_@@_tmpa_tl
+                  {
+                    \tl_set:Ne \l_@@_tmpa_tl {\tl_head:N\l_@@_tmpa_tl}
+                    \tl_if_empty:NT\l_@@_tmpa_tl
+                      {
+                        \tl_set:Nn \l_@@_tmpa_tl {#1}
+                      } 
+                  }
+                  { 
+                    \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
+                  } 
+              }
+              { 
+                \msg_warning:nnn { tag } {role-unknown-NS} { #2}
+                \tl_set:Nn \l_@@_tmpa_tl {\q_no_value} 
+              }    
           }            
 %    \end{macrocode}
 % and the same for the child
@@ -1131,20 +1152,27 @@
             \tl_set:Nn \l_@@_tmpb_tl {#3}
           } 
           { 
-            \prop_get:cnNTF 
-              { g_@@_role_NS_#4_prop }
-              {#3}
-              \l_@@_tmpb_tl
+            \prop_if_exist:cTF { g_@@_role_NS_#4_prop }
               {
-                \tl_set:Ne \l_@@_tmpb_tl { \tl_head:N\l_@@_tmpb_tl }
-                \tl_if_empty:NT\l_@@_tmpb_tl
-                  {
-                    \tl_set:Nn \l_@@_tmpb_tl {#3}
-                  }             
+               \prop_get:cnNTF 
+                 { g_@@_role_NS_#4_prop }
+                 {#3}
+                 \l_@@_tmpb_tl
+                 {
+                   \tl_set:Ne \l_@@_tmpb_tl { \tl_head:N\l_@@_tmpb_tl }
+                   \tl_if_empty:NT\l_@@_tmpb_tl
+                     {
+                       \tl_set:Nn \l_@@_tmpb_tl {#3}
+                     }             
+                 }
+                 { 
+                   \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
+                 } 
               }
-              { 
+              {
+                \msg_warning:nnn { tag } {role-unknown-NS} { #4}
                 \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
-              } 
+              }   
           }         
 %    \end{macrocode}
 % and now get the relation

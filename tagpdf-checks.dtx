@@ -306,7 +306,7 @@
 % Message if an attribute i sunknown.
 % \end{function}
 %
-% \begin{function}{role-missing,role-unknown,role-unknown-tag,role-tag,new-tag,
+% \begin{function}{role-missing,role-unknown,role-unknown-tag,role-unknown-NS,role-tag,new-tag,
 % role-parent-child,role-remapping}
 % Messages related to role mapping.
 % \end{function}
@@ -500,12 +500,13 @@
 % \end{macro}
 %
 % \subsection{Roles}
-% \begin{macro}{role-missing,role-unknown,role-unknown-tag}
+% \begin{macro}{role-missing,role-unknown,role-unknown-tag,role-unknown-NS}
 % Warning message if either the tag or the role is missing
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-missing}     { tag~#1~has~no~role~assigned  }
 \msg_new:nnn { tag } {role-unknown}     { role~#1~is~not~known  }
 \msg_new:nnn { tag } {role-unknown-tag} { tag~#1~is~not~known  }
+\msg_new:nnn { tag } {role-unknown-NS}  { \tl_if_empty:nTF{#1}{Empty~NS}{NS~#1~is~not~known} }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{role-parent-child}
