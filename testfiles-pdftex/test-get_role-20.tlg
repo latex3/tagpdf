@@ -17,91 +17,18 @@ l. ... }
 ============================================================
 TEST 3: get known role title, unknown name space
 ============================================================
-! Use of \__prop_get_linked:w doesn't match its definition.
-<recently read> \g__tag_role_NS_blub_prop 
-l. ... }
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-! Argument of \tl_set:Nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \tl_set:Nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l. ... }
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-! Argument of \use_i:nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \use_i:nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l. ... }
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-! Argument of \use_ii:nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \use_ii:nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-> \l_tmpa_tl={Span}{pdf}.
+Package tagpdf Warning: NS blub is not known
+> \l_tmpa_tl=title.
 <recently read> }
 l. ... }
-> \l_tmpb_tl=.
+> \l_tmpb_tl=blub.
 <recently read> }
 l. ... }
 ============================================================
 ============================================================
 TEST 4: get unknown role: blub
 ============================================================
+Package tagpdf Warning: tag blub is not known
 > \l_tmpa_tl=blub.
 <recently read> }
 l. ... }
@@ -110,169 +37,21 @@ l. ... }
 l. ... }
 ============================================================
 ============================================================
-TEST 5: get standard role: Sect
+TEST 5: get standard role: Sect, unknown NS
 ============================================================
-! Use of \__prop_get_linked:w doesn't match its definition.
-<recently read> \g__tag_role_NS_xxx_prop 
-l. ... }
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-! Argument of \tl_set:Nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \tl_set:Nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l. ... }
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-! Argument of \use_i:nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \use_i:nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l. ... }
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-! Argument of \use_ii:nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \use_ii:nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-> \l_tmpa_tl={Span}{pdf}.
+Package tagpdf Warning: NS xxx is not known
+> \l_tmpa_tl=Sect.
 <recently read> }
 l. ... }
-> \l_tmpb_tl=.
+> \l_tmpb_tl=xxx.
 <recently read> }
 l. ... }
 ============================================================
 ============================================================
-TEST 6: get standard role: Aside
+TEST 6: get standard role: Aside, empty NS
 ============================================================
-! Use of \__prop_get_linked:w doesn't match its definition.
-<recently read> \g__tag_role_NS_xxx_prop 
-l. ... }
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-! Argument of \tl_set:Nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \tl_set:Nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l. ... }
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-! Argument of \use_i:nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \use_i:nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l. ... }
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-! Argument of \use_ii:nn has an extra }.
-<inserted text> 
-                \par 
-l. ... }
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-Runaway argument?
-! Paragraph ended before \use_ii:nn was complete.
-<to be read again> 
-                   \par 
-l. ... }
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-> \l_tmpa_tl={Span}{pdf}.
+Package tagpdf Warning: Empty NS
+> \l_tmpa_tl=Aside.
 <recently read> }
 l. ... }
 > \l_tmpb_tl=.

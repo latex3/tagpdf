@@ -29,15 +29,15 @@ xxx
    \tl_show:N \l_tmpa_tl\tl_show:N \l_tmpb_tl
  }  
  
-\TEST{get~standard~role:~Sect}
+\TEST{get~standard~role:~Sect,~unknown~NS}
  {
    \__tag_role_get:nnNN {Sect}{xxx}\l_tmpa_tl\l_tmpb_tl
    \tl_show:N \l_tmpa_tl\tl_show:N \l_tmpb_tl
  }   
  
-\TEST{get~standard~role:~Aside}
+\TEST{get~standard~role:~Aside,~empty~NS}
  {
-   \__tag_role_get:nnNN {Aside}{xxx}\l_tmpa_tl\l_tmpb_tl
+   \__tag_role_get:nnNN {Aside}{}\l_tmpa_tl\l_tmpb_tl
    \tl_show:N \l_tmpa_tl\tl_show:N \l_tmpb_tl
  }    
 \ExplSyntaxOff
