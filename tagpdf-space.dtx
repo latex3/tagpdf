@@ -80,9 +80,10 @@
 %<*package>
 \keys_define:nn { @@ / setup }
   {         
-    activate/spaces .choices:nn = { true, on }
+    activate/spaces .choice:,
+    activate/spaces/true .code:n = 
       { \msg_warning:nne {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
-    activate/spaces .choices:nn = { false, off }
+    activate/spaces/false .code:n= 
       { \msg_warning:nne {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
     activate/spaces .default:n = true,    
     debug/show/spaces     .code:n = {\bool_set_true:N \l_@@_showspaces_bool},
@@ -104,15 +105,15 @@
         \pdfglyphtounicode{space}{0020}
         \keys_define:nn { @@ / setup }
           {
-            activate/spaces .choices:nn = { true, on }  { \pdfinterwordspaceon },
-            activate/spaces .choices:nn = { false, off }{ \pdfinterwordspaceon },
+            activate/spaces/true .code:n  = { \pdfinterwordspaceon },
+            activate/spaces/false .code:n = { \pdfinterwordspaceoff },
             activate/spaces .default:n = true,
           }
       }
       {
         \keys_define:nn { @@ / setup }
           {
-            activate/spaces .choices:nn = { true, on, false, off }
+            activate/spaces .choices:nn = { true, false }
               { \msg_warning:nnn {tag}{sys-no-interwordspace}{dvi}  },
             activate/spaces .default:n = true,
           }
@@ -124,14 +125,13 @@
   {
     \keys_define:nn { @@ / setup }
       {
-        activate/spaces .choices:nn =
-                                 { true, on }
+        activate/spaces .choice:,
+        activate/spaces/true .code:n =                            
                                  {
                                    \bool_gset_true:N \g_@@_active_space_bool
                                    \lua_now:e{ltx.@@.func.markspaceon()}
                                  },
-        activate/spaces .choices:nn =
-                                 { false, off }
+        activate/spaces/false .code:n =
                                  {
                                   \bool_gset_false:N \g_@@_active_space_bool
                                   \lua_now:e{ltx.@@.func.markspaceoff()}
