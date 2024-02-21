@@ -4,7 +4,7 @@
 \begin{tabular}{lllll}
 \toprule
 new key name    & old key name & value            &type   & defined in \\\midrule
- ---            & root-AF      & string           &code   &tagpdf-struct\\[4pt]\midrule
+ ???            & root-AF      & string           &code   &tagpdf-struct\\[4pt]\midrule
 %% activate key path
 %% activate` is used for keys that enable 
 %% general, typically document wide tagging options 
@@ -13,7 +13,7 @@ new key name    & old key name & value            &type   & defined in \\\midrul
 activate        & activate        & boolean         &meta  & tagpdf \\
 activate/all    & activate-all    & boolean         &meta & tagpdf\\
 activate/mc     & activate-mc     & boolean         &bool  & tagpdf\\  
-activate/spaces & interwordspace  & boolean/choice  &code  & tagpdf-space\\
+activate/spaces & interwordspace  & boolean         &code  & tagpdf-space\\
 activate/struct & activate-struct & boolean         &bool  & tagpdf\\  
 activate/struct-dest & no-struct-dest&boolean       &bool  & tagpdf\\
 activate/tagunmarked& tagunmarked & boolean         &bool & tagpdf\\
@@ -60,10 +60,11 @@ math/mathml/write-dummy & ---      &---              &code  &latex-lab-math\\
 % mathml source files:
 math/mathml/sources &---           & clist           &clist &latex-lab-math\\
 math/mathml/AF      &---           &boolean          &bool  &latex-lab-math\\
-math/tex/AF       & ---            &boolean          &bool  &latex-lab-math\\
+math/tex/AF       & ---            &boolean          &bool  &latex-lab-math\\[4pt]\midrule
 % TODO math/alt/type = source|manual|     (later)                                                                               
 %% table key path
 % true/false/layout
 table/tagging     & table-tagging  &choice           &code  &latex-lab-table\\
 table/header-rows & table-header-rows& clist         &clist &latex-lab-table\\
+\bottomrule
 \end{tabular}

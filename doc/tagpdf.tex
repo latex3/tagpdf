@@ -37,6 +37,7 @@
 \usepackage[noparboxrestore]{marginnote}
 \reversemarginpar
 \usepackage{booktabs}
+\setlength\belowcaptionskip{10pt}
 \usepackage{tcolorbox}
 
 \usepackage{tikz}
@@ -501,9 +502,7 @@ The key-val list understands at least the following keys. More keys are defined 
 \item[\PrintKeyName{role/new-tag}] Allows to define new tag names, see
   section \ref{sec:new-tag} for a description.
 
-\item[\PrintKeyName{activate/spaces}] Choice key, possible values are
-  \PrintKeyName{true}/""\PrintKeyName{on} and
-  \PrintKeyName{false}/\PrintKeyName{off}. The key
+\item[\PrintKeyName{activate/spaces}] Boolean. The key
   activates/deactivates the insertion of space glyphs, see
   section~\ref{sec:spacechars}. In the luamode it only works if at
   least \PrintKeyName{activate/mc} has been used.
