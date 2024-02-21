@@ -1419,12 +1419,17 @@ to the MC-chunks.
 \item One can build inside the \texttt{Formula} structure element a tree with MathML structure elements --- with PDF 2.0 this not require to declare new tags as the MathML name space is built-in. 
 \item One can in PDF 2.0 attach a MathML file and/or the \LaTeX-source as associated file to the \texttt{Formula} structure (or to one or more MC-chunks).
 \end{enumerate}        
-
-Option 1 and 2 give not too bad results with a screen reader, but can require manual work and if you are unlucky the reader drops important part of the math (like punctuation symbols). Exploring the equation is not possible. 
+The question is how these work in reality.
+ 
+Option 1 and 2 give not too bad results 
+with a screen reader, but can 
+require manual work and if you are unlucky the reader drops 
+important part of the math (like punctuation symbols). 
+Exploring the equation is not possible. 
 
 
 Option 3 creates many structure elements. 
-I have seen an example where \emph{every single
+E.g. I have seen an example where \emph{every single
 symbol} has been marked up with tags from MathML along with an
 \texttt{/ActualText} entry and an entry with alternate text which
 describes how to read the symbol.  The \PDF{} then looked like this
@@ -1443,17 +1448,17 @@ If this is really the way to go one would need some script to add the
 mark-up as doing it manually is too much work and would make the
 source unreadable -- at least with pdflatex and the generic mode. In
 lua mode is it possible to hook into the \texttt{mlist\_to\_hlist}
-callback and add marker automatically. Some first implementation is
-done by Marcel Krüger in the luamml project. But up-to-now it was not possible 
+callback and add marker automatically. Some first implementation in this direction
+has been done by Marcel Krüger in the luamml project. But up-to-now it was not possible 
 to test the usability of this approach: With the exception of the html derivation
 with ngpdf no PDF-viewer/screen reader combination
 seems to make use of such structures. 
-
-But I'm not sure anyway that this is the best way to do math. It looks rather
+I'm not sure anyway that this is the best way to do math. It looks rather
 odd that a document should have to tell a screen reader in such detail
 how to read an equation. 
 
-The last option 4 has been implemented in the math module. Here happily a proof of
+The last option 4 has been implemented in the math module in the \texttt{latex-lab}
+bundle. Here happily a proof of
 concept was possible: With development versions of foxit and the NVDA reader
 it was possible to access an attached MathML and get speech output from it \cite{todasoifferdeims2024,mittelbachfischerdeims2024}. See also \cite{mathexamples} for some
 examples and section~\ref{sec:alt} for some more remarks and tests.
@@ -1489,7 +1494,7 @@ Pellentesque scelerisque
 sit amet, lacus.\tagmcend
 \end{taglstlisting}
 
-Starting with version 0.92 there is code which tries to resolve this
+Starting with version 0.92 there is code which resolves this
 problem. Basically it works like this: every mc-command issues a mark
 command (actually two slightly different). When the page is built in
 the output routine this mark commands are inspected and from them
@@ -2152,10 +2157,10 @@ types or are \enquote{role mapped} to such a standard type. Such a
 role mapping is a simple key-value in the RoleMap dictionary.
 
 So instead of |H1| the type |section| could be used. The role mapping
-can then be declared with the |add-new-tag| key:
+can then be declared with the |role/new-tag| key:
 
 \begin{taglstlisting}
- \tagpdfsetup{add-new-tag = section/H1}
+ \tagpdfsetup{role/new-tag = section/H1}
 \end{taglstlisting}
 
 In PDF 2.0 the situation is a bit more complicated. At first PDF~2.0
@@ -2225,7 +2230,7 @@ and the following are new:\\
 \end{enumerate}
 
 To allow to this more complicated setup the syntax of the
-\texttt{add-new-tag} key has been extended.  It now takes as argument
+\texttt{role/new-tag} key has been extended.  It now takes as argument
 a key-value list with the following keys.  A normal document shouldn't
 need the extended syntax, the simple syntax |section/H1| should in
 most cases do the right thing.
@@ -2260,8 +2265,8 @@ most cases do the right thing.
    this preserves the old syntax. So this two calls are equivalent:
 
    \begin{taglstlisting}
-    \tagpdfsetup{add-new-tag = section/H1}
-    \tagpdfsetup{add-new-tag = {tag=section,role=H1}}
+    \tagpdfsetup{role/new-tag = section/H1}
+    \tagpdfsetup{role/new-tag = {tag=section,role=H1}}
    \end{taglstlisting}
 
 \end{description}
@@ -2293,7 +2298,8 @@ dictionary as a fallback for  such processors.
 In PDF 2.0 mathml tags have their own name space and can be freely used. 
 In PDF 1.7. they can only be used if they are rolemapped to a standard type. 
 By default they are not added to the |/RoleMap| dictionary, but this can be
-forced with |\tagpdfsetup{mathml-tags}|. Please note that this adds mathml at the end of the document and overwrites tag with the same name without warning.
+forced with |\tagpdfsetup{role/mathml-tags}|. Please note that this adds mathml 
+at the end of the document and overwrites tags with the same name without warning.
 
 
 \section{Checking parent-child rules}\label{sec:parent-child}
@@ -2371,7 +2377,7 @@ or reflowing the text to decide if a space is meant as a word boundary
 or e.g.  as a kerning. Accessible document should use real space
 glyphs (U+0032) from a font in such places.
 
-With the key \PrintKeyName{interwordspace} you can activate such space
+With the key \PrintKeyName{activate/spaces} you can activate such space
 glyphs.
 
 With pdftex this will simply call the primitive
@@ -2384,16 +2390,16 @@ function it can't be fine tuned or adapted. You can only turn it on
 and off and insert manually such a space glyph with
 \verb+\pdffakespace+.
 
-With luatex (in luamode) |interwordspace| is implemented with a
+With luatex (in luamode) |activate/spaces| is implemented with a
 lua-function which is inserted in two callbacks and marks up the
 places where it seems sensible to inter a space glyph. Later in the
 process the space glyphs are injected -- the code will take the glyph
 from the current font if this has a space glyph or switch to the
 default latin modern font.  The current code works reasonable well in
-normal text. |interwordspace| can be used without actually tagging a
+normal text. |activate/spaces| can be used without actually tagging a
 document.
 
-The key \PrintKeyName{show-spaces} will show lines at the places where
+The key-value \PrintKeyName{debug/show=spaces} will show lines at the places where
 in lua mode spaces are inserted and so can help you to find
 problematic places. For listings -- which have a quite specific
 handling of spaces -- you can find a suggestion in the example
