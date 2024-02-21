@@ -9,9 +9,9 @@
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
-\tagpdfsetup{activate-all,uncompress}
+\tagpdfsetup{activate-all}
 \tagpdfsetup{
- newattribute= {TH-row}{/O/Table /Scope/Row}
+ role/new-attribute= {TH-row}{/O/Table /Scope/Row}
  }
 \begin{document}\START
 \pagestyle{empty} %

@@ -8,7 +8,7 @@
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 \tagpdfsetup{
- newattribute= {TH-row}{/O/Table /Scope/Row}
+ role/new-attribute= {TH-row}{/O/Table /Scope/Row}
  }
 \begin{document}\START
 \pagestyle{empty} %

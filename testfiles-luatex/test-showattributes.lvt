@@ -18,7 +18,7 @@
   \usepackage[T1]{fontenc}
 \fi
 
-\tagpdfsetup{activate-all,log=vv,uncompress}
+\tagpdfsetup{activate/all,debug/log=vv}
 \begin{document}
 
 \tagmcbegin{tag=P}%
@@ -53,4 +53,3 @@ augue sit amet urna. Nulla volutpat aliquet tortor. Cras aliquam,%
 
 
 \end{document}
-

@@ -17,8 +17,8 @@
 
 \usepackage{tagpdf}
 
-\tagpdfsetup{tabsorder=structure,
-             activate-all}
+\tagpdfsetup{page/tabsorder=structure,
+             activate/all}
 
 \begin{document}
 \pagestyle{empty}

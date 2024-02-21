@@ -19,8 +19,8 @@
 \makeatother
 \usepackage{tagpdf,iftex}
 
-\tagpdfsetup{tabsorder=structure,
-             activate-all}
+\tagpdfsetup{page/tabsorder=structure,
+             activate/all}
 \ifpdftex
   \usepackage[T1]{fontenc}
 \fi

@@ -14,7 +14,7 @@
 
 \usepackage{tagpdf}
 \pagestyle{empty}
-\tagpdfsetup{tabsorder=structure,uncompress,activate-all,interwordspace=true}
+\tagpdfsetup{page/tabsorder=structure,debug/uncompress,activate/all,activate/spaces=true}
 
 \begin{document}
 

@@ -6,7 +6,7 @@
 \input{regression-test}
 \documentclass{article}
 \usepackage{tagpdf}
-\tagpdfsetup{activate-all,interwordspace=true,}
+\tagpdfsetup{activate/all,activate/spaces=true,}
 \pagestyle{empty}
 \begin{document}
 \setbox0\hbox{blub}

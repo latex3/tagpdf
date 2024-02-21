@@ -28,10 +28,9 @@
   \usepackage[T1]{fontenc}
 \fi
 
-\tagpdfsetup{tabsorder=structure,
-             activate-all,
-             uncompress,
-             log=v
+\tagpdfsetup{page/tabsorder=structure,
+             activate/all,
+             debug/log=v
              }
 
 

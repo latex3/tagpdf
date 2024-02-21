@@ -42,7 +42,7 @@ aaaa
    \tagstructbegin{tag=H1,label=blub,stash}\tagmcbegin{}H1\tagmcend\tagstructend
    \tagmcbegin{tag=P}abc
   
-   \tagpdfsetup{paratag=Sect}
+   \tagpdfsetup{para/tag=Sect}
    \leavevmode\tagstructuse{blub} x
    
  }  

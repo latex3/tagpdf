@@ -23,7 +23,7 @@
 
 
 
-\tagpdfsetup{activate-all,uncompress}
+\tagpdfsetup{activate/all}
 
 \newsavebox\mybox
 \begin{document}
@@ -53,4 +53,3 @@ text
 \ExplSyntaxOff
 
 \end{document}
-

@@ -23,7 +23,7 @@
 
 
 
-\tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
+\tagpdfsetup{activate/mc,debug/log=vv} %not too much in the log .. tests fails then
 \begin{document}
 \START
 \showoutput
@@ -42,5 +42,3 @@ Artifact%
 \tag_mc_begin:n{tag=\l_tag_test_tag_type_tl}blblb\tag_mc_end:
 \ExplSyntaxOff
 \end{document}
-
-

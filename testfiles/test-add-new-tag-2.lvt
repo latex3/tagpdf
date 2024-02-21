@@ -23,15 +23,15 @@
 
 
 
-\tagpdfsetup{activate-all,log=all,uncompress}
+\tagpdfsetup{activate/all,debug/log=all}
 \START
 
 \tagpdfsetup{
-  add-new-tag=section/H1,
-  add-new-tag={tag=wrongsection,role=H1,role-namespace=mathml},
-  add-new-tag={tag=var,tag-namespace=mathml,role=mo,role-namespace=mathml},
-  add-new-tag=mn/blub,
-  add-new-tag=space/x space
+  role/new-tag=section/H1,
+  role/new-tag={tag=wrongsection,role=H1,role-namespace=mathml},
+  role/new-tag={tag=var,tag-namespace=mathml,role=mo,role-namespace=mathml},
+  role/new-tag=mn/blub,
+  role/new-tag=space/x space
   }
 
 \ExplSyntaxOn

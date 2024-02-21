@@ -14,7 +14,7 @@
 \documentclass{article}
 \usepackage{tagpdf}
 
-\tagpdfsetup{tabsorder=structure,uncompress,activate-all,interwordspace=true,log=v}
+\tagpdfsetup{page/tabsorder=structure,activate/all,activate/spaces=true,debug/log=v}
 \pagestyle{empty}
 \thispagestyle{empty}
 \textheight=40pt
