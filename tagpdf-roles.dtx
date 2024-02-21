@@ -586,10 +586,10 @@
     {
       \prop_if_exist:cTF {g_@@_role_NS_#2_prop}
        {      
-        \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_tmpa_tl
+        \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_get_tmpc_tl
           {
-           \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_tmpa_tl}         
-           \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_tmpa_tl}
+           \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_get_tmpc_tl}         
+           \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_get_tmpc_tl}
           } 
           {
            \msg_warning:nnn { tag } {role-unknown-tag} { #1 }
@@ -1327,9 +1327,9 @@
            \l_@@_role_role_namespace_tmpa_tl
        }
     }
-   ,tagset .choice:
-   ,tagset/latex .code:n = { \socket_assign_plug:nn { tag/struct/tag } {latex-tags} }
-   ,tagset/pdf   .code:n = { \socket_assign_plug:nn { tag/struct/tag } {pdf-tags} } 
+   ,role/tagset .choice:
+   ,role/tagset/latex .code:n = { \socket_assign_plug:nn { tag/struct/tag } {latex-tags} }
+   ,role/tagset/pdf   .code:n = { \socket_assign_plug:nn { tag/struct/tag } {pdf-tags} } 
 %    \end{macrocode}
 % deprecated names
 %    \begin{macrocode}
