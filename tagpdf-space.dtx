@@ -90,7 +90,8 @@
 %    \end{macrocode}
 % deprecated versions:
 %    \begin{macrocode}
-    interwordspace .meta:n = {activate/spaces={#1}},
+    interwordspace .choices:nn = {true,on}{\keys_set:nn{@@/setup}{activate/spaces={true}}},
+    interwordspace .choices:nn = {false,off}{\keys_set:nn{@@/setup}{activate/spaces={false}}},
     interwordspace .default:n = {true},
     show-spaces    .choice:,
     show-spaces/true .meta:n =  {debug/show=spaces},
