@@ -36,7 +36,7 @@
 
 \usepackage[noparboxrestore]{marginnote}
 \reversemarginpar
-
+\usepackage{booktabs}
 \usepackage{tcolorbox}
 
 \usepackage{tikz}
@@ -463,7 +463,12 @@ This command setups the general behavior of the package.
 The command should be normally used only in the preamble
 (for a few keys it could also make sense to change them in the document).
 
-The key-val list understands the following keys:
+The key-val list understands at least the following keys. More keys are defined in some of the latex-lab module, see table~\ref{tab:setupkey} for an overview which also includes older, now deprecated names.
+
+\begin{table}
+\caption{Overview over keys for \cs{tagpdfsetup}}\label{tab:setupkey}
+\input{tagpdfsetup-keys}
+\end{table}
 
 \begin{description}
 \item[\PrintKeyName{activate/all}] Boolean, initially false. Activates
@@ -1906,7 +1911,7 @@ classes to a structure.
 
 
 To use such attributes you must at first declare it in \verb+\tagpdfsetup+ 
-with the key \texttt{newattribute}. This key takes two argument, a name and 
+with the key \texttt{role/new-attribute}. This key takes two argument, a name and 
 the content of the attribute. The name should be a sensible key name, it is 
 converted to a pdf name with \verb+\pdf_name_from_unicode_e:n+, so slashes 
 and spaces are allow. The content should be a dictionary without the 
@@ -1916,9 +1921,9 @@ bracket.
 \begin{taglstlisting}
 \tagpdfsetup
  {
-  newattribute =
+  role/new-attribute =
    {TH-col}{/O /Table /Scope /Column},
-  newattribute =
+  role/new-attribute =
    {TH-row}{/O /Table /Scope /Row},
   }
 \end{taglstlisting}
@@ -2578,7 +2583,7 @@ To tag boxes that can be both (without tagging commands or with balanced
 tagging commands) the following strategy can be used: 
 
 \begin{itemize}
-\item when storing the box put around it a structure as need by the 
+\item when storing the box put around it a structure as needed by the 
     tagged variant: 
 \begin{verbatim}
 \tag_mc_end_push: % interrupt an open mc
@@ -2773,7 +2778,7 @@ KOMA. On the other side it means that quite often one can omit the
     commands starting with |\uftag| will stay valid for some time but 
     then be deprecated. 
 
-\item \textbf{Breaking change!} The argument of \texttt{newattribute} 
+\item \textbf{Breaking change!} The argument of \texttt{role/new-attribute} (old key name: \texttt{newattribute})
     option should no longer add the dictionary bracket \verb+<<..>>+, 
     they are added by the code. 
 
@@ -2869,10 +2874,10 @@ command.
     places, it also ate spaces in places where this wasn't expected. From 
     now on both commands behave exactly like the expl3 versions. 
 \item The lua-code to add real space glyphs has been separated from the 
-    tagging code. This means that |interwordspace| now works also if 
+    tagging code. This means that |activate/spaces| now works also if 
     tagging is not active. 
 \item The key |activate| has been added, it open the first structure, see 
-    below. 
+    above. 
 \end{itemize}
 
 \subsection{Changes in version 0.92}
@@ -3015,7 +3020,7 @@ cases building the structure should now need only two or three
 compilations. The new code requires a current pdfmanagement-testphase and 
 is then used automatically if the new engines are detected. 
 
-
+\subsection{}
 \printbibliography[heading=bibintoc]
 
 
