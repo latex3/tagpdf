@@ -499,9 +499,6 @@ The key-val list understands at least the following keys. More keys are defined 
   false. Activates the code related to trees. Should be used only if
   the two other keys has been used too.
 
-\item[\PrintKeyName{role/new-tag}] Allows to define new tag names, see
-  section \ref{sec:new-tag} for a description.
-
 \item[\PrintKeyName{activate/spaces}] Boolean. The key
   activates/deactivates the insertion of space glyphs, see
   section~\ref{sec:spacechars}. In the luamode it only works if at
@@ -509,8 +506,15 @@ The key-val list understands at least the following keys. More keys are defined 
   The old name of the key |interwordspace| is still supported but deprecated.
 
 
+\item[\PrintKeyName{role/new-tag}] Allows to define new tag names, see
+  section \ref{sec:new-tag} for a description.
+
 \item[\PrintKeyName{role/new-attribute}] This key takes two arguments and
   declares an attribute. See \ref{sec:attributes}.
+  
+\item[\PrintKeyName{role/map-tags}] This key allows to remap the structure 
+tags. Currently it supports only two values: |false| (the default) and |pdf| which
+maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|. 
 
 
 \item[\PrintKeyName{para/tagging}] Boolean. This activate/deactivates
