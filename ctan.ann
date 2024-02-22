@@ -1,9 +1,11 @@
-## [2024-02-04]
-Version 0.98v
+## [2024-02-22]
+Version 0.98w
+
+### Changed
+ - various keys have been renamed and the old keys deprecated. A full list can be found in the documentation.
+ - speed gain for large documents by using linked properties
 
 ### Fixed
- - some rolemap entries in the pdf 2.0 fallback were wrong.
- - corrected fallback rolemap if a book class is used.
- 
-### Changed
- - removed the experimental name space latex-inline. It is unused. 
+ - missing slashes in dvilualatex backend, issue #96
+ - lua error with large object numbers, issue #97
+ - existence tests for unknown props (issue latex3/latex3#1455)
