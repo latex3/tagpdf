@@ -1,15 +1,13 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
+% currently wrong in pdftexmain due to the marginpar!!
 \ExplSyntaxOn
-:\sys_gset_rand_seed:n{1000}
+\sys_gset_rand_seed:n{1000}
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 \DocumentMetadata{testphase=phase-III}
 \input{regression-test}
 \documentclass{article}
-
-
-\begin{document}
 \usepackage{hyperref}
 \begin{document}
 
@@ -26,5 +24,5 @@ xx\footnote{note}xx\marginpar{blub}
 xx\footnote{note}xx\marginpar{blub}
 
 
-\end{document}\end{document}
+\end{document}
 
