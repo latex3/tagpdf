@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2024-02-04]
 ### Fixed
  - missing slashes in dvilualatex backend, issue #96
  - lua error with large object numbers, issue #97
