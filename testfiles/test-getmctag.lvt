@@ -6,7 +6,7 @@
 \input{regression-test}
 \documentclass{article}
 \usepackage{tagpdf}
-\tagpdfsetup{activate-mc,uncompress}
+\tagpdfsetup{activate/mc}
 \ExplSyntaxOn
 \cs_set_eq:NN\tagpdfget\tag_get:n
 \ExplSyntaxOff

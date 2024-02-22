@@ -49,11 +49,13 @@
 % \date{Version 0.98v, released 2024-02-04}
 % \maketitle
 % \begin{documentation}
-% \begin{function}{interwordspace (setup-key)}
+% \begin{function}{activate/space (setup-key),interwordspace (deprecated)}
 % This key allows to activate/deactivate the real space chars if the engine supports
 % it. The allowed values are |true|, |on|, |false|, |off|.
+% The old name of the key |interwordspace| is still supported but deprecated.
 % \end{function}
-% \begin{function}{show-spaces (setup-key)}
+% \begin{function}{show-spaces (deprecated)}
+% This key is deprecated. Use |debug/show=spaces| instead. 
 % This key works only with luatex and shows with small red
 % bars where spaces have been inserted. This is only for debugging and
 % is not completly reliable (and change affect other literals and tagging), so it
@@ -73,17 +75,29 @@
 % support real space chars. Most of the code for luatex which uses attributes
 % is in the lua code, here are only the keys.
 %
-% \begin{macro}{interwordspace (setup-key),show-spaces (setup-key)}
+% \begin{macro}{activate/spaces (setup-key),interwordspace (deprecated),show-spaces (deprecated)}
 %    \begin{macrocode}
 %<*package>
 \keys_define:nn { @@ / setup }
-  {
-    interwordspace .choices:nn = { true, on }
+  {         
+    activate/spaces .choice:,
+    activate/spaces/true .code:n = 
       { \msg_warning:nne {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
-    interwordspace .choices:nn = { false, off }
+    activate/spaces/false .code:n= 
       { \msg_warning:nne {tag}{sys-no-interwordspace}{\c_sys_engine_str}  },
-    interwordspace .default:n = true,
-    show-spaces .bool_set:N = \l_@@_showspaces_bool
+    activate/spaces .default:n = true,    
+    debug/show/spaces     .code:n = {\bool_set_true:N \l_@@_showspaces_bool},
+    debug/show/spacesOff  .code:n = {\bool_set_false:N \l_@@_showspaces_bool},
+%    \end{macrocode}
+% deprecated versions:
+%    \begin{macrocode}
+    interwordspace .choices:nn = {true,on}{\keys_set:nn{@@/setup}{activate/spaces={true}}},
+    interwordspace .choices:nn = {false,off}{\keys_set:nn{@@/setup}{activate/spaces={false}}},
+    interwordspace .default:n = {true},
+    show-spaces    .choice:,
+    show-spaces/true .meta:n =  {debug/show=spaces},
+    show-spaces/false .meta:n = {debug/show=spacesOff},
+    show-spaces .default:n = true
   }
 \sys_if_engine_pdftex:T
   {
@@ -92,19 +106,17 @@
         \pdfglyphtounicode{space}{0020}
         \keys_define:nn { @@ / setup }
           {
-            interwordspace .choices:nn = { true, on }  { \pdfinterwordspaceon },
-            interwordspace .choices:nn = { false, off }{ \pdfinterwordspaceon },
-            interwordspace .default:n = true,
-            show-spaces .bool_set:N = \l_@@_showspaces_bool
+            activate/spaces/true .code:n  = { \pdfinterwordspaceon },
+            activate/spaces/false .code:n = { \pdfinterwordspaceoff },
+            activate/spaces .default:n = true,
           }
       }
       {
         \keys_define:nn { @@ / setup }
           {
-            interwordspace .choices:nn = { true, on, false, off }
+            activate/spaces .choices:nn = { true, false }
               { \msg_warning:nnn {tag}{sys-no-interwordspace}{dvi}  },
-            interwordspace .default:n = true,
-            show-spaces .bool_set:N = \l_@@_showspaces_bool
+            activate/spaces .default:n = true,
           }
       }
   }
@@ -114,25 +126,22 @@
   {
     \keys_define:nn { @@ / setup }
       {
-        interwordspace .choices:nn =
-                                 { true, on }
+        activate/spaces .choice:,
+        activate/spaces/true .code:n =                            
                                  {
                                    \bool_gset_true:N \g_@@_active_space_bool
                                    \lua_now:e{ltx.@@.func.markspaceon()}
                                  },
-        interwordspace .choices:nn =
-                                 { false, off }
+        activate/spaces/false .code:n =
                                  {
                                   \bool_gset_false:N \g_@@_active_space_bool
                                   \lua_now:e{ltx.@@.func.markspaceoff()}
                                  },
-        interwordspace .default:n = true,
-        show-spaces      .choice:,
-        show-spaces  / true  .code:n =
+        activate/spaces .default:n = true,
+        debug/show/spaces    .code:n =
                                  {\lua_now:e{ltx.@@.trace.showspaces=true}},
-        show-spaces  / false .code:n =
+        debug/show/spacesOff .code:n =
                                  {\lua_now:e{ltx.@@.trace.showspaces=nil}},
-        show-spaces .default:n = true
       }
   }
 %    \end{macrocode}

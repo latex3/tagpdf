@@ -18,7 +18,7 @@
 \ifpdftex
   \usepackage[T1]{fontenc}
 \fi
-\tagpdfsetup{activate-all,paratagging}
+\tagpdfsetup{activate/all,para/tagging}
 \begin{document}\showoutput
 \START
 \tagstructbegin{tag=Document}

@@ -21,9 +21,9 @@
 
 
 
-\tagpdfsetup{activate-all,log=vv,uncompress} %
+\tagpdfsetup{activate/all,debug/log=vv} %
 %to better see the mc in the pdf:
-\tagpdfsetup{add-new-tag = BOX/P}
+\tagpdfsetup{role/new-tag = BOX/P}
 
 \newsavebox\testboxa
 

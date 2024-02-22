@@ -10,7 +10,7 @@
 \DocumentMetadata
  {
    % comment the following line to compile an untagged documentation:
-   testphase=phase-III,
+   testphase={phase-III,title,table},
    pdfversion=2.0,lang=en-UK,pdfstandard=a-4,pdfstandard=ua-2
    %uncompress
  }
@@ -36,7 +36,8 @@
 
 \usepackage[noparboxrestore]{marginnote}
 \reversemarginpar
-
+\usepackage{booktabs}
+\setlength\belowcaptionskip{10pt}
 \usepackage{tcolorbox}
 
 \usepackage{tikz}
@@ -282,9 +283,11 @@ One must check how good the accessibility is \emph{practically}.
 
 
 Syntax validation and formal standard validation can be done for example with 
-preflight of the (non-free) Adobe Acrobat. It can also be done also with the 
-free \PDF{} Accessibility Checker (PAC~2021) \parencite{pac3}. There is also 
-the validator veraPDF \parencite{verapdf}. A rather new and quite useful tool 
+preflight of the (non-free) Adobe Acrobat. It can also be done 
+(only for PDF 1.7 and older) also with the 
+free \PDF{} Accessibility Checker (PAC~2024) \parencite{pac2024}. There is also 
+the validator veraPDF \parencite{verapdf} which can also handle PDF 2.0 files. 
+A quite useful tool 
 is \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application 
 which converts a tagged PDF to html, allows to inspect its structure and also 
 to edit the structure. For PDF~2.0 files there is also a checker based on the 
@@ -337,7 +340,7 @@ improvements and new features in the \LaTeX\ kernel, the latex-lab bundle and
 the \PDF\ management code and is now much better. Only a few 
 structures---mostly some from currently unsupported packages--- still need 
 manual tagging. But sadly the output of the validators don't quite reflect 
-the improvements. The documentation uses now \PDF~2.0  and PAC~3 can't handle 
+the improvements. The documentation uses now \PDF~2.0  and PAC~2024 can't handle 
 this, it claims that the file is damaged. The Adobe validator has a bug and 
 doesn't like the (valid) use of  the \texttt{Lbl} tag for the section numbers 
 (see figure~\ref{fig:adobe}).  
@@ -396,7 +399,7 @@ some text
 
 When loading \pkg{tagpdf} through the \texttt{testphase} keys, it is automatically activated. 
 To deactivate it while still retaining all the other new code from the latex-lab testphase files,
-use in the preamble |\tagpdfsetup{activate-all=false}|. You can additionally also deactivate the 
+use in the preamble |\tagpdfsetup{activate/all=false}|. You can additionally also deactivate the 
 paratagging and the interword space code. 
 To suppress the loading of the package altogether you can try
 
@@ -461,74 +464,70 @@ This command setups the general behavior of the package.
 The command should be normally used only in the preamble
 (for a few keys it could also make sense to change them in the document).
 
-The key-val list understands the following keys:
+The key-val list understands at least the following keys. More keys are defined in some of the latex-lab module, see table~\ref{tab:setupkey} for an overview which also includes older, now deprecated names.
+
+\begin{table}
+\caption{Overview over keys for \cs{tagpdfsetup}}\label{tab:setupkey}
+\input{tagpdfsetup-keys}
+\end{table}
 
 \begin{description}
-\item[\PrintKeyName{activate-all}] Boolean, initially false. Activates
+\item[\PrintKeyName{activate/all}] Boolean, initially false. Activates
   everything, that's normally the sensible thing to do.
 
-\item [\PrintKeyName{activate}] Like |activate-all|,
+\item [\PrintKeyName{activate}] Like |activate/all|,
   \emph{additionally} is opens at begin document a structure with
   |\tagstructbegin| and closes it at end document. The key accepts as
   value a tag name which is used as the tag of the structure.  The
   default value is |Document|.
 
-\item[\PrintKeyName{activate-mc}] Boolean, initially false. Activates
+\item[\PrintKeyName{activate/mc}] Boolean, initially false. Activates
   the code related to marked content.
 
-\item[\PrintKeyName{activate-struct}] Boolean, initially
+\item[\PrintKeyName{activate/struct}] Boolean, initially
   false. Activates the code related to structures. Should be used only
-  if \PrintKeyName{activate-mc} has been used too.
+  if \PrintKeyName{activate/mc} has been used too.
 
-\item[\PrintKeyName{no-struct-dest}] Starting with version 0.93
+\item[\PrintKeyName{activate/struct-dest}] Boolean, initially true.
+  Starting with version 0.93
   \pkg{tagpdf} will create automatically structure destinations (see
-  section~\ref{sec:struct-dest} if \pkg{hyperref} is used, if the
-  engine supports it and if the pdf version is 2.0. With this key this
+  section~\ref{sec:struct-dest} if \pkg{hyperref} is used and if the
+  engine supports it. With this key this
   can be suppressed.
 
-\item[\PrintKeyName{activate-tree}] Boolean, initially
+\item[\PrintKeyName{activate/tree}] Boolean, initially
   false. Activates the code related to trees. Should be used only if
   the two other keys has been used too.
 
-\item[\PrintKeyName{add-new-tag}] Allows to define new tag names, see
-  section \ref{sec:new-tag} for a description.
-
-\item[\PrintKeyName{interwordspace}] Choice key, possible values are
-  \PrintKeyName{true}/""\PrintKeyName{on} and
-  \PrintKeyName{false}/\PrintKeyName{off}. The key
+\item[\PrintKeyName{activate/spaces}] Boolean. The key
   activates/deactivates the insertion of space glyphs, see
   section~\ref{sec:spacechars}. In the luamode it only works if at
-  least \PrintKeyName{activate-mc} has been used.
+  least \PrintKeyName{activate/mc} has been used.
+  The old name of the key |interwordspace| is still supported but deprecated.
 
-\item[\PrintKeyName{log}] Choice key, possible values
-  \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv},
-  \PrintKeyName{vvv}, \PrintKeyName{all}.  Setups the log level.
-  Changing the value affects currently mostly the luamode:
-  \enquote{higher} values gives more messages in the log. The current
-  levels and messages have been setup in a quite ad-hoc manner and
-  will need improvement.
 
-\item[\PrintKeyName{newattribute}] This key takes two arguments and
+\item[\PrintKeyName{role/new-tag}] Allows to define new tag names, see
+  section \ref{sec:new-tag} for a description.
+
+\item[\PrintKeyName{role/new-attribute}] This key takes two arguments and
   declares an attribute. See \ref{sec:attributes}.
+  
+\item[\PrintKeyName{role/map-tags}] This key allows to remap the structure 
+tags. Currently it supports only two values: |false| (the default) and |pdf| which
+maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|. 
 
-\item[\PrintKeyName{show-spaces}] Boolean.\sidenote{luamode} That's a
-  debug option, it helps in lua mode to see where space glyph will be
-  inserted if \PrintKeyName{interwordspace} is activated.
 
-\item[\PrintKeyName{paratagging}] Boolean. This activate/deactivates
+\item[\PrintKeyName{para/tagging}] Boolean. This activate/deactivates
   the automatic tagging of paragraphs, see \ref{sec:paratagging} for
   more background.  It uses the \texttt{para/begin} and
-  \texttt{para/end} hooks of the newest \LaTeX{} version (2021-05-01).
+  \texttt{para/end} hooks.
   With more tagging support conditions will be added, that means the
   code is bound to change! Paragraphs can appear in many unexpected
   places and the code can easily break, so there is also an option to
   see where such paragraphs are:
 
-\item[\PrintKeyName{paratagging-show}] Boolean. This
-  activate/deactivates small red and green numbers in the places where
-  the paratagging hook code is used.
 
-\item[\PrintKeyName{paratag}] String. This key changes the second tag
+\item[\PrintKeyName{para/tag}] String. This key changes the second tag
   used by the paratagging code. The default tag is \texttt{text}, a
   \LaTeX{} specific tag that is role mapped to \texttt{P}. A useful
   local setting here can be \texttt{NonStruct}, which creates a
@@ -536,7 +535,14 @@ The key-val list understands the following keys:
   recommended to use the newer \cs{tagtool} command described below
   instead of \cs{tagpdfsetup}.
 
-\item[\PrintKeyName{tabsorder}] Choice key, possible values are
+\item[\PrintKeyName{para/maintag}] String. This key changes the first tag
+  used by the paratagging code. The default tag is \texttt{text-unit}, a
+  \LaTeX{} specific tag that is role mapped to \texttt{Part}. 
+  For local changes it is
+  recommended to use the newer \cs{tagtool} command described below
+  instead of \cs{tagpdfsetup}.
+
+\item[\PrintKeyName{page/tabsorder}] Choice key, possible values are
   \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure},
   \PrintKeyName{none}.  This decides if a \verb+/Tabs+ value is
   written to the dictionary of the page objects. Not really needed for
@@ -544,7 +550,7 @@ The key-val list understands the following keys:
   accessibility checks. So I added it. Currently the tabsorder is the
   same for all pages. Perhaps this should be changed \ldots.
 
-\item[\PrintKeyName{tagunmarked}] Boolean,\sidenote{luamode} initially
+\item[\PrintKeyName{activate/tagunmarked}] Boolean,\sidenote{luamode} initially
   true. When this boolean is true, the lua code will try to mark
   everything that has not been marked yet as an artifact. The benefit
   is that one doesn't have to mark up every deco rule oneself. The
@@ -553,10 +559,36 @@ The key-val list understands the following keys:
   annotations etc. See also section~\ref{sec:lazy} for a discussion
   about automatic tagging.
 
-\item[\PrintKeyName{uncompress}] Sets both the \PDF{} compresslevel
+\item[\PrintKeyName{debug/uncompress}] Sets both the \PDF{} compresslevel
   and the \PDF{} objcompresslevel to 0 and so allows to inspect the
-  \PDF{}.
+  \PDF{}. No really useful anymore as this can also 
+  be set in \cs{DocumentMetadata}.
 
+\item[\PrintKeyName{debug}] This keys knows a number of sub-keys to
+  set various debug options. 
+  \begin{description}
+  \item[\PrintKeyName{debug/show}] This takes a comma list of keywords:
+  
+  \texttt{spaces}/\texttt{spacesOff}: \sidenote{luamode} 
+   That helps in lua mode to see where space glyph will be
+   inserted if \PrintKeyName{activate/spaces} is activated. 
+   This can also be activated with the now deprecated key |show-spaces|
+
+  \texttt{para}/\texttt{paraOff}: This (locally)
+  activates/deactivates small red and green numbers in the places where
+  the paratagging hook code is used. 
+
+  
+  \item[\PrintKeyName{debug/log}] Choice key, possible values
+  \PrintKeyName{none}, \PrintKeyName{v}, \PrintKeyName{vv},
+  \PrintKeyName{vvv}, \PrintKeyName{all}.  Setups the log level.
+  Changing the value affects currently mostly the luamode:
+  \enquote{higher} values gives more messages in the log. The current
+  levels and messages have been setup in a quite ad-hoc manner and
+  will need improvement.
+
+  
+   \end{description}
 
 \end{description}
 
@@ -576,18 +608,18 @@ should be used as the implementation will change to improve the
 speed. Currently the following arguments are supported
 
 \begin{description}
-\item[\PrintKeyName{para}] Boolean. It will replace the
+\item[\PrintKeyName{para/tagging}] Boolean. It will replace the
   \cs{tagpdfparaOn} and \cs{tagpdfparaOff} command.
 
-\item[\PrintKeyName{unittag}] String. It allows to change the outer
+\item[\PrintKeyName{para/maintag}] String. It allows to change the outer
   tag used in the following automatically tagged paragraphs. The
   setting is local.
 
-\item[\PrintKeyName{paratag}] String. It allows to change the inner
+\item[\PrintKeyName{para/tag}] String. It allows to change the inner
   tag used in the following automatically tagged paragraphs. The
   setting is local.
 
-\item[\PrintKeyName{para-flattened}] Boolean. If set it will suppress
+\item[\PrintKeyName{para/flattened}] Boolean. If set it will suppress
   the outer structure in the automatic paratagging.  This should be
   applied to the start and end hook in the same way! The setting is
   local.
@@ -992,7 +1024,7 @@ The key-val list understands the following keys:
 
   The\sidenote{lua mode only} lua mode will mark up everything unmarked as 
   \texttt{artifact=notype}. You can suppress this behavior by setting the 
-  tagpdfsetup key \texttt{tagunmarked} to false. See section 
+  tagpdfsetup key \texttt{activate/tagunmarked} to false. See section 
   \ref{ssec:setup}. 
 
   \item[\PrintKeyName{stash}] Normally marked content will be stored in the 
@@ -1382,9 +1414,30 @@ commands are used:
 
 \subsubsection{Math}
 
+Math is still a problem but some progress has been made.
+To tag math you have to surround it with a \texttt{Formula} structure. But the content of such a structure is handled by readers as a black box so additional data is needed for accessibility.
+
+There are a number of theoretical options here:
+\begin{enumerate}
+\item One can add an alternative text (\texttt{/Alt}) or an \texttt{/ActualText}
+to the structure element either some text manually provided by the author or (with
+the math module in the latex-lab bundle) the \LaTeX-source).
+\item One can add an alternative text (\texttt{/Alt} or \texttt{/ActualText})
+to the MC-chunks.
+\item One can build inside the \texttt{Formula} structure element a tree with MathML structure elements --- with PDF 2.0 this not require to declare new tags as the MathML name space is built-in. 
+\item One can in PDF 2.0 attach a MathML file and/or the \LaTeX-source as associated file to the \texttt{Formula} structure (or to one or more MC-chunks).
+\end{enumerate}        
+The question is how these work in reality.
+ 
+Option 1 and 2 give not too bad results 
+with a screen reader, but can 
+require manual work and if you are unlucky the reader drops 
+important part of the math (like punctuation symbols). 
+Exploring the equation is not possible. 
 
 
-Math is a problem. I have seen an example where \emph{every single
+Option 3 creates many structure elements. 
+E.g. I have seen an example where \emph{every single
 symbol} has been marked up with tags from MathML along with an
 \texttt{/ActualText} entry and an entry with alternate text which
 describes how to read the symbol.  The \PDF{} then looked like this
@@ -1403,19 +1456,20 @@ If this is really the way to go one would need some script to add the
 mark-up as doing it manually is too much work and would make the
 source unreadable -- at least with pdflatex and the generic mode. In
 lua mode is it possible to hook into the \texttt{mlist\_to\_hlist}
-callback and add marker automatically. Some first implementation is
-done by Marcel Krüger in the luamml project.
-
-But I'm not sure that this is the best way to do math. It looks rather
+callback and add marker automatically. Some first implementation in this direction
+has been done by Marcel Krüger in the luamml project. But up-to-now it was not possible 
+to test the usability of this approach: With the exception of the html derivation
+with ngpdf no PDF-viewer/screen reader combination
+seems to make use of such structures. 
+I'm not sure anyway that this is the best way to do math. It looks rather
 odd that a document should have to tell a screen reader in such detail
-how to read an equation. It would be much more efficient, sensible and
-flexible if a complete representation of the equation in mathML could
-be stored in the \PDF{} and the task how to read this aloud delegated
-to the screen reader. As \PDF{}~2.0 introduced associated files it is
-probable that this will be the way to go but more investigations are
-needed here.
+how to read an equation. 
 
-See also section~\ref{sec:alt} for some more remarks and tests.
+The last option 4 has been implemented in the math module in the \texttt{latex-lab}
+bundle. Here happily a proof of
+concept was possible: With development versions of foxit and the NVDA reader
+it was possible to access an attached MathML and get speech output from it \cite{todasoifferdeims2024,mittelbachfischerdeims2024}. See also \cite{mathexamples} for some
+examples and section~\ref{sec:alt} for some more remarks and tests.
 
 
 \subsubsection{Split paragraphs}\label{sec:splitpara}
@@ -1448,7 +1502,7 @@ Pellentesque scelerisque
 sit amet, lacus.\tagmcend
 \end{taglstlisting}
 
-Starting with version 0.92 there is code which tries to resolve this
+Starting with version 0.92 there is code which resolves this
 problem. Basically it works like this: every mc-command issues a mark
 command (actually two slightly different). When the page is built in
 the output routine this mark commands are inspected and from them
@@ -1461,14 +1515,13 @@ TUG~2021 \enquote{Taming the beast — Advances in paragraph tagging
 Please note
 
 \begin{itemize}
-\item The code requires a \pkg{pdfmanagement-testphase} version v0.95i or newer.
-
 \item Typically you will need more compilations than previously, don't
   rely on the rerun messages, but if something looks wrong rerun.
 
 \item The code relies on that related |\tagmcbegin| and |\tagmcend|
   are in the same boxing level. If one is in a box (which hides the
-  marks) and the other in the main galley, things will go wrong.
+  marks) and the other in the main galley, things will go wrong (\texttt{longtable} 
+  is for example problematic).
 \end{itemize}
 
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
@@ -1570,8 +1623,8 @@ of your own you must declare them. E.g. this declares two new types
 
 \begin{taglstlisting}
 \tagpdfsetup{
-  add-new-tag = TAB/P,
-  add-new-tag = FIG/P,
+  role/new-tag = TAB/P,
+  role/new-tag = FIG/P,
             }
 \end{taglstlisting}
 
@@ -1616,8 +1669,8 @@ nesting defines the level of a sectioning heading.
 The flat version is more \LaTeX-like and it is rather straightforward to 
 patch \verb+\chapter+, \verb+\section+ and so on to insert the appropriates 
 \texttt{H\ldots} start and end markers. The xml-like tree is more difficult 
-to automate. If such a tree is wanted I would recommend to use -- like the 
-context format -- explicit commands to start and end a sectioning unit. 
+to automate. It has been implemented in the sec module in latex-lab, but can break
+if sectioning commands are hidden inside boxes.
 
 
 
@@ -1861,7 +1914,7 @@ classes to a structure.
 
 
 To use such attributes you must at first declare it in \verb+\tagpdfsetup+ 
-with the key \texttt{newattribute}. This key takes two argument, a name and 
+with the key \texttt{role/new-attribute}. This key takes two argument, a name and 
 the content of the attribute. The name should be a sensible key name, it is 
 converted to a pdf name with \verb+\pdf_name_from_unicode_e:n+, so slashes 
 and spaces are allow. The content should be a dictionary without the 
@@ -1871,9 +1924,9 @@ bracket.
 \begin{taglstlisting}
 \tagpdfsetup
  {
-  newattribute =
+  role/new-attribute =
    {TH-col}{/O /Table /Scope /Column},
-  newattribute =
+  role/new-attribute =
    {TH-row}{/O /Table /Scope /Row},
   }
 \end{taglstlisting}
@@ -2112,10 +2165,10 @@ types or are \enquote{role mapped} to such a standard type. Such a
 role mapping is a simple key-value in the RoleMap dictionary.
 
 So instead of |H1| the type |section| could be used. The role mapping
-can then be declared with the |add-new-tag| key:
+can then be declared with the |role/new-tag| key:
 
 \begin{taglstlisting}
- \tagpdfsetup{add-new-tag = section/H1}
+ \tagpdfsetup{role/new-tag = section/H1}
 \end{taglstlisting}
 
 In PDF 2.0 the situation is a bit more complicated. At first PDF~2.0
@@ -2185,7 +2238,7 @@ and the following are new:\\
 \end{enumerate}
 
 To allow to this more complicated setup the syntax of the
-\texttt{add-new-tag} key has been extended.  It now takes as argument
+\texttt{role/new-tag} key has been extended.  It now takes as argument
 a key-value list with the following keys.  A normal document shouldn't
 need the extended syntax, the simple syntax |section/H1| should in
 most cases do the right thing.
@@ -2220,8 +2273,8 @@ most cases do the right thing.
    this preserves the old syntax. So this two calls are equivalent:
 
    \begin{taglstlisting}
-    \tagpdfsetup{add-new-tag = section/H1}
-    \tagpdfsetup{add-new-tag = {tag=section,role=H1}}
+    \tagpdfsetup{role/new-tag = section/H1}
+    \tagpdfsetup{role/new-tag = {tag=section,role=H1}}
    \end{taglstlisting}
 
 \end{description}
@@ -2253,7 +2306,8 @@ dictionary as a fallback for  such processors.
 In PDF 2.0 mathml tags have their own name space and can be freely used. 
 In PDF 1.7. they can only be used if they are rolemapped to a standard type. 
 By default they are not added to the |/RoleMap| dictionary, but this can be
-forced with |\tagpdfsetup{mathml-tags}|. Please note that this adds mathml at the end of the document and overwrites tag with the same name without warning.
+forced with |\tagpdfsetup{role/mathml-tags}|. Please note that this adds mathml 
+at the end of the document and overwrites tags with the same name without warning.
 
 
 \section{Checking parent-child rules}\label{sec:parent-child}
@@ -2331,7 +2385,7 @@ or reflowing the text to decide if a space is meant as a word boundary
 or e.g.  as a kerning. Accessible document should use real space
 glyphs (U+0032) from a font in such places.
 
-With the key \PrintKeyName{interwordspace} you can activate such space
+With the key \PrintKeyName{activate/spaces} you can activate such space
 glyphs.
 
 With pdftex this will simply call the primitive
@@ -2344,16 +2398,16 @@ function it can't be fine tuned or adapted. You can only turn it on
 and off and insert manually such a space glyph with
 \verb+\pdffakespace+.
 
-With luatex (in luamode) |interwordspace| is implemented with a
+With luatex (in luamode) |activate/spaces| is implemented with a
 lua-function which is inserted in two callbacks and marks up the
 places where it seems sensible to inter a space glyph. Later in the
 process the space glyphs are injected -- the code will take the glyph
 from the current font if this has a space glyph or switch to the
 default latin modern font.  The current code works reasonable well in
-normal text. |interwordspace| can be used without actually tagging a
+normal text. |activate/spaces| can be used without actually tagging a
 document.
 
-The key \PrintKeyName{show-spaces} will show lines at the places where
+The key-value \PrintKeyName{debug/show=spaces} will show lines at the places where
 in lua mode spaces are inserted and so can help you to find
 problematic places. For listings -- which have a quite specific
 handling of spaces -- you can find a suggestion in the example
@@ -2532,7 +2586,7 @@ To tag boxes that can be both (without tagging commands or with balanced
 tagging commands) the following strategy can be used: 
 
 \begin{itemize}
-\item when storing the box put around it a structure as need by the 
+\item when storing the box put around it a structure as needed by the 
     tagged variant: 
 \begin{verbatim}
 \tag_mc_end_push: % interrupt an open mc
@@ -2727,7 +2781,7 @@ KOMA. On the other side it means that quite often one can omit the
     commands starting with |\uftag| will stay valid for some time but 
     then be deprecated. 
 
-\item \textbf{Breaking change!} The argument of \texttt{newattribute} 
+\item \textbf{Breaking change!} The argument of \texttt{role/new-attribute} (old key name: \texttt{newattribute})
     option should no longer add the dictionary bracket \verb+<<..>>+, 
     they are added by the code. 
 
@@ -2823,10 +2877,10 @@ command.
     places, it also ate spaces in places where this wasn't expected. From 
     now on both commands behave exactly like the expl3 versions. 
 \item The lua-code to add real space glyphs has been separated from the 
-    tagging code. This means that |interwordspace| now works also if 
+    tagging code. This means that |activate/spaces| now works also if 
     tagging is not active. 
 \item The key |activate| has been added, it open the first structure, see 
-    below. 
+    above. 
 \end{itemize}
 
 \subsection{Changes in version 0.92}
@@ -2969,7 +3023,7 @@ cases building the structure should now need only two or three
 compilations. The new code requires a current pdfmanagement-testphase and 
 is then used automatically if the new engines are detected. 
 
-
+\subsection{}
 \printbibliography[heading=bibintoc]
 
 

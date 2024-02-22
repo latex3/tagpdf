@@ -23,10 +23,10 @@
 
 
 
-\tagpdfsetup{add-new-tag = TAB/P,
-             add-new-tag = FIG/P,
-             tabsorder=structure,
-             activate-all,uncompress}
+\tagpdfsetup{role/new-tag = TAB/P,
+             role/new-tag = FIG/P,
+             page/tabsorder=structure,
+             activate/all}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -61,4 +61,3 @@ orci orci aliquam orci, ut cursus turpis justo et lacus. Nulla vel
 tortor. Quisque erat elit, viverra sit amet, sagittis eget, porta
 sit amet, lacus.\tagmcend
 \end{document}
-

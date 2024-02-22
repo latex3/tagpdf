@@ -22,7 +22,7 @@
 
 
 
-\tagpdfsetup{activate-all,uncompress}
+\tagpdfsetup{activate/all}
 \begin{document}
 \START
 \showoutput
@@ -52,5 +52,3 @@ some~para
 \__tag_mc_emc:
 \ExplSyntaxOff
 \end{document}
-
-

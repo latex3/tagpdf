@@ -10,11 +10,8 @@
 
 \usepackage{tagpdf}
 
-\tagpdfsetup
- {
-   activate,interwordspace,paratagging,paratagging-show,
-   log=v
- }
+\tagpdfsetup{activate,activate/spaces,para/tagging,debug/show=para,debug/log=v}
+
  
 \makeatletter 
 \DeclareDocumentCommand\footnote {om}{%
@@ -68,4 +65,3 @@ g \vrule depth 17pt g
 XX\footnote{Z} YY
 
 \end{document}
-

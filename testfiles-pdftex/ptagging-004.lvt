@@ -9,7 +9,7 @@
 
 
 \usepackage{tagpdf}
-\tagpdfsetup{activate,interwordspace,paratagging,paratagging-show,log=v}
+\tagpdfsetup{activate,activate/spaces,para/tagging,debug/show=para,debug/log=v}
 
 
 %\usepackage{ptagging-testphase}
@@ -71,4 +71,3 @@ Hello Hello and a few more hellos to fill the line.\footnote{AAA
 halli hallo
 
 \end{document}
-

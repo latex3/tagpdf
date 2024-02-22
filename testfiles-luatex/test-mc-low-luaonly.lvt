@@ -18,7 +18,7 @@
   \usepackage[T1]{fontenc}
 \fi
 
-\tagpdfsetup{activate-mc,log=vv,uncompress} %not too much in the log .. tests fails then
+\tagpdfsetup{activate/mc,debug/log=vv} %not too much in the log .. tests fails then
 \usepackage{kantlipsum}
 \begin{document}
 some things untagged.
@@ -51,5 +51,3 @@ some things untagged.
 \tag_mc_begin:n{tag=P}\kant[1]\tag_mc_end:
 \ExplSyntaxOff
 \end{document}
-
-

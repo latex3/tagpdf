@@ -586,10 +586,10 @@
     {
       \prop_if_exist:cTF {g_@@_role_NS_#2_prop}
        {      
-        \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_tmpa_tl
+        \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_get_tmpc_tl
           {
-           \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_tmpa_tl}         
-           \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_tmpa_tl}
+           \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_get_tmpc_tl}         
+           \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_get_tmpc_tl}
           } 
           {
            \msg_warning:nnn { tag } {role-unknown-tag} { #1 }
@@ -1267,7 +1267,8 @@
 %     tag-namespace (rolemap-key),
 %     role (rolemap-key),
 %     role-namespace (rolemap-key),
-%     add-new-tag (setup-key)}
+%     role/new-tag (setup-key),
+%     add-new-tag (deprecated)}
 %    \begin{macrocode}
 \keys_define:nn { @@ / tag-role }
   {
@@ -1279,8 +1280,8 @@
 
 \keys_define:nn { @@ / setup }
   {
-     mathml-tags .bool_gset:N = \g_@@_role_add_mathml_bool
-    ,add-new-tag .code:n =
+     role/mathml-tags .bool_gset:N = \g_@@_role_add_mathml_bool
+    ,role/new-tag .code:n =
      {
        \keys_set_known:nnnN
          {@@/tag-role}
@@ -1326,6 +1327,14 @@
            \l_@@_role_role_namespace_tmpa_tl
        }
     }
+   ,role/map-tags .choice:
+   ,role/map-tags/false .code:n = { \socket_assign_plug:nn { tag/struct/tag } {latex-tags} }
+   ,role/map-tags/pdf   .code:n = { \socket_assign_plug:nn { tag/struct/tag } {pdf-tags} } 
+%    \end{macrocode}
+% deprecated names
+%    \begin{macrocode}
+   , mathml-tags .bool_gset:N = \g_@@_role_add_mathml_bool
+   , add-new-tag .meta:n = {role/new-tag={#1}}
   }
 %</package>
 %    \end{macrocode}

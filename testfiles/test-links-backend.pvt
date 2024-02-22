@@ -19,10 +19,10 @@
 
 \usepackage{tagpdf}
 \tagpdfsetup{
- activate-all,
- uncompress,
- tabsorder=structure,
- interwordspace=true,
+ activate/all,
+ debug/uncompress,
+ page/tabsorder=structure,
+ activate/spaces=true,
  %show-spaces
  }
 %metadata

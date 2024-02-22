@@ -11,7 +11,7 @@
 \ExplSyntaxOn
 \prop_map_inline:Nn \g__tag_role_tags_NS_prop
  { 
-  \tagpdfsetup{paratag=#1}
+  \tagpdfsetup{para/tag=#1}
       #1
      \par    
  }  

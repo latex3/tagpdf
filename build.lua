@@ -145,6 +145,7 @@ elseif string.match (file, "%.sty$" ) then
 docfiles = {"tagpdf.tex",
             "tagpdf-code.tex",
             "tagpdfdocu-patches.sty",
+            "tagpdfsetup-keys.tex",
             "tagpdf.bib",
             "link-figure-input.tex",
             "pac3.PNG",

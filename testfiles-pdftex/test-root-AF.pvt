@@ -28,9 +28,9 @@
 
 \tagpdfsetup
  {
-   activate-all,
-   newattribute = {font-red}{/O /CSS-3 },
-   newattribute = {font-bold}{/O /CSS-3 },
+   activate/all,
+   role/new-attribute = {font-red}{/O /CSS-3 },
+   role/new-attribute = {font-bold}{/O /CSS-3 },
    root-AF={tag/csstest},
    root-AF={tag/csstest2},
  }

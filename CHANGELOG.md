@@ -6,14 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
 ## [2024-02-04]
+Version 0.98w
+### Changed
+ - various keys have been renamed and the old keys deprecated. A full list can be found in the documentation.
+ - speed gain for large documents by using linked properties
+
 ### Fixed
  - missing slashes in dvilualatex backend, issue #96
  - lua error with large object numbers, issue #97
  - existence tests for unknown props (issue latex3/latex3#1455)
  
-### Changed
- - speed gain by using linked properties
-
+### Added
+ - role/map-tags key 
+  
 ## [2024-02-04]
 Version 0.98v
 

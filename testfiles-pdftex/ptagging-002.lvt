@@ -15,12 +15,9 @@
 
 
 \usepackage{tagpdf}
-\tagpdfsetup
- {
-   activate,interwordspace,
-   paratagging,paratagging-show,
-   log=v
- }
+\tagpdfsetup{activate,activate/spaces,para/tagging,debug/show=para,debug/log=v}
+
+
 
 \usepackage{kantlipsum}
 

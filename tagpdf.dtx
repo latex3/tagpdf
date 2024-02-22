@@ -42,34 +42,37 @@
 % in debugging messages to allow to follow the nesting.
 % \end{function}
 %
-% \begin{function}{activate-space (setup-key)}
-%  |activate-space| activates the additional parsing needed for
-%  interword spaces. It is not documented, the parsing is currently
-%  implicitly activated by the known key |interwordspace|, as the code will
-%  perhaps move to some other place, now that it is better separated.
+% \begin{function}{activate/spaces (setup-key)}
+%  |activate/spaces| activates the additional parsing needed for
+%  interword spaces. It replaces the deprecated key |interwordspace|.
 % \end{function}
 %
-% \begin{function}{activate-mc (setup-key),
-%    activate-tree (setup-key),
-%    activate-struct (setup-key),
-%    activate-all (setup-key)}
-% Keys to activate the various tagging steps
+% \begin{function}{activate/mc (setup-key),
+%    activate/tree (setup-key),
+%    activate/struct (setup-key),
+%    activate/all (setup-key),
+%    activate-mc (deprecated),
+%    activate-tree (deprecated),
+%    activate-struct (deprecated),
+%    activate-all (deprecated),
+%    }
+% Keys to activate the various tagging steps. 
 % \end{function}
-%\begin{function}{no-struct-dest (setup-key)}
+%\begin{function}{activate/struct-dest (setup-key),no-struct-dest (deprecated)}
 % The key allows to suppress the creation of structure destinations
 % \end{function}
 %
-% \begin{function}{log (setup-key)}
-% The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
+% \begin{function}{debug/log (setup-key)}
+% The |debug/log| key takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
 % More details are in \texttt{tagpdf-checks}.
 % \end{function}
 %
-% \begin{function}{tagunmarked (setup-key)}
+% \begin{function}{activate/tagunmarked (setup-key), tagunmarked (deprecated) }
 % This key allows to set if (in luamode) unmarked text should be
 % marked up as artifact. The initial value is true.
 % \end{function}
 %
-% \begin{function}{tabsorder (setup-key)}
+% \begin{function}{page/tabsorder (setup-key), tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be
 % added if needed.
@@ -278,7 +281,7 @@
 % commands, the struct-boolean activates the storing of the structure data.
 % In a normal document all should be active, the split is only there for
 % debugging purpose.
-% Structure destination will be activated automatically if pdf version 2.0 is detected,
+% Structure destination will be activated automatically,
 % but with the boolean struct-dest-boolean one can suppress them.
 % Also we assume currently that they are set only at begin document. But
 % if some control passing over groups are needed they could be perhaps
@@ -329,10 +332,10 @@
 \cs_generate_variant:Nn \pdf_object_ref:n {e}
 \cs_generate_variant:Nn \pdfannot_dict_put:nnn {nne}
 \cs_generate_variant:Nn \pdffile_embed_stream:nnn {nee,oee}
-\cs_generate_variant:Nn \prop_gput:Nnn {Nee,Nen}
-\cs_generate_variant:Nn \prop_put:Nnn  {Nee}
-\cs_generate_variant:Nn \prop_item:Nn {No,Ne}
-\cs_generate_variant:Nn \seq_set_split:Nnn{Nne}
+\cs_generate_variant:Nn \prop_gput:Nnn {Nee,Nen} %** unneeded
+\cs_generate_variant:Nn \prop_put:Nnn  {Nee}     %** unneeded
+\cs_generate_variant:Nn \prop_item:Nn {No,Ne}    %**  unneeded
+\cs_generate_variant:Nn \seq_set_split:Nnn{Nne}  %**  unneeded
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
 \cs_generate_variant:Nn \clist_map_inline:nn {on}
 %    \end{macrocode}
@@ -340,6 +343,7 @@
 % \section{Label and Reference commands}
 % To ease transition to properties we setup internal definition. They can be replaced
 % by the property definitions once that is released.
+% %** do it!
 % \begin{macro}{\@@_property_new:nnnn,\@@_property_gset:nnnn,\@@_property_ref:nnn}
 % At first a command to define new properties
 %    \begin{macrocode}
@@ -541,78 +545,103 @@
 %
 %
 % \section{Keys for tagpdfsetup}
-
+%
 % TODO: the log-levels must be sorted
 %
 % \begin{macro}
 %  {
-%    activate-space (setup-key),
-%    activate-mc (setup-key),
-%    activate-tree (setup-key),
-%    activate-struct (setup-key),
-%    activate-all (setup-key),
-%    no-struct-dest (setup-key),
+%    activate/mc (setup-key),
+%    activate/tree (setup-key),
+%    activate/struct (setup-key),
+%    activate/all (setup-key),
+%    activate/struct-dest (setup-key),
 %  }
 %  Keys to (globally) activate tagging.
-%  |activate-space| activates the additional parsing needed for
-%  interword spaces. It is not documented, the parsing is currently
-%  implicitly activated by the known key |interwordspace|, as the code will
-%  perhaps move to some other place, now that it is better separated.
-%  |no-struct-dest| allows to suppress structure destinations.
+%  |activate/spaces| activates the additional parsing needed for
+%  interword spaces. It is defined in tagpdf-space. 
+%  |activate/struct-dest| allows to activate or suppress structure destinations.
 %    \begin{macrocode}
 %<*package>
 \keys_define:nn { @@ / setup }
   {
-    activate-space  .bool_gset:N = \g_@@_active_space_bool,
+    activate/mc     .bool_gset:N = \g_@@_active_mc_bool,
+    activate/tree   .bool_gset:N = \g_@@_active_tree_bool,
+    activate/struct .bool_gset:N = \g_@@_active_struct_bool,
+    activate/all    .meta:n =
+      {activate/mc={#1},activate/tree={#1},activate/struct={#1}},
+    activate/all  .default:n = true,
+    activate/struct-dest .bool_gset:N = \g_@@_active_struct_dest_bool,
+%    \end{macrocode}
+% old, deprecated names
+%    \begin{macrocode}
     activate-mc     .bool_gset:N = \g_@@_active_mc_bool,
     activate-tree   .bool_gset:N = \g_@@_active_tree_bool,
     activate-struct .bool_gset:N = \g_@@_active_struct_bool,
     activate-all    .meta:n =
-      {activate-mc={#1},activate-tree={#1},activate-struct={#1}},
+      {activate/mc={#1},activate/tree={#1},activate/struct={#1}},
     activate-all  .default:n = true,
-    no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,
- %    \end{macrocode}
+    no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,    
+%    \end{macrocode}
 % \end{macro}
-% \begin{macro}{log (setup-key)}
+% \begin{macro}{debug/show (setup-key)}
+% Subkeys/values are defined in various other places.
+%    \begin{macrocode}
+    debug/show            .choice:,
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{debug/log (setup-key), debug/uncompress (setup-key), log (deprecated), uncompress (deprecated)}
 % The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
 % The description of the log levels is in tagpdf-checks.
 %    \begin{macrocode}
-    log             .choice:,
-    log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
-    log / v         .code:n =
+    debug/log             .choice:,
+    debug/log / none      .code:n = {\int_set:Nn \l_@@_loglevel_int { 0 }},
+    debug/log / v         .code:n =
       {
         \int_set:Nn \l_@@_loglevel_int { 1 }
         \cs_set_protected:Nn \@@_check_typeout_v:n { \iow_term:e {##1} }
       },
-    log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
-    log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
-    log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
+    debug/log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
+    debug/log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
+    debug/log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
+    debug/uncompress .code:n = { \pdf_uncompress:  },    
+%    \end{macrocode}
+% deprecated but still needed as the documentmetadata key argument uses it.
+%    \begin{macrocode}
+    log             .meta:n = {debug/log={#1}},
+    uncompress      .code:n = { \pdf_uncompress:  },
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{tagunmarked (setup-key)}
+% \begin{macro}{activate/tagunmarked (setup-key),tagunmarked (deprecated)}
 % This key allows to set if (in luamode) unmarked text should be
 % marked up as artifact. The initial value is true.
 %    \begin{macrocode}
-    tagunmarked     .bool_gset:N = \g_@@_tagunmarked_bool,
-    tagunmarked     .initial:n  = true,
+    activate/tagunmarked     .bool_gset:N = \g_@@_tagunmarked_bool,
+    activate/tagunmarked     .initial:n  = true,
+%    \end{macrocode}
+% deprecated name
+%    \begin{macrocode}
+    tagunmarked .bool_gset:N = \g_@@_tagunmarked_bool,
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{tabsorder (setup-key)}
+% \begin{macro}{page/tabsorder (setup-key),tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be
 % added if needed.
 %    \begin{macrocode}
-    tabsorder       .choice:,
-    tabsorder / row       .code:n =
+    page/tabsorder       .choice:,
+    page/tabsorder / row       .code:n =
       \pdfmanagement_add:nnn { Page } {Tabs}{/R},
-    tabsorder / column    .code:n =
+    page/tabsorder / column    .code:n =
       \pdfmanagement_add:nnn { Page } {Tabs}{/C},
-    tabsorder / structure .code:n =
+    page/tabsorder / structure .code:n =
       \pdfmanagement_add:nnn { Page } {Tabs}{/S},
-    tabsorder / none      .code:n =
+    page/tabsorder / none      .code:n =
       \pdfmanagement_remove:nn {Page} {Tabs},
-    tabsorder       .initial:n = structure,
-    uncompress      .code:n = { \pdf_uncompress:  },
+    page/tabsorder       .initial:n = structure,
+%    \end{macrocode}
+% deprecated name
+%    \begin{macrocode}
+    tabsorder .meta:n = {page/tabsorder={#1}},    
   }
 %    \end{macrocode}
 % \end{macro}

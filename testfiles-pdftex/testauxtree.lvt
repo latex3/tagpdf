@@ -27,12 +27,12 @@
 
 
 
-\tagpdfsetup{add-new-tag = TAB/P,
-             add-new-tag = FIG/P,
-             tabsorder=structure,
-             activate-all,
-             log=v,
-             uncompress}
+\tagpdfsetup{role/new-tag = TAB/P,
+             role/new-tag = FIG/P,
+             page/tabsorder=structure,
+             activate/all,
+             debug/log=v,
+             }
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -95,4 +95,3 @@
 
 
 \end{document}
-

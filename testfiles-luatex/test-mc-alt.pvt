@@ -14,7 +14,7 @@
 \makeatother
 
 \usepackage{tagpdf,iftex}
-\tagpdfsetup{uncompress,activate}
+\tagpdfsetup{activate}
 \iftutex
   \usepackage{fontspec}
   \usepackage{luacode}

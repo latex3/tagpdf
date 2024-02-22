@@ -1,0 +1,30 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\ExplSyntaxOn
+:\sys_gset_rand_seed:n{1000}
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{testphase=phase-III}
+\input{regression-test}
+\documentclass{article}
+
+
+\begin{document}
+\usepackage{hyperref}
+\begin{document}
+
+\section{a}
+\subsection{b}
+
+xx\footnote{note}xx\marginpar{blub}
+
+\tagpdfsetup{role/map-tags=pdf}
+
+\section{a}
+\subsection{b}
+
+xx\footnote{note}xx\marginpar{blub}
+
+
+\end{document}\end{document}
+
