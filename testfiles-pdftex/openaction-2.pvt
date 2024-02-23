@@ -1,0 +1,18 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+
+\DocumentMetadata{uncompress,testphase=phase-III}
+\input{regression-test}
+
+\documentclass{book} 
+\usepackage{hyperref}
+\begin{document}
+
+some text
+
+some text \tagpdfsetup{viewer/startstructure}
+
+\end{document}
+

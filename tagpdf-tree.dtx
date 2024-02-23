@@ -96,8 +96,10 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \subsection{Catalog: MarkInfo and StructTreeRoot}
+% \subsection{Catalog: MarkInfo and StructTreeRoot and OpenAction}
 % The StructTreeRoot and the MarkInfo entry must be added to the catalog.
+% If there is an OpenAction entry we must update it,
+% so that it contains also a structure destination.
 % We do it late so that we can win, but before the pdfmanagement hook.
 % \begin{macro}{@@/struct/0}
 % This is the object for the root object, the StructTreeRoot
@@ -105,6 +107,67 @@
 \pdf_object_new:n { @@/struct/0 }
 %    \end{macrocode}
 % \end{macro}
+% 
+% \begin{variable}{\g_@@_tree_openaction_struct_tl}
+% We need a variable that indicates which structure is wanted in the OpenAction. By default we use
+% 1 (the Document structure).
+%    \begin{macrocode}
+\tl_new:N   \g_@@_tree_openaction_struct_tl
+\tl_gset:Nn \g_@@_tree_openaction_struct_tl {1}
+%    \end{macrocode}
+% \end{variable}
+% 
+% \begin{macro}{viewer/startpage (setup-key)}
+% We also need an option to setup the start structure. So we setup a key
+% which sets the variable to the current structure. This still requires
+% hyperref to do most of the job, this should perhaps be changed. 
+%    \begin{macrocode}
+\keys_define:nn { @@ / setup }
+ {
+   viewer/startstructure .code:n = 
+    {
+       \tl_gset:Ne \g_@@_tree_openaction_struct_tl {#1}      
+    }
+  ,viewer/startstructure .default:n =  { \int_use:N \c@g_@@_struct_abs_int }
+ }
+%    \end{macrocode}
+% \end{macro}
+% The OpenAction should only be updated if it is there. So we inspect the 
+% Catalog-prop:
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_tree_update_openaction:
+  {
+    \prop_get:cnNT 
+     { \__kernel_pdfdict_name:n { g__pdf_Core/Catalog } }
+     {OpenAction}
+     \l_@@_tmpa_tl
+     {
+%    \end{macrocode}
+% we only do something if the OpenAction is an array (as set by hyperref)
+% in other cases we hope that the author knows what they did.
+%    \begin{macrocode}
+       \tl_if_head_eq_charcode:eNT { \tl_trim_spaces:V\l_@@_tmpa_tl } [ %]
+         {
+           \seq_set_split:NnV\l_@@_tmpa_seq{/}\l_@@_tmpa_tl
+           \pdfmanagement_add:nne {Catalog} { OpenAction }
+             {
+               <<
+                 /S/GoTo \c_space_tl 
+                 /D~\l_@@_tmpa_tl\c_space_tl
+                 /SD~[\pdf_object_ref:e{__tag/struct/\g_@@_tree_openaction_struct_tl}
+%    \end{macrocode}
+% there should be always a /Fit etc in the array but better play safe here ...
+%    \begin{macrocode}
+                      \int_compare:nNnTF{ \seq_count:N \l_@@_tmpa_seq } > {1}
+                       { /\seq_item:Nn\l_@@_tmpa_seq{2} }
+                       { ] }
+               >>  
+             }                      
+         }
+     }    
+  }  
+%    \end{macrocode}
+%
 %    \begin{macrocode}
 \hook_gput_code:nnn{shipout/lastpage}{tagpdf}
   {
@@ -115,6 +178,7 @@
           { Catalog }
           { StructTreeRoot }
           { \pdf_object_ref:n { @@/struct/0 } }
+        \@@_tree_update_openaction:  
       }
   }
 %    \end{macrocode}

@@ -558,6 +558,12 @@ maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|.
   it hasn't been tested yet with complicated documents containing
   annotations etc. See also section~\ref{sec:lazy} for a discussion
   about automatic tagging.
+  
+\item[\PrintKeyName{viewer/startstructure}] A structure number. If a \texttt{OpenAction}
+is set in the PDF Catalog (which is normally the case if hyperref is used) 
+a structure destination pointing to the structure is added. The initial value is structure 1 (the \texttt{Document} structure), the default value is the current structure. The 
+key can be used more than once, the last setting will win.
+
 
 \item[\PrintKeyName{debug/uncompress}] Sets both the \PDF{} compresslevel
   and the \PDF{} objcompresslevel to 0 and so allows to inspect the
