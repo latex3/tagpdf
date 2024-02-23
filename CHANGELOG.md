@@ -10,6 +10,9 @@ this project uses date-based 'snapshot' version identifiers.
 ### Added
  - structure destination is added OpenAction if present
  - viewer/startstructure key to setup the OpenAction structure.
+
+### Fixed
+ - missing structparent value if page is empty in lua-mode
  
 ## [2024-02-22]
 Version 0.98w
