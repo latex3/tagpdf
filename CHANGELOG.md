@@ -5,11 +5,11 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2024-02-29]
 
 ### Added
  - structure destination is added OpenAction if present
- - viewer/startstructure key to setup the OpenAction structure.
+ - new `viewer/startstructure` key to setup the OpenAction structure.
 
 ### Fixed
  - missing structparent value if page is empty in lua-mode

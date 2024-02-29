@@ -1,14 +1,9 @@
-## [2024-02-22]
-Version 0.98w
-
-### Changed
- - various keys have been renamed and the old keys deprecated. A full list can be found in the documentation.
- - speed gain for large documents by using linked properties
-
-### Fixed
- - missing slashes in dvilualatex backend, issue #96
- - lua error with large object numbers, issue #97
- - existence tests for unknown props (issue latex3/latex3#1455)
+## [2024-02-29]
+Version 0.98x
 
 ### Added
- - role/map-tags key
+ - structure destination is added OpenAction if present
+ - new `viewer/startstructure` key to setup the OpenAction structure.
+
+### Fixed
+ - missing structparent value if page is empty in lua-mode
