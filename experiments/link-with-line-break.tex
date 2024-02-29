@@ -1,0 +1,27 @@
+% !Mode:: "TeX:UTF-8:Main"
+\DocumentMetadata{uncompress,testphase=phase-III,xmp=false}
+\documentclass{article}
+\usepackage{hyperref}
+\textwidth=1cm
+\usepackage{tagpdf-debug}
+\begin{document}
+\href{https//www.blub.de}{some text}
+\ShowTagging{debug/structures}
+\ExplSyntaxOn
+%\prop_show:c{g__tag_struct_6_prop}
+\seq_show:c{g__tag_struct_kids_6_seq}
+\pdf_object_unnamed_write:ne
+      { dict }
+      {
+        /Type/OBJR/Obj~26~0~R/Pg~\pdf_pageobject_ref:n{1}
+      }
+\__tag_seq_gput_right:ce
+      { g__tag_struct_kids_6_seq }
+      {
+        \pdf_object_ref_last:
+      }      
+\ExplSyntaxOff
+
+
+
+\end{document}
