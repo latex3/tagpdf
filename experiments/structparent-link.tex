@@ -1,0 +1,46 @@
+% this creates only one annotation with a structparent for links with linebreak. 
+% The other are "untagged".
+% Regarding the spec this is probably more correct, but verapdf complains ...
+
+\DocumentMetadata{uncompress,testphase=phase-III,xmp=false,pdfversion=2.0,pdfstandard=ua-2}
+\documentclass{article}
+\ExplSyntaxOn
+\hook_gremove_code:nn {pdfannot/link/URI/before}{tagpdf}
+\hook_gremove_code:nn {pdfannot/link/URI/after}{tagpdf}
+
+\hook_gput_code:nnn
+  {pdfannot/link/URI/before}
+  {tagpdf}
+  {
+    \tag_mc_end_push:
+    \tag_struct_begin:n { tag=Link }
+    \tag_mc_begin:n { tag=Link }
+    \group_begin:
+    \pdfannot_dict_put:nne
+      { link/URI }
+      { StructParent }
+      { \tag_struct_parent_int: }  
+     \pdfannot_dict_put:nnn
+      { link/URI }
+      { Border }
+      { [0~0~0] }     
+    \pdfannot_box:nnne{0pt}{0pt}{0pt}{\pdfannot_dict_use:n{ link/URI }} 
+    \tag_struct_insert_annot:ee {\pdfannot_box_ref_last:}{\tag_struct_parent_int:}  
+    \group_end:  
+  }
+%
+\hook_gput_code:nnn
+  {pdfannot/link/URI/after}
+  {tagpdf}
+  {
+     \tag_mc_end:
+     \tag_struct_end:
+     \tag_mc_begin_pop:n{}
+  }
+
+\ExplSyntaxOff
+\usepackage{hyperref}
+
+\begin{document}
+\href{https://latex-project.org}{abc\\blub}%
+\end{document}
