@@ -2,7 +2,7 @@
 % The other are "untagged".
 % Regarding the spec this is probably more correct, but verapdf complains ...
 
-\DocumentMetadata{uncompress,testphase=phase-III,xmp=false,pdfversion=2.0,pdfstandard=ua-2}
+\DocumentMetadata{uncompress,testphase={phase-III,title},pdfversion=2.0,pdfstandard=ua-2}
 \documentclass{article}
 \ExplSyntaxOn
 \hook_gremove_code:nn {pdfannot/link/URI/before}{tagpdf}
@@ -40,7 +40,7 @@
 
 \ExplSyntaxOff
 \usepackage{hyperref}
-
+\hypersetup{pdftitle=Structparent test}
 \begin{document}
 \href{https://latex-project.org}{abc\\blub}%
 \end{document}

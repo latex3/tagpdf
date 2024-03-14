@@ -1,0 +1,30 @@
+\DocumentMetadata{uncompress,testphase={phase-III,title},pdfversion=2.0,pdfstandard=ua-2}
+\documentclass{article}
+\ExplSyntaxOn
+\hook_gremove_code:nn {pdfannot/link/URI/before}{tagpdf}
+\hook_gremove_code:nn {pdfannot/link/URI/after}{tagpdf}
+\ExplSyntaxOff
+\usepackage{hyperref}
+\hypersetup{pdftitle=Link breaks}
+\textheight 2cm
+\textwidth  4cm
+\begin{document}
+some text \\some text\\some text \\
+\ExplSyntaxOn
+\tag_mc_end_push:
+\tag_struct_begin:n { tag=Link }
+\tag_mc_begin:n { tag=Link }
+\group_begin:
+    \pdfannot_dict_put:nne
+      { link/URI }
+      { StructParent }
+      { \tag_struct_parent_int: }  
+\href{https://latex-project.org}{this~link~leads~to~the~\LaTeX{}}
+\tag_struct_insert_annot:ee {\pdfannot_ref_last:}{\tag_struct_parent_int:} 
+\group_end:\\
+\href{https://latex-project.org}{project~page}%
+\tag_mc_end:
+\tag_struct_end:
+\tag_mc_begin_pop:n{}~more text
+\ExplSyntaxOff
+\end{document}
