@@ -791,14 +791,14 @@
 %  break into two or more mcid. In this case the lua code has to convert
 %  put the dictionary of the kid into an array. See issue 13 at tagpdf repo.
 %  We exchange the dummy command for the kids to mark this case.
+%  Change 2024-03-19: don't use a regex - that is slow.
 %    \begin{macrocode}
 \cs_new_protected:Npn\@@_struct_exchange_kid_command:N #1 %#1 = seq var
   {
     \seq_gpop_left:NN #1 \l_@@_tmpa_tl
-    \regex_replace_once:nnN
-      { \c{\@@_mc_insert_mcid_kids:n} }
-      { \c{\@@_mc_insert_mcid_single_kids:n} }
-      \l_@@_tmpa_tl
+    \tl_replace_once:Nnn \l_@@_tmpa_tl
+     {\@@_mc_insert_mcid_kids:n}
+     {\@@_mc_insert_mcid_single_kids:n}    
     \seq_gput_left:NV #1 \l_@@_tmpa_tl
   }
 
