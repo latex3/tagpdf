@@ -92,6 +92,7 @@
       \int_step_inline:nnn{2}{\seq_count:N\g_@@_struct_stack_seq}
        {\tag_struct_end:}
     }
+   \msg_note:nn {tag}{tree-statistic} 
  }
 %    \end{macrocode}
 % \end{macro}
@@ -585,15 +586,37 @@
       {
         \hook_use:n {tagpdf/finish/before}
         \@@_tree_final_checks:
+        \iow_term:n{Package~tagpdf~Info:~writing~ParentTree}
+        \@@_check_benchmark_tic:
         \@@_tree_write_parenttree:
+        \@@_check_benchmark_toc:
+        \iow_term:n{Package~tagpdf~Info:~writing~IDTree}
+        \@@_check_benchmark_tic:
         \@@_tree_write_idtree:
+        \@@_check_benchmark_toc:
+        \iow_term:n{Package~tagpdf~Info:~writing~RoleMap}
+        \@@_check_benchmark_tic:
         \@@_tree_write_rolemap:
+        \@@_check_benchmark_toc:
+        \iow_term:n{Package~tagpdf~Info:~writing~ClassMap}
+        \@@_check_benchmark_tic:
         \@@_tree_write_classmap:
+        \@@_check_benchmark_toc:
+        \iow_term:n{Package~tagpdf~Info:~writing~NameSpaces}
+        \@@_check_benchmark_tic:
         \@@_tree_write_namespaces:
+        \@@_check_benchmark_toc:
+        \iow_term:n{Package~tagpdf~Info:~writing~StructElems}
+        \@@_check_benchmark_tic:
         \@@_tree_write_structelements: %this is rather slow!!
+        \@@_check_benchmark_toc:
+        \iow_term:n{Package~tagpdf~Info:~writing~Root}
+        \@@_check_benchmark_tic:
         \@@_tree_write_structtreeroot:
+        \@@_check_benchmark_toc:
       }
   }
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -601,6 +624,7 @@
 % We need to add to the Page resources the |StructParents| entry, this is simply the
 % absolute page number.
 %    \begin{macrocode}
+%<*package>
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \bool_if:NT\g_@@_active_tree_bool

@@ -295,7 +295,11 @@
 % if there are (beside Root) other open structures on the stack.
 % \end{function}
 % 
-
+% \begin{function}{tree-statistic}
+% Message issued at the end of the compilation 
+% showing the number of objects to write
+% \end{function}
+%
 % \begin{function}{show-struct,show-kids}
 % These two messages are used in debug mode
 % to show the current structures in the log and terminal.
@@ -460,6 +464,22 @@
     The~stack~contains~\seq_use:Nn\g_@@_struct_tag_stack_seq{,}.\\
     The~structures~are~automatically~closed,\\
     but~their~nesting~can~be~wrong.  
+  }
+%    \end{macrocode}
+% \end{macro} 
+% 
+% \begin{macro}{tree-statistic}
+% Message issued at the end showing the estimated number of 
+% structures and MC-childs
+%    \begin{macrocode}
+\msg_new:nnn { tag } {tree-statistic}
+  { 
+    Finalizing~the~tagging~structure:\\
+    Writing~out~\c_tilde_str
+    \int_use:N\c@g_@@_struct_abs_int\c_space_tl~structure~objects\\
+    with~\c_tilde_str
+    \int_use:N\c@g_@@_MCID_abs_int\c_space_tl'MC'~leaf~nodes.\\
+    Be~patient~if~there~are~lots~of~objects!
   }
 %</package>  
 %    \end{macrocode}
@@ -1127,6 +1147,26 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %</debug>
+%    \end{macrocode}
+%
+% \subsection{Benchmarks}
+% It doesn't make much sense to do benchmarks in debug mode or in combination
+% with a log-level as this would slow down the compilation.
+% So we add simple commands that can be activated if l3benchmark has been loaded.
+% TODO: is a warning needed?
+%    \begin{macrocode}
+%<*package>
+\cs_new_protected:Npn \@@_check_benchmark_tic:{}
+\cs_new_protected:Npn \@@_check_benchmark_toc:{}
+\cs_new_protected:Npn \tag_check_benchmark_on:
+  {
+    \cs_if_exist:NT \benchmark_tic:
+     {
+       \cs_set_eq:NN \@@_check_benchmark_tic: \benchmark_tic:
+       \cs_set_eq:NN \@@_check_benchmark_toc: \benchmark_toc:
+     }  
+  }
+%</package>  
 %    \end{macrocode}
 % \end{implementation}
 % \PrintIndex
