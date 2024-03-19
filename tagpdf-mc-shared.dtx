@@ -191,8 +191,8 @@
 % MC chunks must be counted.
 % I use a latex counter for the absolute count, so that it is added to
 % |\cl@@ckpt| and restored e.g. in tabulars and align.
-% |\int_new:N  \c@g_@@_MCID_int| and
-% |\tl_put_right:Nn\cl@@ckpt{\@elt{g_uf_test_int}}|
+% |\int_new:N  \c@g_@@_MCID_abs_int| and
+% |\tl_put_right:Nn\cl@@ckpt{\@elt{g_@@_MCID_abs_int}}|
 % would work too, but as the name is not expl3 then too, why bother?
 % The absolute counter can be used to label and to check if the page
 % counter needs a reset.
