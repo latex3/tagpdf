@@ -11,7 +11,7 @@ this project uses date-based 'snapshot' version identifiers.
  - statistic and benchmark at the end of the run.
  
 ### Changed
- - speed up writing of StructElem 
+ - speed up writing of StructElems 
 
 ## [2024-02-29]
 Version 0.98x

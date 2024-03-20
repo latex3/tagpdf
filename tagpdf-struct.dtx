@@ -900,49 +900,41 @@
 % \begin{macro}{\@@_struct_get_dict_content:nN}
 % This maps the dictionary content of a structure into a tl-var.
 % Basically it does what |\pdfdict_use:n| does.
-% TODO!! this looks over-complicated. Check if it can be done with pdfdict now.
+% This is used a lot so should be rather fast.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_get_dict_content:nN #1 #2 %#1: stucture num
   {
     \tl_clear:N #2
-    \seq_map_inline:cn
+    \prop_map_inline:cn { g_@@_struct_#1_prop }
       {
-        c_@@_struct_
-         \int_compare:nNnTF{#1}={0}{StructTreeRoot}{StructElem}
-         _entries_seq
-      }
-      {
-        \tl_put_right:Ne
-          #2
+        \tl_put_right:Ne #2 
           {
-             \prop_if_in:cnT
-               { g_@@_struct_#1_prop }
-               { ##1 }
-               {
-                 \c_space_tl/##1~
 %    \end{macrocode}
-% Some keys needs the option to format the key, e.g. add brackets for an
-% array
-%    \begin{macrocode}
-                 \cs_if_exist_use:cTF {@@_struct_format_##1:e}
-                   {
-                     { \prop_item:cn{ g_@@_struct_#1_prop } { ##1 } }
-                   }
-                   {
-                     \prop_item:cn{ g_@@_struct_#1_prop } { ##1 }
-                   }
-               }
+% Some keys needs the option to format the value, e.g. add brackets for an
+% array, we also need the option to ignore some entries in the properties.
+%    \begin{macrocode}        
+           \cs_if_exist_use:cTF {@@_struct_format_##1:nn}
+             {{##1}{##2}}
+             {\c_space_tl/##1~##2}
           }
       }
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_struct_format_Ref:n}
+% 
+% \begin{macro}{\@@_struct_format_rolemap:nn,\@@_struct_format_parentrole:nn}
+% This two entries should not end in the PDF.
+%    \begin{macrocode}
+\cs_new:Nn\@@_struct_format_rolemap:nn{}
+\cs_new:Nn\@@_struct_format_parentrole:nn{}
+%    \end{macrocode}
+% \end{macro}
+
+% \begin{macro}{\@@_struct_format_Ref:nn}
 % Ref is an array, we store only the content to be able to extend it
 % so the formatting command adds the brackets:
 %    \begin{macrocode}
-\cs_new:Nn\__tag_struct_format_Ref:n{[#1]}
-\cs_generate_variant:Nn\__tag_struct_format_Ref:n{e}
+\cs_new:Nn\__tag_struct_format_Ref:nn{\c_space_tl/#1~[#2]}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_struct_write_obj:n}
