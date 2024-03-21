@@ -505,22 +505,19 @@
 \cs_new_protected:Npn \@@_tree_write_classmap:
   {
     \tl_clear:N \l_@@_tmpa_tl
-    \seq_gremove_duplicates:N \g_@@_attr_class_used_seq
-    \seq_set_map:NNn \l_@@_tmpa_seq \g_@@_attr_class_used_seq
-      {
-        ##1\c_space_tl
-        <<
-          \prop_item:Nn
+    \prop_map_inline:Nn \g_@@_attr_class_used_prop
+     {
+       \tl_put_right:Ne \l_@@_tmpa_tl
+        {
+          ##1\c_space_tl
+          <<
+           \prop_item:Nn
             \g_@@_attr_entries_prop
             {##1}
-        >>
-      }
-    \tl_set:Ne \l_@@_tmpa_tl
-      {
-        \seq_use:Nn
-          \l_@@_tmpa_seq
-          { \iow_newline: }
-      }
+          >>
+         \iow_newline:
+        }
+     }
     \tl_if_empty:NF
       \l_@@_tmpa_tl
       {

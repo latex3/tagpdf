@@ -1928,12 +1928,12 @@
 %  \begin{variable}
 %   {
 %     ,\g_@@_attr_entries_prop
-%     ,\g_@@_attr_class_used_seq
+%     ,\g_@@_attr_class_used_prop
 %     ,\g_@@_attr_objref_prop
 %     ,\l_@@_attr_value_tl
 %   }
 % |\g_@@_attr_entries_prop| will store attribute names and their dictionary content.\\
-% |\g_@@_attr_class_used_seq| will hold the attributes which have been used as
+% |\g_@@_attr_class_used_prop| will hold the attributes which have been used as
 % class name.
 % |\l_@@_attr_value_tl| is used to build the attribute array or key.
 % Every time an attribute is used for the first time, and object is created
@@ -1942,7 +1942,7 @@
 %    \begin{macrocode}
 %<*package>
 \prop_new:N \g_@@_attr_entries_prop
-\seq_new:N  \g_@@_attr_class_used_seq
+\prop_new_linked:N \g_@@_attr_class_used_prop
 \tl_new:N   \l_@@_attr_value_tl
 \prop_new:N \g_@@_attr_objref_prop %will contain obj num of used attributes
 %    \end{macrocode}
@@ -2014,7 +2014,7 @@
              {
                \msg_error:nnn { tag } { attr-unknown } { ##1 }
              }
-           \seq_gput_left:Nn\g_@@_attr_class_used_seq { ##1}
+           \prop_gput:Nnn\g_@@_attr_class_used_prop { ##1} {}
          }
        \tl_set:Ne \l_@@_tmpa_tl
          {
