@@ -12,6 +12,9 @@ this project uses date-based 'snapshot' version identifiers.
  
 ### Changed
  - speed up writing of StructElems 
+ 
+### Fixed
+ - recording of used attributes. 
 
 ## [2024-02-29]
 Version 0.98x
