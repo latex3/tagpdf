@@ -505,6 +505,14 @@
 \cs_new_protected:Npn \@@_tree_write_classmap:
   {
     \tl_clear:N \l_@@_tmpa_tl
+%    \end{macrocode}
+% We process the older sec for compability with the table code. 
+% TODO: check if still needed
+%    \begin{macrocode}
+    \seq_map_inline:Nn \g_@@_attr_class_used_seq
+     {
+       \prop_gput:Nnn \g_@@_attr_class_used_prop {##1}{}
+     }
     \prop_map_inline:Nn \g_@@_attr_class_used_prop
      {
        \tl_put_right:Ne \l_@@_tmpa_tl
