@@ -15,6 +15,7 @@ this project uses date-based 'snapshot' version identifiers.
  
 ### Fixed
  - recording of used attributes. 
+ - debug/structures showed sometimes wrong parent structure 
 
 ## [2024-02-29]
 Version 0.98x
