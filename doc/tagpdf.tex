@@ -34,8 +34,8 @@
 \usepackage[style=numeric]{biblatex}
 \addbibresource{tagpdf.bib}
 
-\usepackage[noparboxrestore]{marginnote}
 \reversemarginpar
+\NewDocumentCommand\sidenote{m}{\marginpar{#1}}
 \usepackage{booktabs}
 \setlength\belowcaptionskip{10pt}
 \usepackage{tcolorbox}
@@ -384,10 +384,11 @@ command so that \pkg{tagpdf} can pick up the correct code path.
 \begin{taglstlisting}
 \DocumentMetadata
  {
-  % testphase = phase-I, % tagging without paragraph tagging
-  testphase = phase-II % tagging with paragraph tagging and other new stuff.
-  % testphase = phase-III % tagging with paragraph sec, toc, block tagging and more
-  % pdfversion = 2.0   % pdfversion must be set here.
+  % testphase = phase-I,  % tagging without paragraph tagging
+  % testphase = phase-II, % tagging with paragraph tagging 
+   testphase = phase-III, % tagging with paragraph sec, toc, blocks and more
+   pdfversion = 2.0,   % pdfversion must be set here.
+   pdfstandard=ua-2,   % pdfstandard can be set too 
  }
 \documentclass{article}
 \begin{document}
@@ -1028,7 +1029,7 @@ The key-val list understands the following keys:
   The validators complain if some text is not marked up, but it is not 
   quite clear if this is a serious problem. 
 
-  The\sidenote{lua mode only} lua mode will mark up everything unmarked as 
+  The\sidenote{lua mode} lua mode will mark up everything unmarked as 
   \texttt{artifact=notype}. You can suppress this behavior by setting the 
   tagpdfsetup key \texttt{activate/tagunmarked} to false. See section 
   \ref{ssec:setup}. 
@@ -1199,7 +1200,7 @@ This (expandable) command returns the values of some variables. Currently, the w
 
 \subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}
 
-In\sidenote{Luamode mode only} luamode the mc-commands set and unset an 
+In\sidenote{lua mode} luamode the mc-commands set and unset an 
 attribute to mark the nodes. One can view such an attribute like a font 
 change or a color: they affect all following chars and glue nodes until 
 stopped. 
@@ -2521,7 +2522,7 @@ The box can in both modes be used without problems many times.
 
 We assume in the following that the box contains only well balanced tagging 
 commands and no parts that are \enquote{untagged}. It should be possible to 
-copy the whole box inside a \verb+\tagstructbegin+/\verb+\tagstructend+ 
+copy the whole box inside a \verb+\tagstructbegin+/\hspace{0pt}\verb+\tagstructend+ 
 pair. So the following is fine as box content 
 \begin{taglstlisting}
 box=\tagstructbegin{...}\tagmcbegin{} balanced content\tagmcend\tagstructend

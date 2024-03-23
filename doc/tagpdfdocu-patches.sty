@@ -69,15 +69,17 @@
    }
       
 % ======== marginnote ==========
+% 2024-03-23 currently marginnote is no longer used, we use marginpar
 % TODO marginnote has a bug (a \par is missing) so it messes up tagging.
 % but currently unneeded as we marked them up as artifacts anyway as they don't contain
 % meaningful contents
-\renewcommand*{\mn@parboxrestore}{\tagpdfparaOff}%
+%\renewcommand*{\mn@parboxrestore}{\tagpdfparaOff}%
 
-\NewDocumentCommand\sidenote{m}
- {
-   \tag_mc_artifact_group_begin:n{notype}\tagpdfparaOff\marginnote{#1}\tag_mc_artifact_group_end:
- }
+%\NewDocumentCommand\sidenote{m}
+% {%
+%   %\tag_mc_artifact_group_begin:n{notype}\tagpdfparaOff\marginnote{#1}\tag_mc_artifact_group_end:
+%   \marginpar{#1}%
+% }
 
 \ExplSyntaxOff
 % ======== tikzpicture ==========
