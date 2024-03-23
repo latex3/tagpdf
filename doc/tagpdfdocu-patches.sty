@@ -79,12 +79,22 @@
    \tag_mc_artifact_group_begin:n{notype}\tagpdfparaOff\marginnote{#1}\tag_mc_artifact_group_end:
  }
 
-\ExplSyntaxOff
+
 % ======== tikzpicture ==========
 % TODO this needs some investigation: it messes up the stack if one add paraOff
 
-\AddToHook{env/tikzpicture/begin}{}
-
+\AddToHook{env/tikzpicture/before}{%
+ \ifvmode
+  {
+   \socket_assign_plug:nn {tagsupport/para/begin}{plain}
+   \UseTaggingSocket{para/begin}
+  } 
+ \fi
+  \tag_mc_end_push:\tagstructbegin{tag=Figure,attribute=bbox}\tagmcbegin{}\tag_stop:n{tikzpicture}}
+\AddToHook{env/tikzpicture/after}{%
+ \tag_start:n{tikzpicture}\tagmcend\tagstructend\tag_mc_begin:n{}}
+\tikzset{alt/.code={\keys_set:nn { __tag / struct }{alt=#1}}}
+\ExplSyntaxOff
 %======== tcolorbox ========
 % We switch of paratagging at the begin and reenable it locally in before upper.
 % the before upper setting is dangerous as it can be overwritten by

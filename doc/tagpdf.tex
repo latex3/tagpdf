@@ -722,11 +722,11 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \minisec{Page stream with marked content}
 
-\tagpdfparaOff
-
-\tagstructbegin{tag=Figure,alt={Illustration of page stream with marked content},attribute=bbox}%
-\tagmcbegin{tag=Figure}%
-\begin{tikzpicture}[baseline=(a.north),node distance=2pt,remember picture]
+%\tagpdfparaOff
+%
+%\tagstructbegin{tag=Figure,alt={Illustration of page stream with marked content},attribute=bbox}%
+%\tagmcbegin{tag=Figure}%
+\begin{tikzpicture}[baseline=(a.north),node distance=2pt,remember picture,alt={Illustration of page stream with marked content}]
 \node(start){\ldots~\ldots~\ldots};
 \node[draw,base right = of start](a) {mc-chunk 1};
 \node[draw,base right = of a](b) {mc-chunk 2};
@@ -734,9 +734,9 @@ To tag a \PDF{} three tasks must be  carried out:
 \node[draw,base right = of c](d) {mc-chunk 3};
 \node[base right = of d] {\ldots~\ldots};
 \end{tikzpicture}
-\tagmcend\tagstructend
-
-\tagpdfparaOn
+%\tagmcend\tagstructend
+%
+%\tagpdfparaOn
 
 
 \minisec{Structure}
