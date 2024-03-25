@@ -1,9 +1,13 @@
-## [2024-02-29]
-Version 0.98x
+## [2024-03-25]
+Version 0.98z
 
-### Added
- - structure destination is added OpenAction if present
- - new `viewer/startstructure` key to setup the OpenAction structure.
-
+### Added 
+ - statistic and benchmark at the end of the run.
+ - text/lang key to change the language of structures.
+ 
+### Changed
+ - speed up writing of StructElems 
+ 
 ### Fixed
- - missing structparent value if page is empty in lua-mode
+ - recording of used attributes. 
+ - debug/structures showed sometimes wrong parent structure 
