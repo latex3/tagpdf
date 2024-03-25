@@ -741,12 +741,9 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \minisec{Structure}
 
-\tagpdfparaOff
 
 \newlength\ydistance\setlength\ydistance{-0.8cm}
-\tagstructbegin{tag=Figure,alt={Illustration of structure},attribute=bbox}%
-\tagmcbegin{tag=Figure}%
-\begin{tikzpicture}[remember picture,baseline=(root.north)]
+\begin{tikzpicture}[remember picture,baseline=(root.north),alt=Illustration of structure]
 
 \node[draw,anchor=base west] (root) at (0,0) {Sect (start section)};
 \node[draw,anchor=base west] at (0.3,\ydistance) {H (header section)};
@@ -758,18 +755,14 @@ To tag a \PDF{} three tasks must be  carried out:
 \node[draw,anchor=base west](dref) at (0.6,7\ydistance){mc-chunk 4};
 \node[draw,anchor=base west] at (0.3,8\ydistance){/P (end paragraph)};
 \node[draw,anchor=base west] at (0,9\ydistance){/Sect (end section)};
-\end{tikzpicture}
 
-\begin{tikzpicture}[remember picture, overlay]
+\begin{scope}[overlay]
 \draw[->,red](aref)-|(a);
 \draw[->,red](bref)-|(b);
 \draw[->,red](cref)-|(c);
 \draw[->,red](dref)-|(d);
-
+\end{scope}
 \end{tikzpicture}
-\tagmcend\tagstructend
-
-\tagpdfparaOn
 
 \end{tcolorbox}
 
