@@ -1,0 +1,21 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{testphase=phase-III}
+\input{regression-test}
+\documentclass{article}
+\usepackage[ngerman,english]{babel}
+\usepackage{tagpdf-debug}
+\AddToHookWithArguments{env/otherlanguage/begin}{\tagpdfsetup{text/lang=\BCPdata{language}}}
+\begin{document}
+\START
+english 
+
+\begin{otherlanguage}{german}
+deutsch\end{otherlanguage} 
+
+english
+\ShowTagging{debug/structures}
+\end{document}

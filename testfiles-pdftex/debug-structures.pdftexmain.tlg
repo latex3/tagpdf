@@ -29,7 +29,7 @@ The structure 1 contains:
 >  S  =>  /Document
 >  rolemap  =>  {Document}{}
 >  parentrole  =>  {Document}{}
->  P  =>  parent structure: 0 = StructTreeRoot
+>  P  =>  parent structure: 0 = /StructTreeRoot
 >  NS  =>  pdf2
 The structure has the following kids:
 >  Struct 4
@@ -62,7 +62,7 @@ The structure 4 contains:
 >  S  =>  /Sect
 >  rolemap  =>  {Sect}{}
 >  parentrole  =>  {Sect}{}
->  P  =>  parent structure: 1 = Document
+>  P  =>  parent structure: 1 = /Document
 >  NS  =>  pdf2
 The structure has the following kids:
 >  Struct 5
@@ -76,7 +76,7 @@ The structure 5 contains:
 >  S  =>  /section
 >  rolemap  =>  {H1}{}
 >  parentrole  =>  {H1}{}
->  P  =>  parent structure: 4 = Sect
+>  P  =>  parent structure: 4 = /Sect
 >  NS  =>  user
 The structure has the following kids:
 >  Struct 6
@@ -88,7 +88,7 @@ The structure 6 contains:
 >  S  =>  /Lbl
 >  rolemap  =>  {Lbl}{}
 >  parentrole  =>  {Lbl}{}
->  P  =>  parent structure: 5 = H1
+>  P  =>  parent structure: 5 = /section
 >  NS  =>  pdf2
 The structure has the following kids:
 >  MC 1
@@ -99,7 +99,7 @@ The structure 7 contains:
 >  S  =>  /text-unit
 >  rolemap  =>  {Part}{}
 >  parentrole  =>  {Sect}{}
->  P  =>  parent structure: 4 = Sect
+>  P  =>  parent structure: 4 = /Sect
 >  NS  =>  user
 The structure has the following kids:
 >  Struct 8
@@ -111,7 +111,7 @@ The structure 8 contains:
 >  S  =>  /text
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
->  P  =>  parent structure: 7 = Sect
+>  P  =>  parent structure: 7 = /text-unit
 >  NS  =>  user
 The structure has the following kids:
 >  MC 3
@@ -124,7 +124,7 @@ The structure 9 contains:
 >  S  =>  /Link
 >  rolemap  =>  {Link}{}
 >  parentrole  =>  {Link}{}
->  P  =>  parent structure: 8 = P
+>  P  =>  parent structure: 8 = /text
 >  NS  =>  pdf2
 The structure has the following kids:
 >  MC 4
@@ -147,7 +147,7 @@ The structure 11 contains:
 >  S  =>  /text-unit
 >  rolemap  =>  {Part}{}
 >  parentrole  =>  {Sect}{}
->  P  =>  parent structure: 4 = Sect
+>  P  =>  parent structure: 4 = /Sect
 >  NS  =>  user
 The structure has the following kids:
 >  Struct 12
@@ -159,7 +159,7 @@ The structure 12 contains:
 >  S  =>  /text
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
->  P  =>  parent structure: 11 = Sect
+>  P  =>  parent structure: 11 = /text-unit
 >  NS  =>  user
 The structure has the following kids:
 >  MC 6

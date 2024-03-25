@@ -1425,11 +1425,17 @@
           }
       },
   }
-%</package>
 %    \end{macrocode}
 % \end{macro}
 % \section{User commands}
-%
+% We allow to set a language by default
+% \begin{macro}{\l_@@_struct_lang_tl}
+%    \begin{macrocode}
+\tl_new:N \l_@@_struct_lang_tl
+%</package>
+%    \end{macrocode}
+% \end{macro}
+% 
 % \begin{macro}{\tag_struct_begin:n,\tag_struct_end:}
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_struct_begin:n #1 {\int_gincr:N \c@g_@@_struct_abs_int}
@@ -1456,6 +1462,18 @@
             { \int_use:N \c@g_@@_struct_abs_int }          
             { Type }
             { /StructElem }
+         \tl_if_empty:NF \l_@@_struct_lang_tl
+           {
+             \@@_struct_prop_gput:nne
+              { \int_use:N \c@g_@@_struct_abs_int }
+              { Lang }
+              { (\l_@@_struct_lang_tl) }
+           }   
+         \@@_struct_prop_gput:nnn
+            { \int_use:N \c@g_@@_struct_abs_int }          
+            { Type }
+            { /StructElem }
+            
         \tl_set:Nn \l_@@_struct_stack_parent_tmpa_tl {-1}
         \keys_set:nn { @@ / struct} { #1 }
 %    \end{macrocode}

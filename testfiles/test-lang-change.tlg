@@ -1,21 +1,5 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-tagpdf DEBUG Info: Tagging stopped
-(tagpdf DEBUG)     level: 0 ==> 1, label: hangfrom [on line ...]
-tagpdf DEBUG Info: Tagging restarted
-(tagpdf DEBUG)     level: 1 ==> 0, label: hangfrom [on line ...]
-Package tagpdf Warning: structure with label blub has already been used
-tagpdf DEBUG Info: Tagging stopped
-(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
-tagpdf DEBUG Info: Tagging restarted
-(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
-tagpdf DEBUG Info: Tagging stopped
-(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
-tagpdf DEBUG Info: Tagging restarted
-(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
-[1
-] (debug-structures.aux)
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 =========================
 The structure 0 contains:
 >  Type  =>  /StructTreeRoot
@@ -35,6 +19,8 @@ The structure 1 contains:
 >  NS  =>  pdf2
 The structure has the following kids:
 >  Struct 4
+>  Struct 6
+>  Struct 8
 =========================
 =========================
 The structure 2 contains:
@@ -61,115 +47,87 @@ The structure has the following kids:
 =========================
 The structure 4 contains:
 >  Type  =>  /StructElem
->  S  =>  /Sect
->  rolemap  =>  {Sect}{}
->  parentrole  =>  {Sect}{}
+>  S  =>  /text-unit
+>  rolemap  =>  {Part}{}
+>  parentrole  =>  {Document}{}
 >  P  =>  parent structure: 1 = /Document
->  NS  =>  pdf2
+>  NS  =>  user
 The structure has the following kids:
 >  Struct 5
->  Struct 7
->  Struct 9
->  Struct 11
 =========================
 =========================
 The structure 5 contains:
 >  Type  =>  /StructElem
->  S  =>  /section
->  rolemap  =>  {H1}{}
->  parentrole  =>  {H1}{}
->  P  =>  parent structure: 4 = /Sect
+>  C  =>  /justify
+>  S  =>  /text
+>  rolemap  =>  {P}{}
+>  parentrole  =>  {P}{}
+>  P  =>  parent structure: 4 = /text-unit
 >  NS  =>  user
 The structure has the following kids:
->  Struct 6
->  MC 3
+>  MC 1
 =========================
 =========================
 The structure 6 contains:
 >  Type  =>  /StructElem
->  S  =>  /Lbl
->  rolemap  =>  {Lbl}{}
->  parentrole  =>  {Lbl}{}
->  P  =>  parent structure: 5 = /section
->  NS  =>  pdf2
+>  Lang  =>  (de)
+>  S  =>  /text-unit
+>  rolemap  =>  {Part}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 1 = /Document
+>  NS  =>  user
 The structure has the following kids:
->  MC 1
->  MC 2
+>  Struct 7
 =========================
 =========================
 The structure 7 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
->  rolemap  =>  {Part}{}
->  parentrole  =>  {Sect}{}
->  P  =>  parent structure: 4 = /Sect
+>  Lang  =>  (de)
+>  C  =>  /justify
+>  S  =>  /text
+>  rolemap  =>  {P}{}
+>  parentrole  =>  {P}{}
+>  P  =>  parent structure: 6 = /text-unit
 >  NS  =>  user
 The structure has the following kids:
->  Struct 8
+>  MC 2
 =========================
 =========================
 The structure 8 contains:
 >  Type  =>  /StructElem
->  C  =>  /justify
->  S  =>  /text
->  rolemap  =>  {P}{}
->  parentrole  =>  {P}{}
->  P  =>  parent structure: 7 = /text-unit
+>  S  =>  /text-unit
+>  rolemap  =>  {Part}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 1 = /Document
 >  NS  =>  user
 The structure has the following kids:
->  MC 4
 >  Struct 9
->  MC 6
 =========================
 =========================
 The structure 9 contains:
 >  Type  =>  /StructElem
->  S  =>  /Link
->  rolemap  =>  {Link}{}
->  parentrole  =>  {Link}{}
->  P  =>  parent structure: 4 = Sect
->  NS  =>  pdf2
-The structure has the following kids:
->  MC 5
->  OBJR reference
-=========================
-=========================
-The structure 10 contains:
->  Type  =>  /StructElem
->  S  =>  /Span
->  rolemap  =>  {Span}{}
->  parentrole  =>  {Span}{}
->  P  =>  no parent: stashed
->  NS  =>  pdf2
-The structure has the following kids:
-> NONE
-=========================
-=========================
-The structure 11 contains:
->  Type  =>  /StructElem
->  S  =>  /text-unit
->  rolemap  =>  {Part}{}
->  parentrole  =>  {Sect}{}
->  P  =>  parent structure: 4 = /Sect
->  NS  =>  user
-The structure has the following kids:
->  Struct 12
-=========================
-=========================
-The structure 12 contains:
->  Type  =>  /StructElem
 >  C  =>  /justify
 >  S  =>  /text
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
->  P  =>  parent structure: 11 = /text-unit
+>  P  =>  parent structure: 8 = /text-unit
 >  NS  =>  user
 The structure has the following kids:
->  MC 7
+>  MC 3
 =========================
+tagpdf DEBUG Info: Tagging stopped
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging restarted
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging stopped
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging restarted
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+[1
+] (test-lang-change.aux)
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~12 structure objects
-(tagpdf)             with ~9 'MC' leaf nodes.
+(tagpdf)             Writing out ~9 structure objects
+(tagpdf)             with ~5 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree

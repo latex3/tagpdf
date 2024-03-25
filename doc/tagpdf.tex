@@ -1859,7 +1859,8 @@ The key-val list understands the following keys:
 
    \item[\PrintKeyName{lang}] This key allows to set the language for
      a structure element. The value should be a bcp-identifier,
-     e.g. |de-De|.
+     e.g. |de-De|. It can also be set \enquote{from the outside} for all
+     structures in the current group with \cs{tagpdfsetup} and the |text/lang| key.
 
    \item[\PrintKeyName{ref}] This key allows to add references to
      other structure elements, it adds the |/Ref| array to the

@@ -9,6 +9,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Added 
  - statistic and benchmark at the end of the run.
+ - text/lang key to change the language of structures.
  
 ### Changed
  - speed up writing of StructElems 

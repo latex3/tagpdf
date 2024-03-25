@@ -763,7 +763,7 @@
 % this will hold the structure number of the current text-unit.
 %    \begin{macrocode}
 \tl_new:N   \g_@@_para_main_struct_tl
-\tl_set:Nn  \g_@@_para_main_struct_tl {1}
+\tl_gset:Nn  \g_@@_para_main_struct_tl {1}
 \tl_new:N   \l_@@_para_tag_default_tl
 \tl_set:Nn  \l_@@_para_tag_default_tl { text }
 \tl_new:N   \l_@@_para_tag_tl
@@ -1196,6 +1196,18 @@
 %    \begin{macrocode}
 \NewDocumentCommand\tagpdfsuppressmarks{m}
   {{\use:c{@@_mc_disable_marks:} #1}}
+%    \end{macrocode}
+% \end{macro}
+% \subsection{Language support}
+% 
+% With the following key the lang variable is set. All structures in the current group will
+% then set this lang variable.
+% \begin{macro}{test/lang (setup-key)}
+%    \begin{macrocode}
+\keys_define:nn { @@ / setup }
+  {
+    text / lang .tl_set:N = \l_@@_struct_lang_tl
+  }
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Header and footer}
