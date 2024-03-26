@@ -5,13 +5,13 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
-
+## [2024-03-27]
+Version 0.99a
 ### Fixed
- - correct obsolete backend object command
+ - correct backend command name
 
 ## [2024-03-25]
-
+Version 0.98z
 ### Added 
  - statistic and benchmark at the end of the run.
  - text/lang key to change the language of structures.
