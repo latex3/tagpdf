@@ -704,7 +704,7 @@ end
 % TODO: is uses internal l3pdf commands, this should be properly supported by l3pdf
 %    \begin{macrocode}
 local function @@_pdf_object_ref (name)
-   local tokenname = 'c__pdf_backend_object_'..name..'_int'
+   local tokenname = 'c__pdf_object_'..name..'_int'
    local object = token.create(tokenname).mode ..' 0 R'
    return object
 end
