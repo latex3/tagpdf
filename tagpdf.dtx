@@ -171,6 +171,7 @@
 % possible, so we define a command which a special in the relevant backends:
 %    \begin{macrocode}
 %<*base>
+\prg_new_eq_conditional:NNn \intarray_if_exist:N \cs_if_exist:N {T,F,TF}
 \AddToHook{begindocument}
  {
   \str_case:VnF \c_sys_backend_str
@@ -404,10 +405,7 @@
   {0} { \int_use:N \c@g_@@_struct_abs_int }
 \@@_property_new:nnnn  { tagstructobj } { now }  {}
   {
-    \pdf_object_if_exist:eT {@@/struct/\int_use:N \c@g__tag_struct_abs_int}
-      {
-        \pdf_object_ref:e{@@/struct/\int_use:N \c@g_@@_struct_abs_int}
-      }
+     \pdf_object_ref_indexed:nn { @@/struct } { \c@g_@@_struct_abs_int }
   }
 \@@_property_new:nnnn  
   { tagabspage } { shipout } 

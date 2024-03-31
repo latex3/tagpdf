@@ -102,10 +102,10 @@
 % If there is an OpenAction entry we must update it,
 % so that it contains also a structure destination.
 % We do it late so that we can win, but before the pdfmanagement hook.
-% \begin{macro}{@@/struct/0}
+% \begin{macro}{@@/struct/1}
 % This is the object for the root object, the StructTreeRoot
 %    \begin{macrocode}
-\pdf_object_new:n { @@/struct/0 }
+\pdf_object_new_indexed:nn { @@/struct }{ 1 }
 %    \end{macrocode}
 % \end{macro}
 % 
@@ -178,7 +178,7 @@
         \pdfmanagement_add:nne
           { Catalog }
           { StructTreeRoot }
-          { \pdf_object_ref:n { @@/struct/0 } }
+          { \pdf_object_ref_indexed:nn { @@/struct } { 1 } }
         \@@_tree_update_openaction:  
       }
   }
@@ -219,7 +219,7 @@
         \int_incr:N\l_@@_tmpa_int
         \tl_put_right:Ne \l_@@_tmpa_tl
           {
-            \@@_struct_get_id:n{##1}~\pdf_object_ref:n{@@/struct/##1}~
+            \@@_struct_get_id:n{##1}~\pdf_object_ref_indexed:nn {@@/struct}{##1}~
           }        
         \int_compare:nNnF {\l_@@_tmpa_int}<{50} %
           {
@@ -245,7 +245,7 @@
       }
       \pdf_object_unnamed_write:ne {dict}{/Kids~[\l_@@_tmpb_tl]}
       \@@_prop_gput:cne
-          { g_@@_struct_0_prop }
+          { g_@@_struct_1_prop }
           { IDTree }
           { \pdf_object_ref_last: }
    }
@@ -259,18 +259,18 @@
 \cs_new_protected:Npn \@@_tree_write_structtreeroot:
   {
      \@@_prop_gput:cne
-       { g_@@_struct_0_prop }
+       { g_@@_struct_1_prop }
        { ParentTree }
        { \pdf_object_ref:n { @@/tree/parenttree } }
      \@@_prop_gput:cne
-       { g_@@_struct_0_prop }
+       { g_@@_struct_1_prop }
        { RoleMap }
        { \pdf_object_ref:n { @@/tree/rolemap } } 
-     \@@_struct_fill_kid_key:n { 0 }
-     \prop_gremove:cn { g_@@_struct_0_prop } {S}   
-     \@@_struct_get_dict_content:nN { 0 } \l_@@_tmpa_tl        
-     \pdf_object_write:nne
-         { @@/struct/0 }
+     \@@_struct_fill_kid_key:n { 1 }
+     \prop_gremove:cn { g_@@_struct_1_prop } {S}   
+     \@@_struct_get_dict_content:nN { 1 } \l_@@_tmpa_tl        
+     \pdf_object_write_indexed:nnne
+         { @@/struct } { 1 }
          {dict}
          {
           \l_@@_tmpa_tl            
@@ -284,7 +284,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_structelements:
   {
-    \int_step_inline:nnnn {1}{1}{\c@g_@@_struct_abs_int}
+    \int_step_inline:nnnn {2}{1}{\c@g_@@_struct_abs_int}
       {
         \@@_struct_write_obj:n { ##1 }
       }
@@ -376,7 +376,7 @@
             \int_eval:n {##1-1}\c_space_tl
             [\c_space_tl %]
           }
-        \int_step_inline:nnnn
+        \int_step_inline:nnnn %####1
           {0}
           {1}
           { \prop_count:N \l_@@_tmpa_prop -1 }
@@ -385,13 +385,13 @@
               {% page#1:mcid##1:\l_@@_tmpa_tl :content
                 \tl_put_right:Ne \l_@@_parenttree_content_tl
                   {
-                    \pdf_object_if_exist:eTF { @@/struct/\l_@@_tmpa_tl }
-                     {
-                       \pdf_object_ref:e { @@/struct/\l_@@_tmpa_tl }
-                     }
-                     {
-                       null
-                     }
+                    \prop_if_exist:cTF  { g_@@_struct_ \l_@@_tmpa_tl _prop  }
+                      {
+                        \pdf_object_ref_indexed:nn { @@/struct }{ \l_@@_tmpa_tl }
+                      }
+                      {
+                        null
+                      }
                     \c_space_tl
                   }
               }
@@ -535,7 +535,7 @@
           {dict}
           { \l_@@_tmpa_tl }
         \@@_prop_gput:cne
-          { g_@@_struct_0_prop }
+          { g_@@_struct_1_prop }
           { ClassMap }
           { \pdf_object_ref:n { @@/tree/classmap }  }
       }

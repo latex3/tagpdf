@@ -297,7 +297,7 @@
 %
 %    \begin{macrocode}
 %<base>\newcounter  { g_@@_struct_abs_int }
-%<base>\int_gzero:N \c@g_@@_struct_abs_int
+%<base>\int_gset:Nn \c@g_@@_struct_abs_int { 1 }
 %    \end{macrocode}
 % \end{variable}
 %
@@ -334,7 +334,7 @@
 % When a sequence is opened it's number is put on the stack.
 %    \begin{macrocode}
 \seq_new:N    \g_@@_struct_stack_seq
-\seq_gpush:Nn \g_@@_struct_stack_seq {0}
+\seq_gpush:Nn \g_@@_struct_stack_seq {1}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -365,8 +365,8 @@
 % normally it should have only one kid, e.g. the document element.
 
 % The data of the StructTreeRoot and the StructElem are in properties:
-% |\g_@@_struct_0_prop| for the root and
-% |\g_@@_struct_N_prop|, $N \geq =1$ for the other.
+% |\g_@@_struct_1_prop| for the root and
+% |\g_@@_struct_N_prop|, $N \geq =2$ for the other.
 %
 % This creates quite a number of properties, so perhaps we will have to
 % do this more efficiently in the future.
@@ -530,7 +530,7 @@
 
 % \subsection{Initialization of the StructTreeRoot}
 % The first structure element, the StructTreeRoot is special, so
-% created manually. The underlying object is |@@/struct/0| which is currently
+% created manually. The underlying object is |@@/struct/1| which is currently
 % created in the tree code (TODO move it here).
 % The |ParentTree| and |RoleMap| entries are added at begin document
 % in the tree code as they refer to object which are setup in other parts of the
@@ -538,7 +538,7 @@
 %
 %    \begin{macrocode}
 %<*package>
-\tl_gset:Nn \g_@@_struct_stack_current_tl {0}
+\tl_gset:Nn \g_@@_struct_stack_current_tl {1}
 %    \end{macrocode}
 % \begin{macro}{\@@_pdf_name_e:n}
 %    \begin{macrocode}
@@ -547,30 +547,30 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}{g_@@_struct_0_prop,g_@@_struct_kids_0_seq}
+% \begin{variable}{g_@@_struct_1_prop,g_@@_struct_kids_1_seq}
 %    \begin{macrocode}
 %<*package>
-\@@_prop_new:c { g_@@_struct_0_prop }
-\@@_new_output_prop_handler:n {0}
-\@@_seq_new:c  { g_@@_struct_kids_0_seq }
+\@@_prop_new:c { g_@@_struct_1_prop }
+\@@_new_output_prop_handler:n {1}
+\@@_seq_new:c  { g_@@_struct_kids_1_seq }
 
 \@@_struct_prop_gput:nne
-  { 0 }            
+  { 1 }            
   { Type }
   { \pdf_name_from_unicode_e:n {StructTreeRoot} }
 
 \@@_struct_prop_gput:nne
-  { 0 }            
+  { 1 }            
   { S }
   { \pdf_name_from_unicode_e:n {StructTreeRoot} }
 
 \@@_struct_prop_gput:nne
-  { 0 }            
+  { 1 }            
   { rolemap }
   { {StructTreeRoot}{pdf} }
 
 \@@_struct_prop_gput:nne
-  { 0 }            
+  { 1 }            
   { parentrole }
   { {StructTreeRoot}{pdf} }
   
@@ -581,7 +581,7 @@
 \pdf_version_compare:NnF < {2.0}
  {
    \@@_struct_prop_gput:nne
-    { 0 }            
+    { 1 }            
     { Namespaces }
     { \pdf_object_ref:n { @@/tree/namespaces } }
  } 
@@ -589,10 +589,10 @@
 %    \end{macrocode}
 % In debug mode we have to copy the root manually as it is already setup:
 %    \begin{macrocode}
-%<debug>\prop_new:c { g_@@_struct_debug_0_prop }
-%<debug>\seq_new:c  { g_@@_struct_debug_kids_0_seq }
-%<debug>\prop_gset_eq:cc { g_@@_struct_debug_0_prop }{ g_@@_struct_0_prop }
-%<debug>\prop_gremove:cn { g_@@_struct_debug_0_prop }{Namespaces}   
+%<debug>\prop_new:c { g_@@_struct_debug_1_prop }
+%<debug>\seq_new:c  { g_@@_struct_debug_kids_1_seq }
+%<debug>\prop_gset_eq:cc { g_@@_struct_debug_1_prop }{ g_@@_struct_1_prop }
+%<debug>\prop_gremove:cn { g_@@_struct_debug_1_prop }{Namespaces}   
 %    \end{macrocode}
 % \end{variable}
 % 
@@ -739,7 +739,7 @@
     \@@_seq_gput_right:ce
       { g_@@_struct_kids_#1_seq }
       {
-        \pdf_object_ref:n { @@/struct/#2 }
+        \pdf_object_ref_indexed:nn { @@/struct }{ #2 }
       }
 %<debug>    \seq_gput_right:cn
 %<debug>      { g_@@_struct_debug_kids_#1_seq }
@@ -944,7 +944,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_write_obj:n #1 % #1 is the struct num
   {
-    \pdf_object_if_exist:nTF { @@/struct/#1 }
+    \prop_if_exist:cTF { g_@@_struct_#1_prop } 
       {
 %    \end{macrocode}
 % It can happen that a structure is not used and so has not parent.
@@ -953,7 +953,7 @@
 %    \begin{macrocode}
         \prop_get:cnNF { g_@@_struct_#1_prop } {P}\l_@@_tmpb_tl
           { 
-            \prop_gput:cne { g_@@_struct_#1_prop } {P}{\pdf_object_ref:n { @@/struct/0  }}
+            \prop_gput:cne { g_@@_struct_#1_prop } {P}{\pdf_object_ref_indexed:nn { @@/struct }{1}}
             \prop_gput:cne { g_@@_struct_#1_prop } {S}{/Artifact}
             \seq_if_empty:cF {g_@@_struct_kids_#1_seq}
               {
@@ -966,14 +966,13 @@
           }              
         \@@_struct_fill_kid_key:n { #1 }
         \@@_struct_get_dict_content:nN { #1 } \l_@@_tmpa_tl
-        \exp_args:Ne
-              \pdf_object_write:nne
-                { @@/struct/#1 }
-                {dict}
-                {
-                  \l_@@_tmpa_tl\c_space_tl                            
-                  /ID~\@@_struct_get_id:n{#1}              
-                }
+        \pdf_object_write_indexed:nnne
+           { @@/struct }{ #1 }
+           {dict}
+           {
+             \l_@@_tmpa_tl\c_space_tl                            
+             /ID~\@@_struct_get_id:n{#1}              
+           }
            
       }
       {
@@ -1038,7 +1037,7 @@
             #2
           }
           {
-            \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
+            \pdf_object_ref_indexed:nn { @@/struct }{ \l_@@_struct_stack_parent_tmpa_tl }
           }
         % increase the int:
         \int_gincr:N \c@g_@@_parenttree_obj_int 
@@ -1409,14 +1408,14 @@
      {
         \pdf_object_if_exist:nTF {#1}
           {
-            \@@_struct_add_AF:ee { 0 }{\pdf_object_ref:n {#1}}
+            \@@_struct_add_AF:ee { 1 }{\pdf_object_ref:n {#1}}
             \@@_struct_prop_gput:nne
-             { 0 } 
+             { 1 } 
              { AF }
              {
                [
                  \tl_use:c
-                   { g_@@_struct_0_AF_tl }
+                   { g_@@_struct_1_AF_tl }
                ]
              }
           }
@@ -1455,9 +1454,8 @@
         \@@_new_output_prop_handler:n {\int_eval:n { \c@g_@@_struct_abs_int }}
         \@@_seq_new:c  { g_@@_struct_kids_\int_eval:n { \c@g_@@_struct_abs_int }_seq}
 %<debug>         \seq_new:c { g_@@_struct_debug_kids_\int_eval:n {\c@g_@@_struct_abs_int}_seq }            
-        \exp_args:Ne
-          \pdf_object_new:n
-            { @@/struct/\int_eval:n { \c@g_@@_struct_abs_int } }
+          \pdf_object_new_indexed:nn { @@/struct }
+            { \c@g_@@_struct_abs_int }
          \@@_struct_prop_gput:nnn
             { \int_use:N \c@g_@@_struct_abs_int }          
             { Type }
@@ -1607,7 +1605,7 @@
               { \int_use:N \c@g_@@_struct_abs_int }           
               { P }
               {
-                \pdf_object_ref:e { @@/struct/\l_@@_struct_stack_parent_tmpa_tl }
+                \pdf_object_ref_indexed:nn { @@/struct} { \l_@@_struct_stack_parent_tmpa_tl }
               }
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -1713,19 +1711,19 @@
             %add the label structure as kid to the current structure (can be the root)
             \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
-              { \@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0} }
+              { \@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1} }
             %add the current structure to the labeled one as parents
             \@@_prop_gput:cne
-              { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+              { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
               { P }
               {
-                \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
+                \pdf_object_ref_indexed:nn { @@/struct } { \g_@@_struct_stack_current_tl }
               }
 %    \end{macrocode}
 % debug code
 %    \begin{macrocode}
 %<debug>           \prop_gput:cne
-%<debug>             { g_@@_struct_debug_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}_prop }
+%<debug>             { g_@@_struct_debug_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
 %<debug>             { P }
 %<debug>             { 
 %<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
@@ -1737,7 +1735,7 @@
 %   the global tl-vars:
 %    \begin{macrocode}
              \@@_struct_get_parentrole:eNN  
-              {\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{0}}
+              {\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}}
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
             \@@_check_parent_child:VVVVN
@@ -1798,7 +1796,7 @@
               { #1 }            
               { P }
               {
-                \pdf_object_ref:e { @@/struct/\g_@@_struct_stack_current_tl }
+                \pdf_object_ref_indexed:nn { @@/struct }{ \g_@@_struct_stack_current_tl }
               }
 %<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_#1_prop }
@@ -1851,7 +1849,7 @@
 %<*package>
 \cs_new:Npn \tag_struct_object_ref:n #1
  {
-   \pdf_object_ref:n {@@/struct/#1}
+   \pdf_object_ref_indexed:nn {@@/struct}{ #1 }
  }
 \cs_generate_variant:Nn \tag_struct_object_ref:n {e}
 %    \end{macrocode}
