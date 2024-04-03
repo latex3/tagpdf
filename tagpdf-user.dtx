@@ -707,8 +707,8 @@
       { \g_@@_active_struct_bool }
       {
         \tl_set:Nn \l_pdf_current_structure_destination_tl 
-           { _@@/struct/\g_@@_struct_stack_current_tl }
-        \pdf_activate_structure_destination:
+           { {@@/struct}{\g_@@_struct_stack_current_tl }}
+        \pdf_activate_indexed_structure_destination:
       }
    }
 %    \end{macrocode}
