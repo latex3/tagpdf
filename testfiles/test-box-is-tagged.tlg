@@ -6,14 +6,14 @@ TEST 1: untagged box
 UNTAGGED
 ============================================================
 Package tagpdf Warning: Parent-Child 'Document/' --> 'Span/pdf2'.
-(tagpdf)                Relation is not allowed (struct 1, /Document --> struct 4) on line ...
+(tagpdf)                Relation is not allowed (struct 2, /Document --> struct 5) on line ...
 ============================================================
 TEST 2: box with structure
 ============================================================
 TAGGED
 ============================================================
 Package tagpdf Warning: Parent-Child 'Document/' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 1, /Document) on line ...
+(tagpdf)                Relation is not allowed (struct 2, /Document) on line ...
 ============================================================
 TEST 3: box with mc-chunk
 ============================================================
@@ -21,7 +21,7 @@ TAGGED
 ============================================================
 (test-box-is-tagged.aux)
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~4 structure objects
+(tagpdf)             Writing out ~5 structure objects
 (tagpdf)             with ~1 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
