@@ -6,7 +6,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'H1' --> 'MC' on line ...
-Package tagpdf Info: closing structure 2 tagged /H1
+Package tagpdf Info: closing structure 3 tagged /H1
 Package tagpdf Info: Parent-Child 'Document' --> 'TOC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Document' --> 'TOC' on line ...
@@ -20,22 +20,22 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
-Package tagpdf Info: closing structure 5 tagged /Lbl
+Package tagpdf Info: closing structure 6 tagged /Lbl
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOCI' --> 'P' on line ...
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
-Package tagpdf Info: closing structure 6 tagged /P
+Package tagpdf Info: closing structure 7 tagged /P
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOCI' --> 'Reference' on line ...
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Reference' --> 'MC' on line ...
-Package tagpdf Info: closing structure 7 tagged /Reference
-Package tagpdf Info: closing structure 4 tagged /TOCI
+Package tagpdf Info: closing structure 8 tagged /Reference
+Package tagpdf Info: closing structure 5 tagged /TOCI
 Package tagpdf Info: Parent-Child 'TOC' --> 'TOCI'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOC' --> 'TOCI' on line ...
@@ -45,15 +45,15 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
-Package tagpdf Info: closing structure 9 tagged /P
+Package tagpdf Info: closing structure 10 tagged /P
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOCI' --> 'Reference' on line ...
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Reference' --> 'MC' on line ...
-Package tagpdf Info: closing structure 10 tagged /Reference
-Package tagpdf Info: closing structure 8 tagged /TOCI
+Package tagpdf Info: closing structure 11 tagged /Reference
+Package tagpdf Info: closing structure 9 tagged /TOCI
 Package tagpdf Info: Parent-Child 'TOC' --> 'TOCI'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOC' --> 'TOCI' on line ...
@@ -63,14 +63,14 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
-Package tagpdf Info: closing structure 12 tagged /Lbl
+Package tagpdf Info: closing structure 13 tagged /Lbl
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOCI' --> 'P' on line ...
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
-Package tagpdf Info: closing structure 13 tagged /P
+Package tagpdf Info: closing structure 14 tagged /P
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line ....
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -83,8 +83,8 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Reference' --> 'MC' on line ...
-Package tagpdf Info: closing structure 14 tagged /Reference
-Package tagpdf Info: closing structure 11 tagged /TOCI
+Package tagpdf Info: closing structure 15 tagged /Reference
+Package tagpdf Info: closing structure 12 tagged /TOCI
 Package tagpdf Info: Parent-Child 'TOC' --> 'TOCI'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOC' --> 'TOCI' on line ...
@@ -94,25 +94,25 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
-Package tagpdf Info: closing structure 16 tagged /Lbl
+Package tagpdf Info: closing structure 17 tagged /Lbl
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOCI' --> 'P' on line ...
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
-Package tagpdf Info: closing structure 17 tagged /P
+Package tagpdf Info: closing structure 18 tagged /P
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'TOCI' --> 'Reference' on line ...
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Reference' --> 'MC' on line ...
-Package tagpdf Info: closing structure 18 tagged /Reference
-Package tagpdf Info: closing structure 15 tagged /TOCI
+Package tagpdf Info: closing structure 19 tagged /Reference
+Package tagpdf Info: closing structure 16 tagged /TOCI
 )
 \tf@toc=\write...
-Package tagpdf Info: closing structure 3 tagged /TOC
+Package tagpdf Info: closing structure 4 tagged /TOC
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
 Package tagpdf Info: -1 has been pushed to the mc stack
@@ -138,7 +138,7 @@ Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'H1' --> 'MC' on line ...
-Package tagpdf Info: closing structure 19 tagged /H1
+Package tagpdf Info: closing structure 20 tagged /H1
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
 Package tagpdf Info: -1 has been pushed to the mc stack
@@ -158,7 +158,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'H1' --> 'MC' on line ...
-Package tagpdf Info: closing structure 20 tagged /H1
+Package tagpdf Info: closing structure 21 tagged /H1
 Package tagpdf Info: Parent-Child 'Document' --> 'H2'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Document' --> 'H2' on line ...
@@ -168,7 +168,7 @@ Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
 Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'H2' --> 'MC' on line ...
-Package tagpdf Info: closing structure 21 tagged /H2
+Package tagpdf Info: closing structure 22 tagged /H2
 Package tagpdf Info: Parent-Child 'Document' --> 'H3'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Document' --> 'H3' on line ...
@@ -178,7 +178,7 @@ Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
 Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'H3' --> 'MC' on line ...
-Package tagpdf Info: closing structure 22 tagged /H3
+Package tagpdf Info: closing structure 23 tagged /H3
 Package tagpdf Info: Parent-Child 'Document' --> 'H4'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Document' --> 'H4' on line ...
@@ -188,14 +188,14 @@ Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
 Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'H4' --> 'MC' on line ...
-Package tagpdf Info: closing structure 23 tagged /H4
+Package tagpdf Info: closing structure 24 tagged /H4
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Document' --> 'P' on line ...
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
-Package tagpdf Info: closing structure 24 tagged /P
+Package tagpdf Info: closing structure 25 tagged /P
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
 Package tagpdf Info: -1 has been pushed to the mc stack
@@ -460,9 +460,9 @@ Completed box being shipped out [5]
 .\pdfliteral page <lua data reference ...>
 (test-patch-koma.aux)
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-Package tagpdf Info: closing structure 1 tagged /Document
+Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~24 structure objects
+(tagpdf)             Writing out ~25 structure objects
 (tagpdf)             with ~34 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
