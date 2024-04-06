@@ -215,7 +215,7 @@ functions
  ltx.@@.func.mark_shipout (): a wrapper around the core function which inserts the last EMC
  ltx.@@.func.fill_parent_tree_line (page): outputs the entries of the parenttree for this page
  ltx.@@.func.output_parenttree(): outputs the content of the parenttree
- ltx.@@.func.pdf_object_ref(name): outputs the object reference for the object name
+ ltx.@@.func.pdf_object_ref(name,index): outputs the object reference for the object name
  ltx.@@.func.markspaceon(), ltx.@@.func.markspaceoff(): (de)activates the marking of positions for space chars
  ltx.@@.trace.show_mc_data (num,loglevel): shows ltx.@@.mc[num] is the current log level is >= loglevel
  ltx.@@.trace.show_all_mc_data (max,loglevel): shows a maximum about mc's if the current log level is >= loglevel
@@ -698,17 +698,15 @@ local function @@_insert_bdc_node (head,current,tag,dict)
 end
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{@@_pdf_object_ref,ltx.@@.func.pdf_object_ref}
+% \begin{macro}{@@_pdf_object_ref}
 % This allows to reference a pdf object reserved with the l3pdf command by name.
 % The return value is |n 0 R|, if the object doesn't exist, n is 0.
-% TODO: is uses internal l3pdf commands, this should be properly supported by l3pdf
 %    \begin{macrocode}
-local function @@_pdf_object_ref (name)
-   local tokenname = 'c__pdf_object_'..name..'_int'
-   local object = token.create(tokenname).mode ..' 0 R'
+local function @@_pdf_object_ref (name,index)
+   local object = ltx.pdf.object_id (name,index) ..' 0 R'
    return object
 end
-ltx.@@.func.pdf_object_ref=@@_pdf_object_ref
+ltx.@@.func.pdf_object_ref = @@_pdf_object_ref
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1222,7 +1220,7 @@ function ltx.@@.func.fill_parent_tree_line (page)
       local structnum = ltx.@@.mc[mcnum]["parent"]
       local propname  = "g_@@_struct_"..structnum.."_prop"
       --local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
-      local objref = @@_pdf_object_ref('@@/struct/'..structnum)
+      local objref = @@_pdf_object_ref('@@/struct',structnum)
       ltx.@@.trace.log("INFO PARENTTREE-STRUCT-OBJREF:  =====>"..
         tostring(objref),5)
       numsentry = pdfpage .. " [".. objref .. "]"
@@ -1235,7 +1233,7 @@ function ltx.@@.func.fill_parent_tree_line (page)
         local structnum = ltx.@@.mc[mcnum]["parent"] or 0
         local propname  = "g_@@_struct_"..structnum.."_prop"
         --local objref   =  ltx.@@.tables[propname]["objref"] or "XXXX"
-        local objref = @@_pdf_object_ref('@@/struct/'..structnum)
+        local objref = @@_pdf_object_ref('@@/struct',structnum)
         numsentry = numsentry .. " ".. objref
        end
       numsentry = numsentry .. "] "
