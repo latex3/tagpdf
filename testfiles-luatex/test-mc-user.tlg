@@ -206,12 +206,10 @@ Package tagpdf Warning: Parent-Child 'Document/' --> 'MC (realcontent)'.
 [2]
 [3]
 [4]
-! LaTeX Error: Variable \g__tag_struct_kids_0_seq undefined.
-For immediate help type H <return>.
- ...                                              
-l. ...\seq_show:c {g__tag_struct_kids_0_seq}
-This is a coding error.
-LaTeX has been asked to show a variable \g__tag_struct_kids_0_seq, but this has not been defined yet.
+The sequence \g__tag_struct_kids_1_seq contains the items (without outer braces):
+>  {9 0 R}.
+<recently read> }
+l. ...\seq_show:c {g__tag_struct_kids_1_seq}
 (test-mc-user.aux)
 Package tagpdf Info: Finalizing the tagging structure:
 (tagpdf)             Writing out ~2 structure objects

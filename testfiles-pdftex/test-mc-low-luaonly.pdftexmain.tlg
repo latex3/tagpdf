@@ -4,7 +4,7 @@ Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 <example-image-duck.pdf, id=11, 184.55048pt x 114.2107pt>
 File: example-image-duck.pdf Graphic file (type pdf)
 <use example-image-duck.pdf>
@@ -14,13 +14,13 @@ Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 Package tagpdf Info: current MC: abscnt=4, tag=P
 Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 Overfull \hbox (145.16354pt too wide) in paragraph at lines 25--47
 []\T1/cmr/m/n/10.95 some things un-tagged. [][]Artifact[][]Artifact[][][][][]somethingsuntagged.[][]marginparblblb[][][]As
 \hbox(114.2104+2.12863)x418.25555, glue set - 1.0
@@ -131,21 +131,21 @@ Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
 >  {8}
->  {0}
+>  {1}
 >  {P}.
 Completed box being shipped out [1]
 \vbox(655.63496+0.0)x435.61176
@@ -167,8 +167,8 @@ Completed box being shipped out [1]
 ...\hbox(0.0+0.0)x418.25555
 ....\hbox(0.0+0.0)x418.25555
 ...\pdfliteral page{EMC}
-...\marks4{e-,9,0,}
-...\marks4{e+,9,0,}
+...\marks4{e-,9,1,}
+...\marks4{e+,9,1,}
 ...\pdfrunninglinkon
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
@@ -283,22 +283,22 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{b-,1,-1,Pagination}
 ...\marks4{b+,1,-1,Pagination}
-...\marks4{e-,1,0,}
-...\marks4{e+,1,0,}
+...\marks4{e-,1,1,}
+...\marks4{e+,1,1,}
 ...\marks4{b-,2,-1,}
 ...\marks4{b+,2,-1,}
-...\marks4{e-,2,0,}
-...\marks4{e+,2,0,}
-...\marks4{b-,3,0,Figure,,,}
-...\marks4{b+,3,0,Figure,,,}
-...\marks4{e-,3,0,}
-...\marks4{e+,3,0,}
-...\marks4{b-,4,0,P,,,}
-...\marks4{b+,4,0,P,,,}
-...\marks4{e-,4,0,}
-...\marks4{e+,4,0,}
-...\marks4{b-,5,0,P,,,}
-...\marks4{b+,5,0,P,,,}
+...\marks4{e-,2,1,}
+...\marks4{e+,2,1,}
+...\marks4{b-,3,1,Figure,,,}
+...\marks4{b+,3,1,Figure,,,}
+...\marks4{e-,3,1,}
+...\marks4{e+,3,1,}
+...\marks4{b-,4,1,P,,,}
+...\marks4{b+,4,1,P,,,}
+...\marks4{e-,4,1,}
+...\marks4{e+,4,1,}
+...\marks4{b-,5,1,P,,,}
+...\marks4{b+,5,1,P,,,}
 ...\penalty 150
 ...\glue(\baselineskip) 3.92989
 ...\hbox(7.54149+2.12863)x418.25555, glue set 0.0113
@@ -1340,12 +1340,12 @@ Completed box being shipped out [1]
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,5,0,}
-...\marks4{e+,5,0,}
+...\marks4{e-,5,1,}
+...\marks4{e+,5,1,}
 ...\write1{\new@label@record{mcid-6}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{6}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,6,0,P,,,}
-...\marks4{b+,6,0,P,,,}
+...\marks4{b-,6,1,P,,,}
+...\marks4{b+,6,1,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.92989
@@ -2254,12 +2254,12 @@ Completed box being shipped out [1]
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,6,0,}
-...\marks4{e+,6,0,}
+...\marks4{e-,6,1,}
+...\marks4{e+,6,1,}
 ...\write1{\new@label@record{mcid-7}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{7}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,7,0,P,,,}
-...\marks4{b+,7,0,P,,,}
+...\marks4{b-,7,1,P,,,}
+...\marks4{b+,7,1,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.92989
@@ -3168,12 +3168,12 @@ Completed box being shipped out [1]
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,7,0,}
-...\marks4{e+,7,0,}
+...\marks4{e-,7,1,}
+...\marks4{e+,7,1,}
 ...\write1{\new@label@record{mcid-8}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{8}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,8,0,P,,,}
-...\marks4{b+,8,0,P,,,}
+...\marks4{b-,8,1,P,,,}
+...\marks4{b+,8,1,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.92989
@@ -3666,8 +3666,8 @@ Completed box being shipped out [1]
 .......\glue 0.0 plus 1.0fil
 ....\glue 0.0 plus 1.0fil minus 1.0fil
 ..\pdfliteral page{EMC}
-..\marks4{e-,10,0,}
-..\marks4{e+,10,0,}
+..\marks4{e-,10,1,}
+..\marks4{e+,10,1,}
 ..\pdfrunninglinkon
 .\kern 0.0
  <../example-image-duck.pdf>
@@ -3675,16 +3675,16 @@ Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 0, /StructTreeRoot) on line ...
+(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
 >  {8}
->  {0}
+>  {1}
 >  {P}.
 Completed box being shipped out [2]
 \vbox(655.63496+0.0)x435.61176
@@ -3706,8 +3706,8 @@ Completed box being shipped out [2]
 ...\hbox(0.0+0.0)x418.25555
 ....\hbox(0.0+0.0)x418.25555
 ...\pdfliteral page{EMC}
-...\marks4{e-,14,0,}
-...\marks4{e+,14,0,}
+...\marks4{e-,14,1,}
+...\marks4{e+,14,1,}
 ...\pdfrunninglinkon
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
@@ -4151,12 +4151,12 @@ Completed box being shipped out [2]
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,10,0,}
-...\marks4{e+,10,0,}
+...\marks4{e-,10,1,}
+...\marks4{e+,10,1,}
 ...\write1{\new@label@record{mcid-11}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{11}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,11,0,P,,,}
-...\marks4{b+,11,0,P,,,}
+...\marks4{b-,11,1,P,,,}
+...\marks4{b+,11,1,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.92989
@@ -5065,12 +5065,12 @@ Completed box being shipped out [2]
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,11,0,}
-...\marks4{e+,11,0,}
+...\marks4{e-,11,1,}
+...\marks4{e+,11,1,}
 ...\write1{\new@label@record{mcid-12}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{12}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,12,0,P,,,}
-...\marks4{b+,12,0,P,,,}
+...\marks4{b-,12,1,P,,,}
+...\marks4{b+,12,1,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.92989
@@ -5979,8 +5979,8 @@ Completed box being shipped out [2]
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,12,0,}
-...\marks4{e+,12,0,}
+...\marks4{e-,12,1,}
+...\marks4{e+,12,1,}
 ...\glue -2.12863
 ...\glue 0.0 plus 1.0fil
 ...\kern 0.0
@@ -6002,8 +6002,8 @@ Completed box being shipped out [2]
 .......\glue 0.0 plus 1.0fil
 ....\glue 0.0 plus 1.0fil minus 1.0fil
 ..\pdfliteral page{EMC}
-..\marks4{e-,15,0,}
-..\marks4{e+,15,0,}
+..\marks4{e-,15,1,}
+..\marks4{e+,15,1,}
 ..\pdfrunninglinkon
 .\kern 0.0
 .\kern -655.63496
