@@ -1,0 +1,17 @@
+\DocumentMetadata{uncompress,testphase={phase-III,title}}
+\documentclass{article}
+\ExplSyntaxOn
+\pdf_object_new:n{obj-nbsp}
+\pdf_object_write:nnn{obj-nbsp}{dict}{/ActualText~<FEFF00A0>}
+\DeclareRobustCommand{\nobreakspace}{%
+   \leavevmode\pdf_bdcobject:nn{Span}{obj-nbsp}\nobreak\pdffakespace\nobreak\ \pdf_emc:}
+\ExplSyntaxOff
+\title{blub}
+\textwidth=3mm
+\begin{document}
+a b c
+
+a~b~c
+
+We~don't~want~line~breaks~here
+\end{document}
