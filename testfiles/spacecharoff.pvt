@@ -1,0 +1,12 @@
+\DocumentMetadata{uncompress,testphase={phase-I}}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\ExplSyntaxOn
+a~b~c\par
+
+{\tag_spacechar_off:  a~b~c}~a~b~c \tag_spacechar_on: \par 
+
+a~b~c\par
+\ExplSyntaxOff
+\end{document}

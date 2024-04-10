@@ -161,6 +161,66 @@
         \group_end:
       }
   }
+%    \end{macrocode}
+% 
+% We need also a command to interrupt the insertion of real space
+% chars in places where we want to insert manually special spaces. 
+% In pdftex this can be done with \cs{pdfinterwordspaceoff}
+% and \cs{pdfinterwordspaceon}. These commands insert whatsits
+% and this mean they act globally. In luatex a attribute is
+% used to this effect, for consistency this is also set globally.
+% 
+%
+% \begin{macro}{\tag_spacechar_on:,\tag_spacechar_off:}
+% The off command sets the attributes in luatex.
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_spacechar_off: {}
+\cs_new_protected:Npn \tag_spacechar_on: {}
+
+\sys_if_engine_luatex:T
+ {
+   \cs_set_protected:Npn \tag_spacechar_off: 
+     {
+       \lua_now:e 
+         {
+           tex.setattribute
+            (
+             "global",
+             luatexbase.attributes.g_@@_interwordspaceOff_attr,
+             1
+            )
+         }
+     }
+   \cs_set_protected:Npn \tag_spacechar_on: 
+     {
+       \lua_now:e 
+         {
+           tex.setattribute
+            (
+             "global",
+             luatexbase.attributes.g_@@_interwordspaceOff_attr,
+             -2147483647
+            )
+         }
+     }
+ }
+\sys_if_engine_pdftex:T
+  {
+    \sys_if_output_pdf:T
+      {
+       \cs_set_protected:Npn \tag_spacechar_off: 
+          {
+            \pdfinterwordspaceoff
+          }       
+        \cs_set_protected:Npn \tag_spacechar_on: 
+          {
+            \pdfinterwordspaceon
+          }         
+      }
+  }    
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 %</package>
 %    \end{macrocode}
 % \end{macro}
