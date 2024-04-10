@@ -237,9 +237,12 @@ functions
 % The interwordfont attr is set by the function |@@_mark_spaces| too and
 % stores the font, so that we can decide which font
 % to use for the real space char.
+% The interwordspaceOff attr allows to locally suppress the insertion of
+% real space chars, e.g. when they are inserted by other means (e.g. with |\char|).
 %    \begin{macrocode}
 local mctypeattributeid  = luatexbase.new_attribute ("g_@@_mc_type_attr")
 local mccntattributeid   = luatexbase.new_attribute ("g_@@_mc_cnt_attr")
+local iwspaceOffattributeid = luatexbase.new_attribute ("g__tag_interwordspaceOff_attr")
 local iwspaceattributeid = luatexbase.new_attribute ("g_@@_interwordspace_attr")
 local iwfontattributeid  = luatexbase.new_attribute ("g_@@_interwordfont_attr")
 %    \end{macrocode}
@@ -877,7 +880,10 @@ local function @@_space_chars_shipout (box)
  local head = box.head
   if head then
     for n in node.traverse(head) do
-      local spaceattr = nodegetattribute(n,iwspaceattributeid)  or -1
+      local spaceattr = -1  
+      if not nodehasattribute(n,iwspaceOffattributeid) then
+        spaceattr = nodegetattribute(n,iwspaceattributeid)  or -1
+      end  
       if n.id == HLIST  then -- enter the hlist
          @@_space_chars_shipout (n)
       elseif n.id == VLIST then -- enter the vlist
