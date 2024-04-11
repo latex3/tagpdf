@@ -706,7 +706,13 @@ end
 % The return value is |n 0 R|, if the object doesn't exist, n is 0.
 %    \begin{macrocode}
 local function @@_pdf_object_ref (name,index)
-   local object = ltx.pdf.object_id (name,index) ..' 0 R'
+   local object
+   if ltx.pdf.object_id then
+     object = ltx.pdf.object_id (name,index) ..' 0 R'
+   else
+     local tokenname = 'c__pdf_object_'..name..'/'..index..'_int'
+     object = token.create(tokenname).mode ..' 0 R'
+   end 
    return object
 end
 ltx.@@.func.pdf_object_ref = @@_pdf_object_ref
