@@ -10,6 +10,9 @@ this project uses date-based 'snapshot' version identifiers.
  - \tag_spacechar_on:, \tag_spacechar_off: to locally switch off 
    the real space chars.  
 
+### Fixed
+ - spacechar in floats on the first page   
+
 ## [2024-03-27]
 Version 0.99a
 ### Fixed
