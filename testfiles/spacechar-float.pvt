@@ -1,0 +1,13 @@
+% this tests if space chars with floats on the first page are correctly handled.
+\DocumentMetadata{testphase=phase-III,xmp=false}
+\input{regression-test}
+\documentclass{report}
+\begin{document}\showoutput
+aaa aaa
+
+\begin{figure}
+bbb bbb 
+\end{figure}
+
+
+\end{document}
