@@ -2434,6 +2434,20 @@ This is in pdftex a primitive. It inserts the dummy space glyph.
 \pkg{tagpdf} defines this command also for luatex -- attention if can
 perhaps insert break points.
 
+\begin{docCommands}
+ {
+  {doc name=tag_space_off:}
+  {doc name=tag_space_on:}
+ }
+\end{docCommand}
+
+The commands allow to switch on and off the insertion of space chars.
+With pdftex they map to primitive \cs{pdfinterwordspaceoff} and
+and \cs{pdfinterwordspaceon} which insert a whatsits and so act globally.
+The luatex implementation uses an attribute which is also set globally to stay
+more or less consistent with pdftex. In dvi-mode the commands do nothing.
+
+
 \section{Structure destinations}\label{sec:struct-dest}
 
  Standard destinations (anchors for internal links) consist of a
