@@ -1,5 +1,12 @@
-## [2024-03-27]
-Version 0.99a
+## [2024-04-12]
+Version 0.99b
+
+### Added
+ - \tag_spacechar_on:, \tag_spacechar_off: to locally switch off 
+   the real space chars.  
 
 ### Fixed
- - correct backend command name
+ - spacechar in floats on the first page   
+ 
+### Changed
+ - object handling if new l3kernel is detected 
