@@ -4,7 +4,6 @@ tagpdf DEBUG Info: Tagging stopped
 (tagpdf DEBUG)     level: 0 ==> 1, label: hangfrom [on line ...]
 tagpdf DEBUG Info: Tagging restarted
 (tagpdf DEBUG)     level: 1 ==> 0, label: hangfrom [on line ...]
-Package tagpdf Warning: structure with label blub has already been used
 tagpdf DEBUG Info: Tagging stopped
 (tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
 tagpdf DEBUG Info: Tagging restarted
@@ -15,7 +14,6 @@ tagpdf DEBUG Info: Tagging restarted
 (tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
 [1
 ] (debug-structures.aux)
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 =========================
 The structure 1 contains:
 >  Type  =>  /StructTreeRoot
@@ -69,7 +67,7 @@ The structure 5 contains:
 The structure has the following kids:
 >  Struct 6
 >  Struct 8
->  Struct 10
+>  Struct 11
 >  Struct 12
 =========================
 =========================
@@ -127,7 +125,7 @@ The structure 10 contains:
 >  S  =>  /Link
 >  rolemap  =>  {Link}{}
 >  parentrole  =>  {Link}{}
->  P  =>  parent structure: 5 = Sect
+>  P  =>  parent structure: 9 = /text
 >  NS  =>  pdf2
 The structure has the following kids:
 >  MC 5
@@ -136,10 +134,10 @@ The structure has the following kids:
 =========================
 The structure 11 contains:
 >  Type  =>  /StructElem
->  S  =>  /Span
+>  S  =>  /Sect
 >  rolemap  =>  {Span}{}
 >  parentrole  =>  {Span}{}
->  P  =>  no parent: stashed
+>  P  =>  parent structure: 5 = Sect
 >  NS  =>  pdf2
 The structure has the following kids:
 > NONE

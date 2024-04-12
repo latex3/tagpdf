@@ -106,8 +106,8 @@
         \pdfglyphtounicode{space}{0020}
         \keys_define:nn { @@ / setup }
           {
-            activate/spaces/true .code:n  = { \pdfinterwordspaceon },
-            activate/spaces/false .code:n = { \pdfinterwordspaceoff },
+            activate/spaces/true .code:n  = { \AddToHook{shipout/firstpage}[tagpdf/space]{\pdfinterwordspaceon} },
+            activate/spaces/false .code:n = { \RemoveFromHook{shipout/firstpage}[tagpdf/space] },
             activate/spaces .default:n = true,
           }
       }

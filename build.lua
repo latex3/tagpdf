@@ -35,6 +35,7 @@ specialformats = specialformats or {}
 specialformats["latex"] = specialformats["latex"] or
   {
     luatex     = {binary="luahbtex",format = "lualatex-dev"},
+    luatexmain     = {binary="luahbtex",format = "lualatex"},
     pdftex     = {format = "pdflatex-dev"},
     pdftexmain = {binary="pdftex",format = "pdflatex"},
     xetex      = {format = "xelatex-dev"},
@@ -48,7 +49,7 @@ checkengines = {"pdftex","luatex","pdftexmain"}
 
 -- force once in a while the full run to find wrong saves
 
--- forcecheckruns=true
+forcecheckruns=true
 
 checkconfigs = {
                  "build",

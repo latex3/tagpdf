@@ -1,4 +1,4 @@
 testfiledir  = "testfiles-luatex"
-checkengines = {"luatex"}
+checkengines = {"luatex","luatexmain"}
 stdengine     = "luatex"
-checkruns    = 2
+checkruns    = 3
