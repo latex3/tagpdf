@@ -35,7 +35,7 @@ specialformats = specialformats or {}
 specialformats["latex"] = specialformats["latex"] or
   {
     luatex     = {binary="luahbtex",format = "lualatex-dev"},
-    luatexmain     = {binary="luahbtex",format = "lualatex"},
+    luatexmain     = {binary="luahbtex",format = "lualatex",options="-utc"},
     pdftex     = {format = "pdflatex-dev"},
     pdftexmain = {binary="pdftex",format = "pdflatex"},
     xetex      = {format = "xelatex-dev"},
