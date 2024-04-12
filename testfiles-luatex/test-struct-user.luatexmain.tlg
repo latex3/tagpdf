@@ -1,0 +1,418 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Document' --> 'Sect' on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'H'.
+(tagpdf)             Relation is 2 (='0..1')
+(tagpdf)             Rolemapped from: 'Sect' --> 'H' on line ...
+Package tagpdf Info: Parent-Child 'H' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'H' --> 'MC' on line ...
+Package tagpdf Info: closing structure 4 tagged /H
+Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Sect' --> 'P' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
+Package tagpdf Info: closing structure 5 tagged /P
+Package tagpdf Info: Parent-Child 'Sect' --> 'L'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Sect' --> 'L' on line ...
+Package tagpdf Info: Parent-Child 'L' --> 'LI'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'L' --> 'LI' on line ...
+Package tagpdf Info: Parent-Child 'LI' --> 'Lbl'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'LI' --> 'Lbl' on line ...
+Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
+Package tagpdf Info: closing structure 8 tagged /Lbl
+Package tagpdf Info: Parent-Child 'LI' --> 'LBody'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'LI' --> 'LBody' on line ...
+Package tagpdf Info: Parent-Child 'LBody' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'LBody' --> 'MC' on line ...
+Package tagpdf Info: closing structure 9 tagged /LBody
+Package tagpdf Info: closing structure 7 tagged /LI
+Package tagpdf Info: Parent-Child 'L' --> 'LI'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'L' --> 'LI' on line ...
+Package tagpdf Info: Parent-Child 'LI' --> 'Lbl'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'LI' --> 'Lbl' on line ...
+Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
+Package tagpdf Info: closing structure 11 tagged /Lbl
+Package tagpdf Info: Parent-Child 'LI' --> 'LBody'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'LI' --> 'LBody' on line ...
+Package tagpdf Info: Parent-Child 'LBody' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'LBody' --> 'MC' on line ...
+Package tagpdf Info: closing structure 12 tagged /LBody
+Package tagpdf Info: closing structure 10 tagged /LI
+Package tagpdf Info: closing structure 6 tagged /L
+Package tagpdf Info: closing structure 3 tagged /Sect
+====> In \@makecol 1
+Pick up new bot mark!
+=> first b-, 1, 4, H
+=> bot e+, 6, 12
+=> TMB not missing
+=> TME not missing
+The sequence \g__tag_mc_main_marks_seq is empty
+> .
+Completed box being shipped out [1]
+\vbox(655.63496+4.08003)x435.61176, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\latelua0{ltx.__pdf.backend_ThisPage_gpush(tex.count["g_shipout_readonly_int"])}
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue -25.16531
+.\vbox(680.80028+4.08003)x418.25555, shifted 17.3562, direction TLT
+..\vbox(17.0+0.0)x418.25555, glue set 17.0fil, direction TLT
+...\glue 0.0 plus 1.0fil
+...\pdflinkstate 1
+...\pdfliteral page{/Artifact BMC}
+...\marks4{b-,7,-1,}
+...\marks4{b+,7,-1,}
+...\hbox(0.0+0.0)x418.25555, direction TLT
+....\hbox(0.0+0.0)x418.25555, direction TLT
+.....\hbox(0.0+0.0)x418.25555, direction TLT
+......\vbox(0.0+0.0)x418.25555, direction TLT
+.......\hbox(0.0+0.0)x418.25555, direction TLT
+........\hbox(0.0+0.0)x0.0, glue set - 418.25555fil, direction TLT
+.........\vbox(0.0+0.0)x418.25555, direction TLT
+..........\hbox(0.0+0.0)x418.25555, glue set 209.12778fil, direction TLT
+...........\localpar
+............\localinterlinepenalty=0
+............\localbrokenpenalty=0
+............\localleftbox=null
+............\localrightbox=null
+...........\hbox(0.0+0.0)x0.0, direction TLT
+...........\penalty 10000
+...........\glue(\parfillskip) 0.0 plus 1.0fil
+...........\glue(\rightskip) 0.0 plus 1.0fil
+.........\glue 0.0 plus 1.0fil minus 1.0fil
+........\glue 0.0 plus 1.0fill
+........\vbox(0.0+0.0)x418.25555, direction TLT
+.........\hbox(0.0+0.0)x418.25555, glue set 209.12778fil, direction TLT
+..........\glue(\leftskip) 0.0 plus 1.0fil
+..........\localpar
+...........\localinterlinepenalty=0
+...........\localbrokenpenalty=0
+...........\localleftbox=null
+...........\localrightbox=null
+..........\hbox(0.0+0.0)x0.0, direction TLT
+..........\penalty 10000
+..........\glue(\parfillskip) 0.0
+..........\glue(\rightskip) 0.0 plus 1.0fil
+........\glue 0.0 plus 1.0fill
+........\hbox(0.0+0.0)x0.0, glue set - 418.25555fil, direction TLT
+.........\glue 0.0 plus 1.0fil minus 1.0fil
+.........\vbox(0.0+0.0)x418.25555, direction TLT
+..........\hbox(0.0+0.0)x418.25555, glue set 418.25555fil, direction TLT
+...........\glue(\leftskip) 0.0 plus 1.0fil
+...........\localpar
+............\localinterlinepenalty=0
+............\localbrokenpenalty=0
+............\localleftbox=null
+............\localrightbox=null
+...........\hbox(0.0+0.0)x0.0, direction TLT
+...........\penalty 10000
+...........\glue(\parfillskip) 0.0
+...........\glue(\rightskip) 0.0
+.......\glue 0.0
+.......\rule(0.4+0.0)x418.25555
+.......\glue -0.4
+.....\glue 0.0 plus 1.0fil minus 1.0fil
+...\pdfliteral page{EMC}
+...\marks4{e-,7,2,}
+...\marks4{e+,7,2,}
+...\pdflinkstate 0
+..\glue 20.40001
+..\glue(\lineskip) 0.0
+..\vbox(595.80026+0.0)x418.25555, glue set 519.48999fil, direction TLT
+...\hbox(0.0+0.0)x0.0, direction TLT
+...\latelua0{ltx.__pdf.Page.Resources.ExtGState=true}
+...\latelua0{ltx.pdf.Page_Resources_gpush(tex.count["g_shipout_readonly_int"])}
+...\write-{}
+...\write1{\babel@aux{english}{}}
+...\write1{\new@label@record{mcid-1}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{1}{tagmcid}{\__property_code_tagmcid: }}}
+...\pdflateliteral page{/H <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+...\marks4{b-,1,4,H,,,}
+...\marks4{b+,1,4,H,,,}
+...\glue(\topskip) 0.6896
+...\hbox(10.3104+0.3168)x418.25555, glue set 177.21738fil, direction TLT
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(10.3104+0.0)x15.12, direction TLT
+.....\glue 0.0
+.....\TU/lmss/bx/n/14.4 1
+.....\glue 7.2
+....\TU/lmss/bx/n/14.4 S
+....\TU/lmss/bx/n/14.4 e
+....\TU/lmss/bx/n/14.4 c
+....\discretionary (penalty 50)
+.....< \TU/lmss/bx/n/14.4 -
+....\TU/lmss/bx/n/14.4 t
+....\TU/lmss/bx/n/14.4 i
+....\TU/lmss/bx/n/14.4 o
+....\TU/lmss/bx/n/14.4 n
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0 plus 1.0fil
+...\marks1{\protect \foreignlanguage {english}{\protect \bbl@restore@actives \MakeUppercase    []{1\hskip 1em\relax Section}}}
+...\marks2{\prg_do_nothing: }
+...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives \MakeUppercase    []{1\hskip 1em\relax Section}}}{}}
+...\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1}Section}{\thepage }{}\protected@file@percent }}
+...\penalty 10000
+...\glue 10.85475 plus 0.94386
+...\pdfliteral page{EMC}
+...\marks4{e-,1,4,}
+...\marks4{e+,1,4,}
+...\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
+...\penalty 10000
+...\pdflateliteral page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+...\marks4{b-,2,5,P,,,}
+...\marks4{b+,2,5,P,,,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 5.6839
+...\hbox(7.5993+2.2557)x418.25555, glue set 360.38477fil, direction TLT
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\TU/lmr/m/n/10.95 a
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 p
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 r
+....\TU/lmr/m/n/10.95 a
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 -
+....\TU/lmr/m/n/10.95 g
+....\TU/lmr/m/n/10.95 r
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 p
+....\TU/lmr/m/n/10.95 h
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 6.62485
+...\hbox(4.71945+0.0)x418.25555, glue set 401.52396fil, direction TLT
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x10.95, direction TLT
+....\TU/lmr/m/n/10.95 x
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{e-,2,5,}
+...\marks4{e+,2,5,}
+...\write1{\new@label@record{mcid-3}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{3}{tagmcid}{\__property_code_tagmcid: }}}
+...\pdflateliteral page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+...\marks4{b-,3,8,Lbl,,,}
+...\marks4{b+,3,8,Lbl,,,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 6.0007
+...\hbox(7.5993+2.24475)x418.25555, glue set 322.83728fil, direction TLT
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x10.95, direction TLT
+....\TU/lmr/m/n/10.95 1
+....\TU/lmr/m/n/10.95 .
+....\pdfliteral page{EMC}
+....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
+....\write1{\new@label@record{mcid-4}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{4}{tagmcid}{\__property_code_tagmcid: }}}
+....\penalty 10000
+....\glue 0.0
+....\pdflateliteral page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\TU/lmr/m/n/10.95 L
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 t
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 t
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 m
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 b
+....\kern0.3066 (font)
+....\TU/lmr/m/n/10.95 o
+....\kern0.3066 (font)
+....\TU/lmr/m/n/10.95 d
+....\TU/lmr/m/n/10.95 y
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{e-,3,8,}
+...\marks4{e+,3,8,}
+...\marks4{b-,4,9,P,,,}
+...\marks4{b+,4,9,P,,,}
+...\marks4{e-,4,9,}
+...\marks4{e+,4,9,}
+...\write1{\new@label@record{mcid-5}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{5}{tagmcid}{\__property_code_tagmcid: }}}
+...\pdflateliteral page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+...\marks4{b-,5,11,Lbl,,,}
+...\marks4{b+,5,11,Lbl,,,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 3.75595
+...\hbox(7.5993+2.24475)x418.25555, glue set 282.65076fil, direction TLT
+....\localpar
+.....\localinterlinepenalty=0
+.....\localbrokenpenalty=0
+.....\localleftbox=null
+.....\localrightbox=null
+....\hbox(0.0+0.0)x10.95, direction TLT
+....\TU/lmr/m/n/10.95 2
+....\TU/lmr/m/n/10.95 .
+....\pdfliteral page{EMC}
+....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
+....\write1{\new@label@record{mcid-6}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{6}{tagmcid}{\__property_code_tagmcid: }}}
+....\penalty 10000
+....\glue 0.0
+....\pdflateliteral page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\TU/lmr/m/n/10.95 a
+....\TU/lmr/m/n/10.95 n
+....\TU/lmr/m/n/10.95 o
+....\TU/lmr/m/n/10.95 t
+....\TU/lmr/m/n/10.95 h
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 r
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 L
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 s
+....\TU/lmr/m/n/10.95 t
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 i
+....\TU/lmr/m/n/10.95 t
+....\TU/lmr/m/n/10.95 e
+....\TU/lmr/m/n/10.95 m
+....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
+....\TU/lmr/m/n/10.95 b
+....\kern0.3066 (font)
+....\TU/lmr/m/n/10.95 o
+....\kern0.3066 (font)
+....\TU/lmr/m/n/10.95 d
+....\TU/lmr/m/n/10.95 y
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{e-,5,11,}
+...\marks4{e+,5,11,}
+...\marks4{b-,6,12,P,,,}
+...\marks4{b+,6,12,P,,,}
+...\marks4{e-,6,12,}
+...\marks4{e+,6,12,}
+...\glue -2.24475
+...\glue 0.0 plus 1.0fil
+...\kern0.0
+...\hbox(0.0+0.0)x0.0, direction TLT
+...\glue 0.0
+...\glue 0.0 plus 0.0001fil
+..\pdflinkstate 1
+..\pdfliteral page{/Artifact BMC}
+..\marks4{b-,8,-1,}
+..\marks4{b+,8,-1,}
+..\glue(\baselineskip) 34.00002
+..\hbox(13.59999+4.08003)x418.25555, direction TLT
+...\hbox(13.59999+4.08003)x418.25555, direction TLT
+....\hbox(13.59999+4.08003)x418.25555, direction TLT
+.....\vbox(13.59999+4.08003)x418.25555, direction TLT
+......\rule(0.0+0.0)x418.25555
+......\glue 4.08003
+......\hbox(9.51996+4.08003)x418.25555, direction TLT
+.......\hbox(0.0+0.0)x0.0, glue set - 418.25555fil, direction TLT
+........\vbox(0.0+0.0)x418.25555, direction TLT
+.........\hbox(0.0+0.0)x418.25555, glue set 209.12778fil, direction TLT
+..........\localpar
+...........\localinterlinepenalty=0
+...........\localbrokenpenalty=0
+...........\localleftbox=null
+...........\localrightbox=null
+..........\hbox(0.0+0.0)x0.0, direction TLT
+..........\penalty 10000
+..........\glue(\parfillskip) 0.0 plus 1.0fil
+..........\glue(\rightskip) 0.0 plus 1.0fil
+........\glue 0.0 plus 1.0fil minus 1.0fil
+.......\glue 0.0 plus 1.0fill
+.......\vbox(9.51996+4.08003)x418.25555, direction TLT
+........\hbox(9.51996+4.08003)x418.25555, glue set 206.39027fil, direction TLT
+.........\glue(\leftskip) 0.0 plus 1.0fil
+.........\localpar
+..........\localinterlinepenalty=0
+..........\localbrokenpenalty=0
+..........\localleftbox=null
+..........\localrightbox=null
+.........\hbox(0.0+0.0)x0.0, direction TLT
+.........\TU/lmr/m/n/10.95 1
+.........\rule(9.51996+4.08003)x0.0
+.........\penalty 10000
+.........\glue(\parfillskip) 0.0
+.........\glue(\rightskip) 0.0 plus 1.0fil
+.......\glue 0.0 plus 1.0fill
+.......\hbox(0.0+0.0)x0.0, glue set - 418.25555fil, direction TLT
+........\glue 0.0 plus 1.0fil minus 1.0fil
+........\vbox(0.0+0.0)x418.25555, direction TLT
+.........\hbox(0.0+0.0)x418.25555, glue set 418.25555fil, direction TLT
+..........\glue(\leftskip) 0.0 plus 1.0fil
+..........\localpar
+...........\localinterlinepenalty=0
+...........\localbrokenpenalty=0
+...........\localleftbox=null
+...........\localrightbox=null
+..........\hbox(0.0+0.0)x0.0, direction TLT
+..........\penalty 10000
+..........\glue(\parfillskip) 0.0
+..........\glue(\rightskip) 0.0
+....\glue 0.0 plus 1.0fil minus 1.0fil
+..\pdfliteral page{EMC}
+..\marks4{e-,8,2,}
+..\marks4{e+,8,2,}
+..\pdflinkstate 0
+.\kern0.0
+.\kern-659.715
+.\hbox(0.0+0.0)x0.0, direction TLT
+.\kern659.715
+(test-struct-user.aux)
+Package tagpdf Info: closing structure 2 tagged /Document
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~12 structure objects
+(tagpdf)             with ~8 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
