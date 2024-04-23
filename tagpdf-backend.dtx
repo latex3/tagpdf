@@ -281,6 +281,7 @@ local VLIST          = node.id("vlist")
 local RULE           = node.id("rule")
 local DISC           = node.id("disc")
 local GLUE           = node.id("glue")
+local DISC           = node.id("disc")
 local GLYPH          = node.id("glyph")
 local KERN           = node.id("kern")
 local PENALTY        = node.id("penalty")
@@ -626,6 +627,15 @@ end
    
 local function @@_insert_emc_node (head,current)
   local emcnode= @@_backend_create_emc_node()
+  head = node.insert_before(head,current,emcnode)
+  return head
+end
+%    \end{macrocode}
+% Sometimes we want to set the mc attribute for this node
+%    \begin{macrocode}
+local function @@_insert_emc_node_with_attribute (head,current,value)
+  local emcnode= @@_backend_create_emc_node()
+  nodesetattribute(emcnode,mccntattributeid,value)
   head = node.insert_before(head,current,emcnode)
   return head
 end
@@ -1155,8 +1165,16 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
         ltx.@@.trace.log("WARN TAG-NOT-TAGGED: this has not been tagged",1)
        end
       end
-      mccntprev = mccnt
-     end
+      mccntprev = mccnt 
+      ------ soft hyphen, check logic ! ---    
+     else -- else of if mccnt~=mccntprev (new mc-chunk)
+         if n.id==GLYPH and n.next.id==DISC then
+         ltx.__tag.trace.log("INFO: HANDLE SOFT HYPHEN",2)
+         __tag_insert_bdc_node (box.list,n,"Span","/ActualText <FEFF00AD>")
+         __tag_insert_emc_node_with_attribute (box.list,n.next,mccnt)       
+         end 
+      ---- end soft hyphen code ---                                 
+     end -- end of if mccnt~=mccntprev (new mc-chunk)
     end -- end if
   end -- end for
   if head then
