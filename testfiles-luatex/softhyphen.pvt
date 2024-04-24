@@ -1,0 +1,28 @@
+% !Mode:: "TeX:UTF-8:Main"
+% requires tagpdf with active softhyphen replacement!
+\DocumentMetadata{uncompress,testphase=phase-III,debug={log=vv}}
+\input{regression-test}
+\documentclass{book}
+\textwidth=10mm
+\usepackage{parskip}
+%\textwidth=5cm
+\tagpdfsetup{role/map-tags=pdf,activate/softhyphen}
+\pagestyle{empty}
+\begin{document}
+
+the terrible 
+hyphenation
+
+the ter-rible
+hyphen-ation
+
+the ter\-rible %??
+hyphen\-ation
+
+
+\prehyphenchar"AD
+the terrible 
+hyphenation
+
+\end{document} 
+
