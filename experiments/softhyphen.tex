@@ -1,0 +1,37 @@
+% !Mode:: "TeX:UTF-8:Main"
+% requires tagpdf with active softhyphen replacement!
+\DocumentMetadata{uncompress,testphase=phase-III,debug={log=vv}}
+\documentclass{book}
+\textwidth=10mm
+\usepackage{parskip}
+\usepackage{fontspec}
+%\textwidth=5cm
+\tagpdfsetup{role/map-tags=pdf,activate/softhyphen}
+\pagestyle{empty}
+\begin{document}
+
+the terrible 
+hyphenation
+
+\prehyphenchar"AD
+the terrible 
+hyphenation
+
+
+\fontspec{firaslav-regular.otf}
+the terrible 
+hyphenation
+
+\prehyphenchar"AD
+the terrible 
+hyphenation
+
+\fontspec{almendra-regular.ttf}
+the terrible 
+hyphenation
+
+\prehyphenchar"AD
+the terrible 
+hyphenation
+
+\end{document}

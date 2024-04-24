@@ -252,6 +252,12 @@ local iwfontattributeid  = luatexbase.new_attribute ("g_@@_interwordfont_attr")
 local tagunmarkedbool= token.create("g_@@_tagunmarked_bool")
 local truebool       = token.create("c_true_bool")
 %    \end{macrocode}
+% with this token we can query the state of the softhyphen boolean
+% and so detect if hyphens should be marked with ActualText
+%    \begin{macrocode}
+local softhyphenbool= token.create("g_@@_softhyphen_bool")
+%    \end{macrocode}
+
 % Now a number of local versions from global tables.
 % Not all is perhaps needed, most node variants were copied from lua-debug.
 %    \begin{macrocode}
@@ -1167,8 +1173,13 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
       end
       mccntprev = mccnt 
       ------ soft hyphen, check logic ! ---    
+      -- we assume that soft hyphen is not relevant a the begin of a chunk.
      else -- else of if mccnt~=mccntprev (new mc-chunk)
-         if n.id==GLYPH and n.next.id==DISC then
+         if softhyphenbool.mode == truebool.mode 
+            and n.id==GLYPH 
+            and n.char==45 -- change only standard hyphens currently
+            and n.next.id==DISC  -- hm ... is this always right?
+            and n.next.subtype==3 then -- hyphen from hyphenation
          ltx.__tag.trace.log("INFO: HANDLE SOFT HYPHEN",2)
          __tag_insert_bdc_node (box.list,n,"Span","/ActualText <FEFF00AD>")
          __tag_insert_emc_node_with_attribute (box.list,n.next,mccnt)       
