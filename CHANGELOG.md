@@ -4,12 +4,18 @@ All notable changes to the `tagpdf` package since the
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
+ 
+## [Unreleased]
+
+### Added
+ - key activate/softhyphen and code to add ActualText around hyphens from hyphenation.
 
 ## [2024-04-12]
+Version 0.99b
 ### Added
  - \tag_spacechar_on:, \tag_spacechar_off: to locally switch off 
    the real space chars.  
-
+ 
 ### Fixed
  - spacechar in floats on the first page   
  
