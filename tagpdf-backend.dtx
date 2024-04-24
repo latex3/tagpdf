@@ -1179,7 +1179,7 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
             and n.id==GLYPH 
             and n.char==45 -- change only standard hyphens currently
             and n.next.id==DISC  -- hm ... is this always right?
-            and n.next.subtype==3 then -- hyphen from hyphenation
+            and (n.next.subtype==3 or n.next.subtype==1) then -- hyphen from hyphenation
          ltx.__tag.trace.log("INFO: HANDLE SOFT HYPHEN",2)
          __tag_insert_bdc_node (box.list,n,"Span","/ActualText <FEFF00AD>")
          __tag_insert_emc_node_with_attribute (box.list,n.next,mccnt)       
