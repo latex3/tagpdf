@@ -74,10 +74,12 @@
 %
 % \begin{function}{activate/softhyphen (setup-key)}
 % This key allows to activates automatic handling of hyphens inserted
-% by hyphenation. It only is used in luamode and 
+% by hyphenation. It only is used in luamode and either replaces
+% hyphens by U+00AD (if the font supports this) or inserts
 % inserts around hyphens (U+002D) from hyphenation a ActualText 
 % with a soft hyphen content (U+00AD).
-% Not every reader handles this correctly, the initial value is therefore currently false.
+% Not every reader handles this correctly, 
+% the initial value is therefore currently false.
 % \end{function}
 % 
 % \begin{function}{page/tabsorder (setup-key), tabsorder (deprecated)}

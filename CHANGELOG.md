@@ -8,7 +8,8 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 ### Added
- - key activate/softhyphen and code to add ActualText around hyphens from hyphenation.
+ - key activate/softhyphen and code to use either
+ soft hyphen or to add ActualText around hyphens from hyphenation.
 
 ## [2024-04-12]
 Version 0.99b

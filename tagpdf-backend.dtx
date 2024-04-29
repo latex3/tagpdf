@@ -938,7 +938,26 @@ function ltx.@@.func.space_chars_shipout (box)
 end
 %    \end{macrocode}
 % \end{macro}
-%
+% \section{Function for the softhyphen}
+% 
+% \begin{macro}{@@_font_has_softhyphen}
+% This function tests as best as possible if the font
+% has a soft hyphen. It will also be true if there is a char which
+% doesn't look like a hyphen!
+%    \begin{macrocode}
+local function @@_font_has_softhyphen (fontid)
+ t= fonts.hashes.identifiers[fontid]
+ if luaotfload.aux.slot_of_name(fontid,"uni00AD")
+    or t.characters and t.characters[173] and t.characters[173]["unicode"]==173
+ then
+    return true
+ else
+    return false
+ end
+end
+%    \end{macrocode}
+% \end{macro}
+% 
 % \section{Function for the tagging}
 % \begin{macro}
 %   {
@@ -1179,11 +1198,16 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
             and n.id==GLYPH 
             and n.char==45 -- change only standard hyphens currently
             and n.next.id==DISC  -- hm ... is this always right?
-            and (n.next.subtype==3 or n.next.subtype==1) then -- hyphen from hyphenation
-         ltx.__tag.trace.log("INFO: HANDLE SOFT HYPHEN",2)
-         __tag_insert_bdc_node (box.list,n,"Span","/ActualText <FEFF00AD>")
-         __tag_insert_emc_node_with_attribute (box.list,n.next,mccnt)       
-         end 
+            and (n.next.subtype==3 or n.next.subtype==1) 
+         then -- hyphen from hyphenation
+            ltx.__tag.trace.log("INFO: HANDLE SOFT HYPHEN",2)
+            if @@_font_has_softhyphen (n.font) then 
+              n.char=173  
+            else             
+              @@_insert_bdc_node (box.list,n,"Span","/ActualText <FEFF00AD>")
+              @@_insert_emc_node_with_attribute (box.list,n.next,mccnt)
+            end  
+         end
       ---- end soft hyphen code ---                                 
      end -- end of if mccnt~=mccntprev (new mc-chunk)
     end -- end if

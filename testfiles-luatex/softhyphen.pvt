@@ -6,6 +6,7 @@
 \textwidth=10mm
 \usepackage{parskip}
 %\textwidth=5cm
+\usepackage{fontspec}
 \tagpdfsetup{role/map-tags=pdf,activate/softhyphen}
 \pagestyle{empty}
 \begin{document}
@@ -20,9 +21,14 @@ the ter\-rible %??
 hyphen\-ation
 
 
+\fontspec{almendra}
+hyphenation hyphenation
+
+
+\normalfont
 \prehyphenchar"AD
 the terrible 
 hyphenation
 
-\end{document} 
 
+\end{document} 
