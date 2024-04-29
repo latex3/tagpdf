@@ -171,15 +171,16 @@
 % possible, so we define a command which a special in the relevant backends:
 %    \begin{macrocode}
 %<*base>
+\cs_new_protected:Npn \@@_whatsits: {}
 \AddToHook{begindocument}
  {
   \str_case:VnF \c_sys_backend_str
    {
-    { luatex  } { \cs_new_protected:Npn \@@_whatsits: {} }
-    { dvisvgm } { \cs_new_protected:Npn \@@_whatsits: {} }
+    { luatex  } { \cs_set_protected:Npn \@@_whatsits: {} }
+    { dvisvgm } { \cs_set_protected:Npn \@@_whatsits: {} }
    }
    {
-     \cs_new_protected:Npn \@@_whatsits: {\tex_special:D {} }
+     \cs_set_protected:Npn \@@_whatsits: {\tex_special:D {} }
    }
  }
 %</base>
