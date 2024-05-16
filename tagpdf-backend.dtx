@@ -196,8 +196,8 @@ ltx.@@.page   will contain page data
 ltx.@@.tables contains also data from mc and struct (from older code). This needs cleaning up.
              There are certainly dublettes, but I don't dare yet ...
 ltx.@@.func   will contain (public) functions.
-ltx.@@.trace  will contain tracing/loging functions.
-local funktions starts with __
+ltx.@@.trace  will contain tracing/logging functions.
+local functions starts with __
 functions meant for users will be in ltx.tag
 
 functions
@@ -210,7 +210,7 @@ functions
  ltx.@@.func.store_mc_kid (mcnum,kid,page): stores the mc-kids of mcnum on page page
  ltx.@@.func.store_mc_in_page(mcnum,mcpagecnt,page): stores in the page table the number of mcnum on this page
  ltx.@@.func.store_struct_mcabs (structnum,mcnum): stores relations structnum<->mcnum (abs)
- ltx.@@.func.mc_insert_kids (mcnum): inserts the /K entries for mcnum by wandering throught the [kids] table
+ ltx.@@.func.mc_insert_kids (mcnum): inserts the /K entries for mcnum by wandering through the [kids] table
  ltx.@@.func.mark_page_elements(box,mcpagecnt,mccntprev,mcopen,name,mctypeprev) : the main function
  ltx.@@.func.mark_shipout (): a wrapper around the core function which inserts the last EMC
  ltx.@@.func.fill_parent_tree_line (page): outputs the entries of the parenttree for this page
@@ -827,7 +827,7 @@ end
 %    @@_activate_mark_space,
 %    ltx.@@.func.markspaceoff
 %    }
-% Theses functions add/remove the function which marks the spaces to the callbacks
+% These functions add/remove the function which marks the spaces to the callbacks
 % |pre_linebreak_filter| and |hpack_filter|
 %    \begin{macrocode}
 local function @@_activate_mark_space ()
