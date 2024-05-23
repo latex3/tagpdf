@@ -95,7 +95,7 @@
 % This inserts an annotation in the structure. \meta{object reference}
 % is there reference to the annotation. \meta{struct parent number}
 % should be the same number as had been inserted with \cs{tag_struct_parent_int:}
-% as |StructParent| value to the dictionary of the annotion.
+% as |StructParent| value to the dictionary of the annotation.
 % The command will increase the value of the counter
 % used by \cs{tag_struct_parent_int:}.
 % \end{function}
@@ -147,7 +147,7 @@
 % needed as you can only use structures already defined), and by the
 % |ref| key (which can refer to future structures).
 % Internally the label name will start with \texttt{tagpdfstruct-} and it stores
-% the two attributs |tagstruct| (the structure number) and |tagstructobj| (the
+% the two attributes |tagstruct| (the structure number) and |tagstructobj| (the
 % object reference).
 % \end{function}
 % \begin{function}{parent (struct-key)}
@@ -323,7 +323,7 @@
 % in generic mode it can happen after
 % a page break that we have to inject into a structure
 % sequence an additional mc after. We will store this additional
-% info in a property. The key is the absolut mc num, the value the pdf directory.
+% info in a property. The key is the absolute mc num, the value the pdf directory.
 %    \begin{macrocode}
 \@@_prop_new:N  \g_@@_struct_cont_mc_prop
 %    \end{macrocode}
@@ -419,7 +419,7 @@
     T,                 %title, value in () or <>
     Lang,              %language
     Alt,               % value in () or <>
-    E,                 % abreviation
+    E,                 % abbreviation
     ActualText,
     AF,                 %pdf 2.0, array of dict, associated files
     NS,                 %pdf 2.0, dict, namespace
@@ -902,7 +902,7 @@
 % Basically it does what |\pdfdict_use:n| does.
 % This is used a lot so should be rather fast.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_get_dict_content:nN #1 #2 %#1: stucture num
+\cs_new_protected:Npn \@@_struct_get_dict_content:nN #1 #2 %#1: structure num
   {
     \tl_clear:N #2
     \prop_map_inline:cn { g_@@_struct_#1_prop }
@@ -1270,7 +1270,7 @@
 % extension.
 % AF/AFref is an array and can be used more than once, so we store it in a tl.
 % which is expanded.
-% AFinline currently uses the fix extention txt. 
+% AFinline currently uses the fix extension txt. 
 % texsource is a special variant which creates a tex-file, it expects a
 % tl-var as value (e.g. from math grabbing)
 % 
@@ -1962,7 +1962,7 @@
 \tl_new:N   \l_@@_attr_value_tl
 \prop_new:N \g_@@_attr_objref_prop %will contain obj num of used attributes
 %    \end{macrocode}
-% This seq is currently kept for compability with the table code.
+% This seq is currently kept for compatibility with the table code.
 %    \begin{macrocode}
 \seq_new:N\g_@@_attr_class_used_seq
 %    \end{macrocode}

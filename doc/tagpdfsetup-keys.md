@@ -1,6 +1,6 @@
 # Sorting the tagpdfsetup keys
 
-The keys are split in a number of key pathes. 
+The keys are split in a number of key paths. 
 
 ## Unhandled key
 

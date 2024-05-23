@@ -92,7 +92,7 @@
 % the before upper setting is dangerous as it can be overwritten by
 % users. So a more stable hook is needed.
 % we force also a \par and add a div structure, to avoid clashes with the block
-% tagging code. This needs revisting!
+% tagging code. This needs revisiting!
 
 \AddToHook{env/tcolorbox/before}{\par\tagstructbegin{tag=Div}}
 \AddToHook{env/tcolorbox/begin}{\tagpdfparaOff \tcbset{before upper=\tagpdfparaOn}}
