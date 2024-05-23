@@ -80,7 +80,7 @@ Version 0.98u
 Version 0.98t
 
 ### Changed 
- - add RoleMap also with pdf 2.0 to improve compability to 1.7-processor
+ - add RoleMap also with pdf 2.0 to improve compatibility to 1.7-processor
  - add option 'mathml-tags' to add mathml to this fallback RoleMap  
 
 ## [2024-01-19]
