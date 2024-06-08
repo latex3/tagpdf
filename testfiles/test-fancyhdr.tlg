@@ -123,8 +123,8 @@ Completed box being shipped out [1]
 ...\marks4{b+,2,6,section,,,}
 ...\marks4{e-,2,6,}
 ...\marks4{e+,2,6,}
-...\marks1{\MakeUppercase    []{1\hskip 1em\relax some text}}
-...\marks2{\prg_do_nothing: }
+...\marks1{\__mark_id:n {1}\MakeUppercase    []{1\hskip 1em\relax some text}}
+...\marks2{\__mark_id:n {2}}
 ...\mark{{\MakeUppercase    []{1\hskip 1em\relax some text}}{}}
 ...\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1}some text}{\thepage }{target*.1}\protected@file@percent }}
 ...\penalty 10000
@@ -164,8 +164,8 @@ Completed box being shipped out [1]
 ...\marks4{b+,4,9,subsection,,,}
 ...\marks4{e-,4,9,}
 ...\marks4{e+,4,9,}
-...\marks2{1.1\hskip 1em\relax blub}
-...\marks3{1.1\hskip 1em\relax blub}
+...\marks2{\__mark_id:n {3}1.1\hskip 1em\relax blub}
+...\marks3{\__mark_id:n {4}1.1\hskip 1em\relax blub}
 ...\mark{{\MakeUppercase    []{1\hskip 1em\relax some text}}{1.1\hskip 1em\relax blub}}
 ...\penalty 10000
 ...\write1{\@writefile{toc}{\protect \contentsline {subsection}{\protect \numberline {1.1}blub}{\thepage }{target*.2}\protected@file@percent }}

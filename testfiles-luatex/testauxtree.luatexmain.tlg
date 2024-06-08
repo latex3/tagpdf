@@ -173,8 +173,8 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0 plus 1.0fil
-...\marks1{\protect \foreignlanguage {english}{\protect \bbl@restore@actives \MakeUppercase    []{1\hskip 1em\relax Section}}}
-...\marks2{\prg_do_nothing: }
+...\marks1{\__mark_id:n {1}\protect \foreignlanguage {english}{\protect \bbl@restore@actives \MakeUppercase    []{1\hskip 1em\relax Section}}}
+...\marks2{\__mark_id:n {2}}
 ...\mark{{\protect \foreignlanguage {english}{\protect \bbl@restore@actives \MakeUppercase    []{1\hskip 1em\relax Section}}}{}}
 ...\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1}Section}{\thepage }{}\protected@file@percent }}
 ...\penalty 10000
@@ -183,6 +183,7 @@ Completed box being shipped out [1]
 ...\marks4{e-,1,4,}
 ...\marks4{e+,1,4,}
 ...\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
+...\penalty 10000
 ...\penalty 10000
 ...\pdflateliteral page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ...\marks4{b-,2,5,P,,,}
