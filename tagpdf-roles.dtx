@@ -750,19 +750,31 @@
   {
     \hook_gput_code:nnn {begindocument}{tagpdf}
       {
-        \cs_if_exist:NT \chapter
-           {
-             \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
-               {
-                 \@@_role_add_tag:ne {#1}{\use_i:nn #2\c_empty_tl\c_empty_tl}
-               }
-           }
+        \bool_lazy_and:nnT 
+         {
+           \cs_if_exist_p:N \chapter
+         }
+         {
+           \cs_if_exist_p:N \c@chapter
+         }  
+         {
+           \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
+             {
+               \@@_role_add_tag:ne {#1}{\use_i:nn #2\c_empty_tl\c_empty_tl}
+             }
+         }
       }
   }
   {
     \hook_gput_code:nnn {begindocument}{tagpdf}
       {
-        \cs_if_exist:NT \chapter
+        \bool_lazy_and:nnT 
+         {
+           \cs_if_exist_p:N \chapter
+         }
+         {
+           \cs_if_exist_p:N \c@chapter
+         }  
          {
            \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
              {
