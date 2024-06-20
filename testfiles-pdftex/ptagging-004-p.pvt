@@ -12,7 +12,22 @@
 \usepackage{tagpdf}
 \tagpdfsetup{activate,activate/spaces,para/tagging,debug/show=para,debug/log=v}
 
-
+\makeatletter
+\def\@finalstrut#1{%
+  \unskip
+  \ifhmode \nobreak 
+%  \vrule
+  \else
+    \ifdim \prevdepth=-\@m\p@
+    \else
+      \vskip-\prevdepth
+    \fi   
+\vskip-\baselineskip  %new
+%    \hrule
+  \fi
+  \vrule %new
+  \@width\z@\@height\z@\@depth\dp#1}
+\makeatother
 
 
 \textheight=8\baselineskip
@@ -56,7 +71,12 @@
 \makeatother
 
 \START
-
+\makeatletter
+\ifx\fix@finalstrut\@finalstrut \TYPE{Remove Finalstrut FIX!} \else 
+\ShowCommand\@finalstrut
+\let\@finalstrut\fix@finalstrut
+\fi
+\makeatother
 \SHOWFILE{\jobname.aux}
 
 \OMIT

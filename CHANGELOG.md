@@ -9,7 +9,12 @@ this project uses date-based 'snapshot' version identifiers.
 ### Fixed
  - loop with xelatex https://github.com/latex3/tagging-project/issues/86
 
+## [Unreleased]
+### Fixed
+ - improved detection if a class supports \chapter for ltugboat.
+
 ## [2024-04-12]
+Version 0.99b
 ### Added
  - \tag_spacechar_on:, \tag_spacechar_off: to locally switch off 
    the real space chars.  
