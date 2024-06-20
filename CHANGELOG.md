@@ -4,6 +4,10 @@ All notable changes to the `tagpdf` package since the
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
+## [Unreleased]
+
+### Fixed
+ - loop with xelatex https://github.com/latex3/tagging-project/issues/86
 
 ## [2024-04-12]
 ### Added
