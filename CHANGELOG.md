@@ -4,13 +4,12 @@ All notable changes to the `tagpdf` package since the
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
-## [Unreleased]
+
+## [2024-06-20]
+Version 0.99c
 
 ### Fixed
  - loop with xelatex https://github.com/latex3/tagging-project/issues/86
-
-## [Unreleased]
-### Fixed
  - improved detection if a class supports \chapter for ltugboat.
 
 ## [2024-04-12]
