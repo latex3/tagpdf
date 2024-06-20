@@ -7,21 +7,6 @@
 \input{regression-test}
 \documentclass[12pt,a4paper]{article}
 
-\makeatletter
-\def\fix@finalstrut#1{%
-  \unskip
-  \ifhmode \nobreak 
-  \else
-    \ifdim \prevdepth=-\@m\p@
-    \else
-      \vskip-\prevdepth
-    \fi   
-\vskip-\baselineskip  %new
-  \fi
-  \vrule %new
-  \@width\z@\@height\z@\@depth\dp#1}
-\makeatother
-
 \textheight=20\baselineskip
 
 \usepackage{kantlipsum}
@@ -30,12 +15,6 @@
 %\showoutput
 
 \START
-\makeatletter
-\ifx\fix@finalstrut\@finalstrut \TYPE{Remove Finalstrut FIX!} \else 
-\ShowCommand\@finalstrut
-\let\@finalstrut\fix@finalstrut
-\fi
-\makeatother
 \SHOWFILE{\jobname.aux}
 
 \OMIT
