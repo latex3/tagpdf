@@ -17,7 +17,7 @@ uploadconfig = {
   version = "v"..packageversion.." "..packagedate,
   author  = mydata.name,
   license = "lppl1.3c",
-  summary = "Tools for experimenting with tagging using pdfLaTeX and LuaLaTeX",
+  summary = "Code for PDF tagging using pdfLaTeX and LuaLaTeX",
   ctanPath = "/macros/latex/contrib/tagpdf",
   repository = mydata.github .. "tagpdf",
   bugtracker = mydata.github .. "tagpdf/issues",
@@ -27,7 +27,7 @@ uploadconfig = {
   update   = true ,
   topic=    "tagged-pdf",
   note     = [[Uploaded automatically by l3build...]],
-  description=[[The package offers tools to experiment with tagging and accessibility using pdfLATEX and LuaTEX. It isn't meant for production but allows the user to try out how difficult it is to tag some structures; to try out how much tagging is really needed; to test what else is needed so that a pdf works e.g. with a screen reader. Its goal is to get a feeling for what has to be done, which kernel changes are needed, how packages should be adapted.]],
+  description=[[The package contains the core code for tagging and accessibility used by the LaTeX kernel in the Tagged PDF project. See https://github.com/latex3/tagging-project for more information.]],
   announcement_file="ctan.ann"
 }
 -- tests are mostly with dev-format always
