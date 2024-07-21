@@ -1294,7 +1294,7 @@ do
 %  A lookup table to test if the font supports the soft hyphen glyph.
 %    \begin{macrocode}
   local softhyphen_fonts = setmetatable({}, {__index = function(t, fid)
-    local fdir = identifiers[fontid]
+    local fdir = identifiers[fid]
     local format = fdir and fdir.format
     local result = (format == 'opentype' or format == 'truetype')
     local characters = fdir and fdir.characters
