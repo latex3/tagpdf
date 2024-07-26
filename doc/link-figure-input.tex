@@ -27,7 +27,7 @@
 \NewDocumentCommand\balloon{m}{%
 \node[fit={(pic cs:#1-first) (pic cs:#1-end)
 ([yshift=7pt]pic cs:#1-end)},balloon](#1){};}
-\begin{tikzpicture}[overlay,remember picture]
+\begin{tikzpicture}[overlay,remember picture,alt={Illustration of link annotation structure}]
 \balloon{link}
 \balloon{structparent}
 \balloon{OBJR}
@@ -45,7 +45,7 @@
 \draw[ref] (kid)--(OBJR);
 \draw[ref] (OBJR)--(linkref);
 \end{tikzpicture}
-\begin{lstlisting}[name=OBJR]
+\begin{taglstlisting}[name=OBJR]
 *\tikzmark{link-first}*18 0 obj*\tikzmark{link-end}*   %Link Object
 << /Type /Annot /Subtype/Link
    /Rect [ 196.109 494.573 399.167 506.831 ]
@@ -67,4 +67,4 @@ endobj};
 << /Nums
 [... *\tikzmark{pnum-first}*16*\tikzmark{pnum-end}*     *\tikzmark{pref-first}*17 0 R*\tikzmark{pref-end}* ...] >>
 endobj
-\end{lstlisting}
+\end{taglstlisting}

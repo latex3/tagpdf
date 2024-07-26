@@ -338,13 +338,15 @@ improvements and new features in the \LaTeX\ kernel, the latex-lab bundle and
 the \PDF\ management code and is now much better. Only a few 
 structures---mostly some from currently unsupported packages--- still need 
 manual tagging. But sadly the output of the validators don't quite reflect 
-the improvements. The documentation uses now \PDF~2.0  and PAC~2024 can't handle 
-this, it claims that the file is damaged. The Adobe validator has a bug and 
+the improvements. The documentation uses now \PDF~2.0  and while the newest 
+PAC~2024 can at least open the file it can not validate properly the file. For example
+it complains about the tabular header cells as it doesn't follow attribute classes.
+The Adobe validator has a bug and 
 doesn't like the (valid) use of  the \texttt{Lbl} tag for the section numbers 
 (see figure~\ref{fig:adobe}).  
 
 
-But even if the documentation passed the tests of the validators:  as 
+But even if the documentation would pass all the tests of the validators:  as 
 mentioned above passing a formal test doesn't mean that the content is really 
 good and usable. The user commands used for the tagging and also some of the 
 patches used are still rather crude. So there is lot space for improvement. 
@@ -354,8 +356,9 @@ Be aware that to create the tagged version a current lualatex-dev and a
 current version of the pdfmanagment-testphase package is needed. 
 \end{tcolorbox}
 
-\includegraphics[alt=PAC 3 report]{pac3}
+\includegraphics[alt=PAC 2024 complains about PDF version]{pac2024-version}
 
+\includegraphics[alt=PAC 2024 complains about table header cells]{pac2024-report}
 
 \begin{figure}
 
@@ -503,6 +506,10 @@ The key-val list understands at least the following keys. More keys are defined 
   section~\ref{sec:spacechars}. In the luamode it only works if at
   least \PrintKeyName{activate/mc} has been used.
   The old name of the key |interwordspace| is still supported but deprecated.
+
+\item[\PrintKeyName{activate/softhyphen}] Boolean. luamode only.
+  The key activates/deactivates the replacing of hard hyphens from hyphenation
+  by soft hyphens. By default this is activated.
 
 
 \item[\PrintKeyName{role/new-tag}] Allows to define new tag names, see
@@ -721,11 +728,8 @@ To tag a \PDF{} three tasks must be  carried out:
 
 \minisec{Page stream with marked content}
 
-\tagpdfparaOff
-
-\tagstructbegin{tag=Figure,alt={Illustration of page stream with marked content},attribute=bbox}%
-\tagmcbegin{tag=Figure}%
-\begin{tikzpicture}[baseline=(a.north),node distance=2pt,remember picture]
+\begin{tikzpicture}[baseline=(a.north),node distance=2pt,remember picture,
+alt={Illustration of page stream with marked content}]
 \node(start){\ldots~\ldots~\ldots};
 \node[draw,base right = of start](a) {mc-chunk 1};
 \node[draw,base right = of a](b) {mc-chunk 2};
@@ -733,20 +737,13 @@ To tag a \PDF{} three tasks must be  carried out:
 \node[draw,base right = of c](d) {mc-chunk 3};
 \node[base right = of d] {\ldots~\ldots};
 \end{tikzpicture}
-\tagmcend\tagstructend
-
-\tagpdfparaOn
 
 
 \minisec{Structure}
 
-\tagpdfparaOff
 
 \newlength\ydistance\setlength\ydistance{-0.8cm}
-\tagstructbegin{tag=Figure,alt={Illustration of structure},attribute=bbox}%
-\tagmcbegin{tag=Figure}%
-\begin{tikzpicture}[remember picture,baseline=(root.north)]
-
+\begin{tikzpicture}[remember picture,baseline=(root.north),alt={Illustration of structure}]
 \node[draw,anchor=base west] (root) at (0,0) {Sect (start section)};
 \node[draw,anchor=base west] at (0.3,\ydistance) {H (header section)};
 \node[draw,anchor=base west](aref) at (0.6,2\ydistance){mc-chunk 1};
@@ -758,17 +755,12 @@ To tag a \PDF{} three tasks must be  carried out:
 \node[draw,anchor=base west] at (0.3,8\ydistance){/P (end paragraph)};
 \node[draw,anchor=base west] at (0,9\ydistance){/Sect (end section)};
 \end{tikzpicture}
-
 \begin{tikzpicture}[remember picture, overlay]
 \draw[->,red](aref)-|(a);
 \draw[->,red](bref)-|(b);
 \draw[->,red](cref)-|(c);
 \draw[->,red](dref)-|(d);
-
 \end{tikzpicture}
-\tagmcend\tagstructend
-
-\tagpdfparaOn
 
 \end{tcolorbox}
 
@@ -1283,13 +1275,8 @@ add the needed code.
 
 
 \begin{figure}
-\tagpdfparaOff
 
-\tagstructbegin{tag=Figure,alt={Illustration of link annotation structure},attribute=bbox}\tagmcbegin{tag=Figure}
-\tagstop
 \input{link-figure-input}
-\tagstart
-\tagmcend\tagstructend
 
 \caption{Structure needed for a link annotation}\label{fig:linkannot}
 
@@ -3061,10 +3048,7 @@ examples and remarks easier to understand.
 \item[postfix notation] \PDF{} uses in various places postfix
   notation. This means that the operator is behind its arguments:
 
-\tagpdfparaOff
-
-\tagstructbegin{tag=Figure,alt={Illustration of postfix notation},attribute=bbox}\tagmcbegin{tag=Figure}
-\begin{tikzpicture}[baseline=(c.base)]
+\begin{tikzpicture}[baseline=(c.base),alt={Illustration of postfix notation}]
 \node[arg](a1) {18};
 \node[arg,right=of a1.east](a2) {0};
 \node[operator,right= of a2.east](c) {obj};
@@ -3072,7 +3056,7 @@ examples and remarks easier to understand.
 \draw[->] (c.south) --++(0,-2mm) -| (a2);
 \end{tikzpicture}
 
-\begin{tikzpicture}[baseline=(c.base)]
+\begin{tikzpicture}[baseline=(c.base),alt={Illustration of postfix notation}]
 \node[arg](a1) {18};
 \node[arg,right=of a1.east](a2) {0};
 \node[operator,right= of a2.east](c) {R};
@@ -3081,7 +3065,7 @@ examples and remarks easier to understand.
 \end{tikzpicture} (a reference (operator R) to an object
 
 
-\begin{tikzpicture}[baseline=(c.base)]
+\begin{tikzpicture}[baseline=(c.base),alt={Illustration of postfix notation}]
 \node[arg](a1) {1};
 \node[arg,right = of a1.east](a2) {0};
 \node[arg,right = of a2.east](a3) {0};
@@ -3097,18 +3081,14 @@ examples and remarks easier to understand.
 \draw[->] (c.south) --++(0,-2mm) -|(a1);
 \end{tikzpicture}
 
-\begin{tikzpicture}[baseline=(c.base)]
+\begin{tikzpicture}[baseline=(c.base),alt={Illustration of postfix notation}]
 \node[arg](a1) {/P};
 \node[arg,right = of a1.east](a2) {<</MCID 0>>};
 \node[operator,right = of a2.east](c) {BDC};
 \draw[->] (c.south) --++(0,-2mm) -| (a1);
 \draw[->] (c.south) --++(0,-2mm) -| (a2);
 \end{tikzpicture}
-\tagmcend\tagstructend
 
-
-
-\tagpdfparaOn
 
 \item[Names] \PDF{} knows a sort of variable called a
   \enquote{name}. Names start with a slash and may include any regular
@@ -3152,19 +3132,13 @@ examples and remarks easier to understand.
     \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
 
 
-\tagpdfparaOff
-
-    \tagstructbegin{tag=Figure,alt={Illustration of array},attribute=bbox}\tagmcbegin{tag=Figure}
-    \begin{tikzpicture}[baseline=(c.base)]
+    \begin{tikzpicture}[baseline=(c.base),alt={Illustration of array}]
     \node[arg](a1) {0};
     \node[arg,right = of a1.east](a2) {15 0 R};
     \node[arg,right = of a2.east](a3) {(hello)};
     \node[arg,right = of a3.east](a4) {<</Type /X>>};
     \node[arg,right = of a4.east](a5) {[1 2 3]};
     \end{tikzpicture}
-\tagmcend\tagstructend
-
-\tagpdfparaOn
 
 
 \item[Dictionaries] Dictionaries are enclosed by double angle
