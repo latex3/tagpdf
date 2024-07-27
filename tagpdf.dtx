@@ -72,6 +72,12 @@
 % marked up as artifact. The initial value is true.
 % \end{function}
 %
+% \begin{function}{activate/softhyphen (setup-key)}
+% This key allows to activates automatic handling of hyphens inserted
+% by hyphenation. It only is used in luamode and replaces hyphens
+% by U+00AD if the font supports this.
+% \end{function}
+% 
 % \begin{function}{page/tabsorder (setup-key), tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be
@@ -354,6 +360,13 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\g_@@_softhyphen_bool}
+% This boolean controls if the code should try to automatically
+% handle hyphens from hyphenation. It is currently only used in luamode.
+%    \begin{macrocode}
+\bool_new:N \g_@@_softhyphen_bool
+%    \end{macrocode}
+% \end{variable}
 % \section{Variants of l3 commands}
 %     \begin{macrocode}
 \prg_generate_conditional_variant:Nnn \pdf_object_if_exist:n {e}{T,F,TF}
@@ -646,6 +659,13 @@
 % deprecated name
 %    \begin{macrocode}
     tagunmarked .bool_gset:N = \g_@@_tagunmarked_bool,
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{activate/softhyphen (setup-key)}
+% This key activates (in luamode) the handling of soft hyphens.
+%    \begin{macrocode}
+    activate/softhyphen     .bool_gset:N = \g_@@_softhyphen_bool,
+    activate/softhyphen     .initial:n  = true,
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{page/tabsorder (setup-key),tabsorder (deprecated)}

@@ -1,0 +1,25 @@
+\DocumentMetadata{uncompress,testphase=phase-III}
+\input{regression-test}
+\documentclass{book}
+\textwidth=10mm
+\usepackage{parskip}
+%\textwidth=5cm
+\usepackage{fontspec}
+\tagpdfsetup{activate/softhyphen}
+\usepackage{microtype}
+\pagestyle{empty}
+\begin{document}
+%\START
+the terrible 
+hyphenation
+
+\tagpdfsetup{activate/softhyphen=false}
+
+the terrible 
+hyphenation
+
+\tagpdfsetup{activate/softhyphen}
+
+the terrible 
+hyphenation
+\end{document} 

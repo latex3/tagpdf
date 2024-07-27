@@ -1,0 +1,31 @@
+\DocumentMetadata{uncompress,testphase=phase-III}
+\input{regression-test}
+\documentclass{book}
+\textwidth=10mm
+\usepackage{parskip}
+%\textwidth=5cm
+\usepackage{fontspec}
+\tagpdfsetup{role/map-tags=pdf,activate/softhyphen}
+\pagestyle{empty}
+\begin{document}
+%\START
+the terrible 
+hyphenation
+
+the ter-rible
+hyphen-ation
+
+the ter\-rible %??
+hyphen\-ation
+
+
+\fontspec{almendra}
+hyphenation hyphenation
+
+\normalfont
+\prehyphenchar"AD
+the terrible 
+hyphenation
+
+
+\end{document} 
