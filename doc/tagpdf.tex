@@ -2648,7 +2648,8 @@ already mentioned there are more requirements:
      is normally not a problem. With pdflatex it could need additional 
      \verb+\pdfglyphtounicode+ commands. 
      
- \item Hard and soft hyphen must be distinct.
+ \item Hard and soft hyphen must be distinct. In luamode this is now handled through
+     the \texttt{activate/softhyphen} key. For pdftex no solution is known.
  
  \item Spaces between words should be space glyphs and not only a 
      horizontal movement. See section~\ref{sec:spacechars}. 
