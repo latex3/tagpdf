@@ -3,8 +3,24 @@
 \documentclass{article}
 %\usepackage{hyperref}
 \ExplSyntaxOn
-\prop_new:N\g__tbl_skip_cells_prop
-\prop_new:N\l__tbl_saved_skip_cells_prop
+\prop_new:N\g__tbl_untagged_cells_prop
+\prop_new:N\l__tbl_saved_untagged_cells_prop
+
+\prg_new_protected_conditional:Npnn\__tbl_if_tag_cell:nn #1 #2 %#1 row, #2 col
+  { TF }
+  {
+    \prop_get:NeNTF \g__tbl_untagged_cells_prop {\int_eval:n{#1},\int_eval:n{#2}}\l__tbl_tmpa_tl
+      { \prg_return_false:}
+      { \prg_return_true: } 
+  }
+\cs_new_protected:Npn \__tbl_gset_untagged_row_cells:n #1 % #1 number of rows
+  {
+    \int_step_inline:nn {#1}
+     {
+      \prop_gput:Nee \g__tbl_untagged_cells_prop
+       { \int_eval:n {\g__tbl_row_int + ##1},\int_use:N\g__tbl_col_int }{}
+     }  
+  }
 
 \cs_set_protected:Npn \__tbl_init_struct_data: {
   \tl_set_eq:NN  \l__tbl_saved_struct_table_tl \g__tbl_struct_table_tl
@@ -12,7 +28,7 @@
   \seq_set_eq:NN \l__tbl_saved_struct_cells_seq \g__tbl_struct_cells_seq
   \seq_set_eq:NN \l__tbl_saved_struct_cur_seq \g__tbl_struct_cur_seq
   \prop_set_eq:NN\l__tbl_saved_skip_cells_prop \g__tbl_skip_cells_prop
-  \prop_gclear:N \g__tbl_skip_cells_prop
+  \prop_gclear:N \g__tbl_untagged_cells_prop
   \seq_gclear:N\g__tbl_struct_rows_seq
   \seq_gclear:N\g__tbl_struct_cells_seq
   \seq_gclear:N\g__tbl_struct_cur_seq
@@ -23,7 +39,7 @@
   \seq_gset_eq:NN \g__tbl_struct_rows_seq \l__tbl_saved_struct_rows_seq
   \seq_gset_eq:NN \g__tbl_struct_cells_seq\l__tbl_saved_struct_cells_seq
   \seq_gset_eq:NN \g__tbl_struct_cur_seq  \l__tbl_saved_struct_cur_seq
-  \prop_gset_eq:NN\g__tbl_skip_cells_prop \l__tbl_saved_skip_cells_prop 
+  \prop_gset_eq:NN\g__tbl_untagged_cells_prop \l__tbl_saved_untagged_cells_prop
 }
 
 \cs_generate_variant:Nn \__tag_struct_prop_gput:nnn {one}
@@ -56,44 +72,37 @@
           {C}
           {[/rowspan-\int_eval:n{#1}]} 
       } 
-   \int_step_inline:nn {#1-1}
-    {
-      \prop_gput:Nee \g__tbl_skip_cells_prop
-       { \int_use:N\g__tbl_col_int-\int_eval:n {\g__tbl_row_int +##1}}{}
-    }  
+   \__tbl_gset_untagged_row_cells:n {#1-1}   
  }
 \socket_set_plug:nnn{tagsupport/tbl/cell/begin}{TD}
   {
     \__tbl_show_curr_cell_data:
-    \clist_if_in:NVT \l__tbl_header_columns_clist\g__tbl_col_int
-      {
-        \tl_set:Nn \l__tbl_celltag_tl {TH}
-        \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
-      }
-    \tl_set:Ne \l__tbl_tmpa_tl {\int_eval:n { \g__tbl_col_int - 1 - \g__tbl_table_cols_tl }}
-    \clist_if_in:NoT \l__tbl_header_columns_clist { \l__tbl_tmpa_tl }
-      {
-        \tl_set:Nn \l__tbl_celltag_tl {TH}
-        \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
-      }
-    \tl_set:Ne\l_tmpb_tl{\int_use:N\g__tbl_col_int-\int_eval:n {\g__tbl_row_int}}  
-    \prop_gpop:NoNTF \g__tbl_skip_cells_prop
-     { \l_tmpb_tl}\l_tmpa_tl
+    \__tbl_if_tag_cell:nnTF {\g__tbl_row_int } { \g__tbl_col_int }
+     { 
+       \clist_if_in:NVT \l__tbl_header_columns_clist\g__tbl_col_int
+         {
+           \tl_set:Nn \l__tbl_celltag_tl {TH}
+           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
+         }
+       \tl_set:Ne \l__tbl_tmpa_tl {\int_eval:n { \g__tbl_col_int - 1 - \g__tbl_table_cols_tl }}
+       \clist_if_in:NoT \l__tbl_header_columns_clist { \l__tbl_tmpa_tl }
+         {
+           \tl_set:Nn \l__tbl_celltag_tl {TH}
+           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
+         }         
+       \tag_struct_begin:n
+         {
+           tag             =\l__tbl_celltag_tl,
+           attribute-class ={\l__tbl_cellattribute_tl}
+         }
+       \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
+       \int_step_inline:nn { \g__tbl_span_tl - 1 }
+         {
+           \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
+         }
+        \tag_mc_begin:n{}  
+     }
      {\AssignSocketPlug{tagsupport/tbl/cell/end}{noop}}
-     {    
-    \tag_struct_begin:n
-      {
-        tag             =\l__tbl_celltag_tl,
-        attribute-class ={\l__tbl_cellattribute_tl}
-      }
-    \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
-    \int_step_inline:nn { \g__tbl_span_tl - 1 }
-      {
-        \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
-      }
-     \tag_mc_begin:n{}  
-      }
-    
   }
    
 \keys_define:nn{ __tag / setup }
