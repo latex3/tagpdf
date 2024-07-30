@@ -1,5 +1,5 @@
 % !Mode:: "TeX:UTF-8:Main"
-\DocumentMetadata{testphase={phase-III,table},uncompress}
+\DocumentMetadata{testphase={phase-III,table},uncompress,pdfversion=2.0}
 %\input{regression-test}
 \documentclass{article}
 %\usepackage{hyperref}
@@ -57,8 +57,9 @@
    \seq_gput_left:Ne\g__tag_attr_class_used_seq
      {\pdf_name_from_unicode_e:n{rowspan-\int_eval:n{#1}}}   
    \seq_get_right:NN\g__tbl_struct_cur_seq \l__tbl_tmpb_tl
+   \tl_set:Ne \l__tbl_tmpb_tl { \int_abs:n{\l__tbl_tmpb_tl} }
    \prop_get:cnNTF
-      { g__tag_struct_\l__tbl_tmpb_tl _prop }
+      { g__tag_struct_\int_abs:n{\l__tbl_tmpb_tl}_prop }
       { C }
       \l__tbl_tmpa_tl
       {
@@ -152,6 +153,17 @@
 \usepackage{graphicx}
 \begin{document}
 \tagpdfsetup{table/header-rows={1,-1}, table/header-columns={1,-1}}
+
+\begin{tabular}{lp{3cm}ll}
+text & \multicolumn{2}{c}{multi}& colhead\\ 
+\multicolumn{2}{c}{\tagpdfsetup{table/multirow={2}} xxx}
+ & text & colhead\\
+     & text & text & colhead\\
+head & head & head & colhead\\ 
+\end{tabular}
+
+\end{document}
+
 \begin{tabular}{lp{3cm}ll}
 text & \multicolumn{2}{c}{multi}& colhead\\ 
 \tagpdfsetup{table/multirow={2}}
