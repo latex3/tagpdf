@@ -1,3 +1,4 @@
+% !Mode:: "TeX:UTF-8:Main"
 \DocumentMetadata{testphase={phase-III,table},uncompress}
 %\input{regression-test}
 \documentclass{article}
@@ -7,7 +8,7 @@
 \prop_new:N\l__tbl_saved_untagged_cells_prop
 
 \prg_new_protected_conditional:Npnn\__tbl_if_tag_cell:nn #1 #2 %#1 row, #2 col
-  { TF }
+  { T,TF }
   {
     \prop_get:NeNTF \g__tbl_untagged_cells_prop {\int_eval:n{#1},\int_eval:n{#2}}\l__tbl_tmpa_tl
       { \prg_return_false:}
@@ -27,7 +28,7 @@
   \seq_set_eq:NN \l__tbl_saved_struct_rows_seq \g__tbl_struct_rows_seq
   \seq_set_eq:NN \l__tbl_saved_struct_cells_seq \g__tbl_struct_cells_seq
   \seq_set_eq:NN \l__tbl_saved_struct_cur_seq \g__tbl_struct_cur_seq
-  \prop_set_eq:NN\l__tbl_saved_skip_cells_prop \g__tbl_skip_cells_prop
+  \prop_set_eq:NN\l__tbl_saved_untagged_cells_prop \g__tbl_untagged_cells_prop
   \prop_gclear:N \g__tbl_untagged_cells_prop
   \seq_gclear:N\g__tbl_struct_rows_seq
   \seq_gclear:N\g__tbl_struct_cells_seq
@@ -77,7 +78,7 @@
 \socket_set_plug:nnn{tagsupport/tbl/cell/begin}{TD}
   {
     \__tbl_show_curr_cell_data:
-    \__tbl_if_tag_cell:nnTF {\g__tbl_row_int } { \g__tbl_col_int }
+    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
      { 
        \clist_if_in:NVT \l__tbl_header_columns_clist\g__tbl_col_int
          {
@@ -102,14 +103,53 @@
          }
         \tag_mc_begin:n{}  
      }
-     {\AssignSocketPlug{tagsupport/tbl/cell/end}{noop}}
   }
-   
+% for nested tables one needs to repeat the test ...   
+\socket_set_plug:nnn{tagsupport/tbl/cell/end}{TD}
+  {
+    \__tbl_if_tag_cell:nnTF {\g__tbl_row_int } { \g__tbl_col_int }
+      {
+        \tag_mc_end:
+        \tag_struct_end:
+      }  
+      {}
+  }   
+  
+\socket_set_plug:nnn{tagsupport/tbl/pcell/begin}{TDpbox}
+  {
+    \__tbl_show_curr_cell_data:
+    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
+     {
+       \clist_if_in:NVT \l__tbl_header_columns_clist\g__tbl_col_int
+         {
+           \tl_set:Nn \l__tbl_celltag_tl {TH}
+           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
+         }
+       \tag_struct_begin:n
+         {
+           tag             =\l__tbl_pcelltag_tl,
+           attribute-class ={\l__tbl_cellattribute_tl}
+         }
+       \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
+       \int_step_inline:nn { \g__tbl_span_tl - 1 }
+         {
+           \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
+         }
+       \tagpdfparaOn
+       \tl_set:Nn \l__tag_para_main_tag_tl {Div}
+     }
+  }
+\socket_set_plug:nnn{tagsupport/tbl/pcell/end}{TDpbox}
+  {
+    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
+      { \tag_struct_end: }
+  }  
 \keys_define:nn{ __tag / setup }
  { table/multirow .code:n = {\__tbl_add_multirow:n {#1} }
   ,table/multirow .default:n = 1
  } 
 \ExplSyntaxOff
+\usepackage{graphicx}
 \begin{document}
 \tagpdfsetup{table/header-rows={1,-1}, table/header-columns={1,-1}}
 \begin{tabular}{lp{3cm}ll}
@@ -118,5 +158,26 @@ text & \multicolumn{2}{c}{multi}& colhead\\
 text & text & text & colhead\\
      & text & text & colhead\\
 head & head & head & colhead\\ 
+\end{tabular}
+
+\begin{tabular}{lp{3cm}ll}
+text & \multicolumn{2}{c}{multi}& colhead\\ 
+\tagpdfsetup{table/multirow={2}}
+\begin{tabular}{ll}a&b\end{tabular}
+& text & text & colhead\\
+     & text & text & colhead\\
+head & head & head & colhead\\ 
+\end{tabular}
+
+
+\tagpdfsetup{table/header-rows={1,2}, table/header-columns={1,2}}
+
+\begin{tabular}{lllll}
+ & & \multicolumn{3}{c}{Parent} \\
+ & & P & L & TH \\
+\tagpdfsetup{table/multirow={3}}\raisebox{-2\normalbaselineskip}[0pt][0pt]{\rotatebox{90}{child}} 
+& P   & x  & x & x \\
+& L   & x  & x & x \\
+& TH  & x  & x & x \\ 
 \end{tabular}
 \end{document}
