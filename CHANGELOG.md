@@ -8,8 +8,8 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 ### Added
- - key activate/softhyphen and code to use soft hyphens for hyphenation
-   if supported by the font.
+ - a key `activate/softhyphen` and related code to use soft hyphens for hyphenation
+   if supported by the font (luamode only).
 
 ## [2024-06-20]
 Version 0.99c
