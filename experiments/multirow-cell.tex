@@ -4,165 +4,188 @@
 \documentclass{article}
 %\usepackage{hyperref}
 \ExplSyntaxOn
-\prop_new:N\g__tbl_untagged_cells_prop
-\prop_new:N\l__tbl_saved_untagged_cells_prop
+%\prop_new:N\g__tbl_untagged_cells_prop
+%\prop_new:N\l__tbl_saved_untagged_cells_prop
 
-\prg_new_protected_conditional:Npnn\__tbl_if_tag_cell:nn #1 #2 %#1 row, #2 col
-  { T,TF }
-  {
-    \prop_get:NeNTF \g__tbl_untagged_cells_prop {\int_eval:n{#1},\int_eval:n{#2}}\l__tbl_tmpa_tl
-      { \prg_return_false:}
-      { \prg_return_true: } 
-  }
-\cs_new_protected:Npn \__tbl_gset_untagged_row_cells:n #1 % #1 number of rows
-  {
-    \int_step_inline:nn {#1}
-     {
-      \prop_gput:Nee \g__tbl_untagged_cells_prop
-       { \int_eval:n {\g__tbl_row_int + ##1},\int_use:N\g__tbl_col_int }{}
-     }  
-  }
-
-\cs_set_protected:Npn \__tbl_init_struct_data: {
-  \tl_set_eq:NN  \l__tbl_saved_struct_table_tl \g__tbl_struct_table_tl
-  \seq_set_eq:NN \l__tbl_saved_struct_rows_seq \g__tbl_struct_rows_seq
-  \seq_set_eq:NN \l__tbl_saved_struct_cells_seq \g__tbl_struct_cells_seq
-  \seq_set_eq:NN \l__tbl_saved_struct_cur_seq \g__tbl_struct_cur_seq
-  \prop_set_eq:NN\l__tbl_saved_untagged_cells_prop \g__tbl_untagged_cells_prop
-  \prop_gclear:N \g__tbl_untagged_cells_prop
-  \seq_gclear:N\g__tbl_struct_rows_seq
-  \seq_gclear:N\g__tbl_struct_cells_seq
-  \seq_gclear:N\g__tbl_struct_cur_seq
-}
-
-\cs_set_protected:Npn \__tbl_restore_struct_data: {
-  \tl_gset_eq:NN  \g__tbl_struct_table_tl \l__tbl_saved_struct_table_tl
-  \seq_gset_eq:NN \g__tbl_struct_rows_seq \l__tbl_saved_struct_rows_seq
-  \seq_gset_eq:NN \g__tbl_struct_cells_seq\l__tbl_saved_struct_cells_seq
-  \seq_gset_eq:NN \g__tbl_struct_cur_seq  \l__tbl_saved_struct_cur_seq
-  \prop_gset_eq:NN\g__tbl_untagged_cells_prop \l__tbl_saved_untagged_cells_prop
-}
-
-\cs_generate_variant:Nn \__tag_struct_prop_gput:nnn {one}
-\cs_new_protected:Npn \__tbl_add_multirow:n #1
- {
-   \prop_get:NeNF \g__tag_attr_entries_prop
-      {rowspan-\int_eval:n{#1}}
-      \l__tbl_tmpa_tl
-      {
-        \__tag_attr_new_entry:ee
-          {rowspan-\int_eval:n{#1}}
-          {/O /Table /RowSpan~\int_eval:n{#1}}
-      }
-   \seq_gput_left:Ne\g__tag_attr_class_used_seq
-     {\pdf_name_from_unicode_e:n{rowspan-\int_eval:n{#1}}}   
-   \seq_get_right:NN\g__tbl_struct_cur_seq \l__tbl_tmpb_tl
-   \tl_set:Ne \l__tbl_tmpb_tl { \int_abs:n{\l__tbl_tmpb_tl} }
-   \prop_get:cnNTF
-      { g__tag_struct_\int_abs:n{\l__tbl_tmpb_tl}_prop }
-      { C }
-      \l__tbl_tmpa_tl
-      {
-        \tl_remove_once:Nn \l__tbl_tmpa_tl {[}
-        \tl_remove_once:Nn \l__tbl_tmpa_tl {]}
-        \__tag_struct_prop_gput:one{ \l__tbl_tmpb_tl }
-          {C}
-          {[/rowspan-\int_eval:n{#1}~\l__tbl_tmpa_tl]} 
-      } 
-      {
-        \__tag_struct_prop_gput:one{ \l__tbl_tmpb_tl }
-          {C}
-          {[/rowspan-\int_eval:n{#1}]} 
-      } 
-   \__tbl_gset_untagged_row_cells:n {#1-1}   
- }
-\socket_set_plug:nnn{tagsupport/tbl/cell/begin}{TD}
-  {
-    \__tbl_show_curr_cell_data:
-    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
-     { 
-       \clist_if_in:NVT \l__tbl_header_columns_clist\g__tbl_col_int
-         {
-           \tl_set:Nn \l__tbl_celltag_tl {TH}
-           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
-         }
-       \tl_set:Ne \l__tbl_tmpa_tl {\int_eval:n { \g__tbl_col_int - 1 - \g__tbl_table_cols_tl }}
-       \clist_if_in:NoT \l__tbl_header_columns_clist { \l__tbl_tmpa_tl }
-         {
-           \tl_set:Nn \l__tbl_celltag_tl {TH}
-           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
-         }         
-       \tag_struct_begin:n
-         {
-           tag             =\l__tbl_celltag_tl,
-           attribute-class ={\l__tbl_cellattribute_tl}
-         }
-       \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
-       \int_step_inline:nn { \g__tbl_span_tl - 1 }
-         {
-           \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
-         }
-        \tag_mc_begin:n{}  
-     }
-  }
-% for nested tables one needs to repeat the test ...   
-\socket_set_plug:nnn{tagsupport/tbl/cell/end}{TD}
-  {
-    \__tbl_if_tag_cell:nnTF {\g__tbl_row_int } { \g__tbl_col_int }
-      {
-        \tag_mc_end:
-        \tag_struct_end:
-      }  
-      {}
-  }   
+%\prg_new_protected_conditional:Npnn\__tbl_if_tag_cell:nn #1 #2 %#1 row, #2 col
+%  { T,TF }
+%  {
+%    \prop_get:NeNTF \g__tbl_untagged_cells_prop {\int_eval:n{#1},\int_eval:n{#2}}\l__tbl_tmpa_tl
+%      { \prg_return_false:}
+%      { \prg_return_true: } 
+%  }
+%\cs_new_protected:Npn \__tbl_gset_untagged_row_cells:nn #1 #2 % #1 number of rows, #2 number of columns
+%  {
+%    \int_step_inline:nn {#1}
+%     { 
+%       \int_step_inline:nn {#2}
+%        {
+%          \prop_gput:Nee \g__tbl_untagged_cells_prop
+%           { \int_eval:n {\g__tbl_row_int + ##1},\int_eval:n{\g__tbl_col_int + ####1 -1 } }{}
+%        }   
+%     }  
+%   \prop_show:N \g__tbl_untagged_cells_prop  
+%  }
   
-\socket_set_plug:nnn{tagsupport/tbl/pcell/begin}{TDpbox}
-  {
-    \__tbl_show_curr_cell_data:
-    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
-     {
-       \clist_if_in:NVT \l__tbl_header_columns_clist\g__tbl_col_int
-         {
-           \tl_set:Nn \l__tbl_celltag_tl {TH}
-           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
-         }
-       \tag_struct_begin:n
-         {
-           tag             =\l__tbl_pcelltag_tl,
-           attribute-class ={\l__tbl_cellattribute_tl}
-         }
-       \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
-       \int_step_inline:nn { \g__tbl_span_tl - 1 }
-         {
-           \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
-         }
-       \tagpdfparaOn
-       \tl_set:Nn \l__tag_para_main_tag_tl {Div}
-     }
-  }
-\socket_set_plug:nnn{tagsupport/tbl/pcell/end}{TDpbox}
-  {
-    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
-      { \tag_struct_end: }
-  }  
-\keys_define:nn{ __tag / setup }
- { table/multirow .code:n = {\__tbl_add_multirow:n {#1} }
-  ,table/multirow .default:n = 1
- } 
+
+%\cs_set_protected:Npn \__tbl_init_struct_data: {
+%  \tl_set_eq:NN  \l__tbl_saved_struct_table_tl \g__tbl_struct_table_tl
+%  \seq_set_eq:NN \l__tbl_saved_struct_rows_seq \g__tbl_struct_rows_seq
+%  \seq_set_eq:NN \l__tbl_saved_struct_cells_seq \g__tbl_struct_cells_seq
+%  \seq_set_eq:NN \l__tbl_saved_struct_cur_seq \g__tbl_struct_cur_seq
+%  \prop_set_eq:NN\l__tbl_saved_untagged_cells_prop \g__tbl_untagged_cells_prop
+%  \prop_gclear:N \g__tbl_untagged_cells_prop
+%  \seq_gclear:N\g__tbl_struct_rows_seq
+%  \seq_gclear:N\g__tbl_struct_cells_seq
+%  \seq_gclear:N\g__tbl_struct_cur_seq
+%}
+%
+%\cs_set_protected:Npn \__tbl_restore_struct_data: {
+%  \tl_gset_eq:NN  \g__tbl_struct_table_tl \l__tbl_saved_struct_table_tl
+%  \seq_gset_eq:NN \g__tbl_struct_rows_seq \l__tbl_saved_struct_rows_seq
+%  \seq_gset_eq:NN \g__tbl_struct_cells_seq\l__tbl_saved_struct_cells_seq
+%  \seq_gset_eq:NN \g__tbl_struct_cur_seq  \l__tbl_saved_struct_cur_seq
+%  \prop_gset_eq:NN\g__tbl_untagged_cells_prop \l__tbl_saved_untagged_cells_prop
+%}
+%\tl_new:N\l_current_colspan_tl
+%\tl_set:Nn\l_current_colspan_tl{1}
+%\cs_generate_variant:Nn \__tag_struct_prop_gput:nnn {one}
+%\cs_new_protected:Npn \__tbl_add_multirow:n #1
+% { 
+%   \prop_get:NeNF \g__tag_attr_entries_prop
+%      {rowspan-\int_eval:n{#1}}
+%      \l__tbl_tmpa_tl
+%      {
+%        \__tag_attr_new_entry:ee
+%          {rowspan-\int_eval:n{#1}}
+%          {/O /Table /RowSpan~\int_eval:n{#1}}
+%      }
+%   \seq_gput_left:Ne\g__tag_attr_class_used_seq
+%     {\pdf_name_from_unicode_e:n{rowspan-\int_eval:n{#1}}}   
+%   \seq_get_right:NN\g__tbl_struct_cur_seq \l__tbl_tmpb_tl
+%   \tl_set:Ne \l__tbl_tmpb_tl { \int_abs:n{\l__tbl_tmpb_tl} }
+%   \prop_get:cnNTF
+%      { g__tag_struct_\int_abs:n{\l__tbl_tmpb_tl}_prop }
+%      { C }
+%      \l__tbl_tmpa_tl
+%      {
+%        \tl_remove_once:Nn \l__tbl_tmpa_tl {[}
+%        \tl_remove_once:Nn \l__tbl_tmpa_tl {]}
+%        \__tag_struct_prop_gput:one{ \l__tbl_tmpb_tl }
+%          {C}
+%          {[/rowspan-\int_eval:n{#1}~\l__tbl_tmpa_tl]} 
+%      } 
+%      {
+%        \__tag_struct_prop_gput:one{ \l__tbl_tmpb_tl }
+%          {C}
+%          {[/rowspan-\int_eval:n{#1}]} 
+%      } 
+%    \__tbl_gset_untagged_row_cells:nn {#1-1}{\g__tbl_span_tl}   
+% }
+%\socket_set_plug:nnn{tagsupport/tbl/cell/begin}{TD}
+%  {
+%    \__tbl_show_curr_cell_data:
+%    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
+%     { 
+%       \clist_if_in:NVT \l__tbl_header_columns_clist\g__tbl_col_int
+%         {
+%           \tl_set:Nn \l__tbl_celltag_tl {TH}
+%           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
+%         }
+%       \tl_set:Ne \l__tbl_tmpa_tl {\int_eval:n { \g__tbl_col_int - 1 - \g__tbl_table_cols_tl }}
+%       \clist_if_in:NoT \l__tbl_header_columns_clist { \l__tbl_tmpa_tl }
+%         {
+%           \tl_set:Nn \l__tbl_celltag_tl {TH}
+%           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
+%         }         
+%       \tag_struct_begin:n
+%         {
+%           tag             =\l__tbl_celltag_tl,
+%           attribute-class ={\l__tbl_cellattribute_tl}
+%         }
+%       \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
+%       \int_step_inline:nn { \g__tbl_span_tl - 1 }
+%         {
+%           \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
+%         }
+%        \tag_mc_begin:n{}  
+%     }
+%  }
+%% for nested tables one needs to repeat the test ...   
+%\socket_set_plug:nnn{tagsupport/tbl/cell/end}{TD}
+%  {
+%    \__tbl_if_tag_cell:nnTF {\g__tbl_row_int } { \g__tbl_col_int }
+%      {
+%        \tag_mc_end:
+%        \tag_struct_end:
+%      }  
+%      {}
+%  }   
+  
+%\socket_set_plug:nnn{tagsupport/tbl/pcell/begin}{TDpbox}
+%  {
+%    \__tbl_show_curr_cell_data:
+%    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
+%     {
+%       \clist_if_in:NVT \l__tbl_header_columns_clist\g__tbl_col_int
+%         {
+%           \tl_set:Nn \l__tbl_celltag_tl {TH}
+%           \tl_set:Ne \l__tbl_cellattribute_tl {\l__tbl_cellattribute_tl,TH-row}
+%         }
+%       \tag_struct_begin:n
+%         {
+%           tag             =\l__tbl_pcelltag_tl,
+%           attribute-class ={\l__tbl_cellattribute_tl}
+%         }
+%       \seq_gput_right:Ne \g__tbl_struct_cur_seq { \tag_get:n {struct_num} }
+%       \int_step_inline:nn { \g__tbl_span_tl - 1 }
+%         {
+%           \seq_gput_right:Ne \g__tbl_struct_cur_seq { -\tag_get:n {struct_num} }
+%         }
+%       \tagpdfparaOn
+%       \tl_set:Nn \l__tag_para_main_tag_tl {Div}
+%     }
+%  }
+%\socket_set_plug:nnn{tagsupport/tbl/pcell/end}{TDpbox}
+%  {
+%    \__tbl_if_tag_cell:nnT {\g__tbl_row_int } { \g__tbl_col_int }
+%      { \tag_struct_end: }
+%  }
+  
+%\socket_set_plug:nnn{tagsupport/tbl/colspan}{code}
+%  { 
+%    \int_compare:nNnT {#1}>{1}
+%     {
+%       \prop_get:NeNF \g__tag_attr_entries_prop
+%          {colspan-\int_eval:n{#1}}
+%          \l__tbl_tmpa_tl
+%          {
+%            \__tag_attr_new_entry:ee
+%              {colspan-\int_eval:n{#1}}
+%              {/O /Table /ColSpan~\int_eval:n{#1}}
+%          }
+%       \tl_set:Ne \l__tbl_cellattribute_tl
+%          {\l__tbl_cellattribute_tl,colspan-\int_eval:n{#1}}
+%     }
+%  }    
+%\keys_define:nn{ __tag / setup }
+% { table/multirow .code:n = {\__tbl_multirow:n {#1} }
+%  ,table/multirow .default:n = 1
+% } 
 \ExplSyntaxOff
 \usepackage{graphicx}
 \begin{document}
 \tagpdfsetup{table/header-rows={1,-1}, table/header-columns={1,-1}}
-
+\ExplSyntaxOn
 \begin{tabular}{lp{3cm}ll}
 text & \multicolumn{2}{c}{multi}& colhead\\ 
-\multicolumn{2}{c}{\tagpdfsetup{table/multirow={2}} xxx}
+\multicolumn{2}{c}{\tagpdfsetup{table/multirow={2}}xx xxx}
  & text & colhead\\
      & text & text & colhead\\
 head & head & head & colhead\\ 
 \end{tabular}
+\ExplSyntaxOff
 
-\end{document}
 
 \begin{tabular}{lp{3cm}ll}
 text & \multicolumn{2}{c}{multi}& colhead\\ 
