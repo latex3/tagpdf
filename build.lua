@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.99c"
-packagedate="2024-06-20"
+packageversion="0.99d"
+packagedate="2024-08-02"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -26,7 +26,7 @@ uploadconfig = {
   email    = mydata.email,
   update   = true ,
   topic=    "tagged-pdf",
-  note     = [[Uploaded automatically by l3build...]],
+  note     = [[The description and summary has been changed! Uploaded automatically by l3build...]],
   description=[[The package contains the core code for tagging and accessibility used by the LaTeX kernel in the Tagged PDF project. See https://github.com/latex3/tagging-project for more information.]],
   announcement_file="ctan.ann"
 }
