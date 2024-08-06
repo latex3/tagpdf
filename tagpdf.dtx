@@ -191,34 +191,7 @@
  }
 %</base>
 %    \end{macrocode}
-% \subsection{Indexed objects}
-% 2024-04-11: Temporary code! Can be removed after the next expl3 release!
-%    \begin{macrocode}
-\cs_if_free:NT \pdf_object_new_indexed:nn
- {
-   \cs_generate_variant:Nn \pdf_object_new:n {e}
-   \cs_generate_variant:Nn \pdf_object_write:nnn {enn}
-   \cs_new_protected:Npn \pdf_object_new_indexed:nn #1 #2 
-     {
-       \pdf_object_new:e {#1/\int_eval:n{#2}}
-     }
-   \cs_new_protected:Npn \pdf_object_write_indexed:nnnn #1 #2 #3 #4
-     {
-       \pdf_object_write:enn {#1/\int_eval:n{#2}}{#3}{#4}
-     }   
-   \cs_generate_variant:Nn \pdf_object_write_indexed:nnnn {nnne}
-   \cs_new:Npn\pdf_object_ref_indexed:nn #1 #2
-     {
-       \pdf_object_ref:e {#1/\int_eval:n{#2}}
-     } 
-   \cs_new:Npn \__kernel_pdf_object_id_indexed:nn #1 #2
-     {
-       \int_use:c
-         { c__pdf_object_ #1/\int_eval:n{#2} _int }       
-     }  
- }
-
-%    \end{macrocode}
+%
 % \subsection{a LastPage label}
 % See also issue \#2 in Accessible-xref
 % \begin{macro}{\@@_lastpagelabel:}
