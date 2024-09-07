@@ -907,34 +907,48 @@
     \tl_clear:N #2
     \prop_map_inline:cn { g_@@_struct_#1_prop }
       {
-        \tl_put_right:Ne #2 
-          {
 %    \end{macrocode}
 % Some keys needs the option to format the value, e.g. add brackets for an
 % array, we also need the option to ignore some entries in the properties.
-%    \begin{macrocode}        
-           \cs_if_exist_use:cTF {@@_struct_format_##1:nn}
-             {{##1}{##2}}
-             {\c_space_tl/##1~##2}
+%    \begin{macrocode}
+        \cs_if_exist_use:cTF {@@_struct_format_##1:nnN}
+          {
+            {##1}{##2}#2
           }
-      }
+          {
+            \tl_put_right:Ne #2 { \c_space_tl/##1~##2 } 
+          }
+      }    
   }
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_struct_format_rolemap:nn,\@@_struct_format_parentrole:nn}
+% \begin{macro}{\@@_struct_format_rolemap:nnN,\@@_struct_format_parentrole:nnN}
 % This two entries should not end in the PDF.
 %    \begin{macrocode}
-\cs_new:Nn\@@_struct_format_rolemap:nn{}
-\cs_new:Nn\@@_struct_format_parentrole:nn{}
+\cs_new:Nn\@@_struct_format_rolemap:nnN{}
+\cs_new:Nn\@@_struct_format_parentrole:nnN{}
 %    \end{macrocode}
 % \end{macro}
 
-% \begin{macro}{\@@_struct_format_Ref:nn}
-% Ref is an array, we store only the content to be able to extend it
-% so the formatting command adds the brackets:
+% \begin{macro}{\@@_struct_format_Ref:nnN}
+% Ref is an array, we store values as a clist of commands that must
+% be executed here, the formatting has to add also brackets. 
+% 
 %    \begin{macrocode}
-\cs_new:Nn\__tag_struct_format_Ref:nn{\c_space_tl/#1~[#2]}
+\cs_new:Nn\__tag_struct_format_Ref:nnN
+  {
+    \tl_put_right:Nn #3 { \c_space_tl/#1~[ } %]
+    \clist_map_inline:nn{ #2 }
+     {
+       ##1 \l_@@_struct_tmpa_tl
+       \tl_put_right:No #3 {\c_space_tl\l_@@_struct_tmpa_tl}  
+     }
+    \tl_put_right:Nn #3 
+     { %[
+      ]
+     }  
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_struct_write_obj:n}
@@ -1233,20 +1247,64 @@
           { Lang }
           { (#1) }
       },
+    }  
 %    \end{macrocode}
-% Ref is an array, the brackets are added through the formatting command.
+% Ref is rather special as it values are often
+% known only at the end of the document.
+% It therefore stores it values as
+% clist of commands which are executed at the end of the document,
+% when the structure elements are written.
+% \begin{macro}{\@@_struct_Ref_label:nN,\@@_struct_Ref_dest:nN}
+% this two commands are helper commands that are stored as clist
+% in the Ref key of a structure. They are executed when the structure
+% elements are written in  \cs{@@_struct_write_obj}. They are used
+% in \cs{@@_struct_format_Ref}.
 %    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_Ref_label:n %#1 a label
+  {
+    \c_space_tl\@@_property_ref:en{tagpdfstruct-#1}{tagstructobj}
+  }
+\cs_new_protected:Npn \@@_struct_Ref_dest:nN %#1 a dest name
+  { 
+    \prop_get:NnNTF \g_@@_struct_dest_num_prop {#1} \l_@@_tmpa_tl
+      {
+        \tl_put_right:Ne#2
+          {
+            \tag_struct_object_ref:e{ \l_@@_tmpa_tl }
+          }
+      }    
+      {
+        \msg_warning:nnnn {tag}{struct-dest-unknown}{##2}{ ##1}
+      }
+  } 
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\keys_define:nn { @@ / struct }
+  {
     ref .code:n        = % ref property
       {
         \tl_clear:N\l_@@_tmpa_tl
         \clist_map_inline:on {#1}
           {
-            \tl_put_right:Ne \l_@@_tmpa_tl
-              {~\@@_property_ref:en{tagpdfstruct-##1}{tagstructobj} }
+            \tl_put_right:Nn \l_@@_tmpa_tl
+              {\@@_struct_Ref_label:nN{##1},}
           }
-        \@@_struct_gput_data_ref:ee 
+        \@@_struct_gput_data_ref:no 
          { \int_use:N \c@g_@@_struct_abs_int } {\l_@@_tmpa_tl}
       },
+    refdest .code:n        = % ref property
+      {
+        \tl_clear:N\l_@@_tmpa_tl
+        \clist_map_inline:on {#1}
+          {
+            \tl_put_right:Nn \l_@@_tmpa_tl
+              {\@@_struct_Ref_dest:nN{##1},}
+          }
+        \@@_struct_gput_data_ref:no 
+         { \int_use:N \c@g_@@_struct_abs_int } {\l_@@_tmpa_tl}
+      },     
     E .code:n        = % E property
       {
         \str_set_convert:Nnon
@@ -1886,16 +1944,24 @@
 \cs_new_protected:Npn \@@_struct_gput_data_ref:nn #1 #2
   % #1 receiving struct num, #2 list of object ref
    {
-     \prop_get:cnN
+     \prop_get:cnNTF
         { g_@@_struct_#1_prop }
         {Ref}
         \l_@@_get_tmpc_tl
-     \@@_struct_prop_gput:nne
-        { #1 }
-        { Ref }
-        { \quark_if_no_value:NF\l_@@_get_tmpc_tl { \l_@@_get_tmpc_tl\c_space_tl }#2 }
+        {
+         \@@_struct_prop_gput:nno
+            { #1 }
+            { Ref }
+            { \l_@@_get_tmpc_tl,#2 }
+        }
+        {
+          \@@_struct_prop_gput:nnn
+            { #1 }
+            { Ref }
+            { #2 }
+        } 
     }
-\cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee}
+\cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee,no}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}
