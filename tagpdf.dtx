@@ -550,7 +550,8 @@
 %    \begin{macrocode}
 \cs_set_protected:Npn \tag_stop:n #1
   {
-%<debug>    \msg_note:nnee {tag / debug }{tag-stop}{ \int_use:N \l_@@_tag_stop_int }{#1}           
+%<debug>    \msg_note:nnee {tag / debug }{tag-stop}
+%<debug>       { \int_use:N \l_@@_tag_stop_int }{\exp_not:n{#1}}           
     \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
@@ -567,7 +568,8 @@
         \bool_set_true:N \l_@@_active_socket_bool
         \@@_start_para_ints:
       } 
-%<debug>    \msg_note:nnee {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }{#1}             
+%<debug>    \msg_note:nnee {tag / debug }{tag-start}
+%<debug>       { \int_use:N \l_@@_tag_stop_int }{\exp_not:n{#1}}             
   }
 %</package|debug>
 %<*base>
