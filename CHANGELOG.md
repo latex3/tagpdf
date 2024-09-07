@@ -4,7 +4,12 @@ All notable changes to the `tagpdf` package since the
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
- 
+
+## [Unreleased]
+
+### Changed
+ - \tag_stop:n and \tag_start:n no longer expand key in debug mode.
+  
 ## [2024-08-02]
 Version 0.99d
 
