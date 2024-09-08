@@ -936,13 +936,13 @@
 % be executed here, the formatting has to add also brackets. 
 % 
 %    \begin{macrocode}
-\cs_new:Nn\__tag_struct_format_Ref:nnN
+\cs_new_protected:Nn\@@_struct_format_Ref:nnN
   {
     \tl_put_right:Nn #3 { \c_space_tl/#1~[ } %]
     \clist_map_inline:nn{ #2 }
      {
-       ##1 \l_@@_struct_tmpa_tl
-       \tl_put_right:No #3 {\c_space_tl\l_@@_struct_tmpa_tl}  
+       ##1 \l_@@_Ref_tmpa_tl
+       \tl_put_right:No #3 {\c_space_tl\l_@@_Ref_tmpa_tl}  
      }
     \tl_put_right:Nn #3 
      { %[
@@ -1260,17 +1260,20 @@
 % elements are written in  \cs{@@_struct_write_obj}. They are used
 % in \cs{@@_struct_format_Ref}.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_Ref_label:n %#1 a label
+\cs_new_protected:Npn \@@_struct_Ref_label:nN #1 #2 %#1 a label
   {
-    \c_space_tl\@@_property_ref:en{tagpdfstruct-#1}{tagstructobj}
+    \tl_put_right:Ne#2
+      {
+        \c_space_tl\@@_property_ref:en{tagpdfstruct-#1}{tagstructobj}
+      }  
   }
-\cs_new_protected:Npn \@@_struct_Ref_dest:nN %#1 a dest name
+\cs_new_protected:Npn \@@_struct_Ref_dest:nN #1 #2 %#1 a dest name
   { 
-    \prop_get:NnNTF \g_@@_struct_dest_num_prop {#1} \l_@@_tmpa_tl
+    \prop_get:NnNTF \g_@@_struct_dest_num_prop {#1} \l_@@_tmpb_tl
       {
         \tl_put_right:Ne#2
           {
-            \tag_struct_object_ref:e{ \l_@@_tmpa_tl }
+            \tag_struct_object_ref:e{ \l_@@_tmpb_tl }
           }
       }    
       {
