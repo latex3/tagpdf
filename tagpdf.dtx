@@ -202,10 +202,22 @@
       {
         \tag_if_active:T
           {
-            \tag_struct_gput:nnn {#1}{ref}{\__tag_struct_Ref_num:nN { #2 }}
+            \tag_struct_gput:nnn {#1}{ref}{\@@_struct_Ref_num:nN { #2 }}
           }
       }
   }
+\AddToHook{package/latex-lab-testphase-toc/after}
+  {
+    \cs_set_protected:Npn \g_@@_struct_ref_by_dest:
+      {
+        \prop_map_inline:Nn\g_@@_struct_ref_by_dest_prop
+          {
+            \@@_struct_gput_data_ref:nn
+              { ##1 }
+              { \@@_struct_Ref_dest:nN{ ##2 }}
+          }
+      }
+  }  
 %</package>
 %    \end{macrocode}
 %
