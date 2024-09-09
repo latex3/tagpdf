@@ -442,12 +442,16 @@
 \tl_new:N \l_@@_struct_roletag_NS_tl
 %    \end{macrocode}
 % \end{variable}
-% \begin{variable}{\l_@@_struct_key_label_tl}
-% This will hold the label value.
+% \begin{variable}{\g_@@_struct_label_num_prop}
+% This will hold for every structure label the associated 
+% structure number. The prop will allow to 
+% fill the /Ref key directly at the first compilation if the ref
+% key is used.
 %    \begin{macrocode}
-\tl_new:N \l_@@_struct_key_label_tl
+\prop_new_linked:N \g_@@_struct_label_num_prop
 %    \end{macrocode}
 % \end{variable}
+
 % \begin{variable}{\l_@@_struct_elem_stash_bool}
 % This will keep track of the stash status
 %    \begin{macrocode}
@@ -1161,7 +1165,14 @@
 %    \begin{macrocode}
 \keys_define:nn { @@ / struct }
   {
-    label .tl_set:N      = \l_@@_struct_key_label_tl,
+    label .code:n        = 
+      {
+        \prop_gput:Nne\g_@@_struct_label_num_prop 
+          {#1}{\int_use:N \c@g_@@_struct_abs_int}
+        \@@_property_record:eV
+          {tagpdfstruct-#1}
+          \c_@@_property_struct_clist  
+      },
     stash .bool_set:N    = \l_@@_struct_elem_stash_bool,
     parent .code:n       =
       {
@@ -1541,13 +1552,6 @@
            \g_@@_struct_tag_tl               
            \g_@@_struct_tag_NS_tl   
         \@@_check_structure_has_tag:n { \int_use:N \c@g_@@_struct_abs_int }           
-        \tl_if_empty:NF
-          \l_@@_struct_key_label_tl
-          {
-            \@@_property_record:eV
-             {tagpdfstruct-\l_@@_struct_key_label_tl}
-             \c_@@_property_struct_clist
-          }
 %    \end{macrocode}
 % The structure number of the parent is either taken from the stack or
 % has been set with the parent key.
