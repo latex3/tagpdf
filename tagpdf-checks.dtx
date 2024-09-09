@@ -336,6 +336,7 @@
 %</header>
 %    \end{macrocode}
 % \section{Messages}
+%
 % \subsection{Messages related to mc-chunks}
 % \begin{macro}{mc-nested}
 % This message is issue is a mc is opened before the previous has been closed.
@@ -452,6 +453,18 @@
 %    \begin{macrocode}
 \msg_new:nnn { tag } {struct-show-closing}
   { closing~structure~#1~tagged~\use:e{\prop_item:cn{g_@@_struct_#1_prop}{S}} }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{struct-Ref-dest-unknown}
+% This message is issued at the end, when the Ref keys are updated.
+% TODO: in debug mode it should report more info about the structure.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-Ref-dest-unknown}
+ {
+    Destination~#1~has~no~related~structure.\\
+    /Ref~not~updated.
+ }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{tree-struct-still-open}
