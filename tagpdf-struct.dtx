@@ -1264,18 +1264,25 @@
 % It therefore stores it values as
 % clist of commands which are executed at the end of the document,
 % when the structure elements are written.
-% \begin{macro}{\@@_struct_Ref_label:nN,\@@_struct_Ref_dest:nN}
-% this two commands are helper commands that are stored as clist
+% \begin{macro}{\@@_struct_Ref_label:nN,\@@_struct_Ref_dest:nN,\@@_struct_Ref_num:nN,}
+% this commands are helper commands that are stored as clist
 % in the Ref key of a structure. They are executed when the structure
 % elements are written in  \cs{@@_struct_write_obj}. They are used
-% in \cs{@@_struct_format_Ref}.
+% in \cs{@@_struct_format_Ref}. They allow to add a Ref by label, destname
+% and structure number
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_Ref_label:nN #1 #2 %#1 a label
   {
-    \tl_put_right:Ne#2
+    \prop_get:NnNTF \g_@@_struct_label_num_prop {#1} \l_@@_tmpb_tl
       {
-        \c_space_tl\@@_property_ref:en{tagpdfstruct-#1}{tagstructobj}
-      }  
+        \tl_put_right:Ne#2
+          {
+            \c_space_tl\tag_struct_object_ref:e{ \l_@@_tmpb_tl }
+          }
+      }    
+      {
+        \msg_warning:nnn {tag}{struct-Ref-unknown}{Label~#1}
+      }    
   }
 \cs_new_protected:Npn \@@_struct_Ref_dest:nN #1 #2 %#1 a dest name
   { 
@@ -1287,9 +1294,17 @@
           }
       }    
       {
-        \msg_warning:nnn {tag}{struct-Ref-dest-unknown}{#1}
+        \msg_warning:nnn {tag}{struct-Ref-unknown}{Destination~#1}
       }
-  } 
+  }
+\cs_new_protected:Npn \@@_struct_Ref_num:nN #1 #2 %#1 a structure number
+  {
+    \tl_put_right:Ne#2
+      {
+        \c_space_tl\tag_struct_object_ref:e{ #1 }
+      }  
+  }
+   
 %    \end{macrocode}
 % \end{macro}
 %

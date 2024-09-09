@@ -114,7 +114,7 @@
 \cs_set_protected:Npn \@@_prop_gput:Nnn #1 #2 #3
   {
     \prop_gput:Nnn #1 { #2 } { #3 }
-    \lua_now:e { ltx.@@.tables.\cs_to_str:N#1 ["#2"] = "#3" }
+    \lua_now:e { ltx.@@.tables.\cs_to_str:N#1 ["#2"] = "\lua_escape:n{#3}" }
   }
 
 

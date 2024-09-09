@@ -456,13 +456,13 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{struct-Ref-dest-unknown}
+% \begin{macro}{struct-Ref-unknown}
 % This message is issued at the end, when the Ref keys are updated.
 % TODO: in debug mode it should report more info about the structure.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {struct-Ref-dest-unknown}
+\msg_new:nnn { tag } {struct-Ref-unknown}
  {
-    Destination~#1~has~no~related~structure.\\
+     #1~has~no~related~structure.\\
     /Ref~not~updated.
  }
 %    \end{macrocode}
