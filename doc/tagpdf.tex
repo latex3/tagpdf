@@ -1031,7 +1031,7 @@ The key-val list understands the following keys:
       marked but not stored in the kid-key of the current structure. 
 
   \item[\PrintKeyName{label}] This key sets a label by which you can call 
-      the marked content later in another structure (if it has been stashed 
+      the marked content \emph{later} in another structure (if it has been stashed 
       with the previous key). Internally the label name will start with 
       \texttt{tagpdf-}. 
 
@@ -1175,10 +1175,10 @@ This (expandable) command returns the values of some variables. Currently, the w
 
 \item \verb+struct_counter+: This returns a number and works also if
   only \pkg{tagpdf-base} has been loaded. It gives back the state of
-  the absolute structure counter and so number of the last structure
+  the absolute structure counter and so the number of the last structure
   that has been created. This can be used to detect if in a piece of
   code there are structure commands. Be aware that this is a \LaTeX{}
-  counter and so reset in some places.
+  counter and so is reset in some places.
 
 \item \verb+mc_counter+: This returns a number and works also if only
   \pkg{tagpdf-base} has been loaded. It gives back the state of the
@@ -1699,20 +1699,20 @@ The key-val list understands the following keys:
     content and structures.
 
   \item[\PrintKeyName{label}] This key sets a label by which one can
-    refer to the structure. It is e.g.  used by
-    \cs{tag\_struct\_use:n} (where a real label is actually not needed
-    as you can only use structures already defined), and by the |ref|
-    key (which can refer to future structures).  Internally the label
-    name will start with \texttt{tagpdfstruct-} and it stores the two
+    refer to the structure. Currently the key writes a property whose
+    name starts with \texttt{tagpdfstruct-} to the aux-file with the two
     attributes \texttt{tagstruct} (the structure number) and
-    \texttt{tagstructobj} (the object reference).
+    \texttt{tagstructobj} (the object reference) but also stores the 
+    name and the structure number into a prop for use in the current compilation.
+    The label is e.g. used by \cs{tag\_struct\_use:n} and by the |ref|
+    key (which can refer to future structures).  
 
   \item[\PrintKeyName{parent}]  With the parent key one can choose another 
       parent. The value is a structure number which must refer to an 
       already existing, previously created structure. Such a structure 
       number can have been stored previously with \cs{tag\_get:n}, but one 
       can also use a label on the parent structure and then use 
-      \cs{ref\_value:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve 
+      \cs{property\_ref:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve 
       it. 
 
   \item[\PrintKeyName{alt}] This key inserts an \texttt{/Alt} value in the 
@@ -1852,7 +1852,9 @@ The key-val list understands the following keys:
      structure.  The value should be a comma separated list of
      structure labels set with the |label| key.
      e.g. |ref={label1,label2}|. It can be used more than once in the
-     key/value argument and combines the references.
+     key/value argument and combines the references. See below 
+     in section~\ref{sec:Refkey} for an extended discussion about the |/Ref|
+     array.
 
    \item[\PrintKeyName{E}] This key sets the |/E| key, the expanded
      form of an abbreviation or an acronym (I couldn't think of a
@@ -1876,6 +1878,9 @@ matter if they are in another group as the starting commands.
 These commands insert a structure previously stashed away as kid into the 
 currently active structure. A structure should be used only once, if the 
 structure already has a parent you will get a warning. 
+
+\subsubsection{Handling the \texttt{Ref} key in structures}\label{sec:Refkey}
+
 
 
 \subsubsection{Root structure}
