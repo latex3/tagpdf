@@ -200,10 +200,7 @@
   {
     \cs_set_protected:Npn \__fnote_gput_ref:nn #1 #2 %#1 the structure number receiving the ref #2
       {
-        \tag_if_active:T
-          {
-            \tag_struct_gput:nnn {#1}{ref}{\@@_struct_Ref_num:nN { #2 }}
-          }
+        \tag_struct_gput_ref:nnn {#1}{num}{#2}
       }
   }
 \AddToHook{package/latex-lab-testphase-toc/after}
@@ -212,9 +209,7 @@
       {
         \prop_map_inline:Nn\g_@@_struct_ref_by_dest_prop
           {
-            \@@_struct_gput_data_ref:nn
-              { ##1 }
-              { \@@_struct_Ref_dest:nN{ ##2 }}
+            \tag_struct_gput_ref:nnn {##1}{dest}{##2}
           }
       }
   }  

@@ -120,6 +120,18 @@
 % the third the value. Currently the only keyword is \texttt{ref} which updates
 % the Ref key (an array)
 % \end{function}
+%
+% \begin{function}{\tag_struct_gput_ref:nnn}
+% \begin{syntax}
+%  \cs{tag_struct_gput_ref:nnn}\Arg{structure number}\Arg{keyword}\Arg{value}
+%  \end{syntax}
+% This is an user interface to add a Ref key to an
+% existing structure. The target structure doesn't have to exist yet
+% but can be addressed by label, destname or even num.
+% \meta{keyword} is currently either \texttt{label}, \texttt{dest}
+% or \texttt{num}. The value is then either a label name, the name of a destination
+% or a structure number.
+% \end{function}
 % 
 % \section{Public keys}
 % \subsection{Keys for the structure commands}
@@ -1316,23 +1328,12 @@
         \tl_clear:N\l_@@_tmpa_tl
         \clist_map_inline:on {#1}
           {
-            \tl_put_right:Nn \l_@@_tmpa_tl
-              {\@@_struct_Ref_label:nN{##1},}
+            \tl_put_right:Ne \l_@@_tmpa_tl
+              {\exp_not:N\@@_struct_Ref_label:nN{##1},}
           }
         \@@_struct_gput_data_ref:no 
          { \int_use:N \c@g_@@_struct_abs_int } {\l_@@_tmpa_tl}
       },
-    refdest .code:n        = % ref property
-      {
-        \tl_clear:N\l_@@_tmpa_tl
-        \clist_map_inline:on {#1}
-          {
-            \tl_put_right:Nn \l_@@_tmpa_tl
-              {\@@_struct_Ref_dest:nN{##1},}
-          }
-        \@@_struct_gput_data_ref:no 
-         { \int_use:N \c@g_@@_struct_abs_int } {\l_@@_tmpa_tl}
-      },     
     E .code:n        = % E property
       {
         \str_set_convert:Nnon
@@ -1959,10 +1960,19 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\tag_struct_add_ref:nnn}
+% \begin{macro}{\tag_struct_gput_ref:nnn}
+% This is an user interface to add a Ref key to an
+% existing structure. The target structure doesn't have to exist yet
+% but can be addressed by label, destname or even num.
 %    \begin{macrocode}
+%<base>\cs_new_protected:Npn \tag_struct_gput_ref:nnn #1 #2 #3{}
 %<*package>
-
+\cs_set_protected:Npn \tag_struct_gput_ref:nnn #1 #2 #3 
+%#1 structnum, #2 label, dest or num, #3 value 
+  {
+    \@@_struct_gput_data_ref:no 
+         { #1 } {\cs:w @@_struct_Ref_#2:nN \cs_end: { #3 } , }
+  }
 %</package>
 %    \end{macrocode}
 % \end{macro}

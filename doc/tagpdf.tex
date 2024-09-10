@@ -1881,6 +1881,21 @@ structure already has a parent you will get a warning.
 
 \subsubsection{Handling the \texttt{Ref} key in structures}\label{sec:Refkey}
 
+Structures that cross reference other structures, e.g. citation commands, table of 
+content entries, footnote require often a \texttt{Ref} key. \texttt{Ref}
+can be added with the |ref| key if \cs{tagstructbegin} described above
+but as it is a task that often has to be done automatically in code
+there exist also a command. The target structure of a \texttt{Ref} key
+can be identified with three methods: through a label name set with the |label| key,
+through a destination name if a \cs{MakeLinkTarget} has been used in 
+the target structure---this also works if hyperref has not been loaded---and through
+the structure number, which has been stored e.g. in a label.    
+
+\begin{docCommands}
+ {  
+  {doc name=\tag_struct_gput_ref:nnn,doc parameter=\marg{structure number}\marg{keyword}\marg{value}},
+ }\end{docCommands}
+
 
 
 \subsubsection{Root structure}
