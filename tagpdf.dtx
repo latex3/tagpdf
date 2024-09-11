@@ -381,11 +381,10 @@
 %    \end{macrocode}
 %
 % \section{Label and Reference commands}
-% To ease transition to properties we setup internal definition. They can be replaced
-% by the property definitions once that is released.
-% %** do it!
-% \begin{macro}{}
-% The command to record     
+% The code uses mostly the kernel properties but need a few local variants.
+% \begin{macro}{\@@_property_record:nn}
+% The command to record a property while preserving the spaces similar to the standard
+% \cs{label}.    
 %    \begin{macrocode}
     \cs_new_protected:Npn \@@_property_record:nn #1#2
       {
