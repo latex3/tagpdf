@@ -384,11 +384,7 @@
 % To ease transition to properties we setup internal definition. They can be replaced
 % by the property definitions once that is released.
 % %** do it!
-% \begin{macro}{\@@_property_new:nnnn,\@@_property_gset:nnnn,\@@_property_ref:nnn}
-% At first a command to define new properties
-%    \begin{macrocode}
-    \cs_new_eq:NN \@@_property_new:nnnn \property_new:nnnn
-%    \end{macrocode}
+% \begin{macro}{\@@_property_gset:nnnn,\@@_property_ref:nnn}
 % For the non-shipout code we need also the option to reset property
 %    \begin{macrocode}
     \cs_new_eq:NN \@@_property_gset:nnnn \property_gset:nnnn
@@ -439,21 +435,21 @@
 % With mc-chunks we store the absolute page number |tagabspage|,
 % the absolute id |tagmcabc|, and the id on the page |tagmcid|.
 %    \begin{macrocode}
-\@@_property_new:nnnn 
+\property_new:nnnn 
   { tagstruct } { now } 
   {1} { \int_use:N \c@g_@@_struct_abs_int }
-\@@_property_new:nnnn  { tagstructobj } { now }  {}
+\property_new:nnnn  { tagstructobj } { now }  {}
   {
      \pdf_object_ref_indexed:nn { @@/struct } { \c@g_@@_struct_abs_int }
   }
-\@@_property_new:nnnn  
+\property_new:nnnn  
   { tagabspage } { shipout } 
   {0} { \int_use:N \g_shipout_readonly_int }
-\@@_property_new:nnnn  { tagmcabs } { now }
+\property_new:nnnn  { tagmcabs } { now }
   {0} { \int_use:N \c@g_@@_MCID_abs_int }
 
 \flag_new:n { @@/mcid }     
-\@@_property_new:nnnn  {tagmcid } { shipout }
+\property_new:nnnn  {tagmcid } { shipout }
    {0} { \flag_height:n { @@/mcid } }
   
 %    \end{macrocode}
