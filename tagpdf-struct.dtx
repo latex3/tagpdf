@@ -1276,13 +1276,22 @@
 % It therefore stores it values as
 % clist of commands which are executed at the end of the document,
 % when the structure elements are written.
-% \begin{macro}{\@@_struct_Ref_label:nN,\@@_struct_Ref_dest:nN,\@@_struct_Ref_num:nN,}
+% \begin{macro}{\@@_struct_Ref_obj:nN,\@@_struct_Ref_label:nN,
+%  \@@_struct_Ref_dest:nN,\@@_struct_Ref_num:nN}
 % this commands are helper commands that are stored as clist
 % in the Ref key of a structure. They are executed when the structure
 % elements are written in  \cs{@@_struct_write_obj}. They are used
-% in \cs{@@_struct_format_Ref}. They allow to add a Ref by label, destname
-% and structure number
+% in \cs{@@_struct_format_Ref}. They allow to add a Ref by object reference,
+% label, destname and structure number
 %    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_Ref_obj:nN #1 #2 %#1 a object reference
+  {
+    \tl_put_right:Ne#2
+      {
+        \c_space_tl#1
+      }
+  }
+  
 \cs_new_protected:Npn \@@_struct_Ref_label:nN #1 #2 %#1 a label
   {
     \prop_get:NnNTF \g_@@_struct_label_num_prop {#1} \l_@@_tmpb_tl
@@ -1325,14 +1334,11 @@
   {
     ref .code:n        = % ref property
       {
-        \tl_clear:N\l_@@_tmpa_tl
         \clist_map_inline:on {#1}
           {
-            \tl_put_right:Ne \l_@@_tmpa_tl
-              {\exp_not:N\@@_struct_Ref_label:nN{##1},}
+            \tag_struct_gput:nne
+              {\int_use:N \c@g_@@_struct_abs_int}{ref_level}{ ##1 }
           }
-        \@@_struct_gput_data_ref:no 
-         { \int_use:N \c@g_@@_struct_abs_int } {\l_@@_tmpa_tl}
       },
     E .code:n        = % E property
       {
@@ -1933,6 +1939,7 @@
    \pdf_object_ref_indexed:nn {@@/struct}{ #1 }
  }
 \cs_generate_variant:Nn \tag_struct_object_ref:n {e}
+%</package>
 %    \end{macrocode}
 %
 % \end{macro}
@@ -1944,10 +1951,18 @@
 % adjusted to the key in question. 
 % The first argument is the number of the structure, 
 % the second a keyword referring to a function,
-% the third the value. Currently the only keyword is \texttt{ref} which updates
-% the Ref key (an array)
+% the third the value. Currently the existing keywords are all related
+% to the \texttt{Ref} key (an array}. 
+% The keyword \texttt{ref} takes as value an explicit object reference to 
+% a structure. The keyword \texttt{ref_label} expects as value a label name (from
+% a label set in a \cs{tagstructbegin} command). The keyword \texttt{ref_dest}
+% expects a destination name set with \cs{MakeLinkTarget}. It then will refer to 
+% the structure in which this \cs{MakeLinkTarget} was used. At last
+% the keyword \texttt{ref_num} expects a structure number. 
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3
+%<base>\cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3{}
+%<*package>
+\cs_set_protected:Npn \tag_struct_gput:nnn #1 #2 #3
  {
    \cs_if_exist_use:cF {@@_struct_gput_data_#2:nn}
     { %warning??
@@ -1960,46 +1975,46 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\tag_struct_gput_ref:nnn}
-% This is an user interface to add a Ref key to an
-% existing structure. The target structure doesn't have to exist yet
-% but can be addressed by label, destname or even num.
-%    \begin{macrocode}
-%<base>\cs_new_protected:Npn \tag_struct_gput_ref:nnn #1 #2 #3{}
-%<*package>
-\cs_set_protected:Npn \tag_struct_gput_ref:nnn #1 #2 #3 
-%#1 structnum, #2 label, dest or num, #3 value 
-  {
-    \@@_struct_gput_data_ref:no 
-         { #1 } {\cs:w @@_struct_Ref_#2:nN \cs_end: { #3 } , }
-  }
-%</package>
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_struct_gput_data_ref:nn}
+% \begin{macro}{\@@_struct_gput_data_ref_aux:nnn}
 %    \begin{macrocode}
 %<*package>
-\cs_new_protected:Npn \@@_struct_gput_data_ref:nn #1 #2
-  % #1 receiving struct num, #2 list of object ref
+\cs_new_protected:Npn \@@_struct_gput_data_ref_aux:nnn #1 #2 #3
+  % #1 receiving struct num, #2 key word #3 value
    {
      \prop_get:cnNTF
-        { g_@@_struct_#1_prop }
-        {Ref}
-        \l_@@_get_tmpc_tl
-        {
-         \@@_struct_prop_gput:nno
-            { #1 }
-            { Ref }
-            { \l_@@_get_tmpc_tl,#2 }
-        }
-        {
-          \@@_struct_prop_gput:nnn
-            { #1 }
-            { Ref }
-            { #2 }
-        } 
+       { g_@@_struct_#1_prop }
+       {Ref}
+       \l_@@_get_tmpc_tl
+       {
+         \tl_put_right:No \l_@@_get_tmpc_tl 
+           {\cs:w @@_struct_Ref_#2:nN \cs_end: {#3},}
+       }
+       {
+         \tl_set:No \l_@@_get_tmpc_tl 
+           {\cs:w @@_struct_Ref_#2:nN \cs_end: {#3},}
+       } 
+       \@@_struct_prop_gput:nno
+         { #1 }
+         { Ref }
+         { \l_@@_get_tmpc_tl }        
     }
+\cs_new_protected:Npn \@@_struct_gput_data_ref:nn #1 #2 
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{obj}{#2}
+  }    
+\cs_new_protected:Npn \@@_struct_gput_data_ref_label:nn #1 #2 
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{label}{#2}
+  }      
+\cs_new_protected:Npn \@@_struct_gput_data_ref_dest:nn #1 #2 
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{dest}{#2}
+  }      
+\cs_new_protected:Npn \@@_struct_gput_data_ref_num:nn #1 #2 
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{num}{#2}
+  }   
+     
 \cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee,no}
 %    \end{macrocode}
 % \end{macro}
