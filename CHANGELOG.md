@@ -9,7 +9,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Changed
  - \tag_stop:n and \tag_start:n no longer expand key in debug mode.
- - speeding up the creation of Ref keys
+ - speeding up the creation of Ref keys, extended \tag_struct_gput:nnn
   
 ## [2024-08-02]
 Version 0.99d
