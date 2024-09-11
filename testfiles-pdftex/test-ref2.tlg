@@ -1,0 +1,299 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package tagpdf Warning: tag Section is not known
+Package tagpdf Warning: Empty NS
+Package tagpdf Warning: Parent-Child 'Document' --> 'Section'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: tag Section is not known
+Package tagpdf Warning: Parent-Child 'Section' --> 'MC'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: Parent-Child 'Section' --> 'Part'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: Parent-Child 'Section' --> 'P'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: nested marked content found - mcid 1
+Package tagpdf Warning: there is no mc to end at 2
+Package tagpdf Warning: tag Section is not known
+Package tagpdf Warning: Empty NS
+Package tagpdf Warning: Parent-Child 'Document' --> 'Section'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: tag Section is not known
+Package tagpdf Warning: Parent-Child 'Section' --> 'MC'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: Parent-Child 'Section' --> 'Part'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: Parent-Child 'Section' --> 'P'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: nested marked content found - mcid 3
+Package tagpdf Warning: there is no mc to end at 4
+Package tagpdf Warning: tag Section is not known
+Package tagpdf Warning: Empty NS
+Package tagpdf Warning: Parent-Child 'Document' --> 'Section'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: tag Section is not known
+Package tagpdf Warning: Parent-Child 'Section' --> 'MC'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: Parent-Child 'Section' --> 'Part'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: Parent-Child 'Section' --> 'P'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: nested marked content found - mcid 5
+Package tagpdf Warning: there is no mc to end at 6
+Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'text-unit/latex'.
+(tagpdf)                Relation is not allowed (struct 14, /P --> struct 15) on line ...
+Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'text/latex'.
+(tagpdf)                Relation is not allowed (struct 15, /text-unit --> struct 16) on line ...
+Package tagpdf Warning: nested marked content found - mcid 7
+Package tagpdf Warning: there is no mc to end at 8
+Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'text-unit/latex'.
+(tagpdf)                Relation is not allowed (struct 17, /P --> struct 18) on line ...
+Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'text/latex'.
+(tagpdf)                Relation is not allowed (struct 18, /text-unit --> struct 19) on line ...
+Package tagpdf Warning: nested marked content found - mcid 9
+Package tagpdf Warning: there is no mc to end at 10
+=========================
+The structure 1 contains:
+>  Type  =>  /StructTreeRoot
+>  S  =>  /StructTreeRoot
+>  rolemap  =>  {StructTreeRoot}{pdf}
+>  parentrole  =>  {StructTreeRoot}{pdf}
+The structure has the following kids:
+>  Struct 2
+=========================
+=========================
+The structure 2 contains:
+>  Type  =>  /StructElem
+>  S  =>  /Document
+>  NS  =>  pdf2
+>  rolemap  =>  {Document}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
+>  P  =>  parent structure: 1 = /StructTreeRoot
+The structure has the following kids:
+>  Struct 5
+>  Struct 8
+>  Struct 11
+>  Struct 14
+>  Struct 17
+=========================
+=========================
+The structure 3 contains:
+>  Type  =>  /StructElem
+>  S  =>  /figures
+>  NS  =>  latex
+>  rolemap  =>  {Sect}{pdf2}
+>  parentrole  =>  {Sect}{pdf2}
+>  P  =>  no parent: stashed
+The structure has the following kids:
+> NONE
+=========================
+=========================
+The structure 4 contains:
+>  Type  =>  /StructElem
+>  S  =>  /tables
+>  NS  =>  latex
+>  rolemap  =>  {Sect}{pdf2}
+>  parentrole  =>  {Sect}{pdf2}
+>  P  =>  no parent: stashed
+The structure has the following kids:
+> NONE
+=========================
+=========================
+The structure 5 contains:
+>  Type  =>  /StructElem
+>  S  =>  /Section
+>  rolemap  =>  {Section}{}
+>  parentrole  =>  {Section}{}
+>  P  =>  parent structure: 2 = /Document
+>  NS  =>  
+The structure has the following kids:
+>  MC 1
+>  Struct 6
+=========================
+=========================
+The structure 6 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Section}{}
+>  P  =>  parent structure: 5 = /Section
+The structure has the following kids:
+>  Struct 7
+=========================
+=========================
+The structure 7 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 6 = /text-unit
+The structure has the following kids:
+>  MC 2
+=========================
+=========================
+The structure 8 contains:
+>  Type  =>  /StructElem
+>  S  =>  /Section
+>  rolemap  =>  {Section}{}
+>  parentrole  =>  {Section}{}
+>  P  =>  parent structure: 2 = /Document
+>  NS  =>  
+The structure has the following kids:
+>  MC 3
+>  Struct 9
+=========================
+=========================
+The structure 9 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Section}{}
+>  P  =>  parent structure: 8 = /Section
+The structure has the following kids:
+>  Struct 10
+=========================
+=========================
+The structure 10 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 9 = /text-unit
+The structure has the following kids:
+>  MC 4
+=========================
+=========================
+The structure 11 contains:
+>  Type  =>  /StructElem
+>  S  =>  /Section
+>  rolemap  =>  {Section}{}
+>  parentrole  =>  {Section}{}
+>  P  =>  parent structure: 2 = /Document
+>  NS  =>  
+The structure has the following kids:
+>  MC 5
+>  Struct 12
+=========================
+=========================
+The structure 12 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Section}{}
+>  P  =>  parent structure: 11 = /Section
+The structure has the following kids:
+>  Struct 13
+=========================
+=========================
+The structure 13 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 12 = /text-unit
+The structure has the following kids:
+>  MC 6
+=========================
+=========================
+The structure 14 contains:
+>  Type  =>  /StructElem
+>  Ref  =>  \__tag_struct_Ref_label:nN {unknown},\__tag_struct_Ref_label:nN {sec1},
+>  S  =>  /P
+>  NS  =>  pdf2
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 2 = /Document
+The structure has the following kids:
+>  MC 7
+>  Struct 15
+=========================
+=========================
+The structure 15 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 14 = /P
+The structure has the following kids:
+>  Struct 16
+=========================
+=========================
+The structure 16 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 15 = /text-unit
+The structure has the following kids:
+>  MC 8
+=========================
+=========================
+The structure 17 contains:
+>  Type  =>  /StructElem
+>  S  =>  /P
+>  NS  =>  pdf2
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 2 = /Document
+>  Ref  =>  \__tag_struct_Ref_label:nN {sec1},\__tag_struct_Ref_dest:nN {sec2dest},\__tag_struct_Ref_num:nN {\RefProperty {tagpdfstruct-sec3}{tagstruct}},
+The structure has the following kids:
+>  MC 9
+>  Struct 18
+=========================
+=========================
+The structure 18 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 17 = /P
+The structure has the following kids:
+>  Struct 19
+=========================
+=========================
+The structure 19 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  P  =>  parent structure: 18 = /text-unit
+The structure has the following kids:
+>  MC 10
+=========================
+tagpdf DEBUG Info: Tagging stopped
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging restarted
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging stopped
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging restarted
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+[1
+] (test-ref2.aux)
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~19 structure objects
+(tagpdf)             with ~12 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Warning: Label 'unknown' has no related structure.
+(tagpdf)                /Ref not updated.
+Package tagpdf Info: writing Root

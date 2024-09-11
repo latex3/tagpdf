@@ -1,0 +1,54 @@
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{1000}
+\ExplSyntaxOff
+
+\DocumentMetadata{%
+	%pdfstandard=A-4f,
+	pdfversion=2.0,
+	lang=en,
+	testphase={phase-III},
+}
+\input{regression-test}
+\RequirePackage{tagpdf-debug}
+\documentclass{article}
+\begin{document}
+\START
+\pagestyle{empty}
+\tagstructbegin{tag=Section,label=sec1}
+  \tagmcbegin{}
+   A structure
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=Section}
+\MakeLinkTarget*{sec2dest}
+  \tagmcbegin{}
+   A structure
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=Section,label=sec3}
+  \tagmcbegin{}
+   A structure
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P,ref={unknown,sec1}}
+  \tagmcbegin{}
+   A structure
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P}
+\ExplSyntaxOn
+\tag_struct_gput:nnn {\tag_get:n{struct_num}}{ref_label}{sec1}
+\tag_struct_gput:nnn {\tag_get:n{struct_num}}{ref_dest}{sec2dest}
+\tag_struct_gput:nnn {\tag_get:n{struct_num}}{ref_num}{\RefProperty{tagpdfstruct-sec3}{tagstruct}}
+\ExplSyntaxOff
+  \tagmcbegin{tag=P}
+   The last one
+  \tagmcend
+\tagstructend
+
+\ShowTagging{debug/structures}
+\end{document} 
