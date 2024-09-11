@@ -712,8 +712,8 @@
       /Type \c_space_tl /MCR \c_space_tl
       /Pg
         \c_space_tl
-      \pdf_pageobject_ref:n { \@@_property_ref:enn{mcid-#1}{tagabspage}{1} }
-       /MCID \c_space_tl \@@_property_ref:enn{mcid-#1}{tagmcid}{1}
+      \pdf_pageobject_ref:n { \property_ref:enn{mcid-#1}{tagabspage}{1} }
+       /MCID \c_space_tl \property_ref:enn{mcid-#1}{tagmcid}{1}
      >>
   }
 %</package>  
@@ -1057,7 +1057,7 @@
             #1 %
           }
           {
-            \pdf_pageobject_ref:n { \@@_property_ref:nnn {@tag@objr@page@#2 }{ tagabspage }{1} }
+            \pdf_pageobject_ref:n { \property_ref:nnn {@tag@objr@page@#2 }{ tagabspage }{1} }
           }
         % add the parent obj number to the parent tree:
         \exp_args:Nne
@@ -1792,16 +1792,16 @@
     \@@_check_if_active_struct:T
       {
         \prop_if_exist:cTF
-          { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
+          { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
           {
             \@@_check_struct_used:n {#1}
             %add the label structure as kid to the current structure (can be the root)
             \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
-              { \@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1} }
+              { \property_ref:enn{tagpdfstruct-#1}{tagstruct}{1} }
             %add the current structure to the labeled one as parents
             \@@_prop_gput:cne
-              { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
+              { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
               { P }
               {
                 \pdf_object_ref_indexed:nn { @@/struct } { \g_@@_struct_stack_current_tl }
@@ -1810,7 +1810,7 @@
 % debug code
 %    \begin{macrocode}
 %<debug>           \prop_gput:cne
-%<debug>             { g_@@_struct_debug_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
+%<debug>             { g_@@_struct_debug_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
 %<debug>             { P }
 %<debug>             { 
 %<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
@@ -1822,7 +1822,7 @@
 %   the global tl-vars:
 %    \begin{macrocode}
              \@@_struct_get_parentrole:eNN  
-              {\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}}
+              {\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}}
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
             \@@_check_parent_child:VVVVN

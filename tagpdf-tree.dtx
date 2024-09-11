@@ -367,11 +367,11 @@
           {
             %mcid####1
             \int_compare:nT
-              {\@@_property_ref:enn{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
+              {\property_ref:enn{mcid-####1}{tagabspage}{-1}=##1} %mcid is on current page
               {% yes
                 \prop_put:Nee
                   \l_@@_tmpa_prop
-                  {\@@_property_ref:enn{mcid-####1}{tagmcid}{-1}}
+                  {\property_ref:enn{mcid-####1}{tagmcid}{-1}}
                   {\prop_item:Nn \g_@@_mc_parenttree_prop {####1}}
               }
           }

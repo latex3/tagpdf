@@ -328,7 +328,7 @@
   {
     \@@_check_if_active_struct:T
       {
-        \tl_set:Ne  \l_@@_tmpa_tl { \@@_property_ref:nnn{tagpdf-#1}{tagmcabs}{} }
+        \tl_set:Ne  \l_@@_tmpa_tl { \property_ref:nnn{tagpdf-#1}{tagmcabs}{} }
         \tl_if_empty:NTF\l_@@_tmpa_tl
           {
             \msg_warning:nnn {tag} {mc-label-unknown} {#1}

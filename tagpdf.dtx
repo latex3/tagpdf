@@ -384,16 +384,7 @@
 % To ease transition to properties we setup internal definition. They can be replaced
 % by the property definitions once that is released.
 % %** do it!
-% \begin{macro}{\@@_property_gset:nnnn,\@@_property_ref:nnn}
-% For the non-shipout code we need also the option to reset property
-%    \begin{macrocode}
-    \cs_new_eq:NN \@@_property_gset:nnnn \property_gset:nnnn
-%    \end{macrocode}
-% The command to reference while giving a local default.
-%    \begin{macrocode}
-    \cs_new_eq:NN \@@_property_ref:nnn \property_ref:nnn 
-    \cs_new_eq:NN \@@_property_ref:nn \property_ref:nn 
-%    \end{macrocode}
+% \begin{macro}{}
 % The command to record     
 %    \begin{macrocode}
     \cs_new_protected:Npn \@@_property_record:nn #1#2
@@ -406,8 +397,8 @@
 %    \end{macrocode}
 % And a few variants
 %    \begin{macrocode}
-\cs_generate_variant:Nn \@@_property_ref:nnn {enn}
-\cs_generate_variant:Nn \@@_property_ref:nn {en}
+\cs_generate_variant:Nn \property_ref:nnn {enn}
+\cs_generate_variant:Nn \property_ref:nn  {en}
 \cs_generate_variant:Nn \@@_property_record:nn {en,eV}
 %    \end{macrocode}
 % \end{macro}
@@ -418,7 +409,7 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_property_ref_lastpage:nn #1 #2
   {
-    \@@_property_ref:nnn {@tag@LastPage}{#1}{#2}
+    \property_ref:nnn {@tag@LastPage}{#1}{#2}
   }
 %    \end{macrocode}
 %\end{macro}
