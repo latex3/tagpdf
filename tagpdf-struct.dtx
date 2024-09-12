@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.99d, released 2024-08-02}
+% \date{Version 0.99e, released 2024-09-11}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -119,6 +119,18 @@
 % the second a keyword referring to a function,
 % the third the value. Currently the only keyword is \texttt{ref} which updates
 % the Ref key (an array)
+% \end{function}
+%
+% \begin{function}{\tag_struct_gput_ref:nnn}
+% \begin{syntax}
+%  \cs{tag_struct_gput_ref:nnn}\Arg{structure number}\Arg{keyword}\Arg{value}
+%  \end{syntax}
+% This is an user interface to add a Ref key to an
+% existing structure. The target structure doesn't have to exist yet
+% but can be addressed by label, destname or even num.
+% \meta{keyword} is currently either \texttt{label}, \texttt{dest}
+% or \texttt{num}. The value is then either a label name, the name of a destination
+% or a structure number.
 % \end{function}
 % 
 % \section{Public keys}
@@ -285,7 +297,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-struct-code} {2024-08-02} {0.99d}
+\ProvidesExplPackage {tagpdf-struct-code} {2024-09-11} {0.99e}
  {part of tagpdf - code related to storing structure}
 %</header>
 %    \end{macrocode}
@@ -442,12 +454,16 @@
 \tl_new:N \l_@@_struct_roletag_NS_tl
 %    \end{macrocode}
 % \end{variable}
-% \begin{variable}{\l_@@_struct_key_label_tl}
-% This will hold the label value.
+% \begin{variable}{\g_@@_struct_label_num_prop}
+% This will hold for every structure label the associated 
+% structure number. The prop will allow to 
+% fill the /Ref key directly at the first compilation if the ref
+% key is used.
 %    \begin{macrocode}
-\tl_new:N \l_@@_struct_key_label_tl
+\prop_new_linked:N \g_@@_struct_label_num_prop
 %    \end{macrocode}
 % \end{variable}
+
 % \begin{variable}{\l_@@_struct_elem_stash_bool}
 % This will keep track of the stash status
 %    \begin{macrocode}
@@ -696,8 +712,8 @@
       /Type \c_space_tl /MCR \c_space_tl
       /Pg
         \c_space_tl
-      \pdf_pageobject_ref:n { \@@_property_ref:enn{mcid-#1}{tagabspage}{1} }
-       /MCID \c_space_tl \@@_property_ref:enn{mcid-#1}{tagmcid}{1}
+      \pdf_pageobject_ref:n { \property_ref:enn{mcid-#1}{tagabspage}{1} }
+       /MCID \c_space_tl \property_ref:enn{mcid-#1}{tagmcid}{1}
      >>
   }
 %</package>  
@@ -907,34 +923,47 @@
     \tl_clear:N #2
     \prop_map_inline:cn { g_@@_struct_#1_prop }
       {
-        \tl_put_right:Ne #2 
-          {
 %    \end{macrocode}
 % Some keys needs the option to format the value, e.g. add brackets for an
 % array, we also need the option to ignore some entries in the properties.
-%    \begin{macrocode}        
-           \cs_if_exist_use:cTF {@@_struct_format_##1:nn}
-             {{##1}{##2}}
-             {\c_space_tl/##1~##2}
+%    \begin{macrocode}
+        \cs_if_exist_use:cTF {@@_struct_format_##1:nnN}
+          {
+            {##1}{##2}#2
           }
-      }
+          {
+            \tl_put_right:Ne #2 { \c_space_tl/##1~##2 } 
+          }
+      }    
   }
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_struct_format_rolemap:nn,\@@_struct_format_parentrole:nn}
+% \begin{macro}{\@@_struct_format_rolemap:nnN,\@@_struct_format_parentrole:nnN}
 % This two entries should not end in the PDF.
 %    \begin{macrocode}
-\cs_new:Nn\@@_struct_format_rolemap:nn{}
-\cs_new:Nn\@@_struct_format_parentrole:nn{}
+\cs_new:Nn\@@_struct_format_rolemap:nnN{}
+\cs_new:Nn\@@_struct_format_parentrole:nnN{}
 %    \end{macrocode}
 % \end{macro}
 
-% \begin{macro}{\@@_struct_format_Ref:nn}
-% Ref is an array, we store only the content to be able to extend it
-% so the formatting command adds the brackets:
+% \begin{macro}{\@@_struct_format_Ref:nnN}
+% Ref is an array, we store values as a clist of commands that must
+% be executed here, the formatting has to add also brackets. 
+% 
 %    \begin{macrocode}
-\cs_new:Nn\__tag_struct_format_Ref:nn{\c_space_tl/#1~[#2]}
+\cs_new_protected:Nn\@@_struct_format_Ref:nnN
+  {
+    \tl_put_right:Nn #3 { ~/#1~[ } %]
+    \clist_map_inline:nn{ #2 }
+     {
+       ##1 #3
+     }
+    \tl_put_right:Nn #3 
+     { %[
+      \c_space_tl]
+     }  
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_struct_write_obj:n}
@@ -1028,7 +1057,7 @@
             #1 %
           }
           {
-            \pdf_pageobject_ref:n { \@@_property_ref:nnn {@tag@objr@page@#2 }{ tagabspage }{1} }
+            \pdf_pageobject_ref:n { \property_ref:nnn {@tag@objr@page@#2 }{ tagabspage }{1} }
           }
         % add the parent obj number to the parent tree:
         \exp_args:Nne
@@ -1148,7 +1177,14 @@
 %    \begin{macrocode}
 \keys_define:nn { @@ / struct }
   {
-    label .tl_set:N      = \l_@@_struct_key_label_tl,
+    label .code:n        = 
+      {
+        \prop_gput:Nee\g_@@_struct_label_num_prop 
+          {#1}{\int_use:N \c@g_@@_struct_abs_int}
+        \@@_property_record:eV
+          {tagpdfstruct-#1}
+          \c_@@_property_struct_clist  
+      },
     stash .bool_set:N    = \l_@@_struct_elem_stash_bool,
     parent .code:n       =
       {
@@ -1233,19 +1269,76 @@
           { Lang }
           { (#1) }
       },
+    }  
 %    \end{macrocode}
-% Ref is an array, the brackets are added through the formatting command.
+% Ref is rather special as it values are often
+% known only at the end of the document.
+% It therefore stores it values as
+% clist of commands which are executed at the end of the document,
+% when the structure elements are written.
+% \begin{macro}{\@@_struct_Ref_obj:nN,\@@_struct_Ref_label:nN,
+%  \@@_struct_Ref_dest:nN,\@@_struct_Ref_num:nN}
+% this commands are helper commands that are stored as clist
+% in the Ref key of a structure. They are executed when the structure
+% elements are written in  \cs{@@_struct_write_obj}. They are used
+% in \cs{@@_struct_format_Ref}. They allow to add a Ref by object reference,
+% label, destname and structure number
 %    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_Ref_obj:nN #1 #2 %#1 a object reference
+  {
+    \tl_put_right:Ne#2
+      {
+        \c_space_tl#1
+      }
+  }
+  
+\cs_new_protected:Npn \@@_struct_Ref_label:nN #1 #2 %#1 a label
+  {
+    \prop_get:NnNTF \g_@@_struct_label_num_prop {#1} \l_@@_tmpb_tl
+      {
+        \tl_put_right:Ne#2
+          {
+            \c_space_tl\tag_struct_object_ref:e{ \l_@@_tmpb_tl }
+          }
+      }    
+      {
+        \msg_warning:nnn {tag}{struct-Ref-unknown}{Label~'#1'}
+      }    
+  }
+\cs_new_protected:Npn \@@_struct_Ref_dest:nN #1 #2 %#1 a dest name
+  { 
+    \prop_get:NnNTF \g_@@_struct_dest_num_prop {#1} \l_@@_tmpb_tl
+      {
+        \tl_put_right:Ne#2
+          {
+            \c_space_tl\tag_struct_object_ref:e{ \l_@@_tmpb_tl }
+          }
+      }    
+      {
+        \msg_warning:nnn {tag}{struct-Ref-unknown}{Destination~'#1'}
+      }
+  }
+\cs_new_protected:Npn \@@_struct_Ref_num:nN #1 #2 %#1 a structure number
+  {
+    \tl_put_right:Ne#2
+      {
+        \c_space_tl\tag_struct_object_ref:e{ #1 }
+      }  
+  }
+   
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\keys_define:nn { @@ / struct }
+  {
     ref .code:n        = % ref property
       {
-        \tl_clear:N\l_@@_tmpa_tl
         \clist_map_inline:on {#1}
           {
-            \tl_put_right:Ne \l_@@_tmpa_tl
-              {~\@@_property_ref:en{tagpdfstruct-##1}{tagstructobj} }
+            \tag_struct_gput:nne
+              {\int_use:N \c@g_@@_struct_abs_int}{ref_label}{ ##1 }
           }
-        \@@_struct_gput_data_ref:ee 
-         { \int_use:N \c@g_@@_struct_abs_int } {\l_@@_tmpa_tl}
       },
     E .code:n        = % E property
       {
@@ -1481,13 +1574,6 @@
            \g_@@_struct_tag_tl               
            \g_@@_struct_tag_NS_tl   
         \@@_check_structure_has_tag:n { \int_use:N \c@g_@@_struct_abs_int }           
-        \tl_if_empty:NF
-          \l_@@_struct_key_label_tl
-          {
-            \@@_property_record:eV
-             {tagpdfstruct-\l_@@_struct_key_label_tl}
-             \c_@@_property_struct_clist
-          }
 %    \end{macrocode}
 % The structure number of the parent is either taken from the stack or
 % has been set with the parent key.
@@ -1706,16 +1792,16 @@
     \@@_check_if_active_struct:T
       {
         \prop_if_exist:cTF
-          { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
+          { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
           {
             \@@_check_struct_used:n {#1}
             %add the label structure as kid to the current structure (can be the root)
             \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
-              { \@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1} }
+              { \property_ref:enn{tagpdfstruct-#1}{tagstruct}{1} }
             %add the current structure to the labeled one as parents
             \@@_prop_gput:cne
-              { g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
+              { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
               { P }
               {
                 \pdf_object_ref_indexed:nn { @@/struct } { \g_@@_struct_stack_current_tl }
@@ -1724,7 +1810,7 @@
 % debug code
 %    \begin{macrocode}
 %<debug>           \prop_gput:cne
-%<debug>             { g_@@_struct_debug_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
+%<debug>             { g_@@_struct_debug_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
 %<debug>             { P }
 %<debug>             { 
 %<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
@@ -1736,7 +1822,7 @@
 %   the global tl-vars:
 %    \begin{macrocode}
              \@@_struct_get_parentrole:eNN  
-              {\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}}
+              {\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}}
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
             \@@_check_parent_child:VVVVN
@@ -1853,6 +1939,7 @@
    \pdf_object_ref_indexed:nn {@@/struct}{ #1 }
  }
 \cs_generate_variant:Nn \tag_struct_object_ref:n {e}
+%</package>
 %    \end{macrocode}
 %
 % \end{macro}
@@ -1864,10 +1951,18 @@
 % adjusted to the key in question. 
 % The first argument is the number of the structure, 
 % the second a keyword referring to a function,
-% the third the value. Currently the only keyword is \texttt{ref} which updates
-% the Ref key (an array)
+% the third the value. Currently the existing keywords are all related
+% to the \texttt{Ref} key (an array). 
+% The keyword \texttt{ref} takes as value an explicit object reference to 
+% a structure. The keyword \texttt{ref_label} expects as value a label name (from
+% a label set in a \cs{tagstructbegin} command). The keyword \texttt{ref_dest}
+% expects a destination name set with \cs{MakeLinkTarget}. It then will refer to 
+% the structure in which this \cs{MakeLinkTarget} was used. At last
+% the keyword \texttt{ref_num} expects a structure number. 
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3
+%<base>\cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3{}
+%<*package>
+\cs_set_protected:Npn \tag_struct_gput:nnn #1 #2 #3
  {
    \cs_if_exist_use:cF {@@_struct_gput_data_#2:nn}
     { %warning??
@@ -1880,22 +1975,47 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_struct_gput_data_ref:nn}
+% \begin{macro}{\@@_struct_gput_data_ref_aux:nnn}
 %    \begin{macrocode}
 %<*package>
-\cs_new_protected:Npn \@@_struct_gput_data_ref:nn #1 #2
-  % #1 receiving struct num, #2 list of object ref
+\cs_new_protected:Npn \@@_struct_gput_data_ref_aux:nnn #1 #2 #3
+  % #1 receiving struct num, #2 key word #3 value
    {
-     \prop_get:cnN
-        { g_@@_struct_#1_prop }
-        {Ref}
-        \l_@@_get_tmpc_tl
-     \@@_struct_prop_gput:nne
-        { #1 }
-        { Ref }
-        { \quark_if_no_value:NF\l_@@_get_tmpc_tl { \l_@@_get_tmpc_tl\c_space_tl }#2 }
+     \prop_get:cnNTF
+       { g_@@_struct_#1_prop }
+       {Ref}
+       \l_@@_get_tmpc_tl
+       {
+         \tl_put_right:No \l_@@_get_tmpc_tl 
+           {\cs:w @@_struct_Ref_#2:nN \cs_end: {#3},}
+       }
+       {
+         \tl_set:No \l_@@_get_tmpc_tl 
+           {\cs:w @@_struct_Ref_#2:nN \cs_end: {#3},}
+       } 
+       \@@_struct_prop_gput:nno
+         { #1 }
+         { Ref }
+         { \l_@@_get_tmpc_tl }        
     }
-\cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee}
+\cs_new_protected:Npn \@@_struct_gput_data_ref:nn #1 #2 
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{obj}{#2}
+  }    
+\cs_new_protected:Npn \@@_struct_gput_data_ref_label:nn #1 #2 
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{label}{#2}
+  }      
+\cs_new_protected:Npn \@@_struct_gput_data_ref_dest:nn #1 #2 
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{dest}{#2}
+  }      
+\cs_new_protected:Npn \@@_struct_gput_data_ref_num:nn #1 #2 
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{num}{#2}
+  }   
+     
+\cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee,no}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}
@@ -1937,7 +2057,7 @@
 % \section{Attributes and attribute classes}
 %    \begin{macrocode}
 %<*header>
-\ProvidesExplPackage {tagpdf-attr-code} {2024-08-02} {0.99d}
+\ProvidesExplPackage {tagpdf-attr-code} {2024-09-11} {0.99e}
   {part of tagpdf - code related to attributes and attribute classes}
 %</header>
 %    \end{macrocode}

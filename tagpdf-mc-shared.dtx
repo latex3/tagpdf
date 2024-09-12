@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.99d, released 2024-08-02}
+% \date{Version 0.99e, released 2024-09-11}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -181,7 +181,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-mc-code-shared} {2024-08-02} {0.99d}
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2024-09-11} {0.99e}
   {part of tagpdf - code related to marking chunks -
    code shared by generic and luamode }
 %</header>
@@ -328,7 +328,7 @@
   {
     \@@_check_if_active_struct:T
       {
-        \tl_set:Ne  \l_@@_tmpa_tl { \@@_property_ref:nnn{tagpdf-#1}{tagmcabs}{} }
+        \tl_set:Ne  \l_@@_tmpa_tl { \property_ref:nnn{tagpdf-#1}{tagmcabs}{} }
         \tl_if_empty:NTF\l_@@_tmpa_tl
           {
             \msg_warning:nnn {tag} {mc-label-unknown} {#1}

@@ -48,7 +48,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.99d, released 2024-08-02}
+% \date{Version 0.99e, released 2024-09-11}
 % \maketitle
 % \begin{documentation}
 % \section{Commands}
@@ -331,11 +331,12 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-checks-code} {2024-08-02} {0.99d}
+\ProvidesExplPackage {tagpdf-checks-code} {2024-09-11} {0.99e}
  {part of tagpdf - code related to checks, conditionals, debugging and messages}
 %</header>
 %    \end{macrocode}
 % \section{Messages}
+%
 % \subsection{Messages related to mc-chunks}
 % \begin{macro}{mc-nested}
 % This message is issue is a mc is opened before the previous has been closed.
@@ -452,6 +453,18 @@
 %    \begin{macrocode}
 \msg_new:nnn { tag } {struct-show-closing}
   { closing~structure~#1~tagged~\use:e{\prop_item:cn{g_@@_struct_#1_prop}{S}} }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{struct-Ref-unknown}
+% This message is issued at the end, when the Ref keys are updated.
+% TODO: in debug mode it should report more info about the structure.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {struct-Ref-unknown}
+ {
+     #1~has~no~related~structure.\\
+    /Ref~not~updated.
+ }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{tree-struct-still-open}
@@ -752,7 +765,7 @@
 \cs_new_protected:Npn \@@_check_struct_used:n #1 %#1 label
   {
     \prop_get:cnNT
-      {g_@@_struct_\@@_property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
+      {g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop}
       {P}
       \l_@@_tmpa_tl
       {
@@ -940,7 +953,7 @@
           {
             \int_compare:nT
               {
-                \@@_property_ref:enn
+                \property_ref:enn
                   {mcid-####1}
                   {tagabspage}
                   {-1}
@@ -951,7 +964,7 @@
                \seq_gput_right:Ne \l_tmpa_seq
                  {
                    Page##1-####1-
-                   \@@_property_ref:enn
+                   \property_ref:enn
                      {mcid-####1}
                      {tagmcid}
                      {-1}

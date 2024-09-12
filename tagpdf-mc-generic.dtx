@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.99d, released 2024-08-02}
+% \date{Version 0.99e, released 2024-09-11}
 % \maketitle
 % \begin{documentation}
 % \end{documentation}
@@ -55,11 +55,11 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*generic>
-\ProvidesExplPackage {tagpdf-mc-code-generic} {2024-08-02} {0.99d}
+\ProvidesExplPackage {tagpdf-mc-code-generic} {2024-09-11} {0.99e}
  {part of tagpdf - code related to marking chunks - generic mode}
 %</generic>
 %<*debug>
-\ProvidesExplPackage {tagpdf-debug-generic} {2024-08-02} {0.99d}
+\ProvidesExplPackage {tagpdf-debug-generic} {2024-09-11} {0.99e}
  {part of tagpdf - debugging code related to marking chunks - generic mode}
 %</debug>
 %    \end{macrocode}
@@ -573,14 +573,14 @@
 %    \end{macrocode}
 % revert the attribute:
 %    \begin{macrocode}
-   \@@_property_gset:nnnn {tagmcid } { now }
+   \property_gset:nnnn {tagmcid } { now }
        {0}  { \int_use:N \g_@@_MCID_tmp_bypage_int }
    \cs_new_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
      {
        \int_gincr:N \c@g_@@_MCID_abs_int
        \tl_set:Ne \l_@@_mc_ref_abspage_tl
          {
-           \@@_property_ref:enn %3 args
+           \property_ref:enn %3 args
              {
                mcid-\int_use:N \c@g_@@_MCID_abs_int
              }
