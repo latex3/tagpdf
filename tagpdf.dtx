@@ -21,68 +21,107 @@
 %    https://github.com/latex3/tagpdf
 %
 % for those people who are interested.
-%
+%<*driver>
+\DocumentMetadata{}
+\documentclass{l3doc}
+\usepackage{array,booktabs,caption}
+\hypersetup{pdfauthor=Ulrike Fischer,
+ pdftitle=tagpdf (main module)}
+\input{tagpdf-docelements}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
 % \fi
+% \title{^^A
+%   The \pkg{tagpdf} main module
+%   \\ Part of the tagpdf package
+% }
+%
+% \author{^^A
+%  Ulrike Fischer\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:fischer@troubleshooting-tex.de}
+%          {fischer@troubleshooting-tex.de}^^A
+%    }^^A
+% }
+%
+% \date{Version 0.99e, released 2024-09-11}
+% \maketitle% 
+% 
 % \begin{documentation}
-% \begin{function}{
-%  \tag_stop:, \tag_start:,
-%  \tagstop, \tagstart }
+% \begin{function}{\tag_suspend:n, \tag_resume:n,\tag_stop:n, \tag_start:n }%
+% \begin{syntax}
+% \cs{tag_suspend:n}\Arg{label}\\
+% \cs{tag_resume:n}\Arg{label}\\ 
+% \cs{tag_stop:n}\Arg{label} (\emph{deprecated})\\
+% \cs{tag_start:n}\Arg{label} (\emph{deprecated}) 
+% \end{syntax}
 % We need commands to stop tagging in some places.
 % They switches three local booleans and also stop the counting
-% of paragraphs. If they are nested an inner \cs{tag_start:} will not
-% restart tagging.
+% of paragraphs. If they are nested an inner \cs{tag_resume:n} will not
+% restart tagging. 
+% \meta{label} is only used in debugging messages to allow to follow the nesting
+% and to identify which code is disabling the tagging.
+% The label is not expanded so can be a single token, e.g. |\caption|.
+% |\tag_suspend:n| and |\tag_resume:n| are the l3-layer variants of
+% |\SuspendTagging| and |\ResumeTagging| and will be provided by the kernel
+% in the next release.
+% \end{function}
+% 
+% \begin{function}{
+%  \tag_stop:, \tag_start:, 
+%  \tagstop, \tagstart }
+% \emph{deprecated} These are variants of the above commands
+% without the debuging level. They are now deprecated and it 
+% is recommended to use the kernel command
+% |\SuspendTagging|, |\ResumeTagging|, |\tag_suspend:n| and |\tag_resume:n|
+% instead. 
 % \end{function}
 %
-% \begin{function}{\tag_stop:n, \tag_start:n }%
-% \begin{syntax}
-% \cs{tag_stop:n}\Arg{label}
-% \cs{tag_start:n}\Arg{label}\\
-% \end{syntax}
-% The commands with argument allow to give a label. This is only used
-% in debugging messages to allow to follow the nesting.
-% \end{function}
 %
-% \begin{function}{activate/spaces (setup-key)}
+% \begin{setupkeydecl}{activate/spaces}
 %  |activate/spaces| activates the additional parsing needed for
 %  interword spaces. It replaces the deprecated key |interwordspace|.
-% \end{function}
+% \end{setupkeydecl}
 %
-% \begin{function}{activate/mc (setup-key),
-%    activate/tree (setup-key),
-%    activate/struct (setup-key),
-%    activate/all (setup-key),
+% \begin{setupkeydecl}{activate/mc,
+%    activate/tree,
+%    activate/struct,
+%    activate/all,
 %    activate-mc (deprecated),
 %    activate-tree (deprecated),
 %    activate-struct (deprecated),
 %    activate-all (deprecated),
 %    }
 % Keys to activate the various tagging steps. 
-% \end{function}
-%\begin{function}{activate/struct-dest (setup-key),no-struct-dest (deprecated)}
+% \end{setupkeydecl}
+%\begin{setupkeydecl}{activate/struct-dest,no-struct-dest (deprecated)}
 % The key allows to suppress the creation of structure destinations
-% \end{function}
+% \end{setupkeydecl}
 %
-% \begin{function}{debug/log (setup-key)}
+% \begin{setupkeydecl}{debug/log}
 % The |debug/log| key takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
 % More details are in \texttt{tagpdf-checks}.
-% \end{function}
+% \end{setupkeydecl}
 %
-% \begin{function}{activate/tagunmarked (setup-key), tagunmarked (deprecated) }
+% \begin{setupkeydecl}{activate/tagunmarked, tagunmarked (deprecated) }
 % This key allows to set if (in luamode) unmarked text should be
 % marked up as artifact. The initial value is true.
-% \end{function}
+% \end{setupkeydecl}
 %
-% \begin{function}{activate/softhyphen (setup-key)}
+% \begin{setupkeydecl}{activate/softhyphen}
 % This key allows to activates automatic handling of hyphens inserted
 % by hyphenation. It only is used in luamode and replaces hyphens
 % by U+00AD if the font supports this.
-% \end{function}
+% \end{setupkeydecl}
 % 
-% \begin{function}{page/tabsorder (setup-key), tabsorder (deprecated)}
+% \begin{setupkeydecl}{page/tabsorder, tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be
 % added if needed.
-% \end{function}
+% \end{setupkeydecl}
 %
 % \begin{function}{tagstruct,tagstructobj,tagabspage,tagmcabs,tagmcid}
 % These are attributes used by the label/ref system.
@@ -575,13 +614,13 @@
 %
 % TODO: the log-levels must be sorted
 %
-% \begin{macro}
+% \begin{setupkeydecl}
 %  {
-%    activate/mc (setup-key),
-%    activate/tree (setup-key),
-%    activate/struct (setup-key),
-%    activate/all (setup-key),
-%    activate/struct-dest (setup-key),
+%    activate/mc,
+%    activate/tree,
+%    activate/struct,
+%    activate/all,
+%    activate/struct-dest,
 %  }
 %  Keys to (globally) activate tagging.
 %  |activate/spaces| activates the additional parsing needed for
@@ -609,14 +648,14 @@
     activate-all  .default:n = true,
     no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,    
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{debug/show (setup-key)}
+% \end{setupkeydecl}
+% \begin{setupkeydecl}{debug/show}
 % Subkeys/values are defined in various other places.
 %    \begin{macrocode}
     debug/show            .choice:,
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{debug/log (setup-key), debug/uncompress (setup-key), log (deprecated), uncompress (deprecated)}
+% \end{setupkeydecl}
+% \begin{setupkeydecl}{debug/log, debug/uncompress, log (deprecated), uncompress (deprecated)}
 % The |log| takes currently the values |none|, |v|, |vv|, |vvv|, |all|.
 % The description of the log levels is in tagpdf-checks.
 %    \begin{macrocode}
@@ -637,8 +676,8 @@
     log             .meta:n = {debug/log={#1}},
     uncompress      .code:n = { \pdf_uncompress:  },
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{activate/tagunmarked (setup-key),tagunmarked (deprecated)}
+% \end{setupkeydecl}
+% \begin{setupkeydecl}{activate/tagunmarked,tagunmarked (deprecated)}
 % This key allows to set if (in luamode) unmarked text should be
 % marked up as artifact. The initial value is true.
 %    \begin{macrocode}
@@ -649,15 +688,15 @@
 %    \begin{macrocode}
     tagunmarked .bool_gset:N = \g_@@_tagunmarked_bool,
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{activate/softhyphen (setup-key)}
+% \end{setupkeydecl}
+% \begin{setupkeydecl}{activate/softhyphen}
 % This key activates (in luamode) the handling of soft hyphens.
 %    \begin{macrocode}
     activate/softhyphen     .bool_gset:N = \g_@@_softhyphen_bool,
     activate/softhyphen     .initial:n  = true,
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{page/tabsorder (setup-key),tabsorder (deprecated)}
+% \end{setupkeydecl}
+% \begin{setupkeydecl}{page/tabsorder,tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be
 % added if needed.
@@ -678,7 +717,7 @@
     tabsorder .meta:n = {page/tabsorder={#1}},    
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{setupkeydecl}
 % \section{loading of engine/more dependent code}
 %    \begin{macrocode}
 \sys_if_engine_luatex:T
