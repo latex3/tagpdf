@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
-### Added a structure key `firstkid` that adds a structure as first kid of its parent.
+### Added 
+
+ - a structure key `firstkid` that adds a structure as first kid of its parent.
+ - `\tag_suspend:n` and `\tag_resume:n`. 
     
 
 ## [2024-09-11]

@@ -1145,16 +1145,16 @@
   {
     \int_if_zero:nTF
       {#1}
-      {Tagging~stopped}
-      {Tagging~(not)~stopped~(already~inactive)}\\    
+      {Tagging~suspended}
+      {Tagging~(not)~suspended~(already~inactive)}\\    
     level:~#1~==>~\int_eval:n{#1+1}\tl_if_empty:nF{#2}{,~label:~#2}~[\msg_line_context:]
   }
 \msg_new:nnn { tag / debug } {tag-resume}
   {
     \int_if_zero:nTF
       {#1}
-      {Tagging~restarted}
-      {Tagging~(not)~restarted}\\
+      {Tagging~resumed}
+      {Tagging~(not)~resumed}\\
     level:~\int_eval:n{#1+1}~==>~#1\tl_if_empty:nF{#2}{,~label:~#2}~[\msg_line_context:]
   }  
 %    \end{macrocode}
