@@ -23,7 +23,7 @@
  {
    \tag_suspend:n{A}
    \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
-   \tag_start:
+   \tag_resume:n{A}
    \ASSERTSTR{\tag_status:}{NOT~ACTIVE}
  }
 
