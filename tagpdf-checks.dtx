@@ -1137,11 +1137,11 @@
      }
  }
 %    \end{macrocode}
-% This tracks tag stop and start.
-% The tag-stop message should go before the int is increased.
-% The tag-start message after the int is decreased.
+% This tracks tag suspend and resume.
+% The tag-suspend message should go before the int is increased.
+% The tag-resume message after the int is decreased.
 %    \begin{macrocode}
-\msg_new:nnn { tag / debug } {tag-stop}
+\msg_new:nnn { tag / debug } {tag-suspend}
   {
     \int_if_zero:nTF
       {#1}
@@ -1149,7 +1149,7 @@
       {Tagging~(not)~stopped~(already~inactive)}\\    
     level:~#1~==>~\int_eval:n{#1+1}\tl_if_empty:nF{#2}{,~label:~#2}~[\msg_line_context:]
   }
-\msg_new:nnn { tag / debug } {tag-start}
+\msg_new:nnn { tag / debug } {tag-resume}
   {
     \int_if_zero:nTF
       {#1}

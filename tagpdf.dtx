@@ -526,6 +526,7 @@
 % \section{General tagging commands}
 %
 % \begin{macro}{
+%   \tag_suspend:n,\tag_resume:n,
 %   \tag_stop:,\tag_start:,
 %   \tag_stop:n,\tag_start:n}
 % We need commands to stop tagging in some places.
@@ -534,7 +535,8 @@
 % counter. Tagging only is only restarted at the outer level,
 % if the current level is 1.
 % The commands with argument allow to give a label. This is only used
-% in debugging messages to allow to follow the nesting.
+% in debugging messages to allow to follow the nesting. The label is
+% not expand so can e.g. be a single command token.
 % 
 % \begin{variable}{\l_@@_tag_stop_int}
 % When stop/start pairs are nested we do not want the inner 
@@ -551,7 +553,7 @@
 %    \begin{macrocode}
 \cs_set_protected:Npn \tag_stop:
   {
-%<debug>     \msg_note:nne {tag / debug }{tag-stop}{ \int_use:N \l_@@_tag_stop_int }      
+%<debug>     \msg_note:nne {tag / debug }{tag-suspend}{ \int_use:N \l_@@_tag_stop_int }      
     \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
@@ -568,15 +570,15 @@
         \bool_set_true:N \l_@@_active_socket_bool
         \@@_start_para_ints:
       }
-%<debug>    \msg_note:nne {tag / debug }{tag-start}{ \int_use:N \l_@@_tag_stop_int }                   
+%<debug>    \msg_note:nne {tag / debug }{tag-resume}{ \int_use:N \l_@@_tag_stop_int }                   
   }
 \cs_set_eq:NN\tagstop\tag_stop:
 \cs_set_eq:NN\tagstart\tag_start:  
 %    \end{macrocode}
 %    \begin{macrocode}
-\cs_set_protected:Npn \tag_stop:n #1
+\cs_set_protected:Npn \tag_suspend:n #1
   {
-%<debug>    \msg_note:nnee {tag / debug }{tag-stop}
+%<debug>    \msg_note:nnee {tag / debug }{tag-suspend}
 %<debug>       { \int_use:N \l_@@_tag_stop_int }{\exp_not:n{#1}}           
     \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
@@ -584,7 +586,8 @@
     \bool_set_false:N \l_@@_active_socket_bool
     \@@_stop_para_ints:
   }
-\cs_set_protected:Npn \tag_start:n #1
+\cs_set_eq:NN \tag_stop:n \tag_suspend:n 
+\cs_set_protected:Npn \tag_resume:n #1
   {
     \int_if_zero:nF { \l_@@_tag_stop_int } { \int_decr:N \l_@@_tag_stop_int }
     \int_if_zero:nT { \l_@@_tag_stop_int }
@@ -593,10 +596,11 @@
         \bool_set_true:N \l_@@_active_mc_bool
         \bool_set_true:N \l_@@_active_socket_bool
         \@@_start_para_ints:
-      } 
-%<debug>    \msg_note:nnee {tag / debug }{tag-start}
+      }     
+%<debug>    \msg_note:nnee {tag / debug }{tag-resume}
 %<debug>       { \int_use:N \l_@@_tag_stop_int }{\exp_not:n{#1}}             
   }
+\cs_set_eq:NN \tag_start:n \tag_resume:n    
 %</package|debug>
 %<*base>
 \cs_new_protected:Npn \tag_stop:{}
@@ -605,6 +609,11 @@
 \cs_new_protected:Npn \tagstart{}
 \cs_new_protected:Npn \tag_stop:n  #1 {}
 \cs_new_protected:Npn \tag_start:n #1 {}
+%    \end{macrocode}
+% Until the commands are provided by the kernel we provide them here too
+%    \begin{macrocode}
+\cs_set_eq:NN \tag_suspend:n \tag_stop:n
+\cs_set_eq:NN \tag_resume:n  \tag_resume:n
 %</base>
 %    \end{macrocode}
 % \end{macro}
