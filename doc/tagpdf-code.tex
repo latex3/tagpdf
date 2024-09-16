@@ -28,9 +28,18 @@
 
 % The next line is needed so that \GetFileInfo will be able to pick up
 % version data.
+\usepackage{iftex}
+%until l3doc is corrected
+\ifluatex
+\usepackage[TU]{fontenc}
+\ttfamily
+  \DeclareFontShape{TU}{lmtt}{m}{it}
+   {<-> \UnicodeFontFile{lmmonoslant10-regular}{}}{}
+\fi
 \usepackage{longtable}
 \usepackage{tagpdf}
-\makeatletter
+
+\input{tagpdf-docelements}
 %\def\@setupverbvisiblespace{}
 %\def\verb{\relax\ifmmode\hbox\else\leavevmode\null\fi
 %  \bgroup
@@ -38,13 +47,12 @@
 %    \verbatim@font\@noligs
 %    \language\l@nohyphenation
 %    \@ifstar\@verb\@verb}
-\makeatother
 \begin{document}
 
 \GetFileInfo{tagpdf.sty}
 
 \title{%
-  \pkg{tagpdf} -- A package to experiment with pdf tagging%
+  \pkg{tagpdf} -- \LaTeX{} kernel code for PDF tagging%
   \thanks{This file describes \fileversion,
     last revised \filedate.}%
 }

@@ -99,7 +99,7 @@ in the \pkg{latex-lab} bundle for the Tagged PDF project (i.e., loaded by that c
 
 The package is developed and improved in parallel with the code in the \pkg{latex-lab} 
 bundle (part of the core \LaTeX{} distribution),  the \pkg{pdfmanagement-testphase} 
-package (the \LaTeX{} PDF management bundle) and the L3 programming layer (part of of the \LaTeX{} format). 
+package (the \LaTeX{} PDF management bundle) and the L3 programming layer (part of the \LaTeX{} format). 
 That means you must ensure that all these components are up-to-date and in 
 sync which each other. 
 
@@ -1715,6 +1715,11 @@ The key-val list understands the following keys:
       \cs{property\_ref:nn}\verb+{tagpdfstruct-label}{tagstruct}+ to retrieve 
       it. 
 
+  \item[\PrintKeyName{firstkid}]  If this key is used the structure is
+      added at the left of the kids of the parent structure (if the structure is not stashed). This means that it will be the first kid of the structure (unless some
+      later structure uses the key too). This can be needed e.g. for a caption as
+      the PDF reference requires it to be the first or last kid of its structure.
+      
   \item[\PrintKeyName{alt}] This key inserts an \texttt{/Alt} value in the 
       dictionary of structure object, see section~\ref{sec:alt}. The value 
       is handled as verbatim string and hex encoded. The value will be 
