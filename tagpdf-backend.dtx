@@ -85,6 +85,7 @@
 %     \@@_seq_new:N,
 %     \@@_prop_gput:Nnn,
 %     \@@_seq_gput_right:Nn,
+%     \@@_seq_gput_left:Nn,
 %     \@@_seq_item:cn,
 %     \@@_prop_item:cn,
 %     \@@_seq_show:N,
@@ -123,9 +124,18 @@
     \seq_gput_right:Nn #1 { #2 }
     \lua_now:e { table.insert(ltx.@@.tables.\cs_to_str:N#1, "#2") }
   }
-
+%    \end{macrocode}
+%
+% this inserts on the right of the lua table, but as the lua table is not used for kids
+% this is ignored for now.
+%    \begin{macrocode}
+\cs_set_protected:Npn \@@_seq_gput_left:Nn #1 #2
+  {
+    \seq_gput_left:Nn #1 { #2 }
+    \lua_now:e { table.insert(ltx.@@.tables.\cs_to_str:N#1, "#2") }
+  }
+  
 %Hm not quite sure about the naming
-
 \cs_set:Npn \@@_seq_item:cn #1 #2
   {
     \lua_now:e { tex.print(ltx.@@.tables.#1[#2]) }

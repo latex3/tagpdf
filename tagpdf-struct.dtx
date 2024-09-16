@@ -471,6 +471,15 @@
 %    \end{macrocode}
 % \end{variable}
 % 
+% \begin{variable}{\l_@@_struct_addkid_tl}
+% This decides if a structure kid is added at the left or right of the parent.
+% The default is \texttt{right}.
+%    \begin{macrocode}
+\tl_new:N  \l_@@_struct_addkid_tl
+\tl_set:Nn \l_@@_struct_addkid_tl {right}
+%    \end{macrocode}
+% \end{variable}
+ 
 % \subsection{Variables used by tagging code of basic elements}
 %
 % \begin{variable}{\g_@@_struct_dest_num_prop}
@@ -763,10 +772,34 @@
 %<debug>        Struct~#2
 %<debug>      }            
   }
-
 %<package>\cs_generate_variant:Nn \@@_struct_kid_struct_gput_right:nn {ee}
 %    \end{macrocode}
 % \end{macro}
+%  \begin{macro}
+%    {
+%      \@@_struct_kid_struct_gput_left:nn,\@@_struct_kid_struct_gput_left:ee
+%    }
+%  This commands adds a structure as kid one the left, so as first
+%  kid. We only need to record the object reference in the sequence.
+%    \begin{macrocode}
+%<package>\cs_new_protected:Npn\@@_struct_kid_struct_gput_left:nn #1 #2 %#1 num of parent struct, #2 kid struct
+%<debug>\cs_set_protected:Npn\@@_struct_kid_struct_gput_left:nn #1 #2 %#1 num of parent struct, #2 kid struct
+  {
+    \@@_seq_gput_left:ce
+      { g_@@_struct_kids_#1_seq }
+      {
+        \pdf_object_ref_indexed:nn { @@/struct }{ #2 }
+      }
+%<debug>    \seq_gput_left:cn
+%<debug>      { g_@@_struct_debug_kids_#1_seq }
+%<debug>      {
+%<debug>        Struct~#2
+%<debug>      }            
+  }
+%<package>\cs_generate_variant:Nn \@@_struct_kid_struct_gput_left:nn {ee}
+%    \end{macrocode}
+% \end{macro}
+% 
 % \begin{macro}
 %  {\@@_struct_kid_OBJR_gput_right:nnn,\@@_struct_kid_OBJR_gput_right:eee}
 % At last the command to add an OBJR object. This has to write an object first.
@@ -1202,7 +1235,8 @@
               { parent~key~ignored }
           }
       },
-    parent .default:n    = {-1},
+    parent .default:n    = {-1},    
+	firstkid .code:n = { \tl_set:Nn \l_@@_struct_addkid_tl {left} },   
     tag   .code:n        = % S property
       {
         \socket_use:nn { tag/struct/tag }{#1}
@@ -1699,7 +1733,7 @@
             %record this structure as kid:
             %\tl_show:N \g_@@_struct_stack_current_tl
             %\tl_show:N \l_@@_struct_stack_parent_tmpa_tl
-            \@@_struct_kid_struct_gput_right:ee
+            \use:c { @@_struct_kid_struct_gput_ \l_@@_struct_addkid_tl :ee }
                { \l_@@_struct_stack_parent_tmpa_tl }
                { \g_@@_struct_stack_current_tl }
             %\prop_show:c { g_@@_struct_\g_@@_struct_stack_current_tl _prop }
