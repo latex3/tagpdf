@@ -2074,7 +2074,7 @@ These commands suspend and resume tagging in the current group by switching
 keep track of paragraphs if the correct wrapper commands are used. 
 
 Restarting tagging is normally only needed if groups can't be used and then 
-must be done with care: |\tagstart| should normally only restart tagging if 
+must be done with care: |\tag_resume:n| should normally only restart tagging if 
 the corresponding stop command actually stopped tagging. This is implement 
 through a local counter which keeps track of the level.  
 
@@ -3068,7 +3068,11 @@ cases building the structure should now need only two or three
 compilations. The new code requires a current pdfmanagement-testphase and 
 is then used automatically if the new engines are detected. 
 
-\subsection{}
+\subsection{Changes in version 0.99f}
+
+Deprecated |\tag_start:|, |\tag_stop:|, |\tag_stop:n| and 
+|\tag_start:n| in favor of |\tag_suspend:n| and |\tag_resume:n|.
+
 \printbibliography[heading=bibintoc]
 
 

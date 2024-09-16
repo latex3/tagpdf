@@ -365,12 +365,12 @@
   \tag_mc_end_push:
   \tag_mc_begin:n {artifact=#1}
   \group_begin:
-  \tag_stop:n{artifact-group}
+  \tag_suspend:n{artifact-group}
  }
 
 \cs_set_protected:Npn \tag_mc_artifact_group_end:
  {
-  \tag_start:n{artifact-group}
+  \tag_resume:n{artifact-group}
   \group_end:
   \tag_mc_end:
   \tag_mc_begin_pop:n{}

@@ -866,9 +866,9 @@
             {\tagmcbegin{tag=Lbl}}
            {#1}
          }
-   \tag_stop:n{hangfrom}
+   \tag_suspend:n{hangfrom}
    \hangindent \wd\@tempboxa\noindent
-   \tag_start:n{hangfrom}
+   \tag_resume:n{hangfrom}
    \tagmcbegin{}\box\@tempboxa\tagmcend\tagstructend\tagmcbegin{}
    }
  } 
@@ -1246,11 +1246,11 @@
        \bool_gset_false:N \g_@@_in_mc_bool
      }
     \tag_mc_begin:n {artifact}
-    \tag_stop:n{headfoot}
+    \tag_suspend:n{headfoot}
  }
 \cs_new_protected:Npn \@@_exclude_headfoot_end:
  {
-    \tag_start:n{headfoot}
+    \tag_resume:n{headfoot}
     \tag_mc_end:
     \bool_if:NTF \g_@@_mode_lua_bool
      {
@@ -1277,12 +1277,12 @@
      }
     \tag_struct_begin:n{tag=Artifact,attribute-class=@@/attr/#1}
     \tag_mc_begin:n {artifact=#1}
-    \tag_stop:n{headfoot}
+    \tag_suspend:n{headfoot}
  }
 
 \cs_new_protected:Npn \@@_exclude_struct_headfoot_end:
  {
-    \tag_start:n{headfoot}
+    \tag_resume:n{headfoot}
     \tag_mc_end:
     \tag_struct_end:
     \bool_if:NTF \g_@@_mode_lua_bool
