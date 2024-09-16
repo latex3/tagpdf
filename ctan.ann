@@ -1,7 +1,9 @@
-## [2024-09-11]
-Version 0.99e
+## [2024-09-16]
+Version 0.99f
 
-### Changed
- - \tag_stop:n and \tag_start:n no longer expand key in debug mode.
- - speed up the creation of Ref keys, extended \tag_struct_gput:nnn
- - removed outdated commands
+### Added
+ - a structure key firstkid that adds a structure as first kid of its parent.
+ - \tag_suspend:n and \tag_resume:n. 
+ 
+### Fixed
+ - documentation  
