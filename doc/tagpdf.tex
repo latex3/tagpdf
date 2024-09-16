@@ -2064,16 +2064,12 @@ or the output routine is called.
 
 \begin{docCommands}
  {
-  {doc name=tag_stop:},
-  {doc name=tag_start:},
-  {doc name=tagstop},
-  {doc name=tagstart},
-  {doc name=tag_stop:n,doc parameter=\marg{label}},
-  {doc name=tag_start:n,doc parameter=\marg{label}}
+  {doc name=tag_suspend:n,doc parameter=\marg{label}},
+  {doc name=tag_resume:n,doc parameter=\marg{label}} 
  } 
 \end{docCommands}
 
-This commands stop and start tagging in the current group by switching 
+These commands suspend and resume tagging in the current group by switching 
 \emph{local} booleans. They also stop the increasing of the counters which 
 keep track of paragraphs if the correct wrapper commands are used. 
 
@@ -2082,18 +2078,35 @@ must be done with care: |\tagstart| should normally only restart tagging if
 the corresponding stop command actually stopped tagging. This is implement 
 through a local counter which keeps track of the level.  
 
-The \meta{label} can be used to identify the command in debugging message. 
+The \meta{label} can be used to identify the command in debugging message. The label is not expanded and so can for example be a single command token.
+
+The commands are the L3-layer versions of |\SuspendTagging| and |\ResumeTagging|
+and will be available in the kernel with the 2024 november release. 
 
 \begin{taglstlisting}
-\tag_stop:n{outer}
+\tag_suspend:n{\outercommand}
  ...
- \tag_stop:n{inner}
+ \tag_suspend:n{\innercommand}
   ...
- \tag_start:n{inner}
+ \tag_resume:n{\innercommand}
  ...
-\tag_start:n{outer}
+\tag_resume:n{\outercommand}
 \end{taglstlisting} 
  
+\begin{docCommands}
+ {
+  {doc name=tag_stop:},
+  {doc name=tag_start:},
+  {doc name=tagstop},
+  {doc name=tagstart},
+  {doc name=tag_stop:n,doc parameter=\marg{label}},
+  {doc name=tag_start:n,doc parameter=\marg{label}}
+ }
+\end{docCommands}  
+
+These commands are now deprecated in favor or |\tag_suspend:n| and |\tag_resume:n| 
+but are still provided for some time. 
+
 
 \subsection{Lazy and automatic tagging}\label{sec:lazy}
 
