@@ -786,7 +786,7 @@
         \msg_error:nnn { tag } {role-missing} {#1}
       }
       {
-        \prop_get:NnNTF \g_@@_role_tags_NS_prop {#2} \l_tmpa_tl
+        \prop_get:NnNTF \g_@@_role_tags_NS_prop {#2} \l_@@_tmpa_tl
           {
             \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
               {
@@ -808,7 +808,7 @@
         \msg_error:nnn { tag } {role-missing} {#1}
       }
       {
-        \prop_get:cnNTF { g_@@_role_NS_#3_prop } {#2} \l_tmpa_tl
+        \prop_get:cnNTF { g_@@_role_NS_#3_prop } {#2} \l_@@_tmpa_tl
           {
             \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
               {
@@ -941,7 +941,7 @@
         \l_@@_tmpa_tl
       }
       {
-        \seq_clear:N \l_tmpa_seq
+        \seq_clear:N \l_@@_tmpa_seq
         \int_step_inline:nnnn
           {1}
           {1}
@@ -961,7 +961,7 @@
                 ##1
              }
              {
-               \seq_gput_right:Ne \l_tmpa_seq
+               \seq_gput_right:Ne \l_@@_tmpa_seq
                  {
                    Page##1-####1-
                    \property_ref:enn
@@ -971,7 +971,7 @@
                  }
              }
           }
-          \seq_show:N \l_tmpa_seq
+          \seq_show:N \l_@@_tmpa_seq
       }
   }
 %    \end{macrocode}

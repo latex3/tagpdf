@@ -1301,12 +1301,12 @@
            tag-namespace=user,
            role-namespace=, %so that we can test for it.
           #1
-         }{@@/tag-role}\l_tmpa_tl
-       \tl_if_empty:NF \l_tmpa_tl
+         }{@@/tag-role}\l_@@_tmpa_tl
+       \tl_if_empty:NF \l_@@_tmpa_tl
          {
-           \exp_args:NNno \seq_set_split:Nnn \l_tmpa_seq { / } {\l_tmpa_tl/}
-           \tl_set:Ne \l_@@_role_tag_tmpa_tl  { \seq_item:Nn \l_tmpa_seq {1} }
-           \tl_set:Ne \l_@@_role_role_tmpa_tl { \seq_item:Nn \l_tmpa_seq {2} }
+           \exp_args:NNno \seq_set_split:Nnn \l_@@_tmpa_seq { / } {\l_@@_tmpa_tl/}
+           \tl_set:Ne \l_@@_role_tag_tmpa_tl  { \seq_item:Nn \l_@@_tmpa_seq {1} }
+           \tl_set:Ne \l_@@_role_role_tmpa_tl { \seq_item:Nn \l_@@_tmpa_seq {2} }
          }
       \tl_if_empty:NT \l_@@_role_role_namespace_tmpa_tl
          {
