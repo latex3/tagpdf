@@ -6,13 +6,13 @@
 \begin{document}
 \START
 abc \ExplSyntaxOn
-\tl_show:N \g__tag_para_main_struct_tl
+\tl_log:N \g__tag_para_main_struct_tl
 \ExplSyntaxOff
 
 abc \ExplSyntaxOn
-\tl_show:N \g__tag_para_main_struct_tl
+\tl_log:N \g__tag_para_main_struct_tl
 \ExplSyntaxOff
 
 \ShowTagging{debug/structures}
 xxxx
-\end{document}
+\end{document} 

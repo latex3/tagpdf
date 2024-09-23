@@ -50,7 +50,7 @@ checkengines = {"pdftex","luatex","pdftexmain"}
 -- force once in a while the full run to find wrong saves
 
 forcecheckruns=true
-
+recordstatus = true
 checkconfigs = {
                  "build",
                  "config-pdftex",

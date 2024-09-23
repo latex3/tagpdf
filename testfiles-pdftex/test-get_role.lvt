@@ -14,31 +14,31 @@ xxx
 \TEST{get~known~role:~title}
  {
    \__tag_role_get:nnNN {title}{latex}\l_tmpa_tl\l_tmpb_tl
-   \tl_show:N \l_tmpa_tl\tl_show:N \l_tmpb_tl
+   \tl_log:N \l_tmpa_tl\tl_log:N \l_tmpb_tl
  }  
  
 \TEST{get~known~role~title,~unknown~name~space}
  {
    \__tag_role_get:nnNN {title}{blub}\l_tmpa_tl\l_tmpb_tl
-   \tl_show:N \l_tmpa_tl\tl_show:N \l_tmpb_tl
+   \tl_log:N \l_tmpa_tl\tl_log:N \l_tmpb_tl
  }  
  
 \TEST{get~unknown~role:~blub}
  {
    \__tag_role_get:nnNN {blub}{pdf}\l_tmpa_tl\l_tmpb_tl
-   \tl_show:N \l_tmpa_tl\tl_show:N \l_tmpb_tl
+   \tl_log:N \l_tmpa_tl\tl_log:N \l_tmpb_tl
  }  
  
 \TEST{get~standard~role:~Sect}
  {
    \__tag_role_get:nnNN {Sect}{xxx}\l_tmpa_tl\l_tmpb_tl
-   \tl_show:N \l_tmpa_tl\tl_show:N \l_tmpb_tl
+   \tl_log:N \l_tmpa_tl\tl_log:N \l_tmpb_tl
  }   
  
 \TEST{get~standard~role:~Aside}
  {
    \__tag_role_get:nnNN {Aside}{xxx}\l_tmpa_tl\l_tmpb_tl
-   \tl_show:N \l_tmpa_tl\tl_show:N \l_tmpb_tl
+   \tl_log:N \l_tmpa_tl\tl_log:N \l_tmpb_tl
  }    
 \ExplSyntaxOff
 \END 

@@ -8,53 +8,37 @@ TEST 1: pdf1.7
 TEST 2: get known role: title
 ============================================================
 > \l_tmpa_tl=Title.
-<recently read> }
-l. ... }
 > \l_tmpb_tl=pdf2.
-<recently read> }
-l. ... }
 ============================================================
 ============================================================
 TEST 3: get known role title, unknown name space
 ============================================================
 Package tagpdf Warning: NS blub is not known
 > \l_tmpa_tl=title.
-<recently read> }
-l. ... }
 > \l_tmpb_tl=blub.
-<recently read> }
-l. ... }
 ============================================================
 ============================================================
 TEST 4: get unknown role: blub
 ============================================================
 Package tagpdf Warning: tag blub is not known
 > \l_tmpa_tl=blub.
-<recently read> }
-l. ... }
 > \l_tmpb_tl=pdf.
-<recently read> }
-l. ... }
 ============================================================
 ============================================================
 TEST 5: get standard role: Sect, unknown NS
 ============================================================
 Package tagpdf Warning: NS xxx is not known
 > \l_tmpa_tl=Sect.
-<recently read> }
-l. ... }
 > \l_tmpb_tl=xxx.
-<recently read> }
-l. ... }
 ============================================================
 ============================================================
 TEST 6: get standard role: Aside, empty NS
 ============================================================
 Package tagpdf Warning: Empty NS
 > \l_tmpa_tl=Aside.
-<recently read> }
-l. ... }
 > \l_tmpb_tl=.
-<recently read> }
-l. ... }
 ============================================================
+***************
+Compilation 1 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 0
+Compilation 3 of test file completed with exit status 0

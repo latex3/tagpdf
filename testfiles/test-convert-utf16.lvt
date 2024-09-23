@@ -10,7 +10,7 @@
 
 \begin{document}
 
-
+\START
 \section{some testing with conversion to utf16}
 
 Goal: I need utf16 (so chars/numbers  for every char)
@@ -21,140 +21,73 @@ Goal: I need utf16 (so chars/numbers  for every char)
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
 \tl_new:N \l_uf_content_tl
 
-\sys_if_engine_pdftex:T
- {
-  \iow_log:n {ASCII GLYPHS}
-  \tl_set:Nn \l_uf_content_tl { abc! }
-  \str_set_convert:Nnon
-   \l_tmpa_str
-   {  abc! }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-  \str_set_convert:Noon
-   \l_tmpa_str
-   { \l_uf_content_tl }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
+  \TEST {ASCII~GLYPHS}
+   {
+     \tl_set:Nn \l_uf_content_tl { abc! }
+     \str_set_convert:Nnon
+      \l_tmpa_str
+      {  abc! }
+      { default }
+      { utf16/hex }
+     \ASSERTSTR{\l_tmpa_str}{FEFF0061006200630021}
+     \str_set_convert:Noon
+      \l_tmpa_str
+      { \l_uf_content_tl }
+      { default }
+      { utf16/hex }
+     \ASSERTSTR{\l_tmpa_str}{FEFF0061006200630021}
+   }
 
+  \TEST{NON-ASCII~GLYPHS}
+   {
+     \tl_set:Nn \l_uf_content_tl { öäüß }
+     \str_set_convert:Nnon
+      \l_tmpa_str
+      {  öäüß }
+      { default }
+      { utf16/hex }
+     \ASSERTSTR{\l_tmpa_str}{FEFF00F600E400FC00DF}
+     \str_set_convert:Noon
+      \l_tmpa_str
+      { \l_uf_content_tl }
+      { default }
+      { utf16/hex }
+      \ASSERTSTR{\l_tmpa_str}{FEFF00F600E400FC00DF}
+   }
 
-  \iow_log:n {NON-ASCII GLYPHS}
-  \tl_set:Nn \l_uf_content_tl { öäüß }
-  \str_set_convert:Nnon
-   \l_tmpa_str
-   {  öäüß }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-  \str_set_convert:Noon
-   \l_tmpa_str
-   { \l_uf_content_tl }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
+  \TEST {MATH}
+   {
+     \tl_set:Nn \l_uf_content_tl { \frac{a}{b} }
+     \str_set_convert:Nnon
+      \l_tmpa_str
+      { \frac{a}{b} }
+      { default }
+      { utf16/hex }
+     \ASSERTSTR{\l_tmpa_str}{FEFF005C00660072006100630020007B0061007D007B0062007D}
+     \str_set_convert:Noon
+      \l_tmpa_str
+      { \l_uf_content_tl }
+      { default }
+      { utf16/hex }     
+     \ASSERTSTR{\l_tmpa_str}{FEFF005C00660072006100630020007B0061007D007B0062007D}
+   }
 
-  \iow_log:n {MATH}
-  \tl_set:Nn \l_uf_content_tl { \frac{a}{b} }
-  \str_set_convert:Nnon
-   \l_tmpa_str
-   { \frac{a}{b} }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-  \str_set_convert:Noon
-   \l_tmpa_str
-   { \l_uf_content_tl }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-
-  \iow_log:n {UNKNOWN COMMAND}
-  \tl_set:Nn \l_uf_content_tl {\blub}
-  \str_set_convert:Nnon
-   \l_tmpa_str
-   { \blub }
-   { default }
-   { utf16/hex }
-  \str_show:N  \l_tmpa_str
-  \str_set_convert:Noon
-   \l_tmpa_str
-   { \l_uf_content_tl }
-   { default }
-   { utf16/hex }
-  \str_show:N   \l_tmpa_str
- }
-
-
-\sys_if_engine_luatex:T
- {
-  \iow_log:n {ASCII GLYPHS}
-  \tl_set:Nn \l_uf_content_tl {abc!}
-  \str_set_convert:Nnon
-   \l_tmpa_str
-   { abc! }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-  \str_set_convert:Noon
-   \l_tmpa_str
-   { \l_uf_content_tl }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-
-
-  \iow_log:n {NON-ASCII GLYPHS}
-  \tl_set:Nn \l_uf_content_tl {öäüß}
-  \str_set_convert:Nnon
-   \l_tmpa_str
-   { öäüß }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-  \str_set_convert:Noon
-   \l_tmpa_str
-   { \l_uf_content_tl }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-
-
-  \iow_log:n {MATH}
-  \tl_set:Nn \l_uf_content_tl { \frac{a}{b} }
-  \str_set_convert:Nnon
-   \l_tmpa_str
-   { \frac{a}{b} }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-  \str_set_convert:Noon
-   \l_tmpa_str
-   { \l_uf_content_tl }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-
-  \iow_log:n {UNKNOWN COMMAND}
-  \tl_set:Nn \l_uf_content_tl {\blub}
-  \str_set_convert:Nnon
-   \l_tmpa_str
-   { \blub }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
-  \str_set_convert:Noon
-   \l_tmpa_str
-   { \l_uf_content_tl }
-   { default }
-   { utf16/hex }
-  \str_show:N \l_tmpa_str
- }
-
+  \TEST {UNKNOWN~COMMAND}
+   {
+     \tl_set:Nn \l_uf_content_tl {\blub}
+     \str_set_convert:Nnon
+      \l_tmpa_str
+      { \blub }
+      { default }
+      { utf16/hex }  
+     \ASSERTSTR{\l_tmpa_str}{FEFF005C0062006C007500620020}
+     \str_set_convert:Noon
+      \l_tmpa_str
+      { \l_uf_content_tl }
+      { default }
+      { utf16/hex }
+     \ASSERTSTR{\l_tmpa_str}{FEFF005C0062006C007500620020}
+  }
 
 \ExplSyntaxOff
-
-
-
-
 \end{document}

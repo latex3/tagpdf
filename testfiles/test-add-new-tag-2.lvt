@@ -25,7 +25,9 @@
 
 \tagpdfsetup{activate/all,debug/log=all}
 \START
-
+\ExplSyntaxOn
+\msg_redirect_module:nnn { tag } { error } { warning }
+\ExplSyntaxOff
 \tagpdfsetup{
   role/new-tag=section/H1,
   role/new-tag={tag=wrongsection,role=H1,role-namespace=mathml},
@@ -35,13 +37,24 @@
   }
 
 \ExplSyntaxOn
+
 \iow_log:x { \c_sys_engine_str }
 
-\pdfdict_show:n {g__tag_role/RoleMap_dict}
-\pdfdict_show:n {g__tag_role/RoleMapNS_user_dict}
-\pdfdict_show:n {g__tag_role/RoleMapNS_mathml_dict}
+%\pdfdict_show:n {g__tag_role/RoleMap_dict}
+%\pdfdict_show:n {g__tag_role/RoleMapNS_user_dict}
+%\pdfdict_show:n {g__tag_role/RoleMapNS_mathml_dict}
+\clist_map_inline:nn{RoleMap,RoleMapNS_user,RoleMapNS_mathml}
+ {
+   \prop_if_exist:cTF { g__pdfdict_/g__tag_role/#1_dict_prop }
+     {
+      \prop_log:c { g__pdfdict_/g__tag_role/#1_dict_prop }
+     }  
+     {
+       \iow_log:n {The~dictionary~'g__tag_role/#1_dict'~is~unknown.}
+     }
+ } 
 \edef\testname{\prop_item:cn {g__tag_role_tags_NS_prop}{mn}}
-\show\testname
+\tl_log:N\testname
 
 \sys_if_engine_luatex:T
  {

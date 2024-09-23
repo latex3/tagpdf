@@ -15,5 +15,5 @@ some text\tagmcend
      \tagmcbegin{tag=Span}
       more text
 
-\AddToHook{tagpdf/finish/before}{\ShowTagging{struct-stack}}
+\AddToHook{tagpdf/finish/before}{\ShowTagging{struct-stack=log}}
 \end{document}

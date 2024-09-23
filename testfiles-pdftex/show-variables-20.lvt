@@ -17,30 +17,30 @@
 %tag-NS
 \TEST{show~tags~->~NS}
  {
-   \prop_show:N \g__tag_role_tags_NS_prop
+   \prop_log:N \g__tag_role_tags_NS_prop
  }
  
-\TEST{show~tags~->classes~(1.7)}
+\TEST{show~tags~->class~(1.7)}
  {
-   \prop_show:N \g__tag_role_tags_class_prop
+   \prop_log:N \g__tag_role_tags_class_prop
  }
  
 \TEST{show~namespaces}
  {
-   \prop_show:N \g__tag_role_NS_prop
+   \prop_log:N \g__tag_role_NS_prop
  }
  
 \TEST{show~RoleMap dict~(1.7)}
  {
-   \pdfdict_show:n { g__tag_role/RoleMap_dict }
+   \prop_log:c { g__pdfdict_/g__tag_role/RoleMap_dict_prop }
+   %\pdfdict_show:n { g__tag_role/RoleMap_dict }
  }
  
-
 \prop_map_inline:Nn \g__tag_role_NS_prop
  {
    \TEST{show~tags~of~namespace~#1}
      {
-      \prop_show:c{g__tag_role_NS_#1_prop}
+      \prop_log:c{g__tag_role_NS_#1_prop}
      }
  }
  
@@ -49,32 +49,42 @@
  {
    \TEST{show~class~of~tags~in~namespace~#1}
      {
-      \prop_show:c{g__tag_role_NS_#1_class_prop}
+      \prop_log:c{g__tag_role_NS_#1_class_prop}
      }
  } 
-
-
+ 
 \prop_map_inline:Nn \g__tag_role_NS_prop
  {
    \TEST{show~namespace~dict~#1}
      {
-      \pdfdict_show:n{g__tag_role/Namespace_#1_dict}
+      \prop_if_exist:cTF { g__pdfdict_/g__tag_role/Namespace_#1_dict_prop }
+       {
+         \prop_log:c { g__pdfdict_/g__tag_role/Namespace_#1_dict_prop }
+       }
+       {
+        \iow_log:n {The~dictionary~'g__tag_role/Namespace_#1_dict'~is~unknown.}
+       }  
+      %\pdfdict_show:n{g__tag_role/Namespace_#1_dict}
      }
    \TEST{show~RoleMap~dict~#1}
      {
-      \pdfdict_show:n{g__tag_role/RoleMapNS_#1_dict}
+      \prop_if_exist:cTF { g__pdfdict_/g__tag_role/RoleMapNS_#1_dict_prop }
+       {
+         \prop_log:c { g__pdfdict_/g__tag_role/RoleMapNS_#1_dict_prop }
+       }  
+      {
+        \iow_log:n {The~dictionary~'g__tag_role/RoleMapNS_#1_dict'~is~unknown.}
+      }
      }   
  } 
-
+ 
 \TEST{show~tagindex}
  {
-   \prop_show:N\g__tag_role_index_prop
+   \prop_log:N\g__tag_role_index_prop
  }
 
 \TEST{show~tag rules}
  {
-   \intarray_show:N\g__tag_role_parent_child_intarray
- }
-
- 
+   \intarray_log:N\g__tag_role_parent_child_intarray
+ } 
 \END
