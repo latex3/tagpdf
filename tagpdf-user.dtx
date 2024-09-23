@@ -976,83 +976,88 @@
 % at some time) and a more sophisticated one that must
 % be used if the block code is used.
 % It is possible that we will need more variants, so
-% we setup a socket so that the code can be easily switched.  
+% we setup a socket so that the code can be easily switched.
+% This code should move into lttagging, so we add a test for
+% the transition.  
 %    \begin{macrocode}
-\socket_new:nn      {tagsupport/para/begin}{0}
-\socket_new:nn      {tagsupport/para/end}{0}
+\str_if_exist:cF { l__socket_tagsupport/para/begin_plug_str }
+ {
+    \socket_new:nn      {tagsupport/para/begin}{0}
+    \socket_new:nn      {tagsupport/para/end}{0}
 
-\socket_new_plug:nnn{tagsupport/para/begin}{plain}
- {
-   \bool_if:NT \l_@@_para_bool
+    \socket_new_plug:nnn{tagsupport/para/begin}{plain}
      {
-       \bool_if:NF \l_@@_para_flattened_bool
-          {
-            \@@_gincr_para_main_begin_int:
-            \tag_struct_begin:n
-              {
-                tag=\l_@@_para_main_tag_tl,
-              }
-            \@@_para_main_store_struct:   
-          }
-        \@@_gincr_para_begin_int:
-        \tag_struct_begin:n {tag=\l_@@_para_tag_tl}
-        \@@_check_para_begin_show:nn {green}{}
-        \tag_mc_begin:n {}
-     }   
- }
-\socket_new_plug:nnn{tagsupport/para/begin}{block}
- {
-   \bool_if:NT \l_@@_para_bool
-     {
-       \legacy_if:nF { @inlabel }
+       \bool_if:NT \l_@@_para_bool
          {
-           \@@_check_typeout_v:n
-             {==>~ @endpe = \legacy_if:nTF { @endpe }{true}{false} \on@line }
-           \legacy_if:nF { @endpe }
-            {
-              \bool_if:NF \l_@@_para_flattened_bool
-                 {
-                   \@@_gincr_para_main_begin_int:
-                   \tag_struct_begin:n
-                    {
-                     tag=\l_@@_para_main_tag_tl,
-                     attribute-class=\l_@@_para_main_attr_class_tl,
-                    }
-                   \@@_para_main_store_struct: 
-                 }
-             }
-            \@@_gincr_para_begin_int:
-            \@@_check_typeout_v:n {==>~increment~ P \on@line }
-            \tag_struct_begin:n
+           \bool_if:NF \l_@@_para_flattened_bool
               {
-                tag=\l_@@_para_tag_tl
-                ,attribute-class=\l_@@_para_attr_class_tl
+                \@@_gincr_para_main_begin_int:
+                \tag_struct_begin:n
+                  {
+                    tag=\l_@@_para_main_tag_tl,
+                  }
+                \@@_para_main_store_struct:   
               }
-            \@@_check_para_begin_show:nn {green}{\PARALABEL}    
+            \@@_gincr_para_begin_int:
+            \tag_struct_begin:n {tag=\l_@@_para_tag_tl}
+            \@@_check_para_begin_show:nn {green}{}
             \tag_mc_begin:n {}
-      }
-    }  
- }
+         }   
+     }
+    \socket_new_plug:nnn{tagsupport/para/begin}{block}
+     {
+       \bool_if:NT \l_@@_para_bool
+         {
+           \legacy_if:nF { @inlabel }
+             {
+               \@@_check_typeout_v:n
+                 {==>~ @endpe = \legacy_if:nTF { @endpe }{true}{false} \on@line }
+               \legacy_if:nF { @endpe }
+                {
+                  \bool_if:NF \l_@@_para_flattened_bool
+                     {
+                       \@@_gincr_para_main_begin_int:
+                       \tag_struct_begin:n
+                        {
+                         tag=\l_@@_para_main_tag_tl,
+                         attribute-class=\l_@@_para_main_attr_class_tl,
+                        }
+                       \@@_para_main_store_struct: 
+                     }
+                 }
+                \@@_gincr_para_begin_int:
+                \@@_check_typeout_v:n {==>~increment~ P \on@line }
+                \tag_struct_begin:n
+                  {
+                    tag=\l_@@_para_tag_tl
+                    ,attribute-class=\l_@@_para_attr_class_tl
+                  }
+                \@@_check_para_begin_show:nn {green}{\PARALABEL}    
+                \tag_mc_begin:n {}
+          }
+        }  
+     }
 %    \end{macrocode}
 % there was no real difference between the original and
 % in the block variant, only a debug message. We therefore
 % define only a plain variant.
 %    \begin{macrocode}
-\socket_new_plug:nnn{tagsupport/para/end}{plain}
-  {
-    \bool_if:NT \l_@@_para_bool
+    \socket_new_plug:nnn{tagsupport/para/end}{plain}
       {
-        \@@_gincr_para_end_int:
-        \@@_check_typeout_v:n {==>~increment~ /P \on@line }
-        \tag_mc_end:
-        \@@_check_para_end_show:nn {red}{}
-        \tag_struct_end:
-        \bool_if:NF \l_@@_para_flattened_bool
-         {
-           \@@_gincr_para_main_end_int:
-           \tag_struct_end:
-         }
-      }  
+        \bool_if:NT \l_@@_para_bool
+          {
+            \@@_gincr_para_end_int:
+            \@@_check_typeout_v:n {==>~increment~ /P \on@line }
+            \tag_mc_end:
+            \@@_check_para_end_show:nn {red}{}
+            \tag_struct_end:
+            \bool_if:NF \l_@@_para_flattened_bool
+             {
+               \@@_gincr_para_main_end_int:
+               \tag_struct_end:
+             }
+          }  
+      }
   }
 %    \end{macrocode}
 % By default we assign the plain plug:

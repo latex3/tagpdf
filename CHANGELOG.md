@@ -8,6 +8,8 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 ### Fixed
  - corrected a few temp variables
+### Changed
+ - make para-sockets optional so that they can move to lttagging.
 
 ## [2024-09-16]
 ### Added 
