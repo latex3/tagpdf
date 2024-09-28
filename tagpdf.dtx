@@ -87,16 +87,37 @@
 % \end{setupkeydecl}
 %
 % \begin{setupkeydecl}{activate/mc,
-%    activate/tree,
-%    activate/struct,
-%    activate/all,
 %    activate-mc (deprecated),
+%    }
+% A key to to activate the marked content code. It should be used
+% only in special cases, e.g. for debugging.
+% \end{setupkeydecl}
+% 
+% \begin{setupkeydecl}{
+%    activate/tree,
 %    activate-tree (deprecated),
+%    }
+% This key activates the code that finalize the 
+% various trees. It should be used
+% only in special cases, e.g. for debugging.
+% \end{setupkeydecl}
+% \begin{setupkeydecl}{
+%    activate/struct,
 %    activate-struct (deprecated),
+%    }
+% This key activates the code for structures.
+% It should be used
+% only in special cases, e.g. for debugging.
+% \end{setupkeydecl}
+
+% \begin{setupkeydecl}{
+%    activate/all,
 %    activate-all (deprecated),
 %    }
-% Keys to activate the various tagging steps. 
+% This is a meta key for the three previous keys
+% and is normally what should be used to activate tagging.
 % \end{setupkeydecl}
+ 
 %\begin{setupkeydecl}{activate/struct-dest,no-struct-dest (deprecated)}
 % The key allows to suppress the creation of structure destinations
 % \end{setupkeydecl}
