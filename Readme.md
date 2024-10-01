@@ -10,7 +10,7 @@ A package to experiment with tagging and other requirements of accessible pdfs w
 
 Comments, feedback, examples are welcome. 
 
-Use the issue tracker, sent a mail or make a pull-request.
+Use the issue tracker, send a mail or make a pull-request.
 
 ## Licence
 
