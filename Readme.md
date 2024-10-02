@@ -6,11 +6,11 @@
 
 A package to experiment with tagging and other requirements of accessible pdfs with pdflatex and lualatex
 
-## Rules for contribuations
+## Rules for contributions
 
 Comments, feedback, examples are welcome. 
 
-Use the issue tracker, sent a mail or make a pull-request.
+Use the issue tracker, send a mail or make a pull-request.
 
 ## Licence
 
