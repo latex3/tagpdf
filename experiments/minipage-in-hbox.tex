@@ -1,0 +1,76 @@
+% tests minipages directly in hbox setting (e.g. tcolorbox)
+% requires 2024-11-01 for para/restore!!
+
+\DocumentMetadata{uncompress,testphase=phase-III}
+\documentclass{article}
+\ExplSyntaxOn
+\tagpdfsetup{role/new-tag=minipage/Div}
+\tl_set:Nn\l__ltboxes_tag_tl{minipage}
+\ExplSyntaxOff  
+\usepackage{tcolorbox}
+
+\makeatletter
+\def\tcb@lrbox#1#2#3{%
+  \edef\reserved@a{%
+    \endgroup
+    \setbox#1\hbox{%
+    \tagpdfparaOff %<------------
+     %
+      \begingroup\aftergroup}%
+    \def\noexpand\@currenvir{\@currenvir}%
+    \def\noexpand\@currenvline{\on@line}}%
+  \reserved@a
+    \@endpefalse%
+    \global\@newlistfalse%
+    \tcb@set@savebox@construction@true%
+    \let\tcbbreak\@@par%
+    \csname tcb@parbox@use@\kvtcb@parbox\endcsname%
+    \tcb@minipage{#2}%
+    \color{#3}%
+    \tcb@hyph@fix\ignorespaces} 
+\begin{document}
+
+\begin{tcolorbox}[title=Title]
+blub
+ \begin{minipage}{3cm}
+  box \begin{minipage}{2cm}
+      inner box
+      \end{minipage}
+ \end{minipage}
+\end{tcolorbox}
+
+
+\leavevmode 
+\hbox{%
+ \begin{minipage}{3cm}
+  box \begin{minipage}{2cm}
+      inner box
+      \end{minipage}
+ \end{minipage}}
+
+
+\hbox{\tagpdfparaOff
+ \begin{minipage}{3cm}
+  box1 \begin{minipage}{2cm}
+      inner box1
+      \end{minipage}
+ \end{minipage}}
+
+\setbox0=\hbox{\tagpdfparaOff
+ \begin{minipage}{3cm}
+  box2 \begin{minipage}{2cm}
+      inner box2
+      \end{minipage}
+ \end{minipage}}\box0 
+
+
+\leavevmode 
+\setbox0=\hbox{%
+ \begin{minipage}{3cm}
+  box3 \begin{minipage}{2cm}
+      inner box3
+      \end{minipage}
+ \end{minipage}}\box0
+
+
+\end{document}
