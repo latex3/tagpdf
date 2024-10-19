@@ -10,6 +10,9 @@ this project uses date-based 'snapshot' version identifiers.
  - corrected a few temp variables
 ### Changed
  - make para-sockets optional so that they can move to lttagging.
+ 
+### Added
+ - \tag_socket_use:nnn, adapted \UseTaggingSocket 
 
 ## [2024-09-16]
 ### Added 

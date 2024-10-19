@@ -265,41 +265,49 @@
 % \begin{syntax}
 %  \cs{tag_socket_use:n} \Arg{socket name}\\
 %  \cs{tag_socket_use:nn} \Arg{socket name} \Arg{socket argument}\\
+%  \cs{tag_socket_use:nn} \Arg{socket name} \Arg{socket argument} \Arg{socket argument}\\
 %  \cs{UseTaggingSocket} \Arg{socket name} \\
 %  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument}\\
+%  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument}\Arg{socket argument}\\
 % \end{syntax}
 % \end{function}
-
-% The next \LaTeX{} (2024-06-01) will use special sockets for the tagging.
 % 
-% These sockets will use names starting
-% with \texttt{tagsupport/}. Usually, these sockets have exactly two
-% plugs defined: \texttt{noop} (when no tagging is requested or 
-% tagging is not wanted for some reason) and 
-% a second plug that enables the tagging. There
-% may be more, e.g., tagging with special debugging, etc., but right
-% now it is usually just on or off.
-%
 % Given that we sometimes have to suspend tagging, it would be fairly
 % inefficient to put different plugs into these sockets whenever that
 % happens. We therefore offer \cs{UseTaggingSocket} which is like
-%  \cs{UseSocket} except that the socket name is specified without
-%  \texttt{tagsupport/}, i.e.,
+% \cs{UseSocket} except that is expects a socket starting with
+% \texttt{tagsupport/} but the socket name is specified without
+% this prefix, i.e.,
 % \begin{quote}
 %   \verb=\UseTaggingSocket{foo}=      $\to$
 %   \verb=\UseSocket{tagsupport/foo}=
-% \end{quote}
+% \end{quote}.
+%
 %  Beside being slightly shorter, the big advantage is that this way
 %  we can change \cs{UseTaggingSocket} to do nothing by switching a boolean
 %  instead of changing the plugs of the tagging support sockets back and forth.
+%
+% Usually, these sockets have exactly two plugs defined. 
+% When using \cs{UseTaggingSocket} the first plug is always 
+% used if tagging is suspended.
+% For the sockets with zero and one argument
+% this is the \texttt{noop} plug, so they gobble the 
+% argument in such a case. The assigned plug use when tagging is enable.
+% The socket with two arguments
+% will drop the first argument and pass the second unchanged if 
+% tagging is not activated and when tagging is activated it
+% will process them as defined by the assigned plug.
+% There may be more plugs, e.g., tagging with special debugging, etc., 
+% but right now it is usually just on or off.
 %
 %  It is possible to use the tagging support sockets with
 %  \cs{UseSocket} directly, but in this case the socket remains active
 %  if e.g. \cs{SuspendTagging} is in force. There may be reasons for doing
 %  that but in general we expect to always use \cs{UseTaggingSocket}.
 %
-%  The L3 programming layer versions \cs{tag_socket_use:n} and
-%  \cs{tag_socket_use:nn} are slightly more efficient than
+%  The L3 programming layer versions \cs{tag_socket_use:n}, and
+%  \cs{tag_socket_use:nn}, \cs{tag_socket_use:nnn} 
+%  are slightly more efficient than
 %  \cs{UseTaggingSocket} because they do not have to determine how
 %  many arguments the socket takes when disabling it.
 % \end{documentation}
@@ -412,11 +420,12 @@
 %<*base>
 \providecommand\tag_socket_use:n[1]{}
 \providecommand\tag_socket_use:nn[2]{}
+\providecommand\tag_socket_use:nnn[3]{}
 \providecommand\UseTaggingSocket[1]{}
 %</base>
 %    \end{macrocode}
 %
-% \begin{macro}{\tag_socket_use:n,\tag_socket_use:nn,\UseTaggingSocket}
+% \begin{macro}{\tag_socket_use:n,\tag_socket_use:nn,\tag_socket_use:nnn,\UseTaggingSocket}
 %    \begin{macrocode}
 %<*package>
 \cs_set_protected:Npn \tag_socket_use:n #1 
@@ -435,6 +444,14 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
+\cs_set_protected:Npn \tag_socket_use:nnn #1#2#3 
+  {
+    \bool_if:NT \l_@@_active_socket_bool
+       { \UseSocket {tagsupport/#1} {#2} {#3} }
+  }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \cs_set_protected:Npn \UseTaggingSocket #1 
   {
     \bool_if:NTF \l_@@_active_socket_bool
@@ -445,7 +462,7 @@
             {
               0 \prg_do_nothing:
               1 \use_none:n
-              2 \use_none:nn
+              2 \use_ii:nn
 %    \end{macrocode}
 %    We do not expect tagging sockets with more than one or two
 %    arguments, so for now we only provide those.
