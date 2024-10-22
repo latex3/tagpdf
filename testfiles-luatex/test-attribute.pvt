@@ -2,12 +2,10 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{xmp=false} 
+\DocumentMetadata{xmp=false,testphase=phase-I} 
 \input{regression-test} 
-\documentclass{scrartcl}
+\documentclass{article}
 \usepackage[english]{babel}
-\usepackage{tagpdf}
-\tagpdfsetup{activate/all}
 \tagpdfsetup{
  role/new-attribute= {TH-row}{<</O/Table /Scope/Row>>}
  }
