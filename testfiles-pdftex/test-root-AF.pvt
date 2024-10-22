@@ -3,7 +3,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false,pdfversion=2.0}
+\DocumentMetadata{xmp=false,pdfversion=2.0,testphase=phase-I}
 \input{regression-test}
 \ExplSyntaxOn
 \group_begin:
@@ -17,18 +17,12 @@
 
 
 \documentclass{article}
-\makeatletter
-\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
-\@ifundefined{stockheight}{\newdimen\stockheight}{}
 \stockheight   = 297mm
 \stockwidth    = 210mm
-\makeatother
 
-\usepackage{tagpdf}
 
 \tagpdfsetup
  {
-   activate/all,
    role/new-attribute = {font-red}{/O /CSS-3 },
    role/new-attribute = {font-bold}{/O /CSS-3 },
    root-AF={tag/csstest},

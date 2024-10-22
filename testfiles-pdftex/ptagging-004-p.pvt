@@ -3,14 +3,13 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false} 
+\DocumentMetadata{xmp=false,testphase=phase-II} 
 \input{regression-test}
 
 \documentclass[12pt,a4paper,twocolumn]{article}
 
 
-\usepackage{tagpdf}
-\tagpdfsetup{activate,activate/spaces,para/tagging,debug/show=para,debug/log=v}
+\tagpdfsetup{debug/show=para,debug/log=v}
 
 \makeatletter
 \def\@finalstrut#1{%

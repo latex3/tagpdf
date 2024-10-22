@@ -5,7 +5,7 @@
 
 \DocumentMetadata{testphase=phase-II,xmp=false}
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass[11pt,a4paper]{article}
 \usepackage[english]{babel}
 \tagpdfsetup{
  role/new-attribute= {tag/TH row}{/O/Table /Scope/Row}

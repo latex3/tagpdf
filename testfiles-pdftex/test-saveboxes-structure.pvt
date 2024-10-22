@@ -4,25 +4,18 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false}
+\DocumentMetadata{xmp=false,testphase=phase-I}
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass[11pt,a4paper]{article}
 \usepackage[english]{babel}
-\usepackage{tagpdf,iftex}
+\usepackage{iftex}
 
-\ifpdftex
   \usepackage[T1]{fontenc}
-\fi
-
-\ifluatex
-  \usepackage{fontspec}
-  \usepackage{luacode}
-\fi
 
 
 
 
-\tagpdfsetup{activate/all,debug/log=vv} %
+\tagpdfsetup{debug/log=vv} %
 %to better see the mc in the pdf:
 \tagpdfsetup{role/new-tag = BOX/P}
 

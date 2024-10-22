@@ -4,22 +4,27 @@ Don't change this file in any respect.
 (ptagging-004.aux) \relax^^M
 \new@label@record{mcid-2}{{tagabspage}{1}{tagmcabs}{2}{tagmcid}{0}}^^M
 \new@label@record{mcid-3}{{tagabspage}{1}{tagmcabs}{3}{tagmcid}{1}}^^M
-\new@label@record{mcid-6}{{tagabspage}{1}{tagmcabs}{6}{tagmcid}{2}}^^M
-\new@label@record{mcid-9}{{tagabspage}{1}{tagmcabs}{9}{tagmcid}{3}}^^M
-\new@label@record{mcid-4}{{tagabspage}{1}{tagmcabs}{4}{tagmcid}{4}}^^M
-\new@label@record{mcid-5}{{tagabspage}{1}{tagmcabs}{5}{tagmcid}{5}}^^M
-\new@label@record{mcid-12}{{tagabspage}{1}{tagmcabs}{12}{tagmcid}{6}}^^M
-\new@label@record{mcid-11}{{tagabspage}{1}{tagmcabs}{11}{tagmcid}{7}}^^M
-\new@label@record{mcid-16}{{tagabspage}{2}{tagmcabs}{16}{tagmcid}{0}}^^M
-\new@label@record{mcid-15}{{tagabspage}{2}{tagmcabs}{15}{tagmcid}{1}}^^M
-\new@label@record{mcid-18}{{tagabspage}{2}{tagmcabs}{18}{tagmcid}{2}}^^M
-\new@label@record{mcid-17}{{tagabspage}{2}{tagmcabs}{17}{tagmcid}{3}}^^M
-\new@label@record{mcid-24}{{tagabspage}{3}{tagmcabs}{24}{tagmcid}{0}}^^M
-\new@label@record{mcid-22}{{tagabspage}{3}{tagmcabs}{22}{tagmcid}{1}}^^M
-\new@label@record{mcid-27}{{tagabspage}{4}{tagmcabs}{27}{tagmcid}{0}}^^M
-\new@label@record{mcid-31}{{tagabspage}{4}{tagmcabs}{31}{tagmcid}{1}}^^M
-\new@label@record{mcid-29}{{tagabspage}{4}{tagmcabs}{29}{tagmcid}{2}}^^M
-\new@label@record{@tag@LastPage}{{abspage}{4}{tagmcabs}{33}{tagstruct}{13}}^^M
+\new@label@record{mcid-4}{{tagabspage}{1}{tagmcabs}{4}{tagmcid}{2}}^^M
+\new@label@record{mcid-15}{{tagabspage}{1}{tagmcabs}{15}{tagmcid}{3}}^^M
+\new@label@record{mcid-18}{{tagabspage}{1}{tagmcabs}{18}{tagmcid}{4}}^^M
+\new@label@record{mcid-6}{{tagabspage}{1}{tagmcabs}{6}{tagmcid}{5}}^^M
+\new@label@record{mcid-7}{{tagabspage}{1}{tagmcabs}{7}{tagmcid}{6}}^^M
+\new@label@record{mcid-8}{{tagabspage}{1}{tagmcabs}{8}{tagmcid}{7}}^^M
+\new@label@record{mcid-9}{{tagabspage}{1}{tagmcabs}{9}{tagmcid}{8}}^^M
+\new@label@record{mcid-20}{{tagabspage}{1}{tagmcabs}{20}{tagmcid}{9}}^^M
+\new@label@record{mcid-21}{{tagabspage}{1}{tagmcabs}{21}{tagmcid}{10}}^^M
+\new@label@record{mcid-24}{{tagabspage}{2}{tagmcabs}{24}{tagmcid}{0}}^^M
+\new@label@record{mcid-25}{{tagabspage}{2}{tagmcabs}{25}{tagmcid}{1}}^^M
+\new@label@record{mcid-26}{{tagabspage}{2}{tagmcabs}{26}{tagmcid}{2}}^^M
+\new@label@record{mcid-27}{{tagabspage}{2}{tagmcabs}{27}{tagmcid}{3}}^^M
+\new@label@record{mcid-12}{{tagabspage}{2}{tagmcabs}{12}{tagmcid}{4}}^^M
+\new@label@record{mcid-13}{{tagabspage}{2}{tagmcabs}{13}{tagmcid}{5}}^^M
+\new@label@record{mcid-33}{{tagabspage}{3}{tagmcabs}{33}{tagmcid}{0}}^^M
+\new@label@record{mcid-31}{{tagabspage}{3}{tagmcabs}{31}{tagmcid}{1}}^^M
+\new@label@record{mcid-36}{{tagabspage}{4}{tagmcabs}{36}{tagmcid}{0}}^^M
+\new@label@record{mcid-40}{{tagabspage}{4}{tagmcabs}{40}{tagmcid}{1}}^^M
+\new@label@record{mcid-38}{{tagabspage}{4}{tagmcabs}{38}{tagmcid}{2}}^^M
+\new@label@record{@tag@LastPage}{{abspage}{4}{tagmcabs}{42}{tagstruct}{17}}^^M
 \gdef \@abspage@last{4}^^M
 -------- ptagging-004.aux (end) -----------
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -31,12 +36,9 @@ Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
-Package tagpdf Info: Parent-Child 'P' --> 'Note'.
+Package tagpdf Info: Parent-Child 'P' --> 'Lbl'.
 (tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'P' --> 'Note' on line ...
-Package tagpdf Info: Parent-Child 'Note' --> 'Lbl'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Note' --> 'Lbl' on line ...
+(tagpdf)             Rolemapped from: 'P' --> 'footnotemark' on line ...
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
@@ -46,10 +48,28 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line ....
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line ....
-Package tagpdf Info: closing structure 6 tagged /Lbl
+Package tagpdf Info: closing structure 5 tagged /footnotemark
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'Note'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'FENote' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'Note'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'footnote' on line ...
+Package tagpdf Info: Parent-Child 'Note' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Note' --> 'text-unit' on line ...
+Package tagpdf Info: Parent-Child 'Note' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Note' --> 'text' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 Package tagpdf Info: Parent-Child 'Note' --> 'Lbl'.
 (tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Note' --> 'Lbl' on line ...
+(tagpdf)             Rolemapped from: 'Note' --> 'footnotelabel' on line ...
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
@@ -57,11 +77,32 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line ....
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line ....
-Package tagpdf Info: closing structure 7 tagged /Lbl
-Package tagpdf Info: Parent-Child 'Note' --> 'MC'.
+Package tagpdf Info: closing structure 9 tagged /footnotelabel
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Note' --> 'MC' on line ...
-Package tagpdf Info: closing structure 5 tagged /Note
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 8 tagged /text
+Package tagpdf Info: closing structure 7 tagged /text-unit
+Package tagpdf Info: Parent-Child 'Note' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Note' --> 'text-unit' on line ...
+Package tagpdf Info: Parent-Child 'Note' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Note' --> 'text' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 11 tagged /text
+Package tagpdf Info: closing structure 10 tagged /text-unit
+Package tagpdf Info: closing structure 6 tagged /footnote
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
@@ -78,94 +119,94 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 9 tagged /text
-Package tagpdf Info: closing structure 8 tagged /text-unit
-Pick up new bot mark!
-=> first b-, 4, 7, Lbl
-=> bot b+, 5, 5, Note
-=> TMB not missing
-=> TME missing -- inserted
-The sequence \g__tag_mc_footnote_marks_seq contains the items (without outer braces):
->  {b+}
->  {5}
->  {5}
->  {Note}.
+Package tagpdf Info: closing structure 13 tagged /text
+Package tagpdf Info: closing structure 12 tagged /text-unit
 ====> In \@makecol 1
 Pick up new bot mark!
 => first b-, 1, -1
-=> bot b+, 5, 5, Note
+=> bot b+, 18, 13, text
 => TMB not missing
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
->  {5}
->  {5}
->  {Note}.
-No marks so use saved bot mark: b+, 5, 5, Note
-=> first b+, 5, 5, Note
-=> bot b+, 5, 5, Note
-=> TMB missing -- inserted
+>  {18}
+>  {13}
+>  {text}.
+Pick up new bot mark!
+=> first b-, 5, -1
+=> bot b+, 9, 8, text
+=> TMB not missing
 => TME missing -- inserted
 The sequence \g__tag_mc_footnote_marks_seq contains the items (without outer braces):
 >  {b+}
->  {5}
->  {5}
->  {Note}.
+>  {9}
+>  {8}
+>  {text}.
 ====> In \@makecol 1
-No marks so use saved bot mark: b+, 5, 5, Note
-=> first b+, 5, 5, Note
-=> bot b+, 5, 5, Note
+No marks so use saved bot mark: b+, 18, 13, text
+=> first b+, 18, 13, text
+=> bot b+, 18, 13, text
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
->  {5}
->  {5}
->  {Note}.
+>  {18}
+>  {13}
+>  {text}.
+No marks so use saved bot mark: b+, 9, 8, text
+=> first b+, 9, 8, text
+=> bot b+, 9, 8, text
+=> TMB missing -- inserted
+=> TME missing -- inserted
+The sequence \g__tag_mc_footnote_marks_seq contains the items (without outer braces):
+>  {b+}
+>  {9}
+>  {8}
+>  {text}.
 [1
 ]
-No marks so use saved bot mark: b+, 5, 5, Note
-=> first b+, 5, 5, Note
-=> bot b+, 5, 5, Note
-=> TMB missing -- inserted
-=> TME missing -- inserted
-The sequence \g__tag_mc_footnote_marks_seq contains the items (without outer braces):
->  {b+}
->  {5}
->  {5}
->  {Note}.
 ====> In \@makecol 2
-No marks so use saved bot mark: b+, 5, 5, Note
-=> first b+, 5, 5, Note
-=> bot b+, 5, 5, Note
+No marks so use saved bot mark: b+, 18, 13, text
+=> first b+, 18, 13, text
+=> bot b+, 18, 13, text
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
->  {5}
->  {5}
->  {Note}.
+>  {18}
+>  {13}
+>  {text}.
+No marks so use saved bot mark: b+, 9, 8, text
+=> first b+, 9, 8, text
+=> bot b+, 9, 8, text
+=> TMB missing -- inserted
+=> TME missing -- inserted
+The sequence \g__tag_mc_footnote_marks_seq contains the items (without outer braces):
+>  {b+}
+>  {9}
+>  {8}
+>  {text}.
+====> In \@makecol 2
+No marks so use saved bot mark: b+, 18, 13, text
+=> first b+, 18, 13, text
+=> bot b+, 18, 13, text
+=> TMB missing -- inserted
+=> TME missing -- inserted
+The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
+>  {b+}
+>  {18}
+>  {13}
+>  {text}.
 Pick up new bot mark!
-=> first e-, 5, 5
-=> bot e+, 5, 5
+=> first e-, 9, 8
+=> bot e+, 14, 11
 => TMB missing -- inserted
 => TME not missing
 The sequence \g__tag_mc_footnote_marks_seq contains the items (without outer braces):
 >  {b+}
->  {5}
->  {5}
->  {Note}.
-====> In \@makecol 2
-Pick up new bot mark!
-=> first e-, 5, 5
-=> bot e+, 5, 5
-=> TMB missing -- inserted
-=> TME not missing
-The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
->  {b+}
->  {5}
->  {5}
->  {Note}.
+>  {9}
+>  {8}
+>  {text}.
 [2]
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -177,40 +218,41 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 11 tagged /text
-Package tagpdf Info: closing structure 10 tagged /text-unit
+Package tagpdf Info: closing structure 15 tagged /text
+Package tagpdf Info: closing structure 14 tagged /text-unit
 ====> In \@makecol 3
 Pick up new bot mark!
-=> first e-, 9, 9
-=> bot e+, 10, 9
+=> first e-, 18, 13
+=> bot e+, 19, 13
 => TMB missing -- inserted
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
->  {e+}
->  {5}
->  {5}.
+>  {b+}
+>  {18}
+>  {13}
+>  {text}.
 ====> In \@makecol 3
 Pick up new bot mark!
-=> first b-, 21, -1
-=> bot b+, 22, 11, text
+=> first b-, 30, -1
+=> bot b+, 31, 15, text
 => TMB not missing
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
->  {22}
->  {11}
+>  {31}
+>  {15}
 >  {text}.
 [3]
 ====> In \@makecol 4
-No marks so use saved bot mark: b+, 22, 11, text
-=> first b+, 22, 11, text
-=> bot b+, 22, 11, text
+No marks so use saved bot mark: b+, 31, 15, text
+=> first b+, 31, 15, text
+=> bot b+, 31, 15, text
 => TMB missing -- inserted
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
->  {22}
->  {11}
+>  {31}
+>  {15}
 >  {text}.
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -222,24 +264,24 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 13 tagged /text
-Package tagpdf Info: closing structure 12 tagged /text-unit
+Package tagpdf Info: closing structure 17 tagged /text
+Package tagpdf Info: closing structure 16 tagged /text-unit
 ====> In \@makecol 4
 Pick up new bot mark!
-=> first e-, 22, 11
-=> bot e+, 30, 13
+=> first e-, 31, 15
+=> bot e+, 39, 17
 => TMB missing -- inserted
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
->  {22}
->  {11}
+>  {31}
+>  {15}
 >  {text}.
 [4] (ptagging-004.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~13 structure objects
-(tagpdf)             with ~33 'MC' leaf nodes.
+(tagpdf)             Writing out ~17 structure objects
+(tagpdf)             with ~42 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree

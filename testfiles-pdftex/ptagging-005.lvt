@@ -8,13 +8,12 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{uncompress}
+\DocumentMetadata{uncompress,testphase=phase-III}
 \input{regression-test}
 \documentclass{article}
 
 
-\usepackage{tagpdf}
-\tagpdfsetup{activate,activate/spaces,para/tagging,debug/show=para,debug/log=v}
+\tagpdfsetup{debug/show=para,debug/log=v}
 
 \usepackage[auto-lang=false]{lipsum}
 

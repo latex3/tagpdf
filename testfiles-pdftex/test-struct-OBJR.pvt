@@ -7,18 +7,16 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
 \ExplSyntaxOff 
-\DocumentMetadata{pdfversion=2.0,xmp=false} 
+\DocumentMetadata{pdfversion=2.0,xmp=false,testphase=phase-II} 
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass[11pt,a4paper]{article}
 
 \usepackage[english]{babel}
-\usepackage{tagpdf}
 \usepackage{graphicx,iftex}
 \usepackage{l3pdffield-testphase}
-\ifpdftex
+
   \usepackage[T1]{fontenc}
-\fi
-\tagpdfsetup{activate/all,para/tagging}
+
 \begin{document}\showoutput
 \START
 \tagstructbegin{tag=Document}

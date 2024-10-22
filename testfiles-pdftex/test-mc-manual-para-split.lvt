@@ -4,30 +4,22 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-I}
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass[11pt,a4paper]{article}
 
 \usepackage[english]{babel}
-\usepackage[genericmode]{tagpdf}
+
 \usepackage{iftex,graphicx}
-\ifpdftex
+
   \usepackage[T1]{fontenc}
-\fi
-
-\ifluatex
-  \usepackage{fontspec}
-  \usepackage{luacode}
-\fi
-
-
 
 
 
 \tagpdfsetup{role/new-tag = TAB/P,
              role/new-tag = FIG/P,
              page/tabsorder=structure,
-             activate/all}
+             }
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
