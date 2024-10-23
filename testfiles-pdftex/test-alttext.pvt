@@ -4,7 +4,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false}
+\DocumentMetadata{xmp=false,testphase=phase-I}
 \input{regression-test}
 \documentclass{article}
 \makeatletter
@@ -14,8 +14,8 @@
 \stockwidth    = 210mm
 \makeatother
 
-\usepackage{tagpdf,iftex}
-\tagpdfsetup{activate}
+\usepackage{iftex}
+
 \iftutex
   \usepackage{fontspec}
   \usepackage{luacode}

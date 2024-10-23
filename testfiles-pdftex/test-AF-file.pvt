@@ -8,19 +8,14 @@
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
 \ExplSyntaxOff 
 \DocumentMetadata{pdfversion=2.0 
-  ,lang=de-DE,xmp=false}
+  ,lang=de-DE,xmp=false,testphase=phase-I}
 \input{regression-test}
 \documentclass{article}
-\makeatletter
-\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
-\@ifundefined{stockheight}{\newdimen\stockheight}{}
 \stockheight   = 297mm
 \stockwidth    = 210mm
-\makeatother
-\usepackage{tagpdf,iftex}
+\usepackage{iftex}
 
-\tagpdfsetup{page/tabsorder=structure,
-             activate/all}
+\tagpdfsetup{page/tabsorder=structure}
 \ifpdftex
   \usepackage[T1]{fontenc}
 \fi

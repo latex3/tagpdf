@@ -5,27 +5,19 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-I}
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass[11pt,a4paper]{article}
 
 \usepackage[english]{babel}
-\usepackage[genericmode]{tagpdf}
 \usepackage{graphicx,iftex}
-\ifpdftex
-  \usepackage[T1]{fontenc}
-\fi
 
-\ifluatex
-  \usepackage{fontspec}
-  \usepackage{luacode}
-\fi
+\usepackage[T1]{fontenc}
 
 
 
 
 
-\tagpdfsetup{activate/all}
 
 \newsavebox\mybox
 \begin{document}

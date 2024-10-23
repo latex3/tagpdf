@@ -6,18 +6,13 @@
 
 \DocumentMetadata{}
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass[11pt,a4paper]{article}
 
 \usepackage[english]{babel}
 \usepackage{tagpdf}
 \usepackage{graphicx,iftex}
 
-\iftutex
-  \usepackage{fontspec}
-  \usepackage{luacode}
-\else
-  \usepackage[T1]{fontenc}
-\fi
+\usepackage[T1]{fontenc}
 
 \tagpdfsetup{activate/mc,debug/log=vv} %not too much in the log .. tests fails then
 \usepackage{kantlipsum}

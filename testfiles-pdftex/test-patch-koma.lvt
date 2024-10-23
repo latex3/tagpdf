@@ -8,7 +8,7 @@
 
 %no page break involved. So the example works in lua and generic mode
 \ExplSyntaxOn
-\debug_on:n { check-declarations , deprecation }
+%\debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 

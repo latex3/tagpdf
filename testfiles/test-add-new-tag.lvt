@@ -3,12 +3,11 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-I,debug={log=all}}
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass{article}
 \usepackage{iftex}
 \usepackage[english]{babel}
-\usepackage{tagpdf}
 \usepackage{graphicx}
 \ifpdftex
   \usepackage[T1]{fontenc}
@@ -21,8 +20,6 @@
 
 
 
-
-\tagpdfsetup{activate/all,debug/log=all}
 \START
 
 \ExplSyntaxOn

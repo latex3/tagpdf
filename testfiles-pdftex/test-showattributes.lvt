@@ -5,9 +5,11 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-I,debug={log=vv}}
 \input{regression-test}
-\documentclass{scrartcl}
+\documentclass[11pt,a4paper]{article}
+\stockheight   = 297mm
+\stockwidth    = 210mm
 
 \usepackage[english]{babel}
 \usepackage{tagpdf}
@@ -20,7 +22,6 @@
   \usepackage[T1]{fontenc}
 \fi
 
-\tagpdfsetup{activate/all,debug/log=vv}
 \begin{document}
 
 \tagmcbegin{tag=P}%

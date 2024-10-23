@@ -8,14 +8,13 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{uncompress,pdfversion=2.0}
+\DocumentMetadata{uncompress,pdfversion=2.0,testphase=phase-II}
 
 \input{regression-test}
 \documentclass{article}
 
 
-\usepackage{tagpdf}
-\tagpdfsetup{activate,activate/spaces,para/tagging,debug/show=para,debug/log=v}
+\tagpdfsetup{debug/show=para,debug/log=v}
 
 
 
