@@ -290,12 +290,13 @@
 % Usually, these sockets have (beside the default plug defined for every socket)
 % one additional plug defined and directly assigned. This plug is used when 
 % tagging is active. 
+% There may be more plugs, e.g., tagging with special debugging or special behaviour
+% depending on the class or PDF version etc., but right now it is usually just on or off.
+%
 % When tagging is suspended they all have the same predefined behaviour:
 % The sockets with zero arguments do nothing. The sockets with one argument
 % gobble their argument. The sockets with two arguments
 % will drop their first argument and pass the second unchanged.
-% There may be more plugs, e.g., tagging with special debugging or special behaviour
-% depending on the class or PDF version etc., but right now it is usually just on or off.
 %
 % It is possible to use the tagging support sockets with
 % \cs{UseSocket} directly, but in this case the socket remains active
