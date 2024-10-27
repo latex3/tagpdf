@@ -1,0 +1,24 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+
+\DocumentMetadata{testphase=phase-I}
+\input{regression-test}
+\documentclass{article}
+\NewSocket{tagsupport/blub}{0}
+\NewSocketPlug{tagsupport/blub}{test}{hello}
+\AssignSocketPlug{tagsupport/blub}{test}
+\begin{document}
+\START 
+
+\ExplSyntaxOn
+
+\TEST{expandable-socket} 
+ {
+   \typeout { \UseTaggingSocket{blub} }
+   \typeout { \UseExpandableTaggingSocket{blub} }
+ }
+ 
+\ExplSyntaxOff 
+\end{document}

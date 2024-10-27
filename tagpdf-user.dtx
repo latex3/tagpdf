@@ -33,7 +33,8 @@
 %</driver>
 % \fi
 % \title{^^A
-%   The \pkg{tagpdf-user} module\\ Code related to \LaTeX2e user commands and document commands   ^^A
+%   The \pkg{tagpdf-user} module\\
+%   Code related to \LaTeX2e user commands and document commands   ^^A
 %   \\ Part of the tagpdf package
 % }
 %
@@ -266,6 +267,7 @@
 %  \cs{tag_socket_use:n} \Arg{socket name}\\
 %  \cs{tag_socket_use:nn} \Arg{socket name} \Arg{socket argument}\\
 %  \cs{tag_socket_use:nn} \Arg{socket name} \Arg{socket argument} \Arg{socket argument}\\
+%  \cs{tag_socket_use_expandable:n} \Arg{socket name}\\
 %  \cs{UseTaggingSocket} \Arg{socket name} \\
 %  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument}\\
 %  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument}\Arg{socket argument}\\
@@ -302,8 +304,13 @@
 % \cs{UseSocket} directly, but in this case the socket remains active
 % if e.g. \cs{SuspendTagging} is in force. There may be reasons for doing
 % that but in general we expect to always use \cs{UseTaggingSocket}.
+% 
+% For special cases like in some \cs{halign} contexts we need a fully expandable
+% version of the commend. For these cases, \cs{UseExpandableTaggingSocket} can be
+% used. To allow being expandable, it does not output any debugging information
+% if \cs{DebugSocketsOn} is in effect and therefore should be avoided whenever possible.
 %
-%  The L3 programming layer versions \cs{tag_socket_use:n}, and
+%  The L3 programming layer versions \cs{tag_socket_use_expandable:n}, \cs{tag_socket_use:n}, and
 %  \cs{tag_socket_use:nn}, \cs{tag_socket_use:nnn} 
 %  are slightly more efficient than
 %  \cs{UseTaggingSocket} because they do not have to determine how
@@ -414,22 +421,29 @@
 % \section{Socket support}
 % Until we can be sure that the kernel defines the commands we provide them before
 % redefining them:
+% The expandable version will only work correctly after the 2024-11-01 release.
 %    \begin{macrocode}
 %<*base>
 \providecommand\tag_socket_use:n[1]{}
 \providecommand\tag_socket_use:nn[2]{}
 \providecommand\tag_socket_use:nnn[3]{}
+\providecommand\tag_socket_use_expandable:n[1]{}
+\providecommand\socket_use_expandable:nw [1] {
+  \use:c { __socket_#1_plug_ \str_use:c { l__socket_#1_plug_str } :w }
+}
 \providecommand\UseTaggingSocket[1]{}
+\providecommand\UseExpandableTaggingSocket[1]{}
 %</base>
 %    \end{macrocode}
 %
-% \begin{macro}{\tag_socket_use:n,\tag_socket_use:nn,\tag_socket_use:nnn,\UseTaggingSocket}
+% \begin{macro}{\tag_socket_use:n,\tag_socket_use:nn,\tag_socket_use:nnn,\UseTaggingSocket,
+% \tag_socket_use_expandable:n,\UseExpandableTaggingSocket}
 %    \begin{macrocode}
 %<*package>
-\cs_set_protected:Npn \tag_socket_use:n #1 
+\cs_set_protected:Npn \tag_socket_use:n #1
   {
     \bool_if:NT \l_@@_active_socket_bool
-      { \UseSocket {tagsupport/#1} }
+      { \socket_use:n {tagsupport/#1} }
   }
 %    \end{macrocode}
 %
@@ -437,7 +451,7 @@
 \cs_set_protected:Npn \tag_socket_use:nn #1#2 
   {
     \bool_if:NT \l_@@_active_socket_bool
-       { \UseSocket {tagsupport/#1} {#2} }
+       { \socket_use:nn {tagsupport/#1} {#2} }
   }
 %    \end{macrocode}
 %
@@ -445,15 +459,43 @@
 \cs_set_protected:Npn \tag_socket_use:nnn #1#2#3 
   {
     \bool_if:NT \l_@@_active_socket_bool
-       { \UseSocket {tagsupport/#1} {#2} {#3} }
+       { \socket_use:nnn {tagsupport/#1} {#2} {#3} }
   }
 %    \end{macrocode}
-%
+%    \begin{macrocode}
+\cs_set:Npn \tag_socket_use_expandable:n #1 
+  {
+    \bool_if:NT \l_@@_active_socket_bool
+      { \socket_use_expandable:n {tagsupport/#1} }
+  }
+%    \end{macrocode}
 %    \begin{macrocode}
 \cs_set_protected:Npn \UseTaggingSocket #1 
   {
     \bool_if:NTF \l_@@_active_socket_bool
-      { \UseSocket{tagsupport/#1} }
+      { \socket_use:nw {tagsupport/#1} }
+      {
+        \int_case:nnF
+            { \int_use:c { c__socket_tagsupport/#1_args_int } }
+            {
+              0 \prg_do_nothing:
+              1 \use_none:n
+              2 \use_ii:nn
+%    \end{macrocode}
+%    We do not expect tagging sockets with more than one or two
+%    arguments, so for now we only provide those.
+%    \begin{macrocode}
+            }
+            \ERRORusetaggingsocket
+      }
+  }
+%    \end{macrocode}
+
+%    \begin{macrocode}
+\cs_set:Npn \UseExpandableTaggingSocket #1 
+  {
+    \bool_if:NTF \l_@@_active_socket_bool
+      { \socket_use_expandable:nw {tagsupport/#1} }
       {
         \int_case:nnF
             { \int_use:c { c__socket_tagsupport/#1_args_int } }
