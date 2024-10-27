@@ -1,9 +1,12 @@
-## [2024-09-16]
-Version 0.99f
+## [2024-10-27]
+Version 0.99g
 
-### Added
- - a structure key firstkid that adds a structure as first kid of its parent.
- - \tag_suspend:n and \tag_resume:n. 
- 
 ### Fixed
- - documentation  
+ - corrected a few temp variables
+ 
+### Changed
+ - make para-sockets optional so that they can move to lttagging.
+ 
+### Added
+ - \tag_socket_use:nnn, adapted \UseTaggingSocket, added support for 
+   \UseExpandableTaggingSocket in preparation for the next LaTeX release

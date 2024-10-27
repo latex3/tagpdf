@@ -5,14 +5,16 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2024-10-27]
 ### Fixed
  - corrected a few temp variables
+ 
 ### Changed
  - make para-sockets optional so that they can move to lttagging.
  
 ### Added
- - \tag_socket_use:nnn, adapted \UseTaggingSocket 
+ - \tag_socket_use:nnn, adapted \UseTaggingSocket, added support for 
+   \UseExpandableTaggingSocket in preparation for the next LaTeX release
 
 ## [2024-09-16]
 ### Added 
