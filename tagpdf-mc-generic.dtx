@@ -117,7 +117,14 @@
 \seq_new:N \g_@@_mc_multicol_marks_seq
 %    \end{macrocode}
 %  \end{variable}
-
+% \begin{macro}{\tag_mc_new_stream:n}
+%    \begin{macrocode}
+\cs_new_protected:Npn  \tag_mc_new_stream:n #1
+  {
+    \seq_new:c { g_@@_mc_multicol_#1_seq }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{variable}{\l_@@_mc_firstmarks_seq,\l_@@_mc_botmarks_seq}
 % The marks content contains a number of data which we will have to access and
 % compare, so we will store it locally in two sequences.
@@ -392,7 +399,7 @@
 %    \end{macrocode}
 %  \end{macro}
 
-%  \begin{macro}{\@@_add_missing_mcs_to_stream:Nn}
+%  \begin{macro}{\tag_mc_add_missing_to_stream:Nn,\@@_add_missing_mcs_to_stream:Nn}
 %    This is the main command to add mc to the stream. It is therefore
 %    guarded by the mc-boolean.
 %
@@ -479,6 +486,7 @@
 %%
   }
 }
+\cs_set_eq:NN \tag_mc_add_missing_to_stream:Nn \@@_add_missing_mcs_to_stream:Nn
 %    \end{macrocode}
 %  \end{macro}
 %

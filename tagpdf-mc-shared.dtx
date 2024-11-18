@@ -110,13 +110,39 @@
 %   \end{syntax}
 %   Determines if a mc-chunk is open.
 % \end{function}
-
+%
 % \begin{function}[ EXP,added=2023-06-11]{\tag_mc_reset_box:N}
 %   \begin{syntax}
 %     \cs{tag_mc_reset_box:N} \Arg{box} 
 %   \end{syntax}
 %   This resets in lua mode the mc attributes to the one currently in use.
 %   It does nothing in generic mode.
+% \end{function}
+%
+% \begin{function}[added=2024-11-18]{\tag_mc_add_missing_to_stream:Nn}
+%   \begin{syntax}
+%     \cs{tag_mc_add_missing_to_stream:Nn} \Arg{box} \Arg {stream name}
+%   \end{syntax}
+%   This command is only needed in generic mode, in lua mode it gobbles its arguments.
+%   In generic mode it adds MC literals to the stream that are missing because of
+%   page breaks. 
+%   The first argument is the box with the stream, the second a
+%   string representing the stream. Predeclared are the names 
+%   \texttt{main}, \texttt{footnote} and \texttt{multicol}.
+%   If more streams should be handle the underlying interface must be enabled
+%   with \cs{tag_mc_new_stream:n} 
+%   The command is only for packages doing deep manipulations 
+%   of the output routine! 
+%   Example of use are in the multicol package and in tagpdf itself.
+% \end{function}
+% 
+% \begin{function}[added=2024-11-18]{\tag_mc_new_stream:n}
+%   \begin{syntax}
+%     \cs{\tag_mc_new_stream:n} \Arg {stream name}
+%   \end{syntax}
+%   This declares the interface needed to handle 
+%   a new stream with \cs{tag_mc_add_missing_to_stream:Nn}.
+%   Predeclared are the names \texttt{main}, \texttt{footnote} and \texttt{multicol}.
 % \end{function}
 %
 % \section{Public keys}
@@ -287,6 +313,7 @@
 %
 %
 % \subsection{Functions}
+%
 % \begin{macro}{\@@_mc_handle_mc_label:e}
 % The commands labels a mc-chunk. It is used if the user explicitly
 % labels the mc-chunk with the |label| key. The argument is the

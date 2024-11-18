@@ -1197,26 +1197,29 @@
         \cs_if_exist:NT \@kernel@before@footins
          {
            \tl_put_right:Nn \@kernel@before@footins
-             { \@@_add_missing_mcs_to_stream:Nn \footins {footnote} }
+             { \tag_mc_add_missing_to_stream:Nn \footins {footnote} }
            \tl_put_right:Nn \@kernel@before@cclv
              {
                \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
-               \@@_add_missing_mcs_to_stream:Nn \@cclv {main}
+               \tag_mc_add_missing_to_stream:Nn \@cclv {main}
              }
            \tl_put_right:Nn \@kernel@tagsupport@@@@makecol
              {
                \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
-               \@@_add_missing_mcs_to_stream:Nn \@outputbox {main}
+               \tag_mc_add_missing_to_stream:Nn \@outputbox {main}
              }  
-           \tl_put_right:Nn \@mult@ptagging@hook
-             {
-               \@@_check_typeout_v:n {====>~In~\string\page@sofar}
-               \process@cols\mult@firstbox
+           \tl_if_exist:NT \@mult@ptagging@hook
+            {  
+              \tl_put_right:Nn \@mult@ptagging@hook
                 {
-                  \@@_add_missing_mcs_to_stream:Nn \count@ {multicol}
+                  \@@_check_typeout_v:n {====>~In~\string\page@sofar}
+                  \process@cols\mult@firstbox
+                   {
+                     \tag_mc_add_missing_to_stream:Nn \count@ {multicol}
+                   }
+                  \tag_mc_add_missing_to_stream:Nn \mult@rightbox {multicol}
                 }
-               \@@_add_missing_mcs_to_stream:Nn \mult@rightbox {multicol}
-             }
+            } 
          }
      }
   }
