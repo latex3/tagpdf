@@ -26,11 +26,12 @@ Don't change this file in any respect.
 \new@label@record{mcid-41}{{tagabspage}{1}{tagmcabs}{41}{tagmcid}{19}}^^M
 \new@label@record{mcid-44}{{tagabspage}{1}{tagmcabs}{44}{tagmcid}{20}}^^M
 \new@label@record{mcid-46}{{tagabspage}{1}{tagmcabs}{46}{tagmcid}{21}}^^M
-\new@label@record{mcid-47}{{tagabspage}{1}{tagmcabs}{47}{tagmcid}{22}}^^M
-\new@label@record{mcid-49}{{tagabspage}{1}{tagmcabs}{49}{tagmcid}{23}}^^M
-\new@label@record{mcid-56}{{tagabspage}{2}{tagmcabs}{56}{tagmcid}{0}}^^M
-\new@label@record{mcid-54}{{tagabspage}{2}{tagmcabs}{54}{tagmcid}{1}}^^M
-\new@label@record{@tag@LastPage}{{abspage}{2}{tagmcabs}{58}{tagstruct}{65}}^^M
+\new@label@record{mcid-48}{{tagabspage}{1}{tagmcabs}{48}{tagmcid}{22}}^^M
+\new@label@record{mcid-50}{{tagabspage}{1}{tagmcabs}{50}{tagmcid}{23}}^^M
+\new@label@record{mcid-52}{{tagabspage}{1}{tagmcabs}{52}{tagmcid}{24}}^^M
+\new@label@record{mcid-59}{{tagabspage}{2}{tagmcabs}{59}{tagmcid}{0}}^^M
+\new@label@record{mcid-57}{{tagabspage}{2}{tagmcabs}{57}{tagmcid}{1}}^^M
+\new@label@record{@tag@LastPage}{{abspage}{2}{tagmcabs}{61}{tagstruct}{67}}^^M
 \gdef \@abspage@last{2}^^M
 -------- ptagging-005.aux (end) -----------
 Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
@@ -334,18 +335,30 @@ Package tagpdf Info: closing structure 57 tagged /Lbl
 Package tagpdf Info: Parent-Child 'LI' --> 'LBody'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'LI' --> 'LBody' on line ...
-Package tagpdf Info: Parent-Child 'LBody' --> 'LI'.
-(tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from: 'LBody' --> 'LI' on line ...
-Package tagpdf Warning: Parent-Child 'LBody/' --> 'LI/pdf2'.
-(tagpdf)                Relation is not allowed (struct 58, /LBody --> struct 59) on line ...
+Package tagpdf Info: Parent-Child 'LBody' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'LBody' --> 'text-unit' on line ...
+Package tagpdf Info: Parent-Child 'LBody' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'LBody' --> 'text' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 60 tagged /text
+Package tagpdf Info: closing structure 59 tagged /text-unit
+Package tagpdf Info: closing structure 58 tagged /LBody
+Package tagpdf Info: closing structure 56 tagged /LI
+Package tagpdf Info: Parent-Child 'L' --> 'LI'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'L' --> 'LI' on line ...
 Package tagpdf Info: Parent-Child 'LI' --> 'Lbl'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'LI' --> 'Lbl' on line ...
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
-Package tagpdf Info: closing structure 60 tagged /Lbl
+Package tagpdf Info: closing structure 62 tagged /Lbl
 Package tagpdf Info: Parent-Child 'LI' --> 'LBody'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'LI' --> 'LBody' on line ...
@@ -359,71 +372,57 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 63 tagged /text
-Package tagpdf Info: closing structure 62 tagged /text-unit
+Package tagpdf Info: closing structure 65 tagged /text
+Package tagpdf Info: closing structure 64 tagged /text-unit
 ====> In \@makecol 1
 Pick up new bot mark!
 => first b-, 1, 7, Lbl
-=> bot b+, 49, 63, text
+=> bot b+, 52, 65, text
 => TMB not missing
 => TME missing -- inserted
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
->  {49}
->  {63}
+>  {52}
+>  {65}
 >  {text}.
 [1
 ]
-Package tagpdf Info: closing structure 61 tagged /LBody
-Package tagpdf Info: closing structure 59 tagged /LI
-Package tagpdf Info: closing structure 58 tagged /LBody
-Package tagpdf Info: closing structure 56 tagged /LI
+Package tagpdf Info: closing structure 63 tagged /LBody
+Package tagpdf Info: closing structure 61 tagged /LI
+Package tagpdf Info: closing structure 55 tagged /description
+Package tagpdf Info: closing structure 54 tagged /text-unit
 ==> @endpe=false on input line ...
-Package tagpdf Info: Parent-Child 'L' --> 'Part'.
-(tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from: 'L' --> 'text-unit' on line ...
-Package tagpdf Warning: Parent-Child 'L/' --> 'text-unit/user'.
-(tagpdf)                Relation is not allowed (struct 55, /description --> struct 64) on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Sect' --> 'text-unit' on line ...
 ==> increment P on input line ...
-Package tagpdf Info: Parent-Child 'L' --> 'P'.
-(tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from: 'L' --> 'text' on line ...
-Package tagpdf Warning: Parent-Child 'L/' --> 'text/user'.
-(tagpdf)                Relation is not allowed (struct 64, /text-unit --> struct 65) on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from: 'Sect' --> 'text' on line ...
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 65 tagged /text
-Package tagpdf Info: closing structure 64 tagged /text-unit
+Package tagpdf Info: closing structure 67 tagged /text
+Package tagpdf Info: closing structure 66 tagged /text-unit
 ====> In \@makecol 2
 Pick up new bot mark!
-=> first e-, 49, 63
-=> bot e+, 55, 65
+=> first e-, 52, 65
+=> bot e+, 58, 67
 => TMB missing -- inserted
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {b+}
->  {49}
->  {63}
+>  {52}
+>  {65}
 >  {text}.
 [2] (ptagging-005.aux)
-Package tagpdf Warning: The structure Sect can not be closed.
-(tagpdf)                It is not equal to the current structure description on the main stack
-Package tagpdf Warning: The structure Sect can not be closed.
-(tagpdf)                It is not equal to the current structure description on the main stack
-Package tagpdf Info: closing structure 55 tagged /description
-Package tagpdf Warning: There are still open structures on the stack!
-(tagpdf)                The stack contains {text-unit}{Part},{Sect}{Sect},{Sect}{Sect},{Document}{Document},{Root}{StructTreeRoot}.
-(tagpdf)                The structures are automatically closed,
-(tagpdf)                but their nesting can be wrong.
-Package tagpdf Info: closing structure 54 tagged /text-unit
 Package tagpdf Info: closing structure 10 tagged /Sect
 Package tagpdf Info: closing structure 5 tagged /Sect
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~65 structure objects
-(tagpdf)             with ~58 'MC' leaf nodes.
+(tagpdf)             Writing out ~67 structure objects
+(tagpdf)             with ~61 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree

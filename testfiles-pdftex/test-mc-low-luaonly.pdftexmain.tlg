@@ -5,7 +5,7 @@ Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
-<example-image-duck.pdf, id=11, 184.55048pt x 114.2107pt>
+<example-image-duck.pdf, id=10, 184.55048pt x 114.2107pt>
 File: example-image-duck.pdf Graphic file (type pdf)
 <use example-image-duck.pdf>
 Package pdftex.def Info: example-image-duck.pdf  used on input line ....
@@ -22,7 +22,7 @@ Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
 Overfull \hbox (209.53122pt too wide) in paragraph at lines 20--42
-[]\T1/cmr/m/n/10.95 some things un-tagged. [][]Artifact[][]Artifact[][][][][]somethingsuntagged.[][]marginparblblb[][][]As
+[]\T1/cmr/m/n/10.95 some things un-tagged. []Artifact[][]Artifact[][][][][]somethingsuntagged.[][]marginparblblb[][][]As
 \hbox(114.2104+2.12863)x360.0, glue set - 1.0
 .\hbox(0.0+0.0)x17.0
 .\T1/cmr/m/n/10.95 s
@@ -51,8 +51,7 @@ Overfull \hbox (209.53122pt too wide) in paragraph at lines 20--42
 .\T1/cmr/m/n/10.95 d
 .\T1/cmr/m/n/10.95 .
 .\glue 4.83946 plus 5.44011 minus 0.40297
-.\pdfliteral page{/Artifact /l3pdf1 BDC}
-.\write1{\new@label@record{l3pdf1}{{abspage}{\__property_code_abspage: }}}
+.\pdfliteral page{/Artifact <</Type/Pagination>> BDC}
 .\T1/cmr/m/n/10.95 A
 .\T1/cmr/m/n/10.95 r
 .\T1/cmr/m/n/10.95 t
@@ -205,8 +204,7 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 d
 ....\T1/cmr/m/n/10.95 .
 ....\glue 4.83946 plus 5.44011 minus 0.40297
-....\pdfliteral page{/Artifact /l3pdf1 BDC}
-....\write1{\new@label@record{l3pdf1}{{abspage}{\__property_code_abspage: }}}
+....\pdfliteral page{/Artifact <</Type/Pagination>> BDC}
 ....\T1/cmr/m/n/10.95 A
 ....\T1/cmr/m/n/10.95 r
 ....\T1/cmr/m/n/10.95 t

@@ -12,7 +12,7 @@ Don't change this file in any respect.
 \new@label@record{mcid-13}{{tagabspage}{2}{tagmcabs}{13}{tagmcid}{6}}^^M
 \new@label@record{mcid-14}{{tagabspage}{2}{tagmcabs}{14}{tagmcid}{7}}^^M
 \new@label@record{mcid-15}{{tagabspage}{2}{tagmcabs}{15}{tagmcid}{8}}^^M
-\new@label@record{@tag@LastPage}{{abspage}{2}{tagmcabs}{20}{tagstruct}{12}}^^M
+\new@label@record{@tag@LastPage}{{abspage}{2}{tagmcabs}{20}{tagstruct}{11}}^^M
 \gdef \@abspage@last{2}^^M
 -------- ptagging-001b.aux (end) -----------
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -66,10 +66,6 @@ Package tagpdf Info: Parent-Child 'P' --> 'Note'.
 Package tagpdf Info: Parent-Child 'P' --> 'Note'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'footnote' on line ...
-Package tagpdf Info: Parent-Child 'Note' --> 'Lbl'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Note' --> 'footnotelabel' on line ...
-Package tagpdf Info: closing structure 9 tagged /footnotelabel
 Package tagpdf Info: Parent-Child 'Note' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Note' --> 'text-unit' on line ...
@@ -79,9 +75,9 @@ Package tagpdf Info: Parent-Child 'Note' --> 'P'.
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
-Package tagpdf Info: Parent-Child 'Lbl' --> 'NonStruct'.
+Package tagpdf Info: Parent-Child 'Note' --> 'Lbl'.
 (tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from: 'Lbl' --> 'NonStruct' on line ...
+(tagpdf)             Rolemapped from: 'Note' --> 'footnotelabel' on line ...
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'Lbl' --> 'MC' on line ...
@@ -89,7 +85,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line ....
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line ....
-Package tagpdf Info: closing structure 12 tagged /NonStruct
+Package tagpdf Info: closing structure 11 tagged /footnotelabel
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
@@ -100,8 +96,8 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from: 'P' --> 'MC' on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 11 tagged /text
-Package tagpdf Info: closing structure 10 tagged /text-unit
+Package tagpdf Info: closing structure 10 tagged /text
+Package tagpdf Info: closing structure 9 tagged /text-unit
 Package tagpdf Info: closing structure 8 tagged /footnote
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -121,7 +117,7 @@ The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces)
 >  {4}.
 Pick up new bot mark!
 => first b-, 10, -1
-=> bot e+, 16, 11
+=> bot e+, 16, 10
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_footnote_marks_seq is empty
@@ -129,7 +125,7 @@ The sequence \g__tag_mc_footnote_marks_seq is empty
 [2] (ptagging-001b.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~12 structure objects
+(tagpdf)             Writing out ~11 structure objects
 (tagpdf)             with ~20 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
