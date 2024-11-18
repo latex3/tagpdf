@@ -116,10 +116,11 @@
        rightmargin=\kvtcb@doc@right,
        }%
      \tagtool{para=false}% 
-     \AssignSocketPlug{tagsupport/minipage/before}{noop}
-     \AssignSocketPlug{tagsupport/minipage/after}{noop}      
-     \AssignSocketPlug{tagsupport/parbox/before}{noop}
-     \AssignSocketPlug{tagsupport/parbox/after}{noop}  
+     \AssignSocketPlug{tagsupport/minipage/before}{noop}%
+     \AssignSocketPlug{tagsupport/minipage/after}{noop}%      
+     \AssignSocketPlug{tagsupport/parbox/before}{noop}%
+     \AssignSocketPlug{tagsupport/parbox/after}{noop}%  
+     \AssignSocketPlug{tagsupport/para/restore}{noop}%  
     }   
     {\endblockenv } 
 
