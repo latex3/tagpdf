@@ -1,12 +1,5 @@
-## [2024-10-27]
-Version 0.99g
+## [2024-11-18]
+Version 0.99h
 
-### Fixed
- - corrected a few temp variables
- 
-### Changed
- - make para-sockets optional so that they can move to lttagging.
- 
 ### Added
- - \tag_socket_use:nnn, adapted \UseTaggingSocket, added support for 
-   \UseExpandableTaggingSocket in preparation for the next LaTeX release
+ - \tag_mc_add_missing_to_stream:Nn, \tag_mc_new_stream:n as public function for multicol.
