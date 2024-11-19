@@ -1,5 +1,5 @@
-## [2024-11-18]
-Version 0.99h
+## [2024-11-19]
+Version 0.99i
 
-### Added
- - \tag_mc_add_missing_to_stream:Nn, \tag_mc_new_stream:n as public function for multicol.
+### Fixed
+ - \tag_socket_use:nnn looses second argument when tagging is suspended.

@@ -1,0 +1,39 @@
+\DocumentMetadata{
+ lang=en,
+ testphase={
+     phase-I
+     },
+}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+\START\showoutput
+\NewSocket{tagsupport/zero}{0}
+\NewSocketPlug{tagsupport/zero}{test}{zero}
+\AssignSocketPlug{tagsupport/zero}{test}
+
+\NewSocket{tagsupport/one}{1}
+\NewSocketPlug{tagsupport/one}{test}{one-#1one}
+\AssignSocketPlug{tagsupport/one}{test}
+
+\NewSocket{tagsupport/two}{2}
+\NewSocketPlug{tagsupport/two}{test}{two-#1-two-#2-two}
+\AssignSocketPlug{tagsupport/two}{test}
+
+\UseTaggingSocket{zero}
+
+\UseTaggingSocket{one}{!}
+
+\UseTaggingSocket{two}{??}{!!}
+
+\SuspendTagging{a}
+
+\UseTaggingSocket{zero}
+
+\UseTaggingSocket{one}{!}
+
+\UseTaggingSocket{two}{??}{!!}
+
+\ResumeTagging{a}
+\end{document}
