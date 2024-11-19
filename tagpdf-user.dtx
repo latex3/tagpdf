@@ -262,11 +262,11 @@
 % 
 % \section{Socket support}
 % 
-% \begin{function}{\tag_socket_use:n,\tag_socket_use:nn,\UseTaggingSocket}
+% \begin{function}{\tag_socket_use:n,\tag_socket_use:nnn,\UseTaggingSocket}
 % \begin{syntax}
 %  \cs{tag_socket_use:n} \Arg{socket name}\\
 %  \cs{tag_socket_use:nn} \Arg{socket name} \Arg{socket argument}\\
-%  \cs{tag_socket_use:nn} \Arg{socket name} \Arg{socket argument} \Arg{socket argument}\\
+%  \cs{tag_socket_use:nnn} \Arg{socket name} \Arg{socket argument} \Arg{socket argument}\\
 %  \cs{tag_socket_use_expandable:n} \Arg{socket name}\\
 %  \cs{UseTaggingSocket} \Arg{socket name} \\
 %  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument}\\
@@ -458,8 +458,9 @@
 %    \begin{macrocode}
 \cs_set_protected:Npn \tag_socket_use:nnn #1#2#3 
   {
-    \bool_if:NT \l_@@_active_socket_bool
-       { \socket_use:nnn {tagsupport/#1} {#2} {#3} }
+    \bool_if:NTF \l_@@_active_socket_bool
+      { \socket_use:nnn {tagsupport/#1} {#2} {#3} }
+      { #3 }
   }
 %    \end{macrocode}
 %    \begin{macrocode}
