@@ -1,5 +1,5 @@
-## [2024-11-19]
-Version 0.99i
+## [2024-11-22]
+Version 0.99j
 
-### Fixed
- - \tag_socket_use:nnn looses second argument when tagging is suspended.
+### Changed
+ - allow \tag_if_active: to be defined in the kernel, (latex2e issue#1558)

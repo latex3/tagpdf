@@ -48,7 +48,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.99i, released 2024-11-19}
+% \date{Version 0.99j, released 2024-11-20}
 % \maketitle
 % \begin{documentation}
 % \section{Commands}
@@ -70,11 +70,11 @@
 %  \begin{syntax}
 %  \cs{tag_if_box_tagged:N}\Arg{box}
 %  \end{syntax}
-% This tests if a box contains tagging commands. 
-% It relies currently on that the code, that saved the box, correctly sets 
-% the command \verb+\l_tag_box_\int_use:N #1_tl+ to a positive value. 
+% This tests if a box contains tagging commands.
+% It relies currently on that the code, that saved the box, correctly sets
+% the command \verb+\l_tag_box_\int_use:N #1_tl+ to a positive value.
 % The LaTeX commands will do that automatically
-% at some time but it is in the responsibility of the user to 
+% at some time but it is in the responsibility of the user to
 % ensure that when using low-level code.
 % If the internal command doesn't exist the box is assumed to be untagged.
 % \end{function}
@@ -291,12 +291,12 @@
 % \end{function}
 %
 % \begin{function}{tree-struct-still-open}
-% Message issued at the end of the compilation 
+% Message issued at the end of the compilation
 % if there are (beside Root) other open structures on the stack.
 % \end{function}
-% 
+%
 % \begin{function}{tree-statistic}
-% Message issued at the end of the compilation 
+% Message issued at the end of the compilation
 % showing the number of objects to write
 % \end{function}
 %
@@ -304,7 +304,7 @@
 % These two messages are used in debug mode
 % to show the current structures in the log and terminal.
 % \end{function}
-% 
+%
 
 % \begin{function}{attr-unknown}
 % Message if an attribute i sunknown.
@@ -331,7 +331,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-checks-code} {2024-11-19} {0.99i}
+\ProvidesExplPackage {tagpdf-checks-code} {2024-11-20} {0.99j}
  {part of tagpdf - code related to checks, conditionals, debugging and messages}
 %</header>
 %    \end{macrocode}
@@ -409,15 +409,15 @@
 % \end{macro}
 % \begin{macro}{struct-orphan}
 % This indicates that there is a structure which has kids but no parent.
-% This can happen if a structure is stashed but then not used.  
+% This can happen if a structure is stashed but then not used.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {struct-orphan} 
-  { 
+\msg_new:nnn { tag } {struct-orphan}
+  {
     Structure~#1~has~#2~kids~but~no~parent.\\
     It~is~turned~into~an~artifact.\\
     Did~you~stashed~a~structure~and~then~didn't~use~it?
   }
- 
+
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{struct-faulty-nesting}
@@ -455,7 +455,7 @@
   { closing~structure~#1~tagged~\use:e{\prop_item:cn{g_@@_struct_#1_prop}{S}} }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{struct-Ref-unknown}
 % This message is issued at the end, when the Ref keys are updated.
 % TODO: in debug mode it should report more info about the structure.
@@ -472,21 +472,21 @@
 % open structures on the stack.
 %    \begin{macrocode}
 \msg_new:nnn { tag } {tree-struct-still-open}
-  { 
+  {
     There~are~still~open~structures~on~the~stack!\\
     The~stack~contains~\seq_use:Nn\g_@@_struct_tag_stack_seq{,}.\\
     The~structures~are~automatically~closed,\\
-    but~their~nesting~can~be~wrong.  
+    but~their~nesting~can~be~wrong.
   }
 %    \end{macrocode}
-% \end{macro} 
-% 
+% \end{macro}
+%
 % \begin{macro}{tree-statistic}
-% Message issued at the end showing the estimated number of 
+% Message issued at the end showing the estimated number of
 % structures and MC-childs
 %    \begin{macrocode}
 \msg_new:nnn { tag } {tree-statistic}
-  { 
+  {
     Finalizing~the~tagging~structure:\\
     Writing~out~\c_tilde_str
     \int_use:N\c@g_@@_struct_abs_int\c_space_tl~structure~objects\\
@@ -494,9 +494,9 @@
     \int_use:N\c@g_@@_MCID_abs_int\c_space_tl'MC'~leaf~nodes.\\
     Be~patient~if~there~are~lots~of~objects!
   }
-%</package>  
+%</package>
 %    \end{macrocode}
-% \end{macro} 
+% \end{macro}
 % The following messages are only needed in debug mode.
 % \begin{macro}{show-struct,show-kids}
 % This two messages are used to show the current structures in the log and terminal.
@@ -509,7 +509,7 @@
     \tl_if_empty:nTF {#2}
       { is~empty \\>~ . }
       { contains: #2  }
-    \\  
+    \\
   }
 \msg_new:nnn { tag/debug } { show-kids }
   {
@@ -527,7 +527,7 @@
 % Not much yet, as attributes aren't used so much.
 % \begin{macro}{attr-unknown}
 %    \begin{macrocode}
-%<*package>  
+%<*package>
 \msg_new:nnn { tag } {attr-unknown}  { attribute~#1~is~unknown}
 %    \end{macrocode}
 % \end{macro}
@@ -546,14 +546,14 @@
 %  This is info and warning message about the containment rules between child and
 %  parent tags.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {role-parent-child} 
+\msg_new:nnn { tag } {role-parent-child}
   { Parent-Child~'#1'~-->~'#2'.\\Relation~is~#3~\msg_line_context:}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{role-remapping}
 %  This is info and warning message about role-remapping
 %    \begin{macrocode}
-\msg_new:nnn { tag } {role-remapping} 
+\msg_new:nnn { tag } {role-remapping}
   { remapping~tag~to~#1 }
 %    \end{macrocode}
 % \end{macro}
@@ -619,11 +619,14 @@
 % This tests if tagging is active. This allows packages
 % to add conditional code.
 % The test is true if all booleans, the global and the two local one are true.
-%
+% \changes{v0.99j}{2024-11-22}{test if it exists already in the kernel}
 %    \begin{macrocode}
 %<*base>
-\prg_new_conditional:Npnn \tag_if_active: { p , T , TF, F }
-  { \prg_return_false: }
+\cs_if_exist:NF\tag_if_active:T
+ {
+   \prg_new_conditional:Npnn \tag_if_active: { p , T , TF, F }
+     { \prg_return_false: }
+ }
 %</base>
 %<*package>
 \prg_set_conditional:Npnn \tag_if_active: { p , T , TF, F }
@@ -643,33 +646,33 @@
          \prg_return_false:
        }
   }
-%</package>  
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}[pTF]{\tag_if_box_tagged:N}
-% This tests if a box contains tagging commands. 
-% It relies on that the code that saved the box correctly set 
-% \verb+\l_tag_box_<box number>_tl+ to a positive value. 
+% This tests if a box contains tagging commands.
+% It relies on that the code that saved the box correctly set
+% \verb+\l_tag_box_<box number>_tl+ to a positive value.
 % The LaTeX commands will do that automatically
-% at some time but it is in the responsibility of the user to 
+% at some time but it is in the responsibility of the user to
 % ensure that when using low-level code.
 % If the internal command doesn't exist the box is assumed to be untagged.
 %    \begin{macrocode}
 %<*base>
-\prg_new_conditional:Npnn \tag_if_box_tagged:N #1 {p,T,F,TF} 
+\prg_new_conditional:Npnn \tag_if_box_tagged:N #1 {p,T,F,TF}
     {
       \tl_if_exist:cTF {l_tag_box_\int_use:N #1_tl}
        {
          \int_compare:nNnTF {0\tl_use:c{l_tag_box_\int_use:N #1_tl}}>{0}
           { \prg_return_true:  }
-          { \prg_return_false: }      
+          { \prg_return_false: }
        }
        {
-         \prg_return_false:     
-         % warning?? 
+         \prg_return_false:
+         % warning??
        }
-    }  
+    }
 %</base>
 %    \end{macrocode}
 % \end{macro}
@@ -1125,14 +1128,14 @@
     {
       \seq_get:NNT \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
         {
-          \str_if_eq:eeF  
+          \str_if_eq:eeF
            {#1}
-           {\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}      
+           {\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}
            {
-             \msg_warning:nnee { tag/debug }{ struct-end-wrong } 
+             \msg_warning:nnee { tag/debug }{ struct-end-wrong }
               {#1}
               {\exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl}
-           }                    
+           }
         }
      }
  }
@@ -1146,7 +1149,7 @@
     \int_if_zero:nTF
       {#1}
       {Tagging~suspended}
-      {Tagging~(not)~suspended~(already~inactive)}\\    
+      {Tagging~(not)~suspended~(already~inactive)}\\
     level:~#1~==>~\int_eval:n{#1+1}\tl_if_empty:nF{#2}{,~label:~#2}~[\msg_line_context:]
   }
 \msg_new:nnn { tag / debug } {tag-resume}
@@ -1156,7 +1159,7 @@
       {Tagging~resumed}
       {Tagging~(not)~resumed}\\
     level:~\int_eval:n{#1+1}~==>~#1\tl_if_empty:nF{#2}{,~label:~#2}~[\msg_line_context:]
-  }  
+  }
 %    \end{macrocode}
 %    \begin{macrocode}
 %</debug>
@@ -1177,9 +1180,9 @@
      {
        \cs_set_eq:NN \@@_check_benchmark_tic: \benchmark_tic:
        \cs_set_eq:NN \@@_check_benchmark_toc: \benchmark_toc:
-     }  
+     }
   }
-%</package>  
+%</package>
 %    \end{macrocode}
 % \end{implementation}
 % \PrintIndex
