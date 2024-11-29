@@ -234,6 +234,9 @@ functions
  ltx.@@.trace.show_prop: shows a prop
  ltx.@@.trace.log
  ltx.@@.trace.showspaces : boolean
+ 
+ ltx.tag.get_structnum: number, shows the current structure number
+ ltx.tag.get_structnum_next: number, shows the next structure number 
 --]]
 
 %    \end{macrocode}
@@ -309,6 +312,7 @@ local regular_disc = 3
 % Now we setup the main table structure. ltx is used by other latex code too!
 %    \begin{macrocode}
 ltx             = ltx        or { }
+ltx.tag         = ltx.tag       or { } -- user commands
 ltx.@@          = ltx.@@        or { }
 ltx.@@.mc       = ltx.@@.mc     or  { } -- mc data
 ltx.@@.struct   = ltx.@@.struct or  { } -- struct data
@@ -321,6 +325,35 @@ ltx.@@.trace    = ltx.@@.trace  or  { } -- show commands
 ltx.@@.func     = ltx.@@.func   or  { } -- functions
 ltx.@@.conf     = ltx.@@.conf   or  { } -- configuration variables
 %    \end{macrocode}
+%
+% \section{User commands to access data}
+% Code like the one in luamml will have to access the current state in some places.
+
+% \begin{macro}{\}
+%    \begin{macrocode}
+local @@_get_struct_num = 
+ function()
+  local a = token.get_macro("g__tag_struct_stack_current_tl")
+  return a
+ end
+ 
+local @@_get_struct_counter = 
+ function()
+  local a = tex.getcount("c@g_@@_struct_abs_int")
+  return a
+ end
+  
+local @@_get_struct_num_next = 
+ function()
+  local a = tex.getcount("c@g_@@_struct_abs_int") + 1
+  return a
+ end
+  
+ltx.tag.get_struct_num = @@_get_struct_num
+ltx.tag.get_struct_counter = @@_get_struct_counter
+ltx.tag.get_struct_num_next = @@_get_struct_num_next
+%    \end{macrocode}
+% \end{macro}
 % \section{Logging functions}
 %
 % \begin{macro}{@@_log,ltx.@@.trace.log}
