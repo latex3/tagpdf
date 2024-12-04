@@ -1,0 +1,38 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{testphase=phase-III}
+\input{regression-test}
+
+\documentclass{article}
+\ExplSyntaxOn
+\cs_set_eq:NN\tagget\tag_get:n
+\ExplSyntaxOff
+\begin{document}
+\START\showoutput
+
+\section{blub}
+blub
+
+blub 
+\emph{
+  \tagget{struct_num}, \tagget{struct_counter}  
+  \directlua
+    {texio.write_nl
+     ("term and log",
+      " current structcounter "..ltx.tag.get_struct_counter(),
+      " current structnum "    ..ltx.tag.get_struct_num(),
+      " next struct "          ..ltx.tag.get_struct_num_next()           
+     )}
+   }    
+xxx  
+  \tagget{struct_num}, \tagget{struct_counter}  
+  \directlua
+    {texio.write_nl
+     ("term and log",
+      " current structcounter "..ltx.tag.get_struct_counter(),
+      " current structnum "    ..ltx.tag.get_struct_num(),
+      " next struct "          ..ltx.tag.get_struct_num_next()           
+     )}  
+\end{document}
