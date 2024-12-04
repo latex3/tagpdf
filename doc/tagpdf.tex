@@ -1172,7 +1172,7 @@ This (expandable) command returns the values of some variables. Currently, the w
   \pkg{tagpdf-base} is loaded nesting of structure is not tracked and
   so the command gives back the number of the last structure that has
   been created. In luatex this number can also be retrieved with the 
-  lua function \texttt{ltx.tag.get_struct_num()}.  
+  lua function \verb+ltx.tag.get_struct_num()+.  
 
 \item \verb+struct_counter+: This returns a number and works also if
   only \pkg{tagpdf-base} has been loaded. It gives back the state of
@@ -1181,9 +1181,9 @@ This (expandable) command returns the values of some variables. Currently, the w
   code there are structure commands. Be aware that this is a \LaTeX{}
   counter and so is reset in some places.
   In luatex this number can also be retrieved with the 
-  lua function \texttt{ltx.tag.get_struct_counter()}. The number of the next
-  structure to be created is then \texttt{ltx.tag.get_struct_counter()} increased by
-  one), this can also be retrieved with the function \texttt{ltx.tag.get_struct_num_next()}.
+  lua function \verb+ltx.tag.get_struct_counter()+. The number of the next
+  structure to be created is then \verb+ltx.tag.get_struct_counter()+ increased by
+  one), this can also be retrieved with the function \verb+ltx.tag.get_struct_num_next()+.
 
 \item \verb+mc_counter+: This returns a number and works also if only
   \pkg{tagpdf-base} has been loaded. It gives back the state of the
