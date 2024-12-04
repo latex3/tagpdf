@@ -1,5 +1,5 @@
-## [2024-11-22]
-Version 0.99j
+## [2024-12-04]
+Version 0.99k
 
-### Changed
- - allow \tag_if_active: to be defined in the kernel, (latex2e issue#1558)
+### Added
+ - user lua functions ltx.tag.get_struct_num(), ltx.tag.get_struct_counter(), ltx.tag.get_struct_num_next()

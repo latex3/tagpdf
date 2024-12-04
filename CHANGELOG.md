@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2024-12-04]
 
 ### Added
  - user lua functions ltx.tag.get_struct_num(), ltx.tag.get_struct_counter(), ltx.tag.get_struct_num_next()
