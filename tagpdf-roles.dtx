@@ -209,8 +209,8 @@
 % \item[pdf2]   http://iso.org/pdf2/ssn
 % \item[pdf]    http://iso.org/pdf/ssn (default)
 % \item[user]   \cs{c_@@_role_userNS_id_str} (random id, for user tags)
-% \item[latex]  https://www.latex-project.org/ns/dflt/2022
-% \item[latex-book] https://www.latex-project.org/ns/book/2022
+% \item[latex]  https://www.latex-project.org/ns/dflt
+% \item[latex-book] https://www.latex-project.org/ns/book
 % \end{description}
 % More namespaces are possible and
 % their objects references and their rolemaps must be collected
@@ -360,8 +360,8 @@
 \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
 \@@_role_NS_new:nnn {pdf2}  {http://iso.org/pdf2/ssn}{}
 \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
-\@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt/2022}{}
-\@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book/2022}{}
+\@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt}{}
+\@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book}{}
 \exp_args:Nne
   \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
 %    \end{macrocode}
@@ -1342,6 +1342,19 @@
    ,role/map-tags .choice:
    ,role/map-tags/false .code:n = { \socket_assign_plug:nn { tag/struct/tag } {latex-tags} }
    ,role/map-tags/pdf   .code:n = { \socket_assign_plug:nn { tag/struct/tag } {pdf-tags} } 
+%    \end{macrocode}
+   ,role/user-NS .code:n = 
+     {
+      \pdf_string_from_unicode:nnN{utf8/string}{https://www.latex-project.org/ns/local/#1}\l_@@_tmpa_str
+       \tl_if_empty:NF \l_@@_tmpa_str
+         {
+           \pdfdict_gput:nne
+             {g_@@_role/Namespace_user_dict}
+             {NS}
+             {\l_@@_tmpa_str}
+         }
+     }
+%    \begin{macrocode}
 %    \end{macrocode}
 % deprecated names
 %    \begin{macrocode}
