@@ -2328,6 +2328,19 @@ Starting with version 0.98 work has started to setup specific latex tags. In
 \PDF{} 2.0 in form of a special name space,  with \PDF{} 1.7 or older the 
 tags are role mapped. This is work in progress and bound to change.
 
+\subsection{The \texttt{user} namespace}
+
+As mentioned above new tags are created by default in the user namespace.
+Namespaces are identified through an ID which is normally given as an URI. 
+By default tagpdf creates an random URI for the user namespace but it is possible to change that:
+
+\begin{taglstlisting}
+ \tagpdfsetup{role/user-NS = somestring}
+\end{taglstlisting}
+
+will create use the URI \texttt{https://www.latex-project.org/ns/local/somestring} as ID for the namespace.
+
+
 \subsection{Fallback RoleMap}
 
 As mentioned above PDF 2.0 support name spaces for tags. This is quite nice. At first because it
