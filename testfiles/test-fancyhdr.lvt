@@ -9,6 +9,8 @@
 \makeatletter\ExplSyntaxOn
 %Avoid fancyhdr killing of para hooks:
 \def\f@nch@clear@par@hook:n#1{}
+\def\f@nch@restore@parhook#1{}
+\def\f@nch@saveclr@parhook#1{}
 \makeatother\ExplSyntaxOff
 \pagestyle{fancy}
 \lhead{some \emph{text} }
