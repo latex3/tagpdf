@@ -6,14 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
 ## [2025-01-10]
-
+Version 0.99m
 ### Changed
- - allow Sub as child Code (spec change)
+ - allow Sub as child of Code (spec change)
  - change name of LaTeX namespace (remove year)
  - allow to change the URI-ID of the user namespace
 
 ## [2024-12-04]
-
+Version 0.99k
 ### Added
  - user lua functions ltx.tag.get_struct_num(), ltx.tag.get_struct_counter(), ltx.tag.get_struct_num_next()
 
