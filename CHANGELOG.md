@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2025-01-10]
 
 ### Changed
  - allow Sub as child Code (spec change)
