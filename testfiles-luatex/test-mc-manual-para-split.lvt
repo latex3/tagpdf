@@ -34,10 +34,6 @@
 
 \ExplSyntaxOn
 \makeatletter
-%Avoid killing of para hooks:
-\def\f@nch@clear@par@hook:n#1{}
-\def\f@nch@restore@parhook#1{}
-\def\f@nch@saveclr@parhook#1{}
 \pdfmanagement_add:nnn {Catalog} {Lang}{(en-UK)}
 \pdfmanagement_add:nnn {Info} {Title}{(Title)}
 

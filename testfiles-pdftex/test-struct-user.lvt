@@ -37,10 +37,6 @@
 
 \ExplSyntaxOn
 \makeatletter
-%Avoid killing of para hooks:
-\def\f@nch@clear@par@hook:n#1{}
-\def\f@nch@restore@parhook#1{}
-\def\f@nch@saveclr@parhook#1{}
 \cfoot{\leavevmode\tag_mc_end_push:\tagmcbegin{artifact=pagination}\thepage\tagmcend\tag_mc_begin_pop:n{artifact}}
 
 \pdfmanagement_add:nnn {Catalog}{Lang}{(en-UK)}
