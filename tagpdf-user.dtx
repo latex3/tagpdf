@@ -67,7 +67,7 @@
 %
 % \begin{function}{\tag_tool:n,\tagtool}
 % \begin{syntax}
-% \cs{tag_tool:n}\Arg{key val}
+% \cs{tag_tool:n} \Arg{key val}
 % \end{syntax}
 % The tagging of basic document elements will require a variety of small commands
 % to configure and adapt the tagging. This command will collect them under a command
@@ -78,7 +78,7 @@
 % \section{Commands related to mc-chunks}
 % \begin{function}{\tagmcbegin, \tagmcend,\tagmcuse}
 % \begin{syntax}
-% \cs{tagmcbegin} \Arg{key-val}\\
+% \cs{tagmcbegin}\Arg{key-val}\\
 % \cs{tagmcend}\\
 % \cs{tagmcuse}\Arg{label}
 % \end{syntax}
@@ -90,7 +90,7 @@
 %
 % \begin{function}{\tagmcifinTF}
 % \begin{syntax}
-% \cs{tagmcifin} \Arg{true code}\Arg{false code}
+% \cs{tagmcifinTF}\Arg{true code}\Arg{false code}
 % \end{syntax}
 % This is a wrapper around |\tag_mc_if_in:TF|.
 % and tests if an mc is open or not. It is mostly of
@@ -104,7 +104,7 @@
 % \section{Commands related to structures}
 % \begin{function}{\tagstructbegin, \tagstructend,\tagstructuse}
 % \begin{syntax}
-% \cs{tagstructbegin} \Arg{key-val}\\
+% \cs{tagstructbegin}\Arg{key-val}\\
 % \cs{tagstructend}\\
 % \cs{tagstructuse}\Arg{label}
 % \end{syntax}
@@ -118,7 +118,7 @@
 % \section{Debugging}
 % \begin{function}{\ShowTagging}
 %   \begin{syntax}
-%   \cs{ShowTagging} \Arg{key-val}
+%   \cs{ShowTagging}\Arg{key-val}
 %   \end{syntax}
 % This is a generic function to output various debugging helps. It not
 % necessarily stops the compilation. The keys and their function are described below.
@@ -270,7 +270,7 @@
 %  \cs{tag_socket_use_expandable:n} \Arg{socket name}\\
 %  \cs{UseTaggingSocket} \Arg{socket name} \\
 %  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument}\\
-%  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument}\Arg{socket argument}\\
+%  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument} \Arg{socket argument}\\
 % \end{syntax}
 % \end{function}
 % 

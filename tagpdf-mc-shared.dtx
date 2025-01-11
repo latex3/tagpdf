@@ -52,7 +52,7 @@
 % \section{Public Commands}
 %  \begin{function}{\tag_mc_begin:n,\tag_mc_end:}
 %   \begin{syntax}
-%     \cs{tag_mc_begin:n}\Arg{key-values}\\
+%     \cs{tag_mc_begin:n} \Arg{key-values}\\
 %     \cs{tag_mc_end:}
 %   \end{syntax}
 % These commands insert the end code of the marked content.
@@ -64,7 +64,7 @@
 %
 %  \begin{function}{\tag_mc_use:n}
 %   \begin{syntax}
-%     \cs{tag_mc_use:n}\Arg{label}
+%     \cs{tag_mc_use:n} \Arg{label}
 %   \end{syntax}
 % These command allow to record a marked content that was stashed away before
 % into the current structure. A marked content can be used only once --
@@ -94,7 +94,7 @@
 %   }
 %   \begin{syntax}
 %     \cs{tag_mc_end_push:} \\
-%     \cs{tag_mc_begin_pop:n}\Arg{key-values}
+%     \cs{tag_mc_begin_pop:n} \Arg{key-values}
 %   \end{syntax}
 % If there is an open mc chunk,
 % \cs{tag_mc_end_push:} ends it and pushes its tag of the (global) stack.
@@ -113,7 +113,7 @@
 %
 % \begin{function}[ EXP,added=2023-06-11]{\tag_mc_reset_box:N}
 %   \begin{syntax}
-%     \cs{tag_mc_reset_box:N} \Arg{box} 
+%     \cs{tag_mc_reset_box:N} \meta{box} 
 %   \end{syntax}
 %   This resets in lua mode the mc attributes to the one currently in use.
 %   It does nothing in generic mode.
@@ -121,7 +121,7 @@
 %
 % \begin{function}[added=2024-11-18]{\tag_mc_add_missing_to_stream:Nn}
 %   \begin{syntax}
-%     \cs{tag_mc_add_missing_to_stream:Nn} \Arg{box} \Arg {stream name}
+%     \cs{tag_mc_add_missing_to_stream:Nn} \meta{box} \Arg{stream name}
 %   \end{syntax}
 %   This command is only needed in generic mode, in lua mode it gobbles its arguments.
 %   In generic mode it adds MC literals to the stream that are missing because of
@@ -138,7 +138,7 @@
 % 
 % \begin{function}[added=2024-11-18]{\tag_mc_new_stream:n}
 %   \begin{syntax}
-%     \cs{tag_mc_new_stream:n} \Arg {stream name}
+%     \cs{tag_mc_new_stream:n} \Arg{stream name}
 %   \end{syntax}
 %   This declares the interface needed to handle 
 %   a new stream with \cs{tag_mc_add_missing_to_stream:Nn}.

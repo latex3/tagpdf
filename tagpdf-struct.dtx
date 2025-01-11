@@ -53,9 +53,9 @@
 % \section{Public Commands}
 % \begin{function}{\tag_struct_begin:n,\tag_struct_end:,\tag_struct_end:n}
 %   \begin{syntax}
-%     \cs{tag_struct_begin:n}\Arg{key-values}\\
+%     \cs{tag_struct_begin:n} \Arg{key-values}\\
 %     \cs{tag_struct_end:}\\
-%     \cs{tag_struct_end:n}\Arg{tag}
+%     \cs{tag_struct_end:n} \Arg{tag}
 %   \end{syntax}
 %  These commands start and end a new structure.
 %  They don't start a group. They set all their values globally.
@@ -66,8 +66,8 @@
 % \end{function}
 %  \begin{function}{\tag_struct_use:n,\tag_struct_use_num:n}
 %   \begin{syntax}
-%     \cs{tag_struct_use:n}\Arg{label}\\
-%     \cs{tag_struct_use_num:n}\Arg{structure number}
+%     \cs{tag_struct_use:n} \Arg{label}\\
+%     \cs{tag_struct_use_num:n} \Arg{structure number}
 %   \end{syntax}
 % These commands insert a structure previously stashed away as kid
 % into the currently active structure.
@@ -76,7 +76,7 @@
 % \end{function}
 %  \begin{function}{\tag_struct_object_ref:n,\tag_struct_object_ref:e}
 %   \begin{syntax}
-%     \cs{tag_struct_object_ref:n}\Arg{struct number}
+%     \cs{tag_struct_object_ref:n} \Arg{structure number}
 %   \end{syntax}
 %   This is a small wrapper around |\pdf_object_ref:n| to retrieve the
 %   object reference of the structure with the number \meta{struct number}.
@@ -91,7 +91,7 @@
 % here.
 %  \begin{function}{\tag_struct_insert_annot:nn}
 %   \begin{syntax}
-%     \cs{tag_struct_insert_annot:nn}\Arg{object reference}\Arg{struct parent number}
+%     \cs{tag_struct_insert_annot:nn} \Arg{object reference} \Arg{struct parent number}
 %   \end{syntax}
 % This inserts an annotation in the structure. \meta{object reference}
 % is there reference to the annotation. \meta{struct parent number}
@@ -110,7 +110,7 @@
 % 
 % \begin{function}{\tag_struct_gput:nnn}
 % \begin{syntax}
-%  \cs{tag_struct_gput:nnn}\Arg{structure number}\Arg{keyword}\Arg{value}
+%  \cs{tag_struct_gput:nnn} \Arg{structure number} \Arg{keyword} \Arg{value}
 %  \end{syntax}
 % This is a command that allows to update the data of a structure.
 % This often can't done simply by replacing the value, as we have to 
@@ -124,7 +124,7 @@
 %
 % \begin{function}{\tag_struct_gput_ref:nnn}
 % \begin{syntax}
-%  \cs{tag_struct_gput_ref:nnn}\Arg{structure number}\Arg{keyword}\Arg{value}
+%  \cs{tag_struct_gput_ref:nnn} \Arg{structure number} \Arg{keyword} \Arg{value}
 %  \end{syntax}
 % This is an user interface to add a Ref key to an
 % existing structure. The target structure doesn't have to exist yet
