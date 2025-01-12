@@ -1343,18 +1343,22 @@
    ,role/map-tags/false .code:n = { \socket_assign_plug:nn { tag/struct/tag } {latex-tags} }
    ,role/map-tags/pdf   .code:n = { \socket_assign_plug:nn { tag/struct/tag } {pdf-tags} } 
 %    \end{macrocode}
+% \changes{0.99l}{2025-01-12}{allow setting of user-NS}
+%    \begin{macrocode}
    ,role/user-NS .code:n = 
      {
-      \pdf_string_from_unicode:nnN{utf8/string}{https://www.latex-project.org/ns/local/#1}\l_@@_tmpa_str
-       \tl_if_empty:NF \l_@@_tmpa_str
-         {
-           \pdfdict_gput:nne
-             {g_@@_role/Namespace_user_dict}
-             {NS}
-             {\l_@@_tmpa_str}
-         }
+      \pdf_version_compare:NnF < {2.0}
+       {
+         \pdf_string_from_unicode:nnN{utf8/string}{https://www.latex-project.org/ns/local/#1}\l_@@_tmpa_str
+          \tl_if_empty:NF \l_@@_tmpa_str
+            {
+              \pdfdict_gput:nne
+                {g_@@_role/Namespace_user_dict}
+                {NS}
+                {\l_@@_tmpa_str}
+            }
+       }
      }
-%    \begin{macrocode}
 %    \end{macrocode}
 % deprecated names
 %    \begin{macrocode}
