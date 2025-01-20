@@ -1229,7 +1229,8 @@
 %    actualtext,
 %    lang,
 %    ref,
-%    E
+%    E,
+%    phoneme
 %  }
 %    \begin{macrocode}
 \keys_define:nn { @@ / struct }
@@ -1320,6 +1321,21 @@
              { <\l_@@_tmpa_str>}
           }  
       },
+     phoneme .code:n  = % ActualText property
+      {
+        \tl_if_empty:oF{#1}
+          {
+           \str_set_convert:Noon
+             \l_@@_tmpa_str
+             { #1 }
+             { default }
+             { utf16/hex }
+           \@@_struct_prop_gput:nne
+             { \int_use:N \c@g_@@_struct_abs_int }
+             { Phoneme }
+             { <\l_@@_tmpa_str>}
+          }  
+      },     
     lang .code:n        = % Lang property
       {
         \@@_struct_prop_gput:nne
