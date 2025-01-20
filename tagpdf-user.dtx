@@ -164,7 +164,7 @@
 %    |debug/structures| = \meta{structure number}
 %  \end{syntax}
 %  This key is available only if the tagpdf-debug package is loaded
-%  and shows all structures starting with the one with the number 
+%  and shows all structures starting with the one with the number
 %  given by the key.
 % \end{function}
 
@@ -195,13 +195,13 @@
 %  \begin{syntax}
 %    |para/tagging| = |true|\verb+|+|false|\\
 %    |debug/show=para|\\
-%    |debug/show=paraOff|   
+%    |debug/show=paraOff|
 %  \end{syntax}
 % The |para/tagging| key can be used in |\tagpdfsetup| and enable/disables tagging
 % of paragraphics.
 % |debug/show=para| puts small colored numbers at the begin and end of a paragraph.
 % This is meant as a debugging help. The number are boxes and have a (tiny) height,
-% so they can affect typesetting. 
+% so they can affect typesetting.
 % \end{function}
 %
 % \begin{function}{\tagpdfparaOn,\tagpdfparaOff}
@@ -259,9 +259,9 @@
 % { Contents }
 % { (ref) }
 % \end{verbatim}
-% 
+%
 % \section{Socket support}
-% 
+%
 % \begin{function}{\tag_socket_use:n,\tag_socket_use:nnn,\UseTaggingSocket}
 % \begin{syntax}
 %  \cs{tag_socket_use:n} \Arg{socket name}\\
@@ -273,7 +273,7 @@
 %  \cs{UseTaggingSocket} \Arg{socket name} \Arg{socket argument} \Arg{socket argument}\\
 % \end{syntax}
 % \end{function}
-% 
+%
 % Given that we sometimes have to suspend tagging, it would be fairly
 % inefficient to put different plugs into these sockets whenever that
 % happens. We therefore offer \cs{UseTaggingSocket} which is like
@@ -290,8 +290,8 @@
 % instead of changing the plugs of the tagging support sockets back and forth.
 %
 % Usually, these sockets have (beside the default plug defined for every socket)
-% one additional plug defined and directly assigned. This plug is used when 
-% tagging is active. 
+% one additional plug defined and directly assigned. This plug is used when
+% tagging is active.
 % There may be more plugs, e.g., tagging with special debugging or special behaviour
 % depending on the class or PDF version etc., but right now it is usually just on or off.
 %
@@ -304,14 +304,14 @@
 % \cs{UseSocket} directly, but in this case the socket remains active
 % if e.g. \cs{SuspendTagging} is in force. There may be reasons for doing
 % that but in general we expect to always use \cs{UseTaggingSocket}.
-% 
+%
 % For special cases like in some \cs{halign} contexts we need a fully expandable
 % version of the commend. For these cases, \cs{UseExpandableTaggingSocket} can be
 % used. To allow being expandable, it does not output any debugging information
 % if \cs{DebugSocketsOn} is in effect and therefore should be avoided whenever possible.
 %
 %  The L3 programming layer versions \cs{tag_socket_use_expandable:n}, \cs{tag_socket_use:n}, and
-%  \cs{tag_socket_use:nn}, \cs{tag_socket_use:nnn} 
+%  \cs{tag_socket_use:nn}, \cs{tag_socket_use:nnn}
 %  are slightly more efficient than
 %  \cs{UseTaggingSocket} because they do not have to determine how
 %  many arguments the socket takes when disabling it.
@@ -347,11 +347,11 @@
 %<base>\cs_new_protected:Npn\tag_tool:n #1 {}
 %<base>\cs_set_eq:NN\tagtool\tag_tool:n
 %<*package>
-\cs_set_protected:Npn\tag_tool:n #1 
+\cs_set_protected:Npn\tag_tool:n #1
   {
-    \tag_if_active:T { \keys_set:nn {tag / tool}{#1} }  
+    \tag_if_active:T { \keys_set:nn {tag / tool}{#1} }
   }
-\cs_set_eq:NN\tagtool\tag_tool:n  
+\cs_set_eq:NN\tagtool\tag_tool:n
 %</package>
 %    \end{macrocode}
 % \end{macro}
@@ -448,7 +448,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\cs_set_protected:Npn \tag_socket_use:nn #1#2 
+\cs_set_protected:Npn \tag_socket_use:nn #1#2
   {
     \bool_if:NT \l_@@_active_socket_bool
        { \socket_use:nn {tagsupport/#1} {#2} }
@@ -456,7 +456,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\cs_set_protected:Npn \tag_socket_use:nnn #1#2#3 
+\cs_set_protected:Npn \tag_socket_use:nnn #1#2#3
   {
     \bool_if:NTF \l_@@_active_socket_bool
       { \socket_use:nnn {tagsupport/#1} {#2} {#3} }
@@ -464,14 +464,14 @@
   }
 %    \end{macrocode}
 %    \begin{macrocode}
-\cs_set:Npn \tag_socket_use_expandable:n #1 
+\cs_set:Npn \tag_socket_use_expandable:n #1
   {
     \bool_if:NT \l_@@_active_socket_bool
       { \socket_use_expandable:n {tagsupport/#1} }
   }
 %    \end{macrocode}
 %    \begin{macrocode}
-\cs_set_protected:Npn \UseTaggingSocket #1 
+\cs_set_protected:Npn \UseTaggingSocket #1
   {
     \bool_if:NTF \l_@@_active_socket_bool
       { \socket_use:nw {tagsupport/#1} }
@@ -493,7 +493,7 @@
 %    \end{macrocode}
 
 %    \begin{macrocode}
-\cs_set:Npn \UseExpandableTaggingSocket #1 
+\cs_set:Npn \UseExpandableTaggingSocket #1
   {
     \bool_if:NTF \l_@@_active_socket_bool
       { \socket_use_expandable:nw {tagsupport/#1} }
@@ -512,7 +512,7 @@
             \ERRORusetaggingsocket
       }
   }
-%</package>  
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -676,44 +676,44 @@
     ,struct-stack / show .code:n = \seq_show:N \g_@@_struct_tag_stack_seq
     ,struct-stack .default:n = show
   }
-%</package>  
+%</package>
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{debug/structures (show-key)}
 %  The following key is available only if the tagpdf-debug package is loaded
-%  and shows all structures starting with the one with the number 
+%  and shows all structures starting with the one with the number
 %  given by the key.
 %    \begin{macrocode}
 %<*debug>
 \keys_define:nn { @@ / show }
   {
-    ,debug/structures .code:n = 
+    ,debug/structures .code:n =
       {
         \int_step_inline:nnn{#1}{\c@g_@@_struct_abs_int}
            {
-            \msg_term:nneeee 
+            \msg_term:nneeee
                    { tag/debug } { show-struct }
                    { ##1 }
-                   { 
-                     \prop_map_function:cN 
-                       {g_@@_struct_debug_##1_prop} 
-                       \msg_show_item_unbraced:nn 
+                   {
+                     \prop_map_function:cN
+                       {g_@@_struct_debug_##1_prop}
+                       \msg_show_item_unbraced:nn
                    }
                    { } { }
-            \msg_term:nneeee  
+            \msg_term:nneeee
                    { tag/debug } { show-kids }
                    {  ##1 }
-                   { 
-                     \seq_map_function:cN 
-                       {g_@@_struct_debug_kids_##1_seq} 
+                   {
+                     \seq_map_function:cN
+                       {g_@@_struct_debug_kids_##1_seq}
                        \msg_show_item_unbraced:n
                    }
-                   { } { }       
+                   { } { }
           }
-      }    
+      }
     ,debug/structures .default:n = 1
   }
-%</debug>  
+%</debug>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -723,7 +723,7 @@
 % or do a first step to apply tagpdf commands to document commands.
 % This part should be regularly revisited to check if the code should go to a
 % better place or can be improved.
-% 
+%
 %    \begin{macrocode}
 %<*package>
 %    \end{macrocode}
@@ -737,26 +737,26 @@
 \hook_gput_code:nnn{tagpdf/finish/before}{tagpdf}{\tagstructend}
 
 \keys_define:nn { @@ / setup}
- {  
-   activate/socket .bool_set:N  = \l_@@_active_socket_bool, 
+ {
+   activate/socket .bool_set:N  = \l_@@_active_socket_bool,
    activate  .code:n =
     {
       \keys_set:nn { @@ / setup }
         { activate/mc,activate/tree,activate/struct,activate/socket }
-      \tl_gset:Nn\g_@@_root_default_tl {#1}  
+      \tl_gset:Nn\g_@@_root_default_tl {#1}
     },
    activate .default:n = Document
  }
- 
+
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \subsection{Structure destinations}
 % Since TeXlive 2022 pdftex and luatex offer support for structure destinations
 % and the pdfmanagement has backend support for. We activate them if
 % structures are actually created.
-% Structure destinations are actually PDF 2.0  only but they don't harm in 
-% older PDF and can improve html export. 
+% Structure destinations are actually PDF 2.0  only but they don't harm in
+% older PDF and can improve html export.
 %    \begin{macrocode}
 \AddToHook{begindocument/before}
   {
@@ -764,7 +764,7 @@
       { \g_@@_active_struct_dest_bool }
       { \g_@@_active_struct_bool }
       {
-        \tl_set:Nn \l_pdf_current_structure_destination_tl 
+        \tl_set:Nn \l_pdf_current_structure_destination_tl
            { {@@/struct}{\g_@@_struct_stack_current_tl }}
         \pdf_activate_indexed_structure_destination:
       }
@@ -783,7 +783,7 @@
        \@@_fakespace:
      }
   }
-\providecommand\pdffakespace{}  
+\providecommand\pdffakespace{}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -833,7 +833,7 @@
 %    \begin{macrocode}
 \tl_if_exist:NF \l_@@_para_attr_class_tl
  {\tl_new:N \l_@@_para_attr_class_tl }
-\tl_new:N \l_@@_para_main_attr_class_tl 
+\tl_new:N \l_@@_para_main_attr_class_tl
 %    \end{macrocode}
 % \end{macro}
 
@@ -845,7 +845,7 @@
 %   \@@_gincr_para_end_int:
 %   }
 % The global para counter should be set through commands so
-% that \cs{tag_stop:} can stop them.  
+% that \cs{tag_stop:} can stop them.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_gincr_para_main_begin_int:
  {
@@ -884,7 +884,7 @@
    \cs_set_protected:Npn \@@_gincr_para_end_int:
     {
       \int_gincr:N \g_@@_para_end_int
-    }  
+    }
  }
 \cs_new_protected:Npn \@@_stop_para_ints:
  {
@@ -892,17 +892,17 @@
    \cs_set_eq:NN \@@_gincr_para_begin_int: \prg_do_nothing:
    \cs_set_eq:NN \@@_gincr_para_main_end_int: \prg_do_nothing:
    \cs_set_eq:NN \@@_gincr_para_end_int: \prg_do_nothing:
- } 
+ }
 %    \end{macrocode}
 % \end{macro}
 %
-% We want to be able to inspect the current para main structure, so 
+% We want to be able to inspect the current para main structure, so
 % we need a command to store its structure number
 % \begin{macro}{\@@_para_main_store_struct:}
 %    \begin{macrocode}
-\cs_new:Npn \@@_para_main_store_struct: 
+\cs_new:Npn \@@_para_main_store_struct:
   {
-    \tl_gset:Ne \g_@@_para_main_struct_tl {\int_use:N \c@g_@@_struct_abs_int } 
+    \tl_gset:Ne \g_@@_para_main_struct_tl {\int_use:N \c@g_@@_struct_abs_int }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -914,8 +914,7 @@
     {
       \tl_set:Nn \l_@@_para_attr_class_tl { \l_tag_para_attr_class_tl }
     }
-} 
-  
+}
 %    \end{macrocode}
 %\begin{macro}
 % {
@@ -932,14 +931,14 @@
 %  paratagging-show (deprecated),
 %  paratag (deprecated),
 %  }
-% These keys enable/disable locally paratagging. 
+% These keys enable/disable locally paratagging.
 % Paragraphs are typically tagged with two structure: A main structure
 % around the whole paragraph, and inner structures around the various chunks.
 % Debugging can be
-% activated locally with |debug/show=para|, this can affect the typesetting 
+% activated locally with |debug/show=para|, this can affect the typesetting
 % as the small numbers
 % are boxes and they have a (small) height. Debugging can be deactivated
-% with |debug/show=paraOff| 
+% with |debug/show=paraOff|
 % The |para/tag| key sets the tag used by
 % the inner structure, |para/maintag| the tag of the outer structure,
 % both can also be changed with |\tag_tool:n|
@@ -953,7 +952,7 @@
     para/maintag      .tl_set:N   = \l_@@_para_main_tag_tl,
     para/flattened    .bool_set:N = \l_@@_para_flattened_bool
   }
-\keys_define:nn { tag / tool} 
+\keys_define:nn { tag / tool}
   {
     para/tagging   .bool_set:N = \l_@@_para_bool,
     para/tag       .tl_set:N = \l_@@_para_tag_tl,
@@ -969,7 +968,7 @@
     paratagging-show .bool_set:N = \l_@@_para_show_bool,
     paratag          .tl_set:N   = \l_@@_para_tag_tl
   }
-\keys_define:nn { tag / tool} 
+\keys_define:nn { tag / tool}
   {
     para    .bool_set:N = \l_@@_para_bool,
     paratag .tl_set:N = \l_@@_para_tag_tl,
@@ -978,13 +977,13 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% Helper command for debugging: 
+% Helper command for debugging:
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_check_para_begin_show:nn #1 #2 
+\cs_new_protected:Npn \@@_check_para_begin_show:nn #1 #2
  %#1 color, #2 prefix
   {
     \bool_if:NT \l_@@_para_show_bool
-      { 
+      {
         \tag_mc_begin:n{artifact}
         \llap{\color_select:n{#1}\tiny#2\int_use:N\g_@@_para_begin_int\ }
         \tag_mc_end:
@@ -995,7 +994,7 @@
  %#1  color, #2 prefix
   {
     \bool_if:NT \l_@@_para_show_bool
-      { 
+      {
         \tag_mc_begin:n{artifact}
         \rlap{\color_select:n{#1}\tiny\ #2\int_use:N\g_@@_para_end_int}
         \tag_mc_end:
@@ -1011,7 +1010,7 @@
 % It is possible that we will need more variants, so
 % we setup a socket so that the code can be easily switched.
 % This code should move into lttagging, so we add a test for
-% the transition.  
+% the transition.
 %    \begin{macrocode}
 \str_if_exist:cF { l__socket_tagsupport/para/begin_plug_str }
  {
@@ -1029,13 +1028,13 @@
                   {
                     tag=\l_@@_para_main_tag_tl,
                   }
-                \@@_para_main_store_struct:   
+                \@@_para_main_store_struct:
               }
             \@@_gincr_para_begin_int:
             \tag_struct_begin:n {tag=\l_@@_para_tag_tl}
             \@@_check_para_begin_show:nn {green}{}
             \tag_mc_begin:n {}
-         }   
+         }
      }
     \socket_new_plug:nnn{tagsupport/para/begin}{block}
      {
@@ -1055,7 +1054,7 @@
                          tag=\l_@@_para_main_tag_tl,
                          attribute-class=\l_@@_para_main_attr_class_tl,
                         }
-                       \@@_para_main_store_struct: 
+                       \@@_para_main_store_struct:
                      }
                  }
                 \@@_gincr_para_begin_int:
@@ -1065,10 +1064,10 @@
                     tag=\l_@@_para_tag_tl
                     ,attribute-class=\l_@@_para_attr_class_tl
                   }
-                \@@_check_para_begin_show:nn {green}{\PARALABEL}    
+                \@@_check_para_begin_show:nn {green}{\PARALABEL}
                 \tag_mc_begin:n {}
           }
-        }  
+        }
      }
 %    \end{macrocode}
 % there was no real difference between the original and
@@ -1089,7 +1088,7 @@
                \@@_gincr_para_main_end_int:
                \tag_struct_end:
              }
-          }  
+          }
       }
   }
 %    \end{macrocode}
@@ -1136,7 +1135,7 @@
     \tag_if_active:F
       {
         \msg_redirect_name:nnn { tag } { para-hook-count-wrong } { warning }
-      }  
+      }
     \int_compare:nNnF {\g_@@_para_main_begin_int}={\g_@@_para_main_end_int}
          {
            \msg_error:nneee
@@ -1154,16 +1153,16 @@
              {\int_use:N\g_@@_para_begin_int}
              {\int_use:N\g_@@_para_end_int}
              {text}
-         }  
+         }
   }
 %    \end{macrocode}
 % We need at least the new-or-1 code.
-% In generic mode we also must insert the code to finish the MC-chunks 
+% In generic mode we also must insert the code to finish the MC-chunks
 %    \begin{macrocode}
 \@ifpackageloaded{footmisc}
   {\PackageWarning{tagpdf}{tagpdf~has~been~loaded~too~late!}} %
   {\RequirePackage{latex-lab-testphase-new-or-1}}
- 
+
 \AddToHook{begindocument/before}
  {
    \providecommand\@kernel@tagsupport@@@@makecol{}
@@ -1183,9 +1182,9 @@
              {
                \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
                \tag_mc_add_missing_to_stream:Nn \@outputbox {main}
-             }  
+             }
            \tl_if_exist:NT \@mult@ptagging@hook
-            {  
+            {
               \tl_put_right:Nn \@mult@ptagging@hook
                 {
                   \@@_check_typeout_v:n {====>~In~\string\page@sofar}
@@ -1195,7 +1194,7 @@
                    }
                   \tag_mc_add_missing_to_stream:Nn \mult@rightbox {multicol}
                 }
-            } 
+            }
          }
      }
   }
@@ -1240,7 +1239,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Language support}
-% 
+%
 % With the following key the lang variable is set. All structures in the current group will
 % then set this lang variable.
 % \begin{macro}{test/lang (setup-key)}
