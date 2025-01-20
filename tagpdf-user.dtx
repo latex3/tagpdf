@@ -906,32 +906,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% TEMPORARY FIX (2023-11-17). Until latex-lab is updated we must adapt a sec command:
-%    \begin{macrocode}
-\AddToHook{package/latex-lab-testphase-sec/after}
- {
-   \cs_set_protected:Npn \@kernel@tag@hangfrom #1
-    {
-     \tagstructbegin{tag=\l_@@_para_tag_tl}
-     \@@_gincr_para_begin_int:
-     \tagstructbegin{tag=Lbl}
-     \setbox\@tempboxa
-       \hbox
-         {
-           \bool_lazy_and:nnT
-            {\tag_if_active_p:}
-            {\g_@@_mode_lua_bool}
-            {\tagmcbegin{tag=Lbl}}
-           {#1}
-         }
-   \tag_suspend:n{hangfrom}
-   \hangindent \wd\@tempboxa\noindent
-   \tag_resume:n{hangfrom}
-   \tagmcbegin{}\box\@tempboxa\tagmcend\tagstructend\tagmcbegin{}
-   }
- } 
-%    \end{macrocode}
-% and one temporary adaptions for the block module:
+% temporary adaption for the block module:
 %    \begin{macrocode}
 \AddToHook{package/latex-lab-testphase-block/after}
  {
