@@ -1165,19 +1165,12 @@
 
 \AddToHook{begindocument/before}
  {
-   \providecommand\@kernel@tagsupport@@@@makecol{}
-   \providecommand\@kernel@before@cclv{}
    \bool_if:NF \g_@@_mode_lua_bool
      {
         \cs_if_exist:NT \@kernel@before@footins
          {
            \tl_put_right:Nn \@kernel@before@footins
              { \tag_mc_add_missing_to_stream:Nn \footins {footnote} }
-           \tl_put_right:Nn \@kernel@before@cclv
-             {
-               \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
-               \tag_mc_add_missing_to_stream:Nn \@cclv {main}
-             }
            \tl_put_right:Nn \@kernel@tagsupport@@@@makecol
              {
                \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
