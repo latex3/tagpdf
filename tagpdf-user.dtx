@@ -1176,18 +1176,6 @@
                \@@_check_typeout_v:n {====>~In~\token_to_str:N \@makecol\c_space_tl\the\c@page}
                \tag_mc_add_missing_to_stream:Nn \@outputbox {main}
              }
-           \tl_if_exist:NT \@mult@ptagging@hook
-            {
-              \tl_put_right:Nn \@mult@ptagging@hook
-                {
-                  \@@_check_typeout_v:n {====>~In~\string\page@sofar}
-                  \process@cols\mult@firstbox
-                   {
-                     \tag_mc_add_missing_to_stream:Nn \count@ {multicol}
-                   }
-                  \tag_mc_add_missing_to_stream:Nn \mult@rightbox {multicol}
-                }
-            }
          }
      }
   }
