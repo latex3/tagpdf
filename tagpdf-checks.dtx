@@ -350,7 +350,7 @@
 % \begin{macro}{mc-tag-missing}
 % If the tag is missing
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-tag-missing} { required~tag~missing~-~mcid~#1 }
+\msg_new:nnn { tag } {mc-tag-missing} { MC-tag~missing;~Span~used~instead~-~mcid~#1 }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{mc-label-unknown}
@@ -869,18 +869,21 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_check_mc_tag:N}
-% This checks if the mc has a (known) tag.
+% This checks if the mc has a (known) tag, if not we fall back to Span.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_mc_tag:N #1  %#1 is var with a tag name in it
   {
-    \tl_if_empty:NT #1
+    \tl_if_empty:NTF #1
       {
-        \msg_error:nne { tag } {mc-tag-missing} { \@@_get_mc_abs_cnt: }
+        \tl_set:Nn #1 { Span }
+        \msg_info:nne { tag } {mc-tag-missing} { \@@_get_mc_abs_cnt: }
       }
-   \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
-     {
-       \msg_warning:nne { tag } {role-unknown-tag} {#1}
-     }
+      {
+       \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
+         {
+           \msg_warning:nne { tag } {role-unknown-tag} {#1}
+         }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
