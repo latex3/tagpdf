@@ -207,8 +207,11 @@
 %</base>
 %    \end{macrocode} 
 %\section{Package options}
+% The boolean is kept for now for compability, can go in 2026.
 %    \begin{macrocode}
 %<*package>
+\bool_new:N\g_@@_mode_lua_bool
+\sys_if_engine_luatex:T {\bool_gset_true:N \g_@@_mode_lua_bool}
 \DeclareOption {luamode}  { }
 \DeclareOption {genericmode}{ }
 \ProcessOptions
