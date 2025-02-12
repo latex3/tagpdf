@@ -209,10 +209,8 @@
 %\section{Package options}
 %    \begin{macrocode}
 %<*package>
-\bool_new:N\g_@@_mode_lua_bool  
-\DeclareOption {luamode}  { \sys_if_engine_luatex:T { \bool_gset_true:N \g__tag_mode_lua_bool } }
-\DeclareOption {genericmode}{ \bool_gset_false:N\g__tag_mode_lua_bool }
-\ExecuteOptions{luamode}
+\DeclareOption {luamode}  { }
+\DeclareOption {genericmode}{ }
 \ProcessOptions
 %    \end{macrocode}
 % \section{Packages}
@@ -746,7 +744,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*mcloading>
-\bool_if:NTF \g_@@_mode_lua_bool
+\sys_if_engine_luatex:TF
   {
    \RequirePackage {tagpdf-mc-code-lua}
   }
@@ -755,7 +753,7 @@
   }
 %</mcloading>
 %<*debug>
-\bool_if:NTF \g_@@_mode_lua_bool
+\sys_if_engine_luatex:TF
   {
    \RequirePackage {tagpdf-debug-lua}
   }

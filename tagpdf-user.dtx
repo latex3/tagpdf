@@ -556,60 +556,57 @@
 \keys_define:nn { @@ / show }
   { mc-current .code:n =
      {
-       \bool_if:NTF \g_@@_mode_lua_bool
-         {
-           \sys_if_engine_luatex:T
-             {
-               \int_compare:nNnTF
-                 { -2147483647 }
-                  =
-                 {
-                   \lua_now:e
-                     {
-                        tex.print
-                         (tex.getattribute
-                           (luatexbase.attributes.g_@@_mc_cnt_attr))
-                     }
-                 }
-                 {
-                   \lua_now:e
-                     {
-                       ltx.@@.trace.log
-                        (
-                          "mc-current:~no~MC~open,~current~abscnt
-                           =\@@_get_mc_abs_cnt:"
-                          ,0
-                        )
-                       texio.write_nl("")
-                     }
-                 }
-                 {
-                   \lua_now:e
-                     {
-                       ltx.@@.trace.log
-                        (
-                          "mc-current:~abscnt=\@@_get_mc_abs_cnt:=="
-                           ..
-                           tex.getattribute(luatexbase.attributes.g_@@_mc_cnt_attr)
-                           ..
-                           "~=>tag="
-                           ..
-                           tostring
-                             (ltx.@@.func.get_tag_from
-                               (tex.getattribute
-                                 (luatexbase.attributes.g_@@_mc_type_attr)))
-                           ..
-                           "="
-                           ..
-                           tex.getattribute
-                            (luatexbase.attributes.g_@@_mc_type_attr)
-                           ,0
-                        )
-                       texio.write_nl("")
-                     }
-                 }
-             }
-         }
+        \sys_if_engine_luatex:TF
+          {
+            \int_compare:nNnTF
+              { -2147483647 }
+               =
+              {
+                \lua_now:e
+                  {
+                     tex.print
+                      (tex.getattribute
+                        (luatexbase.attributes.g_@@_mc_cnt_attr))
+                  }
+              }
+              {
+                \lua_now:e
+                  {
+                    ltx.@@.trace.log
+                     (
+                       "mc-current:~no~MC~open,~current~abscnt
+                        =\@@_get_mc_abs_cnt:"
+                       ,0
+                     )
+                    texio.write_nl("")
+                  }
+              }
+              {
+                \lua_now:e
+                  {
+                    ltx.@@.trace.log
+                     (
+                       "mc-current:~abscnt=\@@_get_mc_abs_cnt:=="
+                        ..
+                        tex.getattribute(luatexbase.attributes.g_@@_mc_cnt_attr)
+                        ..
+                        "~=>tag="
+                        ..
+                        tostring
+                          (ltx.@@.func.get_tag_from
+                            (tex.getattribute
+                              (luatexbase.attributes.g_@@_mc_type_attr)))
+                        ..
+                        "="
+                        ..
+                        tex.getattribute
+                         (luatexbase.attributes.g_@@_mc_type_attr)
+                        ,0
+                     )
+                    texio.write_nl("")
+                  }
+              }
+          }      
          {
           \msg_note:nn{ tag }{ mc-current }
          }
@@ -1165,7 +1162,7 @@
 
 \AddToHook{begindocument/before}
  {
-   \bool_if:NF \g_@@_mode_lua_bool
+   \sys_if_engine_luatex:F
      {
         \cs_if_exist:NT \@kernel@before@footins
          {
@@ -1258,7 +1255,7 @@
 \cs_new_protected:Npn \@@_exclude_headfoot_begin:
  {
     \bool_set_false:N  \l_@@_para_bool
-    \bool_if:NTF \g_@@_mode_lua_bool
+    \sys_if_engine_luatex:TF
      {
       \tag_mc_end_push:
      }
@@ -1273,7 +1270,7 @@
  {
     \tag_resume:n{headfoot}
     \tag_mc_end:
-    \bool_if:NTF \g_@@_mode_lua_bool
+    \sys_if_engine_luatex:TF
      {
       \tag_mc_begin_pop:n{}
      }
@@ -1288,7 +1285,7 @@
 \cs_new_protected:Npn \@@_exclude_struct_headfoot_begin:n #1
  {
     \bool_set_false:N  \l_@@_para_bool
-    \bool_if:NTF \g_@@_mode_lua_bool
+    \sys_if_engine_luatex:TF
      {
       \tag_mc_end_push:
      }
@@ -1306,7 +1303,7 @@
     \tag_resume:n{headfoot}
     \tag_mc_end:
     \tag_struct_end:
-    \bool_if:NTF \g_@@_mode_lua_bool
+    \sys_if_engine_luatex:TF
      {
       \tag_mc_begin_pop:n{}
      }
