@@ -350,7 +350,7 @@
 % \begin{macro}{mc-tag-missing}
 % If the tag is missing
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-tag-missing} { MC-tag~missing;~Span~used~instead~-~mcid~#1 }
+\msg_new:nnn { tag } {mc-tag-missing} { MC-tag~missing;~#1~used~instead~-~mcid~#2 }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{mc-label-unknown}
@@ -869,14 +869,16 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_check_mc_tag:N}
-% This checks if the mc has a (known) tag, if not we fall back to Span.
+% This checks if the mc has a (known) tag, if it is empty 
+% (e.g. if due to a call to the output routine, see issue https://github.com/latex3/tagpdf/issues/111) 
+% then  we fall back to the structure name.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_mc_tag:N #1  %#1 is var with a tag name in it
   {
     \tl_if_empty:NTF #1
       {
-        \tl_set:Nn #1 { Span }
-        \msg_info:nne { tag } {mc-tag-missing} { \@@_get_mc_abs_cnt: }
+        \tl_set:No #1 { \g_@@_struct_tag_tl }
+        \msg_info:nnee { tag } {mc-tag-missing} { \g_@@_struct_tag_tl }{ \@@_get_mc_abs_cnt: }
       }
       {
        \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
