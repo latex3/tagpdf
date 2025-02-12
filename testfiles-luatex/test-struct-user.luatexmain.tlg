@@ -58,14 +58,6 @@ Package tagpdf Info: closing structure 12 tagged /LBody
 Package tagpdf Info: closing structure 10 tagged /LI
 Package tagpdf Info: closing structure 6 tagged /L
 Package tagpdf Info: closing structure 3 tagged /Sect
-====> In \@makecol 1
-Pick up new bot mark!
-=> first b-, 1, 4, H
-=> bot e+, 6, 12
-=> TMB not missing
-=> TME not missing
-The sequence \g__tag_mc_main_marks_seq is empty
-> .
 Completed box being shipped out [1]
 \vbox(629.40024+4.08003)x414.0, direction TLT
 .\hbox(0.0+0.0)x0.0, direction TLT
@@ -73,6 +65,7 @@ Completed box being shipped out [1]
 ..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
 ...\kern-72.26999
 ...\hbox(0.0+0.0)x0.0, direction TLT
+....\pdfliteral page <lua data reference ...>
 ....\latelua0{ltx.__pdf.backend_ThisPage_gpush(tex.count["g_shipout_readonly_int"])}
 ....\glue 0.0 plus 1.0fil minus 1.0fil
 ...\glue 0.0 plus 1.0fil minus 1.0fil
@@ -81,9 +74,6 @@ Completed box being shipped out [1]
 ..\vbox(12.0+0.0)x360.0, glue set 12.0fil, direction TLT
 ...\glue 0.0 plus 1.0fil
 ...\pdflinkstate 1
-...\pdfliteral page{/Artifact BMC}
-...\marks4{b-,7,-1,}
-...\marks4{b+,7,-1,}
 ...\hbox(0.0+0.0)x360.0, direction TLT
 ....\hbox(0.0+0.0)x360.0, direction TLT
 .....\hbox(0.0+0.0)x360.0, direction TLT
@@ -131,25 +121,21 @@ Completed box being shipped out [1]
 ...........\glue(\parfillskip) 0.0
 ...........\glue(\rightskip) 0.0
 .......\glue 0.0
+.......\pdfliteral page <lua data reference ...>
+.......\pdfliteral page <lua data reference ...>
 .......\rule(0.4+0.0)x360.0
 .......\glue -0.4
 .....\glue 0.0 plus 1.0fil minus 1.0fil
-...\pdfliteral page{EMC}
-...\marks4{e-,7,2,}
-...\marks4{e+,7,2,}
+...\pdfliteral page <lua data reference ...>
+...\pdfliteral page <lua data reference ...>
 ...\pdflinkstate 0
 ..\glue 25.0
 ..\glue(\lineskip) 0.0
 ..\vbox(541.40024+0.0)x360.0, glue set 465.0958fil, direction TLT
-...\hbox(0.0+0.0)x0.0, direction TLT
 ...\latelua0{ltx.__pdf.Page.Resources.ExtGState=true}
 ...\latelua0{ltx.pdf.Page_Resources_gpush(tex.count["g_shipout_readonly_int"])}
 ...\write-{}
 ...\write1{\babel@aux{english}{}}
-...\write1{\new@label@record{mcid-1}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{1}{tagmcid}{\__property_code_tagmcid: }}}
-...\pdflateliteral page{/H <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,1,4,H,,,}
-...\marks4{b+,1,4,H,,,}
 ...\glue(\topskip) 0.9488
 ...\hbox(10.0512+0.1728)x360.0, glue set 285.98404fil, direction TLT
 ....\localpar
@@ -159,6 +145,8 @@ Completed box being shipped out [1]
 .....\localrightbox=null
 ....\hbox(9.4464+0.0)x22.50719, direction TLT
 .....\glue 0.0
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
 .....\TU/lmr/bx/n/14.4 1
 .....\glue 14.4
 ....\TU/lmr/bx/n/14.4 S
@@ -179,15 +167,6 @@ Completed box being shipped out [1]
 ...\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1}Section}{\thepage }{}\protected@file@percent }}
 ...\penalty 10000
 ...\glue 10.85475 plus 0.94386
-...\pdfliteral page{EMC}
-...\marks4{e-,1,4,}
-...\marks4{e+,1,4,}
-...\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
-...\penalty 10000
-...\penalty 10000
-...\pdflateliteral page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,2,5,P,,,}
-...\marks4{b+,2,5,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.8279
@@ -197,6 +176,8 @@ Completed box being shipped out [1]
 .....\localbrokenpenalty=0
 .....\localleftbox=null
 .....\localrightbox=null
+....\pdfliteral page <lua data reference ...>
+....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/10.95 a
 ....\glue(\spaceskip) 3.64635 plus 1.82318 minus 1.21545
 ....\TU/lmr/m/n/10.95 p
@@ -224,16 +205,9 @@ Completed box being shipped out [1]
 .....\localrightbox=null
 ....\hbox(0.0+0.0)x17.0, direction TLT
 ....\TU/lmr/m/n/10.95 x
-....\pdfliteral page{EMC}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,2,5,}
-...\marks4{e+,2,5,}
-...\write1{\new@label@record{mcid-3}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{3}{tagmcid}{\__property_code_tagmcid: }}}
-...\pdflateliteral page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,3,8,Lbl,,,}
-...\marks4{b+,3,8,Lbl,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 6.0007
@@ -244,14 +218,13 @@ Completed box being shipped out [1]
 .....\localleftbox=null
 .....\localrightbox=null
 ....\hbox(0.0+0.0)x17.0, direction TLT
+....\pdfliteral page <lua data reference ...>
+....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/10.95 1
 ....\TU/lmr/m/n/10.95 .
-....\pdfliteral page{EMC}
 ....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
-....\write1{\new@label@record{mcid-4}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{4}{tagmcid}{\__property_code_tagmcid: }}}
-....\penalty 10000
-....\glue 0.0
-....\pdflateliteral page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\pdfliteral page <lua data reference ...>
+....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/10.95 L
 ....\TU/lmr/m/n/10.95 i
 ....\TU/lmr/m/n/10.95 s
@@ -268,20 +241,9 @@ Completed box being shipped out [1]
 ....\kern0.3066 (font)
 ....\TU/lmr/m/n/10.95 d
 ....\TU/lmr/m/n/10.95 y
-....\pdfliteral page{EMC}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,3,8,}
-...\marks4{e+,3,8,}
-...\marks4{b-,4,9,P,,,}
-...\marks4{b+,4,9,P,,,}
-...\marks4{e-,4,9,}
-...\marks4{e+,4,9,}
-...\write1{\new@label@record{mcid-5}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{5}{tagmcid}{\__property_code_tagmcid: }}}
-...\pdflateliteral page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,5,11,Lbl,,,}
-...\marks4{b+,5,11,Lbl,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.75595
@@ -292,16 +254,17 @@ Completed box being shipped out [1]
 .....\localleftbox=null
 .....\localrightbox=null
 ....\hbox(0.0+0.0)x17.0, direction TLT
+....\pdfliteral page <lua data reference ...>
+....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/10.95 2
 ....\TU/lmr/m/n/10.95 .
-....\pdfliteral page{EMC}
 ....\glue(\spaceskip) 4.8618 plus 5.46954 minus 0.40515
-....\write1{\new@label@record{mcid-6}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{6}{tagmcid}{\__property_code_tagmcid: }}}
-....\penalty 10000
-....\glue 0.0
-....\pdflateliteral page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\pdfliteral page <lua data reference ...>
+....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/10.95 a
 ....\TU/lmr/m/n/10.95 n
+....\discretionary (penalty 50)
+.....< \TU/lmr/m/n/10.95 ^^ad
 ....\TU/lmr/m/n/10.95 o
 ....\TU/lmr/m/n/10.95 t
 ....\TU/lmr/m/n/10.95 h
@@ -324,31 +287,23 @@ Completed box being shipped out [1]
 ....\kern0.3066 (font)
 ....\TU/lmr/m/n/10.95 d
 ....\TU/lmr/m/n/10.95 y
-....\pdfliteral page{EMC}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,5,11,}
-...\marks4{e+,5,11,}
-...\marks4{b-,6,12,P,,,}
-...\marks4{b+,6,12,P,,,}
-...\marks4{e-,6,12,}
-...\marks4{e+,6,12,}
 ...\glue -2.24475
 ...\glue 0.0 plus 1.0fil
-...\kern0.0
-...\hbox(0.0+0.0)x0.0, direction TLT
 ...\glue 0.0
 ...\glue 0.0 plus 0.0001fil
+..\pdfliteral page <lua data reference ...>
+..\pdfliteral page <lua data reference ...>
 ..\pdflinkstate 1
-..\pdfliteral page{/Artifact BMC}
-..\marks4{b-,8,-1,}
-..\marks4{b+,8,-1,}
 ..\glue(\baselineskip) 16.40001
 ..\hbox(13.59999+4.08003)x360.0, direction TLT
 ...\hbox(13.59999+4.08003)x360.0, direction TLT
 ....\hbox(13.59999+4.08003)x360.0, direction TLT
 .....\vbox(13.59999+4.08003)x360.0, direction TLT
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
 ......\rule(0.0+0.0)x360.0
 ......\glue 4.08003
 ......\hbox(9.51996+4.08003)x360.0, direction TLT
@@ -396,14 +351,14 @@ Completed box being shipped out [1]
 ..........\glue(\parfillskip) 0.0
 ..........\glue(\rightskip) 0.0
 ....\glue 0.0 plus 1.0fil minus 1.0fil
-..\pdfliteral page{EMC}
-..\marks4{e-,8,2,}
-..\marks4{e+,8,2,}
+..\pdfliteral page <lua data reference ...>
+..\pdfliteral page <lua data reference ...>
 ..\pdflinkstate 0
 .\kern0.0
 .\kern-633.48027
 .\hbox(0.0+0.0)x0.0, direction TLT
 .\kern633.48027
+.\pdfliteral page <lua data reference ...>
 (test-struct-user.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
