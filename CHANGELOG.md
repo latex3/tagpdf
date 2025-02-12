@@ -8,6 +8,8 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 ### Added
+ - removed fallback code for delayedshipout
+ - removed code related to now unused kernel hooks
  - phoneme key for `\tagstructbegin`.
  
 ## [2025-01-10]

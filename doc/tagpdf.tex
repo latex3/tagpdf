@@ -899,26 +899,7 @@ This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
       mark these text chunks correctly one has to analyze the code creating 
       such content to find suitable places to inject the literals. 
 
-  \item The literals are inserted directly and not at shipout. This means 
-      that due to the asynchronous page breaking of \TeX\ the MCID-number 
-      can be wrong even if the counter is reset at every page. This package 
-      uses in generic mode a label-ref-system to get around this problem. 
-      This sadly means that often at least three compilations are needed 
-      until everything has settled down. 
-
-  It can actually be worse: If the text is changed after the MCID-numbers 
-  have been assigned, and a new mc-chunk is inserted in the middle of the 
-  page, then all the numbers have to be recalculated and that requires 
-  again a number of compilations until it really settles down again. 
-  Internal references are especially problematic here, as the first 
-  compilation typically creates a non-link |??|, and only the second 
-  inserts the structure and the new mc. When the reference system in \LaTeX\
-  will be extended, care will be taken to ensure that already the dummy 
-  text builds a chunk. Until then the advice is to first compile the 
-  document and resolve all cross-reference and to activate tagging only at 
-  the end. 
-
-
+ 
   \item There exist environments which process their content more than once 
       -- examples are \texttt{align} and \texttt{tabularx}. 
        So one has to check for doublets and holes in the counting system.
