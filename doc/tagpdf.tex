@@ -156,7 +156,7 @@ tagging should become part of the \LaTeX\ kernel.
 
 
 The code has been written so that it can be added as module to the \LaTeX{} 
-kernel itself if it turns out to be usable. It therefore avoid to patch 
+kernel itself if it turned out to be usable. It therefore avoid to patch 
 commands from other packages. It was also not an aim of the package to 
 develop patches to directly enable tagging in other packages. While in the end changes to various commands in many 
 classes and packages will be needed to automatically get tagged \PDF{} files, these changes 
@@ -185,7 +185,7 @@ Please also check the github site and latex-lab for new examples and improvement
 While the package is named \pkg{tagpdf} the goal is also \emph{accessible} 
 \PDF{}-files. Tagging is \emph{one} (the most difficult) requirement for 
 accessibility but there are others. I will mention some later on in this 
-documentation, and -- if sensible -- I will also try to add code, keys or 
+documentation, and -- if sensible -- also add code, keys or 
 tips for them. 
 
 So the name of the package is a bit wrong. As excuse I can only say that it 
@@ -240,11 +240,14 @@ it knows more structure types, it allows to add associated files to
 structures---these are small, embedded files that can, for example, contain 
 the mathML or source code of an equation---, it knows structure destinations, 
 which allows to link to a structure. It knows the MathML namespace. 
-\LaTeX{} therefore targets \PDF{} 2.0, tagpdf has support for 
+
+\LaTeX{} therefore targets \PDF{} 2.0 and tagpdf has support for 
 associated files, for name spaces and other \PDF{} 2.0 features.
 
 \PDF{}~2.0 features are currently (begin of 2025) still not well supported by 
-\PDF~consumer, but some progress has been made. Foxit is now handling mathml associated files and PDF Accessibility Checker (PAC) no longer crashes 
+\PDF~consumer, but some progress has been made. Foxit can handle MathML associated files
+and to some extend MathML structure elements and
+together with development versions of NVDA and MathCat reading of equations is already quite good. The PDF Accessibility Checker (PAC) no longer crashes 
 if one tries to load a \PDF{} 2.0 file. We recommend 
 to use \PDF{} 2.0 if possible and then to complain to the PDF{} consumer if 
 something doesn't work.   
@@ -277,11 +280,9 @@ One must check how good the accessibility is \emph{practically}.
 \end{itemize}
 
 
-Syntax validation and formal standard validation can be done for example with 
-preflight of the (non-free) Adobe Acrobat. It can also be done 
-(only for PDF 1.7 and older) also with the 
-free \PDF{} Accessibility Checker (PAC~2024) \parencite{pac2024}. There is also 
-the validator veraPDF \parencite{verapdf} which can also handle PDF 2.0 files. 
+Syntax validation and formal standard validation can be done with the
+validator veraPDF \parencite{verapdf} which can also handle PDF 2.0 files. 
+Other options (only for PDF 1.7 and older) are preflight of the (non-free) Adobe Acrobat and the free \PDF{} Accessibility Checker (PAC~2024) \parencite{pac2024}. 
 A quite useful tool 
 is \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application 
 which converts a tagged PDF to html, allows to inspect its structure and also 
@@ -301,7 +302,7 @@ Sadly validators can not be always trusted.
 As an example for an reason that I don't understand the adobe preflight 
 don't like the list structure \texttt{L}.
 It is also possible that validators contradict: that the one says everything is okay, 
-while the other complains.
+while the other complains. Generally when in doubt I recommend to use and trust verapdf. 
 
 \subsection{Examples wanted!}
 
@@ -3067,6 +3068,12 @@ is then used automatically if the new engines are detected.
 
 Deprecated |\tag_start:|, |\tag_stop:|, |\tag_stop:n| and 
 |\tag_start:n| in favor of |\tag_suspend:n| and |\tag_resume:n|.
+
+
+\subsection{Changes in version 0.99n}
+
+Removed/deactivated package options |luamode| and |genericmode|.
+Added first support for pronunciation hints, the |phoneme| key.
 
 \printbibliography[heading=bibintoc]
 
