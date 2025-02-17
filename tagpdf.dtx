@@ -747,7 +747,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*mcloading>
-\sys_if_engine_luatex:TF
+\bool_if:NTF \g_@@_mode_lua_bool
   {
    \RequirePackage {tagpdf-mc-code-lua}
   }
@@ -756,7 +756,7 @@
   }
 %</mcloading>
 %<*debug>
-\sys_if_engine_luatex:TF
+\bool_if:NTF \g_@@_mode_lua_bool
   {
    \RequirePackage {tagpdf-debug-lua}
   }

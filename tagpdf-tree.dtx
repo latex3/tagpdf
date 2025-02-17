@@ -442,7 +442,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_tree_write_parenttree:
   {
-    \sys_if_engine_luatex:TF
+    \bool_if:NTF \g_@@_mode_lua_bool
       {
         \@@_tree_lua_fill_parenttree:
       }

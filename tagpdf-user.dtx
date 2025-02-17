@@ -540,7 +540,7 @@
   {
     mc-data .code:n =
       {
-        \sys_if_engine_luatex:T
+        \bool_if:NT \g_@@_mode_lua_bool
           {
             \lua_now:e{ltx.@@.trace.show_all_mc_data(#1,\@@_get_mc_abs_cnt:,0)}
           }
@@ -556,7 +556,7 @@
 \keys_define:nn { @@ / show }
   { mc-current .code:n =
      {
-        \sys_if_engine_luatex:TF
+        \bool_if:NTF \g_@@_mode_lua_bool
           {
             \int_compare:nNnTF
               { -2147483647 }
@@ -773,7 +773,7 @@
 % We need a luatex variant for |\pdffakespace|. This should probably go into
 % the kernel at some time. We also provide a no-op version for dvi mode
 %    \begin{macrocode}
-\sys_if_engine_luatex:T
+\bool_if:NT \g_@@_mode_lua_bool
   {
     \NewDocumentCommand\pdffakespace { }
      {
@@ -1162,7 +1162,7 @@
 
 \AddToHook{begindocument/before}
  {
-   \sys_if_engine_luatex:F
+   \bool_if:NF \g_@@_mode_lua_bool
      {
         \cs_if_exist:NT \@kernel@before@footins
          {
@@ -1255,7 +1255,7 @@
 \cs_new_protected:Npn \@@_exclude_headfoot_begin:
  {
     \bool_set_false:N  \l_@@_para_bool
-    \sys_if_engine_luatex:TF
+    \bool_if:NTF \g_@@_mode_lua_bool
      {
       \tag_mc_end_push:
      }
@@ -1270,7 +1270,7 @@
  {
     \tag_resume:n{headfoot}
     \tag_mc_end:
-    \sys_if_engine_luatex:TF
+    \bool_if:NTF \g_@@_mode_lua_bool
      {
       \tag_mc_begin_pop:n{}
      }
@@ -1285,7 +1285,7 @@
 \cs_new_protected:Npn \@@_exclude_struct_headfoot_begin:n #1
  {
     \bool_set_false:N  \l_@@_para_bool
-    \sys_if_engine_luatex:TF
+    \bool_if:NTF \g_@@_mode_lua_bool
      {
       \tag_mc_end_push:
      }
@@ -1303,7 +1303,7 @@
     \tag_resume:n{headfoot}
     \tag_mc_end:
     \tag_struct_end:
-    \sys_if_engine_luatex:TF
+    \bool_if:NTF \g_@@_mode_lua_bool
      {
       \tag_mc_begin_pop:n{}
      }
