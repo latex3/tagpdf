@@ -878,7 +878,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_fill_kid_key:n #1 %#1 is the struct num
   {
-    \sys_if_engine_luatex:F
+    \bool_if:NF \g_@@_mode_lua_bool
      {
         \seq_clear:N \l_@@_tmpa_seq
         \seq_map_inline:cn { g_@@_struct_kids_#1_seq }
