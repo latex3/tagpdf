@@ -7,9 +7,12 @@ this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
 
-### Added
+### Changed
+ - remove genericmode option for luatex.
  - removed fallback code for delayedshipout
  - removed code related to now unused kernel hooks
+### Added
+ 
  - phoneme key for `\tagstructbegin`.
  
 ## [2025-01-10]
