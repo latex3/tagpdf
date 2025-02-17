@@ -16,8 +16,8 @@
  }
 \DebugBlocksOff
 \makeatletter
-\def\UlrikeFischer@package@version{0.99l}
-\def\UlrikeFischer@package@date{2025-01-12}
+\def\UlrikeFischer@package@version{0.99m}
+\def\UlrikeFischer@package@date{2025-02-17}
 \makeatother
 
 \documentclass[bibliography=totoc,a4paper]{article}
@@ -204,7 +204,7 @@ for the tagging.
 
 The package has two modes: the \emph{generic mode} which should work in 
 theory with every engine and the \emph{lua mode} which works only with 
-lualatex and (since version 0.98k) with dvilualatex. Since version 0.99n, 
+lualatex and (since version 0.98k) with dvilualatex. Since version 0.99m, 
 the lua mode is forced if luatex is detected, otherwise generic mode is used. 
 
 I implemented the generic mode first. Mostly because my \TeX\ skills are much 
@@ -446,7 +446,7 @@ The package has two different modes: The \textbf{generic mode} works
 all engines, the \textbf{lua mode} only with lualatex. The differences
 between both modes will be described later. 
 
-Starting with version 0.99n the mode is set automatically (lua mode for luatex, generic mode otherwise). The package options do nothing anymore and will be remove in future versions. 
+Starting with version 0.99m the mode is set automatically (lua mode for luatex, generic mode otherwise). The package options do nothing anymore and will be remove in future versions. 
 
 
 \subsection{Setup and activation}\label{ssec:setup}
@@ -3070,7 +3070,7 @@ Deprecated |\tag_start:|, |\tag_stop:|, |\tag_stop:n| and
 |\tag_start:n| in favor of |\tag_suspend:n| and |\tag_resume:n|.
 
 
-\subsection{Changes in version 0.99n}
+\subsection{Changes in version 0.99m}
 
 Removed/deactivated package options |luamode| and |genericmode|.
 Added first support for pronunciation hints, the |phoneme| key.

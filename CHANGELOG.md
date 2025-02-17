@@ -5,7 +5,8 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2025-02-17]
+Version 0.99m
 
 ### Changed
  - remove genericmode option for luatex.
@@ -16,7 +17,7 @@ this project uses date-based 'snapshot' version identifiers.
  - phoneme key for `\tagstructbegin`.
  
 ## [2025-01-10]
-Version 0.99m
+Version 0.99l
 ### Changed
  - allow Sub as child of Code (spec change)
  - change name of LaTeX namespace (remove year)

@@ -1,7 +1,10 @@
-## [2025-01-12]
-Version 0.99l
+## [2025-02-17]
+Version 0.99m
 
 ### Changed
- - allow Sub as child of Code (spec change)
- - change name of LaTeX namespace (remove year)
- - allow to change the URI-ID of the user namespace
+ - remove genericmode option for luatex.
+ - removed fallback code for delayedshipout
+ - removed code related to now unused kernel hooks
+### Added
+ 
+ - phoneme key for `\tagstructbegin`.
