@@ -1153,8 +1153,10 @@
          }
   }
 %    \end{macrocode}
+% \subsection{output routine stuff}
 % We need at least the new-or-1 code.
 % In generic mode we also must insert the code to finish the MC-chunks
+% This part here can go in June 2025
 %    \begin{macrocode}
 \@ifpackageloaded{footmisc}
   {\PackageWarning{tagpdf}{tagpdf~has~been~loaded~too~late!}} %
@@ -1176,6 +1178,27 @@
          }
      }
   }
+  
+%    \end{macrocode}
+% If the new OR is there, we use it
+%    \begin{macrocode}
+\str_if_exist:cT { l__socket_tagsupport/build/column/outputbox_plug_str }
+ {
+   \NewSocketPlug{tagsupport/build/column/outputbox}{tagpdf}
+     {
+       \@@_check_typeout_v:n { ====>~In~\token_to_str:N \@makecol
+                                  \c_space_tl\the\c@page }
+       \tag_mc_add_missing_to_stream:Nn \@outputbox {main}
+     }
+   \NewSocketPlug{tagsupport/build/column/footins}{tagpdf}
+      { \tag_mc_add_missing_to_stream:Nn \footins {footnote} }
+      
+   \bool_if:NF \g_@@_mode_lua_bool  
+      {         
+        \AssignSocketPlug{tagsupport/build/column/outputbox}{tagpdf}
+        \AssignSocketPlug{tagsupport/build/column/footins}{tagpdf}
+      }   
+  }   
 %</package>
 %    \end{macrocode}
 % \begin{macro}
@@ -1239,7 +1262,9 @@
 \cs_new_protected:Npn\@@_hook_kernel_after_head:{}
 \cs_new_protected:Npn\@@_hook_kernel_before_foot:{}
 \cs_new_protected:Npn\@@_hook_kernel_after_foot:{}
-
+%    \end{macrocode}
+% This can go once the new OR is active (June 2025)
+%    \begin{macrocode}
 \AddToHook{begindocument}
  {
   \cs_if_exist:NT \@kernel@before@head
@@ -1250,7 +1275,31 @@
      \tl_put_left:Nn  \@kernel@after@foot  {\@@_hook_kernel_after_foot:}
    }
  }
-
+%    \end{macrocode}
+% If the new page sockets exist, we use them.
+%    \begin{macrocode}
+\str_if_exist:cT { l__socket_tagsupport/build/page/footer_plug_str }
+ {
+   \NewSocketPlug{tagsupport/build/page/header}{tagpdf}
+    {
+      \@@_hook_kernel_before_head:
+      #2
+      \@@_hook_kernel_after_head:
+    }
+    
+   \AssignSocketPlug{tagsupport/build/page/header}{tagpdf} 
+   \NewSocketPlug{tagsupport/build/page/footer}{tagpdf}
+   {
+     \@@_hook_kernel_before_foot:
+     #2
+     \@@_hook_kernel_after_foot:
+   }
+  \AssignSocketPlug{tagsupport/build/page/footer}{tagpdf}
+ }
+ 
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \bool_new:N \g_@@_saved_in_mc_bool
 \cs_new_protected:Npn \@@_exclude_headfoot_begin:
  {
