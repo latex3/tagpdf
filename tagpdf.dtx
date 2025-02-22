@@ -415,6 +415,15 @@
 \bool_new:N \g_@@_softhyphen_bool
 %    \end{macrocode}
 % \end{variable}
+% 
+% \begin{variable}{\g_@@_unique_cnt_int}
+% If tagpdf has to create unique names (e.g. for object names when embedding files)
+% it can use this integer to get an unique name. At every use it should be increased
+%    \begin{macrocode}
+\int_new:N \g_@@_unique_cnt_int
+%    \end{macrocode}
+% \end{variable}
+ 
 % \section{Variants of l3 commands}
 %     \begin{macrocode}
 \prg_generate_conditional_variant:Nnn \pdf_object_if_exist:n {e}{T,F,TF}
@@ -427,6 +436,7 @@
 \cs_generate_variant:Nn \seq_set_split:Nnn{Nne}  %**  unneeded
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
 \cs_generate_variant:Nn \clist_map_inline:nn {on}
+\cs_generate_variant:Nn \pdffile_embed_file:nnn {eee}
 %    \end{macrocode}
 %
 % \section{Label and Reference commands}

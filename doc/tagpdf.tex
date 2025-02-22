@@ -1799,9 +1799,11 @@ The key-val list understands the following keys:
    \item[\PrintKeyName{root-AF}] This key allows to reference an
      associated file in the root structure element. Using the root can
      be e.g. useful to add a css-file. When converting the pdf to a
-     html with e.g. ngpdf this css-file is then referenced in the head
-     of the html.
-
+     html with e.g. ngpdf \cite{ngpdf} this css-file is then referenced in the head of the html.
+ 
+   \item[\PrintKeyName{root-supplemental-file}] This is a variant of the previous key. It takes as argument a file name. It then embeds this file with \texttt{/AFRelationship /Supplement} and appends it as associated file to the structure root. ngpdf \cite{ngpdf} will store a \texttt{.css} attached in this way and reference it in the head of the html. If a \texttt{html} is attached in this way, ngpdf will
+       copy the content into the head of the derived html. This means that the content of such an html file should normally be some html snippet suitable for the head, e.g. some css-code inside \texttt{<style>} tags.
+       
 
    \item[\PrintKeyName{AFinline}] This key allows to embed an
      associated file with inline content. The value is some text,
