@@ -12,14 +12,14 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-I,debug={log=v}}
 \input{regression-test}
 \documentclass[sfdefaults=true]{scrbook}
 \usepackage{graphicx}
 \usepackage[english]{babel}
 
 
-\usepackage{tagpdf,iftex}
+\usepackage{iftex}
 
 \iftutex
   \usepackage{fontspec}
@@ -28,10 +28,6 @@
   \usepackage[T1]{fontenc}
 \fi
 
-\tagpdfsetup{page/tabsorder=structure,
-             activate/all,
-             debug/log=v
-             }
 
 
 

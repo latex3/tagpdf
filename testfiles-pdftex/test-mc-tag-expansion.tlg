@@ -1,14 +1,16 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
+Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from: 'StructTreeRoot' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'MC' on line ...
+Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 2, /Document) on line ...
 The sequence \g__tag_mc_main_marks_seq is empty
 > .
 Completed box being shipped out [1]
 \vbox(680.80026+0.0)x406.0
+.\hbox(0.0+0.0)x0.0
+..\pdfinterwordspaceon
 .\hbox(0.0+0.0)x0.0
 ..\kern -72.26999
 ..\vbox(0.0+0.0)x0.0, glue set 72.26999fil
@@ -27,8 +29,8 @@ Completed box being shipped out [1]
 ...\hbox(0.0+0.0)x360.0
 ....\hbox(0.0+0.0)x360.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,3,1,}
-...\marks4{e+,3,1,}
+...\marks4{e-,3,2,}
+...\marks4{e+,3,2,}
 ...\pdfrunninglinkon
 ..\glue 25.0
 ..\glue(\lineskip) 0.0
@@ -62,15 +64,15 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,1,1,}
-...\marks4{e+,1,1,}
-...\marks4{b-,2,1,P,,,}
-...\marks4{b+,2,1,P,,,}
-...\marks4{e-,2,1,}
-...\marks4{e+,2,1,}
-...\glue 0.0 plus 1.0fil
+...\marks4{e-,1,2,}
+...\marks4{e+,1,2,}
+...\marks4{b-,2,2,P,,,}
+...\marks4{b+,2,2,P,,,}
+...\marks4{e-,2,2,}
+...\marks4{e+,2,2,}
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
+...\glue 0.0 plus 1.0fil
 ...\glue 0.0
 ...\glue 0.0 plus 0.0001fil
 ..\pdfrunninglinkoff
@@ -84,14 +86,27 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 1
 ....\glue 0.0 plus 1.0fil
 ..\pdfliteral page{EMC}
-..\marks4{e-,4,1,}
-..\marks4{e+,4,1,}
+..\marks4{e-,4,2,}
+..\marks4{e+,4,2,}
 ..\pdfrunninglinkon
+.\kern 0.0
 .\kern 0.0
 .\kern -680.80026
 .\hbox(0.0+0.0)x0.0
 .\kern 680.80026
 (test-mc-tag-expansion.aux)
+Package tagpdf Info: closing structure 2 tagged /Document
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~2 structure objects
+(tagpdf)             with ~4 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
 ***************
 Compilation 1 of test file completed with exit status 0
 Compilation 2 of test file completed with exit status 0

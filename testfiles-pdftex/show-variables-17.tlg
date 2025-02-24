@@ -278,6 +278,7 @@ The property list \g__tag_role_tags_NS_prop contains the pairs (without outer br
 >  {footnotelabel}  =>  {user}
 >  {text-unit}  =>  {user}
 >  {text}  =>  {user}
+>  {section-number}  =>  {user}
 >  {theorem-like}  =>  {user}
 >  {codeline}  =>  {user}
 >  {float}  =>  {user}
@@ -553,7 +554,7 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {description}  =>  {BI}
 >  {quote}  =>  {G}
 >  {quotation}  =>  {G}
->  {verbatim}  =>  {B}
+>  {verbatim}  =>  {I}
 >  {item}  =>  {L}
 >  {itemlabel}  =>  {I}
 >  {itembody}  =>  {L}
@@ -562,6 +563,7 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {footnotelabel}  =>  {I}
 >  {text-unit}  =>  {G}
 >  {text}  =>  {B}
+>  {section-number}  =>  {I}
 >  {theorem-like}  =>  {G}
 >  {codeline}  =>  {I}
 >  {float}  =>  {G}
@@ -614,7 +616,7 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {description}  =>  {L}
 >  {quote}  =>  {BlockQuote}
 >  {quotation}  =>  {BlockQuote}
->  {verbatim}  =>  {P}
+>  {verbatim}  =>  {Code}
 >  {item}  =>  {LI}
 >  {itemlabel}  =>  {Lbl}
 >  {itembody}  =>  {LBody}
@@ -623,6 +625,7 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {footnotelabel}  =>  {Lbl}
 >  {text-unit}  =>  {Part}
 >  {text}  =>  {P}
+>  {section-number}  =>  {Span}
 >  {theorem-like}  =>  {Sect}
 >  {codeline}  =>  {Span}
 >  {float}  =>  {Note}
@@ -963,7 +966,7 @@ The property list \g__tag_role_NS_latex_prop contains the pairs (without outer b
 >  {description}  =>  {{L}{}}
 >  {quote}  =>  {{BlockQuote}{}}
 >  {quotation}  =>  {{BlockQuote}{}}
->  {verbatim}  =>  {{P}{}}
+>  {verbatim}  =>  {{Code}{}}
 >  {item}  =>  {{LI}{}}
 >  {itemlabel}  =>  {{Lbl}{}}
 >  {itembody}  =>  {{LBody}{}}
@@ -972,6 +975,7 @@ The property list \g__tag_role_NS_latex_prop contains the pairs (without outer b
 >  {footnotelabel}  =>  {{Lbl}{}}
 >  {text-unit}  =>  {{Part}{}}
 >  {text}  =>  {{P}{}}
+>  {section-number}  =>  {{Span}{}}
 >  {theorem-like}  =>  {{Sect}{}}
 >  {codeline}  =>  {{Sub}{}}
 >  {float}  =>  {{Aside}{}}
@@ -1027,6 +1031,7 @@ The property list \g__tag_role_NS_user_prop contains the pairs (without outer br
 >  {footnotelabel}  =>  {{}{}}
 >  {text-unit}  =>  {{}{}}
 >  {text}  =>  {{}{}}
+>  {section-number}  =>  {{}{}}
 >  {theorem-like}  =>  {{}{}}
 >  {codeline}  =>  {{}{}}
 >  {float}  =>  {{}{}}
@@ -1376,6 +1381,7 @@ The property list \g__tag_role_NS_latex_class_prop contains the pairs (without o
 >  {footnotelabel}  =>  {--UNUSED--}
 >  {text-unit}  =>  {--UNUSED--}
 >  {text}  =>  {--UNUSED--}
+>  {section-number}  =>  {--UNUSED--}
 >  {theorem-like}  =>  {--UNUSED--}
 >  {codeline}  =>  {--UNUSED--}
 >  {float}  =>  {--UNUSED--}
@@ -1431,6 +1437,7 @@ The property list \g__tag_role_NS_user_class_prop contains the pairs (without ou
 >  {footnotelabel}  =>  {--UNUSED--}
 >  {text-unit}  =>  {--UNUSED--}
 >  {text}  =>  {--UNUSED--}
+>  {section-number}  =>  {--UNUSED--}
 >  {theorem-like}  =>  {--UNUSED--}
 >  {codeline}  =>  {--UNUSED--}
 >  {float}  =>  {--UNUSED--}

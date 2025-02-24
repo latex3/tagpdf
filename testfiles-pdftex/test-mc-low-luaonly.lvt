@@ -4,17 +4,16 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-I,debug={log=vv}}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 
 \usepackage[english]{babel}
-\usepackage{tagpdf}
+
 \usepackage{graphicx,iftex}
 
 \usepackage[T1]{fontenc}
 
-\tagpdfsetup{activate/mc,debug/log=vv} %not too much in the log .. tests fails then
 \usepackage{kantlipsum}
 \begin{document}
 some things untagged.

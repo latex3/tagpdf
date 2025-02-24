@@ -32,7 +32,7 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {description}  =>  {L}
 >  {quote}  =>  {BlockQuote}
 >  {quotation}  =>  {BlockQuote}
->  {verbatim}  =>  {P}
+>  {verbatim}  =>  {Code}
 >  {item}  =>  {LI}
 >  {itemlabel}  =>  {Lbl}
 >  {itembody}  =>  {LBody}
@@ -41,6 +41,7 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {footnotelabel}  =>  {Lbl}
 >  {text-unit}  =>  {Part}
 >  {text}  =>  {P}
+>  {section-number}  =>  {Span}
 >  {theorem-like}  =>  {Sect}
 >  {codeline}  =>  {Span}
 >  {float}  =>  {Note}

@@ -279,6 +279,7 @@ The property list \g__tag_role_tags_NS_prop contains the pairs (without outer br
 >  {footnotelabel}  =>  {latex}
 >  {text-unit}  =>  {latex}
 >  {text}  =>  {latex}
+>  {section-number}  =>  {latex}
 >  {theorem-like}  =>  {latex}
 >  {codeline}  =>  {latex}
 >  {float}  =>  {latex}
@@ -564,6 +565,7 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {footnotelabel}  =>  {--UNUSED--}
 >  {text-unit}  =>  {--UNUSED--}
 >  {text}  =>  {--UNUSED--}
+>  {section-number}  =>  {--UNUSED--}
 >  {theorem-like}  =>  {--UNUSED--}
 >  {codeline}  =>  {--UNUSED--}
 >  {float}  =>  {--UNUSED--}
@@ -921,7 +923,7 @@ The property list \g__tag_role_NS_latex_prop contains the pairs (without outer b
 >  {description}  =>  {{L}{pdf2}}
 >  {quote}  =>  {{BlockQuote}{pdf}}
 >  {quotation}  =>  {{BlockQuote}{pdf}}
->  {verbatim}  =>  {{P}{pdf2}}
+>  {verbatim}  =>  {{Code}{pdf}}
 >  {item}  =>  {{LI}{pdf2}}
 >  {itemlabel}  =>  {{Lbl}{pdf2}}
 >  {itembody}  =>  {{LBody}{pdf2}}
@@ -930,6 +932,7 @@ The property list \g__tag_role_NS_latex_prop contains the pairs (without outer b
 >  {footnotelabel}  =>  {{Lbl}{pdf2}}
 >  {text-unit}  =>  {{Part}{pdf2}}
 >  {text}  =>  {{P}{pdf2}}
+>  {section-number}  =>  {{Span}{pdf2}}
 >  {theorem-like}  =>  {{Sect}{pdf2}}
 >  {codeline}  =>  {{Sub}{pdf2}}
 >  {float}  =>  {{Aside}{pdf2}}
@@ -1287,7 +1290,7 @@ The property list \g__tag_role_NS_latex_class_prop contains the pairs (without o
 >  {description}  =>  {BI}
 >  {quote}  =>  {G}
 >  {quotation}  =>  {G}
->  {verbatim}  =>  {B}
+>  {verbatim}  =>  {I}
 >  {item}  =>  {L}
 >  {itemlabel}  =>  {I}
 >  {itembody}  =>  {L}
@@ -1296,6 +1299,7 @@ The property list \g__tag_role_NS_latex_class_prop contains the pairs (without o
 >  {footnotelabel}  =>  {I}
 >  {text-unit}  =>  {G}
 >  {text}  =>  {B}
+>  {section-number}  =>  {I}
 >  {theorem-like}  =>  {G}
 >  {codeline}  =>  {I}
 >  {float}  =>  {G}
@@ -1382,7 +1386,7 @@ The property list \g__pdfdict_/g__tag_role/RoleMapNS_latex_dict_prop contains th
 >  {description}  =>  {[/L 11 0 R]}
 >  {quote}  =>  {[/BlockQuote 9 0 R]}
 >  {quotation}  =>  {[/BlockQuote 9 0 R]}
->  {verbatim}  =>  {[/P 11 0 R]}
+>  {verbatim}  =>  {[/Code 9 0 R]}
 >  {item}  =>  {[/LI 11 0 R]}
 >  {itemlabel}  =>  {[/Lbl 11 0 R]}
 >  {itembody}  =>  {[/LBody 11 0 R]}
@@ -1391,6 +1395,7 @@ The property list \g__pdfdict_/g__tag_role/RoleMapNS_latex_dict_prop contains th
 >  {footnotelabel}  =>  {[/Lbl 11 0 R]}
 >  {text-unit}  =>  {[/Part 11 0 R]}
 >  {text}  =>  {[/P 11 0 R]}
+>  {section-number}  =>  {[/Span 11 0 R]}
 >  {theorem-like}  =>  {[/Sect 11 0 R]}
 >  {codeline}  =>  {[/Sub 11 0 R]}
 >  {float}  =>  {[/Aside 11 0 R]}

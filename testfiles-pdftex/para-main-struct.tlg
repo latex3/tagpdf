@@ -15,10 +15,10 @@ The structure has the following kids:
 The structure 2 contains:
 >  Type  =>  /StructElem
 >  S  =>  /Document
->  rolemap  =>  {Document}{}
->  parentrole  =>  {Document}{}
->  P  =>  parent structure: 1 = /StructTreeRoot
 >  NS  =>  pdf2
+>  rolemap  =>  {Document}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
+>  P  =>  parent structure: 1 = /StructTreeRoot
 The structure has the following kids:
 >  Struct 5
 >  Struct 7
@@ -27,10 +27,10 @@ The structure has the following kids:
 The structure 3 contains:
 >  Type  =>  /StructElem
 >  S  =>  /figures
->  rolemap  =>  {Sect}{}
->  parentrole  =>  {Sect}{}
+>  NS  =>  latex
+>  rolemap  =>  {Sect}{pdf2}
+>  parentrole  =>  {Sect}{pdf2}
 >  P  =>  no parent: stashed
->  NS  =>  user
 The structure has the following kids:
 > NONE
 =========================
@@ -38,10 +38,10 @@ The structure has the following kids:
 The structure 4 contains:
 >  Type  =>  /StructElem
 >  S  =>  /tables
->  rolemap  =>  {Sect}{}
->  parentrole  =>  {Sect}{}
+>  NS  =>  latex
+>  rolemap  =>  {Sect}{pdf2}
+>  parentrole  =>  {Sect}{pdf2}
 >  P  =>  no parent: stashed
->  NS  =>  user
 The structure has the following kids:
 > NONE
 =========================
@@ -49,10 +49,10 @@ The structure has the following kids:
 The structure 5 contains:
 >  Type  =>  /StructElem
 >  S  =>  /text-unit
->  rolemap  =>  {Part}{}
->  parentrole  =>  {Document}{}
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
 >  P  =>  parent structure: 2 = /Document
->  NS  =>  user
 The structure has the following kids:
 >  Struct 6
 =========================
@@ -61,10 +61,10 @@ The structure 6 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
 >  S  =>  /text
->  rolemap  =>  {P}{}
->  parentrole  =>  {P}{}
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
 >  P  =>  parent structure: 5 = /text-unit
->  NS  =>  user
 The structure has the following kids:
 >  MC 1
 =========================
@@ -72,10 +72,10 @@ The structure has the following kids:
 The structure 7 contains:
 >  Type  =>  /StructElem
 >  S  =>  /text-unit
->  rolemap  =>  {Part}{}
->  parentrole  =>  {Document}{}
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
 >  P  =>  parent structure: 2 = /Document
->  NS  =>  user
 The structure has the following kids:
 >  Struct 8
 =========================
@@ -84,10 +84,10 @@ The structure 8 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
 >  S  =>  /text
->  rolemap  =>  {P}{}
->  parentrole  =>  {P}{}
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
 >  P  =>  parent structure: 7 = /text-unit
->  NS  =>  user
 The structure has the following kids:
 >  MC 2
 =========================

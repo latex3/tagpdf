@@ -5,12 +5,11 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{}
+\DocumentMetadata{testphase=phase-I,debug={log=vv}}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 
 \usepackage[english]{babel}
-\usepackage{tagpdf}
 \usepackage{graphicx,iftex}
 \ifpdftex
   \usepackage[T1]{fontenc}
@@ -18,14 +17,10 @@
 
 \ifluatex
   \usepackage{fontspec}
-  \usepackage{luacode}
 \fi
 
 
 
-
-
-\tagpdfsetup{activate/mc,debug/log=vv} %not too much in the log .. tests fails then
 \begin{document}
 \START
 \showoutput
