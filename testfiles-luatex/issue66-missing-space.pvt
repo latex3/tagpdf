@@ -1,6 +1,7 @@
 \ExplSyntaxOn
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
+\sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 \DocumentMetadata{testphase=phase-II}
 \input{regression-test} 
