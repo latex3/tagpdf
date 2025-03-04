@@ -176,10 +176,13 @@ installfiles = {
                 "**/*.csv",
                 "**/*.lua",
                 "**/*.ltx",
+                "**/*.html"
                }
 
 sourcefiles  = {"*.dtx",
                 "*.ins",
+                "latex-list-css.html",
+                "latex-align-css.html",
                 --"*.sty",
                 --"*.def",
                 --"**/*.lua"                
