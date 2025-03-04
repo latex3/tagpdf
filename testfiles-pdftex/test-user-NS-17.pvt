@@ -2,7 +2,7 @@
 \input{regression-test}
 \documentclass[12pt,a4paper]{report}
 \tagpdfsetup{role/user-NS=dinner,role/new-tag=duck/Span}
-
+\tagpdfsetup{attach-css=false}
 \begin{document}
 \START
 test

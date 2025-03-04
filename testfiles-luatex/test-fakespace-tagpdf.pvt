@@ -12,6 +12,7 @@
 \usepackage{amsmath}
 \usepackage[english]{babel}
 \usepackage{tagpdf}
+\tagpdfsetup{attach-css=false}
 \tagpdfsetup{activate/all,activate/spaces,debug/show=spaces}
 \usepackage{kantlipsum}
 \begin{document}\START\showoutput

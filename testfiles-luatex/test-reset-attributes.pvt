@@ -6,7 +6,7 @@
 \DocumentMetadata{testphase=phase-III}
 \input{regression-test}
 \documentclass{article}
-
+\tagpdfsetup{attach-css=false}
 \newbox\mybox
 \ExplSyntaxOn
 \let\tagmcresetbox\tag_mc_reset_box:N

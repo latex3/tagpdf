@@ -17,7 +17,7 @@
 \makeatother
 
 \usepackage{tagpdf}
-
+\tagpdfsetup{attach-css=false}
 \tagpdfsetup{page/tabsorder=structure,
              activate/all}
 

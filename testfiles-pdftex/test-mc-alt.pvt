@@ -22,7 +22,7 @@
    \newfontface\zerowidthfont{freeserif}
 \fi
 
-
+\tagpdfsetup{attach-css=false}
 \usepackage{graphicx}
 \showthe\pdfsuppressptexinfo
 \begin{document}

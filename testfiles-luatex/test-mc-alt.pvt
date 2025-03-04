@@ -16,6 +16,7 @@
 
 \usepackage{tagpdf,iftex}
 \tagpdfsetup{activate}
+\tagpdfsetup{attach-css=false}
 \iftutex
   \usepackage{fontspec}
   \usepackage{luacode}

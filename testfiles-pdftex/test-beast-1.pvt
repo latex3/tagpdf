@@ -15,7 +15,7 @@
 \usepackage[paperheight=24\baselineskip,
            height=19\baselineskip]{geometry}
 \usepackage{kantlipsum,multicol}
-
+\tagpdfsetup{attach-css=false}
 \NewCommandCopy\myemph\emph
 \ExplSyntaxOn
 

@@ -10,7 +10,7 @@
 \input{regression-test}
 
 \documentclass[12pt,a4paper,twocolumn]{article}
-
+\tagpdfsetup{attach-css=false}
 
 \tagpdfsetup{debug/show=para,debug/log=v}
 

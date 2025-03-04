@@ -14,7 +14,7 @@
 \START
 \documentclass{article}
 \usepackage{tagpdf}
-
+\tagpdfsetup{attach-css=false}
 \tagpdfsetup{page/tabsorder=structure,activate/all,activate/spaces=true,debug/log=v}
 \pagestyle{empty}
 \thispagestyle{empty}

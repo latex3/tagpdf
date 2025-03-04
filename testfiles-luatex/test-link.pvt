@@ -9,7 +9,7 @@
 \DocumentMetadata{pdfversion=2.0,xmp=false,testphase=phase-II,debug=para}
 \input{regression-test}
 \documentclass{article}
-
+\tagpdfsetup{attach-css=false}
 \usepackage{hyperref}
 \usepackage{kantlipsum}
 \makeatletter %to make compilation faster, we ensure that the ??

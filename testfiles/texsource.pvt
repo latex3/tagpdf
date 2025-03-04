@@ -5,7 +5,7 @@
 \DocumentMetadata{testphase=phase-I,pdfversion=1.7}
 \input{regression-test}
 \documentclass{article}
-
+\tagpdfsetup{attach-css=false}
 \begin{document}
 
 \tagstructbegin{tag=P,texsource=ABC,texsource=CDE,texsource= abc\blub }

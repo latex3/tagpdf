@@ -23,7 +23,7 @@
 
 
 \usepackage{tagpdf}
-
+\tagpdfsetup{attach-css=false}
 \usepackage{iftex}
 \iftutex
   \usepackage{fontspec}
