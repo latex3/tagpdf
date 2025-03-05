@@ -2,7 +2,7 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{testphase=phase-III}
+\DocumentMetadata{testphase=phase-III,pdfversion=1.7}
 \input{regression-test}
 
 \RequirePackage{tagpdf-debug} 

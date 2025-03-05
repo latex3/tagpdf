@@ -1,0 +1,141 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+=========================
+The structure 1 contains:
+>  Type  =>  /StructTreeRoot
+>  S  =>  /StructTreeRoot
+>  rolemap  =>  {StructTreeRoot}{pdf}
+>  parentrole  =>  {StructTreeRoot}{pdf}
+The structure has the following kids:
+>  Struct 2
+=========================
+=========================
+The structure 2 contains:
+>  Type  =>  /StructElem
+>  S  =>  /Document
+>  rolemap  =>  {Document}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 1 = /StructTreeRoot
+>  NS  =>  pdf2
+The structure has the following kids:
+>  Struct 5
+>  Struct 7
+>  Struct 9
+=========================
+=========================
+The structure 3 contains:
+>  Type  =>  /StructElem
+>  S  =>  /figures
+>  rolemap  =>  {Sect}{}
+>  parentrole  =>  {Sect}{}
+>  P  =>  no parent: stashed
+>  NS  =>  user
+The structure has the following kids:
+> NONE
+=========================
+=========================
+The structure 4 contains:
+>  Type  =>  /StructElem
+>  S  =>  /tables
+>  rolemap  =>  {Sect}{}
+>  parentrole  =>  {Sect}{}
+>  P  =>  no parent: stashed
+>  NS  =>  user
+The structure has the following kids:
+> NONE
+=========================
+=========================
+The structure 5 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  rolemap  =>  {Part}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 2 = /Document
+>  NS  =>  user
+The structure has the following kids:
+>  Struct 6
+=========================
+=========================
+The structure 6 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  rolemap  =>  {P}{}
+>  parentrole  =>  {P}{}
+>  P  =>  parent structure: 5 = /text-unit
+>  NS  =>  user
+The structure has the following kids:
+>  MC 1
+=========================
+=========================
+The structure 7 contains:
+>  Type  =>  /StructElem
+>  Lang  =>  (de)
+>  S  =>  /text-unit
+>  rolemap  =>  {Part}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 2 = /Document
+>  NS  =>  user
+The structure has the following kids:
+>  Struct 8
+=========================
+=========================
+The structure 8 contains:
+>  Type  =>  /StructElem
+>  Lang  =>  (de)
+>  C  =>  /justify
+>  S  =>  /text
+>  rolemap  =>  {P}{}
+>  parentrole  =>  {P}{}
+>  P  =>  parent structure: 7 = /text-unit
+>  NS  =>  user
+The structure has the following kids:
+>  MC 2
+=========================
+=========================
+The structure 9 contains:
+>  Type  =>  /StructElem
+>  S  =>  /text-unit
+>  rolemap  =>  {Part}{}
+>  parentrole  =>  {Document}{}
+>  P  =>  parent structure: 2 = /Document
+>  NS  =>  user
+The structure has the following kids:
+>  Struct 10
+=========================
+=========================
+The structure 10 contains:
+>  Type  =>  /StructElem
+>  C  =>  /justify
+>  S  =>  /text
+>  rolemap  =>  {P}{}
+>  parentrole  =>  {P}{}
+>  P  =>  parent structure: 9 = /text-unit
+>  NS  =>  user
+The structure has the following kids:
+>  MC 3
+=========================
+tagpdf DEBUG Info: Tagging suspended
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging resumed
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging suspended
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging resumed
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+[1
+] (test-lang-change.aux)<<latex-list-css.html>><<latex-align-css.html>>
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~10 structure objects
+(tagpdf)             with ~5 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
+***************
+Compilation 1 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 0

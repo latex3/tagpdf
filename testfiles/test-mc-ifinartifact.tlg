@@ -1,9 +1,11 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
+Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 2, /Document) on line ...
 Completed box being shipped out [1]
 \vbox(679.0+0.0)x421.0
+.\hbox(0.0+0.0)x0.0
+..\pdfinterwordspaceon
 .\hbox(0.0+0.0)x0.0
 ..\kern -72.26999
 ..\vbox(0.0+0.0)x0.0, glue set 72.26999fil
@@ -22,8 +24,8 @@ Completed box being shipped out [1]
 ...\hbox(0.0+0.0)x390.0
 ....\hbox(0.0+0.0)x390.0
 ...\pdfliteral page{EMC}
-...\marks4{e-,3,1,}
-...\marks4{e+,3,1,}
+...\marks4{e-,3,2,}
+...\marks4{e+,3,2,}
 ...\pdfrunninglinkon
 ..\glue 25.0
 ..\glue(\lineskip) 0.0
@@ -71,12 +73,12 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{b-,1,-1,}
 ...\marks4{b+,1,-1,}
-...\marks4{e-,1,1,}
-...\marks4{e+,1,1,}
+...\marks4{e-,1,2,}
+...\marks4{e+,1,2,}
 ...\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} /Alt <FEFF00410041> >> BDC}
-...\marks4{b-,2,1,P,,,}
-...\marks4{b+,2,1,P,,,}
+...\marks4{b-,2,2,P,,,}
+...\marks4{b+,2,2,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 6.23535
@@ -90,11 +92,11 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,2,1,}
-...\marks4{e+,2,1,}
-...\glue 0.0 plus 1.0fil
+...\marks4{e-,2,2,}
+...\marks4{e+,2,2,}
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
+...\glue 0.0 plus 1.0fil
 ...\glue 0.0
 ...\glue 0.0 plus 0.0001fil
 ..\pdfrunninglinkoff
@@ -108,14 +110,26 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/12 1
 ....\glue 0.0 plus 1.0fil
 ..\pdfliteral page{EMC}
-..\marks4{e-,4,1,}
-..\marks4{e+,4,1,}
+..\marks4{e-,4,2,}
+..\marks4{e+,4,2,}
 ..\pdfrunninglinkon
+.\kern 0.0
 .\kern 0.0
 .\kern -679.0
 .\hbox(0.0+0.0)x0.0
 .\kern 679.0
-(test-mc-ifinartifact.aux)
+(test-mc-ifinartifact.aux)<<latex-list-css.html>><<latex-align-css.html>>
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~2 structure objects
+(tagpdf)             with ~4 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
 ***************
 Compilation 1 of test file completed with exit status 0
 Compilation 2 of test file completed with exit status 0

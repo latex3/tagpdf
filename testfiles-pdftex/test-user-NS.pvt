@@ -1,9 +1,13 @@
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
+
 \DocumentMetadata{testphase=latest,pdfversion=2.0}
 \input{regression-test}
 \documentclass[12pt,a4paper]{report}
 \tagpdfsetup{role/user-NS=dinner,role/new-tag=duck/Span}
-
+\tagpdfsetup{attach-css=false}
 \begin{document}
 \START
 test
-\end{document}
+\end{document} 

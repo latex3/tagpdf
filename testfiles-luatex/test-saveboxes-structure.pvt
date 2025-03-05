@@ -2,6 +2,7 @@
 \ExplSyntaxOn
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
+\sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 \DocumentMetadata{xmp=false,testphase=phase-I,debug={log=vv}}
 \input{regression-test}
@@ -17,7 +18,7 @@
   \usepackage{fontspec}
   \usepackage{luacode}
 \fi
-
+\tagpdfsetup{attach-css=false}
 
 
 

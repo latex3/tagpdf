@@ -3,6 +3,9 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
 
 \DocumentMetadata{xmp=false,testphase=phase-I}
 \input{regression-test}
@@ -13,7 +16,7 @@
   \usepackage[T1]{fontenc}
 
 
-
+\tagpdfsetup{attach-css=false}
 
 \tagpdfsetup{debug/log=vv} %
 %to better see the mc in the pdf:

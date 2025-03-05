@@ -3,7 +3,7 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{testphase=phase-II,xmp=false}
+\DocumentMetadata{testphase=phase-II,xmp=false,pdfversion=1.7}
 \input{regression-test}
 \documentclass{article}
 \makeatletter
@@ -12,7 +12,7 @@
 \stockheight   = 297mm
 \stockwidth    = 210mm
 \makeatother
-
+\tagpdfsetup{attach-css=false}
 \begin{document}
 
 

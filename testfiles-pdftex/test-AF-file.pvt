@@ -19,7 +19,7 @@
 \ifpdftex
   \usepackage[T1]{fontenc}
 \fi
-
+\tagpdfsetup{attach-css=false}
 
 \begin{document}
 \pagestyle{empty}

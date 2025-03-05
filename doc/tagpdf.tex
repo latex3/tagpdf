@@ -16,8 +16,8 @@
  }
 \DebugBlocksOff
 \makeatletter
-\def\UlrikeFischer@package@version{0.99n}
-\def\UlrikeFischer@package@date{2025-02-23}
+\def\UlrikeFischer@package@version{0.99o}
+\def\UlrikeFischer@package@date{2025-03-05}
 \makeatother
 
 \documentclass[bibliography=totoc,a4paper]{article}
@@ -461,6 +461,7 @@ The command should be normally used only in the preamble
 The key-val list understands at least the following keys. More keys are defined in some of the latex-lab module, see table~\ref{tab:setupkey} for an overview which also includes older, now deprecated names.
 
 \begin{table}
+\makeatletter \bookmark[dest=\@currentHref]{List of keys}\makeatother
 \caption{Overview over keys for \cs{tagpdfsetup}}\label{tab:setupkey}
 \input{tagpdfsetup-keys}
 \end{table}
@@ -2697,7 +2698,50 @@ already mentioned there are more requirements:
      documentation of \texttt{l3pdfmeta} for details. 
 \end{itemize}
 
+ \section{CSS style definition for derivation to html}
+ 
+ Derivation to html (\cite{derivation} 
+ implemented by, e.g., ngpdf) can be improved by attaching CSS style definitions
+ in associated files with relationship supplement to the StructTreeRoot.
+  
+ Such CSS style definitions can be given in two ways: 
+  \begin{itemize}
+   \item In files with the extension \texttt{.css}. Such files should contain only 
+   CSS style definitions. A derivation processor like ngpdf will store these files and include them with an
+  \verb+<link rel=stylesheet href=...>+ in the head of the html.
+  \item In files with the extension \texttt{.html}. Such files should contain CSS style
+  definitions inside one (or more) \verb+<style>...</style>+ html tags. The content of these
+  files are copied directly into the head of the derived html.
+  \end{itemize}
+  
+ By default (if tagging is active) tagpdf embeds now such CSS style definitions. 
+ Currently the list of files is rather short and consists of two files (with extension
+ .html and \verb+<style>...</style>+ html tags) which are provided by the tagpdf package:
+ \begin{itemize}
+ \item \texttt{latex-align-css.html} which improves the styling of amsmath alignments tagged with MathML.
+ \item \texttt{latex-list-css.html} which improves the style of list environments.
+ \end{itemize}
+ 
+ A number of configuration keys for \cs{tagpdfsetup} are provided
+\begin{description}
+\item[\PrintKeyName{attach-css}] Boolean, initially true. 
+ It is possible to suppress the embedding of these files by setting this key
+ to \texttt{false}, \texttt{attach-css=true} or \texttt{attach-css} reverts this again.
+\item[\PrintKeyName{css-list}] With this key developers can overwrite the list, e.g. with \verb+css-list={file1,file2}+ (where all files should have either the extension \texttt{html} or \texttt{css}. \verb+css-list=+ clears
+ the list (and so suppresses the embedding too). 
+\item[\PrintKeyName{css-list-remove}]  This key allows to remove a file from
+the list, e.g. \verb+css-list-remove=latex-list-css.html+. 
+\item[\PrintKeyName{css-list-add}] this keys allows to add more files to the
+list, e.g., \verb+css-list-add=my-fancy-align-css.html+. 
+ It is also possible to attach a .css-file in this way.
+\end{description}
 
+ These keys do not affect files added directly with \PrintKeyName{root-supplemental-file}.
+
+ The files in this list are attached at the end of the compilation  (and so normally after the files attached with root-supplemental-file) 
+ but you shouldn't rely on this or on a specific order of the embedding in the html.
+ 
+ 
 \section{Debugging}
 
 While developing commands and tagging a document, it can be useful to get 

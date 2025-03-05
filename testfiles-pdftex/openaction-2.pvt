@@ -2,12 +2,16 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
 
 \DocumentMetadata{uncompress,testphase=phase-III}
 \input{regression-test}
 
 \documentclass{book} 
 \usepackage{hyperref}
+\tagpdfsetup{attach-css=false}
 \begin{document}
 
 some text

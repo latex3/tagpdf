@@ -1,0 +1,31 @@
+REM   l3build save test-fancyhdr test-add-mathml test-empty-mc test-mc-used-twice test-paratag mc-parent-child test-box-is-tagged test-getmctag firstkid test-mc-ifinartifact texsource teststructref spacecharoff spacechar-float test-lang-change test-mc-used-twice-b test-links-backend test-local-inactive-mc test-lang test-artifact-group test-parent-key remap-tags test-get-counter test-add-new-tag
+REM   l3build save -e luatex test-add-new-tag-2
+REM   l3build save -c config-pdftex test-mc-tag-expansion openaction-2 test-beast-2 test-mc-low-luaonly test-reset-attributes test-namespace-pdfII-article parent-child-17-structures test-namespace-pdf-article debug-structures-2 ptagging-004-p parent-child-17-nonstruct test-mc-alt debug-structures test-struct-user test-alttext test-attribute test-attribute-dev test-saveboxes-structure test-root-AF test-sectioning-koma ptagging-001b test-AF-file socket-2 test-mcid-cnt parent-child-20-nonstruct test-AFref test-mc-user test-ref ptagging-006-p parent-child-rolemap-20 orphan-02 ptagging-005 test-namespace-pdf-book test-pdf socket-3 openaction-1 test-header-footer openaction-0 parent-child-rolemap-17 test-link test-mc-low-bdc-emc test-mc-manual-para-split test-ref2-pdf show-variables-17 disable-delayed-shipout testauxtree show-variables-20 socket-1 test-user-NS-17 test-header-tagging test-fakespace-tagpdf test-struct-OBJR test-user-NS test-beast-1 para-main-struct test-attribute-name parent-child-20-structures ptagging-004 test-showattributes test-mc-savebox test-parentkey test-structuse-parent-child test-patch-koma test-namespace-pdfII-book ptagging-002
+REM   l3build save -c config-luatex test-fakespace-box test-ref test-luatex-pdf phoneme test-AF-file parent-child-20-structures test-fakespace-tagpdf softhyphen test-fakespace-fontchange test-mc-tag-expansion test-link debug-structures test-showattributes test-alttext test-fakespace-gh72 test-header-tagging softhyphen-3 test-patch-koma test-mc-user test-mc-alt test-struct-user softhyphen-2 testauxtree test-header-footer test-struct-OBJR test-sectioning-koma test-saveboxes-structure test-mc-savebox test-root-AF debug-structures-2 issue66-missing-space test-reset-attributes root-file test-attribute test-mc-low-luaonly issue13-mcid-array issue14-artifact-bool test-mc-manual-para-split
+
+REM l3build save -e pdftexmain test-add-new-tag test-lang-change firstkid test-mc-used-twice test-get-counter test-box-is-tagged mc-parent-child test-lang
+REM     l3build save -e luatex test-add-new-tag test-get-counter teststructref test-fancyhdr test-empty-mc test-add-mathml test-box-is-tagged mc-parent-child test-artifact-group test-lang test-getmctag remap-tags
+REM     l3build save test-paratag texsource test-parent-key spacechar-float spacecharoff
+
+REM  Afterwards test for engine specific changes using
+
+REM l3build check --show-saves test-paratag texsource test-parent-key spacechar-float spacecharoff
+
+REM l3build save -c config-pdftex openaction-1 test-saveboxes-structure test-mc-alt test-patch-koma openaction-2 openaction-0 orphan-02 test-alttext test-attribute-name disable-delayed-shipout test-attribute-dev ptagging-006-p test-reset-attributes ptagging-004-p test-header-tagging
+REM l3build save -c config-pdftex -e pdftexmain test-mc-tag-expansion test-user-NS-17 show-variables-17 parent-child-rolemap-17 test-mc-savebox test-mc-low-luaonly para-main-struct test-user-NS test-fakespace-tagpdf parent-child-rolemap-20 test-parentkey show-variables-20 test-structuse-parent-child socket-3
+
+
+REM To detect engine-specific differences, run after that
+REM 
+REM l3build check --show-saves test-fancyhdr test-add-mathml test-empty-mc test-mc-used-twice test-paratag mc-parent-child test-box-is-tagged test-getmctag firstkid test-mc-ifinartifact texsource teststructref spacecharoff spacechar-float test-lang-change test-mc-used-twice-b test-links-backend test-local-inactive-mc test-lang test-artifact-group test-parent-key remap-tags test-get-counter test-add-new-tag
+REM l3build check --show-saves -c config-pdftex test-mc-tag-expansion openaction-2 test-beast-2 test-mc-low-luaonly test-reset-attributes test-namespace-pdfII-article parent-child-17-structures test-namespace-pdf-article debug-structures-2 ptagging-004-p parent-child-17-nonstruct test-mc-alt debug-structures test-struct-user test-alttext test-attribute test-attribute-dev test-saveboxes-structure test-root-AF test-sectioning-koma ptagging-001b test-AF-file socket-2 test-mcid-cnt parent-child-20-nonstruct test-AFref test-mc-user test-ref ptagging-006-p parent-child-rolemap-20 orphan-02 ptagging-005 test-namespace-pdf-book test-pdf socket-3 openaction-1 test-header-footer openaction-0 parent-child-rolemap-17 test-link test-mc-low-bdc-emc test-mc-manual-para-split test-ref2-pdf show-variables-17 disable-delayed-shipout testauxtree show-variables-20 socket-1 test-user-NS-17 test-header-tagging test-fakespace-tagpdf test-struct-OBJR test-user-NS test-beast-1 para-main-struct test-attribute-name parent-child-20-structures ptagging-004 test-showattributes test-mc-savebox test-parentkey test-structuse-parent-child test-patch-koma test-namespace-pdfII-book ptagging-002
+REM  l3build check --show-saves -c config-luatex test-fakespace-box test-ref test-luatex-pdf phoneme test-AF-file parent-child-20-structures test-fakespace-tagpdf softhyphen test-fakespace-fontchange test-mc-tag-expansion test-link debug-structures test-showattributes test-alttext test-fakespace-gh72 test-header-tagging softhyphen-3 test-patch-koma test-mc-user test-mc-alt test-struct-user softhyphen-2 testauxtree test-header-footer test-struct-OBJR test-sectioning-koma test-saveboxes-structure test-mc-savebox test-root-AF debug-structures-2 issue66-missing-space test-reset-attributes root-file test-attribute test-mc-low-luaonly issue13-mcid-array issue14-artifact-bool test-mc-manual-para-split
+
+
+ l3build save -c config-luatex test-reset-attributes test-attribute test-saveboxes-structure test-header-tagging issue66-missing-space softhyphen softhyphen-2 test-fakespace-gh72 softhyphen-3
+
+
+
+    l3build check --show-saves -c config-luatex test-reset-attributes test-attribute test-saveboxes-structure test-header-tagging issue66-missing-space softhyphen softhyphen-2 test-fakespace-gh72 softhyphen-3
+
+ 

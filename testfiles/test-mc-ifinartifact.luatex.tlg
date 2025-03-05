@@ -1,7 +1,7 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot) on line ...
+Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed (struct 2, /Document) on line ...
 Completed box being shipped out [1]
 \vbox(679.0+0.0)x421.0, direction TLT
 .\hbox(0.0+0.0)x0.0, direction TLT
@@ -40,7 +40,8 @@ Completed box being shipped out [1]
 ....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/12 i
 ....\TU/lmr/m/n/12 n
-....\glue(\spaceskip) 3.912 plus 1.956 minus 1.304
+....\TU/lmr/m/n/12  
+....\glue(\spaceskip) 0.0 plus 1.956 minus 1.304
 ....\TU/lmr/m/n/12 a
 ....\TU/lmr/m/n/12 r
 ....\discretionary (penalty 50)
@@ -54,7 +55,8 @@ Completed box being shipped out [1]
 ....\TU/lmr/m/n/12 c
 ....\TU/lmr/m/n/12 t
 ....\TU/lmr/m/n/12 :
-....\glue(\spaceskip) 5.216 plus 3.91199 minus 0.652
+....\TU/lmr/m/n/12  
+....\glue(\spaceskip) 1.304 plus 3.91199 minus 0.652
 ....\TU/lmr/m/n/12 x
 ....\TU/lmr/m/n/12 x
 ....\TU/lmr/m/n/12 x
@@ -70,7 +72,8 @@ Completed box being shipped out [1]
 ....\TU/lmr/m/n/12 a
 ....\TU/lmr/m/n/12 c
 ....\TU/lmr/m/n/12 t
-....\glue(\spaceskip) 3.912 plus 1.956 minus 1.304
+....\TU/lmr/m/n/12  
+....\glue(\spaceskip) 0.0 plus 1.956 minus 1.304
 ....\pdfliteral page <lua data reference ...>
 ....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/12 x
@@ -93,7 +96,8 @@ Completed box being shipped out [1]
 ....\pdfliteral page <lua data reference ...>
 ....\TU/lmr/m/n/12 i
 ....\TU/lmr/m/n/12 n
-....\glue(\spaceskip) 3.912 plus 1.956 minus 1.304
+....\TU/lmr/m/n/12  
+....\glue(\spaceskip) 0.0 plus 1.956 minus 1.304
 ....\TU/lmr/m/n/12 P
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
@@ -120,7 +124,18 @@ Completed box being shipped out [1]
 .\hbox(0.0+0.0)x0.0, direction TLT
 .\kern679.0
 .\pdfliteral page <lua data reference ...>
-(test-mc-ifinartifact.aux)
+(test-mc-ifinartifact.aux)<<latex-list-css.html>><<latex-align-css.html>>
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~2 structure objects
+(tagpdf)             with ~4 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
 ***************
 Compilation 1 of test file completed with exit status 0
 Compilation 2 of test file completed with exit status 0

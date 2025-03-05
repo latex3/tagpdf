@@ -13,10 +13,10 @@ The structure has the following kids:
 The structure 2 contains:
 >  Type  =>  /StructElem
 >  S  =>  /Document
->  rolemap  =>  {Document}{}
->  parentrole  =>  {Document}{}
->  P  =>  parent structure: 1 = /StructTreeRoot
 >  NS  =>  pdf2
+>  rolemap  =>  {Document}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
+>  P  =>  parent structure: 1 = /StructTreeRoot
 The structure has the following kids:
 >  Struct 5
 >  Struct 7
@@ -26,10 +26,10 @@ The structure has the following kids:
 The structure 3 contains:
 >  Type  =>  /StructElem
 >  S  =>  /figures
->  rolemap  =>  {Sect}{}
->  parentrole  =>  {Sect}{}
+>  NS  =>  latex
+>  rolemap  =>  {Sect}{pdf2}
+>  parentrole  =>  {Sect}{pdf2}
 >  P  =>  no parent: stashed
->  NS  =>  user
 The structure has the following kids:
 > NONE
 =========================
@@ -37,10 +37,10 @@ The structure has the following kids:
 The structure 4 contains:
 >  Type  =>  /StructElem
 >  S  =>  /tables
->  rolemap  =>  {Sect}{}
->  parentrole  =>  {Sect}{}
+>  NS  =>  latex
+>  rolemap  =>  {Sect}{pdf2}
+>  parentrole  =>  {Sect}{pdf2}
 >  P  =>  no parent: stashed
->  NS  =>  user
 The structure has the following kids:
 > NONE
 =========================
@@ -48,10 +48,10 @@ The structure has the following kids:
 The structure 5 contains:
 >  Type  =>  /StructElem
 >  S  =>  /text-unit
->  rolemap  =>  {Part}{}
->  parentrole  =>  {Document}{}
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
 >  P  =>  parent structure: 2 = /Document
->  NS  =>  user
 The structure has the following kids:
 >  Struct 6
 =========================
@@ -60,10 +60,10 @@ The structure 6 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
 >  S  =>  /text
->  rolemap  =>  {P}{}
->  parentrole  =>  {P}{}
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
 >  P  =>  parent structure: 5 = /text-unit
->  NS  =>  user
 The structure has the following kids:
 >  MC 1
 =========================
@@ -72,10 +72,10 @@ The structure 7 contains:
 >  Type  =>  /StructElem
 >  Lang  =>  (de)
 >  S  =>  /text-unit
->  rolemap  =>  {Part}{}
->  parentrole  =>  {Document}{}
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
 >  P  =>  parent structure: 2 = /Document
->  NS  =>  user
 The structure has the following kids:
 >  Struct 8
 =========================
@@ -85,10 +85,10 @@ The structure 8 contains:
 >  Lang  =>  (de)
 >  C  =>  /justify
 >  S  =>  /text
->  rolemap  =>  {P}{}
->  parentrole  =>  {P}{}
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
 >  P  =>  parent structure: 7 = /text-unit
->  NS  =>  user
 The structure has the following kids:
 >  MC 2
 =========================
@@ -96,10 +96,10 @@ The structure has the following kids:
 The structure 9 contains:
 >  Type  =>  /StructElem
 >  S  =>  /text-unit
->  rolemap  =>  {Part}{}
->  parentrole  =>  {Document}{}
+>  NS  =>  latex
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
 >  P  =>  parent structure: 2 = /Document
->  NS  =>  user
 The structure has the following kids:
 >  Struct 10
 =========================
@@ -108,10 +108,10 @@ The structure 10 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
 >  S  =>  /text
->  rolemap  =>  {P}{}
->  parentrole  =>  {P}{}
+>  NS  =>  latex
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
 >  P  =>  parent structure: 9 = /text-unit
->  NS  =>  user
 The structure has the following kids:
 >  MC 3
 =========================
@@ -124,7 +124,7 @@ tagpdf DEBUG Info: Tagging suspended
 tagpdf DEBUG Info: Tagging resumed
 (tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
 [1
-] (test-lang-change.aux)
+] (test-lang-change.aux)<<latex-list-css.html>><<latex-align-css.html>>
 Package tagpdf Info: Finalizing the tagging structure:
 (tagpdf)             Writing out ~10 structure objects
 (tagpdf)             with ~5 'MC' leaf nodes.

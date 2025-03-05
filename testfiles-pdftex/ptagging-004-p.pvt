@@ -2,12 +2,15 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
 
 \DocumentMetadata{xmp=false,testphase=phase-II} 
 \input{regression-test}
 
 \documentclass[12pt,a4paper,twocolumn]{article}
-
+\tagpdfsetup{attach-css=false}
 
 \tagpdfsetup{debug/show=para,debug/log=v}
 

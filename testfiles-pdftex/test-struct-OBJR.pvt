@@ -10,7 +10,7 @@
 \DocumentMetadata{pdfversion=2.0,xmp=false,testphase=phase-II} 
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
-
+\tagpdfsetup{attach-css=false}
 \usepackage[english]{babel}
 \usepackage{graphicx,iftex}
 \usepackage{l3pdffield-testphase}

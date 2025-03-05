@@ -90,7 +90,7 @@ Completed box being shipped out [1]
 ...\glue(\topskip) 0.79082
 ...\hbox(9.20918+0.0)x345.0, glue set 253.52936fil
 ....\write1{\new@label@record{mcid-1}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{1}{tagmcid}{\__property_code_tagmcid: }}}
-....\pdfliteral shipout page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\pdfliteral shipout page{/section-number <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(9.20918+0.0)x23.75433
 .....\glue 0.0
 .....\hbox(0.0+0.0)x0.0
@@ -115,8 +115,8 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,1,7,Lbl,,,}
-...\marks4{b+,1,7,Lbl,,,}
+...\marks4{b-,1,7,section-number,,,}
+...\marks4{b+,1,7,section-number,,,}
 ...\marks4{e-,1,7,}
 ...\marks4{e+,1,7,}
 ...\marks4{b-,2,6,section,,,}
@@ -133,7 +133,7 @@ Completed box being shipped out [1]
 ...\glue(\baselineskip) 5.71869
 ...\hbox(8.28131+0.0)x345.0, glue set 288.01392fil
 ....\write1{\new@label@record{mcid-3}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{3}{tagmcid}{\__property_code_tagmcid: }}}
-....\pdfliteral shipout page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\pdfliteral shipout page{/section-number <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(7.78143+0.0)x30.7425
 .....\glue 0.0
 .....\hbox(0.0+0.0)x0.0
@@ -155,8 +155,8 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,3,10,Lbl,,,}
-...\marks4{b+,3,10,Lbl,,,}
+...\marks4{b-,3,10,section-number,,,}
+...\marks4{b+,3,10,section-number,,,}
 ...\marks4{e-,3,10,}
 ...\marks4{e+,3,10,}
 ...\marks4{b-,4,9,subsection,,,}
@@ -171,8 +171,6 @@ Completed box being shipped out [1]
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 6.45676 plus 0.86089
-...\glue 0.0 plus 1.0fil
-...\glue 0.0 plus -1.0fil
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
 ...\glue 0.0 plus 1.0fil
@@ -240,7 +238,7 @@ Completed box being shipped out [1]
 .\kern -636.60004
 .\hbox(0.0+0.0)x0.0
 .\kern 636.60004
-(test-fancyhdr.aux)
+(test-fancyhdr.aux)<<latex-list-css.html>><<latex-align-css.html>>
 Package tagpdf Info: Finalizing the tagging structure:
 (tagpdf)             Writing out ~10 structure objects
 (tagpdf)             with ~6 'MC' leaf nodes.

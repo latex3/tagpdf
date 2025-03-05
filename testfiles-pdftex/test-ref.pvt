@@ -2,11 +2,15 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
 
 \DocumentMetadata{
    pdfversion=2.0
   ,lang=de-DE
-  ,xmp=false}
+  ,xmp=false,
+  testphase=phase-I}
 \input{regression-test}
 \documentclass{article}
 \makeatletter
@@ -15,11 +19,7 @@
 \stockheight   = 297mm
 \stockwidth    = 210mm
 \makeatother
-
-\usepackage{tagpdf}
-
-\tagpdfsetup{page/tabsorder=structure,
-             activate/all}
+\tagpdfsetup{attach-css=false}
 
 \begin{document}
 \pagestyle{empty}

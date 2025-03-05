@@ -3,6 +3,9 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
 
 \DocumentMetadata{lang=de-DE,xmp=false,testphase=phase-I}
 \input{regression-test}
@@ -19,7 +22,7 @@
    \newfontface\zerowidthfont{freeserif}
 \fi
 
-
+\tagpdfsetup{attach-css=false}
 \usepackage{graphicx}
 \showthe\pdfsuppressptexinfo
 \begin{document}

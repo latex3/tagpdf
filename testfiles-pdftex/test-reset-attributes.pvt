@@ -2,11 +2,14 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
 
 \DocumentMetadata{testphase=phase-III}
 \input{regression-test}
 \documentclass{article}
-
+\tagpdfsetup{attach-css=false}
 \newbox\mybox
 \ExplSyntaxOn
 \let\tagmcresetbox\tag_mc_reset_box:N

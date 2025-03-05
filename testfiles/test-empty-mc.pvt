@@ -15,7 +15,7 @@
 \usepackage{tagpdf}
 \pagestyle{empty}
 \tagpdfsetup{page/tabsorder=structure,debug/uncompress,activate/all,activate/spaces=true}
-
+\tagpdfsetup{attach-css=false}
 \begin{document}
 
 \tagstructbegin{tag=H1}

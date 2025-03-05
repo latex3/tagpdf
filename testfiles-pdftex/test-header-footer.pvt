@@ -15,6 +15,7 @@
 \documentclass[sfdefaults=true]{scrartcl}
 \usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
+\tagpdfsetup{attach-css=false}
 \begin{document}
 \START
 \section{abc}

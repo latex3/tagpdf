@@ -1,6 +1,7 @@
 \ExplSyntaxOn
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
+\sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 \DocumentMetadata{xmp=false} 
 \input{regression-test} 
@@ -13,7 +14,7 @@
 \START
 \documentclass{article}
 \usepackage{tagpdf}
-
+\tagpdfsetup{attach-css=false}
 \tagpdfsetup{page/tabsorder=structure,activate/all,activate/spaces=true,debug/log=v}
 \pagestyle{empty}
 \thispagestyle{empty}

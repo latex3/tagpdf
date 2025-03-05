@@ -1,11 +1,13 @@
 \ExplSyntaxOn
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
+\sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 
 \DocumentMetadata{uncompress,testphase=phase-I}
 \input{regression-test}
-
+\tagpdfsetup{role/user-NS=latex-test}
+\tagpdfsetup{attach-css=false}
 \documentclass{book} 
 \begin{document}
 \START

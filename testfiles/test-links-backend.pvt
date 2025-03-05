@@ -6,27 +6,13 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{pdfversion=1.7,
+\DocumentMetadata{pdfversion=1.7,testphase=phase-I,
   lang=en-UK,xmp=false}
 \input{regression-test}
 \documentclass{article}
-\makeatletter
-\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
-\@ifundefined{stockheight}{\newdimen\stockheight}{}
 \stockheight   = 297mm
 \stockwidth    = 210mm
-\makeatother
-
-\usepackage{tagpdf}
-\tagpdfsetup{
- activate/all,
- debug/uncompress,
- page/tabsorder=structure,
- activate/spaces=true,
- %show-spaces
- }
-%metadata
-%\tagpdfsetup{add-new-tag = Link/Link}
+\tagpdfsetup{attach-css=false}
 
 \textwidth=5cm
 \begin{document}

@@ -4,12 +4,12 @@ Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'Div/pdf2'.
 (tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot --> struct 7) on line ...
 Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'P/pdf2'.
 (tagpdf)                Relation is not allowed (struct 7, /Div --> struct 8) on line ...
-Package tagpdf Warning: Parent-Child 'P/' --> 'Part/pdf2'.
+Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'Part/pdf2'.
 (tagpdf)                Relation is not allowed (struct 10, /text --> struct 11) on line ...
-Package tagpdf Warning: Parent-Child 'P/' --> 'P/pdf2'.
+Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'P/pdf2'.
 (tagpdf)                Relation is not allowed (struct 11, /Part --> struct 12) on line ...
 [1
-] (test-parentkey.aux)
+] (test-parentkey.aux)<<latex-list-css.html>><<latex-align-css.html>>
 Package tagpdf Info: Finalizing the tagging structure:
 (tagpdf)             Writing out ~12 structure objects
 (tagpdf)             with ~6 'MC' leaf nodes.

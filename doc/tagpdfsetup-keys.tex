@@ -4,7 +4,13 @@
 \begin{tabular}{lllll}
 \toprule
 new key name    & old key name & value            &type   & defined in \\\midrule
- ???            & root-AF      & string           &code   &tagpdf-struct\\[4pt]\midrule
+ ???            & root-AF      & string           &code   &tagpdf-struct\\
+root-supplemental-file &       & string           &code   &tagpdf-struct\\
+attach-css      &              & string           &bool   &tagpdf-user\\
+css-list        &              & string           &code   &tagpdf-user\\ 
+css-list-remove &              & string           &code   &tagpdf-user\\
+css-list-add    &              & string           &code   &tagpdf-user\\
+ \\[4pt]\midrule
 %% activate key path
 %% activate` is used for keys that enable 
 %% general, typically document wide tagging options 
@@ -70,6 +76,6 @@ math/tex/AF       & ---            &boolean          &bool  &latex-lab-math\\[4p
 table/tagging     & table-tagging  &choice           &code  &latex-lab-table\\
 table/header-rows & table-header-rows& clist         &clist &latex-lab-table\\[4pt]\midrule
 % change for text
-text/lang         & ---             & string         & code &tagpdf-user  \\
-\bottomrule
+text/lang         & ---             & string         & code &tagpdf-user  
+\\\bottomrule
 \end{tabular}

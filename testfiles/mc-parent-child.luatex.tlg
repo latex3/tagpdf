@@ -3675,12 +3675,12 @@ Package tagpdf Info: closing structure 533 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on line ...
-Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+Package tagpdf Info: Parent-Child 'Document' --> 'Code'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'verbatim/latex' on line ...
-Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+Package tagpdf Info: Parent-Child 'Code' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+(tagpdf)             Rolemapped from 'Code/pdf' --> 'MC' on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 536 tagged /verbatim
 Package tagpdf Info: closing structure 535 tagged /text-unit
@@ -3795,6 +3795,20 @@ Package tagpdf Info: closing structure 551 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'Span'.
+(tagpdf)             Relation is -1 (='∅')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'section-number/latex' on line ...
+Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'section-number/latex'.
+(tagpdf)                Relation is not allowed (struct 553, /text-unit --> struct 554) on line ...
+Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Span/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 554 tagged /section-number
+Package tagpdf Info: closing structure 553 tagged /text-unit
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'theorem-like/latex' on line ...
@@ -3802,10 +3816,11 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 554, /theorem-like) on line ...
+(tagpdf)                Relation is not allowed (struct 556, /theorem-like) on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 554 tagged /theorem-like
-Package tagpdf Info: closing structure 553 tagged /text-unit
+Package tagpdf Info: closing structure 556 tagged /theorem-like
+Package tagpdf Info: closing structure 555 tagged /text-unit
+[6]
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on line ...
@@ -3813,14 +3828,13 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Sub'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'codeline/latex' on line ...
 Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'codeline/latex'.
-(tagpdf)                Relation is not allowed (struct 555, /text-unit --> struct 556) on line ...
+(tagpdf)                Relation is not allowed (struct 557, /text-unit --> struct 558) on line ...
 Package tagpdf Info: Parent-Child 'Sub' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Sub/pdf2' --> 'MC' on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 556 tagged /codeline
-Package tagpdf Info: closing structure 555 tagged /text-unit
-[6]
+Package tagpdf Info: closing structure 558 tagged /codeline
+Package tagpdf Info: closing structure 557 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on line ...
@@ -3831,8 +3845,8 @@ Package tagpdf Info: Parent-Child 'Aside' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Aside/pdf2' --> 'MC' on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 558 tagged /float
-Package tagpdf Info: closing structure 557 tagged /text-unit
+Package tagpdf Info: closing structure 560 tagged /float
+Package tagpdf Info: closing structure 559 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on line ...
@@ -3843,10 +3857,10 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 560, /figures) on line ...
+(tagpdf)                Relation is not allowed (struct 562, /figures) on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 560 tagged /figures
-Package tagpdf Info: closing structure 559 tagged /text-unit
+Package tagpdf Info: closing structure 562 tagged /figures
+Package tagpdf Info: closing structure 561 tagged /text-unit
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n')
 (tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on line ...
@@ -3857,15 +3871,16 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'Sect/pdf2' --> 'MC' on line ...
 Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed (struct 562, /tables) on line ...
+(tagpdf)                Relation is not allowed (struct 564, /tables) on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 562 tagged /tables
-Package tagpdf Info: closing structure 561 tagged /text-unit
+Package tagpdf Info: closing structure 564 tagged /tables
+Package tagpdf Info: closing structure 563 tagged /text-unit
 [7] (mc-parent-child.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
+<<latex-list-css.html>><<latex-align-css.html>>
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~562 structure objects
-(tagpdf)             with ~294 'MC' leaf nodes.
+(tagpdf)             Writing out ~564 structure objects
+(tagpdf)             with ~295 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree

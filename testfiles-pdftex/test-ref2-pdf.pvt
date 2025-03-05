@@ -11,6 +11,7 @@
 \input{regression-test}
 \RequirePackage{tagpdf-debug}
 \documentclass{article}
+\tagpdfsetup{attach-css=false}
 \begin{document}
 \START
 \pagestyle{empty}

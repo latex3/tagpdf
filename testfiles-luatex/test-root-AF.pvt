@@ -1,6 +1,7 @@
 \ExplSyntaxOn
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
+\sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 \DocumentMetadata{xmp=false,pdfversion=2.0}
 \input{regression-test}
@@ -24,7 +25,7 @@
 \makeatother
 
 \usepackage{tagpdf}
-
+\tagpdfsetup{attach-css=false}
 \tagpdfsetup
  {
    activate/all,

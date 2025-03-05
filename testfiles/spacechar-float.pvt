@@ -1,7 +1,8 @@
 % this tests if space chars with floats on the first page are correctly handled.
-\DocumentMetadata{testphase=phase-III,xmp=false}
+\DocumentMetadata{testphase=phase-III,xmp=false,pdfversion=1.7}
 \input{regression-test}
 \documentclass{report}
+\tagpdfsetup{attach-css=false}
 \begin{document}\showoutput
 aaa aaa
 
