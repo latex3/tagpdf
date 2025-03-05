@@ -5,6 +5,12 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [Unreleased] 
+### Added
+ - Default CSS style definition for derivation to html.
+ - keys attach-css, css-list, css-list-add, css-list-remove to configure
+   the CSS style definitions
+
 ## [2025-02-23]
 
 ### Added

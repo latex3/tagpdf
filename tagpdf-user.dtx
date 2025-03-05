@@ -1493,7 +1493,7 @@
 % 
 % For developers, \cs{tagpdfsetup} some keys to manipulate the list exist:
 % With \verb+css-list={file1,file2}+ the list can be overwritten. \verb+css-list=+ clears
-% the list (and so suppresses the embedding too. 
+% the list (and so suppresses the embedding too). 
 % To remove a file from the list, use \verb+css-list-remove=file+, e.g.
 % \verb+css-list-remove=latex-list-css.html+. To add your
 % own file use \verb+css-list-add=my-fancy-align-css.html+. 
@@ -1501,7 +1501,7 @@
 %
 % These keys do not affect files added directly with root-supplemental-file.
 %
-% The files in this list are attached at the end of the document (and so normally after the files attached with root-supplemental-file) 
+% The files in this list are attached at the end of the compilation (and so normally after the files attached with root-supplemental-file) 
 % but you shouldn't rely on this or on a specific order of the embedding in the html.
 % 
 % We want to avoid to embed files twice, so we use a prop. 
