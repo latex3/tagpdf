@@ -4,7 +4,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
-
+%\mathitalicsmode=2
 \DocumentMetadata{xmp=false} 
 \input{regression-test} 
 \documentclass[a4paper]{article}

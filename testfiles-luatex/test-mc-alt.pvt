@@ -20,6 +20,7 @@
 \iftutex
   \usepackage{fontspec}
   \usepackage{luacode}
+  %\mathitalicsmode=2
 \else
   \usepackage[T1]{fontenc}
 \fi
