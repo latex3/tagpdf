@@ -2053,14 +2053,19 @@
 % adjusted to the key in question. 
 % The first argument is the number of the structure, 
 % the second a keyword referring to a function,
-% the third the value. Currently the existing keywords are all related
+% the third the value. Currently the existing keywords are mostly related
 % to the \texttt{Ref} key (an array). 
 % The keyword \texttt{ref} takes as value an explicit object reference to 
 % a structure. The keyword \texttt{ref_label} expects as value a label name (from
 % a label set in a \cs{tagstructbegin} command). The keyword \texttt{ref_dest}
 % expects a destination name set with \cs{MakeLinkTarget}. It then will refer to 
-% the structure in which this \cs{MakeLinkTarget} was used. At last
-% the keyword \texttt{ref_num} expects a structure number. 
+% the structure in which this \cs{MakeLinkTarget} was used. The
+% keyword \texttt{ref_num} expects a structure number. 
+% At last there is the keyword \texttt{attribute} which allows to add or extend the \texttt{/A}
+% key of the structure. The value is the content of one attribute dictionary, so for example
+% \texttt{/O /Layout /BBox [10 10 50 50]}. The content is stored in an object and the object
+% reference is than added to the \texttt{/A}.
+% 
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3{}
 %<*package>
@@ -2118,6 +2123,30 @@
   }   
      
 \cs_generate_variant:Nn \@@_struct_gput_data_ref:nn {ee,no}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_struct_gput_data_attribute:nn}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_gput_data_attribute:nn #1 #2 
+  {
+    \pdf_object_unnamed_write:nn {dict} {#2}
+    \prop_get:cnNTF { g_@@_struct_#1_prop }{A} \l_@@_tmpa_tl
+      {
+        \tl_remove_once:Nn\l_@@_tmpa_tl{[}
+        \tl_remove_once:Nn\l_@@_tmpa_tl{]}
+        \@@_prop_gput:cne { g_@@_struct_#1_prop }
+         { A }
+         {
+           [ \l_@@_tmpa_tl \c_space_tl \pdf_object_ref_last: ]
+         }       
+      }
+      {
+        \@@_prop_gput:cne { g_@@_struct_#1_prop }
+         { A }
+         { \pdf_object_ref_last: }
+      }
+  }    
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}

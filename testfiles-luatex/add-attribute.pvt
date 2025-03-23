@@ -1,0 +1,32 @@
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
+
+\DocumentMetadata{testphase=latest}
+\input{regression-test}
+\documentclass{article}
+\tagpdfsetup{attach-css=false}
+\begin{document}
+\START
+\tagstructbegin{tag=Div,attribute={itemize,enumerate}}
+\ExplSyntaxOn
+\tag_struct_gput:ene{\tag_get:n{struct_num}}{attribute}{/O/Layout /BBox~[1~2~ 3~4]}
+\ExplSyntaxOff
+blub
+\tagstructend
+
+\tagstructbegin{tag=Div,attribute=itemize}
+\ExplSyntaxOn
+\tag_struct_gput:ene{\tag_get:n{struct_num}}{attribute}{/O/Layout /BBox~[1~2~ 3~4]}
+\ExplSyntaxOff
+blub
+\tagstructend
+
+\tagstructbegin{tag=Div}
+\ExplSyntaxOn
+\tag_struct_gput:ene{\tag_get:n{struct_num}}{attribute}{/O/Layout /BBox~[1~2~ 3~4]}
+\ExplSyntaxOff
+blub
+\tagstructend
+
+\end{document}

@@ -1870,25 +1870,24 @@ These commands insert a structure previously stashed away as kid into the
 currently active structure. A structure should be used only once, if the 
 structure already has a parent you will get a warning. 
 
-\subsubsection{Updating the \texttt{Ref} key in structures}\label{sec:Refkey}
+\subsubsection{Updating structure keys}\label{sec:Refkey}
 
-Structures that cross reference other structures, e.g. citation commands, table of 
-content entries, footnote require often a \texttt{Ref} key. \texttt{Ref}
-can be added with the |ref| key of \cs{tagstructbegin} described above
-but as it is a task that often has to be done automatically in code
-there exist also a command that allows to extend the \texttt{Ref} key (and perhaps in future also other keys) later. 
-This command allows to add the value, the target structure of the \texttt{Ref} key,
-with four methods: directly as object reference, through a label name set with the |label| key, through a destination name if a \cs{MakeLinkTarget} has been used in 
-the target structure---this also works if hyperref has not been loaded---and through
-the structure number, which has been stored e.g. in a label.    
-
+In a number of cases structures must be updated later. Such updates often can not simply replace values but must extend them in special ways. For this a generic commands exists. Currently it supports updating the \texttt{/A} key (attributes) and the \texttt{Ref} key.
+ 
 \begin{docCommands}
  {  
   {doc name=tag_struct_gput:nnn,doc parameter=\marg{structurenumber}\marg{keyword}\marg{value}},
  }\end{docCommands}
 
-The allowed \meta{keywords} are \texttt{ref}, \texttt{ref\_label} \texttt{ref\_dest}
-and \texttt{ref\_num}. 
+The allowed \meta{keywords} are \texttt{ref}, \texttt{ref\_label} \texttt{ref\_dest}, \texttt{ref\_num} and \texttt{attribute}.
+
+ 
+This command allows to add the value, the target structure of the \texttt{Ref} key, with four methods: directly as object reference, through a label name set with the |label| key, through a destination name if a \cs{MakeLinkTarget} has been used in 
+the target structure---this also works if hyperref has not been loaded---and through
+the structure number, which has been stored e.g. in a label.    
+
+With the keyword \texttt{attribute} the attribute of the structure is
+extended. The value is the content of one attribute dictionary, so for example \texttt{/O /Layout /BBox [10 10 50 50]}.  
 
 \subsubsection{Root structure}
 
