@@ -9,6 +9,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Added
  - keyword attribute to \tag_struct_gput:nnn for graphic tagging.
+ - experimental support file for verbatim tagging.
 
 ## [2025-03-05] 
 ### Added

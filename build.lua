@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="0.99o"
-packagedate="2025-03-05"
+packageversion="0.99p"
+packagedate="2025-03-26"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -26,7 +26,7 @@ uploadconfig = {
   email    = mydata.email,
   update   = true ,
   topic=    "tagged-pdf",
-  note     = [[sorry next try. Attention! the two new html files are needed by code and should be installed into tex/latex/tagpdf!
+  note     = [[Attention! There is a new ltx file that should be installed into tex/latex/tagpdf!
                Uploaded automatically by l3build...]],
   description=[[The package contains the core code for tagging and accessibility used by the LaTeX kernel in the Tagged PDF project. See https://github.com/latex3/tagging-project for more information.]],
   announcement_file="ctan.ann"
@@ -183,6 +183,7 @@ installfiles = {
 sourcefiles  = {"*.dtx",
                 "*.ins",
                 "latex-list-css.html",
+                "verbatim-alt-latex-lab-testphase.ltx",
                 "latex-align-css.html",
                 --"*.sty",
                 --"*.def",
