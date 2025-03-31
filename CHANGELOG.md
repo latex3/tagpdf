@@ -8,6 +8,8 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 ### Changed
  - improve speed with lualatex 
+### Fixed
+ - mime type of files add with the mathml key to structures. 
 
 ## [2025-03-26]
 

@@ -1562,6 +1562,8 @@
       \group_begin:
       \pdfdict_put:nnn { l_pdffile/Filespec } {Desc}{(mathml~representation)}
       \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Supplement }
+      \pdfdict_put:nne { l_pdffile }{Subtype}
+         { \pdf_name_from_unicode_e:n{application/mathml+xml} }
       \@@_struct_add_inline_AF:on {#1}{xml}
       \group_end:  
     }  
