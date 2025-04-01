@@ -17,32 +17,48 @@
 \def\@xverbatim{\activechars\everypar{\tagobeyedline}\@xxverbatim}
 \makeatother
 
-% \ExplSyntaxOn
-% \keys_define:nn { __tag / struct }
-%  {
-%   ,mathml .code:n =
-%      {
-%       \group_begin:
-%       \pdfdict_put:nnn { l_pdffile/Filespec } {Desc}{(mathml~representation)}
-%       \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Supplement }
-%       \pdfdict_put:nne { l_pdffile }{Subtype}
-%        { \pdf_name_from_unicode_e:n{application/mathml+xml} }
-%       \__tag_struct_add_inline_AF:on {#1}{xml}
-%       \group_end:
-%     }
-%   }
-% \ExplSyntaxOff
+\ExplSyntaxOn
+\cs_set:Npn\verbatim_tmp:nn#1#2{
+  \group_begin:
+  \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Supplement }
+\pdfdict_put:nne { l_pdffile }{Subtype}
+       { \pdf_name_from_unicode_e:n{application/mathml+xml} }
+        \pdffile_embed_stream:nnn{
+<math~xmlns="http://www.w3.org/1998/Math/MathML"><mo ~style="font-family:monospace">#2</mo></math>
+}{#1.xml}{verb/#2}
+  \group_end:
+}
+\cs_generate_variant:Nn \verbatim_tmp:nn {ne}
+\verbatim_tmp:nn{openparen}{(}
+\verbatim_tmp:nn{closeparen}{)}
+\verbatim_tmp:ne{openbrace}{\c_left_brace_str}
+\verbatim_tmp:ne{closebrace}{\c_right_brace_str}
+\verbatim_tmp:nn{quote}{"}
+\verbatim_tmp:nn{semi}{;}
+\verbatim_tmp:nn{comma}{,}
+
+  \group_begin:
+  \pdfdict_put:nnn { l_pdffile/Filespec }{AFRelationship} { /Supplement }
+\pdfdict_put:nne { l_pdffile }{Subtype}
+       { \pdf_name_from_unicode_e:n{application/mathml+xml} }
+        \pdffile_embed_stream:nnn{
+<math ~xmlns="http://www.w3.org/1998/Math/MathML"><mrow ~intent="_newline"></mrow></math>
+}{newline.xml}{verb/newline}
+  \group_end:
+
+
+\ExplSyntaxOff
 
 \makeatletter
 \def\defactive#1#2\relax{%
   \def#1{%
-    \tagmcend\tagstructbegin{tag=Formula, mathml=\detokenize{<math xmlns="http://www.w3.org/1998/Math/MathML"><mo style="font-family:monospace">#1</mo></math>}}\tagmcbegin{}%
+    \tagmcend\tagstructbegin{tag=Formula, AF={verb/\string#1}}\tagmcbegin{}%
     \detokenize{#1}%
     \tagmcend\tagstructend\tagmcbegin{}}%
 }
 
 \protected\gdef\tagobeyedline{%
-    \tagmcend\tagstructbegin{tag=Formula, mathml=\detokenize{<math xmlns="http://www.w3.org/1998/Math/MathML"><mrow intent="_newline"></mrow></math>}}\tagmcbegin{}%
+    \tagmcend\tagstructbegin{tag=Formula, AF={verb/newline}}\tagmcbegin{}%
     \tagmcend\tagstructend\tagmcbegin{}}%
 
   
