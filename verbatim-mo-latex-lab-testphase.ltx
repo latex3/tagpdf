@@ -17,9 +17,15 @@
 \def\@xverbatim{\activechars\everypar{\tagobeyedline}\@xxverbatim}
 \makeatother
 
-\tagpdfsetup{
-  role/new-attribute={intentnewline}{/O /NSO /intent /_newline}% mathml NS?
-    }
+\makeatother
+\ExplSyntaxOn
+
+\ExpandArgs{e}\tagpdfsetup{
+  role/new-attribute=
+    {intentnewline}
+    {/O /NSO /NS~\pdf_object_ref:n {tag/NS/mathml}/intent /_newline}
+  }
+\ExplSyntaxOff
 \def\defactive#1#2\relax{%
   \def#1{%
     \tagmcend\tagstructbegin{tag=Formula}\tagstructbegin{tag=math}\tagstructbegin{tag=mo}\tagmcbegin{}%
