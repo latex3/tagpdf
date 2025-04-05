@@ -58,6 +58,7 @@
 }
 
 \lstnewenvironment{taglstlisting}[2][]{%
+     \MathCollectFalse 
      \UseInstance{blockenv}{lstlisting} {}
      \lst@TestEOLChar{#2}%
      \lstset{#1}%
