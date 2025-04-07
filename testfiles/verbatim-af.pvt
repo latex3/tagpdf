@@ -1,0 +1,18 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{tagging-setup={extra-modules=verbatim-af,attach-css=false}}
+\input{regression-test}
+
+\documentclass[11pt]{article}
+
+\begin{document}
+\begin{verbatim}
+main () {
+ print("hello world")
+}
+\end{verbatim}
+\end{document}
+
