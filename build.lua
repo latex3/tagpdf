@@ -183,7 +183,7 @@ installfiles = {
 sourcefiles  = {"*.dtx",
                 "*.ins",
                 "latex-list-css.html",
-                "verbatim-alt-latex-lab-testphase.ltx",
+                "*-latex-lab-testphase.ltx",
                 "latex-align-css.html",
                 --"*.sty",
                 --"*.def",

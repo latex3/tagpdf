@@ -7,7 +7,9 @@ this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
 ### Changed
- - improve speed with lualatex 
+ - improve speed with lualatex
+ - more experimental support files for verbatim tagging.
+  
 ### Fixed
  - mime type of files add with the mathml key to structures. 
 
