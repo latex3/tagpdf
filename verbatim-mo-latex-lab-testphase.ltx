@@ -28,7 +28,7 @@
 \ExplSyntaxOff
 \def\defactive#1#2\relax{%
   \def#1{%
-    \tagmcend\tagstructbegin{tag=Formula}\tagstructbegin{tag=math}\tagstructbegin{tag=mo}\tagmcbegin{}%
+    \leavevmode\tagmcend\tagstructbegin{tag=Formula}\tagstructbegin{tag=math}\tagstructbegin{tag=mo}\tagmcbegin{}%
     \detokenize{#1}%
     \tagmcend\tagstructend\tagstructend\tagstructend\tagmcbegin{}}%
   }
