@@ -56,7 +56,7 @@
 \makeatletter
 \def\defactive#1#2\relax{%
   \def#1{%
-    \tagmcend\tagstructbegin{tag=Formula, AF={verb/\string#1}}\tagmcbegin{}%
+    \leavevmode\tagmcend\tagstructbegin{tag=Formula, AF={verb/\string#1}}\tagmcbegin{}%
     \detokenize{#1}%
     \tagmcend\tagstructend\tagmcbegin{}}%
 }
