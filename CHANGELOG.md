@@ -9,9 +9,10 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed
  - improve speed with lualatex
  - more experimental support files for verbatim tagging.
+ - parent-child-rule of mtext to allow text and links inside.
   
 ### Fixed
- - mime type of files add with the mathml key to structures. 
+ - mime type of files added with the mathml key to structures. 
 
 ## [2025-03-26]
 
