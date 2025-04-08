@@ -1,8 +1,8 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\ExplSyntaxOn
-\debug_on:n { check-declarations , deprecation }
-\msg_redirect_module:nnn { pdf } { none } { warning }
-\ExplSyntaxOff
+%\ExplSyntaxOn
+%\debug_on:n { check-declarations , deprecation }
+%\msg_redirect_module:nnn { pdf } { none } { warning }
+%\ExplSyntaxOff
 \DocumentMetadata{tagging-setup={
 %math/setup=mathml-SE, %needs latex 2025-06-01
 math/mathml/sources=,
