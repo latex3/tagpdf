@@ -913,15 +913,18 @@
         \prop_gput:Nne\g_@@_role_index_prop{H#1}{\l_@@_tmpa_tl}
       }
 %    \end{macrocode}
-% all mathml tags are currently handled identically
+% all mathml tags are currently handled identically with the exception of
+% math and mtext
 %    \begin{macrocode}
     \prop_get:NnN\g_@@_role_index_prop {mathml}\l_@@_tmpa_tl
     \prop_get:NnN\g_@@_role_index_prop {math}\l_@@_tmpb_tl
+    \prop_get:NnN\g_@@_role_index_prop {mtext}\l_@@_tmpc_tl
     \prop_map_inline:Nn \g_@@_role_NS_mathml_prop  
       {
         \prop_gput:NnV\g_@@_role_index_prop{#1}\l_@@_tmpa_tl
       }  
     \prop_gput:NnV\g_@@_role_index_prop{math}\l_@@_tmpb_tl    
+    \prop_gput:NnV\g_@@_role_index_prop{mtext}\l_@@_tmpc_tl    
   }    
 %    \end{macrocode}
 %

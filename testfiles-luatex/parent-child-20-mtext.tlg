@@ -1,0 +1,361 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text-unit/latex' on line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'Formula'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'Formula/pdf2' on line ...
+====>grabbed math=macro:->\label {eq:a} c=d
+Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Formula/pdf2' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'mpadded' --> 'mtext'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mpadded/mathml' --> 'mtext/mathml' on line ...
+Package tagpdf Info: closing structure 8 tagged /mtext
+Package tagpdf Info: closing structure 7 tagged /mpadded
+Package tagpdf Info: Parent-Child 'Formula' --> 'Lbl'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Formula/pdf2' --> 'Lbl/pdf2' on line ...
+Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Lbl/pdf2' --> 'MC' on line ...
+Package tagpdf Info: closing structure 9 tagged /Lbl
+Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Formula/pdf2' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'Formula' --> 'math'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Formula/pdf2' --> 'math/mathml' on line ...
+Package tagpdf Info: Parent-Child 'math' --> 'mpadded'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mpadded/mathml' on line ...
+Package tagpdf Info: Parent-Child 'math' --> 'mi'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mi/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mi/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 11 tagged /mi
+Package tagpdf Info: Parent-Child 'math' --> 'mo'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mo/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mo' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mo/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 12 tagged /mo
+Package tagpdf Info: Parent-Child 'math' --> 'mi'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mi/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mi/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 13 tagged /mi
+Package tagpdf Info: closing structure 10 tagged /math
+Package tagpdf Info: closing structure 6 tagged /Formula
+==> @endpe=true on input line ...
+==> increment P on input line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Document/pdf2' --> 'text/latex' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'P' --> 'Formula'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'Formula/pdf2' on line ...
+====>grabbed math=macro:->a= b \mbox {\emph {only if $b=a$} \ref {eq:a}}
+Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Formula/pdf2' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mtext/mathml' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'mtext' --> 'Em'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mtext/mathml' --> 'Em/pdf2' on line ...
+Package tagpdf Info: Parent-Child 'Em' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Em/pdf2' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'Em' --> 'math'.
+(tagpdf)             Relation is -1 (='∅')
+(tagpdf)             Rolemapped from 'Em/pdf2' --> 'math/mathml' on line ...
+Package tagpdf Warning: Parent-Child 'Em/pdf2' --> 'math/mathml'.
+(tagpdf)                Relation is not allowed (struct 17, /Em --> struct 18) on line ...
+Package tagpdf Info: Parent-Child 'math' --> 'mi'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mi/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mi/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 19 tagged /mi
+Package tagpdf Info: Parent-Child 'math' --> 'mo'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mo/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mo' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mo/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 20 tagged /mo
+Package tagpdf Info: Parent-Child 'math' --> 'mi'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mi/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mi/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 21 tagged /mi
+Package tagpdf Info: closing structure 18 tagged /math
+Package tagpdf Info: closing structure 17 tagged /Em
+Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mtext/mathml' --> 'MC' on line ...
+Package tagpdf Info: Parent-Child 'mtext' --> 'Link'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mtext/mathml' --> 'Link/pdf2' on line ...
+Package tagpdf Info: Parent-Child 'Link' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Link/pdf2' --> 'MC' on line ...
+Package tagpdf Info: closing structure 22 tagged /Link
+Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mtext/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 16 tagged /mtext
+Package tagpdf Info: Parent-Child 'Formula' --> 'math'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'Formula/pdf2' --> 'math/mathml' on line ...
+Package tagpdf Info: Parent-Child 'math' --> 'mi'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mi/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mi/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 24 tagged /mi
+Package tagpdf Info: Parent-Child 'math' --> 'mo'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mo/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mo' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mo/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 25 tagged /mo
+Package tagpdf Info: Parent-Child 'math' --> 'mi'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mi/mathml' on line ...
+Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'mi/mathml' --> 'MC' on line ...
+Package tagpdf Info: closing structure 26 tagged /mi
+Package tagpdf Info: Parent-Child 'math' --> 'mtext'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'math/mathml' --> 'mtext/mathml' on line ...
+Package tagpdf Info: closing structure 23 tagged /math
+Package tagpdf Info: closing structure 15 tagged /Formula
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n')
+(tagpdf)             Rolemapped from 'P/pdf2' --> 'MC' on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 14 tagged /text
+Package tagpdf Info: closing structure 5 tagged /text-unit
+Completed box being shipped out [1]
+\vbox(633.0+0.0)x407.0, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+.\hbox(0.0+0.0)x0.0, direction TLT
+..\kern-72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
+...\kern-72.26999
+...\hbox(0.0+0.0)x0.0, direction TLT
+....\pdfliteral page <lua data reference ...>
+....\latelua0{ltx.__pdf.backend_ThisPage_gpush(tex.count["g_shipout_readonly_int"])}
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\vbox(0.0+0.0)x0.0, glue set - 14.99626fil, direction TLT
+..\kern0.0
+..\kern16.0
+..\kern-1.00374
+..\hbox(0.0+0.0)x0.0, glue set - 60.99626fil, direction TLT
+...\kern0.0
+...\kern62.0
+...\kern-1.00374
+...\pdfdest name{page.1} xyz
+...\pdfdest name{page.1} xyz
+...\penalty 10000
+...\glue 0.0 plus 1.0fil minus 1.0fil
+..\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue(\lineskip) 0.0
+.\vbox(633.0+0.0)x407.0, direction TLT
+..\glue 16.0
+..\vbox(617.0+0.0)x345.0, shifted 62.0, direction TLT
+...\vbox(12.0+0.0)x345.0, glue set 12.0fil, direction TLT
+....\glue 0.0 plus 1.0fil
+....\pdflinkstate 1
+....\hbox(0.0+0.0)x345.0, direction TLT
+.....\hbox(0.0+0.0)x345.0, direction TLT
+....\pdflinkstate 0
+...\glue 25.0
+...\glue(\lineskip) 0.0
+...\vbox(550.0+0.0)x345.0, glue set 509.94553fil, direction TLT
+....\write-{}
+....\pdfdest name{Doc-Start} xyz
+....\pdfdest name{Doc-Start} xyz
+....\glue(\topskip) 10.0
+....\hbox(0.0+0.0)x345.0, glue set 330.0fil, direction TLT
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\hbox(0.0+0.0)x15.0, direction TLT
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0
+....\penalty 10000
+....\glue(\abovedisplayshortskip) 0.0 plus 3.0
+....\glue(\baselineskip) 4.5
+....\hbox(7.5+2.5)x345.0, direction TLT
+.....\kern161.06718 (font)
+.....\hbox(6.94444+0.0)x22.86565, direction TLT
+......\penalty 10000
+......\hbox(0.0+0.0)x0.0, direction TLT
+......\hbox(0.0+0.0)x0.0, direction TLT
+.......\pdfliteral page <lua data reference ...>
+.......\pdfliteral page <lua data reference ...>
+.......\mathon
+.......\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
+........\pdfdest name{equation.1} xyz
+........\pdfdest name{equation.1} xyz
+........\penalty 10000
+.......\mathoff
+......\hbox(0.0+0.0)x0.0, direction TLT
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\OML/cmm/m/it/10 c
+......\glue(\thickmuskip) 2.77771 plus 2.77771
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\OT1/cmr/m/n/10 =
+......\glue(\thickmuskip) 2.77771 plus 2.77771
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\OML/cmm/m/it/10 d
+.....\kern148.28717 (font)
+.....\hbox(7.5+2.5)x12.78, direction TLT
+......\hbox(7.5+2.5)x12.78, direction TLT
+.......\pdfliteral page <lua data reference ...>
+.......\pdfliteral page <lua data reference ...>
+.......\TU/lmr/m/n/10 (
+.......\TU/lmr/m/n/10 1
+.......\kern0.0 (italic)
+.......\TU/lmr/m/n/10 )
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\write1{\newlabel{eq:a}{{1}{\thepage }{}{equation.1}{}}}
+....\penalty 10000
+....\glue(\belowdisplayshortskip) -6.0 plus -3.0 minus -3.0
+....\penalty 10000
+....\glue 6.0 plus 3.0 minus 3.0
+....\penalty 0
+....\glue 6.0 plus 3.0 minus 3.0
+....\glue 0.0 plus -1.0
+....\glue(\parskip) 0.0 plus 1.0
+....\glue(\parskip) 0.0
+....\glue(\baselineskip) 2.45
+....\hbox(7.05+2.05)x345.0, glue set 259.39844fil, direction TLT
+.....\localpar
+......\localinterlinepenalty=0
+......\localbrokenpenalty=0
+......\localleftbox=null
+......\localrightbox=null
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\mathon
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\OML/cmm/m/it/10 a
+.....\glue(\thickmuskip) 2.77771 plus 2.77771
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\OT1/cmr/m/n/10 =
+.....\penalty 500
+.....\glue(\thickmuskip) 2.77771 plus 2.77771
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\OML/cmm/m/it/10 b
+.....\hbox(7.05+2.05)x62.69078, direction TLT
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\TU/lmr/m/it/10 o
+......\TU/lmr/m/it/10 n
+......\TU/lmr/m/it/10 l
+......\TU/lmr/m/it/10 y
+......\TU/lmr/m/it/10  
+......\glue(\spaceskip) 0.0 plus 1.79 minus 1.19333
+......\TU/lmr/m/it/10 i
+......\TU/lmr/m/it/10 f
+......\TU/lmr/m/it/10  
+......\glue(\spaceskip) 0.0 plus 1.79 minus 1.19333
+......\mathon
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\OML/cmm/m/it/10 b
+......\glue(\thickmuskip) 2.77771 plus 2.77771
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\OT1/cmr/m/n/10 =
+......\glue(\thickmuskip) 2.77771 plus 2.77771
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\OML/cmm/m/it/10 a
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\mathoff
+......\glue(\spaceskip) 3.33 plus 1.665 minus 1.11
+......\pdfliteral page <lua data reference ...>
+......\pdfliteral page <lua data reference ...>
+......\pdfstartlink(*+*)x* attr{/Contents <FEFF0047006F00200074006F002000640065007300740069006E006100740069006F006E0020006500710075006100740069006F006E002E0031> /Border [0 0 1] /H /I /C [0.701176 0.4 0.414118] /StructParent 1 } action struct name{equation.1} goto name{equation.1}
+......\TU/lmr/m/n/10 1
+......\pdfendlink
+......\write1{\new@label@record{@tag@objr@page@1}{{tagabspage}{\__property_code_tagabspage: }}}
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\mathoff
+.....\penalty 10000
+.....\glue(\parfillskip) 0.0 plus 1.0fil
+.....\glue(\rightskip) 0.0
+....\glue -2.05
+....\glue 0.0 plus 1.0fil
+....\glue 0.0
+....\glue 0.0 plus 0.0001fil
+...\pdflinkstate 1
+...\glue(\baselineskip) 23.34
+...\hbox(6.66+0.0)x345.0, direction TLT
+....\hbox(6.66+0.0)x345.0, glue set 170.0fil, direction TLT
+.....\glue 0.0 plus 1.0fil
+.....\pdfliteral page <lua data reference ...>
+.....\pdfliteral page <lua data reference ...>
+.....\TU/lmr/m/n/10 1
+.....\glue 0.0 plus 1.0fil
+...\pdfliteral page <lua data reference ...>
+...\pdfliteral page <lua data reference ...>
+...\pdflinkstate 0
+.\kern0.0
+.\kern0.0
+.\kern-633.0
+.\hbox(0.0+0.0)x0.0, direction TLT
+.\kern633.0
+.\pdfliteral page <lua data reference ...>
+(parent-child-20-mtext.aux)
+Package tagpdf Info: closing structure 2 tagged /Document
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~26 structure objects
+(tagpdf)             with ~22 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
+***************
+Compilation 1 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 0
+Compilation 3 of test file completed with exit status 0
