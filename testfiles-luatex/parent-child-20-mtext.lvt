@@ -3,9 +3,14 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{tagging-setup={math/setup=mathml-SE,attach-css=false},pdfversion=2.0,debug={log=v}}
+\DocumentMetadata{tagging-setup={
+%math/setup=mathml-SE, %needs latex 2025-06-01
+math/mathml/sources=,
+math/mathml/structelem, %
+attach-css=false},pdfversion=2.0,debug={log=v}}
 \input{regression-test}
 \documentclass{article}
+\usepackage{unicode-math}
 \usepackage{hyperref}
 \begin{document}
 
