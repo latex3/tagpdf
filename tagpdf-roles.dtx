@@ -437,7 +437,7 @@
 % checks and messages
 %    \begin{macrocode}
     \@@_check_add_tag_role:nn {#1}{#2}
-    \prop_if_in:NnF \g_@@_role_tags_NS_prop {#1}
+    \prop_get:NnNF \g_@@_role_tags_NS_prop {#1}\l_@@_tmp_unused_tl
       {
         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
           {
@@ -447,8 +447,7 @@
 %    \end{macrocode}
 % now the addition
 %    \begin{macrocode}
-    \prop_get:NnN \g_@@_role_tags_class_prop {#2}\l_@@_tmpa_tl
-    \quark_if_no_value:NT \l_@@_tmpa_tl 
+    \prop_get:NnNF \g_@@_role_tags_class_prop {#2}\l_@@_tmpa_tl
       {
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
       }        
@@ -459,14 +458,13 @@
 %    \begin{macrocode}
     \tl_if_empty:nF { #2 }
       {
-        \prop_get:NnN \g_@@_role_rolemap_prop {#2}\l_@@_tmpa_tl
-        \quark_if_no_value:NTF \l_@@_tmpa_tl
-          {          
-            \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#2}}
-          }
+        \prop_get:NnNTF \g_@@_role_rolemap_prop {#2}\l_@@_tmpa_tl
           {
             \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
           }          
+          {          
+            \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#2}}
+          }
       }
   }
 \cs_generate_variant:Nn \@@_role_add_tag:nn {VV,ne}
@@ -808,8 +806,15 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_store_parent_child_rule:nnn #1 #2 #3 % num parent, num child, #3 string
   {
-    \intarray_gset:Nnn \g_@@_role_parent_child_intarray 
-      { #1#2 }{0\prop_item:Nn\c_@@_role_rules_prop{#3}}
+    \prop_get:NeNTF \c_@@_role_rules_prop{#3} \l_@@_tmp_unused_tl
+      {
+        \intarray_gset:Nnn \g_@@_role_parent_child_intarray 
+         { #1#2 }{0\l_@@_tmp_unused_tl}
+      }
+      {
+        \intarray_gset:Nnn \g_@@_role_parent_child_intarray 
+         { #1#2 }{0}
+      }   
   }  
 %    \end{macrocode}
 % \end{macro}
@@ -1318,10 +1323,13 @@
              \l_@@_role_role_tmpa_tl
              \l_@@_role_role_namespace_tmpa_tl
              {
-                \prop_if_in:NVF\g_@@_role_NS_prop \l_@@_role_role_namespace_tmpa_tl
-                 {
-                   \tl_set:Nn \l_@@_role_role_namespace_tmpa_tl {user}
-                 }
+                \prop_get:NVNF
+                  \g_@@_role_NS_prop 
+                  \l_@@_role_role_namespace_tmpa_tl
+                  \l_@@_tmp_unused_tl
+                  {
+                    \tl_set:Nn \l_@@_role_role_namespace_tmpa_tl {user}
+                  }
              }
              {
                \tl_set:Nn \l_@@_role_role_namespace_tmpa_tl {user}
