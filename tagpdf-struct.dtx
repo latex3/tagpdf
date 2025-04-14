@@ -754,7 +754,7 @@
 %<debug>      { g_@@_struct_debug_kids_#1_seq }
 %<debug>      {
 %<debug>        MC~#2
-%<debug>      }      
+%<debug>      }
     \@@_seq_gput_right:cn
       { g_@@_struct_kids_#1_seq }
       {
@@ -1194,8 +1194,15 @@
 \socket_new:nn { tag/struct/tag }{1}
 \socket_new_plug:nnn { tag/struct/tag }{ latex-tags }
  {
-   \seq_set_split:Nne \l_@@_tmpa_seq { / } 
-     {#1/\prop_item:Ne\g__tag_role_tags_NS_prop{#1}}
+   \prop_get:NeNTF \g__tag_role_tags_NS_prop {#1} \l_@@_tmp_unused_tl
+    {
+      \seq_set_split:Nne \l_@@_tmpa_seq { / } 
+        {#1/\l_@@_tmp_unused_tl}
+    }
+    {
+      \seq_set_split:Nne \l_@@_tmpa_seq { / } 
+        {#1/}
+    }    
    \tl_gset:Ne \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
    \tl_gset:Ne \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }  
    \@@_check_structure_tag:N \g_@@_struct_tag_tl
@@ -1203,8 +1210,15 @@
  
 \socket_new_plug:nnn { tag/struct/tag }{ pdf-tags }
  {
-   \seq_set_split:Nne \l_@@_tmpa_seq { / } 
-     {#1/\prop_item:Ne\g_@@_role_tags_NS_prop{#1}}
+   \prop_get:NeNTF \g__tag_role_tags_NS_prop {#1} \l_@@_tmp_unused_tl
+     {
+      \seq_set_split:Nne \l_@@_tmpa_seq { / } 
+        {#1/\l_@@_tmp_unused_tl}
+     }
+     {
+       \seq_set_split:Nne \l_@@_tmpa_seq { / } 
+         {#1/}
+     }        
    \tl_gset:Ne \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
    \tl_gset:Ne \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }
    \@@_role_get:VVNN 
@@ -2284,7 +2298,7 @@
          }
        \seq_map_inline:Nn \l_@@_tmpa_seq
          {
-           \prop_if_in:NnF \g_@@_attr_entries_prop {##1}
+           \prop_get:NnNF \g_@@_attr_entries_prop {##1}\l_@@_tmpa_tl
              {
                \msg_error:nnn { tag } { attr-unknown } { ##1 }
              }
@@ -2331,11 +2345,11 @@
               }
             \seq_map_inline:Nn \l_@@_tmpa_seq
               {
-                \prop_if_in:NnF \g_@@_attr_entries_prop {##1}
+                \prop_get:NnNF \g_@@_attr_entries_prop {##1}\l_@@_tmp_unused_tl
                   {
                     \msg_error:nnn { tag } { attr-unknown } { ##1 }
                   }
-                \prop_if_in:NnF \g_@@_attr_objref_prop {##1}
+                \prop_get:NnNF \g_@@_attr_objref_prop {##1}\l_@@_tmpa_tl
                   {%\prop_show:N \g_@@_attr_entries_prop
                     \pdf_object_unnamed_write:ne
                       { dict }
