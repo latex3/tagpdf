@@ -716,8 +716,10 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_structure_has_tag:n #1 %#1 struct num
   {
-    \prop_if_in:cnF { g_@@_struct_#1_prop }
+    \prop_get:cnNF 
+      { g_@@_struct_#1_prop } 
       {S}
+      \l_@@_tmp_unused_tl
       {
         \msg_error:nn { tag } {struct-missing-tag}
       }
@@ -730,7 +732,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_structure_tag:N #1
   {
-    \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
+    \prop_get:NoNF \g_@@_role_tags_NS_prop {#1}\l_@@_tmp_unused_tl
       {
         \msg_warning:nne { tag } {role-unknown-tag} {#1}
       }
@@ -881,7 +883,7 @@
         \msg_info:nnee { tag } {mc-tag-missing} { \g_@@_struct_tag_tl }{ \@@_get_mc_abs_cnt: }
       }
       {
-       \prop_if_in:NoF \g_@@_role_tags_NS_prop {#1}
+       \prop_get:NoNF \g_@@_role_tags_NS_prop {#1}\l_@@_tmp_unused_tl
          {
            \msg_warning:nne { tag } {role-unknown-tag} {#1}
          }
