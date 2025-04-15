@@ -10,6 +10,8 @@ this project uses date-based 'snapshot' version identifiers.
  - improve speed with lualatex
  - more experimental support files for verbatim tagging.
  - parent-child-rule of mtext to allow text and links inside.
+ - improve parent-child rule tests for Part, Div and Nonstruct
+ - better rolemapping messages (issue #112)
   
 ### Fixed
  - mime type of files added with the mathml key to structures. 
