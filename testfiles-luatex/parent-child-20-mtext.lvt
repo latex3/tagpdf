@@ -17,9 +17,11 @@ attach-css=false},pdfversion=2.0,debug={log=v}}
 \showoutput
 
 \START
+\IfFormatAtLeastTF{2025-06-01}{
 \begin{equation}\label{eq:a}
 c=d
 \end{equation}
 $a= b \mbox{\emph{only if $b=a$} \ref{eq:a}}$
+}{blub}
 
 \end{document}
