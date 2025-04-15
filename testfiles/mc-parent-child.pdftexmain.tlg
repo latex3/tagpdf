@@ -9,7 +9,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'StructTreeRoot'.
 Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:StructTreeRoot' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:StructTreeRoot' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 4, /StructTreeRoot) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 4 tagged /StructTreeRoot
@@ -26,7 +26,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Document'.
 Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 6, /Document) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 6 tagged /Document
@@ -43,7 +43,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 8, /Part) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 8 tagged /Part
@@ -60,7 +60,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Sect' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 10, /Sect) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 10 tagged /Sect
@@ -77,7 +77,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Div'.
 Package tagpdf Info: Parent-Child 'Div' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Div' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Div/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Div' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 12, /Div) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 12 tagged /Div
@@ -91,7 +91,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Caption'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Caption'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf2:Caption' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Caption/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Caption'.
 (tagpdf)                Relation is not allowed (struct 13, /text-unit --> struct 14) on line ...
 Package tagpdf Info: Parent-Child 'Caption' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -114,7 +114,7 @@ Package tagpdf Info: Parent-Child 'NonStruct' --> 'MC'.
 Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 16, /NonStruct) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 16 tagged /NonStruct
@@ -251,7 +251,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'L'.
 Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:L' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:L' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 34, /L) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 34 tagged /L
@@ -262,7 +262,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'LI'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:LI' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'LI/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:LI'.
 (tagpdf)                Relation is not allowed (struct 35, /text-unit --> struct 36) on line ...
 Package tagpdf Info: Parent-Child 'LI' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -279,7 +279,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Lbl'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Lbl'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf2:Lbl' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Lbl/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Lbl'.
 (tagpdf)                Relation is not allowed (struct 37, /text-unit --> struct 38) on line ...
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -293,7 +293,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'LBody'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:LBody' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'LBody/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:LBody'.
 (tagpdf)                Relation is not allowed (struct 39, /text-unit --> struct 40) on line ...
 Package tagpdf Info: Parent-Child 'LBody' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -313,7 +313,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Table'.
 Package tagpdf Info: Parent-Child 'Table' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Table' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Table/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Table' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 42, /Table) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 42 tagged /Table
@@ -324,12 +324,12 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'TR'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:TR' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'TR/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:TR'.
 (tagpdf)                Relation is not allowed (struct 43, /text-unit --> struct 44) on line ...
 Package tagpdf Info: Parent-Child 'TR' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:TR' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'TR/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:TR' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 44, /TR) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 44 tagged /TR
@@ -340,7 +340,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'TH'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:TH' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'TH/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:TH'.
 (tagpdf)                Relation is not allowed (struct 45, /text-unit --> struct 46) on line ...
 Package tagpdf Info: Parent-Child 'TH' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -354,7 +354,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'TD'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:TD' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'TD/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:TD'.
 (tagpdf)                Relation is not allowed (struct 47, /text-unit --> struct 48) on line ...
 Package tagpdf Info: Parent-Child 'TD' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -368,12 +368,12 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'THead'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:THead' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'THead/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:THead'.
 (tagpdf)                Relation is not allowed (struct 49, /text-unit --> struct 50) on line ...
 Package tagpdf Info: Parent-Child 'THead' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:THead' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'THead/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:THead' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 50, /THead) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 50 tagged /THead
@@ -384,12 +384,12 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'TBody'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:TBody' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'TBody/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:TBody'.
 (tagpdf)                Relation is not allowed (struct 51, /text-unit --> struct 52) on line ...
 Package tagpdf Info: Parent-Child 'TBody' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:TBody' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'TBody/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:TBody' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 52, /TBody) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 52 tagged /TBody
@@ -400,12 +400,12 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'TFoot'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:TFoot' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'TFoot/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:TFoot'.
 (tagpdf)                Relation is not allowed (struct 53, /text-unit --> struct 54) on line ...
 Package tagpdf Info: Parent-Child 'TFoot' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:TFoot' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'TFoot/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:TFoot' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 54, /TFoot) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 54 tagged /TFoot
@@ -416,7 +416,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'Span'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:Span' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'Span/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:Span'.
 (tagpdf)                Relation is not allowed (struct 55, /text-unit --> struct 56) on line ...
 Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -505,7 +505,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'Ruby'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:Ruby' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'Ruby/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:Ruby'.
 (tagpdf)                Relation is not allowed (struct 67, /text-unit --> struct 68) on line ...
 Package tagpdf Info: Parent-Child 'Ruby' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -519,7 +519,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'RB'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:RB' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'RB/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:RB'.
 (tagpdf)                Relation is not allowed (struct 69, /text-unit --> struct 70) on line ...
 Package tagpdf Info: Parent-Child 'RB' --> 'MC'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1')
@@ -536,7 +536,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'RT'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:RT' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'RT/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:RT'.
 (tagpdf)                Relation is not allowed (struct 71, /text-unit --> struct 72) on line ...
 Package tagpdf Info: Parent-Child 'RT' --> 'MC'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1')
@@ -553,7 +553,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'Warichu'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:Warichu' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'Warichu/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:Warichu'.
 (tagpdf)                Relation is not allowed (struct 73, /text-unit --> struct 74) on line ...
 Package tagpdf Info: Parent-Child 'Warichu' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -567,7 +567,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'WT'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:WT' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'WT/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:WT'.
 (tagpdf)                Relation is not allowed (struct 75, /text-unit --> struct 76) on line ...
 Package tagpdf Info: Parent-Child 'WT' --> 'MC'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1')
@@ -584,7 +584,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'WP'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:WP' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'WP/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:WP'.
 (tagpdf)                Relation is not allowed (struct 77, /text-unit --> struct 78) on line ...
 Package tagpdf Info: Parent-Child 'WP' --> 'MC'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1')
@@ -622,7 +622,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Art'.
 Package tagpdf Info: Parent-Child 'Art' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf:Art' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Art/pdf' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf:Art' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 82, /Art) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 82 tagged /Art
@@ -654,7 +654,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'TOC'.
 Package tagpdf Info: Parent-Child 'TOC' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf:TOC' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'TOC/pdf' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf:TOC' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 86, /TOC) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 86 tagged /TOC
@@ -668,12 +668,12 @@ Package tagpdf Info: Parent-Child 'Part' --> 'TOCI'.
 Package tagpdf Info: Parent-Child 'Document' --> 'TOCI'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf:TOCI' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'TOCI/pdf'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf:TOCI'.
 (tagpdf)                Relation is not allowed (struct 87, /text-unit --> struct 88) on line ...
 Package tagpdf Info: Parent-Child 'TOCI' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf:TOCI' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'TOCI/pdf' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf:TOCI' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 88, /TOCI) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 88 tagged /TOCI
@@ -690,7 +690,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Index'.
 Package tagpdf Info: Parent-Child 'Index' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf:Index' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Index/pdf' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf:Index' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 90, /Index) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 90 tagged /Index
@@ -719,7 +719,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Quote'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Quote'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf:Quote' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Quote/pdf'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf:Quote'.
 (tagpdf)                Relation is not allowed (struct 93, /text-unit --> struct 94) on line ...
 Package tagpdf Info: Parent-Child 'Quote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -761,7 +761,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Reference'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Reference'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf:Reference' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Reference/pdf'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf:Reference'.
 (tagpdf)                Relation is not allowed (struct 97, /text-unit --> struct 98) on line ...
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -778,7 +778,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'BibEntry'.
 Package tagpdf Info: Parent-Child 'Document' --> 'BibEntry'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf:BibEntry' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'BibEntry/pdf'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf:BibEntry'.
 (tagpdf)                Relation is not allowed (struct 99, /text-unit --> struct 100) on line ...
 Package tagpdf Info: Parent-Child 'BibEntry' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -813,7 +813,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'DocumentFragment'.
 Package tagpdf Info: Parent-Child 'DocumentFragment' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:DocumentFragment' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'DocumentFragment/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:DocumentFragment' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 104, /DocumentFragment) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 104 tagged /DocumentFragment
@@ -932,7 +932,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Sub'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Sub'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf2:Sub' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'Sub/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Sub'.
 (tagpdf)                Relation is not allowed (struct 119, /text-unit --> struct 120) on line ...
 Package tagpdf Info: Parent-Child 'Sub' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -946,7 +946,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'Em'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:Em' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'Em/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:Em'.
 (tagpdf)                Relation is not allowed (struct 121, /text-unit --> struct 122) on line ...
 Package tagpdf Info: Parent-Child 'Em' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -960,7 +960,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'Strong'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:Strong' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'Strong/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'pdf2:Strong'.
 (tagpdf)                Relation is not allowed (struct 123, /text-unit --> struct 124) on line ...
 Package tagpdf Info: Parent-Child 'Strong' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -974,7 +974,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'abs'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:abs' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'abs/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:abs'.
 (tagpdf)                Relation is not allowed (struct 125, /text-unit --> struct 126) on line ...
 Package tagpdf Info: Parent-Child 'abs' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -988,7 +988,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'and'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:and' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'and/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:and'.
 (tagpdf)                Relation is not allowed (struct 127, /text-unit --> struct 128) on line ...
 Package tagpdf Info: Parent-Child 'and' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1002,7 +1002,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'annotation'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:annotation' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'annotation/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:annotation'.
 (tagpdf)                Relation is not allowed (struct 129, /text-unit --> struct 130) on line ...
 Package tagpdf Info: Parent-Child 'annotation' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1016,7 +1016,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'apply'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:apply' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'apply/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:apply'.
 (tagpdf)                Relation is not allowed (struct 131, /text-unit --> struct 132) on line ...
 Package tagpdf Info: Parent-Child 'apply' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1030,7 +1030,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'approx'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:approx' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'approx/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:approx'.
 (tagpdf)                Relation is not allowed (struct 133, /text-unit --> struct 134) on line ...
 Package tagpdf Info: Parent-Child 'approx' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1044,7 +1044,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arccos'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arccos' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arccos/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arccos'.
 (tagpdf)                Relation is not allowed (struct 135, /text-unit --> struct 136) on line ...
 Package tagpdf Info: Parent-Child 'arccos' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1058,7 +1058,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arccosh'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arccosh' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arccosh/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arccosh'.
 (tagpdf)                Relation is not allowed (struct 137, /text-unit --> struct 138) on line ...
 Package tagpdf Info: Parent-Child 'arccosh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1072,7 +1072,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arccot'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arccot' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arccot/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arccot'.
 (tagpdf)                Relation is not allowed (struct 139, /text-unit --> struct 140) on line ...
 Package tagpdf Info: Parent-Child 'arccot' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1086,7 +1086,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arccoth'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arccoth' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arccoth/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arccoth'.
 (tagpdf)                Relation is not allowed (struct 141, /text-unit --> struct 142) on line ...
 Package tagpdf Info: Parent-Child 'arccoth' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1100,7 +1100,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arccsc'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arccsc' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arccsc/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arccsc'.
 (tagpdf)                Relation is not allowed (struct 143, /text-unit --> struct 144) on line ...
 Package tagpdf Info: Parent-Child 'arccsc' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1114,7 +1114,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arccsch'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arccsch' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arccsch/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arccsch'.
 (tagpdf)                Relation is not allowed (struct 145, /text-unit --> struct 146) on line ...
 Package tagpdf Info: Parent-Child 'arccsch' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1128,7 +1128,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arcsec'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arcsec' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arcsec/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arcsec'.
 (tagpdf)                Relation is not allowed (struct 147, /text-unit --> struct 148) on line ...
 Package tagpdf Info: Parent-Child 'arcsec' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1142,7 +1142,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arcsech'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arcsech' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arcsech/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arcsech'.
 (tagpdf)                Relation is not allowed (struct 149, /text-unit --> struct 150) on line ...
 Package tagpdf Info: Parent-Child 'arcsech' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1156,7 +1156,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arcsin'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arcsin' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arcsin/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arcsin'.
 (tagpdf)                Relation is not allowed (struct 151, /text-unit --> struct 152) on line ...
 Package tagpdf Info: Parent-Child 'arcsin' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1170,7 +1170,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arcsinh'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arcsinh' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arcsinh/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arcsinh'.
 (tagpdf)                Relation is not allowed (struct 153, /text-unit --> struct 154) on line ...
 Package tagpdf Info: Parent-Child 'arcsinh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1184,7 +1184,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arctan'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arctan' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arctan/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arctan'.
 (tagpdf)                Relation is not allowed (struct 155, /text-unit --> struct 156) on line ...
 Package tagpdf Info: Parent-Child 'arctan' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1198,7 +1198,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arctanh'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arctanh' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arctanh/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arctanh'.
 (tagpdf)                Relation is not allowed (struct 157, /text-unit --> struct 158) on line ...
 Package tagpdf Info: Parent-Child 'arctanh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1212,7 +1212,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'arg'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:arg' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'arg/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:arg'.
 (tagpdf)                Relation is not allowed (struct 159, /text-unit --> struct 160) on line ...
 Package tagpdf Info: Parent-Child 'arg' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1226,7 +1226,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'bind'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:bind' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'bind/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:bind'.
 (tagpdf)                Relation is not allowed (struct 161, /text-unit --> struct 162) on line ...
 Package tagpdf Info: Parent-Child 'bind' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1240,7 +1240,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'bvar'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:bvar' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'bvar/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:bvar'.
 (tagpdf)                Relation is not allowed (struct 163, /text-unit --> struct 164) on line ...
 Package tagpdf Info: Parent-Child 'bvar' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1254,7 +1254,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'card'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:card' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'card/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:card'.
 (tagpdf)                Relation is not allowed (struct 165, /text-unit --> struct 166) on line ...
 Package tagpdf Info: Parent-Child 'card' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1268,7 +1268,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'cartesianproduct'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:cartesianproduct' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'cartesianproduct/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:cartesianproduct'.
 (tagpdf)                Relation is not allowed (struct 167, /text-unit --> struct 168) on line ...
 Package tagpdf Info: Parent-Child 'cartesianproduct' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1282,7 +1282,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'cbytes'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:cbytes' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'cbytes/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:cbytes'.
 (tagpdf)                Relation is not allowed (struct 169, /text-unit --> struct 170) on line ...
 Package tagpdf Info: Parent-Child 'cbytes' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1296,7 +1296,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'ceiling'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:ceiling' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'ceiling/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:ceiling'.
 (tagpdf)                Relation is not allowed (struct 171, /text-unit --> struct 172) on line ...
 Package tagpdf Info: Parent-Child 'ceiling' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1310,7 +1310,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'cerror'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:cerror' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'cerror/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:cerror'.
 (tagpdf)                Relation is not allowed (struct 173, /text-unit --> struct 174) on line ...
 Package tagpdf Info: Parent-Child 'cerror' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1324,7 +1324,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'ci'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:ci' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'ci/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:ci'.
 (tagpdf)                Relation is not allowed (struct 175, /text-unit --> struct 176) on line ...
 Package tagpdf Info: Parent-Child 'ci' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1338,7 +1338,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'cn'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:cn' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'cn/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:cn'.
 (tagpdf)                Relation is not allowed (struct 177, /text-unit --> struct 178) on line ...
 Package tagpdf Info: Parent-Child 'cn' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1352,7 +1352,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'codomain'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:codomain' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'codomain/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:codomain'.
 (tagpdf)                Relation is not allowed (struct 179, /text-unit --> struct 180) on line ...
 Package tagpdf Info: Parent-Child 'codomain' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1366,7 +1366,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'complexes'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:complexes' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'complexes/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:complexes'.
 (tagpdf)                Relation is not allowed (struct 181, /text-unit --> struct 182) on line ...
 Package tagpdf Info: Parent-Child 'complexes' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1380,7 +1380,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'compose'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:compose' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'compose/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:compose'.
 (tagpdf)                Relation is not allowed (struct 183, /text-unit --> struct 184) on line ...
 Package tagpdf Info: Parent-Child 'compose' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1394,7 +1394,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'condition'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:condition' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'condition/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:condition'.
 (tagpdf)                Relation is not allowed (struct 185, /text-unit --> struct 186) on line ...
 Package tagpdf Info: Parent-Child 'condition' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1408,7 +1408,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'conjugate'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:conjugate' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'conjugate/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:conjugate'.
 (tagpdf)                Relation is not allowed (struct 187, /text-unit --> struct 188) on line ...
 Package tagpdf Info: Parent-Child 'conjugate' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1433,7 +1433,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'cos'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:cos' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'cos/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:cos'.
 (tagpdf)                Relation is not allowed (struct 189, /text-unit --> struct 190) on line ...
 Package tagpdf Info: Parent-Child 'cos' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1447,7 +1447,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'cosh'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:cosh' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'cosh/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:cosh'.
 (tagpdf)                Relation is not allowed (struct 191, /text-unit --> struct 192) on line ...
 Package tagpdf Info: Parent-Child 'cosh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1461,7 +1461,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'cot'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:cot' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'cot/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:cot'.
 (tagpdf)                Relation is not allowed (struct 193, /text-unit --> struct 194) on line ...
 Package tagpdf Info: Parent-Child 'cot' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1475,7 +1475,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'coth'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:coth' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'coth/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:coth'.
 (tagpdf)                Relation is not allowed (struct 195, /text-unit --> struct 196) on line ...
 Package tagpdf Info: Parent-Child 'coth' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1489,7 +1489,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'cs'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:cs' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'cs/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:cs'.
 (tagpdf)                Relation is not allowed (struct 197, /text-unit --> struct 198) on line ...
 Package tagpdf Info: Parent-Child 'cs' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1503,7 +1503,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'csc'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:csc' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'csc/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:csc'.
 (tagpdf)                Relation is not allowed (struct 199, /text-unit --> struct 200) on line ...
 Package tagpdf Info: Parent-Child 'csc' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1517,7 +1517,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'csch'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:csch' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'csch/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:csch'.
 (tagpdf)                Relation is not allowed (struct 201, /text-unit --> struct 202) on line ...
 Package tagpdf Info: Parent-Child 'csch' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1531,7 +1531,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'csymbol'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:csymbol' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'csymbol/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:csymbol'.
 (tagpdf)                Relation is not allowed (struct 203, /text-unit --> struct 204) on line ...
 Package tagpdf Info: Parent-Child 'csymbol' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1545,7 +1545,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'curl'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:curl' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'curl/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:curl'.
 (tagpdf)                Relation is not allowed (struct 205, /text-unit --> struct 206) on line ...
 Package tagpdf Info: Parent-Child 'curl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1559,7 +1559,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'declare'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:declare' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'declare/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:declare'.
 (tagpdf)                Relation is not allowed (struct 207, /text-unit --> struct 208) on line ...
 Package tagpdf Info: Parent-Child 'declare' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1573,7 +1573,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'degree'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:degree' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'degree/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:degree'.
 (tagpdf)                Relation is not allowed (struct 209, /text-unit --> struct 210) on line ...
 Package tagpdf Info: Parent-Child 'degree' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1587,7 +1587,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'determinant'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:determinant' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'determinant/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:determinant'.
 (tagpdf)                Relation is not allowed (struct 211, /text-unit --> struct 212) on line ...
 Package tagpdf Info: Parent-Child 'determinant' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1601,7 +1601,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'diff'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:diff' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'diff/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:diff'.
 (tagpdf)                Relation is not allowed (struct 213, /text-unit --> struct 214) on line ...
 Package tagpdf Info: Parent-Child 'diff' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1615,7 +1615,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'divergence'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:divergence' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'divergence/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:divergence'.
 (tagpdf)                Relation is not allowed (struct 215, /text-unit --> struct 216) on line ...
 Package tagpdf Info: Parent-Child 'divergence' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1629,7 +1629,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'divide'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:divide' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'divide/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:divide'.
 (tagpdf)                Relation is not allowed (struct 217, /text-unit --> struct 218) on line ...
 Package tagpdf Info: Parent-Child 'divide' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1643,7 +1643,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'domain'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:domain' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'domain/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:domain'.
 (tagpdf)                Relation is not allowed (struct 219, /text-unit --> struct 220) on line ...
 Package tagpdf Info: Parent-Child 'domain' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1657,7 +1657,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'domainofapplication'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:domainofapplication' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'domainofapplication/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:domainofapplication'.
 (tagpdf)                Relation is not allowed (struct 221, /text-unit --> struct 222) on line ...
 Package tagpdf Info: Parent-Child 'domainofapplication' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1671,7 +1671,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'emptyset'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:emptyset' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'emptyset/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:emptyset'.
 (tagpdf)                Relation is not allowed (struct 223, /text-unit --> struct 224) on line ...
 Package tagpdf Info: Parent-Child 'emptyset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1685,7 +1685,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'eq'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:eq' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'eq/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:eq'.
 (tagpdf)                Relation is not allowed (struct 225, /text-unit --> struct 226) on line ...
 Package tagpdf Info: Parent-Child 'eq' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1699,7 +1699,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'equivalent'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:equivalent' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'equivalent/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:equivalent'.
 (tagpdf)                Relation is not allowed (struct 227, /text-unit --> struct 228) on line ...
 Package tagpdf Info: Parent-Child 'equivalent' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1713,7 +1713,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'eulergamma'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:eulergamma' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'eulergamma/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:eulergamma'.
 (tagpdf)                Relation is not allowed (struct 229, /text-unit --> struct 230) on line ...
 Package tagpdf Info: Parent-Child 'eulergamma' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1727,7 +1727,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'exists'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:exists' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'exists/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:exists'.
 (tagpdf)                Relation is not allowed (struct 231, /text-unit --> struct 232) on line ...
 Package tagpdf Info: Parent-Child 'exists' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1741,7 +1741,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'exp'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:exp' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'exp/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:exp'.
 (tagpdf)                Relation is not allowed (struct 233, /text-unit --> struct 234) on line ...
 Package tagpdf Info: Parent-Child 'exp' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1755,7 +1755,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'exponentiale'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:exponentiale' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'exponentiale/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:exponentiale'.
 (tagpdf)                Relation is not allowed (struct 235, /text-unit --> struct 236) on line ...
 Package tagpdf Info: Parent-Child 'exponentiale' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1769,7 +1769,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'factorial'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:factorial' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'factorial/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:factorial'.
 (tagpdf)                Relation is not allowed (struct 237, /text-unit --> struct 238) on line ...
 Package tagpdf Info: Parent-Child 'factorial' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1783,7 +1783,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'factorof'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:factorof' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'factorof/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:factorof'.
 (tagpdf)                Relation is not allowed (struct 239, /text-unit --> struct 240) on line ...
 Package tagpdf Info: Parent-Child 'factorof' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1797,7 +1797,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'false'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:false' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'false/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:false'.
 (tagpdf)                Relation is not allowed (struct 241, /text-unit --> struct 242) on line ...
 Package tagpdf Info: Parent-Child 'false' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1811,7 +1811,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'floor'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:floor' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'floor/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:floor'.
 (tagpdf)                Relation is not allowed (struct 243, /text-unit --> struct 244) on line ...
 Package tagpdf Info: Parent-Child 'floor' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1825,7 +1825,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'fn'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:fn' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'fn/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:fn'.
 (tagpdf)                Relation is not allowed (struct 245, /text-unit --> struct 246) on line ...
 Package tagpdf Info: Parent-Child 'fn' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1839,7 +1839,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'forall'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:forall' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'forall/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:forall'.
 (tagpdf)                Relation is not allowed (struct 247, /text-unit --> struct 248) on line ...
 Package tagpdf Info: Parent-Child 'forall' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1853,7 +1853,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'gcd'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:gcd' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'gcd/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:gcd'.
 (tagpdf)                Relation is not allowed (struct 249, /text-unit --> struct 250) on line ...
 Package tagpdf Info: Parent-Child 'gcd' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1867,7 +1867,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'geq'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:geq' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'geq/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:geq'.
 (tagpdf)                Relation is not allowed (struct 251, /text-unit --> struct 252) on line ...
 Package tagpdf Info: Parent-Child 'geq' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1881,7 +1881,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'grad'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:grad' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'grad/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:grad'.
 (tagpdf)                Relation is not allowed (struct 253, /text-unit --> struct 254) on line ...
 Package tagpdf Info: Parent-Child 'grad' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1895,7 +1895,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'gt'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:gt' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'gt/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:gt'.
 (tagpdf)                Relation is not allowed (struct 255, /text-unit --> struct 256) on line ...
 Package tagpdf Info: Parent-Child 'gt' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1909,7 +1909,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'ident'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:ident' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'ident/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:ident'.
 (tagpdf)                Relation is not allowed (struct 257, /text-unit --> struct 258) on line ...
 Package tagpdf Info: Parent-Child 'ident' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1923,7 +1923,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'image'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:image' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'image/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:image'.
 (tagpdf)                Relation is not allowed (struct 259, /text-unit --> struct 260) on line ...
 Package tagpdf Info: Parent-Child 'image' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1937,7 +1937,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'imaginary'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:imaginary' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'imaginary/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:imaginary'.
 (tagpdf)                Relation is not allowed (struct 261, /text-unit --> struct 262) on line ...
 Package tagpdf Info: Parent-Child 'imaginary' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1951,7 +1951,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'imaginaryi'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:imaginaryi' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'imaginaryi/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:imaginaryi'.
 (tagpdf)                Relation is not allowed (struct 263, /text-unit --> struct 264) on line ...
 Package tagpdf Info: Parent-Child 'imaginaryi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1965,7 +1965,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'implies'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:implies' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'implies/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:implies'.
 (tagpdf)                Relation is not allowed (struct 265, /text-unit --> struct 266) on line ...
 Package tagpdf Info: Parent-Child 'implies' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1979,7 +1979,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'in'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:in' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'in/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:in'.
 (tagpdf)                Relation is not allowed (struct 267, /text-unit --> struct 268) on line ...
 Package tagpdf Info: Parent-Child 'in' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -1993,7 +1993,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'infinity'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:infinity' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'infinity/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:infinity'.
 (tagpdf)                Relation is not allowed (struct 269, /text-unit --> struct 270) on line ...
 Package tagpdf Info: Parent-Child 'infinity' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2007,7 +2007,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'int'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:int' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'int/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:int'.
 (tagpdf)                Relation is not allowed (struct 271, /text-unit --> struct 272) on line ...
 Package tagpdf Info: Parent-Child 'int' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2021,7 +2021,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'integers'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:integers' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'integers/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:integers'.
 (tagpdf)                Relation is not allowed (struct 273, /text-unit --> struct 274) on line ...
 Package tagpdf Info: Parent-Child 'integers' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2035,7 +2035,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'intersect'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:intersect' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'intersect/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:intersect'.
 (tagpdf)                Relation is not allowed (struct 275, /text-unit --> struct 276) on line ...
 Package tagpdf Info: Parent-Child 'intersect' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2049,7 +2049,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'interval'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:interval' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'interval/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:interval'.
 (tagpdf)                Relation is not allowed (struct 277, /text-unit --> struct 278) on line ...
 Package tagpdf Info: Parent-Child 'interval' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2063,7 +2063,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'inverse'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:inverse' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'inverse/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:inverse'.
 (tagpdf)                Relation is not allowed (struct 279, /text-unit --> struct 280) on line ...
 Package tagpdf Info: Parent-Child 'inverse' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2088,7 +2088,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'lambda'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:lambda' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'lambda/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:lambda'.
 (tagpdf)                Relation is not allowed (struct 281, /text-unit --> struct 282) on line ...
 Package tagpdf Info: Parent-Child 'lambda' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2102,7 +2102,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'laplacian'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:laplacian' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'laplacian/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:laplacian'.
 (tagpdf)                Relation is not allowed (struct 283, /text-unit --> struct 284) on line ...
 Package tagpdf Info: Parent-Child 'laplacian' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2116,7 +2116,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'lcm'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:lcm' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'lcm/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:lcm'.
 (tagpdf)                Relation is not allowed (struct 285, /text-unit --> struct 286) on line ...
 Package tagpdf Info: Parent-Child 'lcm' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2130,7 +2130,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'leq'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:leq' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'leq/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:leq'.
 (tagpdf)                Relation is not allowed (struct 287, /text-unit --> struct 288) on line ...
 Package tagpdf Info: Parent-Child 'leq' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2144,7 +2144,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'limit'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:limit' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'limit/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:limit'.
 (tagpdf)                Relation is not allowed (struct 289, /text-unit --> struct 290) on line ...
 Package tagpdf Info: Parent-Child 'limit' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2158,7 +2158,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'ln'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:ln' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'ln/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:ln'.
 (tagpdf)                Relation is not allowed (struct 291, /text-unit --> struct 292) on line ...
 Package tagpdf Info: Parent-Child 'ln' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2172,7 +2172,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'log'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:log' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'log/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:log'.
 (tagpdf)                Relation is not allowed (struct 293, /text-unit --> struct 294) on line ...
 Package tagpdf Info: Parent-Child 'log' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2186,7 +2186,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'logbase'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:logbase' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'logbase/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:logbase'.
 (tagpdf)                Relation is not allowed (struct 295, /text-unit --> struct 296) on line ...
 Package tagpdf Info: Parent-Child 'logbase' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2200,7 +2200,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'lowlimit'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:lowlimit' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'lowlimit/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:lowlimit'.
 (tagpdf)                Relation is not allowed (struct 297, /text-unit --> struct 298) on line ...
 Package tagpdf Info: Parent-Child 'lowlimit' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2214,7 +2214,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'lt'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:lt' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'lt/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:lt'.
 (tagpdf)                Relation is not allowed (struct 299, /text-unit --> struct 300) on line ...
 Package tagpdf Info: Parent-Child 'lt' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2228,7 +2228,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'maction'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:maction' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'maction/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:maction'.
 (tagpdf)                Relation is not allowed (struct 301, /text-unit --> struct 302) on line ...
 Package tagpdf Info: Parent-Child 'maction' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2242,7 +2242,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'maligngroup'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:maligngroup' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'maligngroup/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:maligngroup'.
 (tagpdf)                Relation is not allowed (struct 303, /text-unit --> struct 304) on line ...
 Package tagpdf Info: Parent-Child 'maligngroup' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2256,7 +2256,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'malignmark'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:malignmark' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'malignmark/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:malignmark'.
 (tagpdf)                Relation is not allowed (struct 305, /text-unit --> struct 306) on line ...
 Package tagpdf Info: Parent-Child 'malignmark' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2270,12 +2270,12 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'math'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:math' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'math/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:math'.
 (tagpdf)                Relation is not allowed (struct 307, /text-unit --> struct 308) on line ...
 Package tagpdf Info: Parent-Child 'math' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'mathml:math' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'math/mathml' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'mathml:math' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 308, /math) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 308 tagged /math
@@ -2286,7 +2286,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'matrix'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:matrix' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'matrix/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:matrix'.
 (tagpdf)                Relation is not allowed (struct 309, /text-unit --> struct 310) on line ...
 Package tagpdf Info: Parent-Child 'matrix' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2300,7 +2300,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'matrixrow'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:matrixrow' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'matrixrow/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:matrixrow'.
 (tagpdf)                Relation is not allowed (struct 311, /text-unit --> struct 312) on line ...
 Package tagpdf Info: Parent-Child 'matrixrow' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2314,7 +2314,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'max'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:max' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'max/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:max'.
 (tagpdf)                Relation is not allowed (struct 313, /text-unit --> struct 314) on line ...
 Package tagpdf Info: Parent-Child 'max' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2328,7 +2328,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mean'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mean' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mean/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mean'.
 (tagpdf)                Relation is not allowed (struct 315, /text-unit --> struct 316) on line ...
 Package tagpdf Info: Parent-Child 'mean' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2342,7 +2342,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'median'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:median' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'median/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:median'.
 (tagpdf)                Relation is not allowed (struct 317, /text-unit --> struct 318) on line ...
 Package tagpdf Info: Parent-Child 'median' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2356,7 +2356,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'menclose'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:menclose' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'menclose/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:menclose'.
 (tagpdf)                Relation is not allowed (struct 319, /text-unit --> struct 320) on line ...
 Package tagpdf Info: Parent-Child 'menclose' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2370,7 +2370,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'merror'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:merror' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'merror/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:merror'.
 (tagpdf)                Relation is not allowed (struct 321, /text-unit --> struct 322) on line ...
 Package tagpdf Info: Parent-Child 'merror' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2384,7 +2384,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mfenced'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mfenced' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mfenced/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mfenced'.
 (tagpdf)                Relation is not allowed (struct 323, /text-unit --> struct 324) on line ...
 Package tagpdf Info: Parent-Child 'mfenced' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2398,7 +2398,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mfrac'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mfrac' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mfrac/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mfrac'.
 (tagpdf)                Relation is not allowed (struct 325, /text-unit --> struct 326) on line ...
 Package tagpdf Info: Parent-Child 'mfrac' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2412,7 +2412,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mglyph'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mglyph' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mglyph/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mglyph'.
 (tagpdf)                Relation is not allowed (struct 327, /text-unit --> struct 328) on line ...
 Package tagpdf Info: Parent-Child 'mglyph' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2426,7 +2426,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mi'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mi' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mi/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mi'.
 (tagpdf)                Relation is not allowed (struct 329, /text-unit --> struct 330) on line ...
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2440,7 +2440,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'min'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:min' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'min/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:min'.
 (tagpdf)                Relation is not allowed (struct 331, /text-unit --> struct 332) on line ...
 Package tagpdf Info: Parent-Child 'min' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2454,7 +2454,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'minus'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:minus' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'minus/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:minus'.
 (tagpdf)                Relation is not allowed (struct 333, /text-unit --> struct 334) on line ...
 Package tagpdf Info: Parent-Child 'minus' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2468,7 +2468,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mlabeledtr'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mlabeledtr' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mlabeledtr/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mlabeledtr'.
 (tagpdf)                Relation is not allowed (struct 335, /text-unit --> struct 336) on line ...
 Package tagpdf Info: Parent-Child 'mlabeledtr' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2482,7 +2482,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mlongdiv'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mlongdiv' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mlongdiv/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mlongdiv'.
 (tagpdf)                Relation is not allowed (struct 337, /text-unit --> struct 338) on line ...
 Package tagpdf Info: Parent-Child 'mlongdiv' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2496,7 +2496,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mmultiscripts'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mmultiscripts' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mmultiscripts/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mmultiscripts'.
 (tagpdf)                Relation is not allowed (struct 339, /text-unit --> struct 340) on line ...
 Package tagpdf Info: Parent-Child 'mmultiscripts' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2510,7 +2510,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mn'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mn' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mn/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mn'.
 (tagpdf)                Relation is not allowed (struct 341, /text-unit --> struct 342) on line ...
 Package tagpdf Info: Parent-Child 'mn' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2524,7 +2524,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mo'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mo' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mo/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mo'.
 (tagpdf)                Relation is not allowed (struct 343, /text-unit --> struct 344) on line ...
 Package tagpdf Info: Parent-Child 'mo' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2538,7 +2538,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mode'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mode' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mode/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mode'.
 (tagpdf)                Relation is not allowed (struct 345, /text-unit --> struct 346) on line ...
 Package tagpdf Info: Parent-Child 'mode' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2552,7 +2552,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'moment'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:moment' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'moment/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:moment'.
 (tagpdf)                Relation is not allowed (struct 347, /text-unit --> struct 348) on line ...
 Package tagpdf Info: Parent-Child 'moment' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2566,7 +2566,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'momentabout'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:momentabout' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'momentabout/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:momentabout'.
 (tagpdf)                Relation is not allowed (struct 349, /text-unit --> struct 350) on line ...
 Package tagpdf Info: Parent-Child 'momentabout' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2580,7 +2580,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mover'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mover' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mover/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mover'.
 (tagpdf)                Relation is not allowed (struct 351, /text-unit --> struct 352) on line ...
 Package tagpdf Info: Parent-Child 'mover' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2594,7 +2594,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mpadded'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mpadded' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mpadded/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mpadded'.
 (tagpdf)                Relation is not allowed (struct 353, /text-unit --> struct 354) on line ...
 Package tagpdf Info: Parent-Child 'mpadded' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2608,7 +2608,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mphantom'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mphantom' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mphantom/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mphantom'.
 (tagpdf)                Relation is not allowed (struct 355, /text-unit --> struct 356) on line ...
 Package tagpdf Info: Parent-Child 'mphantom' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2622,7 +2622,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mprescripts'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mprescripts' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mprescripts/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mprescripts'.
 (tagpdf)                Relation is not allowed (struct 357, /text-unit --> struct 358) on line ...
 Package tagpdf Info: Parent-Child 'mprescripts' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2636,7 +2636,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mroot'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mroot' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mroot/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mroot'.
 (tagpdf)                Relation is not allowed (struct 359, /text-unit --> struct 360) on line ...
 Package tagpdf Info: Parent-Child 'mroot' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2650,7 +2650,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mrow'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mrow' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mrow/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mrow'.
 (tagpdf)                Relation is not allowed (struct 361, /text-unit --> struct 362) on line ...
 Package tagpdf Info: Parent-Child 'mrow' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2664,7 +2664,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'ms'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:ms' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'ms/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:ms'.
 (tagpdf)                Relation is not allowed (struct 363, /text-unit --> struct 364) on line ...
 Package tagpdf Info: Parent-Child 'ms' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2678,7 +2678,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mscarries'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mscarries' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mscarries/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mscarries'.
 (tagpdf)                Relation is not allowed (struct 365, /text-unit --> struct 366) on line ...
 Package tagpdf Info: Parent-Child 'mscarries' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2692,7 +2692,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mscarry'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mscarry' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mscarry/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mscarry'.
 (tagpdf)                Relation is not allowed (struct 367, /text-unit --> struct 368) on line ...
 Package tagpdf Info: Parent-Child 'mscarry' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2706,7 +2706,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'msgroup'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:msgroup' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'msgroup/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:msgroup'.
 (tagpdf)                Relation is not allowed (struct 369, /text-unit --> struct 370) on line ...
 Package tagpdf Info: Parent-Child 'msgroup' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2720,7 +2720,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'msline'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:msline' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'msline/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:msline'.
 (tagpdf)                Relation is not allowed (struct 371, /text-unit --> struct 372) on line ...
 Package tagpdf Info: Parent-Child 'msline' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2745,7 +2745,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mspace'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mspace' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mspace/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mspace'.
 (tagpdf)                Relation is not allowed (struct 373, /text-unit --> struct 374) on line ...
 Package tagpdf Info: Parent-Child 'mspace' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2759,7 +2759,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'msqrt'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:msqrt' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'msqrt/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:msqrt'.
 (tagpdf)                Relation is not allowed (struct 375, /text-unit --> struct 376) on line ...
 Package tagpdf Info: Parent-Child 'msqrt' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2773,7 +2773,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'msrow'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:msrow' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'msrow/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:msrow'.
 (tagpdf)                Relation is not allowed (struct 377, /text-unit --> struct 378) on line ...
 Package tagpdf Info: Parent-Child 'msrow' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2787,7 +2787,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mstack'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mstack' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mstack/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mstack'.
 (tagpdf)                Relation is not allowed (struct 379, /text-unit --> struct 380) on line ...
 Package tagpdf Info: Parent-Child 'mstack' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2801,7 +2801,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mstyle'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mstyle' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mstyle/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mstyle'.
 (tagpdf)                Relation is not allowed (struct 381, /text-unit --> struct 382) on line ...
 Package tagpdf Info: Parent-Child 'mstyle' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2815,7 +2815,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'msub'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:msub' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'msub/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:msub'.
 (tagpdf)                Relation is not allowed (struct 383, /text-unit --> struct 384) on line ...
 Package tagpdf Info: Parent-Child 'msub' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2829,7 +2829,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'msubsup'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:msubsup' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'msubsup/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:msubsup'.
 (tagpdf)                Relation is not allowed (struct 385, /text-unit --> struct 386) on line ...
 Package tagpdf Info: Parent-Child 'msubsup' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2843,7 +2843,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'msup'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:msup' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'msup/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:msup'.
 (tagpdf)                Relation is not allowed (struct 387, /text-unit --> struct 388) on line ...
 Package tagpdf Info: Parent-Child 'msup' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2857,7 +2857,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mtable'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mtable' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mtable/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mtable'.
 (tagpdf)                Relation is not allowed (struct 389, /text-unit --> struct 390) on line ...
 Package tagpdf Info: Parent-Child 'mtable' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2871,7 +2871,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mtd'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mtd' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mtd/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mtd'.
 (tagpdf)                Relation is not allowed (struct 391, /text-unit --> struct 392) on line ...
 Package tagpdf Info: Parent-Child 'mtd' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2885,7 +2885,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mtext'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mtext' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mtext/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mtext'.
 (tagpdf)                Relation is not allowed (struct 393, /text-unit --> struct 394) on line ...
 Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2899,7 +2899,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'mtr'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:mtr' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'mtr/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:mtr'.
 (tagpdf)                Relation is not allowed (struct 395, /text-unit --> struct 396) on line ...
 Package tagpdf Info: Parent-Child 'mtr' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2913,7 +2913,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'munder'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:munder' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'munder/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:munder'.
 (tagpdf)                Relation is not allowed (struct 397, /text-unit --> struct 398) on line ...
 Package tagpdf Info: Parent-Child 'munder' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2927,7 +2927,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'munderover'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:munderover' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'munderover/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:munderover'.
 (tagpdf)                Relation is not allowed (struct 399, /text-unit --> struct 400) on line ...
 Package tagpdf Info: Parent-Child 'munderover' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2941,7 +2941,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'naturalnumbers'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:naturalnumbers' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'naturalnumbers/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:naturalnumbers'.
 (tagpdf)                Relation is not allowed (struct 401, /text-unit --> struct 402) on line ...
 Package tagpdf Info: Parent-Child 'naturalnumbers' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2955,7 +2955,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'neq'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:neq' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'neq/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:neq'.
 (tagpdf)                Relation is not allowed (struct 403, /text-unit --> struct 404) on line ...
 Package tagpdf Info: Parent-Child 'neq' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2969,7 +2969,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'none'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:none' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'none/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:none'.
 (tagpdf)                Relation is not allowed (struct 405, /text-unit --> struct 406) on line ...
 Package tagpdf Info: Parent-Child 'none' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2983,7 +2983,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'not'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:not' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'not/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:not'.
 (tagpdf)                Relation is not allowed (struct 407, /text-unit --> struct 408) on line ...
 Package tagpdf Info: Parent-Child 'not' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -2997,7 +2997,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'notanumber'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:notanumber' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'notanumber/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:notanumber'.
 (tagpdf)                Relation is not allowed (struct 409, /text-unit --> struct 410) on line ...
 Package tagpdf Info: Parent-Child 'notanumber' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3011,7 +3011,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'notin'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:notin' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'notin/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:notin'.
 (tagpdf)                Relation is not allowed (struct 411, /text-unit --> struct 412) on line ...
 Package tagpdf Info: Parent-Child 'notin' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3025,7 +3025,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'notprsubset'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:notprsubset' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'notprsubset/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:notprsubset'.
 (tagpdf)                Relation is not allowed (struct 413, /text-unit --> struct 414) on line ...
 Package tagpdf Info: Parent-Child 'notprsubset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3039,7 +3039,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'notsubset'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:notsubset' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'notsubset/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:notsubset'.
 (tagpdf)                Relation is not allowed (struct 415, /text-unit --> struct 416) on line ...
 Package tagpdf Info: Parent-Child 'notsubset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3053,7 +3053,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'or'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:or' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'or/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:or'.
 (tagpdf)                Relation is not allowed (struct 417, /text-unit --> struct 418) on line ...
 Package tagpdf Info: Parent-Child 'or' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3067,7 +3067,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'otherwise'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:otherwise' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'otherwise/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:otherwise'.
 (tagpdf)                Relation is not allowed (struct 419, /text-unit --> struct 420) on line ...
 Package tagpdf Info: Parent-Child 'otherwise' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3081,7 +3081,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'outerproduct'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:outerproduct' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'outerproduct/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:outerproduct'.
 (tagpdf)                Relation is not allowed (struct 421, /text-unit --> struct 422) on line ...
 Package tagpdf Info: Parent-Child 'outerproduct' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3095,7 +3095,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'partialdiff'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:partialdiff' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'partialdiff/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:partialdiff'.
 (tagpdf)                Relation is not allowed (struct 423, /text-unit --> struct 424) on line ...
 Package tagpdf Info: Parent-Child 'partialdiff' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3109,7 +3109,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'pi'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:pi' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'pi/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:pi'.
 (tagpdf)                Relation is not allowed (struct 425, /text-unit --> struct 426) on line ...
 Package tagpdf Info: Parent-Child 'pi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3123,7 +3123,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'piece'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:piece' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'piece/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:piece'.
 (tagpdf)                Relation is not allowed (struct 427, /text-unit --> struct 428) on line ...
 Package tagpdf Info: Parent-Child 'piece' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3137,7 +3137,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'piecewise'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:piecewise' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'piecewise/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:piecewise'.
 (tagpdf)                Relation is not allowed (struct 429, /text-unit --> struct 430) on line ...
 Package tagpdf Info: Parent-Child 'piecewise' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3151,7 +3151,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'plus'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:plus' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'plus/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:plus'.
 (tagpdf)                Relation is not allowed (struct 431, /text-unit --> struct 432) on line ...
 Package tagpdf Info: Parent-Child 'plus' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3165,7 +3165,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'power'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:power' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'power/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:power'.
 (tagpdf)                Relation is not allowed (struct 433, /text-unit --> struct 434) on line ...
 Package tagpdf Info: Parent-Child 'power' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3179,7 +3179,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'primes'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:primes' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'primes/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:primes'.
 (tagpdf)                Relation is not allowed (struct 435, /text-unit --> struct 436) on line ...
 Package tagpdf Info: Parent-Child 'primes' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3193,7 +3193,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'product'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:product' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'product/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:product'.
 (tagpdf)                Relation is not allowed (struct 437, /text-unit --> struct 438) on line ...
 Package tagpdf Info: Parent-Child 'product' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3207,7 +3207,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'prsubset'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:prsubset' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'prsubset/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:prsubset'.
 (tagpdf)                Relation is not allowed (struct 439, /text-unit --> struct 440) on line ...
 Package tagpdf Info: Parent-Child 'prsubset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3221,7 +3221,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'quotient'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:quotient' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'quotient/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:quotient'.
 (tagpdf)                Relation is not allowed (struct 441, /text-unit --> struct 442) on line ...
 Package tagpdf Info: Parent-Child 'quotient' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3235,7 +3235,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'rationals'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:rationals' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'rationals/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:rationals'.
 (tagpdf)                Relation is not allowed (struct 443, /text-unit --> struct 444) on line ...
 Package tagpdf Info: Parent-Child 'rationals' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3249,7 +3249,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'real'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:real' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'real/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:real'.
 (tagpdf)                Relation is not allowed (struct 445, /text-unit --> struct 446) on line ...
 Package tagpdf Info: Parent-Child 'real' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3263,7 +3263,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'reals'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:reals' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'reals/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:reals'.
 (tagpdf)                Relation is not allowed (struct 447, /text-unit --> struct 448) on line ...
 Package tagpdf Info: Parent-Child 'reals' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3277,7 +3277,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'reln'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:reln' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'reln/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:reln'.
 (tagpdf)                Relation is not allowed (struct 449, /text-unit --> struct 450) on line ...
 Package tagpdf Info: Parent-Child 'reln' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3291,7 +3291,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'rem'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:rem' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'rem/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:rem'.
 (tagpdf)                Relation is not allowed (struct 451, /text-unit --> struct 452) on line ...
 Package tagpdf Info: Parent-Child 'rem' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3305,7 +3305,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'root'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:root' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'root/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:root'.
 (tagpdf)                Relation is not allowed (struct 453, /text-unit --> struct 454) on line ...
 Package tagpdf Info: Parent-Child 'root' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3319,7 +3319,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'scalarproduct'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:scalarproduct' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'scalarproduct/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:scalarproduct'.
 (tagpdf)                Relation is not allowed (struct 455, /text-unit --> struct 456) on line ...
 Package tagpdf Info: Parent-Child 'scalarproduct' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3333,7 +3333,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'sdev'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:sdev' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'sdev/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:sdev'.
 (tagpdf)                Relation is not allowed (struct 457, /text-unit --> struct 458) on line ...
 Package tagpdf Info: Parent-Child 'sdev' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3347,7 +3347,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'sec'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:sec' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'sec/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:sec'.
 (tagpdf)                Relation is not allowed (struct 459, /text-unit --> struct 460) on line ...
 Package tagpdf Info: Parent-Child 'sec' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3361,7 +3361,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'sech'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:sech' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'sech/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:sech'.
 (tagpdf)                Relation is not allowed (struct 461, /text-unit --> struct 462) on line ...
 Package tagpdf Info: Parent-Child 'sech' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3375,7 +3375,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'selector'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:selector' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'selector/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:selector'.
 (tagpdf)                Relation is not allowed (struct 463, /text-unit --> struct 464) on line ...
 Package tagpdf Info: Parent-Child 'selector' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3400,7 +3400,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'semantics'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:semantics' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'semantics/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:semantics'.
 (tagpdf)                Relation is not allowed (struct 465, /text-unit --> struct 466) on line ...
 Package tagpdf Info: Parent-Child 'semantics' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3414,7 +3414,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'sep'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:sep' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'sep/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:sep'.
 (tagpdf)                Relation is not allowed (struct 467, /text-unit --> struct 468) on line ...
 Package tagpdf Info: Parent-Child 'sep' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3428,7 +3428,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'set'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:set' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'set/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:set'.
 (tagpdf)                Relation is not allowed (struct 469, /text-unit --> struct 470) on line ...
 Package tagpdf Info: Parent-Child 'set' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3442,7 +3442,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'setdiff'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:setdiff' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'setdiff/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:setdiff'.
 (tagpdf)                Relation is not allowed (struct 471, /text-unit --> struct 472) on line ...
 Package tagpdf Info: Parent-Child 'setdiff' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3456,7 +3456,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'share'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:share' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'share/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:share'.
 (tagpdf)                Relation is not allowed (struct 473, /text-unit --> struct 474) on line ...
 Package tagpdf Info: Parent-Child 'share' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3470,7 +3470,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'sin'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:sin' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'sin/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:sin'.
 (tagpdf)                Relation is not allowed (struct 475, /text-unit --> struct 476) on line ...
 Package tagpdf Info: Parent-Child 'sin' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3484,7 +3484,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'sinh'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:sinh' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'sinh/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:sinh'.
 (tagpdf)                Relation is not allowed (struct 477, /text-unit --> struct 478) on line ...
 Package tagpdf Info: Parent-Child 'sinh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3498,7 +3498,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'subset'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:subset' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'subset/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:subset'.
 (tagpdf)                Relation is not allowed (struct 479, /text-unit --> struct 480) on line ...
 Package tagpdf Info: Parent-Child 'subset' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3512,7 +3512,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'sum'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:sum' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'sum/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:sum'.
 (tagpdf)                Relation is not allowed (struct 481, /text-unit --> struct 482) on line ...
 Package tagpdf Info: Parent-Child 'sum' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3526,7 +3526,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'tan'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:tan' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'tan/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:tan'.
 (tagpdf)                Relation is not allowed (struct 483, /text-unit --> struct 484) on line ...
 Package tagpdf Info: Parent-Child 'tan' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3540,7 +3540,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'tanh'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:tanh' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'tanh/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:tanh'.
 (tagpdf)                Relation is not allowed (struct 485, /text-unit --> struct 486) on line ...
 Package tagpdf Info: Parent-Child 'tanh' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3554,7 +3554,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'tendsto'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:tendsto' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'tendsto/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:tendsto'.
 (tagpdf)                Relation is not allowed (struct 487, /text-unit --> struct 488) on line ...
 Package tagpdf Info: Parent-Child 'tendsto' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3568,7 +3568,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'times'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:times' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'times/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:times'.
 (tagpdf)                Relation is not allowed (struct 489, /text-unit --> struct 490) on line ...
 Package tagpdf Info: Parent-Child 'times' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3582,7 +3582,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'transpose'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:transpose' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'transpose/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:transpose'.
 (tagpdf)                Relation is not allowed (struct 491, /text-unit --> struct 492) on line ...
 Package tagpdf Info: Parent-Child 'transpose' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3596,7 +3596,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'true'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:true' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'true/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:true'.
 (tagpdf)                Relation is not allowed (struct 493, /text-unit --> struct 494) on line ...
 Package tagpdf Info: Parent-Child 'true' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3610,7 +3610,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'union'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:union' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'union/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:union'.
 (tagpdf)                Relation is not allowed (struct 495, /text-unit --> struct 496) on line ...
 Package tagpdf Info: Parent-Child 'union' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3624,7 +3624,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'uplimit'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:uplimit' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'uplimit/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:uplimit'.
 (tagpdf)                Relation is not allowed (struct 497, /text-unit --> struct 498) on line ...
 Package tagpdf Info: Parent-Child 'uplimit' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3638,7 +3638,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'variance'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:variance' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'variance/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:variance'.
 (tagpdf)                Relation is not allowed (struct 499, /text-unit --> struct 500) on line ...
 Package tagpdf Info: Parent-Child 'variance' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3652,7 +3652,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'vector'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:vector' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'vector/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:vector'.
 (tagpdf)                Relation is not allowed (struct 501, /text-unit --> struct 502) on line ...
 Package tagpdf Info: Parent-Child 'vector' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3666,7 +3666,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'vectorproduct'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:vectorproduct' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'vectorproduct/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:vectorproduct'.
 (tagpdf)                Relation is not allowed (struct 503, /text-unit --> struct 504) on line ...
 Package tagpdf Info: Parent-Child 'vectorproduct' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3680,7 +3680,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'xor'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'mathml:xor' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'xor/mathml'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'mathml:xor'.
 (tagpdf)                Relation is not allowed (struct 505, /text-unit --> struct 506) on line ...
 Package tagpdf Info: Parent-Child 'xor' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3820,7 +3820,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'L'.
 Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:L' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:L' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 524, /list) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 524 tagged /list
@@ -3837,7 +3837,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'L'.
 Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:L' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:L' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 526, /itemize) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 526 tagged /itemize
@@ -3854,7 +3854,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'L'.
 Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:L' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:L' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 528, /enumerate) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 528 tagged /enumerate
@@ -3871,7 +3871,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'L'.
 Package tagpdf Info: Parent-Child 'L' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:L' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'L/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:L' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 530, /description) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 530 tagged /description
@@ -3927,7 +3927,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'LI'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'latex:item' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'item/latex'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'latex:item'.
 (tagpdf)                Relation is not allowed (struct 537, /text-unit --> struct 538) on line ...
 Package tagpdf Info: Parent-Child 'LI' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3944,7 +3944,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Lbl'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Lbl'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'latex:itemlabel' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'itemlabel/latex'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'latex:itemlabel'.
 (tagpdf)                Relation is not allowed (struct 539, /text-unit --> struct 540) on line ...
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3958,7 +3958,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'LBody'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'latex:itembody' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'itembody/latex'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'latex:itembody'.
 (tagpdf)                Relation is not allowed (struct 541, /text-unit --> struct 542) on line ...
 Package tagpdf Info: Parent-Child 'LBody' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -3990,7 +3990,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Lbl'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Lbl'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'latex:footnotemark' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'footnotemark/latex'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'latex:footnotemark'.
 (tagpdf)                Relation is not allowed (struct 545, /text-unit --> struct 546) on line ...
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -4007,7 +4007,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Lbl'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Lbl'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'latex:footnotelabel' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'footnotelabel/latex'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'latex:footnotelabel'.
 (tagpdf)                Relation is not allowed (struct 547, /text-unit --> struct 548) on line ...
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -4027,7 +4027,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 550, /text-unit) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 550 tagged /text-unit
@@ -4059,7 +4059,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Sect' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 554, /theorem-like) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 554 tagged /theorem-like
@@ -4073,7 +4073,7 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Sub'.
 Package tagpdf Info: Parent-Child 'Document' --> 'Sub'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Document' --> 'latex:codeline' on line ...
-Package tagpdf Warning: Parent-Child 'Document/pdf2' --> 'codeline/latex'.
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'latex:codeline'.
 (tagpdf)                Relation is not allowed (struct 555, /text-unit --> struct 556) on line ...
 Package tagpdf Info: Parent-Child 'Sub' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -4119,7 +4119,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Sect' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 560, /figures) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 560 tagged /figures
@@ -4136,7 +4136,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from 'pdf2:Sect' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 562, /tables) on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 562 tagged /tables

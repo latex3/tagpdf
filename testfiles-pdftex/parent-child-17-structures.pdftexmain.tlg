@@ -31,7 +31,7 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
 Package tagpdf Info: Parent-Child 'P' --> 'P'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'P' --> 'P' on line ...
-Package tagpdf Warning: Parent-Child 'P/' --> 'P/pdf2'.
+Package tagpdf Warning: Parent-Child ':P' --> 'pdf2:P'.
 (tagpdf)                Relation is not allowed (struct 7, /P --> struct 8) on line ...
 Package tagpdf Warning: tag chapter is not known
 Package tagpdf Warning: Parent-Child 'P' --> 'chapter'.
@@ -41,7 +41,7 @@ Package tagpdf Warning: Parent-Child 'chapter' --> 'Strong'.
 Package tagpdf Info: Parent-Child 'Span' --> 'Sect'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'Span' --> 'Sect' on line ...
-Package tagpdf Warning: Parent-Child 'Span/' --> 'Sect/pdf2'.
+Package tagpdf Warning: Parent-Child ':Span' --> 'pdf2:Sect'.
 (tagpdf)                Relation is not allowed (struct 10, /Strong --> struct 11) on line ...
 Package tagpdf Info: Parent-Child 'Sect' --> 'Div'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -85,7 +85,7 @@ Package tagpdf Info: closing structure 5 tagged /Sect
 Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85')
 (tagpdf)             Rolemapped from: 'Part' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Part/' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child ':Part' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 3, /text-unit) on line ...
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1')

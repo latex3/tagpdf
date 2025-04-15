@@ -31,12 +31,12 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
 Package tagpdf Info: Parent-Child 'P' --> 'P'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'pdf2:P' --> 'pdf2:P' on line ...
-Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'P/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
 (tagpdf)                Relation is not allowed (struct 7, /P --> struct 8) on line ...
 Package tagpdf Info: Parent-Child 'P' --> 'H1'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'pdf2:P' --> 'latex-book:chapter' on line ...
-Package tagpdf Warning: Parent-Child 'P/pdf2' --> 'chapter/latex-book'.
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'latex-book:chapter'.
 (tagpdf)                Relation is not allowed (struct 8, /P --> struct 9) on line ...
 Package tagpdf Info: Parent-Child 'H1' --> 'Strong'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -50,7 +50,7 @@ Package tagpdf Info: closing structure 5 tagged /Sect
 Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'pdf2:Part' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Part/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 3, /text-unit) on line ...
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='‡')
@@ -79,7 +79,7 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'H1'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'pdf:StructTreeRoot' --> 'pdf2:H1' on line ...
-Package tagpdf Warning: Parent-Child 'StructTreeRoot/pdf' --> 'H1/pdf2'.
+Package tagpdf Warning: Parent-Child 'pdf:StructTreeRoot' --> 'pdf2:H1'.
 (tagpdf)                Relation is not allowed (struct 1, /StructTreeRoot --> struct 14) on line ...
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n')
@@ -129,7 +129,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅')
 (tagpdf)             Rolemapped from 'pdf2:Sect' --> 'MC' on line ...
-Package tagpdf Warning: Parent-Child 'Sect/pdf2' --> 'MC (realcontent)'.
+Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed (struct 19, /Sect) on line ...
 Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
 (tagpdf)             Relation is 1 (='0..n')
