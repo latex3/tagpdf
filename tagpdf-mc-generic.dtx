@@ -687,8 +687,9 @@
               }
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
-                \exp_args:NV\@@_struct_get_parentrole:nNN 
-                    \g_@@_struct_stack_current_tl 
+                \@@_struct_get_parentrole:enNN 
+                    {\g_@@_struct_stack_current_tl} 
+                    {rolemap}
                     \l_@@_get_parent_tmpa_tl
                     \l_@@_get_parent_tmpb_tl
                  \@@_check_parent_child:VVnnN
@@ -696,6 +697,19 @@
                    \l_@@_get_parent_tmpb_tl
                    {MC}{}
                    \l_@@_parent_child_check_tl 
+                \int_compare:nNnT {\l_@@_parent_child_check_tl} = {\tl_use:c{c_@@_role_rule_‡_tl}}     
+                 {
+                   \@@_struct_get_parentrole:enNN 
+                       {\g_@@_struct_stack_current_tl} 
+                       {parentrole}
+                       \l_@@_get_parent_tmpa_tl
+                       \l_@@_get_parent_tmpb_tl
+                   \@@_check_parent_child:VVnnN
+                     \l_@@_get_parent_tmpa_tl
+                     \l_@@_get_parent_tmpb_tl
+                     {MC}{}
+                     \l_@@_parent_child_check_tl                                   
+                 }
                 \int_compare:nNnT {\l_@@_parent_child_check_tl}<{0}
                  {
                     \prop_get:cnN 

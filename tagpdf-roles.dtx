@@ -970,7 +970,7 @@
               {\l_@@_tmpa_tl\l_@@_tmpb_tl}
            }
 %    \end{macrocode}
-% If the state is ‡ something is wrong ...
+% If the state is ‡ then we will have to retry with the real parent.
 %    \begin{macrocode}
          \int_compare:nNnT  
            {#4} = {\tl_use:c{c_@@_role_rule_‡_tl}}  
@@ -985,26 +985,26 @@
 %    \end{macrocode}
 %   This is the message, this can perhaps go into debug mode.
 %    \begin{macrocode}
-         \group_begin:
-         \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
-           {      
-             \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
-               {
-                 \tl_set:Nn \l_@@_tmpa_tl {unknown}
-               }
-             \tl_set:Nn \l_@@_tmpb_tl {#1}
-             \msg_note:nneee 
-               { tag } 
-               { role-parent-child } 
-               { #1 } 
-               { #2 }                                      
-               { 
-                 #4~(='\l_@@_tmpa_tl') 
-                  \iow_newline:
-                  #3
-               }   
-           }  
-           \group_end: 
+          \group_begin:
+          \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
+            {      
+              \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
+                {
+                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
+                }
+              \tl_set:Nn \l_@@_tmpb_tl {#1}
+              \msg_note:nneee 
+                { tag } 
+                { role-parent-child } 
+                { #1 } 
+                { #2 }                                      
+                { 
+                  #4~(='\l_@@_tmpa_tl') 
+                   \iow_newline:
+                   #3
+                }   
+            }  
+            \group_end:
        }
        {         
          \tl_set:Nn#4 {0}
@@ -1227,11 +1227,12 @@
 %    \begin{macrocode}
 %<base>\prg_new_protected_conditional:Npnn \tag_check_child:nn #1 #2 {T,F,TF}{\prg_return_true:}
 %<*package>
-\prg_set_protected_conditional:Npnn \tag_check_child:nn #1 #2 {T,F,TF}
+\prg_set_protected_conditional:Npnn \tag_check_child:nn #1 #2 {T,F,TF} %#1 tag, #2 NS
  {
    \seq_get:NN\g_@@_struct_stack_seq\l_@@_tmpa_tl
-   \@@_struct_get_parentrole:eNN
+   \@@_struct_get_parentrole:enNN
       {\l_@@_tmpa_tl}
+      {rolemap}
       \l_@@_get_parent_tmpa_tl
       \l_@@_get_parent_tmpb_tl
    \@@_check_parent_child:VVnnN
@@ -1239,6 +1240,20 @@
      \l_@@_get_parent_tmpb_tl
       {#1}{#2}
       \l_@@_parent_child_check_tl
+   \int_compare:nNnT {\l_@@_parent_child_check_tl} = {\tl_use:c{c_@@_role_rule_‡_tl}}     
+      {
+        \seq_get:NN\g_@@_struct_stack_seq\l_@@_tmpa_tl
+        \@@_struct_get_parentrole:enNN
+           {\l_@@_tmpa_tl}
+           {parentrole}
+           \l_@@_get_parent_tmpa_tl
+           \l_@@_get_parent_tmpb_tl
+        \@@_check_parent_child:VVnnN
+          \l_@@_get_parent_tmpa_tl
+          \l_@@_get_parent_tmpb_tl
+           {#1}{#2}
+           \l_@@_parent_child_check_tl
+      }      
    \int_compare:nNnTF {  \l_@@_parent_child_check_tl } < {0}
       {\prg_return_false:} 
       {\prg_return_true:}
