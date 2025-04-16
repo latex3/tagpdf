@@ -17,7 +17,7 @@ The structure 2 contains:
 >  S  =>  /Document
 >  rolemap  =>  {Document}{}
 >  parentrole  =>  {Document}{}
->  P  =>  parent structure: 1 = /StructTreeRoot
+>  parentnum  =>  1 = /StructTreeRoot
 >  NS  =>  pdf2
 The structure has the following kids:
 >  Struct 5
@@ -29,7 +29,7 @@ The structure 3 contains:
 >  S  =>  /figures
 >  rolemap  =>  {Sect}{}
 >  parentrole  =>  {Sect}{}
->  P  =>  no parent: stashed
+>  parentnum  =>  no parent: stashed
 >  NS  =>  user
 The structure has the following kids:
 > NONE
@@ -40,7 +40,7 @@ The structure 4 contains:
 >  S  =>  /tables
 >  rolemap  =>  {Sect}{}
 >  parentrole  =>  {Sect}{}
->  P  =>  no parent: stashed
+>  parentnum  =>  no parent: stashed
 >  NS  =>  user
 The structure has the following kids:
 > NONE
@@ -51,7 +51,7 @@ The structure 5 contains:
 >  S  =>  /text-unit
 >  rolemap  =>  {Part}{}
 >  parentrole  =>  {Document}{}
->  P  =>  parent structure: 2 = /Document
+>  parentnum  =>  2 = /Document
 >  NS  =>  user
 The structure has the following kids:
 >  Struct 6
@@ -63,7 +63,7 @@ The structure 6 contains:
 >  S  =>  /text
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
->  P  =>  parent structure: 5 = /text-unit
+>  parentnum  =>  5 = /text-unit
 >  NS  =>  user
 The structure has the following kids:
 >  MC 1
@@ -74,7 +74,7 @@ The structure 7 contains:
 >  S  =>  /text-unit
 >  rolemap  =>  {Part}{}
 >  parentrole  =>  {Document}{}
->  P  =>  parent structure: 2 = /Document
+>  parentnum  =>  2 = /Document
 >  NS  =>  user
 The structure has the following kids:
 >  Struct 8
@@ -86,7 +86,7 @@ The structure 8 contains:
 >  S  =>  /text
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
->  P  =>  parent structure: 7 = /text-unit
+>  parentnum  =>  7 = /text-unit
 >  NS  =>  user
 The structure has the following kids:
 >  MC 2

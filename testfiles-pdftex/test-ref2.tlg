@@ -67,7 +67,7 @@ The structure 2 contains:
 >  NS  =>  pdf2
 >  rolemap  =>  {Document}{pdf2}
 >  parentrole  =>  {Document}{pdf2}
->  P  =>  parent structure: 1 = /StructTreeRoot
+>  parentnum  =>  1 = /StructTreeRoot
 The structure has the following kids:
 >  Struct 5
 >  Struct 8
@@ -82,7 +82,7 @@ The structure 3 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Sect}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
->  P  =>  no parent: stashed
+>  parentnum  =>  no parent: stashed
 The structure has the following kids:
 > NONE
 =========================
@@ -93,7 +93,7 @@ The structure 4 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Sect}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
->  P  =>  no parent: stashed
+>  parentnum  =>  no parent: stashed
 The structure has the following kids:
 > NONE
 =========================
@@ -103,7 +103,7 @@ The structure 5 contains:
 >  S  =>  /Section
 >  rolemap  =>  {Section}{}
 >  parentrole  =>  {Section}{}
->  P  =>  parent structure: 2 = /Document
+>  parentnum  =>  2 = /Document
 >  NS  =>  
 The structure has the following kids:
 >  MC 1
@@ -116,7 +116,7 @@ The structure 6 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Section}{}
->  P  =>  parent structure: 5 = /Section
+>  parentnum  =>  5 = /Section
 The structure has the following kids:
 >  Struct 7
 =========================
@@ -128,7 +128,7 @@ The structure 7 contains:
 >  NS  =>  latex
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 6 = /text-unit
+>  parentnum  =>  6 = /text-unit
 The structure has the following kids:
 >  MC 2
 =========================
@@ -138,7 +138,7 @@ The structure 8 contains:
 >  S  =>  /Section
 >  rolemap  =>  {Section}{}
 >  parentrole  =>  {Section}{}
->  P  =>  parent structure: 2 = /Document
+>  parentnum  =>  2 = /Document
 >  NS  =>  
 The structure has the following kids:
 >  MC 3
@@ -151,7 +151,7 @@ The structure 9 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Section}{}
->  P  =>  parent structure: 8 = /Section
+>  parentnum  =>  8 = /Section
 The structure has the following kids:
 >  Struct 10
 =========================
@@ -163,7 +163,7 @@ The structure 10 contains:
 >  NS  =>  latex
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 9 = /text-unit
+>  parentnum  =>  9 = /text-unit
 The structure has the following kids:
 >  MC 4
 =========================
@@ -173,7 +173,7 @@ The structure 11 contains:
 >  S  =>  /Section
 >  rolemap  =>  {Section}{}
 >  parentrole  =>  {Section}{}
->  P  =>  parent structure: 2 = /Document
+>  parentnum  =>  2 = /Document
 >  NS  =>  
 The structure has the following kids:
 >  MC 5
@@ -186,7 +186,7 @@ The structure 12 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Section}{}
->  P  =>  parent structure: 11 = /Section
+>  parentnum  =>  11 = /Section
 The structure has the following kids:
 >  Struct 13
 =========================
@@ -198,7 +198,7 @@ The structure 13 contains:
 >  NS  =>  latex
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 12 = /text-unit
+>  parentnum  =>  12 = /text-unit
 The structure has the following kids:
 >  MC 6
 =========================
@@ -210,7 +210,7 @@ The structure 14 contains:
 >  NS  =>  pdf2
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 2 = /Document
+>  parentnum  =>  2 = /Document
 The structure has the following kids:
 >  MC 7
 >  Struct 15
@@ -222,7 +222,7 @@ The structure 15 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 14 = /P
+>  parentnum  =>  14 = /P
 The structure has the following kids:
 >  Struct 16
 =========================
@@ -234,7 +234,7 @@ The structure 16 contains:
 >  NS  =>  latex
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 15 = /text-unit
+>  parentnum  =>  15 = /text-unit
 The structure has the following kids:
 >  MC 8
 =========================
@@ -245,7 +245,7 @@ The structure 17 contains:
 >  NS  =>  pdf2
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 2 = /Document
+>  parentnum  =>  2 = /Document
 >  Ref  =>  \__tag_struct_Ref_label:nN {sec1},\__tag_struct_Ref_dest:nN {sec2dest},\__tag_struct_Ref_num:nN {\RefProperty {tagpdfstruct-sec3}{tagstruct}},
 The structure has the following kids:
 >  MC 9
@@ -258,7 +258,7 @@ The structure 18 contains:
 >  NS  =>  latex
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 17 = /P
+>  parentnum  =>  17 = /P
 The structure has the following kids:
 >  Struct 19
 =========================
@@ -270,7 +270,7 @@ The structure 19 contains:
 >  NS  =>  latex
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  P  =>  parent structure: 18 = /text-unit
+>  parentnum  =>  18 = /text-unit
 The structure has the following kids:
 >  MC 10
 =========================
