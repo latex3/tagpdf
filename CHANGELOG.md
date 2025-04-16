@@ -12,6 +12,7 @@ this project uses date-based 'snapshot' version identifiers.
  - parent-child-rule of mtext to allow text and links inside.
  - improve parent-child rule tests for Part, Div and Nonstruct
  - better rolemapping messages (issue #112)
+ - store structure number of parent instead of object reference
   
 ### Fixed
  - mime type of files added with the mathml key to structures. 

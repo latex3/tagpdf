@@ -1000,12 +1000,12 @@
 \cs_new:Nn\@@_struct_format_P:nnN{}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_struct_format_parent:nnN}
+% \begin{macro}{\@@_struct_format_parentnum:nnN}
 % parent is a structure number and
 % should expand to the object reference.
 % This will replace the P key.
 %    \begin{macrocode}
-\cs_new_protected:Nn\@@_struct_format_parent:nnN
+\cs_new_protected:Nn\@@_struct_format_parentnum:nnN
   {
     \tl_put_right:Ne #3 { ~/P~\pdf_object_ref_indexed:nn { @@/struct} { #2 } }
   }
@@ -1044,11 +1044,11 @@
 % Simply ignoring it is problematic as it is also recorded in 
 % the IDTree, so we make an artifact out of it.
 %    \begin{macrocode}
-        \prop_get:cnNF { g_@@_struct_#1_prop } {parent-num}\l_@@_tmpb_tl
+        \prop_get:cnNF { g_@@_struct_#1_prop } {parentnum}\l_@@_tmpb_tl
           { 
 %            \prop_gput:cne { g_@@_struct_#1_prop } {P}
 %              {\pdf_object_ref_indexed:nn { @@/struct }{1}}
-            \prop_gput:cne { g_@@_struct_#1_prop } {parent-num}{1}  
+            \prop_gput:cne { g_@@_struct_#1_prop } {parentnum}{1}  
             \prop_gput:cne { g_@@_struct_#1_prop } {S}{/Artifact}
             \seq_if_empty:cF {g_@@_struct_kids_#1_seq}
               {
@@ -1845,7 +1845,7 @@
 %              }
             \@@_struct_prop_gput:nne
               { \int_use:N \c@g_@@_struct_abs_int }           
-              { parent-num }
+              { parentnum }
               {
                 \l_@@_struct_stack_parent_tmpa_tl 
               }              
@@ -1870,12 +1870,12 @@
 %<debug>             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
 %<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-%<debug>             { parent-num }
+%<debug>             { parentnum }
 %<debug>             { 
 %<debug>               \bool_if:NTF \l_@@_struct_elem_stash_bool
 %<debug>                 {no~parent:~stashed}
 %<debug>                 {
-%<debug>                   parent~structure:~\l_@@_struct_stack_parent_tmpa_tl\c_space_tl =~
+%<debug>                   \l_@@_struct_stack_parent_tmpa_tl\c_space_tl =~
 %<debug>                   \prop_item:cn{ g__tag_struct_\l_@@_struct_stack_parent_tmpa_tl _prop }{S}
 %<debug>                 }  
 %<debug>             }
@@ -1963,7 +1963,7 @@
 %              }
             \@@_prop_gput:cne
               { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }    
-              { parent-num }
+              { parentnum }
               {
                 \g_@@_struct_stack_current_tl 
               }               
@@ -1972,9 +1972,9 @@
 %    \begin{macrocode}
 %<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
-%<debug>             { parent-num }
+%<debug>             { parentnum }
 %<debug>             { 
-%<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
+%<debug>               \g_@@_struct_stack_current_tl\c_space_tl=~
 %<debug>               \g_@@_struct_tag_tl
 %<debug>             }
 %    \end{macrocode}
@@ -2033,7 +2033,7 @@
           {
             \prop_get:cnNT
               {g_@@_struct_#1_prop}
-              {parent-num}
+              {parentnum}
               \l_@@_tmpa_tl
               {
                 \msg_warning:nnn { tag } {struct-used-twice} {#1}
@@ -2051,15 +2051,15 @@
 %              }
              \@@_struct_prop_gput:nne
               { #1 }            
-              { parent-num }
+              { parentnum }
               {
                 \g_@@_struct_stack_current_tl 
               }              
 %<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_#1_prop }
-%<debug>             { parent-num }
+%<debug>             { parentnum }
 %<debug>             { 
-%<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
+%<debug>               \g_@@_struct_stack_current_tl\c_space_tl=~
 %<debug>               \g_@@_struct_tag_tl
 %<debug>             }
 %    \end{macrocode}
