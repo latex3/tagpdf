@@ -991,14 +991,26 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_struct_format_rolemap:nnN,\@@_struct_format_parentrole:nnN}
-% This two entries should not end in the PDF.
+% \begin{macro}{\@@_struct_format_rolemap:nnN,\@@_struct_format_parentrole:nnN,\@@_struct_format_P:nnN}
+% This three entries should not end in the PDF.
+% Todo: check if the P key can be dropped and replaced by the parent key.
 %    \begin{macrocode}
 \cs_new:Nn\@@_struct_format_rolemap:nnN{}
 \cs_new:Nn\@@_struct_format_parentrole:nnN{}
+\cs_new:Nn\@@_struct_format_P:nnN{}
 %    \end{macrocode}
 % \end{macro}
-
+% \begin{macro}{\@@_struct_format_parent:nnN}
+% parent is a structure number and
+% should expand to the object reference.
+% This will replace the P key.
+%    \begin{macrocode}
+\cs_new_protected:Nn\@@_struct_format_parent:nnN
+  {
+    \tl_put_right:Ne #3 { ~/P~\pdf_object_ref_indexed:nn { @@/struct} { #2 } }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_struct_format_Ref:nnN}
 % Ref is an array, we store values as a clist of commands that must
 % be executed here, the formatting has to add also brackets. 
@@ -1032,10 +1044,11 @@
 % Simply ignoring it is problematic as it is also recorded in 
 % the IDTree, so we make an artifact out of it.
 %    \begin{macrocode}
-        \prop_get:cnNF { g_@@_struct_#1_prop } {P}\l_@@_tmpb_tl
+        \prop_get:cnNF { g_@@_struct_#1_prop } {parent}\l_@@_tmpb_tl
           { 
             \prop_gput:cne { g_@@_struct_#1_prop } {P}
               {\pdf_object_ref_indexed:nn { @@/struct }{1}}
+            \prop_gput:cne { g_@@_struct_#1_prop } {parent}{1}  
             \prop_gput:cne { g_@@_struct_#1_prop } {S}{/Artifact}
             \seq_if_empty:cF {g_@@_struct_kids_#1_seq}
               {
@@ -1830,6 +1843,12 @@
               {
                 \pdf_object_ref_indexed:nn { @@/struct} { \l_@@_struct_stack_parent_tmpa_tl }
               }
+            \@@_struct_prop_gput:nne
+              { \int_use:N \c@g_@@_struct_abs_int }           
+              { parent }
+              {
+                \l_@@_struct_stack_parent_tmpa_tl 
+              }              
 %    \end{macrocode}
 %    \begin{macrocode}
             %record this structure as kid:
@@ -1942,6 +1961,12 @@
               {
                 \pdf_object_ref_indexed:nn { @@/struct } { \g_@@_struct_stack_current_tl }
               }
+           \@@_struct_prop_gput:nne
+              { \int_use:N \c@g_@@_struct_abs_int }           
+              { parent }
+              {
+                \g_@@_struct_stack_current_tl 
+              }               
 %    \end{macrocode}
 % debug code
 %    \begin{macrocode}
@@ -2008,7 +2033,7 @@
           {
             \prop_get:cnNT
               {g_@@_struct_#1_prop}
-              {P}
+              {parent}
               \l_@@_tmpa_tl
               {
                 \msg_warning:nnn { tag } {struct-used-twice} {#1}
@@ -2024,6 +2049,12 @@
               {
                 \pdf_object_ref_indexed:nn { @@/struct }{ \g_@@_struct_stack_current_tl }
               }
+             \@@_struct_prop_gput:nne
+              { #1 }            
+              { parent }
+              {
+                \g_@@_struct_stack_current_tl 
+              }              
 %<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_#1_prop }
 %<debug>             { P }
