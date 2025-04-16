@@ -1824,25 +1824,10 @@
                    (struct~\l_@@_struct_stack_parent_tmpa_tl,~\l_@@_tmpa_tl
                     \c_space_tl-->~struct~\int_eval:n {\c@g_@@_struct_abs_int})
                  }  
-                \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
-                \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
-                \@@_role_remap:
-                \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
-                \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
-                \@@_struct_set_tag_info:eVV 
-                  { \int_use:N \c@g_@@_struct_abs_int }
-                    \g_@@_struct_tag_tl               
-                    \g_@@_struct_tag_NS_tl                                 
               }
 %    \end{macrocode}
-% Set the Parent.
+% Set the Parent structure number.
 %    \begin{macrocode}
-%             \@@_struct_prop_gput:nne
-%              { \int_use:N \c@g_@@_struct_abs_int }           
-%              { P }
-%              {
-%                \pdf_object_ref_indexed:nn { @@/struct} { \l_@@_struct_stack_parent_tmpa_tl }
-%              }
             \@@_struct_prop_gput:nne
               { \int_use:N \c@g_@@_struct_abs_int }           
               { parentnum }
@@ -1997,15 +1982,7 @@
               \l_@@_parent_child_check_tl             
             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
               {
-                \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
-                \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
-                \@@_role_remap:
-                \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
-                \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
-                \@@_struct_set_tag_info:eVV 
-                  { \int_use:N \c@g_@@_struct_abs_int }
-                    \g_@@_struct_tag_tl               
-                    \g_@@_struct_tag_NS_tl                                 
+               % TODO warn message?
               }              
           }
           {
@@ -2082,15 +2059,7 @@
               \l_@@_parent_child_check_tl             
             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
               {
-                \cs_set_eq:NN \l_@@_role_remap_tag_tl \g_@@_struct_tag_tl 
-                \cs_set_eq:NN \l_@@_role_remap_NS_tl \g_@@_struct_tag_NS_tl               
-                \@@_role_remap:
-                \cs_gset_eq:NN \g_@@_struct_tag_tl \l_@@_role_remap_tag_tl 
-                \cs_gset_eq:NN  \g_@@_struct_tag_NS_tl \l_@@_role_remap_NS_tl
-                \@@_struct_set_tag_info:eVV 
-                  { \int_use:N \c@g_@@_struct_abs_int }
-                    \g_@@_struct_tag_tl               
-                    \g_@@_struct_tag_NS_tl                                 
+                % TODO: message??
               }
           }
           {

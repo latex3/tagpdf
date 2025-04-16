@@ -1260,37 +1260,6 @@
  } 
 %    \end{macrocode}
 % \end{macro}
-%
-% \subsection{Remapping of tags}
-% In some context it can be necessary to remap or replace the tags. 
-% That means instead of tag=H1 or tag=section one wants the effect of tag=Span.
-% Or instead of tag=P one wants tag=Code.
-% 
-% The following command provide some general interface for this.
-% The core idea is that before a tag is set it is fed through a function
-% that can change it. We want to be able to chain such functions,
-% so all of them manipulate the same variables.
-% 
-% \begin{variable}{\l_@@_role_remap_tag_tl,\l_@@_role_remap_NS_tl}
-%    \begin{macrocode}
-\tl_new:N \l_@@_role_remap_tag_tl
-\tl_new:N \l_@@_role_remap_NS_tl
-%    \end{macrocode}
-% \end{variable}
-% \begin{macro}{\@@_role_remap:}
-% This function is used in the structure and the mc code before using a tag. By default it
-% does nothing with the tl vars. Perhaps this should be a hook?
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_role_remap: {  } 
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_role_remap_id: }
-% This is copy in case we have to restore the main command.
-%    \begin{macrocode}
-\cs_set_eq:NN \@@_role_remap_id: \@@_role_remap:
-%    \end{macrocode}
-% \end{macro}
 % 
 %
 % \subsection{Key-val user interface}
