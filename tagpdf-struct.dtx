@@ -1044,11 +1044,11 @@
 % Simply ignoring it is problematic as it is also recorded in 
 % the IDTree, so we make an artifact out of it.
 %    \begin{macrocode}
-        \prop_get:cnNF { g_@@_struct_#1_prop } {parent}\l_@@_tmpb_tl
+        \prop_get:cnNF { g_@@_struct_#1_prop } {parent-num}\l_@@_tmpb_tl
           { 
-            \prop_gput:cne { g_@@_struct_#1_prop } {P}
-              {\pdf_object_ref_indexed:nn { @@/struct }{1}}
-            \prop_gput:cne { g_@@_struct_#1_prop } {parent}{1}  
+%            \prop_gput:cne { g_@@_struct_#1_prop } {P}
+%              {\pdf_object_ref_indexed:nn { @@/struct }{1}}
+            \prop_gput:cne { g_@@_struct_#1_prop } {parent-num}{1}  
             \prop_gput:cne { g_@@_struct_#1_prop } {S}{/Artifact}
             \seq_if_empty:cF {g_@@_struct_kids_#1_seq}
               {
@@ -1837,15 +1837,15 @@
 %    \end{macrocode}
 % Set the Parent.
 %    \begin{macrocode}
-             \@@_struct_prop_gput:nne
-              { \int_use:N \c@g_@@_struct_abs_int }           
-              { P }
-              {
-                \pdf_object_ref_indexed:nn { @@/struct} { \l_@@_struct_stack_parent_tmpa_tl }
-              }
+%             \@@_struct_prop_gput:nne
+%              { \int_use:N \c@g_@@_struct_abs_int }           
+%              { P }
+%              {
+%                \pdf_object_ref_indexed:nn { @@/struct} { \l_@@_struct_stack_parent_tmpa_tl }
+%              }
             \@@_struct_prop_gput:nne
               { \int_use:N \c@g_@@_struct_abs_int }           
-              { parent }
+              { parent-num }
               {
                 \l_@@_struct_stack_parent_tmpa_tl 
               }              
@@ -1870,7 +1870,7 @@
 %<debug>             { g_@@_struct_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
 %<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }
-%<debug>             { P }
+%<debug>             { parent-num }
 %<debug>             { 
 %<debug>               \bool_if:NTF \l_@@_struct_elem_stash_bool
 %<debug>                 {no~parent:~stashed}
@@ -1955,15 +1955,15 @@
               { \g_@@_struct_stack_current_tl }
               { \property_ref:enn{tagpdfstruct-#1}{tagstruct}{1} }
             %add the current structure to the labeled one as parents
+            %\@@_prop_gput:cne
+%              { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
+%              { P }
+%              {
+%                \pdf_object_ref_indexed:nn { @@/struct } { \g_@@_struct_stack_current_tl }
+%              }
             \@@_prop_gput:cne
-              { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
-              { P }
-              {
-                \pdf_object_ref_indexed:nn { @@/struct } { \g_@@_struct_stack_current_tl }
-              }
-           \@@_struct_prop_gput:nne
-              { \int_use:N \c@g_@@_struct_abs_int }           
-              { parent }
+              { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }    
+              { parent-num }
               {
                 \g_@@_struct_stack_current_tl 
               }               
@@ -1972,7 +1972,7 @@
 %    \begin{macrocode}
 %<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
-%<debug>             { P }
+%<debug>             { parent-num }
 %<debug>             { 
 %<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
 %<debug>               \g_@@_struct_tag_tl
@@ -2033,7 +2033,7 @@
           {
             \prop_get:cnNT
               {g_@@_struct_#1_prop}
-              {parent}
+              {parent-num}
               \l_@@_tmpa_tl
               {
                 \msg_warning:nnn { tag } {struct-used-twice} {#1}
@@ -2043,21 +2043,21 @@
               { \g_@@_struct_stack_current_tl }
               { #1 }
             %add the current structure to \#1 as parent
+%             \@@_struct_prop_gput:nne
+%              { #1 }            
+%              { P }
+%              {
+%                \pdf_object_ref_indexed:nn { @@/struct }{ \g_@@_struct_stack_current_tl }
+%              }
              \@@_struct_prop_gput:nne
               { #1 }            
-              { P }
-              {
-                \pdf_object_ref_indexed:nn { @@/struct }{ \g_@@_struct_stack_current_tl }
-              }
-             \@@_struct_prop_gput:nne
-              { #1 }            
-              { parent }
+              { parent-num }
               {
                 \g_@@_struct_stack_current_tl 
               }              
 %<debug>           \prop_gput:cne
 %<debug>             { g_@@_struct_debug_#1_prop }
-%<debug>             { P }
+%<debug>             { parent-num }
 %<debug>             { 
 %<debug>               parent~structure:~\g_@@_struct_stack_current_tl\c_space_tl=~
 %<debug>               \g_@@_struct_tag_tl
