@@ -973,7 +973,7 @@
 % If the state is ‡ then we will have to retry with the real parent.
 %    \begin{macrocode}
          \int_compare:nNnT  
-           {#4} = {\tl_use:c{c_@@_role_rule_‡_tl}}  
+           {#4} = { \c_@@_role_rule_checkparent_tl }  
            {            
              %warn ? 
 %    \end{macrocode}
@@ -1240,7 +1240,7 @@
      \l_@@_get_parent_tmpb_tl
       {#1}{#2}
       \l_@@_parent_child_check_tl
-   \int_compare:nNnT {\l_@@_parent_child_check_tl} = {\tl_use:c{c_@@_role_rule_‡_tl}}     
+   \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }     
       {
         \seq_get:NN\g_@@_struct_stack_seq\l_@@_tmpa_tl
         \@@_struct_get_parentrole:enNN
