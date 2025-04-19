@@ -134,7 +134,7 @@
     \seq_gput_left:Nn #1 { #2 }
     \lua_now:e { table.insert(ltx.@@.tables.\cs_to_str:N#1, "#2") }
   }
-  
+
 %Hm not quite sure about the naming
 \cs_set:Npn \@@_seq_item:cn #1 #2
   {
@@ -162,7 +162,7 @@
  }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 %    \begin{macrocode}
 %</luatex>
 %    \end{macrocode}
@@ -201,6 +201,7 @@ the main table is named ltx.@@. It contains the functions and also the data
 collected during the compilation.
 
 ltx.@@.mc     will contain mc connected data.
+ltx.@@.role   will contain data related to parent-child relations.
 ltx.@@.struct will contain structure related data.
 ltx.@@.page   will contain page data
 ltx.@@.tables contains also data from mc and struct (from older code). This needs cleaning up.
@@ -234,9 +235,9 @@ functions
  ltx.@@.trace.show_prop: shows a prop
  ltx.@@.trace.log
  ltx.@@.trace.showspaces : boolean
- 
+
  ltx.tag.get_structnum: number, shows the current structure number
- ltx.tag.get_structnum_next: number, shows the next structure number 
+ ltx.tag.get_structnum_next: number, shows the next structure number
 --]]
 
 %    \end{macrocode}
@@ -315,6 +316,11 @@ ltx             = ltx        or { }
 ltx.tag         = ltx.tag       or { } -- user commands
 ltx.@@          = ltx.@@        or { }
 ltx.@@.mc       = ltx.@@.mc     or  { } -- mc data
+ltx.@@.role     = ltx.@@.role   or  { } -- parent-child data
+ltx.@@.role.states = ltx.@@.role.states   or  { } -- the states
+ltx.@@.role.index  = ltx.@@.role.index    or  { } -- standard types to index
+                                                  --- numbers
+ltx.@@.role.matrix = ltx.@@.role.matrix   or  { } -- implements the matrix
 ltx.@@.struct   = ltx.@@.struct or  { } -- struct data
 ltx.@@.tables   = ltx.@@.tables or  { } -- tables created with new prop and new seq.
                                         -- wasn't a so great idea ...
@@ -331,24 +337,24 @@ ltx.@@.conf     = ltx.@@.conf   or  { } -- configuration variables
 
 % \begin{macro}{\}
 %    \begin{macrocode}
-local @@_get_struct_num = 
+local @@_get_struct_num =
  function()
   local a = token.get_macro("g__tag_struct_stack_current_tl")
   return a
  end
- 
-local @@_get_struct_counter = 
+
+local @@_get_struct_counter =
  function()
   local a = tex.getcount("c@g_@@_struct_abs_int")
   return a
  end
-  
-local @@_get_struct_num_next = 
+
+local @@_get_struct_num_next =
  function()
   local a = tex.getcount("c@g_@@_struct_abs_int") + 1
   return a
  end
-  
+
 ltx.tag.get_struct_num = @@_get_struct_num
 ltx.tag.get_struct_counter = @@_get_struct_counter
 ltx.tag.get_struct_num_next = @@_get_struct_num_next
@@ -515,13 +521,13 @@ ltx.@@.tables.role_attribute_tag = {}
 % \end{variable}
 % \begin{macro}{ltx.@@.func.alloctag}
 %    \begin{macrocode}
-local @@_alloctag = 
+local @@_alloctag =
  function (tag)
-   if not ltx.@@.tables.role_tag_attribute[tag] then    
+   if not ltx.@@.tables.role_tag_attribute[tag] then
     table.insert(ltx.@@.tables.role_attribute_tag,tag)
     ltx.@@.tables.role_tag_attribute[tag]=#ltx.@@.tables.role_attribute_tag
-    @@_log  ("Add "..tag.." "..ltx.@@.tables.role_tag_attribute[tag],3)    
-   end 
+    @@_log  ("Add "..tag.." "..ltx.@@.tables.role_tag_attribute[tag],3)
+   end
  end
 ltx.@@.func.alloctag = @@_alloctag
 %    \end{macrocode}
@@ -657,16 +663,16 @@ if tex.outputmode == 0 then
  if token.get_macro("c_sys_backend_str") == "dvipdfmx" then
   function @@_backend_create_emc_node ()
     local emcnode = nodenew("whatsit","special")
-      emcnode.data = "pdf:code EMC"      
+      emcnode.data = "pdf:code EMC"
     return emcnode
-  end  
+  end
  else -- assume a dvips variant
   function @@_backend_create_emc_node ()
     local emcnode = nodenew("whatsit","special")
-      emcnode.data = "ps:SDict begin mark /EMC pdfmark end"      
+      emcnode.data = "ps:SDict begin mark /EMC pdfmark end"
     return emcnode
   end
- end 
+ end
 else -- pdf mode
   function @@_backend_create_emc_node ()
     local emcnode = nodenew("whatsit","pdf_literal")
@@ -674,8 +680,8 @@ else -- pdf mode
       emcnode.mode=1
     return emcnode
   end
-end 
-   
+end
+
 local function @@_insert_emc_node (head,current)
   local emcnode= @@_backend_create_emc_node()
   head = node.insert_before(head,current,emcnode)
@@ -691,16 +697,16 @@ if tex.outputmode == 0 then
  if token.get_macro("c_sys_backend_str") == "dvipdfmx" then
   function @@_backend_create_bmc_node (tag)
     local bmcnode = nodenew("whatsit","special")
-    bmcnode.data = "pdf:code /"..tag.." BMC"    
+    bmcnode.data = "pdf:code /"..tag.." BMC"
     return bmcnode
-  end  
+  end
  else -- assume a dvips variant
   function @@_backend_create_bmc_node (tag)
     local bmcnode = nodenew("whatsit","special")
     bmcnode.data = "ps:SDict begin mark/"..tag.." /BMC pdfmark end"
     return bmcnode
   end
- end 
+ end
 else -- pdf mode
   function @@_backend_create_bmc_node (tag)
     local bmcnode = nodenew("whatsit","pdf_literal")
@@ -708,7 +714,7 @@ else -- pdf mode
     bmcnode.mode=1
     return bmcnode
   end
-end 
+end
 
 local function @@_insert_bmc_node (head,current,tag)
  local bmcnode = @@_backend_create_bmc_node (tag)
@@ -727,16 +733,16 @@ if tex.outputmode == 0 then
  if token.get_macro("c_sys_backend_str") == "dvipdfmx" then
   function @@_backend_create_bdc_node (tag,dict)
     local bdcnode = nodenew("whatsit","special")
-    bdcnode.data = "pdf:code /"..tag.."<<"..dict..">> BDC"    
+    bdcnode.data = "pdf:code /"..tag.."<<"..dict..">> BDC"
     return bdcnode
-  end  
+  end
  else -- assume a dvips variant
   function @@_backend_create_bdc_node (tag,dict)
     local bdcnode = nodenew("whatsit","special")
     bdcnode.data = "ps:SDict begin mark/"..tag.."<<"..dict..">> /BDC pdfmark end"
     return bdcnode
   end
- end 
+ end
 else -- pdf mode
   function @@_backend_create_bdc_node (tag,dict)
     local bdcnode = nodenew("whatsit","pdf_literal")
@@ -744,7 +750,7 @@ else -- pdf mode
     bdcnode.mode=1
     return bdcnode
   end
-end 
+end
 
 local function @@_insert_bdc_node (head,current,tag,dict)
  bdcnode= @@_backend_create_bdc_node (tag,dict)
@@ -764,7 +770,7 @@ local function @@_pdf_object_ref (name,index)
    else
      local tokenname = 'c__pdf_object_'..name..'/'..index..'_int'
      object = token.create(tokenname).mode ..' 0 R'
-   end 
+   end
    return object
 end
 ltx.@@.func.pdf_object_ref = @@_pdf_object_ref
@@ -780,7 +786,7 @@ ltx.@@.func.pdf_object_ref = @@_pdf_object_ref
 local function @@_show_spacemark (head,current,color,height)
  local markcolor = color or "1 0 0"
  local markheight = height or 10
- local pdfstring 
+ local pdfstring
  if tex.outputmode == 0 then
   -- ignore dvi mode for now
  else
@@ -856,7 +862,7 @@ local function @@_mark_spaces (head)
       if glyph.next and (glyph.next.id == GLUE)
         and not inside_math  and (glyph.next.width >0) and n.subtype==0
       then
-        nodesetattribute(glyph.next,iwspaceattributeid,1) 
+        nodesetattribute(glyph.next,iwspaceattributeid,1)
         --  changed 2024-01-18, issue #72
         nodesetattribute(glyph.next,iwfontattributeid,default_currfontid)
       -- for debugging
@@ -913,14 +919,14 @@ default_space_char.font  = default_fontid
 %    \begin{macrocode}
 local function @@_font_has_space (fontid)
  t= fonts.hashes.identifiers[fontid]
- if luaotfload.aux.slot_of_name(fontid,"space") 
-    or t.characters and t.characters[32] and t.characters[32]["unicode"]==32 
+ if luaotfload.aux.slot_of_name(fontid,"space")
+    or t.characters and t.characters[32] and t.characters[32]["unicode"]==32
  then
     return true
  else
     return false
- end      
-end 
+ end
+end
 %    \end{macrocode}
 % \begin{macro}
 %   {
@@ -936,10 +942,10 @@ local function @@_space_chars_shipout (box)
  local head = box.head
   if head then
     for n in node.traverse(head) do
-      local spaceattr = -1  
+      local spaceattr = -1
       if not nodehasattribute(n,iwspaceOffattributeid) then
         spaceattr = nodegetattribute(n,iwspaceattributeid)  or -1
-      end  
+      end
       if n.id == HLIST  then -- enter the hlist
          @@_space_chars_shipout (n)
       elseif n.id == VLIST then -- enter the vlist
@@ -953,8 +959,8 @@ local function @@_space_chars_shipout (box)
           local space_char = node.copy(default_space_char)
           local curfont    = nodegetattribute(n,iwfontattributeid)
           ltx.@@.trace.log ("INFO SPACE-FUNCTION-FONT: ".. tostring(curfont),3)
-          if curfont and 
-            -- luaotfload.aux.slot_of_name(curfont,"space") 
+          if curfont and
+            -- luaotfload.aux.slot_of_name(curfont,"space")
             @@_font_has_space (curfont)
           then
             space_char.font=curfont

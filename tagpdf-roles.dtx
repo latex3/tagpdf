@@ -62,7 +62,7 @@
 %
 % The key-value list knows the following keys:
 % \begin{description}
-% \item[\texttt{tag}] This is the name of the new tag as it should 
+% \item[\texttt{tag}] This is the name of the new tag as it should
 % then be used in \cs{tagstructbegin}.
 % \item[\texttt{namespace}] This is the namespace of the new tag.
 %   The value should be a shorthand of a namespace.
@@ -74,24 +74,24 @@
 %  In a PDF 1.7 or earlier this is normally a tag from the |pdf| set,
 %  in PDF 2.0 from the |pdf|, |pdf2| and |mathml| set.
 %  It can also be a user tag. The tag must be declared before, as the code retrieves
-%  the class of the new tag from it. 
+%  the class of the new tag from it.
 %  The PDF format allows mapping to be done transitively.
 %  But tagpdf can't/won't check such unusual role mapping.
 % \item[\texttt{role-namespace}] If the role is a known tag
 %  the default value is the default namespace of this tag.
-%  With this key a specific namespace can be forced.  
+%  With this key a specific namespace can be forced.
 % \end{description}
-% 
-% Namespaces are mostly a PDF 2.0 property, but it doesn't harm to 
+%
+% Namespaces are mostly a PDF 2.0 property, but it doesn't harm to
 % set them also in a PDF 1.7 or earlier.
 % \end{function}
-% 
+%
 % \begin{function}[TF]{\tag_check_child:nn}
 % \begin{syntax}
 % \cs{tag_check_child:nnTF} \Arg{tag} \Arg{namespace} \Arg{true code} \Arg{false code}
 % \end{syntax}
 % This checks if the tag \meta{tag} from the name space \meta{namespace}
-% can be used at the current position. In tagpdf-base it is always true. 
+% can be used at the current position. In tagpdf-base it is always true.
 % \end{function}
 % \end{documentation}
 % \begin{implementation}
@@ -107,102 +107,102 @@
 %<*package>
 %    \end{macrocode}
 %
-% 
+%
 % \subsection{Variables}
-% Tags are used in structures (\cs{tagstructbegin}) and mc-chunks (\cs{tagmcbegin}). 
-% 
-% They have a name (a string), in lua a number (for the lua attribute), and 
+% Tags are used in structures (\cs{tagstructbegin}) and mc-chunks (\cs{tagmcbegin}).
+%
+% They have a name (a string), in lua a number (for the lua attribute), and
 % in PDF 2.0 belong to one or more name spaces, with one being the default
 % name space.
-% 
-% Tags of structures are classified, e.g. as grouping, 
+%
+% Tags of structures are classified, e.g. as grouping,
 % inline or block level structure (and a few special classes like lists and tables),
-% and must follow containments rules depending on their classification 
+% and must follow containments rules depending on their classification
 % (for example a inline structure can not contain
-% a block level structure). New tags inherit their 
-% classification from their rolemapping to the standard namespaces (\texttt{pdf} 
-% and/or \texttt{pdf2}). 
-% We store this classification as it will probably 
-% be needed for tests but currently the data is not much used. 
-% The classification for math (and the containment rules) 
+% a block level structure). New tags inherit their
+% classification from their rolemapping to the standard namespaces (\texttt{pdf}
+% and/or \texttt{pdf2}).
+% We store this classification as it will probably
+% be needed for tests but currently the data is not much used.
+% The classification for math (and the containment rules)
 % is unclear currently and so not set.
-% 
-% The attribute number is only relevant in lua and only for the MC chunks 
-% (so tags with the same name from different names spaces can have the same number), 
-% and so only stored if luatex is detected. 
-% 
+%
+% The attribute number is only relevant in lua and only for the MC chunks
+% (so tags with the same name from different names spaces can have the same number),
+% and so only stored if luatex is detected.
+%
 % Due to the namespaces the storing and processing of tags and there data
-% are different in various places for PDF~2.0 and PDF~<2.0, which makes 
+% are different in various places for PDF~2.0 and PDF~<2.0, which makes
 % things a bit difficult and leads to some duplications. Perhaps at some time
 % there should be a clear split.
-% 
+%
 % This are the main variables used by the code:
 % \begin{description}
-% \item[\cs{g_@@_role_tags_NS_prop}] 
+% \item[\cs{g_@@_role_tags_NS_prop}]
 % This is the core list of tag names. It uses tags as keys
-% and the shorthand (e.g. pdf2, or mathml) of the default name space as value. 
-% 
+% and the shorthand (e.g. pdf2, or mathml) of the default name space as value.
+%
 % In pdf 2.0 the value is needed in the structure dictionaries.
-% 
+%
 % \item[\cs{g_@@_role_tags_class_prop}]
 % This contains for each tag a classification type. It is used in pdf <2.0.
-% 
+%
 % \item[\cs{g_@@_role_NS_prop}] This contains the names spaces. The
 % values are the object references. They are used in pdf 2.0.
 %
 % \item[\cs{g_@@_role_rolemap_prop}]
-% This contains for each tag the role to a standard tag. 
-% It is used in pdf<2.0 for tag checking and to fill at the end the 
+% This contains for each tag the role to a standard tag.
+% It is used in pdf<2.0 for tag checking and to fill at the end the
 % RoleMap dictionary.
-% 
-% \item[\texttt{g\_@@\_role/RoleMap\_dict}] This dictionary contains 
-% the standard rolemaps. It is relevant only for pdf <2.0. 
-% 
+%
+% \item[\texttt{g\_@@\_role/RoleMap\_dict}] This dictionary contains
+% the standard rolemaps. It is relevant only for pdf <2.0.
+%
 % \item[\cs{g_@@_role_NS_<ns>_prop}] This prop contains the tags of
-% a name space and their role. The props are also use for 
+% a name space and their role. The props are also use for
 % remapping. As value they contain two brace groups: tag and namespace.
-% In pdf <2.0 the namespace is empty. 
-% 
-% \item[\cs{g_@@_role_NS_<ns>_class_prop}]   
+% In pdf <2.0 the namespace is empty.
+%
+% \item[\cs{g_@@_role_NS_<ns>_class_prop}]
 % This prop contains the tags of
-% a name space and their type. The value is only needed for pdf 2.0.      
-% 
-% \item[\cs{g_@@_role_index_prop}]   
+% a name space and their type. The value is only needed for pdf 2.0.
+%
+% \item[\cs{g_@@_role_index_prop}]
 % This prop contains the standard tags (pdf in pdf<2.0,
 % pdf,pdf2 + mathml in pdf 2.0) as keys, the values are a two-digit
 % number. These numbers are used to get the containment rule of two tags
 % from the intarray.
-% 
+%
 %\item[\cs{l_@@_role_debug_prop}] This property is used to pass some info
-% around for info messages or debugging.      
-% \end{description} 
+% around for info messages or debugging.
+% \end{description}
 %
 %
 % \begin{variable}{\g_@@_role_tags_NS_prop}
 % This is the core list of tag names. It uses tags as keys
 % and the shorthand (e.g. pdf2, or mathml) of the default name space as value.
-% We store the default name space also in pdf <2.0, even if not needed: 
-% it doesn't harm and simplifies the code. 
+% We store the default name space also in pdf <2.0, even if not needed:
+% it doesn't harm and simplifies the code.
 % There is no need to access this from lua, so we use the standard prop commands.
 %    \begin{macrocode}
-\prop_new:N    \g_@@_role_tags_NS_prop 
+\prop_new:N    \g_@@_role_tags_NS_prop
 %    \end{macrocode}
 % \end{variable}
 %
 % \begin{variable}{\g_@@_role_tags_class_prop}
-% With pdf 2.0 we store the class in the NS dependent props. 
+% With pdf 2.0 we store the class in the NS dependent props.
 % With pdf <2.0 we store for now the type(s) of a tag in a common
-% prop. 
+% prop.
 % Tags that are rolemapped should get the type from
 % the target.
 %    \begin{macrocode}
-\prop_new:N    \g_@@_role_tags_class_prop 
+\prop_new:N    \g_@@_role_tags_class_prop
 %    \end{macrocode}
 % \end{variable}
-% 
+%
 % \begin{variable}{\g_@@_role_NS_prop}
 % This holds the list of supported name spaces.
-% The keys are the name tagpdf will use, the values the object reference. 
+% The keys are the name tagpdf will use, the values the object reference.
 % The urls identifier are stored in related dict object.
 % \begin{description}
 % \item[mathml] http://www.w3.org/1998/Math/MathML
@@ -218,10 +218,10 @@
 % We use a prop to store the object reference as it will be needed rather
 % often.
 %    \begin{macrocode}
-\prop_new:N \g_@@_role_NS_prop 
+\prop_new:N \g_@@_role_NS_prop
 %    \end{macrocode}
 % \end{variable}
-% 
+%
 % \begin{variable}{\g_@@_role_index_prop}
 % This prop contains the standard tags (pdf in pdf<2.0,
 % pdf,pdf2 + mathml in pdf 2.0) as keys, the values are a two-digit
@@ -232,7 +232,7 @@
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\l_@@_role_debug_prop}
-% This variable is used to pass more infos to debug messages. 
+% This variable is used to pass more infos to debug messages.
 %    \begin{macrocode}
 \prop_new:N \l_@@_role_debug_prop
 %    \end{macrocode}
@@ -242,9 +242,9 @@
 %  {
 %     ,\l_@@_role_tag_tmpa_tl
 %     ,\l_@@_role_tag_namespace_tmpa_tl
-%     ,\l_@@_role_tag_namespace_tmpb_tl      %     
+%     ,\l_@@_role_tag_namespace_tmpb_tl      %
 %     ,\l_@@_role_role_tmpa_tl
-%     ,\l_@@_role_role_namespace_tmpa_tl  
+%     ,\l_@@_role_role_namespace_tmpa_tl
 %     ,\l_@@_role_tmpa_seq
 %  }
 %    \begin{macrocode}
@@ -252,15 +252,15 @@
 \tl_new:N \l_@@_role_tag_namespace_tmpa_tl
 \tl_new:N \l_@@_role_tag_namespace_tmpb_tl
 \tl_new:N \l_@@_role_role_tmpa_tl
-\tl_new:N \l_@@_role_role_namespace_tmpa_tl  
+\tl_new:N \l_@@_role_role_namespace_tmpa_tl
 \seq_new:N\l_@@_role_tmpa_seq
 %    \end{macrocode}
 % \end{variable}
-% 
+%
 % \subsection{Namespaces}
-% The following commands setups a name space. 
-% With pdf version $<$2.0 this is only a prop with the 
-% rolemap. With pdf 2.0 a dictionary must be set up. 
+% The following commands setups a name space.
+% With pdf version $<$2.0 this is only a prop with the
+% rolemap. With pdf 2.0 a dictionary must be set up.
 % Such a name space dictionaries can
 % contain an optional |/Schema| and |/RoleMapNS| entry. We only reserve the
 % objects but delay the writing to the finish code, where we can test if the
@@ -268,9 +268,9 @@
 % This commands setups objects for the name space and its rolemap. It also
 % initialize a dict to collect the rolemaps if needed, and a property
 % with the tags of the name space and their rolemapping for loops.
-% It is unclear if a reference to a schema file will be ever needed, 
+% It is unclear if a reference to a schema file will be ever needed,
 % but it doesn't harm \ldots.
-% 
+%
 % \begin{variable}{g_@@_role/RoleMap_dict,\g_@@_role_rolemap_prop}
 % This is the object which contains the normal RoleMap. It is probably not
 % needed in pdf 2.0 but currently kept.
@@ -279,7 +279,7 @@
 \prop_new:N \g_@@_role_rolemap_prop
 %    \end{macrocode}
 % \end{variable}
-% 
+%
 % \begin{function}{\@@_role_NS_new:nnn}
 %  \begin{syntax}
 %   \cs{@@_role_NS_new:nnn} \Arg{shorthand} \Arg{URI-ID} \Arg{Schema}
@@ -301,7 +301,7 @@
     {
       \prop_new:c { g_@@_role_NS_#1_prop }
       \prop_new:c { g_@@_role_NS_#1_class_prop }
-      \pdf_object_new:n {tag/NS/#1}      
+      \pdf_object_new:n {tag/NS/#1}
       \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
       \pdf_object_new:n {@@/RoleMapNS/#1}
       \pdfdict_new:n     {g_@@_role/RoleMapNS_#1_dict}
@@ -325,7 +325,7 @@
        }
       \prop_gput:Nne \g_@@_role_NS_prop {#1}{\pdf_object_ref:n{tag/NS/#1}~}
     }
- }  
+ }
 %    \end{macrocode}
 % \end{macro}
 % We need an id for the user space. For the tests it should be possible
@@ -351,7 +351,7 @@
   }
 %    \end{macrocode}
 % \end{variable}
-% Now we setup the standard names spaces. 
+% Now we setup the standard names spaces.
 % The mathml space is loaded also for pdf < 2.0
 % but not added to RoleMap unless a boolean is set to true with
 % |tagpdf-setup{mathml-tags}|.
@@ -369,9 +369,9 @@
 % \subsection{Adding a new tag}
 % Both when reading the files and when setting up a tag manually
 % we have to store data in various places.
-% 
+%
 % \begin{macro}{\@@_role_alloctag:nnn}
-% This command allocates a new tag without role mapping. In the 
+% This command allocates a new tag without role mapping. In the
 % lua backend it will also record the attribute value.
 %    \begin{macrocode}
 \pdf_version_compare:NnTF < {2.0}
@@ -385,17 +385,17 @@
          \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
          \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{#3}
          \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{--UNUSED--}
-       }      
+       }
     }
-    {   
+    {
       \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3
        {
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
          \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
          \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{#3}
          \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{--UNUSED--}
-       } 
-    }   
+       }
+    }
   }
   {
    \sys_if_engine_luatex:TF
@@ -407,19 +407,19 @@
          \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
          \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{--UNUSED--}
          \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{#3}
-       }      
+       }
     }
-    {   
+    {
       \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3
        {
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
          \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
          \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{--UNUSED--}
          \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{#3}
-       } 
-    }   
-  }   
-\cs_generate_variant:Nn  \@@_role_alloctag:nnn {nnV}   
+       }
+    }
+  }
+\cs_generate_variant:Nn  \@@_role_alloctag:nnn {nnV}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -450,8 +450,8 @@
     \prop_get:NnNF \g_@@_role_tags_class_prop {#2}\l_@@_tmpa_tl
       {
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
-      }        
-    \@@_role_alloctag:nnV {#1}{user}\l_@@_tmpa_tl  
+      }
+    \@@_role_alloctag:nnV {#1}{user}\l_@@_tmpa_tl
 %    \end{macrocode}
 % We resolve rolemapping recursively so that all targets are stored as standard
 % tags.
@@ -461,8 +461,8 @@
         \prop_get:NnNTF \g_@@_role_rolemap_prop {#2}\l_@@_tmpa_tl
           {
             \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
-          }          
-          {          
+          }
+          {
             \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#2}}
           }
       }
@@ -470,9 +470,9 @@
 \cs_generate_variant:Nn \@@_role_add_tag:nn {VV,ne}
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % For the parent-child test we must be able to get the role.
-% We use the same number of arguments as for the 2.0 command. 
+% We use the same number of arguments as for the 2.0 command.
 % If there is no role, we assume a standard tag.
 % \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
@@ -482,13 +482,13 @@
     {
       \prop_get:NnNF \g_@@_role_rolemap_prop {#1}#3
         {
-          \tl_set:Nn #3 {#1}          
+          \tl_set:Nn #3 {#1}
         }
-      \tl_set:Nn #4 {}  
+      \tl_set:Nn #4 {}
     }
-   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN} 
- }   
- 
+   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN}
+ }
+
 %    \end{macrocode}
 % \end{macro}
 % \subsubsection{The pdf 2.0 version}
@@ -504,20 +504,20 @@
         \msg_info:nnn { tag }{new-tag}{#1}
       }
     \prop_if_exist:cTF
-     { g_@@_role_NS_#4_class_prop }  
+     { g_@@_role_NS_#4_class_prop }
      {
        \prop_get:cnN { g_@@_role_NS_#4_class_prop } {#3}\l_@@_tmpa_tl
-       \quark_if_no_value:NT \l_@@_tmpa_tl 
+       \quark_if_no_value:NT \l_@@_tmpa_tl
         {
           \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
-        }                     
+        }
      }
-     { \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--} } 
-    \@@_role_alloctag:nnV {#1}{#2}\l_@@_tmpa_tl  
+     { \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--} }
+    \@@_role_alloctag:nnV {#1}{#2}\l_@@_tmpa_tl
 %    \end{macrocode}
 % Do not remap standard tags. TODO add warning?
 %    \begin{macrocode}
-    \tl_if_in:nnF {-pdf-pdf2-mathml-}{-#2-} 
+    \tl_if_in:nnF {-pdf-pdf2-mathml-}{-#2-}
      {
        \pdfdict_gput:nne {g_@@_role/RoleMapNS_#2_dict}{#1}
           {
@@ -527,7 +527,7 @@
               \pdf_object_ref:n {tag/NS/#4}
             ]
           }
-     }  
+     }
 %    \end{macrocode}
 % We resolve rolemapping recursively so that all targets are stored as standard
 % tags for the tests.
@@ -536,59 +536,59 @@
       {
         \prop_get:cnN { g_@@_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
         \quark_if_no_value:NTF \l_@@_tmpa_tl
-          {          
+          {
             \prop_gput:cne { g_@@_role_NS_#2_prop } {#1}
               {{\tl_to_str:n{#3}}{\tl_to_str:n{#4}}}
           }
           {
             \prop_gput:cno { g_@@_role_NS_#2_prop } {#1}{\l_@@_tmpa_tl}
-          }          
+          }
       }
 %    \end{macrocode}
 % We also store into the pdf 1.7 rolemapping so that we can
 % add that as fallback for pdf 1.7 processor
 %    \begin{macrocode}
      \bool_if:NT \l__tag_role_update_bool
-       { 
+       {
          \tl_if_empty:nF { #3 }
           {
             \tl_if_eq:nnF{#1}{#3}
              {
               \prop_get:NnN \g_@@_role_rolemap_prop {#3}\l_@@_tmpa_tl
                \quark_if_no_value:NTF \l_@@_tmpa_tl
-                {          
+                {
                   \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#3}}
                 }
                 {
                   \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
-                } 
-              }         
+                }
+              }
            }
-       }  
+       }
    }
 \cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the <2.0 command (and assume
-% that we don't need a name space)% 
+% that we don't need a name space)%
 % \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
 \pdf_version_compare:NnF < {2.0}
  {
-   \cs_new:Npn \@@_role_get:nnNN #1#2#3#4 
-     %#1 tag, #2 NS, 
+   \cs_new:Npn \@@_role_get:nnNN #1#2#3#4
+     %#1 tag, #2 NS,
      %#3 tlvar which hold the role tag
      %#4 tlvar which hold the name of the target NS
     {
       \prop_if_exist:cTF {g_@@_role_NS_#2_prop}
-       {      
+       {
         \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_get_tmpc_tl
           {
-           \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_get_tmpc_tl}         
+           \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_get_tmpc_tl}
            \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_get_tmpc_tl}
-          } 
+          }
           {
            \msg_warning:nnn { tag } {role-unknown-tag} { #1 }
            \tl_set:Nn #3 {#1}
@@ -598,20 +598,20 @@
        {
           \msg_warning:nnn { tag } {role-unknown-NS} { #2 }
           \tl_set:Nn #3 {#1}
-          \tl_set:Nn #4 {#2}          
-       }   
+          \tl_set:Nn #4 {#2}
+       }
     }
-   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN} 
- }   
+   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN}
+ }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \subsection{Helper command to read the data from files}
 % In this section we setup the helper command to read namespace files.
 
 % \begin{macro}{\@@_role_read_namespace_line:nw}
 % This command will process a line in the name space file.
-% The first argument is the name of the name space. 
+% The first argument is the name of the name space.
 % The definition differ for pdf 2.0. as we have proper name spaces there.
 % With pdf<2.0 special name spaces shouldn't update the default role or add to the rolemap
 % again, they only store the values for later uses. We use a boolean here.
@@ -619,7 +619,7 @@
 \bool_new:N\l_@@_role_update_bool
 \bool_set_true:N \l_@@_role_update_bool
 %    \end{macrocode}
-% 
+%
 %    \begin{macrocode}
 \pdf_version_compare:NnTF < {2.0}
  {
@@ -633,28 +633,28 @@
           \tl_if_empty:nTF {#5}
             {
               \prop_get:NnN \g_@@_role_tags_class_prop  {#3}\l_@@_tmpa_tl
-              \quark_if_no_value:NT \l_@@_tmpa_tl 
+              \quark_if_no_value:NT \l_@@_tmpa_tl
                 {
                   \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
-                } 
+                }
             }
-            {              
-              \tl_set:Nn \l_@@_tmpa_tl {#5} 
-            }             
+            {
+              \tl_set:Nn \l_@@_tmpa_tl {#5}
+            }
           \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
-          \tl_if_eq:nnF {#2}{#3} 
-           { 
-            \@@_role_add_tag:nn {#2}{#3} 
-           }  
-          \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}   
+          \tl_if_eq:nnF {#2}{#3}
+           {
+            \@@_role_add_tag:nn {#2}{#3}
+           }
+          \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
          }
          {
            \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
            \prop_gput:cnn {g_@@_role_NS_#1_class_prop}  {#2}{--UNUSED--}
-         }       
-       }     
+         }
+       }
     }
- }  
+ }
  {
    \cs_new_protected:Npn \@@_role_read_namespace_line:nw #1#2,#3,#4,#5,#6\q_stop %
     % #1 NS, #2 tag, #3 rolemap, #4 NS rolemap #5 type
@@ -664,65 +664,65 @@
         \tl_if_empty:nTF {#5}
          {
            \prop_get:cnN { g_@@_role_NS_#4_class_prop } {#3}\l_@@_tmpa_tl
-           \quark_if_no_value:NT \l_@@_tmpa_tl 
+           \quark_if_no_value:NT \l_@@_tmpa_tl
              {
                \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
-             } 
+             }
          }
          {
            \tl_set:Nn \l_@@_tmpa_tl {#5}
-         }     
+         }
         \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
         \bool_lazy_and:nnT
-           { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}} 
+           { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}}
            {
-            \@@_role_add_tag:nnnn {#2}{#1}{#3}{#4}            
-           }            
+            \@@_role_add_tag:nnnn {#2}{#1}{#3}{#4}
+           }
         \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{#4}}
-       }     
+       }
     }
- }  
+ }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{\@@_role_read_namespace:nn}
 % This command reads a namespace file in the format
 % tagpdf-ns-XX.def
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_read_namespace:nn #1 #2 %name of namespace #2 name of file
-  { 
+  {
     \prop_if_exist:cF {g_@@_role_NS_#1_prop}
       { \msg_warning:nnn {tag}{namespace-unknown}{#1} }
     \file_if_exist:nTF { tagpdf-ns-#2.def }
-     { 
+     {
        \ior_open:Nn \g_tmpa_ior {tagpdf-ns-#2.def}
        \msg_info:nnn {tag}{read-namespace}{#2}
-       \ior_map_inline:Nn \g_tmpa_ior 
+       \ior_map_inline:Nn \g_tmpa_ior
          {
-           \@@_role_read_namespace_line:nw {#1} ##1,,,,\q_stop 
+           \@@_role_read_namespace_line:nw {#1} ##1,,,,\q_stop
          }
-       \ior_close:N\g_tmpa_ior    
+       \ior_close:N\g_tmpa_ior
      }
      {
       \msg_info:nnn{tag}{namespace-missing}{#2}
      }
-  }   
-   
+  }
+
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{\@@_role_read_namespace:n}
 % This command reads the default namespace file.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_role_read_namespace:n #1 %name of namespace
-  { 
+  {
     \@@_role_read_namespace:nn {#1}{#1}
-  }  
+  }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \subsection{Reading the default data}
-% The order is important as we want pdf2 and latex as default: if two 
+% The order is important as we want pdf2 and latex as default: if two
 % namespace define the same tag, the last one defines which one is used
 % if the namespace is not explicitly given.
 %    \begin{macrocode}
@@ -734,7 +734,7 @@
 % the settings for later use:
 %    \begin{macrocode}
 \bool_set_false:N\l_@@_role_update_bool
-\@@_role_read_namespace:n {latex-book}  
+\@@_role_read_namespace:n {latex-book}
 \bool_set_true:N\l_@@_role_update_bool
 \@@_role_read_namespace:n {latex}
 \@@_role_read_namespace:nn {latex} {latex-lab}
@@ -742,19 +742,19 @@
 \@@_role_read_namespace:n {pdf2}
 %    \end{macrocode}
 %
-% But is the class provides a \cs{chapter} command then we switch 
+% But is the class provides a \cs{chapter} command then we switch
 %    \begin{macrocode}
 \pdf_version_compare:NnTF < {2.0}
   {
     \hook_gput_code:nnn {begindocument}{tagpdf}
       {
-        \bool_lazy_and:nnT 
+        \bool_lazy_and:nnT
          {
            \cs_if_exist_p:N \chapter
          }
          {
            \cs_if_exist_p:N \c@chapter
-         }  
+         }
          {
            \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
              {
@@ -766,29 +766,29 @@
   {
     \hook_gput_code:nnn {begindocument}{tagpdf}
       {
-        \bool_lazy_and:nnT 
+        \bool_lazy_and:nnT
          {
            \cs_if_exist_p:N \chapter
          }
          {
            \cs_if_exist_p:N \c@chapter
-         }  
+         }
          {
            \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
              {
                \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
-               \prop_gput:Nne 
+               \prop_gput:Nne
                 \g_@@_role_rolemap_prop {#1}{\use_i:nn  #2\c_empty_tl\c_empty_tl}
              }
          }
-      }  
+      }
   }
 %    \end{macrocode}
 % \subsection{Parent-child rules}
 % PDF define various rules about which tag can be a child of another tag.
 % The following code implements the matrix to allow to use it in tests.
 % \begin{variable}{\g_@@_role_parent_child_intarray}
-% This intarray will store the rule as a number. For parent nm and child ij 
+% This intarray will store the rule as a number. For parent nm and child ij
 % (n,m,i,j digits) the rule is at position nmij. As we have around 56 tags,
 % we need roughly a size 6000.
 %    \begin{macrocode}
@@ -799,26 +799,53 @@
 % These two properties map the rule strings to numbers and back.
 % There are in tagpdf-data.dtx near the csv files for easier maintenance.
 % \end{macro}
-% 
+%
 % \begin{macro}{\@@_store_parent_child_rule:nnn}
-% The helper command is used to store the rule. 
+% The helper command is used to store the rule.
 % It assumes that parent and child are given as 2-digit number!
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_store_parent_child_rule:nnn #1 #2 #3 % num parent, num child, #3 string
-  {
-    \prop_get:NeNTF \c_@@_role_rules_prop{#3} \l_@@_tmp_unused_tl
-      {
-        \intarray_gset:Nnn \g_@@_role_parent_child_intarray 
-         { #1#2 }{0\l_@@_tmp_unused_tl}
-      }
-      {
-        \intarray_gset:Nnn \g_@@_role_parent_child_intarray 
-         { #1#2 }{0}
-      }   
-  }  
+\sys_if_engine_luatex:TF
+{
+  \cs_new_protected:Npn \@@_store_parent_child_rule:nnn #1 #2 #3 % num parent, num child, #3 string
+    {
+      \prop_get:NeNTF \c_@@_role_rules_prop{#3} \l_@@_tmp_unused_tl
+        {
+          \intarray_gset:Nnn \g_@@_role_parent_child_intarray
+           { #1#2 }{0\l_@@_tmp_unused_tl}
+          \lua_now:e
+           {
+            ltx.@@.role.matrix[#1] = ltx.@@.role.matrix[#1] or {}
+            ltx.@@.role.matrix[#1][#2] = 0\l_@@_tmp_unused_tl
+           }
+        }
+        {
+          \intarray_gset:Nnn \g_@@_role_parent_child_intarray
+           { #1#2 }{0}
+          \lua_now:e
+           {
+            ltx.@@.role.matrix[#1] = ltx.@@.role.matrix[#1] or {}
+            ltx.@@.role.matrix[#1][#2] = 0
+           }
+        }
+    }
+}
+{
+  \cs_new_protected:Npn \@@_store_parent_child_rule:nnn #1 #2 #3 % num parent, num child, #3 string
+    {
+      \prop_get:NeNTF \c_@@_role_rules_prop{#3} \l_@@_tmp_unused_tl
+        {
+          \intarray_gset:Nnn \g_@@_role_parent_child_intarray
+           { #1#2 }{0\l_@@_tmp_unused_tl}
+        }
+        {
+          \intarray_gset:Nnn \g_@@_role_parent_child_intarray
+           { #1#2 }{0}
+        }
+    }
+}
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \subsubsection{Reading in the csv-files}
 % This counter will be used to identify the first (non-comment) line
 %    \begin{macrocode}
@@ -832,13 +859,13 @@
   }
   {
     \ior_open:Nn \g_tmpa_ior {tagpdf-parent-child-2.csv}
-  }  
+  }
 %    \end{macrocode}
 
 %  Now the main loop over the file
 %    \begin{macrocode}
-\ior_map_inline:Nn \g_tmpa_ior 
-  { 
+\ior_map_inline:Nn \g_tmpa_ior
+  {
 %    \end{macrocode}
 % ignore lines containing only comments
 %    \begin{macrocode}
@@ -846,23 +873,24 @@
       {
 %    \end{macrocode}
 % count the lines ...
-%    \begin{macrocode}      
-        \int_incr:N\l_@@_tmpa_int 
+%    \begin{macrocode}
+        \int_incr:N\l_@@_tmpa_int
 %    \end{macrocode}
 %  put the line into a seq. Attention! empty cells are dropped.
 %    \begin{macrocode}
-        \seq_set_from_clist:Nn\l_@@_tmpa_seq { #1 } 
+        \seq_set_from_clist:Nn\l_@@_tmpa_seq { #1 }
         \int_compare:nNnTF {\l_@@_tmpa_int}=1
 %    \end{macrocode}
-% This handles the header line. It gives the tags 2-digit numbers
+% This handles the header line. It gives the tags 2-digit numbers.
+%
 %    \begin{macrocode}
-          {         
+          {
             \seq_map_indexed_inline:Nn \l_@@_tmpa_seq
               {
-                \prop_gput:Nne\g_@@_role_index_prop 
+                \prop_gput:Nne\g_@@_role_index_prop
                   {##2}
-                  {\int_compare:nNnT{##1}<{10}{0}##1}           
-              }  
+                  {\int_compare:nNnT{##1}<{10}{0}##1}
+              }
           }
 %    \end{macrocode}
 % now the data lines.
@@ -883,21 +911,21 @@
            \seq_pop_left:NN\l_@@_tmpa_seq\l_@@_tmpa_tl
            \seq_pop_left:NN\l_@@_tmpa_seq\l_@@_tmpa_tl
 %    \end{macrocode}
-% Now map over the rest. The index \verb+##1+ gives us the 
+% Now map over the rest. The index \verb+##1+ gives us the
 % number of the parent, \verb+##2+ is the data.
 %    \begin{macrocode}
-           \seq_map_indexed_inline:Nn \l_@@_tmpa_seq 
-             {       
-               \exp_args:Nne 
-               \@@_store_parent_child_rule:nnn {##1}{\l_@@_tmpb_tl}{ ##2 }       
-             }        
+           \seq_map_indexed_inline:Nn \l_@@_tmpa_seq
+             {
+               \exp_args:Nne
+               \@@_store_parent_child_rule:nnn {##1}{\l_@@_tmpb_tl}{ ##2 }
+             }
          }
-      } 
+      }
   }
 %    \end{macrocode}
 % close the read handle.
 %    \begin{macrocode}
-\ior_close:N\g_tmpa_ior 
+\ior_close:N\g_tmpa_ior
 %    \end{macrocode}
 % The Root,
 % Hn and mathml tags are special and need to be added explicitly
@@ -924,18 +952,25 @@
     \prop_get:NnN\g_@@_role_index_prop {mathml}\l_@@_tmpa_tl
     \prop_get:NnN\g_@@_role_index_prop {math}\l_@@_tmpb_tl
     \prop_get:NnN\g_@@_role_index_prop {mtext}\l_@@_tmpc_tl
-    \prop_map_inline:Nn \g_@@_role_NS_mathml_prop  
+    \prop_map_inline:Nn \g_@@_role_NS_mathml_prop
       {
         \prop_gput:NnV\g_@@_role_index_prop{#1}\l_@@_tmpa_tl
-      }  
-    \prop_gput:NnV\g_@@_role_index_prop{math}\l_@@_tmpb_tl    
-    \prop_gput:NnV\g_@@_role_index_prop{mtext}\l_@@_tmpc_tl    
-  }    
+      }
+    \prop_gput:NnV\g_@@_role_index_prop{math}\l_@@_tmpb_tl
+    \prop_gput:NnV\g_@@_role_index_prop{mtext}\l_@@_tmpc_tl
+  }
+\sys_if_engine_luatex:T
+ {
+   \prop_map_inline:Nn\g_@@_role_index_prop
+    {
+      \lua_now:e { ltx.@@.role.index['#1']=#2 }
+    }
+ }
 %    \end{macrocode}
 %
 % \subsubsection{Retrieving the parent-child rule}
-% 
-% 
+%
+%
 % \begin{macro}{\@@_role_get_parent_child_rule:nnnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
 %  It assumes that the tag in \#1 is a standard tag after role mapping 
@@ -944,42 +979,42 @@
 %  repeated for the \enquote{real parent}. 
 %  \#3 can be used to pass along data about the original tags 
 %  and is only used in messages.
-%  
+%
 %  TODO check temporary variables. Check if the tl-var should be fix.
 %    \begin{macrocode}
 \tl_new:N \l_@@_parent_child_check_tl
 \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
-  % #1 parent (string) #2 child (string) #3 text for messages (eg. about Div or Rolemapping) 
+  % #1 parent (string) #2 child (string) #3 text for messages (eg. about Div or Rolemapping)
   % #4 tl for state
-  {     
+  {
 %    \end{macrocode}
-% 
+%
 %    \begin{macrocode}
      \prop_get:NnN \g_@@_role_index_prop{#1}\l_@@_tmpa_tl
      \prop_get:NnN \g_@@_role_index_prop{#2}\l_@@_tmpb_tl
-     \bool_lazy_and:nnTF 
+     \bool_lazy_and:nnTF
        { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
        { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
        {
 %    \end{macrocode}
 % Get the rule from the intarray
 %    \begin{macrocode}
-         \tl_set:Ne#4 
-           { 
-             \intarray_item:Nn 
-              \g_@@_role_parent_child_intarray 
+         \tl_set:Ne#4
+           {
+             \intarray_item:Nn
+              \g_@@_role_parent_child_intarray
               {\l_@@_tmpa_tl\l_@@_tmpb_tl}
            }
 %    \end{macrocode}
 % If the state is ‡ then we will have to retry with the real parent.
 %    \begin{macrocode}
-         \int_compare:nNnT  
-           {#4} = { \c_@@_role_rule_checkparent_tl }  
-           {            
-             %warn ? 
+         \int_compare:nNnT
+           {#4} = { \c_@@_role_rule_checkparent_tl }
+           {
+             %warn ?
 %    \end{macrocode}
-% we must take the current child from the stack if is already there, 
-% depending on location the check is called, this could also remove the 
+% we must take the current child from the stack if is already there,
+% depending on location the check is called, this could also remove the
 % parent, but that is ok too.
 %    \begin{macrocode}
            }
@@ -988,44 +1023,44 @@
 %    \begin{macrocode}
           \group_begin:
           \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
-            {      
+            {
               \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
                 {
                   \tl_set:Nn \l_@@_tmpa_tl {unknown}
                 }
               \tl_set:Nn \l_@@_tmpb_tl {#1}
-              \msg_note:nneee 
-                { tag } 
-                { role-parent-child } 
-                { #1 } 
-                { #2 }                                      
-                { 
-                  #4~(='\l_@@_tmpa_tl') 
+              \msg_note:nneee
+                { tag }
+                { role-parent-child }
+                { #1 }
+                { #2 }
+                {
+                  #4~(='\l_@@_tmpa_tl')
                    \iow_newline:
                    #3
-                }   
-            }  
+                }
+            }
             \group_end:
        }
-       {         
+       {
          \tl_set:Nn#4 {0}
-         \msg_warning:nneee 
-           { tag } 
-           {role-parent-child} 
-           { #1 } 
+         \msg_warning:nneee
+           { tag }
+           {role-parent-child}
+           { #1 }
            { #2 }
-           { unknown! }  
+           { unknown! }
        }
-  }  
-\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnnN {VVVN,VVnN}   
+  }
+\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnnN {VVVN,VVnN}
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{@@_check_parent_child:nnnnN}
 % This commands translates rolemaps its arguments and then
-% calls \cs{@@_role_get_parent_child_rule:nnnN}. 
+% calls \cs{@@_role_get_parent_child_rule:nnnN}.
 % It does not try to resolve inheritation of \texttt{Div} etc but
-% instead warns that the rule can not be detected in this case. 
+% instead warns that the rule can not be detected in this case.
 % In pdf 2.0 the name spaces of the tags are relevant, so we
 % have arguments for them, but in pdf <2.0 they are ignored and can
 % be left empty.
@@ -1038,8 +1073,8 @@
 %    \end{macrocode}
 % for debugging messages we store the arguments.
 %    \begin{macrocode}
-       \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1} 
-       \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3}  
+       \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1}
+       \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3}
 %    \end{macrocode}
 % get the standard tags through rolemapping if needed
 % at first the parent
@@ -1048,12 +1083,12 @@
          {
            \tl_set:Nn \l_@@_tmpa_tl {#1}
          }
-         {           
-           \prop_get:NnNF \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl 
-             { 
+         {
+           \prop_get:NnNF \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
+             {
                \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
              }
-         }    
+         }
 %    \end{macrocode}
 % now the child
 %    \begin{macrocode}
@@ -1062,88 +1097,88 @@
            \tl_set:Nn \l_@@_tmpb_tl {#3}
          }
          {
-           \prop_get:NnNF \g_@@_role_rolemap_prop {#3}\l_@@_tmpb_tl 
-             {                
+           \prop_get:NnNF \g_@@_role_rolemap_prop {#3}\l_@@_tmpb_tl
+             {
                \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
              }
-         } 
+         }
 %    \end{macrocode}
 % if we got tags for parent and child we call the checking command
 %    \begin{macrocode}
-       \bool_lazy_and:nnTF 
+       \bool_lazy_and:nnTF
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
-         { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
-         {  
-           \@@_role_get_parent_child_rule:VVnN 
-             \l_@@_tmpa_tl \l_@@_tmpb_tl 
-             {Rolemapped~from:~'#1'~-->~'#3'} 
+         { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
+         {
+           \@@_role_get_parent_child_rule:VVnN
+             \l_@@_tmpa_tl \l_@@_tmpb_tl
+             {Rolemapped~from:~'#1'~-->~'#3'}
              #5
-         }   
+         }
          {
            \tl_set:Nn #5 {0}
-           \msg_warning:nneee 
-            { tag } 
-            {role-parent-child} 
-            { #1 } 
+           \msg_warning:nneee
+            { tag }
+            {role-parent-child}
+            { #1 }
             { #3 }
-            { unknown! }  
+            { unknown! }
          }
      }
-   \cs_new_protected:Npn \@@_check_parent_child:nnN #1#2#3 
+   \cs_new_protected:Npn \@@_check_parent_child:nnN #1#2#3
      {
        \@@_check_parent_child:nnnnN {#1}{}{#2}{}#3
-     }  
+     }
   }
 %    \end{macrocode}
 % and now the pdf 2.0 version
-% The version with three arguments retrieves the default 
-% names space and then calls the full command. 
-% Not sure if this will ever be needed but we leave it for now. 
+% The version with three arguments retrieves the default
+% names space and then calls the full command.
+% Not sure if this will ever be needed but we leave it for now.
 %    \begin{macrocode}
   {
    \cs_new_protected:Npn \@@_check_parent_child:nnN #1 #2 #3
-     { 
-       \prop_get:NnN\g_@@_role_tags_NS_prop {#1}\l_@@_role_tag_namespace_tmpa_tl  
+     {
+       \prop_get:NnN\g_@@_role_tags_NS_prop {#1}\l_@@_role_tag_namespace_tmpa_tl
        \prop_get:NnN\g_@@_role_tags_NS_prop {#2}\l_@@_role_tag_namespace_tmpb_tl
        \str_if_eq:nnT{#2}{MC}{\tl_clear:N \l_@@_role_tag_namespace_tmpb_tl}
-       \bool_lazy_and:nnTF 
+       \bool_lazy_and:nnTF
          { ! \quark_if_no_value_p:N \l_@@_role_tag_namespace_tmpa_tl }
-         { ! \quark_if_no_value_p:N \l_@@_role_tag_namespace_tmpb_tl } 
+         { ! \quark_if_no_value_p:N \l_@@_role_tag_namespace_tmpb_tl }
          {
-           \@@_check_parent_child:nVnVN 
-             {#1}\l_@@_role_tag_namespace_tmpa_tl   
-             {#2}\l_@@_role_tag_namespace_tmpb_tl   
+           \@@_check_parent_child:nVnVN
+             {#1}\l_@@_role_tag_namespace_tmpa_tl
+             {#2}\l_@@_role_tag_namespace_tmpb_tl
              #3
-         }        
+         }
          {
            \tl_set:Nn #3 {0}
-           \msg_warning:nneee 
-            { tag } 
-            {role-parent-child} 
-            { #1 } 
+           \msg_warning:nneee
+            { tag }
+            {role-parent-child}
+            { #1 }
             { #2 }
-            { unknown! }  
+            { unknown! }
          }
      }
 %    \end{macrocode}
 % and now the real command.
 %    \begin{macrocode}
    \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5 %tag,NS,tag,NS, tl var
-      { 
-        \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1/#2} 
-        \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3/#4}       
+      {
+        \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1/#2}
+        \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3/#4}
 %    \end{macrocode}
 %  If the namespace is empty, we assume a standard tag,
 %  otherwise we retrieve the rolemapping from the namespace
-%    \begin{macrocode} 
+%    \begin{macrocode}
         \tl_if_empty:nTF  {#2}
-          {   
+          {
             \tl_set:Nn \l_@@_tmpa_tl {#1}
-          } 
-          {           
+          }
+          {
             \prop_if_exist:cTF { g_@@_role_NS_#2_prop }
               {
-               \prop_get:cnNTF 
+               \prop_get:cnNTF
                   { g_@@_role_NS_#2_prop }
                   {#1}
                   \l_@@_tmpa_tl
@@ -1152,30 +1187,30 @@
                     \tl_if_empty:NT\l_@@_tmpa_tl
                       {
                         \tl_set:Nn \l_@@_tmpa_tl {#1}
-                      } 
+                      }
                   }
-                  { 
+                  {
                     \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
-                  } 
+                  }
               }
-              { 
+              {
                 \msg_warning:nnn { tag } {role-unknown-NS} { #2}
-                \tl_set:Nn \l_@@_tmpa_tl {\q_no_value} 
-              }    
-          }            
+                \tl_set:Nn \l_@@_tmpa_tl {\q_no_value}
+              }
+          }
 %    \end{macrocode}
 % and the same for the child
 %  If the namespace is empty, we assume a standard tag,
 %  otherwise we retrieve the rolemapping from the namespace
 %    \begin{macrocode}
         \tl_if_empty:nTF  {#4}
-          {   
+          {
             \tl_set:Nn \l_@@_tmpb_tl {#3}
-          } 
-          { 
+          }
+          {
             \prop_if_exist:cTF { g_@@_role_NS_#4_prop }
               {
-               \prop_get:cnNTF 
+               \prop_get:cnNTF
                  { g_@@_role_NS_#4_prop }
                  {#3}
                  \l_@@_tmpb_tl
@@ -1184,46 +1219,46 @@
                    \tl_if_empty:NT\l_@@_tmpb_tl
                      {
                        \tl_set:Nn \l_@@_tmpb_tl {#3}
-                     }             
+                     }
                  }
-                 { 
+                 {
                    \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
-                 } 
+                 }
               }
               {
                 \msg_warning:nnn { tag } {role-unknown-NS} { #4}
                 \tl_set:Nn \l_@@_tmpb_tl {\q_no_value}
-              }   
-          }         
+              }
+          }
 %    \end{macrocode}
 % and now get the relation
 %    \begin{macrocode}
-       \bool_lazy_and:nnTF 
+       \bool_lazy_and:nnTF
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
-         { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }     
-         {  
-           \@@_role_get_parent_child_rule:VVnN 
-             \l_@@_tmpa_tl \l_@@_tmpb_tl 
-             {Rolemapped~from~'#2:#1'~-->~'\str_if_empty:nF{#4}{#4:}#3'} 
+         { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
+         {
+           \@@_role_get_parent_child_rule:VVnN
+             \l_@@_tmpa_tl \l_@@_tmpb_tl
+             {Rolemapped~from~'#2:#1'~-->~'\str_if_empty:nF{#4}{#4:}#3'}
              #5
-         }   
+         }
          {
            \tl_set:Nn #5 {0}
-           \msg_warning:nneee 
-            { tag } 
-            {role-parent-child} 
-            { #1 } 
+           \msg_warning:nneee
+            { tag }
+            {role-parent-child}
+            { #1 }
             { #3 }
-            { unknown! }  
+            { unknown! }
          }
-     }     
+     }
   }
-\cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN}  
-\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,nVnVN,VVnnN}  
+\cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN}
+\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,nVnVN,VVnnN}
 %</package>
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}[TF]{\tag_check_child:nn}
 %    \begin{macrocode}
 %<base>\prg_new_protected_conditional:Npnn \tag_check_child:nn #1 #2 {T,F,TF}{\prg_return_true:}
@@ -1241,7 +1276,7 @@
      \l_@@_get_parent_tmpb_tl
       {#1}{#2}
       \l_@@_parent_child_check_tl
-   \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }     
+   \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }
       {
         \seq_get:NN\g_@@_struct_stack_seq\l_@@_tmpa_tl
         \@@_struct_get_parentrole:enNN
@@ -1254,14 +1289,14 @@
           \l_@@_get_parent_tmpb_tl
            {#1}{#2}
            \l_@@_parent_child_check_tl
-      }      
+      }
    \int_compare:nNnTF {  \l_@@_parent_child_check_tl } < {0}
-      {\prg_return_false:} 
+      {\prg_return_false:}
       {\prg_return_true:}
- } 
+ }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 %
 % \subsection{Key-val user interface}
 %  The user interface uses the key |add-new-tag|, which takes either a
@@ -1309,7 +1344,7 @@
              \l_@@_role_role_namespace_tmpa_tl
              {
                 \prop_get:NVNF
-                  \g_@@_role_NS_prop 
+                  \g_@@_role_NS_prop
                   \l_@@_role_role_namespace_tmpa_tl
                   \l_@@_tmp_unused_tl
                   {
@@ -1337,11 +1372,11 @@
     }
    ,role/map-tags .choice:
    ,role/map-tags/false .code:n = { \socket_assign_plug:nn { tag/struct/tag } {latex-tags} }
-   ,role/map-tags/pdf   .code:n = { \socket_assign_plug:nn { tag/struct/tag } {pdf-tags} } 
+   ,role/map-tags/pdf   .code:n = { \socket_assign_plug:nn { tag/struct/tag } {pdf-tags} }
 %    \end{macrocode}
 % \changes{0.99l}{2025-01-12}{allow setting of user-NS}
 %    \begin{macrocode}
-   ,role/user-NS .code:n = 
+   ,role/user-NS .code:n =
      {
       \pdf_version_compare:NnF < {2.0}
        {
