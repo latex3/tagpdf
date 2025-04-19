@@ -201,6 +201,7 @@ the main table is named ltx.@@. It contains the functions and also the data
 collected during the compilation.
 
 ltx.@@.mc     will contain mc connected data.
+ltx.@@.role   will contain data related to parent-child relations.
 ltx.@@.struct will contain structure related data.
 ltx.@@.page   will contain page data
 ltx.@@.tables contains also data from mc and struct (from older code). This needs cleaning up.
@@ -315,6 +316,11 @@ ltx             = ltx        or { }
 ltx.tag         = ltx.tag       or { } -- user commands
 ltx.@@          = ltx.@@        or { }
 ltx.@@.mc       = ltx.@@.mc     or  { } -- mc data
+ltx.@@.role     = ltx.@@.role   or  { } -- parent-child data
+ltx.@@.role.states = ltx.@@.role.states   or  { } -- the states
+ltx.@@.role.index  = ltx.@@.role.index    or  { } -- standard types to index 
+                                                  --- numbers
+ltx.@@.role.matrix = ltx.@@.role.matrix   or  { } -- implements the matrix
 ltx.@@.struct   = ltx.@@.struct or  { } -- struct data
 ltx.@@.tables   = ltx.@@.tables or  { } -- tables created with new prop and new seq.
                                         -- wasn't a so great idea ...
