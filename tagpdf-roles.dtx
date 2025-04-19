@@ -939,8 +939,9 @@
 % \begin{macro}{\@@_role_get_parent_child_rule:nnnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
 %  It assumes that the tag in \#1 is a standard tag after role mapping 
-%  for which a rule exist and is \emph{not} one of Part, Div, NonStruct
-%  as the real parent has already been identified.
+%  for which a rule exist.  If the parent is one of Part, Div, NonStruct
+%  the result can be state 7, which means that a check must be
+%  repeated for the \enquote{real parent}. 
 %  \#3 can be used to pass along data about the original tags 
 %  and is only used in messages.
 %  
