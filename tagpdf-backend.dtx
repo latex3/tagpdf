@@ -1399,6 +1399,18 @@ end
 %    \end{macrocode}
 % \end{macro}
 %
+% \section{parent-child rules}
+% 
+% \begin{macro}{role_get_parent_child_rule,ltx.@@.func.role_get_parent_child_rule}
+%    \begin{macrocode}
+local function role_get_parent_child_rule (parent,child)
+   local state= 
+   ltx.@@.role.matrix[ltx.@@.role.index[parent]][ltx.@@.role.index[child]] or 0
+   return state
+end
+ltx.@@.func.role_get_parent_child_rule=role_get_parent_child_rule
+%    \end{macrocode}
+% \end{macro}
 %    \begin{macrocode}
 %</lua>
 %    \end{macrocode}

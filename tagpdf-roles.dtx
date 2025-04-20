@@ -983,74 +983,107 @@
 %  TODO check temporary variables. Check if the tl-var should be fix.
 %    \begin{macrocode}
 \tl_new:N \l_@@_parent_child_check_tl
-\cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
-  % #1 parent (string) #2 child (string) #3 text for messages (eg. about Div or Rolemapping)
-  % #4 tl for state
-  {
+\sys_if_engine_luatex:TF
+ {
+   \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
+     % #1 parent (string) #2 child (string) #3 text for messages (eg. about Div or Rolemapping)
+     % #4 tl for state
+     {
+       \tl_set:Ne#4
+         {
+           \lua_now:e{tex.print(ltx.@@.func.role_get_parent_child_rule('#1','#2'))}
+         }
+%    \end{macrocode}
+% Debugging messages, this can perhaps go into debug mode.
+%    \begin{macrocode}
+         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+           {
+             \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
+               {
+                 \tl_set:Nn \l_@@_tmpa_tl {unknown}
+               }
+             \tl_set:Nn \l_@@_tmpb_tl {#1}
+             \msg_note:nneee
+               { tag }
+               { role-parent-child }
+               { #1 }
+               { #2 }
+               {
+                 #4~(='\l_@@_tmpa_tl')
+                  \iow_newline:
+                  #3
+               }
+           }
+        \int_compare:nNnT {#4} = { 0 }
+         {            
+          \msg_warning:nneee
+            { tag }
+            {role-parent-child}
+            { #1 }
+            { #2 }
+            { unknown! }
+         }         
+         
+     }
+ }
+ {
+   \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
+     % #1 parent (string) #2 child (string) #3 text for messages (eg. about Div or Rolemapping)
+     % #4 tl for state
+     {
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-     \prop_get:NnN \g_@@_role_index_prop{#1}\l_@@_tmpa_tl
-     \prop_get:NnN \g_@@_role_index_prop{#2}\l_@@_tmpb_tl
-     \bool_lazy_and:nnTF
-       { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
-       { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
-       {
+       \prop_get:NnN \g_@@_role_index_prop{#1}\l_@@_tmpa_tl
+       \prop_get:NnN \g_@@_role_index_prop{#2}\l_@@_tmpb_tl
+       \bool_lazy_and:nnTF
+         { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
+         { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
+         {
 %    \end{macrocode}
 % Get the rule from the intarray
 %    \begin{macrocode}
-         \tl_set:Ne#4
-           {
-             \intarray_item:Nn
-              \g_@@_role_parent_child_intarray
-              {\l_@@_tmpa_tl\l_@@_tmpb_tl}
+            \tl_set:Ne#4
+              {
+                \intarray_item:Nn
+                 \g_@@_role_parent_child_intarray
+                 {\l_@@_tmpa_tl\l_@@_tmpb_tl}
+              }
            }
-%    \end{macrocode}
-% If the state is ‡ then we will have to retry with the real parent.
-%    \begin{macrocode}
-         \int_compare:nNnT
-           {#4} = { \c_@@_role_rule_checkparent_tl }
            {
-             %warn ?
+             \tl_set:Nn#4 {0}
+           }              
 %    \end{macrocode}
-% we must take the current child from the stack if is already there,
-% depending on location the check is called, this could also remove the
-% parent, but that is ok too.
+% Debugging messages, this can perhaps go into debug mode.
 %    \begin{macrocode}
+         \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+           {
+             \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
+               {
+                 \tl_set:Nn \l_@@_tmpa_tl {unknown}
+               }
+             \tl_set:Nn \l_@@_tmpb_tl {#1}
+             \msg_note:nneee
+               { tag }
+               { role-parent-child }
+               { #1 }
+               { #2 }
+               {
+                 #4~(='\l_@@_tmpa_tl')
+                  \iow_newline:
+                  #3
+               }
            }
-%    \end{macrocode}
-%   This is the message, this can perhaps go into debug mode.
-%    \begin{macrocode}
-          \group_begin:
-          \int_compare:nNnT {\l_@@_tmpa_int*\l_@@_loglevel_int} > { 0 }
-            {
-              \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
-                {
-                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
-                }
-              \tl_set:Nn \l_@@_tmpb_tl {#1}
-              \msg_note:nneee
-                { tag }
-                { role-parent-child }
-                { #1 }
-                { #2 }
-                {
-                  #4~(='\l_@@_tmpa_tl')
-                   \iow_newline:
-                   #3
-                }
-            }
-            \group_end:
-       }
-       {
-         \tl_set:Nn#4 {0}
-         \msg_warning:nneee
-           { tag }
-           {role-parent-child}
-           { #1 }
-           { #2 }
-           { unknown! }
-       }
+        \int_compare:nNnT {#4} = { 0 }
+         {            
+          \msg_warning:nneee
+            { tag }
+            {role-parent-child}
+            { #1 }
+            { #2 }
+            { unknown! }
+         }
+     }
   }
 \cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnnN {VVVN,VVnN}
 %    \end{macrocode}
