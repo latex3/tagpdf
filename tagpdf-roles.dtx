@@ -1157,45 +1157,11 @@
             { unknown! }
          }
      }
-   \cs_new_protected:Npn \@@_check_parent_child:nnN #1#2#3
-     {
-       \@@_check_parent_child:nnnnN {#1}{}{#2}{}#3
-     }
   }
 %    \end{macrocode}
 % and now the pdf 2.0 version
-% The version with three arguments retrieves the default
-% names space and then calls the full command.
-% Not sure if this will ever be needed but we leave it for now.
 %    \begin{macrocode}
   {
-   \cs_new_protected:Npn \@@_check_parent_child:nnN #1 #2 #3
-     {
-       \prop_get:NnN\g_@@_role_tags_NS_prop {#1}\l_@@_role_tag_namespace_tmpa_tl
-       \prop_get:NnN\g_@@_role_tags_NS_prop {#2}\l_@@_role_tag_namespace_tmpb_tl
-       \str_if_eq:nnT{#2}{MC}{\tl_clear:N \l_@@_role_tag_namespace_tmpb_tl}
-       \bool_lazy_and:nnTF
-         { ! \quark_if_no_value_p:N \l_@@_role_tag_namespace_tmpa_tl }
-         { ! \quark_if_no_value_p:N \l_@@_role_tag_namespace_tmpb_tl }
-         {
-           \@@_check_parent_child:nVnVN
-             {#1}\l_@@_role_tag_namespace_tmpa_tl
-             {#2}\l_@@_role_tag_namespace_tmpb_tl
-             #3
-         }
-         {
-           \tl_set:Nn #3 {0}
-           \msg_warning:nneee
-            { tag }
-            {role-parent-child}
-            { #1 }
-            { #2 }
-            { unknown! }
-         }
-     }
-%    \end{macrocode}
-% and now the real command.
-%    \begin{macrocode}
    \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5 %tag,NS,tag,NS, tl var
       {
         \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1/#2}
@@ -1286,7 +1252,6 @@
          }
      }
   }
-\cs_generate_variant:Nn\@@_check_parent_child:nnN {VVN}
 \cs_generate_variant:Nn\@@_check_parent_child:nnnnN {VVVVN,nVnVN,VVnnN}
 %</package>
 %    \end{macrocode}
