@@ -276,7 +276,7 @@
 % needed in pdf 2.0 but currently kept.
 %    \begin{macrocode}
 \pdfdict_new:n {g_@@_role/RoleMap_dict}
-\prop_new:N \g_@@_role_rolemap_prop
+\@@_prop_new:N \g_@@_role_rolemap_prop
 %    \end{macrocode}
 % \end{variable}
 %
@@ -291,7 +291,7 @@
  {
    \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
     {
-      \prop_new:c { g_@@_role_NS_#1_prop }
+      \@@_prop_new:c { g_@@_role_NS_#1_prop }
       \prop_new:c { g_@@_role_NS_#1_class_prop }
       \prop_gput:Nne \g_@@_role_NS_prop {#1}{}
     }
@@ -299,7 +299,7 @@
  {
   \cs_new_protected:Npn \@@_role_NS_new:nnn #1 #2 #3
     {
-      \prop_new:c { g_@@_role_NS_#1_prop }
+      \@@_prop_new:c { g_@@_role_NS_#1_prop }
       \prop_new:c { g_@@_role_NS_#1_class_prop }
       \pdf_object_new:n {tag/NS/#1}
       \pdfdict_new:n     {g_@@_role/Namespace_#1_dict}
@@ -382,7 +382,7 @@
        {
          \lua_now:e { ltx.@@.func.alloctag ('#1') }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
-         \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
+         \@@_prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
          \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{#3}
          \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{--UNUSED--}
        }
@@ -391,7 +391,7 @@
       \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3
        {
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
-         \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
+         \@@_prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
          \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{#3}
          \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{--UNUSED--}
        }
@@ -404,7 +404,7 @@
        {
          \lua_now:e { ltx.@@.func.alloctag ('#1') }
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
-         \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
+         \@@_prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
          \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{--UNUSED--}
          \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{#3}
        }
@@ -413,7 +413,7 @@
       \cs_new_protected:Npn \@@_role_alloctag:nnn #1 #2 #3
        {
          \prop_gput:Nnn \g_@@_role_tags_NS_prop   {#1}{#2}
-         \prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
+         \@@_prop_gput:cnn {g_@@_role_NS_#2_prop}  {#1}{{}{}}
          \prop_gput:Nnn \g_@@_role_tags_class_prop {#1}{--UNUSED--}
          \prop_gput:cnn {g_@@_role_NS_#2_class_prop}  {#1}{#3}
        }
@@ -460,10 +460,10 @@
       {
         \prop_get:NnNTF \g_@@_role_rolemap_prop {#2}\l_@@_tmpa_tl
           {
-            \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
+            \@@_prop_gput:Nno \g_@@_role_rolemap_prop {#1}{\l_@@_tmpa_tl}
           }
           {
-            \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#2}}
+            \@@_prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#2}}
           }
       }
   }
@@ -537,11 +537,11 @@
         \prop_get:cnN { g_@@_role_NS_#4_prop } {#3}\l_@@_tmpa_tl
         \quark_if_no_value:NTF \l_@@_tmpa_tl
           {
-            \prop_gput:cne { g_@@_role_NS_#2_prop } {#1}
+            \@@_prop_gput:cne { g_@@_role_NS_#2_prop } {#1}
               {{\tl_to_str:n{#3}}{\tl_to_str:n{#4}}}
           }
           {
-            \prop_gput:cno { g_@@_role_NS_#2_prop } {#1}{\l_@@_tmpa_tl}
+            \@@_prop_gput:cno { g_@@_role_NS_#2_prop } {#1}{\l_@@_tmpa_tl}
           }
       }
 %    \end{macrocode}
@@ -557,10 +557,10 @@
               \prop_get:NnN \g_@@_role_rolemap_prop {#3}\l_@@_tmpa_tl
                \quark_if_no_value:NTF \l_@@_tmpa_tl
                 {
-                  \prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#3}}
+                  \@@_prop_gput:Nne \g_@@_role_rolemap_prop {#1}{\tl_to_str:n{#3}}
                 }
                 {
-                  \prop_gput:NnV \g_@@_role_rolemap_prop {#1}\l_@@_tmpa_tl
+                  \@@_prop_gput:Nno \g_@@_role_rolemap_prop {#1}{\l_@@_tmpa_tl}
                 }
               }
            }
@@ -586,8 +586,8 @@
        {
         \prop_get:cnNTF {g_@@_role_NS_#2_prop} {#1}\l_@@_get_tmpc_tl
           {
-           \tl_set:Ne #3 {\exp_last_unbraced:NV\use_i:nn   \l_@@_get_tmpc_tl}
-           \tl_set:Ne #4 {\exp_last_unbraced:NV\use_ii:nn  \l_@@_get_tmpc_tl}
+           \tl_set:Ne #3 {\exp_last_unbraced:No\use_i:nn  {\l_@@_get_tmpc_tl}}
+           \tl_set:Ne #4 {\exp_last_unbraced:No\use_ii:nn {\l_@@_get_tmpc_tl}}
           }
           {
            \msg_warning:nnn { tag } {role-unknown-tag} { #1 }
@@ -646,10 +646,10 @@
            {
             \@@_role_add_tag:nn {#2}{#3}
            }
-          \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
+          \@@_prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
          }
          {
-           \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
+           \@@_prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{}}
            \prop_gput:cnn {g_@@_role_NS_#1_class_prop}  {#2}{--UNUSED--}
          }
        }
@@ -678,7 +678,7 @@
            {
             \@@_role_add_tag:nnnn {#2}{#1}{#3}{#4}
            }
-        \prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{#4}}
+        \@@_prop_gput:cnn {g_@@_role_NS_#1_prop}  {#2}{{#3}{#4}}
        }
     }
  }
@@ -777,7 +777,7 @@
            \prop_map_inline:cn{g_@@_role_NS_latex-book_prop}
              {
                \prop_gput:Nnn \g_@@_role_tags_NS_prop    { #1 }{ latex-book }
-               \prop_gput:Nne
+               \@@_prop_gput:Nne
                 \g_@@_role_rolemap_prop {#1}{\use_i:nn  #2\c_empty_tl\c_empty_tl}
              }
          }
