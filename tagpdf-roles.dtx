@@ -474,6 +474,7 @@
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the 2.0 command.
 % If there is no role, we assume a standard tag.
+% Note: this is quite fast and a move to lua doesn't improve speed.
 % \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
 \pdf_version_compare:NnT < {2.0}
@@ -573,6 +574,7 @@
 % For the parent-child test we must be able to get the role.
 % We use the same number of arguments as for the <2.0 command (and assume
 % that we don't need a name space)%
+% Note: this is quite fast and a move to lua doesn't improve speed.
 % \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
 \pdf_version_compare:NnF < {2.0}

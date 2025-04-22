@@ -550,6 +550,75 @@
   { Parent-Child~'#1'~-->~'#2'.\\Relation~is~#3~\msg_line_context:}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{role-parent-child-forbidden}
+%  The most important message is that the relation is not allowed.
+%  Argument \#1 is the parent structure number. \#2 NS:tag of the parent,
+%  \#3 NS:tag of the child.  
+%    \begin{macrocode}
+\msg_new:nnn { tag } {role-parent-child-forbidden}
+  { 
+    Parent-Child~'#2'~-->~'#3'.\\
+    Relation~is~not~allowed! ~\msg_line_context:\\                 
+    struct~#1,~\prop_item:cn{ g_@@_struct_#1_prop}{S}
+    \c_space_tl-->~struct~\int_eval:n {\c@g_@@_struct_abs_int}
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_check_forbidden_parent_child:nnnn}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_forbidden_parent_child:nnnn #1#2#3#4
+% #1 check number, #2 number of parent struct
+% #3 parent info,  #4 child info 
+ {  
+   \int_compare:nNnT {#1 } <0
+     {
+       \msg_warning:nneee 
+         { tag } 
+         {role-parent-child-forbidden} 
+         { #2} 
+         { #3 }
+         { #4 }  
+     }
+ } 
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{role-parent-child-unresolved}
+%  If a structure is stashed and then used later and its root is one
+%  of Part, Div or NonStruct, then we can not check the parent-child
+%  rules. This would require to know all children. In this case we only 
+%  warn.   
+%  resolved a 
+%  Argument \#1 is the parent structure number. \#2 NS:tag of the parent,
+%  \#3 NS:tag of the child.  
+%    \begin{macrocode}
+\msg_new:nnn { tag } {role-parent-child-unresolved}
+  { 
+    Structure~\int_eval:n {\c@g_@@_struct_abs_int}~was~moved~into~structure~#1.\\
+    Parent-Child~'#2'~-->~'#3'~can~not~checked.
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_check_unresolved_parent_child:nnnn}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_check_unresolved_parent_child:nnnn #1#2#3#4
+% #1 check number, #2 number of parent struct
+% #3 parent info, #4 child info 
+ {  
+   \int_compare:nNnT { #1 } = {\c_@@_role_rule_checkparent_tl}
+     {
+       \msg_warning:nneee 
+         { tag } 
+         {role-parent-child-unresolved} 
+         { #2 } 
+         { #3 }
+         { #4 }  
+     }
+ }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{role-remapping}
 %  This is info and warning message about role-remapping
 %    \begin{macrocode}
