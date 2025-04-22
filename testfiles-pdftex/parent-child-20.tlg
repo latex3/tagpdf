@@ -18,6 +18,9 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'Em'.
 ============================================================
 TEST 3: Sect-blub:unknown
 ============================================================
+Package tagpdf Info: Parent-Child 'Sect' --> 'blub'.
+(tagpdf)             Relation is 0 (='unknown')
+(tagpdf)             Rolemapped from 'pdf2:Sect' --> 'blub' on line ...
 Package tagpdf Warning: Parent-Child 'Sect' --> 'blub'.
 (tagpdf)                Relation is unknown! on line ...
 > \l_tmpa_tl=0.
@@ -25,6 +28,9 @@ Package tagpdf Warning: Parent-Child 'Sect' --> 'blub'.
 ============================================================
 TEST 4: bla-Sect:unknown
 ============================================================
+Package tagpdf Info: Parent-Child 'bla' --> 'Sect'.
+(tagpdf)             Relation is 0 (='unknown')
+(tagpdf)             Rolemapped from ':bla' --> 'pdf2:Sect' on line ...
 Package tagpdf Warning: Parent-Child 'bla' --> 'Sect'.
 (tagpdf)                Relation is unknown! on line ...
 > \l_tmpa_tl=0.
@@ -32,6 +38,9 @@ Package tagpdf Warning: Parent-Child 'bla' --> 'Sect'.
 ============================================================
 TEST 5: bla-blub:unknown
 ============================================================
+Package tagpdf Info: Parent-Child 'bla' --> 'blub'.
+(tagpdf)             Relation is 0 (='unknown')
+(tagpdf)             Rolemapped from ':bla' --> 'blub' on line ...
 Package tagpdf Warning: Parent-Child 'bla' --> 'blub'.
 (tagpdf)                Relation is unknown! on line ...
 > \l_tmpa_tl=0.
