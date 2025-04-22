@@ -1198,6 +1198,94 @@
 %</base>
 %    \end{macrocode}
 % \end{macro}
+% 
+% \subsection{Commands for the parent-child checks}
+%
+% \begin{macro}{\@@_struct_check_parent_child_aux:nnnnNNN}
+%    \begin{macrocode}
+%<*package>
+\cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnnNNN #1#2#3#4#5#6#7
+  {
+% #1 structure number of parent
+% #2 key to use for parent (currently rolemap or parentrole)
+% #3 tag of current structure
+% #4 NS of current structure  
+% #5 tl for return value
+% #6 to return parent tag
+% #7 to return parent NS
+    \@@_struct_get_parentrole:nnNN  
+      {#1} %{\l_@@_struct_stack_parent_tmpa_tl}
+      {#2}
+      #6
+      #7
+    \@@_check_parent_child:oonnN % generate!
+      { #6 }
+      { #7 }
+      { #3 } % \g_@@_struct_tag_tl               
+      { #4 } % \g_@@_struct_tag_NS_tl  
+     #5
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_struct_check_parent_child:nnn}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_check_parent_child:nnn #1 #2 #3 
+% #1 structure number of parent
+% #2 tag of current structure
+% #3 NS of current structure
+  {
+    \@@_struct_check_parent_child_aux:nnnnNNN
+     {#1}{rolemap}{#2}{#3}
+      \l_@@_parent_child_check_tl 
+      \l_@@_get_parent_tmpa_tl
+      \l_@@_get_parent_tmpb_tl
+    \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
+      {
+        \@@_struct_check_parent_child_aux:nnnnNNN
+          {#1}{parentrole}{#2}{#3}
+          \l_@@_parent_child_check_tl 
+          \l_@@_get_parent_tmpa_tl
+          \l_@@_get_parent_tmpb_tl
+      }
+    \@@_check_forbidden_parent_child:nnen 
+     {\l_@@_parent_child_check_tl}  
+     {#1}
+     {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
+     {#2:#3} 
+  } 
+\cs_generate_variant:Nn \@@_struct_check_parent_child:nnn {ooo}             
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_struct_use_check_parent_child:nnn}
+% This is use when using a stashed structure. It can't check 
+% the rules if the child tag is Part.
+% TODO: check the logic!!
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_use_check_parent_child:nnn #1 #2 #3 
+% #1 structure number of parent
+% #2 tag of current structure
+% #3 NS of current structure
+  {
+    \@@_struct_check_parent_child_aux:nnnnNNN
+     {#1}{rolemap}{#2}{#3}
+      \l_@@_parent_child_check_tl 
+      \l_@@_get_parent_tmpa_tl
+      \l_@@_get_parent_tmpb_tl
+    \@@_check_unresolved_parent_child:nnnn
+     {\l_@@_parent_child_check_tl}  
+     {#1}
+     {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
+     {#2:#3}      
+    \@@_check_warn_parent_child:nnnn 
+     {\l_@@_parent_child_check_tl}  
+     {#1}
+     {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
+     {#2:#3} 
+  }            
+%    \end{macrocode}
+% \end{macro}
 % \section{Keys}
 % This are the keys for the user commands.
 % we store the tag in a variable. But we should be careful, it is only reliable
@@ -1206,7 +1294,6 @@
 % This socket is used by the tag key. It allows to switch between
 % the latex-tabs and the standard tags.
 %    \begin{macrocode}
-%<*package>
 \socket_new:nn { tag/struct/tag }{1}
 \socket_new_plug:nnn { tag/struct/tag }{ latex-tags }
  {
@@ -1783,48 +1870,53 @@
 %  if the structure is actually used here, so it is guarded by the stash boolean.
 %  For now we ignore the namespace! 
 %    \begin{macrocode}
-            \@@_struct_get_parentrole:enNN  
-              {\l_@@_struct_stack_parent_tmpa_tl}
-              {rolemap}
-              \l_@@_get_parent_tmpa_tl
-              \l_@@_get_parent_tmpb_tl
-            \@@_check_parent_child:VVVVN
-              \l_@@_get_parent_tmpa_tl
-              \l_@@_get_parent_tmpb_tl
-              \g_@@_struct_tag_tl               
-              \g_@@_struct_tag_NS_tl  
-              \l_@@_parent_child_check_tl 
-            \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
-              {
-                \@@_struct_get_parentrole:enNN  
-                 {\l_@@_struct_stack_parent_tmpa_tl}
-                 {parentrole}
-                 \l_@@_get_parent_tmpa_tl
-                 \l_@@_get_parent_tmpb_tl
-               \@@_check_parent_child:VVVVN
-                 \l_@@_get_parent_tmpa_tl
-                 \l_@@_get_parent_tmpb_tl
-                 \g_@@_struct_tag_tl               
-                 \g_@@_struct_tag_NS_tl  
-                 \l_@@_parent_child_check_tl
-              }
-            \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
-              {
-                \prop_get:cnN 
-                  { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _prop}
-                  {S}
-                  \l_@@_tmpa_tl
-                \quark_if_no_value:NT\l_@@_tmpa_tl{\tl_set:Nn \l_@@_tmpa_tl{UNKNOWN}} 
-                \msg_warning:nneee 
-                 { tag } 
-                 {role-parent-child} 
-                 { \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl} 
-                 { \g_@@_struct_tag_NS_tl : \g_@@_struct_tag_tl  }
-                 { not~allowed~                   
-                   (struct~\l_@@_struct_stack_parent_tmpa_tl,~\l_@@_tmpa_tl
-                    \c_space_tl-->~struct~\int_eval:n {\c@g_@@_struct_abs_int})
-                 }  
-              }
+            \@@_struct_check_parent_child:ooo
+              { \l_@@_struct_stack_parent_tmpa_tl }
+              { \g_@@_struct_tag_tl }
+              { \g_@@_struct_tag_NS_tl }
+ %             
+%            \@@_struct_get_parentrole:enNN  
+%              {\l_@@_struct_stack_parent_tmpa_tl}
+%              {rolemap}
+%              \l_@@_get_parent_tmpa_tl
+%              \l_@@_get_parent_tmpb_tl
+%            \@@_check_parent_child:VVVVN
+%              \l_@@_get_parent_tmpa_tl
+%              \l_@@_get_parent_tmpb_tl
+%              \g_@@_struct_tag_tl               
+%              \g_@@_struct_tag_NS_tl  
+%              \l_@@_parent_child_check_tl 
+%            \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
+%              {
+%                \@@_struct_get_parentrole:enNN  
+%                 {\l_@@_struct_stack_parent_tmpa_tl}
+%                 {parentrole}
+%                 \l_@@_get_parent_tmpa_tl
+%                 \l_@@_get_parent_tmpb_tl
+%               \@@_check_parent_child:VVVVN
+%                 \l_@@_get_parent_tmpa_tl
+%                 \l_@@_get_parent_tmpb_tl
+%                 \g_@@_struct_tag_tl               
+%                 \g_@@_struct_tag_NS_tl  
+%                 \l_@@_parent_child_check_tl
+%              }
+%            \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
+%              {
+%                \prop_get:cnN 
+%                  { g_@@_struct_ \l_@@_struct_stack_parent_tmpa_tl _prop}
+%                  {S}
+%                  \l_@@_tmpa_tl
+%                \quark_if_no_value:NT\l_@@_tmpa_tl{\tl_set:Nn \l_@@_tmpa_tl{UNKNOWN}} 
+%                \msg_warning:nneee 
+%                 { tag } 
+%                 {role-parent-child} 
+%                 { \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl} 
+%                 { \g_@@_struct_tag_NS_tl : \g_@@_struct_tag_tl  }
+%                 { not~allowed~                   
+%                   (struct~\l_@@_struct_stack_parent_tmpa_tl,~\l_@@_tmpa_tl
+%                    \c_space_tl-->~struct~\int_eval:n {\c@g_@@_struct_abs_int})
+%                 }  
+%              }
 %    \end{macrocode}
 % Set the Parent structure number.
 %    \begin{macrocode}
