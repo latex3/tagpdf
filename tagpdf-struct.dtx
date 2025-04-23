@@ -1251,7 +1251,12 @@
     \@@_check_forbidden_parent_child:nnen 
      {\l_@@_parent_child_check_tl}  
      {#1}
-     {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
+     {
+      \str_if_eq:onTF
+       {\l_@@_get_parent_tmpa_tl}{MC}
+       {MC~(real content)}
+       {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
+     }
      {#2:#3} 
   } 
 \cs_generate_variant:Nn \@@_struct_check_parent_child:nnn {ooo}             
