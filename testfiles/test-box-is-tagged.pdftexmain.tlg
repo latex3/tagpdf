@@ -6,7 +6,8 @@ TEST 1: untagged box
 UNTAGGED
 ============================================================
 Package tagpdf Warning: Parent-Child ':Document' --> 'pdf2:Span'.
-(tagpdf)                Relation is not allowed (struct 2, /Document --> struct 5) on line ...
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 2, /Document --> struct 5
 ============================================================
 TEST 2: box with structure
 ============================================================
