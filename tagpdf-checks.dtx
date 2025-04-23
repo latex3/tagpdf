@@ -560,7 +560,9 @@
     Parent-Child~'#2'~-->~'#3'.\\
     Relation~is~not~allowed! ~\msg_line_context:\\                 
     struct~#1,~\prop_item:cn{ g_@@_struct_#1_prop}{S}
-    \c_space_tl-->~struct~\int_eval:n {\c@g_@@_struct_abs_int}
+    \c_space_tl
+    \int_compare:nNnF{#1}={\c@g_@@_struct_abs_int}
+      {-->~struct~\int_eval:n {\c@g_@@_struct_abs_int}}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -581,7 +583,7 @@
          { #4 }  
      }
  }
-\cs_generate_variant:Nn \@@_check_forbidden_parent_child:nnnn {nnen}  
+\cs_generate_variant:Nn \@@_check_forbidden_parent_child:nnnn {nnee}  
 %    \end{macrocode}
 % \end{macro}
 % 

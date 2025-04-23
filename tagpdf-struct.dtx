@@ -1248,16 +1248,18 @@
           \l_@@_get_parent_tmpa_tl
           \l_@@_get_parent_tmpb_tl
       }
-    \@@_check_forbidden_parent_child:nnen 
+    \@@_check_forbidden_parent_child:nnee 
      {\l_@@_parent_child_check_tl}  
      {#1}
      {
-      \str_if_eq:onTF
-       {\l_@@_get_parent_tmpa_tl}{MC}
-       {MC~(real content)}
-       {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
+       \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl
      }
-     {#3:2} 
+     {
+      \str_if_eq:onTF
+       {#2}{MC}
+       {MC~(real content)}
+       {#3:#2}
+     } 
   } 
 \cs_generate_variant:Nn \@@_struct_check_parent_child:nnn {ooo}             
 %    \end{macrocode}
