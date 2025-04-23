@@ -685,46 +685,53 @@
                 \exp_args:NV
                 \@@_mc_handle_mc_label:e \l_@@_mc_key_label_tl
               }
+%    \end{macrocode}
+% check if the MC can be used here. This is guarded by the stash boolean.
+%    \begin{macrocode}
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
-                \@@_struct_get_parentrole:enNN 
-                    {\g_@@_struct_stack_current_tl} 
-                    {rolemap}
-                    \l_@@_get_parent_tmpa_tl
-                    \l_@@_get_parent_tmpb_tl
-                 \@@_check_parent_child:VVnnN
-                   \l_@@_get_parent_tmpa_tl
-                   \l_@@_get_parent_tmpb_tl
-                   {MC}{}
-                   \l_@@_parent_child_check_tl 
-                \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }     
-                 {
-                   \@@_struct_get_parentrole:enNN 
-                       {\g_@@_struct_stack_current_tl} 
-                       {parentrole}
-                       \l_@@_get_parent_tmpa_tl
-                       \l_@@_get_parent_tmpb_tl
-                   \@@_check_parent_child:VVnnN
-                     \l_@@_get_parent_tmpa_tl
-                     \l_@@_get_parent_tmpb_tl
-                     {MC}{}
-                     \l_@@_parent_child_check_tl                                   
-                 }
-                \int_compare:nNnT {\l_@@_parent_child_check_tl}<{0}
-                 {
-                    \prop_get:cnN 
-                     { g_@@_struct_ \g_@@_struct_stack_current_tl _prop}
-                     {S}
-                     \l_@@_tmpa_tl
-                    \msg_warning:nneee 
-                     { tag } 
-                     {role-parent-child} 
-                     { \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl } 
-                     { MC~(real content) }
-                     { not~allowed~
-                       (struct~\g_@@_struct_stack_current_tl,~\l_@@_tmpa_tl)
-                     }  
-                 }    
+                \@@_struct_check_parent_child:ooo
+                 { \g_@@_struct_stack_current_tl }
+                 { MC }
+                 {  }
+   %             \@@_struct_get_parentrole:enNN 
+%                    {\g_@@_struct_stack_current_tl} 
+%                    {rolemap}
+%                    \l_@@_get_parent_tmpa_tl
+%                    \l_@@_get_parent_tmpb_tl
+%                 \@@_check_parent_child:VVnnN
+%                   \l_@@_get_parent_tmpa_tl
+%                   \l_@@_get_parent_tmpb_tl
+%                   {MC}{}
+%                   \l_@@_parent_child_check_tl 
+%                \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }     
+%                 {
+%                   \@@_struct_get_parentrole:enNN 
+%                       {\g_@@_struct_stack_current_tl} 
+%                       {parentrole}
+%                       \l_@@_get_parent_tmpa_tl
+%                       \l_@@_get_parent_tmpb_tl
+%                   \@@_check_parent_child:VVnnN
+%                     \l_@@_get_parent_tmpa_tl
+%                     \l_@@_get_parent_tmpb_tl
+%                     {MC}{}
+%                     \l_@@_parent_child_check_tl                                   
+%                 }
+%                \int_compare:nNnT {\l_@@_parent_child_check_tl}<{0}
+%                 {
+%                    \prop_get:cnN 
+%                     { g_@@_struct_ \g_@@_struct_stack_current_tl _prop}
+%                     {S}
+%                     \l_@@_tmpa_tl
+%                    \msg_warning:nneee 
+%                     { tag } 
+%                     {role-parent-child} 
+%                     { \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl } 
+%                     { MC~(real content) }
+%                     { not~allowed~
+%                       (struct~\g_@@_struct_stack_current_tl,~\l_@@_tmpa_tl)
+%                     }  
+%                 }    
                 \@@_mc_handle_stash:e { \int_use:N \c@g_@@_MCID_abs_int }
               }
           }
