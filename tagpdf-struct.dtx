@@ -1351,8 +1351,11 @@
      }        
    \tl_gset:Ne \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
    \tl_gset:Ne \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }
-   \@@_role_get:VVNN 
-     \g_@@_struct_tag_tl \g_@@_struct_tag_NS_tl \l_@@_tmpa_tl \l_@@_tmpb_tl
+   \@@_role_get:ooNN 
+     { \g_@@_struct_tag_tl }
+     { \g_@@_struct_tag_NS_tl}
+     \l_@@_tmpa_tl
+     \l_@@_tmpb_tl
    \tl_gset:Ne \g_@@_struct_tag_tl {\l_@@_tmpa_tl}
    \tl_gset:Ne \g_@@_struct_tag_NS_tl{\l_@@_tmpb_tl}
    \@@_check_structure_tag:N \g_@@_struct_tag_tl
@@ -1836,9 +1839,9 @@
               }
            }
         \seq_gpush:NV \g_@@_struct_stack_seq        \c@g_@@_struct_abs_int
-        \@@_role_get:VVNN 
-          \g_@@_struct_tag_tl 
-          \g_@@_struct_tag_NS_tl
+        \@@_role_get:ooNN 
+          { \g_@@_struct_tag_tl }
+          { \g_@@_struct_tag_NS_tl }
           \l_@@_struct_roletag_tl 
           \l_@@_struct_roletag_NS_tl 
 %    \end{macrocode}

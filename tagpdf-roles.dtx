@@ -487,7 +487,7 @@
         }
       \tl_set:Nn #4 {}
     }
-   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN}
+   \cs_generate_variant:Nn \@@_role_get:nnNN {ooNN}
  }
 
 %    \end{macrocode}
@@ -572,8 +572,7 @@
 % \end{macro}
 %
 % For the parent-child test we must be able to get the role.
-% We use the same number of arguments as for the <2.0 command (and assume
-% that we don't need a name space)%
+% We use the same number of arguments as for the <2.0 command.
 % Note: this is quite fast and a move to lua doesn't improve speed.
 % \begin{macro}{\@@_role_get:nnNN}
 %    \begin{macrocode}
@@ -603,7 +602,7 @@
           \tl_set:Nn #4 {#2}
        }
     }
-   \cs_generate_variant:Nn \@@_role_get:nnNN {VVNN}
+   \cs_generate_variant:Nn \@@_role_get:nnNN {ooNN}
  }
 %    \end{macrocode}
 % \end{macro}
@@ -975,7 +974,7 @@
 %
 % \begin{macro}{\@@_role_get_parent_child_rule:nnnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
-%  It assumes that the tag in \#1 is a standard tag after role mapping 
+%  It assumes that the tags in \#1 and \#2 are standard tags after role mapping 
 %  for which a rule exist.  If the parent is one of Part, Div, NonStruct
 %  the result can be state 7, which means that a check must be
 %  repeated for the \enquote{real parent}. 
@@ -988,7 +987,9 @@
 \sys_if_engine_luatex:TF
  {
    \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
-     % #1 parent (string) #2 child (string) #3 text for messages (eg. about Div or Rolemapping)
+     % #1 parent (string, standard tag after rolemapping!) 
+     % #2 child (string, standard tag after rolemapping!) 
+     % #3 text for messages (eg. about Div or Rolemapping)
      % #4 tl for state
      {
        \tl_set:Ne#4
@@ -1030,7 +1031,9 @@
  }
  {
    \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
-     % #1 parent (string) #2 child (string) #3 text for messages (eg. about Div or Rolemapping)
+     % #1 parent (string, standard tag after rolemapping) 
+     % #2 child (string, standard tag after rolemapping) 
+     % #3 text for messages (eg. about Div or Rolemapping)
      % #4 tl for state
      {
 %    \end{macrocode}
@@ -1087,7 +1090,7 @@
          }
      }
   }
-\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnnN {VVVN,VVnN}
+\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnnN {ooeN}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1148,9 +1151,10 @@
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
          {
-           \@@_role_get_parent_child_rule:VVnN
-             \l_@@_tmpa_tl \l_@@_tmpb_tl
-             {Rolemapped~from:~'#1'~-->~'#3'}
+           \@@_role_get_parent_child_rule:ooeN
+             { \l_@@_tmpa_tl}
+             { \l_@@_tmpb_tl}
+             {Rolemapped~from:~'#1'~-->~'#3'} %TODO ?? doesn't make much sense if rolemapping happened alred
              #5
          }
          {
@@ -1242,8 +1246,9 @@
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
          {
-           \@@_role_get_parent_child_rule:VVnN
-             \l_@@_tmpa_tl \l_@@_tmpb_tl
+           \@@_role_get_parent_child_rule:ooeN
+             { \l_@@_tmpa_tl }
+             { \l_@@_tmpb_tl }
              {Rolemapped~from~'#2:#1'~-->~'\str_if_empty:nF{#4}{#4:}#3'}
              #5
          }
