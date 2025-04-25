@@ -1091,7 +1091,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{@@_check_parent_child:nnnnN}
+% \begin{macro}{\@@_role_check_parent_child:nnnnN}
 % This command rolemaps its arguments and then
 % calls \cs{@@_role_get_parent_child_rule:nnnN}.
 % It does not try to resolve inheritation of \texttt{Div} etc but
@@ -1102,7 +1102,7 @@
 %    \begin{macrocode}
 \pdf_version_compare:NnTF < {2.0}
   {
-   \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5
+   \cs_new_protected:Npn \@@_role_check_parent_child:nnnnN #1 #2 #3 #4 #5
     %#1 parent tag,#2 NS, #3 child tag, #4 NS, #5 tl var
      {
 %    \end{macrocode}
@@ -1164,7 +1164,7 @@
 % and now the pdf 2.0 version
 %    \begin{macrocode}
   {
-   \cs_new_protected:Npn \@@_check_parent_child:nnnnN #1 #2 #3 #4 #5 %tag,NS,tag,NS, tl var
+   \cs_new_protected:Npn \@@_role_check_parent_child:nnnnN #1 #2 #3 #4 #5 %tag,NS,tag,NS, tl var
       {
         \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1/#2}
         \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3/#4}
@@ -1254,7 +1254,7 @@
          }
      }
   }
-\cs_generate_variant:Nn\@@_check_parent_child:nnnnN {oonnN,VVVVN,nVnVN,VVnnN}
+\cs_generate_variant:Nn\@@_role_check_parent_child:nnnnN {oonnN,VVVVN,nVnVN,VVnnN}
 %</package>
 %    \end{macrocode}
 % \end{macro}
@@ -1271,7 +1271,7 @@
       {rolemap}
       \l_@@_get_parent_tmpa_tl
       \l_@@_get_parent_tmpb_tl
-   \@@_check_parent_child:VVnnN
+   \@@_role_check_parent_child:VVnnN
      \l_@@_get_parent_tmpa_tl
      \l_@@_get_parent_tmpb_tl
       {#1}{#2}
@@ -1284,7 +1284,7 @@
            {parentrole}
            \l_@@_get_parent_tmpa_tl
            \l_@@_get_parent_tmpb_tl
-        \@@_check_parent_child:VVnnN
+        \@@_role_check_parent_child:VVnnN
           \l_@@_get_parent_tmpa_tl
           \l_@@_get_parent_tmpb_tl
            {#1}{#2}
