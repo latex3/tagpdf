@@ -1103,7 +1103,11 @@
 \pdf_version_compare:NnTF < {2.0}
   {
    \cs_new_protected:Npn \@@_role_check_parent_child:nnnnN #1 #2 #3 #4 #5
-    %#1 parent tag,#2 NS, #3 child tag, #4 NS, #5 tl var
+    % #1 parent tag,% TODO already rolemapped or not??
+    % #2 NS (empty in pdf 1.x)
+    % #3 child tag, % TODO already rolemapped or not??
+    % #4 NS (empty in pdf 1.x) 
+    % #5 tl var: to give the result back. 
      {
 %    \end{macrocode}
 % for debugging messages we store the arguments.
@@ -1266,7 +1270,7 @@
 \prg_set_protected_conditional:Npnn \tag_check_child:nn #1 #2 {T,F,TF} %#1 tag, #2 NS
  {
    \seq_get:NN\g_@@_struct_stack_seq\l_@@_tmpa_tl
-   \@@_struct_get_parentrole:enNN
+   \@@_struct_get_role:enNN
       {\l_@@_tmpa_tl}
       {rolemap}
       \l_@@_get_parent_tmpa_tl
@@ -1279,7 +1283,7 @@
    \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }
       {
         \seq_get:NN\g_@@_struct_stack_seq\l_@@_tmpa_tl
-        \@@_struct_get_parentrole:enNN
+        \@@_struct_get_role:enNN
            {\l_@@_tmpa_tl}
            {parentrole}
            \l_@@_get_parent_tmpa_tl

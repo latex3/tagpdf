@@ -693,19 +693,22 @@
          { {#2} {#3} }           
      } 
  }
-\cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {eVV}
+\cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {eoo}
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_struct_get_parentrole:nnNN}
+% \begin{macro}{\@@_struct_get_role:nnNN}
 %  We also need a way to get the tag info needed for parent child
 %  check from parent structures.
 %  The tag info is stored as the value of the rolemap key, but for
 %  \enquote{transparent} structures we also have to look into parentrole key.
 %  
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_get_parentrole:nnNN #1 #2 #3 #4
-   %#1 struct num, #2 rolemap or parentrole #3 tlvar for tag , #4 tlvar for NS
+\cs_new_protected:Npn \@@_struct_get_role:nnNN #1 #2 #3 #4
+   %#1 :struct num, 
+   %#2 :rolemap or parentrole 
+   %#3 :tlvar for tag (rolemapped)
+   %#4 :tlvar for NS  (rolemapped, so standard or empty or UNKNOWN)
     {        
        \prop_get:cnNTF 
          { g_@@_struct_#1_prop } 
@@ -720,7 +723,7 @@
            \tl_clear:N#4
          }
     }
-\cs_generate_variant:Nn\@@_struct_get_parentrole:nnNN {enNN}    
+\cs_generate_variant:Nn\@@_struct_get_role:nnNN {enNN}    
 %    \end{macrocode}
 % \end{macro}
 % \subsection{Handlings kids}
@@ -1215,20 +1218,20 @@
 \cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnnNNN #1#2#3#4#5#6#7
   {
 % #1 structure number of parent
-% #2 key to use for parent (currently rolemap or parentrole)
-% #3 tag of current structure
-% #4 NS of current structure  
+% #2 key to use to retrieve role of parent (either rolemap or parentrole field)
+% #3 tag of current structure % TODO already rolemapped or not??
+% #4 NS of current structure  % TODO already rolemapped or not??
 % #5 tl for return value
-% #6 to return parent tag
-% #7 to return parent NS
-    \@@_struct_get_parentrole:nnNN  
+% #6 to return parent tag     % already rolemapped!
+% #7 to return parent NS      % already rolemapped!
+    \@@_struct_get_role:nnNN  
       {#1} %{\l_@@_struct_stack_parent_tmpa_tl}
       {#2}
       #6
       #7
     \@@_role_check_parent_child:oonnN % generate!
-      { #6 }
-      { #7 }
+      { #6 } % rolemapped from above
+      { #7 } % rolemapped from above
       { #3 } % \g_@@_struct_tag_tl               
       { #4 } % \g_@@_struct_tag_NS_tl  
      #5
@@ -1240,18 +1243,27 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_check_parent_child:nnn #1 #2 #3 
 % #1 structure number of parent
-% #2 tag of current structure
-% #3 NS of current structure
+% #2 tag of current structure or MC % TODO already rolemapped or not??
+% #3 NS of current structure  % TODO already rolemapped or not??
   {
     \@@_struct_check_parent_child_aux:nnnnNNN
-     {#1}{rolemap}{#2}{#3}
+      {#1}
+      {rolemap}
+      {#2}
+      {#3}
       \l_@@_parent_child_check_tl 
       \l_@@_get_parent_tmpa_tl
       \l_@@_get_parent_tmpb_tl
+%    \end{macrocode}
+% if the return value is 7 we have to check against the parentrole field.
+%    \begin{macrocode}
     \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
       {
         \@@_struct_check_parent_child_aux:nnnnNNN
-          {#1}{parentrole}{#2}{#3}
+          {#1}
+          {parentrole}
+          {#2}
+          {#3}
           \l_@@_parent_child_check_tl 
           \l_@@_get_parent_tmpa_tl
           \l_@@_get_parent_tmpb_tl
@@ -1805,10 +1817,10 @@
         \keys_set:nn { @@ / struct} { #1 }
 %    \end{macrocode}
 %    \begin{macrocode}
-        \@@_struct_set_tag_info:eVV 
+        \@@_struct_set_tag_info:eoo 
           { \int_use:N \c@g_@@_struct_abs_int }
-           \g_@@_struct_tag_tl               
-           \g_@@_struct_tag_NS_tl   
+          { \g_@@_struct_tag_tl }              
+          { \g_@@_struct_tag_NS_tl }   
         \@@_check_structure_has_tag:n { \int_use:N \c@g_@@_struct_abs_int }           
 %    \end{macrocode}
 % The structure number of the parent is either taken from the stack or
@@ -1830,7 +1842,7 @@
           \l_@@_struct_roletag_tl 
           \l_@@_struct_roletag_NS_tl 
 %    \end{macrocode}
-% We push that the role tag on the stack:% 
+% We push the role tag on the stack:% 
 %    \begin{macrocode}
         \seq_gpush:Ne \g_@@_struct_tag_stack_seq 
           {{\g_@@_struct_tag_tl}{\l_@@_struct_roletag_tl}}
@@ -2052,7 +2064,7 @@
 %   TODO: this looks wrong, if the child is e.g. NonStruct, we would need the tag of the inner
 %   child.
 %    \begin{macrocode}
-             \@@_struct_get_parentrole:enNN  
+             \@@_struct_get_role:enNN  
               {\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}}
               {parentrole} %is this correct???
               \l_@@_tmpa_tl
@@ -2129,7 +2141,7 @@
 %   TODO: this looks wrong, if the child is e.g. NonStruct, we would need the tag of the inner
 %   child.
 %    \begin{macrocode}
-             \@@_struct_get_parentrole:enNN  
+             \@@_struct_get_role:enNN  
               {#1}
               {parentrole} %% ?? is this correct
               \l_@@_tmpa_tl
