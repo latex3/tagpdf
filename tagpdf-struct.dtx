@@ -667,11 +667,15 @@
          { #1 }            
          { S }
          { \pdf_name_from_unicode_e:n {#2}  } %
+       \@@_struct_prop_gput:nnn
+         { #1 }            
+         { tag }
+         { {#2} {} }  
      }
  }     
  {     
    \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
-     {  
+     {       
        \@@_struct_prop_gput:nne
          { #1 }            
          { S }
@@ -683,6 +687,10 @@
              { NS }
              { \l_@@_get_tmpc_tl } %
          }
+       \@@_struct_prop_gput:nnn
+         { #1 }            
+         { tag }
+         { {#2} {#3} }           
      } 
  }
 \cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {eVV}
@@ -991,19 +999,19 @@
 %    \end{macrocode}
 % \end{macro}
 % 
-% \begin{macro}{\@@_struct_format_rolemap:nnN,\@@_struct_format_parentrole:nnN,\@@_struct_format_P:nnN}
+% \begin{macro}{\@@_struct_format_rolemap:nnN,\@@_struct_format_parentrole:nnN,
+% \@@_struct_format_P:nnN,\@@_struct_format_tag:nnN}
 % This three entries should not end in the PDF.
-% Todo: check if the P key can be dropped and replaced by the parent key.
+% Todo: check if the S/NS keys can be dropped and replaced by a processing of the tag key.
 %    \begin{macrocode}
 \cs_new:Nn\@@_struct_format_rolemap:nnN{}
 \cs_new:Nn\@@_struct_format_parentrole:nnN{}
-\cs_new:Nn\@@_struct_format_P:nnN{}
+\cs_new:Nn\@@_struct_format_tag:nnN{}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_struct_format_parentnum:nnN}
 % parent is a structure number and
 % should expand to the object reference.
-% This will replace the P key.
 %    \begin{macrocode}
 \cs_new_protected:Nn\@@_struct_format_parentnum:nnN
   {

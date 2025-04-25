@@ -15,6 +15,7 @@ The structure has the following kids:
 The structure 2 contains:
 >  Type  =>  /StructElem
 >  S  =>  /Document
+>  tag  =>  {Document}{}
 >  rolemap  =>  {Document}{}
 >  parentrole  =>  {Document}{}
 >  parentnum  =>  1 = /StructTreeRoot
@@ -27,6 +28,7 @@ The structure has the following kids:
 The structure 3 contains:
 >  Type  =>  /StructElem
 >  S  =>  /figures
+>  tag  =>  {figures}{}
 >  rolemap  =>  {Sect}{}
 >  parentrole  =>  {Sect}{}
 >  parentnum  =>  no parent: stashed
@@ -38,6 +40,7 @@ The structure has the following kids:
 The structure 4 contains:
 >  Type  =>  /StructElem
 >  S  =>  /tables
+>  tag  =>  {tables}{}
 >  rolemap  =>  {Sect}{}
 >  parentrole  =>  {Sect}{}
 >  parentnum  =>  no parent: stashed
@@ -49,6 +52,7 @@ The structure has the following kids:
 The structure 5 contains:
 >  Type  =>  /StructElem
 >  S  =>  /text-unit
+>  tag  =>  {text-unit}{}
 >  rolemap  =>  {Part}{}
 >  parentrole  =>  {Document}{}
 >  parentnum  =>  2 = /Document
@@ -61,6 +65,7 @@ The structure 6 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
 >  S  =>  /text
+>  tag  =>  {text}{}
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
 >  parentnum  =>  5 = /text-unit
@@ -72,6 +77,7 @@ The structure has the following kids:
 The structure 7 contains:
 >  Type  =>  /StructElem
 >  S  =>  /text-unit
+>  tag  =>  {text-unit}{}
 >  rolemap  =>  {Part}{}
 >  parentrole  =>  {Document}{}
 >  parentnum  =>  2 = /Document
@@ -84,6 +90,7 @@ The structure 8 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
 >  S  =>  /text
+>  tag  =>  {text}{}
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
 >  parentnum  =>  7 = /text-unit

@@ -29,6 +29,7 @@ The structure 2 contains:
 >  Type  =>  /StructElem
 >  S  =>  /Document
 >  NS  =>  pdf2
+>  tag  =>  {Document}{pdf2}
 >  rolemap  =>  {Document}{pdf2}
 >  parentrole  =>  {Document}{pdf2}
 >  parentnum  =>  1 = /StructTreeRoot
@@ -40,6 +41,7 @@ The structure 3 contains:
 >  Type  =>  /StructElem
 >  S  =>  /figures
 >  NS  =>  latex
+>  tag  =>  {figures}{latex}
 >  rolemap  =>  {Sect}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
 >  parentnum  =>  no parent: stashed
@@ -51,6 +53,7 @@ The structure 4 contains:
 >  Type  =>  /StructElem
 >  S  =>  /tables
 >  NS  =>  latex
+>  tag  =>  {tables}{latex}
 >  rolemap  =>  {Sect}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
 >  parentnum  =>  no parent: stashed
@@ -62,6 +65,7 @@ The structure 5 contains:
 >  Type  =>  /StructElem
 >  S  =>  /Sect
 >  NS  =>  pdf2
+>  tag  =>  {Sect}{pdf2}
 >  rolemap  =>  {Sect}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
 >  parentnum  =>  2 = /Document
@@ -76,6 +80,7 @@ The structure 6 contains:
 >  Type  =>  /StructElem
 >  S  =>  /section
 >  NS  =>  latex
+>  tag  =>  {section}{latex}
 >  rolemap  =>  {H1}{pdf2}
 >  parentrole  =>  {H1}{pdf2}
 >  parentnum  =>  5 = /Sect
@@ -88,6 +93,7 @@ The structure 7 contains:
 >  Type  =>  /StructElem
 >  S  =>  /section-number
 >  NS  =>  latex
+>  tag  =>  {section-number}{latex}
 >  rolemap  =>  {Span}{pdf2}
 >  parentrole  =>  {Span}{pdf2}
 >  parentnum  =>  6 = /section
@@ -99,6 +105,7 @@ The structure 8 contains:
 >  Type  =>  /StructElem
 >  S  =>  /text-unit
 >  NS  =>  latex
+>  tag  =>  {text-unit}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
 >  parentnum  =>  5 = /Sect
@@ -111,6 +118,7 @@ The structure 9 contains:
 >  C  =>  /justify
 >  S  =>  /text
 >  NS  =>  latex
+>  tag  =>  {text}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
 >  parentnum  =>  8 = /text-unit
@@ -124,6 +132,7 @@ The structure 10 contains:
 >  Type  =>  /StructElem
 >  S  =>  /Link
 >  NS  =>  pdf2
+>  tag  =>  {Link}{pdf2}
 >  rolemap  =>  {Link}{pdf2}
 >  parentrole  =>  {Link}{pdf2}
 >  parentnum  =>  9 = /text
@@ -136,6 +145,7 @@ The structure 11 contains:
 >  Type  =>  /StructElem
 >  S  =>  /Span
 >  NS  =>  pdf2
+>  tag  =>  {Span}{pdf2}
 >  rolemap  =>  {Span}{pdf2}
 >  parentrole  =>  {Span}{pdf2}
 >  parentnum  =>  5 = Sect
@@ -147,6 +157,7 @@ The structure 12 contains:
 >  Type  =>  /StructElem
 >  S  =>  /text-unit
 >  NS  =>  latex
+>  tag  =>  {text-unit}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
 >  parentnum  =>  5 = /Sect
@@ -159,6 +170,7 @@ The structure 13 contains:
 >  C  =>  /justify
 >  S  =>  /text
 >  NS  =>  latex
+>  tag  =>  {text}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
 >  parentnum  =>  12 = /text-unit

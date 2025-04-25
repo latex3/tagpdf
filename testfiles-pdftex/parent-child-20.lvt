@@ -21,43 +21,43 @@
 %tag-NS
 \TEST{Sect-Em: no}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{pdf2}{Em}{pdf2}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{pdf2}{Em}{pdf2}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }
  
 \TEST{Sect-blub: unknown}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{pdf2}{blub}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{pdf2}{blub}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  } 
  
 \TEST{bla-Sect: unknown}
  {
-   \__tag_check_parent_child:nnnnN {bla}{}{Sect}{pdf2}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {bla}{}{Sect}{pdf2}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }  
  
 \TEST{bla-blub: unknown}
  {
-   \__tag_check_parent_child:nnnnN {bla}{}{blub}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {bla}{}{blub}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }  
  
 \TEST{Sect-H2: allowed}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{pdf2}{H2}{pdf2}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{pdf2}{H2}{pdf2}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }  
  
 \TEST{Rolemapping:~Sect-section~allowed}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{pdf2}{section}{latex}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{pdf2}{section}{latex}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }   
  
 \TEST{Double~rolemapping:~subsection-section~no}
  {
-   \__tag_check_parent_child:nnnnN {subsection}{latex}{section}{latex}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {subsection}{latex}{section}{latex}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }    
  
@@ -66,7 +66,7 @@
  {
    %inheritation requires that the parent is on the stack
    \tagstructbegin{tag=Part}
-   \__tag_check_parent_child:nnnnN {Part}{pdf2}{P}{pdf2}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Part}{pdf2}{P}{pdf2}\l_tmpa_tl
    \tagstructend
    \tl_log:N\l_tmpa_tl
  }   
@@ -74,55 +74,55 @@
 \TEST{Inherit:~NonStruct-Lbl~no}
  { %inheritation requires that the parent is on the stack
    \tagstructbegin{tag=NonStruct}
-   \__tag_check_parent_child:nnnnN {NonStruct}{pdf2}{Lbl}{pdf2}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {NonStruct}{pdf2}{Lbl}{pdf2}\l_tmpa_tl
    \tagstructend
    \tl_log:N\l_tmpa_tl
  }      
  
 \TEST{Special:~Ruby-RT~yes}
  {
-   \__tag_check_parent_child:nnnnN {Ruby}{pdf2}{RT}{pdf2}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Ruby}{pdf2}{RT}{pdf2}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }       
  
 \TEST{Special:~H-Sect~yes}
  {
-   \__tag_check_parent_child:nnnnN {H}{pdf2}{Sect}{pdf2}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {H}{pdf2}{Sect}{pdf2}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }  
 \TEST{Content~item:~P-MC~yes}
  {
-   \__tag_check_parent_child:nnnnN {P}{pdf2}{MC}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {P}{pdf2}{MC}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }   
  
 \TEST{Content~item:~TBody-MC~no}
  {
-   \__tag_check_parent_child:nnnnN {TBody}{pdf2}{MC}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {TBody}{pdf2}{MC}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }   
  
 \TEST{Root:~StructTreeRoot-MC~no}
  {
-   \__tag_check_parent_child:nnnnN {StructTreeRoot}{pdf2}{MC}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {StructTreeRoot}{pdf2}{MC}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }     
  
 \TEST{Math:~math-abs~yes}
  {
-   \__tag_check_parent_child:nnnnN {math}{mathml}{abs}{mathml}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {math}{mathml}{abs}{mathml}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  } 
  
 \TEST{Math:~Formula-math~yes}
  {
-   \__tag_check_parent_child:nnnnN {Formula}{pdf2}{math}{mathml}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Formula}{pdf2}{math}{mathml}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  } 
  
 \TEST{H10:~Sect-H10~yes}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{pdf2}{H10}{pdf2}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{pdf2}{H10}{pdf2}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }           
 \END

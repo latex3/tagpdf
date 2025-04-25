@@ -14,43 +14,43 @@
 %tag-NS
 \TEST{Sect-Em: no}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{}{Em}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{}{Em}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }
  
 \TEST{Sect-blub: unknown}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{}{blub}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{}{blub}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  } 
  
 \TEST{bla-Sect: unknown}
  {
-   \__tag_check_parent_child:nnnnN {bla}{}{Sect}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {bla}{}{Sect}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }  
  
 \TEST{bla-blub: unknown}
  {
-   \__tag_check_parent_child:nnnnN {bla}{}{blub}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {bla}{}{blub}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }  
  
 \TEST{Sect-H2: allowed}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{}{H2}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{}{H2}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }  
  
 \TEST{Rolemapping:~Sect-section~allowed}
  {
-   \__tag_check_parent_child:nnnnN {Sect}{}{section}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Sect}{}{section}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }   
  
 \TEST{Double~rolemapping:~subsection-section~no}
  {
-   \__tag_check_parent_child:nnnnN {subsection}{}{section}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {subsection}{}{section}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }    
  
@@ -59,7 +59,7 @@
  {
    %inheritation requires that the parent is on the stack
    \tagstructbegin{tag=Part}
-   \__tag_check_parent_child:nnnnN {Part}{}{P}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Part}{}{P}{}\l_tmpa_tl
    \tagstructend
    \tl_log:N\l_tmpa_tl
    
@@ -68,7 +68,7 @@
 \TEST{Inherit:~NonStruct-Lbl~no}
  { %inheritation requires that the parent is on the stack
    \tagstructbegin{tag=NonStruct}
-   \__tag_check_parent_child:nnnnN {NonStruct}{}{Lbl}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {NonStruct}{}{Lbl}{}\l_tmpa_tl
    \tagstructend
    \tl_log:N\l_tmpa_tl
  }     
@@ -76,30 +76,30 @@
  
 \TEST{Special:~Ruby-RT~yes}
  {
-   \__tag_check_parent_child:nnnnN {Ruby}{}{RT}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {Ruby}{}{RT}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }       
  
 \TEST{Special:~H-Sect~yes}
  {
-   \__tag_check_parent_child:nnnnN {H}{}{Sect}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {H}{}{Sect}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }  
 \TEST{Content~item:~P-MC~yes}
  {
-   \__tag_check_parent_child:nnnnN {P}{}{MC}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {P}{}{MC}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }   
  
 \TEST{Content~item:~TBody-MC~no}
  {
-   \__tag_check_parent_child:nnnnN {TBody}{}{MC}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {TBody}{}{MC}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }   
  
 \TEST{Root:~StructTreeRoot-MC~no}
  {
-   \__tag_check_parent_child:nnnnN {StructTreeRoot}{}{MC}{}\l_tmpa_tl
+   \__tag_role_check_parent_child:nnnnN {StructTreeRoot}{}{MC}{}\l_tmpa_tl
    \tl_log:N\l_tmpa_tl
  }        
 \END
