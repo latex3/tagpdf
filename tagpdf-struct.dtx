@@ -1236,6 +1236,57 @@
       { #4 } % \g_@@_struct_tag_NS_tl  
      #5
   }
+\cs_generate_variant:Nn \@@_struct_check_parent_child_aux:nnnnNNN {nneeNNN} 
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_struct_check_parent_child:nn}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_check_parent_child:nn #1 #2 
+% #1 structure number of parent
+% #2 structure number of child. This assumes that the field rolemap has already been filled.
+  {
+    \prop_get:cnN {g_@@_struct_#2_prop}{rolemap}\l_@@_get_child_tmpa_tl
+    \@@_struct_check_parent_child_aux:nneeNNN
+      {#1}
+      {rolemap}
+      {\exp_last_unbraced:NV\use_i:nn \l_@@_get_child_tmpa_tl}
+      {\exp_last_unbraced:NV\use_ii:nn \l_@@_get_child_tmpa_tl}
+      \l_@@_parent_child_check_tl 
+      \l_@@_get_parent_tmpa_tl
+      \l_@@_get_parent_tmpb_tl
+%    \end{macrocode}
+% if the return value is 7 we have to check against the parentrole field.
+%    \begin{macrocode}
+    \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
+      {
+        \@@_struct_check_parent_child_aux:nnnnNNN
+          {#1}
+          {parentrole}
+          {\exp_last_unbraced:NV\use_i:nn  \l_@@_get_child_tmpa_tl }
+          {\exp_last_unbraced:NV\use_ii:nn \l_@@_get_child_tmpa_tl }
+          \l_@@_parent_child_check_tl 
+          \l_@@_get_parent_tmpa_tl
+          \l_@@_get_parent_tmpb_tl
+      }
+    \@@_check_forbidden_parent_child:nnee 
+     {\l_@@_parent_child_check_tl}  
+     {#1}
+     {
+       \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl
+     }
+     {
+      \str_if_eq:enTF
+       { \exp_last_unbraced:NV\use_i:nn  \l_@@_get_child_tmpa_tl }{MC}
+       {MC~(real content)}
+       {
+         \exp_last_unbraced:NV\use_ii:nn  \l_@@_get_child_tmpa_tl 
+         : 
+         \exp_last_unbraced:NV\use_i:nn  \l_@@_get_child_tmpa_tl
+       }
+     } 
+  } 
+\cs_generate_variant:Nn \@@_struct_check_parent_child:nn {oo}             
 %    \end{macrocode}
 % \end{macro}
 % 
