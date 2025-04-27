@@ -342,10 +342,8 @@
            % if not stashed record the absolute number
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
-                \@@_struct_check_parent_child:ooo
+                \@@_mc_check_parent_child:o
                  { \g_@@_struct_stack_current_tl }
-                 { MC }
-                 {  }
                 \@@_mc_handle_stash:e { \@@_get_mc_abs_cnt: }
               }
           }

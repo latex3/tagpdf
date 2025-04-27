@@ -460,6 +460,55 @@
 %    \end{macrocode}
 % \end{macro}
 % 
+% \begin{macro}{\@@_mc_check_parent_child:n}
+% This checks if an MC can be used in a structure.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_mc_check_parent_child:n #1 
+% #1 structure number of parent
+  {
+    \@@_struct_get_role:nnNN  
+      {#1} 
+      {rolemap}
+      \l_@@_get_parent_tmpa_tl
+      \l_@@_get_parent_tmpb_tl
+    \@@_role_check_parent_child:ooooN  
+      { \l_@@_get_parent_tmpa_tl } 
+      { \l_@@_get_parent_tmpb_tl }  
+      { MC } % 
+      {  } %   
+      \l_@@_parent_child_check_tl
+%    \end{macrocode}
+% if the return value is 7 we have to check against the parentrole field.
+% TODO ruby and warichu use 7 too, that should be changed!
+%    \begin{macrocode}     
+    \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }
+      {
+        \@@_struct_get_role:nnNN  
+         {#1} 
+         {parentrole}
+         \l_@@_get_parent_tmpa_tl
+         \l_@@_get_parent_tmpb_tl
+       \@@_role_check_parent_child:ooooN  
+         { \l_@@_get_parent_tmpa_tl } 
+         { \l_@@_get_parent_tmpb_tl }  
+         { MC } % 
+         {  } %   
+         \l_@@_parent_child_check_tl  
+      }  
+    \@@_check_forbidden_parent_child:nnee 
+     {\l_@@_parent_child_check_tl}  
+     {#1}
+     {
+       \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl
+     }
+     {
+       MC~(real content)
+     } 
+  } 
+\cs_generate_variant:Nn \@@_mc_check_parent_child:n {o}             
+%    \end{macrocode}
+% \end{macro}
+% 
 % \subsection{Keys}
 % This are the keys where the code can be shared between the modes.
 %

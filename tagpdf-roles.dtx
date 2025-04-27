@@ -173,8 +173,6 @@
 % number. These numbers are used to get the containment rule of two tags
 % from the intarray.
 %
-%\item[\cs{l_@@_role_debug_prop}] This property is used to pass some info
-% around for info messages or debugging.
 % \end{description}
 %
 %
@@ -1117,11 +1115,6 @@
     % #5 tl var: to give the result back. 
      {
 %    \end{macrocode}
-% for debugging messages we store the arguments.
-%    \begin{macrocode}
-       \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1}
-       \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3}
-%    \end{macrocode}
 % get the standard tags through rolemapping if needed
 % at first the parent
 %    \begin{macrocode}
@@ -1178,9 +1171,7 @@
   {
    \cs_new_protected:Npn \@@_role_check_parent_child:nnnnN #1 #2 #3 #4 #5 %tag,NS,tag,NS, tl var
       {
-        \prop_put:Nnn \l_@@_role_debug_prop {parent} {#1/#2}
-        \prop_put:Nnn \l_@@_role_debug_prop {child}  {#3/#4}
-%    \end{macrocode}
+ %    \end{macrocode}
 %  If the namespace is empty, we assume a standard tag,
 %  otherwise we retrieve the rolemapping from the namespace
 %    \begin{macrocode}
@@ -1267,7 +1258,7 @@
          }
      }
   }
-\cs_generate_variant:Nn\@@_role_check_parent_child:nnnnN {oonnN,VVVVN,nVnVN,VVnnN}
+\cs_generate_variant:Nn\@@_role_check_parent_child:nnnnN {oonnN,ooooN}
 %</package>
 %    \end{macrocode}
 % \end{macro}

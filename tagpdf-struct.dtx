@@ -1229,7 +1229,7 @@
       {#2}
       #6
       #7
-    \@@_role_check_parent_child:oonnN % generate!
+    \@@_role_check_parent_child:oonnN  
       { #6 } % rolemapped from above
       { #7 } % rolemapped from above
       { #3 } % \g_@@_struct_tag_tl               
@@ -1237,21 +1237,57 @@
      #5
   }
 \cs_generate_variant:Nn \@@_struct_check_parent_child_aux:nnnnNNN {nneeNNN} 
+% new variant with structure numbers
+\cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnNNN #1#2#3#4#5#6
+  {
+% #1 structure number of parent
+% #2 key to use to retrieve role of parent (either rolemap or parentrole field)
+% #3 structure number of parent
+% #4 tl for return value
+% #5 to return parent tag     % needed ?? already rolemapped!
+% #6 to return parent NS      % needed ?? already rolemapped!
+%    \end{macrocode}
+% get parent rolemap
+%    \begin{macrocode}
+    \@@_struct_get_role:nnNN  
+      {#1} 
+      {#2}
+      #5
+      #6
+%    \end{macrocode}
+% get child rolemap
+%    \begin{macrocode}
+    \@@_struct_get_role:nnNN  
+      {#3} 
+      {rolemap}
+      \l_@@_get_child_tmpa_tl
+      \l_@@_get_child_tmpb_tl
+%    \end{macrocode}
+% check
+%    \begin{macrocode}
+    \@@_role_check_parent_child:ooooN  
+      { #5 } % rolemapped from above
+      { #6 } % rolemapped from above
+      { \l_@@_get_child_tmpa_tl } % 
+      { \l_@@_get_child_tmpb_tl } %   
+     #4
+  }
 %    \end{macrocode}
 % \end{macro}
 % 
 % \begin{macro}{\@@_struct_check_parent_child:nn}
+% When comparing the relation between structures we use the structure 
+% numbers.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_check_parent_child:nn #1 #2 
 % #1 structure number of parent
-% #2 structure number of child. This assumes that the field rolemap has already been filled.
+% #2 structure number of child. %
+% This assumes that the fields rolemap/parentrole has already been filled.
   {
-    \prop_get:cnN {g_@@_struct_#2_prop}{rolemap}\l_@@_get_child_tmpa_tl
-    \@@_struct_check_parent_child_aux:nneeNNN
+    \@@_struct_check_parent_child_aux:nnnNNN
       {#1}
       {rolemap}
-      {\exp_last_unbraced:NV\use_i:nn \l_@@_get_child_tmpa_tl}
-      {\exp_last_unbraced:NV\use_ii:nn \l_@@_get_child_tmpa_tl}
+      {#2}
       \l_@@_parent_child_check_tl 
       \l_@@_get_parent_tmpa_tl
       \l_@@_get_parent_tmpb_tl
@@ -1260,107 +1296,48 @@
 %    \begin{macrocode}
     \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
       {
-        \@@_struct_check_parent_child_aux:nnnnNNN
+        \@@_struct_check_parent_child_aux:nnnNNN
           {#1}
           {parentrole}
-          {\exp_last_unbraced:NV\use_i:nn  \l_@@_get_child_tmpa_tl }
-          {\exp_last_unbraced:NV\use_ii:nn \l_@@_get_child_tmpa_tl }
+          {#2}
           \l_@@_parent_child_check_tl 
           \l_@@_get_parent_tmpa_tl
           \l_@@_get_parent_tmpb_tl
-      }
-    \@@_check_forbidden_parent_child:nnee 
+      } 
+    \@@_check_struct_forbidden_parent_child:onn 
      {\l_@@_parent_child_check_tl}  
      {#1}
-     {
-       \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl
-     }
-     {
-      \str_if_eq:enTF
-       { \exp_last_unbraced:NV\use_i:nn  \l_@@_get_child_tmpa_tl }{MC}
-       {MC~(real content)}
-       {
-         \exp_last_unbraced:NV\use_ii:nn  \l_@@_get_child_tmpa_tl 
-         : 
-         \exp_last_unbraced:NV\use_i:nn  \l_@@_get_child_tmpa_tl
-       }
-     } 
+     {#2}
   } 
 \cs_generate_variant:Nn \@@_struct_check_parent_child:nn {oo}             
 %    \end{macrocode}
 % \end{macro}
-% 
-% \begin{macro}{\@@_struct_check_parent_child:nnn}
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_check_parent_child:nnn #1 #2 #3 
-% #1 structure number of parent
-% #2 tag of current structure or MC % TODO already rolemapped or not??
-% #3 NS of current structure  % TODO already rolemapped or not??
-  {
-    \@@_struct_check_parent_child_aux:nnnnNNN
-      {#1}
-      {rolemap}
-      {#2}
-      {#3}
-      \l_@@_parent_child_check_tl 
-      \l_@@_get_parent_tmpa_tl
-      \l_@@_get_parent_tmpb_tl
-%    \end{macrocode}
-% if the return value is 7 we have to check against the parentrole field.
-%    \begin{macrocode}
-    \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
-      {
-        \@@_struct_check_parent_child_aux:nnnnNNN
-          {#1}
-          {parentrole}
-          {#2}
-          {#3}
-          \l_@@_parent_child_check_tl 
-          \l_@@_get_parent_tmpa_tl
-          \l_@@_get_parent_tmpb_tl
-      }
-    \@@_check_forbidden_parent_child:nnee 
-     {\l_@@_parent_child_check_tl}  
-     {#1}
-     {
-       \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl
-     }
-     {
-      \str_if_eq:onTF
-       {#2}{MC}
-       {MC~(real content)}
-       {#3:#2}
-     } 
-  } 
-\cs_generate_variant:Nn \@@_struct_check_parent_child:nnn {ooo}             
-%    \end{macrocode}
-% \end{macro}
-% 
-% \begin{macro}{\@@_struct_use_check_parent_child:nnn}
-% This is use when using a stashed structure. It can't check 
+%  
+% \begin{macro}{\@@_struct_use_check_parent_child:nn}
+% This is used when using a stashed structure. It can't check 
 % the rules if the child tag is Part.
 % TODO: check the logic!!
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_use_check_parent_child:nnn #1 #2 #3 
+\cs_new_protected:Npn \@@_struct_use_check_parent_child:nn #1 #2  
 % #1 structure number of parent
-% #2 tag of current structure
-% #3 NS of current structure
+% #2 structure number of child. 
   {
-    \@@_struct_check_parent_child_aux:nnnnNNN
-     {#1}{rolemap}{#2}{#3}
+    \@@_struct_check_parent_child_aux:nnnNNN
+      {#1}
+      {rolemap}
+      {#2}
       \l_@@_parent_child_check_tl 
       \l_@@_get_parent_tmpa_tl
-      \l_@@_get_parent_tmpb_tl
-    \@@_check_unresolved_parent_child:nnnn
+      \l_@@_get_parent_tmpb_tl     
+   % \@@_check_unresolved_parent_child:nnnn
+%     {\l_@@_parent_child_check_tl}  
+%     {#1}
+%     {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
+%     {#3 : #2} 
+    \@@_check_struct_forbidden_parent_child:onn 
      {\l_@@_parent_child_check_tl}  
      {#1}
-     {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
-     {#3 : #2}      
-    \@@_check_warn_parent_child:nnnn 
-     {\l_@@_parent_child_check_tl}  
-     {#1}
-     {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
-     {#3 : #2} 
+     {#2}       
   }            
 %    \end{macrocode}
 % \end{macro}
@@ -1970,10 +1947,11 @@
 %  check if the tag can be used inside the parent. It only makes sense,
 %  if the structure is actually used here, so it is guarded by the stash boolean.  
 %    \begin{macrocode}
-            \@@_struct_check_parent_child:ooo
+            \@@_struct_check_parent_child:oo
               { \l_@@_struct_stack_parent_tmpa_tl }
-              { \g_@@_struct_tag_tl }
-              { \g_@@_struct_tag_NS_tl }
+              { \int_use:N \c@g_@@_struct_abs_int }
+             % { \g_@@_struct_tag_tl }
+             % { \g_@@_struct_tag_NS_tl }
 %    \end{macrocode}
 % Set the Parent structure number.
 %    \begin{macrocode}
@@ -2123,11 +2101,11 @@
               {parentrole} %is this correct???
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
-            \@@_role_check_parent_child:VVVVN
-              \g_@@_struct_tag_tl               
-              \g_@@_struct_tag_NS_tl  
-              \l_@@_tmpa_tl
-              \l_@@_tmpb_tl               
+            \@@_role_check_parent_child:ooooN
+              { \g_@@_struct_tag_tl }               
+              { \g_@@_struct_tag_NS_tl } 
+              { \l_@@_tmpa_tl }
+              { \l_@@_tmpb_tl }               
               \l_@@_parent_child_check_tl             
             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
               {
@@ -2200,11 +2178,11 @@
               {parentrole} %% ?? is this correct
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
-            \@@_role_check_parent_child:VVVVN
-              \g_@@_struct_tag_tl               
-              \g_@@_struct_tag_NS_tl  
-              \l_@@_tmpa_tl
-              \l_@@_tmpb_tl               
+            \@@_role_check_parent_child:ooooN
+              { \g_@@_struct_tag_tl }               
+              { \g_@@_struct_tag_NS_tl } 
+              { \l_@@_tmpa_tl }
+              { \l_@@_tmpb_tl }              
               \l_@@_parent_child_check_tl             
             \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
               {

@@ -550,6 +550,39 @@
   { Parent-Child~'#1'~-->~'#2'.\\Relation~is~#3~\msg_line_context:}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{role-struct-parent-child-forbidden}
+%  The most important message is that the relation 
+%  is not allowed between two structures.
+%  Argument \#1 is the parent structure number, \#2 is the child structure number,
+%  \#3 NS:tag info of the parent (TODO perhaps rolemapped),
+%  \#4 NS:tag of the child. (TODO ) 
+%    \begin{macrocode}
+\msg_new:nnn { tag } {role-struct-parent-child-forbidden}
+  { 
+    Parent-Child~'#3'~-->~'#4'.\\
+    Relation~is~not~allowed! ~\msg_line_context:\\                 
+    struct~#1,~
+    \exp_last_unbraced:Ne\use_i:nn  { \prop_item:cn{ g_@@_struct_#1_prop}{tag} }    
+    \c_space_tl-->\c_space_tl
+    struct~#2,~
+    \exp_last_unbraced:Ne\use_i:nn  { \prop_item:cn{ g_@@_struct_#2_prop}{tag} }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{role-MC-child-forbidden}
+%  In case that MC is forbidden we use 
+%  a special message. 
+%  Argument \#1 is the parent structure number. \#2 NS:tag of the parent,
+%    \begin{macrocode}
+\msg_new:nnn { tag } {role-MC-child-forbidden}
+  { 
+    Parent-Child~'#2'~-->~'MC~(real~content)'.\\
+    Relation~is~not~allowed! ~\msg_line_context:\\                 
+    struct~#1,~
+    \exp_last_unbraced:Ne\use_i:nn { \prop_item:cn{ g_@@_struct_#1_prop}{tag} }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{role-parent-child-forbidden}
 %  The most important message is that the relation is not allowed.
 %  Argument \#1 is the parent structure number. \#2 NS:tag of the parent,
@@ -566,7 +599,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% 
+
 % \begin{macro}{\@@_check_forbidden_parent_child:nnnn}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_forbidden_parent_child:nnnn #1#2#3#4
@@ -575,7 +608,7 @@
  {  
    \int_compare:nNnT {#1 } <0
      {
-       \msg_warning:nneee 
+       \msg_warning:nneeee 
          { tag } 
          {role-parent-child-forbidden} 
          { #2} 
@@ -583,7 +616,36 @@
          { #4 }  
      }
  }
-\cs_generate_variant:Nn \@@_check_forbidden_parent_child:nnnn {nnee}  
+\cs_generate_variant:Nn \@@_check_forbidden_parent_child:nnnn {nnee} 
+
+% new with structure numbers:
+\cs_new_protected:Npn \@@_check_struct_forbidden_parent_child:nnn #1#2#3
+% #1 check number, 
+% #2 number of parent struct
+% #3 number of child struct
+ {  
+   \int_compare:nNnT {#1 } <0
+     {
+       \prop_get:cnN {g_@@_struct_#2_prop}{parentrole}\l_@@_get_parent_tmpc_tl
+       \prop_get:cnN {g_@@_struct_#3_prop}{rolemap}\l_@@_get_child_tmpc_tl
+       \msg_warning:nneeee 
+         { tag } 
+         {role-struct-parent-child-forbidden} 
+         { #2 }
+         { #3 } 
+         { 
+           \exp_last_unbraced:NV\use_ii:nn  \l_@@_get_parent_tmpc_tl 
+           : 
+           \exp_last_unbraced:NV\use_i:nn  \l_@@_get_parent_tmpc_tl         
+         }
+         {  
+           \exp_last_unbraced:NV\use_ii:nn  \l_@@_get_child_tmpc_tl 
+           : 
+           \exp_last_unbraced:NV\use_i:nn  \l_@@_get_child_tmpc_tl
+         }  
+     }
+ } 
+\cs_generate_variant:Nn\@@_check_struct_forbidden_parent_child:nnn{onn} 
 %    \end{macrocode}
 % \end{macro}
 % 
