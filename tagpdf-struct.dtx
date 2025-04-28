@@ -1913,7 +1913,7 @@
 % For structures that are not rolemapped to Part, Div, NonStruct, 
 % \texttt{parentrole} and \texttt{rolemap}  are always equal. 
 %    \begin{macrocode}
-        \str_case:VnTF \l_@@_struct_roletag_tl
+        \str_case:onTF { \l_@@_struct_roletag_tl }
          {
            {Part} {}
            {Div}  {}
@@ -1926,7 +1926,7 @@
                 { \int_use:N \c@g_@@_struct_abs_int }          
                 { parentrole }
                 {
-                  {UNKNOWN}{UNKNOWN}
+                  {STASHED}{latex}
                 } 
            }
            {
