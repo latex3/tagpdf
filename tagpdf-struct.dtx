@@ -1217,25 +1217,23 @@
 % 
 % \subsection{Commands for the parent-child checks}
 %
-% \begin{macro}{\@@_struct_check_parent_child_aux:nnnNNN}
+% \begin{macro}{\@@_struct_check_parent_child_aux:nnnN}
 %    \begin{macrocode}
 %<*package>
-\cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnNNN #1#2#3#4#5#6
+\cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnN #1#2#3#4
   {
 % #1 structure number of parent
 % #2 key to use to retrieve role of parent (either rolemap or parentrole field)
 % #3 structure number of parent
 % #4 tl for return value
-% #5 to return parent tag     % needed ?? already rolemapped!
-% #6 to return parent NS      % needed ?? already rolemapped!
 %    \end{macrocode}
 % get parent rolemap
 %    \begin{macrocode}
     \@@_struct_get_role:nnNN  
       {#1} 
       {#2}
-      #5
-      #6
+      \l_@@_get_parent_tmpa_tl
+      \l_@@_get_parent_tmpb_tl
 %    \end{macrocode}
 % get child rolemap
 %    \begin{macrocode}
@@ -1248,8 +1246,8 @@
 % check
 %    \begin{macrocode}
     \@@_role_check_parent_child:ooooN  
-      { #5 } % rolemapped from above
-      { #6 } % rolemapped from above
+      { \l_@@_get_parent_tmpa_tl } % rolemapped from above
+      { \l_@@_get_parent_tmpb_tl } % rolemapped from above
       { \l_@@_get_child_tmpa_tl } % 
       { \l_@@_get_child_tmpb_tl } %   
      #4
@@ -1299,25 +1297,21 @@
             }  
          }           
       }      
-    \@@_struct_check_parent_child_aux:nnnNNN
+    \@@_struct_check_parent_child_aux:nnnN
       {#1}
       {rolemap}
       {#2}
       \l_@@_parent_child_check_tl 
-      \l_@@_get_parent_tmpa_tl
-      \l_@@_get_parent_tmpb_tl
 %    \end{macrocode}
 % if the return value is 7 we have to check against the parentrole field.
 %    \begin{macrocode}
     \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
       {
-        \@@_struct_check_parent_child_aux:nnnNNN
+        \@@_struct_check_parent_child_aux:nnnN
           {#1}
           {parentrole}
           {#2}
           \l_@@_parent_child_check_tl 
-          \l_@@_get_parent_tmpa_tl
-          \l_@@_get_parent_tmpb_tl
       }               
     \@@_check_struct_forbidden_parent_child:onn 
      {\l_@@_parent_child_check_tl}  
@@ -1328,34 +1322,6 @@
 %    \end{macrocode}
 % \end{macro}
 %  
-% \begin{macro}{\@@_struct_use_check_parent_child:nn}
-% This is used when using a stashed structure. It can't check 
-% the rules if the child tag is Part.
-% TODO: check the logic!!
-%    \begin{macrocode}
-\cs_new_protected:Npn \@@_struct_use_check_parent_child:nn #1 #2  
-% #1 structure number of parent
-% #2 structure number of child. 
-  {
-    \@@_struct_check_parent_child_aux:nnnNNN
-      {#1}
-      {rolemap}
-      {#2}
-      \l_@@_parent_child_check_tl 
-      \l_@@_get_parent_tmpa_tl
-      \l_@@_get_parent_tmpb_tl     
-   % \@@_check_unresolved_parent_child:nnnn
-%     {\l_@@_parent_child_check_tl}  
-%     {#1}
-%     {\l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl}
-%     {#3 : #2} 
-    \@@_check_struct_forbidden_parent_child:onn 
-     {\l_@@_parent_child_check_tl}  
-     {#1}
-     {#2}       
-  }            
-%    \end{macrocode}
-% \end{macro}
 % \section{Keys}
 % This are the keys for the user commands.
 % we store the tag in a variable. But we should be careful, it is only reliable
