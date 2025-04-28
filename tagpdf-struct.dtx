@@ -1212,32 +1212,9 @@
 % 
 % \subsection{Commands for the parent-child checks}
 %
-% \begin{macro}{\@@_struct_check_parent_child_aux:nnnnNNN}
+% \begin{macro}{\@@_struct_check_parent_child_aux:nnnNNN}
 %    \begin{macrocode}
 %<*package>
-\cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnnNNN #1#2#3#4#5#6#7
-  {
-% #1 structure number of parent
-% #2 key to use to retrieve role of parent (either rolemap or parentrole field)
-% #3 tag of current structure % TODO already rolemapped or not??
-% #4 NS of current structure  % TODO already rolemapped or not??
-% #5 tl for return value
-% #6 to return parent tag     % already rolemapped!
-% #7 to return parent NS      % already rolemapped!
-    \@@_struct_get_role:nnNN  
-      {#1} %{\l_@@_struct_stack_parent_tmpa_tl}
-      {#2}
-      #6
-      #7
-    \@@_role_check_parent_child:oonnN  
-      { #6 } % rolemapped from above
-      { #7 } % rolemapped from above
-      { #3 } % \g_@@_struct_tag_tl               
-      { #4 } % \g_@@_struct_tag_NS_tl  
-     #5
-  }
-\cs_generate_variant:Nn \@@_struct_check_parent_child_aux:nnnnNNN {nneeNNN} 
-% new variant with structure numbers
 \cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnNNN #1#2#3#4#5#6
   {
 % #1 structure number of parent
