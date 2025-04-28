@@ -466,6 +466,30 @@
 \cs_new_protected:Npn \@@_mc_check_parent_child:n #1 
 % #1 structure number of parent
   {
+%    \end{macrocode}
+% This records if logging is on
+%    \begin{macrocode}
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+      {
+        \prop_get:cnN{g_@@_struct_#1_prop}{tag}\l_@@_get_parent_tmpa_tl
+        \msg_note:nnee
+         { tag }
+         { role-parent-child-check }
+         {
+           \quark_if_no_value:NTF \l__tag_get_parent_tmpa_tl
+            {??}
+            {
+              \exp_last_unbraced:No\use_ii:nn 
+               { \l_@@_get_parent_tmpa_tl }
+              :
+             \exp_last_unbraced:No\use_i:nn 
+               { \l_@@_get_parent_tmpa_tl }             
+            }   
+         }
+         {
+           MC~(real~content)
+         }           
+      }        
     \@@_struct_get_role:nnNN  
       {#1} 
       {rolemap}

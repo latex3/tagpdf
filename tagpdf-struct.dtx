@@ -603,6 +603,11 @@
 
 \@@_struct_prop_gput:nne
   { 1 }            
+  { tag }
+  { {StructTreeRoot}{pdf} }
+
+\@@_struct_prop_gput:nne
+  { 1 }            
   { rolemap }
   { {StructTreeRoot}{pdf} }
 
@@ -1261,6 +1266,39 @@
 % #2 structure number of child. %
 % This assumes that the fields rolemap/parentrole has already been filled.
   {
+%    \end{macrocode}
+% This records if logging is on
+%    \begin{macrocode}
+    \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
+      {
+        \prop_get:cnN{g_@@_struct_#1_prop}{tag}\l_@@_get_parent_tmpa_tl
+        \prop_get:cnN{g_@@_struct_#2_prop}{tag}\l_@@_get_parent_tmpb_tl
+        \msg_note:nnee
+         { tag }
+         { role-parent-child-check }
+         {
+           \quark_if_no_value:NTF \l__tag_get_parent_tmpa_tl
+            {??}
+            {
+              \exp_last_unbraced:No\use_ii:nn 
+               { \l_@@_get_parent_tmpa_tl }
+              :
+             \exp_last_unbraced:No\use_i:nn 
+               { \l_@@_get_parent_tmpa_tl }             
+            }   
+         }
+         {
+           \quark_if_no_value:NTF \l__tag_get_parent_tmpb_tl
+            {??}
+            {
+             \exp_last_unbraced:No\use_ii:nn 
+              { \l_@@_get_parent_tmpb_tl }
+             :
+             \exp_last_unbraced:No\use_i:nn 
+              { \l_@@_get_parent_tmpb_tl }    
+            }  
+         }           
+      }      
     \@@_struct_check_parent_child_aux:nnnNNN
       {#1}
       {rolemap}
@@ -1280,7 +1318,7 @@
           \l_@@_parent_child_check_tl 
           \l_@@_get_parent_tmpa_tl
           \l_@@_get_parent_tmpb_tl
-      } 
+      }               
     \@@_check_struct_forbidden_parent_child:onn 
      {\l_@@_parent_child_check_tl}  
      {#1}

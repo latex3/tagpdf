@@ -970,27 +970,24 @@
 % \subsubsection{Retrieving the parent-child rule}
 %
 %
-% \begin{macro}{\@@_role_get_parent_child_rule:nnnN}
+% \begin{macro}{\@@_role_get_parent_child_rule:nnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
 %  It assumes that the tags in \#1 and \#2 are standard tags after role mapping 
 %  for which a rule exist.  If the parent is one of Part, Div, NonStruct
 %  the result can be state 7, which means that a check must be
 %  repeated for the \enquote{real parent}. 
-%  \#3 can be used to pass along data about the original tags 
-%  and is only used in messages.
-%
+%  
 %  TODO check temporary variables. Check if the tl-var should be fix.
 %    \begin{macrocode}
 \tl_new:N \l_@@_parent_child_check_tl
 \sys_if_engine_luatex:TF
  {
-   \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
+   \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
      % #1 parent (string, standard tag after rolemapping!) 
      % #2 child (string, standard tag after rolemapping!) 
-     % #3 text for messages (eg. about Div or Rolemapping)
-     % #4 tl for state
+     % #3 tl for state
      {
-       \tl_set:Ne#4
+       \tl_set:Ne#3
          {
            \lua_now:e{tex.print(ltx.@@.func.role_get_parent_child_rule('#1','#2'))}
          }
@@ -999,27 +996,25 @@
 %    \begin{macrocode}
          \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
            {
-             \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
+             \prop_get:NVNF\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
                {
                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
                }
              \tl_set:Nn \l_@@_tmpb_tl {#1}
              \msg_note:nneee
                { tag }
-               { role-parent-child }
+               { role-parent-child-result }
                { #1 }
                { #2 }
                {
-                 #4~(='\l_@@_tmpa_tl')
-                  \iow_newline:
-                  #3
+                 #3~(='\l_@@_tmpa_tl')
                }
            }
-        \int_compare:nNnT {#4} = { 0 }
+        \int_compare:nNnT {#3} = { 0 }
          {            
           \msg_warning:nneee
             { tag }
-            {role-parent-child}
+            {role-parent-child-result}
             { #1 }
             { #2 }
             { unknown! }
@@ -1028,11 +1023,10 @@
      }
  }
  {
-   \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnnN #1 #2 #3 #4
+   \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
      % #1 parent (string, standard tag after rolemapping) 
      % #2 child (string, standard tag after rolemapping) 
-     % #3 text for messages (eg. about Div or Rolemapping)
-     % #4 tl for state
+     % #3 tl for state
      {
 %    \end{macrocode}
 %
@@ -1046,7 +1040,7 @@
 %    \end{macrocode}
 % Get the rule from the intarray
 %    \begin{macrocode}
-            \tl_set:Ne#4
+            \tl_set:Ne#3
               {
                 \intarray_item:Nn
                  \g_@@_role_parent_child_intarray
@@ -1054,47 +1048,45 @@
               }
            }
            {
-             \tl_set:Nn#4 {0}
+             \tl_set:Nn#3 {0}
            }              
 %    \end{macrocode}
 % Debugging messages, this can perhaps go into debug mode.
 %    \begin{macrocode}
          \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
            {
-             \prop_get:NVNF\c_@@_role_rules_num_prop #4 \l_@@_tmpa_tl
+             \prop_get:NVNF\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
                {
                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
                }
              \tl_set:Nn \l_@@_tmpb_tl {#1}
              \msg_note:nneee
                { tag }
-               { role-parent-child }
+               { role-parent-child-result }
                { #1 }
                { #2 }
                {
-                 #4~(='\l_@@_tmpa_tl')
-                  \iow_newline:
-                  #3
+                 #3~(='\l_@@_tmpa_tl')
                }
            }
-        \int_compare:nNnT {#4} = { 0 }
+        \int_compare:nNnT {#3} = { 0 }
          {            
           \msg_warning:nneee
             { tag }
-            {role-parent-child}
+            {role-parent-child-result}
             { #1 }
             { #2 }
             { unknown! }
          }
      }
   }
-\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnnN {ooeN}
+\cs_generate_variant:Nn\@@_role_get_parent_child_rule:nnN {ooN}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\@@_role_check_parent_child:nnnnN}
 % This command rolemaps its arguments and then
-% calls \cs{@@_role_get_parent_child_rule:nnnN} to retrieve the
+% calls \cs{@@_role_get_parent_child_rule:nnN} to retrieve the
 % parent-child rule between both.
 % It does not try to resolve inheritation rules of \texttt{Part},
 % \texttt{Div} and \texttt{NonStruct} but
@@ -1148,17 +1140,16 @@
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
          {
-           \@@_role_get_parent_child_rule:ooeN
+           \@@_role_get_parent_child_rule:ooN
              { \l_@@_tmpa_tl}
              { \l_@@_tmpb_tl}
-             {Rolemapped~from:~'#1'~-->~'#3'} %TODO ?? doesn't make much sense if rolemapping happened alred
              #5
          }
          {
            \tl_set:Nn #5 {0}
            \msg_warning:nneee
             { tag }
-            {role-parent-child}
+            {role-parent-child-result}
             { #1 }
             { #3 }
             { unknown! }
@@ -1241,17 +1232,16 @@
          { ! \quark_if_no_value_p:N \l_@@_tmpa_tl }
          { ! \quark_if_no_value_p:N \l_@@_tmpb_tl }
          {
-           \@@_role_get_parent_child_rule:ooeN
+           \@@_role_get_parent_child_rule:ooN
              { \l_@@_tmpa_tl }
              { \l_@@_tmpb_tl }
-             {Rolemapped~from~'#2:#1'~-->~'\str_if_empty:nF{#4}{#4:}#3'} %TODO probably mostly senseless
              #5
          }
          {
            \tl_set:Nn #5 {0}
            \msg_warning:nneee
             { tag }
-            {role-parent-child}
+            {role-parent-child-result}
             { #2 : #1 }
             { #4 : #3 }
             { unknown! }

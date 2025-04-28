@@ -311,7 +311,7 @@
 % \end{function}
 %
 % \begin{function}{role-missing,role-unknown,role-unknown-tag,role-unknown-NS,role-tag,new-tag,
-% role-parent-child,role-remapping}
+% role-parent-child-result,role-remapping}
 % Messages related to role mapping.
 % \end{function}
 %
@@ -542,11 +542,19 @@
 \msg_new:nnn { tag } {role-unknown-NS}  { \tl_if_empty:nTF{#1}{Empty~NS}{NS~#1~is~not~known} }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{role-parent-child}
+% \begin{macro}{role-parent-child-check}
+% This is an info message that inform which elements are checked, typically
+% used to show the original tags, not the rolemapped one.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {role-parent-child-check}  
+  { Checking~Parent-Child~'#1'~-->~'#2' }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{role-parent-child-result}
 %  This is info and warning message about the containment rules between child and
 %  parent tags.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {role-parent-child}
+\msg_new:nnn { tag } {role-parent-child-result}
   { Parent-Child~'#1'~-->~'#2'.\\Relation~is~#3~\msg_line_context:}
 %    \end{macrocode}
 % \end{macro}
