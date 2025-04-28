@@ -39,20 +39,20 @@ Package tagpdf Warning: Parent-Child 'Section' --> 'P'.
 (tagpdf)                Relation is unknown! on line ...
 Package tagpdf Warning: nested marked content found - mcid 5
 Package tagpdf Warning: there is no mc to end at 6
-Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'latex:text-unit'.
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 14, /P --> struct 15
-Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'latex:text'.
+(tagpdf)                struct 14, P --> struct 15, text-unit
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 15, /text-unit --> struct 16
+(tagpdf)                struct 15, text-unit --> struct 16, text
 Package tagpdf Warning: nested marked content found - mcid 7
 Package tagpdf Warning: there is no mc to end at 8
-Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'latex:text-unit'.
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 17, /P --> struct 18
-Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'latex:text'.
+(tagpdf)                struct 17, P --> struct 18, text-unit
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 18, /text-unit --> struct 19
+(tagpdf)                struct 18, text-unit --> struct 19, text
 Package tagpdf Warning: nested marked content found - mcid 9
 Package tagpdf Warning: there is no mc to end at 10
 =========================
