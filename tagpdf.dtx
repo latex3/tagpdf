@@ -229,7 +229,7 @@
 \cs_new_protected:Npn \@@_whatsits: {}
 \AddToHook{begindocument}
  {
-  \str_case:VnF \c_sys_backend_str
+  \str_case:onF { \c_sys_backend_str }
    {
     { luatex  } { \cs_set_protected:Npn \@@_whatsits: {} }
     { dvisvgm } { \cs_set_protected:Npn \@@_whatsits: {} }
@@ -469,7 +469,7 @@
 %    \begin{macrocode}
 \cs_generate_variant:Nn \property_ref:nnn {enn}
 \cs_generate_variant:Nn \property_ref:nn  {en}
-\cs_generate_variant:Nn \@@_property_record:nn {en,eV}
+\cs_generate_variant:Nn \@@_property_record:nn {en,eo}
 %    \end{macrocode}
 % \end{macro}
 % 

@@ -336,8 +336,7 @@
           { % store the absolute num name in a label:
             \tl_if_empty:NF {\l_@@_mc_key_label_tl}
               {
-                \exp_args:NV
-                 \@@_mc_handle_mc_label:e  \l_@@_mc_key_label_tl
+                 \@@_mc_handle_mc_label:e { \l_@@_mc_key_label_tl }
               }
            % if not stashed record the absolute number
             \bool_if:NF \l_@@_mc_key_stash_bool

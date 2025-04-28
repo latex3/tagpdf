@@ -147,9 +147,9 @@
 % we only do something if the OpenAction is an array (as set by hyperref)
 % in other cases we hope that the author knows what they did.
 %    \begin{macrocode}
-       \tl_if_head_eq_charcode:eNT { \tl_trim_spaces:V\l_@@_tmpa_tl } [ %]
+       \tl_if_head_eq_charcode:eNT { \tl_trim_spaces:o { \l_@@_tmpa_tl } } [ %]
          {
-           \seq_set_split:NnV\l_@@_tmpa_seq{/}\l_@@_tmpa_tl
+           \seq_set_split:Nno\l_@@_tmpa_seq {/} {\l_@@_tmpa_tl}
            \pdfmanagement_add:nne {Catalog} { OpenAction }
              {
                <<
@@ -456,7 +456,7 @@
         \@@_tree_fill_parenttree:
       }
     \@@_tree_parenttree_rerun_msg:  
-    \tl_put_right:NV \l_@@_parenttree_content_tl\g_@@_parenttree_objr_tl
+    \tl_put_right:No \l_@@_parenttree_content_tl { \g_@@_parenttree_objr_tl }
     \pdf_object_write:nne  { @@/tree/parenttree }{dict}
       {
         /Nums\c_space_tl [\l_@@_parenttree_content_tl]

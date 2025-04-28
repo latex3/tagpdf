@@ -417,7 +417,7 @@
        }
     }
   }
-\cs_generate_variant:Nn  \@@_role_alloctag:nnn {nnV}
+\cs_generate_variant:Nn  \@@_role_alloctag:nnn {nno}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -449,7 +449,7 @@
       {
         \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--}
       }
-    \@@_role_alloctag:nnV {#1}{user}\l_@@_tmpa_tl
+    \@@_role_alloctag:nno {#1}{user} { \l_@@_tmpa_tl }
 %    \end{macrocode}
 % We resolve rolemapping recursively so that all targets are stored as standard
 % tags.
@@ -465,7 +465,7 @@
           }
       }
   }
-\cs_generate_variant:Nn \@@_role_add_tag:nn {VV,ne}
+\cs_generate_variant:Nn \@@_role_add_tag:nn {oo,ne}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -512,7 +512,7 @@
         }
      }
      { \tl_set:Nn\l_@@_tmpa_tl{--UNKNOWN--} }
-    \@@_role_alloctag:nnV {#1}{#2}\l_@@_tmpa_tl
+    \@@_role_alloctag:nno {#1}{#2}{ \l_@@_tmpa_tl }
 %    \end{macrocode}
 % Do not remap standard tags. TODO add warning?
 %    \begin{macrocode}
@@ -565,7 +565,7 @@
            }
        }
    }
-\cs_generate_variant:Nn \@@_role_add_tag:nnnn {VVVV}
+\cs_generate_variant:Nn \@@_role_add_tag:nnnn {oooo}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -640,7 +640,7 @@
             {
               \tl_set:Nn \l_@@_tmpa_tl {#5}
             }
-          \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
+          \@@_role_alloctag:nno {#2} {#1} { \l_@@_tmpa_tl }
           \tl_if_eq:nnF {#2}{#3}
            {
             \@@_role_add_tag:nn {#2}{#3}
@@ -671,7 +671,7 @@
          {
            \tl_set:Nn \l_@@_tmpa_tl {#5}
          }
-        \@@_role_alloctag:nnV {#2}{#1}\l_@@_tmpa_tl
+        \@@_role_alloctag:nno {#2} {#1} { \l_@@_tmpa_tl }
         \bool_lazy_and:nnT
            { ! \tl_if_empty_p:n {#3} }{! \str_if_eq_p:nn {#1}{pdf2}}
            {
@@ -903,7 +903,7 @@
 %    \end{macrocode}
 % get the number of the child, and store it in  \cs{l_@@_tmpb_tl}
 %    \begin{macrocode}
-           \prop_get:NVN \g_@@_role_index_prop \l_@@_tmpa_tl \l_@@_tmpb_tl
+           \prop_get:NoN \g_@@_role_index_prop { \l_@@_tmpa_tl } \l_@@_tmpb_tl
 %    \end{macrocode}
 % remove column 2+3
 %    \begin{macrocode}
@@ -953,10 +953,10 @@
     \prop_get:NnN\g_@@_role_index_prop {mtext}\l_@@_tmpc_tl
     \prop_map_inline:Nn \g_@@_role_NS_mathml_prop
       {
-        \prop_gput:NnV\g_@@_role_index_prop{#1}\l_@@_tmpa_tl
+        \prop_gput:Nno\g_@@_role_index_prop {#1} {\l_@@_tmpa_tl}
       }
-    \prop_gput:NnV\g_@@_role_index_prop{math}\l_@@_tmpb_tl
-    \prop_gput:NnV\g_@@_role_index_prop{mtext}\l_@@_tmpc_tl
+    \prop_gput:Nno\g_@@_role_index_prop{math}{\l_@@_tmpb_tl}
+    \prop_gput:Nno\g_@@_role_index_prop{mtext}{\l_@@_tmpc_tl}
   }
 \sys_if_engine_luatex:T
  {
@@ -996,7 +996,7 @@
 %    \begin{macrocode}
          \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
            {
-             \prop_get:NVNF\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
+             \prop_get:NoNF\c_@@_role_rules_num_prop {#3} \l_@@_tmpa_tl
                {
                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
                }
@@ -1055,7 +1055,7 @@
 %    \begin{macrocode}
          \int_compare:nNnT {\l_@@_loglevel_int} > { 0 }
            {
-             \prop_get:NVNF\c_@@_role_rules_num_prop #3 \l_@@_tmpa_tl
+             \prop_get:NoNF\c_@@_role_rules_num_prop {#3} \l_@@_tmpa_tl
                {
                  \tl_set:Nn \l_@@_tmpa_tl {unknown}
                }
@@ -1332,14 +1332,14 @@
          }
       \tl_if_empty:NT \l_@@_role_role_namespace_tmpa_tl
          {
-           \prop_get:NVNTF
+           \prop_get:NoNTF
              \g_@@_role_tags_NS_prop
-             \l_@@_role_role_tmpa_tl
+             { \l_@@_role_role_tmpa_tl }
              \l_@@_role_role_namespace_tmpa_tl
              {
-                \prop_get:NVNF
+                \prop_get:NoNF
                   \g_@@_role_NS_prop
-                  \l_@@_role_role_namespace_tmpa_tl
+                  { \l_@@_role_role_namespace_tmpa_tl }
                   \l_@@_tmp_unused_tl
                   {
                     \tl_set:Nn \l_@@_role_role_namespace_tmpa_tl {user}
@@ -1352,16 +1352,16 @@
       \pdf_version_compare:NnTF < {2.0}
        {
         %TODO add check for emptyness?
-          \@@_role_add_tag:VV
-              \l_@@_role_tag_tmpa_tl
-              \l_@@_role_role_tmpa_tl
+          \@@_role_add_tag:oo
+             { \l_@@_role_tag_tmpa_tl }
+             { \l_@@_role_role_tmpa_tl }
        }
        {
-         \@@_role_add_tag:VVVV
-           \l_@@_role_tag_tmpa_tl
-           \l_@@_role_tag_namespace_tmpa_tl
-           \l_@@_role_role_tmpa_tl
-           \l_@@_role_role_namespace_tmpa_tl
+         \@@_role_add_tag:oooo
+          { \l_@@_role_tag_tmpa_tl }
+          { \l_@@_role_tag_namespace_tmpa_tl }
+          { \l_@@_role_role_tmpa_tl }
+          { \l_@@_role_role_namespace_tmpa_tl }
        }
     }
    ,role/map-tags .choice:

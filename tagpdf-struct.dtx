@@ -720,8 +720,8 @@
          { #2 }
          \l_@@_get_tmpc_tl
          {
-           \tl_set:Ne #3{\exp_last_unbraced:NV\use_i:nn  \l_@@_get_tmpc_tl}
-           \tl_set:Ne #4{\exp_last_unbraced:NV\use_ii:nn \l_@@_get_tmpc_tl}
+           \tl_set:Ne #3{\exp_last_unbraced:No\use_i:nn  { \l_@@_get_tmpc_tl }}
+           \tl_set:Ne #4{\exp_last_unbraced:No\use_ii:nn { \l_@@_get_tmpc_tl }}
          }         
          {
            \tl_clear:N#3
@@ -883,7 +883,7 @@
     \tl_replace_once:Nnn \l_@@_tmpa_tl
      {\@@_mc_insert_mcid_kids:n}
      {\@@_mc_insert_mcid_single_kids:n}    
-    \seq_gput_left:NV #1 \l_@@_tmpa_tl
+    \seq_gput_left:No #1 { \l_@@_tmpa_tl }
   }
 
 \cs_generate_variant:Nn\@@_struct_exchange_kid_command:N { c }
@@ -1429,9 +1429,9 @@
       {
         \prop_gput:Nee\g_@@_struct_label_num_prop 
           {#1}{\int_use:N \c@g_@@_struct_abs_int}
-        \@@_property_record:eV
+        \@@_property_record:eo
           {tagpdfstruct-#1}
-          \c_@@_property_struct_clist  
+          { \c_@@_property_struct_clist } 
       },
     stash .bool_set:N    = \l_@@_struct_elem_stash_bool,
     parent .code:n       =
@@ -1881,7 +1881,7 @@
                 \msg_error:nn { tag } { struct-faulty-nesting }
               }
            }
-        \seq_gpush:NV \g_@@_struct_stack_seq        \c@g_@@_struct_abs_int
+        \seq_gpush:NV \g_@@_struct_stack_seq  \c@g_@@_struct_abs_int
         \@@_role_get:ooNN 
           { \g_@@_struct_tag_tl }
           { \g_@@_struct_tag_NS_tl }
@@ -2036,7 +2036,7 @@
         % get the previous one, shouldn't be empty as the root should be there
         \seq_get:NNTF \g_@@_struct_stack_seq \l_@@_tmpa_tl
           {
-            \tl_gset:NV   \g_@@_struct_stack_current_tl \l_@@_tmpa_tl
+            \tl_gset:No  \g_@@_struct_stack_current_tl { \l_@@_tmpa_tl }
           }
           {
             \@@_check_no_open_struct:
@@ -2044,8 +2044,8 @@
        \seq_get:NNT \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
           {
             \tl_gset:Ne \g_@@_struct_tag_tl 
-              { \exp_last_unbraced:NV\use_i:nn \l_@@_tmpa_tl }
-            \prop_get:NVNT\g_@@_role_tags_NS_prop \g_@@_struct_tag_tl\l_@@_tmpa_tl
+              { \exp_last_unbraced:No\use_i:nn { \l_@@_tmpa_tl } }
+            \prop_get:NoNT\g_@@_role_tags_NS_prop { \g_@@_struct_tag_tl} \l_@@_tmpa_tl
              {
                \tl_gset:Ne \g_@@_struct_tag_NS_tl { \l_@@_tmpa_tl } 
              }  

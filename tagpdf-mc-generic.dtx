@@ -531,7 +531,7 @@
 % \begin{macro}
 %   {
 %     \@@_mc_bdc_mcid:nn,\@@_mc_bdc_mcid:n,
-%     \@@_mc_handle_mcid:nn,\@@_mc_handle_mcid:VV
+%     \@@_mc_handle_mcid:nn,\@@_mc_handle_mcid:oo
 %   }
 %
 % This create a BDC mark with an |/MCID| key. Most of the work here is to get
@@ -548,11 +548,11 @@
 \cs_set_protected:Npn \@@_mc_bdc_mcid:nn #1 #2
   {
     \int_gincr:N \c@g_@@_MCID_abs_int
-    \@@_property_record:eV
+    \@@_property_record:eo
      {
        mcid-\int_use:N \c@g_@@_MCID_abs_int
      }
-     \c_@@_property_mc_clist     
+     { \c_@@_property_mc_clist }    
     \@@_mc_bdc_shipout:ee
       {#1}
       { 
@@ -570,7 +570,7 @@
     \@@_mc_bdc_mcid:nn {#1} {#2}
   }
 
-\cs_generate_variant:Nn \@@_mc_handle_mcid:nn {VV}
+\cs_generate_variant:Nn \@@_mc_handle_mcid:nn {oo}
 %    \end{macrocode}
 % \end{macro}
 
@@ -621,7 +621,7 @@
     \int_gincr:N \c@g_@@_MCID_abs_int
     \tl_if_empty:NTF #1
       { \@@_mc_bmc_artifact: }
-      { \exp_args:NV\@@_mc_bmc_artifact:n #1 }
+      { \exp_args:No\@@_mc_bmc_artifact:n {#1} }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -671,19 +671,18 @@
         \bool_if:NTF \l_@@_mc_artifact_bool
           { %handle artifact
             \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
-            \exp_args:NV
-            \@@_mc_artifact_begin_marks:n \l_@@_mc_artifact_type_tl
+            \exp_args:No
+            \@@_mc_artifact_begin_marks:n { \l_@@_mc_artifact_type_tl }
           }
           { %handle mcid type
             \@@_check_mc_tag:N  \l_@@_mc_key_tag_tl
-            \@@_mc_handle_mcid:VV
-               \l_@@_mc_key_tag_tl
-               \l_@@_mc_key_properties_tl
+            \@@_mc_handle_mcid:oo
+              { \l_@@_mc_key_tag_tl }
+              { \l_@@_mc_key_properties_tl }
             \@@_mc_begin_marks:oo{\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
             \tl_if_empty:NF {\l_@@_mc_key_label_tl}
               {
-                \exp_args:NV
-                \@@_mc_handle_mc_label:e \l_@@_mc_key_label_tl
+                \@@_mc_handle_mc_label:e { \l_@@_mc_key_label_tl }
               }
 %    \end{macrocode}
 % check if the MC can be used here. This is guarded by the stash boolean.
