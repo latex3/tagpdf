@@ -11,16 +11,14 @@ The sequence \g__tag_struct_tag_stack_seq contains the items (without outer brac
 TEST 2: Sect-Em:no
 ============================================================
 Package tagpdf Info: Parent-Child 'Sect' --> 'Em'.
-(tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'pdf2:Sect' --> 'pdf2:Em' on line ...
+(tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 > \l_tmpa_tl=-1.
 ============================================================
 ============================================================
 TEST 3: Sect-blub:unknown
 ============================================================
 Package tagpdf Info: Parent-Child 'Sect' --> 'blub'.
-(tagpdf)             Relation is 0 (='unknown')
-(tagpdf)             Rolemapped from 'pdf2:Sect' --> 'blub' on line ...
+(tagpdf)             Relation is 0 (='unknown') on line ...
 Package tagpdf Warning: Parent-Child 'Sect' --> 'blub'.
 (tagpdf)                Relation is unknown! on line ...
 > \l_tmpa_tl=0.
@@ -29,8 +27,7 @@ Package tagpdf Warning: Parent-Child 'Sect' --> 'blub'.
 TEST 4: bla-Sect:unknown
 ============================================================
 Package tagpdf Info: Parent-Child 'bla' --> 'Sect'.
-(tagpdf)             Relation is 0 (='unknown')
-(tagpdf)             Rolemapped from ':bla' --> 'pdf2:Sect' on line ...
+(tagpdf)             Relation is 0 (='unknown') on line ...
 Package tagpdf Warning: Parent-Child 'bla' --> 'Sect'.
 (tagpdf)                Relation is unknown! on line ...
 > \l_tmpa_tl=0.
@@ -39,8 +36,7 @@ Package tagpdf Warning: Parent-Child 'bla' --> 'Sect'.
 TEST 5: bla-blub:unknown
 ============================================================
 Package tagpdf Info: Parent-Child 'bla' --> 'blub'.
-(tagpdf)             Relation is 0 (='unknown')
-(tagpdf)             Rolemapped from ':bla' --> 'blub' on line ...
+(tagpdf)             Relation is 0 (='unknown') on line ...
 Package tagpdf Warning: Parent-Child 'bla' --> 'blub'.
 (tagpdf)                Relation is unknown! on line ...
 > \l_tmpa_tl=0.
@@ -49,47 +45,42 @@ Package tagpdf Warning: Parent-Child 'bla' --> 'blub'.
 TEST 6: Sect-H2:allowed
 ============================================================
 Package tagpdf Info: Parent-Child 'Sect' --> 'H2'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'pdf2:Sect' --> 'pdf2:H2' on line ...
+(tagpdf)             Relation is 1 (='0..n') on line ...
 > \l_tmpa_tl=1.
 ============================================================
 ============================================================
 TEST 7: Rolemapping: Sect-section allowed
 ============================================================
 Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'pdf2:Sect' --> 'latex:section' on line ...
+(tagpdf)             Relation is 1 (='0..n') on line ...
 > \l_tmpa_tl=1.
 ============================================================
 ============================================================
 TEST 8: Double rolemapping: subsection-section no
 ============================================================
 Package tagpdf Info: Parent-Child 'H2' --> 'H1'.
-(tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'latex:subsection' --> 'latex:section' on line ...
+(tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 > \l_tmpa_tl=-1.
 ============================================================
 ============================================================
 TEST 9: Inherit: Part-P yes
 ============================================================
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:Part'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf2:Part' on line ...
+(tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
-(tagpdf)             Relation is 7 (='^^e2^^80^^a1')
-(tagpdf)             Rolemapped from 'pdf2:Part' --> 'pdf2:P' on line ...
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: closing structure 3 tagged /Part
 > \l_tmpa_tl=7.
 ============================================================
 ============================================================
 TEST 10: Inherit: NonStruct-Lbl no
 ============================================================
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:NonStruct'
 Package tagpdf Info: Parent-Child 'Document' --> 'NonStruct'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'pdf2:Document' --> 'pdf2:NonStruct' on line ...
+(tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Parent-Child 'NonStruct' --> 'Lbl'.
-(tagpdf)             Relation is 7 (='^^e2^^80^^a1')
-(tagpdf)             Rolemapped from 'pdf2:NonStruct' --> 'pdf2:Lbl' on line ...
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: closing structure 4 tagged /NonStruct
 > \l_tmpa_tl=7.
 ============================================================
@@ -97,64 +88,56 @@ Package tagpdf Info: closing structure 4 tagged /NonStruct
 TEST 11: Special: Ruby-RT yes
 ============================================================
 Package tagpdf Info: Parent-Child 'Ruby' --> 'RT'.
-(tagpdf)             Relation is 4 (='[a]')
-(tagpdf)             Rolemapped from 'pdf2:Ruby' --> 'pdf2:RT' on line ...
+(tagpdf)             Relation is 4 (='[a]') on line ...
 > \l_tmpa_tl=4.
 ============================================================
 ============================================================
 TEST 12: Special: H-Sect yes
 ============================================================
 Package tagpdf Info: Parent-Child 'H' --> 'Sect'.
-(tagpdf)             Relation is 2 (='0..1')
-(tagpdf)             Rolemapped from 'pdf2:H' --> 'pdf2:Sect' on line ...
+(tagpdf)             Relation is 2 (='0..1') on line ...
 > \l_tmpa_tl=2.
 ============================================================
 ============================================================
 TEST 13: Content item: P-MC yes
 ============================================================
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'pdf2:P' --> 'MC' on line ...
+(tagpdf)             Relation is 1 (='0..n') on line ...
 > \l_tmpa_tl=1.
 ============================================================
 ============================================================
 TEST 14: Content item: TBody-MC no
 ============================================================
 Package tagpdf Info: Parent-Child 'TBody' --> 'MC'.
-(tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'pdf2:TBody' --> 'MC' on line ...
+(tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 > \l_tmpa_tl=-1.
 ============================================================
 ============================================================
 TEST 15: Root: StructTreeRoot-MC no
 ============================================================
 Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'MC'.
-(tagpdf)             Relation is -1 (='^^e2^^88^^85')
-(tagpdf)             Rolemapped from 'pdf2:StructTreeRoot' --> 'MC' on line ...
+(tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 > \l_tmpa_tl=-1.
 ============================================================
 ============================================================
 TEST 16: Math: math-abs yes
 ============================================================
 Package tagpdf Info: Parent-Child 'math' --> 'abs'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'mathml:math' --> 'mathml:abs' on line ...
+(tagpdf)             Relation is 1 (='0..n') on line ...
 > \l_tmpa_tl=1.
 ============================================================
 ============================================================
 TEST 17: Math: Formula-math yes
 ============================================================
 Package tagpdf Info: Parent-Child 'Formula' --> 'math'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'pdf2:Formula' --> 'mathml:math' on line ...
+(tagpdf)             Relation is 1 (='0..n') on line ...
 > \l_tmpa_tl=1.
 ============================================================
 ============================================================
 TEST 18: H10: Sect-H10 yes
 ============================================================
 Package tagpdf Info: Parent-Child 'Sect' --> 'H10'.
-(tagpdf)             Relation is 1 (='0..n')
-(tagpdf)             Rolemapped from 'pdf2:Sect' --> 'pdf2:H10' on line ...
+(tagpdf)             Relation is 1 (='0..n') on line ...
 > \l_tmpa_tl=1.
 ============================================================
 ***************
