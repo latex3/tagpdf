@@ -1223,15 +1223,16 @@
 % 
 % \subsection{Commands for the parent-child checks}
 %
-% \begin{macro}{\@@_struct_check_parent_child_aux:nnnN}
+% \begin{macro}{\@@_struct_check_parent_child_aux:nnnnN}
 %    \begin{macrocode}
 %<*package>
-\cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnN #1#2#3#4
+\cs_new_protected:Npn \@@_struct_check_parent_child_aux:nnnnN #1#2#3#4#5
   {
 % #1 structure number of parent
 % #2 key to use to retrieve role of parent (either rolemap or parentrole field)
 % #3 structure number of parent
-% #4 tl for return value
+% #4 key to use to retrieve role of child (either rolemap or parentrole field)
+% #5 tl for return value
 %    \end{macrocode}
 % get parent rolemap
 %    \begin{macrocode}
@@ -1245,7 +1246,7 @@
 %    \begin{macrocode}
     \@@_struct_get_role:nnNN  
       {#3} 
-      {rolemap}
+      {#4}
       \l_@@_get_child_tmpa_tl
       \l_@@_get_child_tmpb_tl
 %    \end{macrocode}
@@ -1256,7 +1257,7 @@
       { \l_@@_get_parent_tmpb_tl } % rolemapped from above
       { \l_@@_get_child_tmpa_tl } % 
       { \l_@@_get_child_tmpb_tl } %   
-     #4
+     #5
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1303,20 +1304,22 @@
             }  
          }           
       }      
-    \@@_struct_check_parent_child_aux:nnnN
+    \@@_struct_check_parent_child_aux:nnnnN
       {#1}
       {rolemap}
       {#2}
+      {rolemap}
       \l_@@_parent_child_check_tl 
 %    \end{macrocode}
 % if the return value is 7 we have to check against the parentrole field.
 %    \begin{macrocode}
     \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }                            
       {
-        \@@_struct_check_parent_child_aux:nnnN
+        \@@_struct_check_parent_child_aux:nnnnN
           {#1}
           {parentrole}
           {#2}
+          {rolemap}
           \l_@@_parent_child_check_tl 
       }               
     \@@_check_struct_forbidden_parent_child:onn 
@@ -1330,28 +1333,75 @@
 %  
 % \begin{macro}{\@@_struct_use_check_parent_child:nn}
 % A similar command is needed if a structure is stashed and used.
-% 
+% The child can be 
+%  - a normal tag (e.g. H1)
+%    then rolemap = parentrole = {H1}{pdf2} 
+%    and we should test 
+%    rolemap (parent) and rolemap (child)
+%    if = 7 
+%    parentrole (parent) and rolemap (child)  
+%    That is the normal check above. 
+%    
+%  - Part/Div/Nonstruct
+%    then rolemap = {Part}{pdf2}
+%    and parentrole = {STASHED}{latex} or {target parent}{NS}
+%    
+%    If parentrole =STASHED we can't test if the child fits here.
+%    If parentrole is not STASHED, then would should test
+%    if target parent= rolemap (parent) or parentrole (parent)
+%    and if yet then test
+%    rolemap (child) against rolemap (parent) 
+%    and if =7 rolemap(child) against parentrole(parent). 
+%    that is again the normal check. 
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_use_check_parent_child:nn #1 #2 
 % #1 structure number of parent
 % #2 structure number of child. %
   {
-            \@@_struct_get_role:enNN  
-              {\l_@@_get_child_tmpa_tl}
-              {parentrole} %is this correct???
-              \l_@@_tmpa_tl
-              \l_@@_tmpb_tl
-            \@@_role_check_parent_child:ooooN
-              { \g_@@_struct_tag_tl }               
-              { \g_@@_struct_tag_NS_tl } 
-              { \l_@@_tmpa_tl }
-              { \l_@@_tmpb_tl }               
-              \l_@@_parent_child_check_tl                   
-            \@@_check_struct_forbidden_parent_child:onn 
-               {\l_@@_parent_child_check_tl}  
-               { \g_@@_struct_stack_current_tl }
-               { \l_@@_get_child_tmpa_tl } 
-  }               
+    \@@_struct_get_role:enNN  
+      {#2}
+      {rolemap} 
+      \l_@@_get_child_tmpa_tl
+      \l_@@_get_child_tmpb_tl
+    \str_case:onTF { \l_@@_get_child_tmpa_tl }
+      {
+        {Part} {}
+        {Div}  {}
+        {NonStruct} {}
+      } 
+      { %child=Part etc
+        \@@_struct_get_role:enNN  
+         {#2}
+         {parentrole} 
+         \l_@@_get_child_tmpa_tl
+         \l_@@_get_child_tmpb_tl
+        \str_if_eq:noTF
+         {STASHED}{\l_@@_get_child_tmpa_tl}
+         {
+           % warn about unknown relationship
+         } 
+         {
+           % test if 
+           \@@_struct_get_role:enNN  
+            {#1}
+            {parentrole} 
+            \l_@@_get_parent_tmpa_tl
+            \l_@@_get_parent_tmpb_tl
+           \tl_if_eq:NNTF\l_@@_get_parent_tmpa_tl \l_@@_get_child_tmpa_tl
+            {
+              \@@_struct_check_parent_child:nn {#1}{#2}
+            }
+            {
+              %warn that parent-tag was misused.
+            }   
+         }
+      }  
+      {
+        %child not Part etc, normal parent child test.
+        \@@_struct_check_parent_child:nn {#1}{#2}
+      }         
+  }          
+\cs_generate_variant:Nn  { \@@_struct_use_check_parent_child:nn }{oo}      
 %    \end{macrocode}
 % \end{macro}
 % \section{Keys}
@@ -2132,21 +2182,9 @@
 %   Otherwise the parentrole will contain latex:STASHED (if not changed with the \texttt{parent-tag}
 %   key when the structure was stashed) and will produce a warning. 
 %    \begin{macrocode}
-            \@@_struct_get_role:enNN  
-              {\l_@@_get_child_tmpa_tl}
-              {parentrole} %is this correct???
-              \l_@@_tmpa_tl
-              \l_@@_tmpb_tl
-            \@@_role_check_parent_child:ooooN
-              { \g_@@_struct_tag_tl }               
-              { \g_@@_struct_tag_NS_tl } 
-              { \l_@@_tmpa_tl }
-              { \l_@@_tmpb_tl }               
-              \l_@@_parent_child_check_tl                   
-            \@@_check_struct_forbidden_parent_child:onn 
-               {\l_@@_parent_child_check_tl}  
-               { \g_@@_struct_stack_current_tl }
-               { \l_@@_get_child_tmpa_tl }               
+           \@@_struct_use_check_parent_child:oo 
+             { \g_@@_struct_stack_current_tl }
+             { \l_@@_get_child_tmpa_tl }           
           }
           {
             \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
@@ -2202,27 +2240,10 @@
 %<debug>             }
 %    \end{macrocode}
 %   check if the tag is allowed as child.
-%   If the tag of the child after rolemapping is \emph{not} one of Part, Div, NonStruct,
-%   then the parentrole field will be identically to the rolemap field and can be used for 
-%   a check. 
-%   Otherwise the parentrole will contain latex:STASHED (if not changed with the \texttt{parent-tag}
-%   key when the structure was stashed) and will produce a warning. 
 %    \begin{macrocode}
-             \@@_struct_get_role:nnNN  
+             \@@_struct_use_check_parent_child:oo
+              {\g_@@_struct_stack_current_tl}
               {#1}
-              {parentrole} %is this correct???
-              \l_@@_tmpa_tl
-              \l_@@_tmpb_tl
-            \@@_role_check_parent_child:ooooN
-              { \g_@@_struct_tag_tl }               
-              { \g_@@_struct_tag_NS_tl } 
-              { \l_@@_tmpa_tl }
-              { \l_@@_tmpb_tl }               
-              \l_@@_parent_child_check_tl                   
-            \@@_check_struct_forbidden_parent_child:onn 
-               {\l_@@_parent_child_check_tl}  
-               { \g_@@_struct_stack_current_tl }
-               {#1} 
           }
           {
             \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
