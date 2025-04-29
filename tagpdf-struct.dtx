@@ -1328,6 +1328,32 @@
 %    \end{macrocode}
 % \end{macro}
 %  
+% \begin{macro}{\@@_struct_use_check_parent_child:nn}
+% A similar command is needed if a structure is stashed and used.
+% 
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_use_check_parent_child:nn #1 #2 
+% #1 structure number of parent
+% #2 structure number of child. %
+  {
+            \@@_struct_get_role:enNN  
+              {\l_@@_get_child_tmpa_tl}
+              {parentrole} %is this correct???
+              \l_@@_tmpa_tl
+              \l_@@_tmpb_tl
+            \@@_role_check_parent_child:ooooN
+              { \g_@@_struct_tag_tl }               
+              { \g_@@_struct_tag_NS_tl } 
+              { \l_@@_tmpa_tl }
+              { \l_@@_tmpb_tl }               
+              \l_@@_parent_child_check_tl                   
+            \@@_check_struct_forbidden_parent_child:onn 
+               {\l_@@_parent_child_check_tl}  
+               { \g_@@_struct_stack_current_tl }
+               { \l_@@_get_child_tmpa_tl } 
+  }               
+%    \end{macrocode}
+% \end{macro}
 % \section{Keys}
 % This are the keys for the user commands.
 % we store the tag in a variable. But we should be careful, it is only reliable
@@ -2182,8 +2208,8 @@
 %   Otherwise the parentrole will contain latex:STASHED (if not changed with the \texttt{parent-tag}
 %   key when the structure was stashed) and will produce a warning. 
 %    \begin{macrocode}
-             \@@_struct_get_role:enNN  
-              {\l_@@_get_child_tmpa_tl}
+             \@@_struct_get_role:nnNN  
+              {#1}
               {parentrole} %is this correct???
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
@@ -2196,7 +2222,7 @@
             \@@_check_struct_forbidden_parent_child:onn 
                {\l_@@_parent_child_check_tl}  
                { \g_@@_struct_stack_current_tl }
-               { \l_@@_get_child_tmpa_tl } 
+               {#1} 
           }
           {
             \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
