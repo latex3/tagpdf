@@ -171,7 +171,7 @@
 % a label on the parent structure and then use
 % \cs{property_ref:nn}|{tagpdfstruct-label}{tagstruct}| to retrieve it.
 % \end{structkeydecl}
-% \begin{structkeydecl}{firstkey}
+% \begin{structkeydecl}{firstkid}
 % If this key is used the structure is added at the left of the kids of 
 % the parent structure (if the structure is not stashed). 
 % This means that it will be the first kid of the structure 
@@ -454,15 +454,21 @@
 %
 % \subsection{Variables used by the keys}
 % \begin{variable}{\g_@@_struct_tag_tl,\g_@@_struct_tag_NS_tl,
-%  \l_@@_struct_roletag_tl,\g_@@_struct_roletag_NS_tl}
+%  \l_@@_struct_roletag_tl,\g_@@_struct_roletag_NS_tl,
+%  \l_@@_struct_parenttag_tl,\l_@@_struct_parenttag_NS_tl}
 % Use by the tag key to store the tag and the namespace.
-% The role tag variables will hold locally rolemapping info needed
-% for the parent-child checks
+% The \texttt{roletag} variables will hold locally rolemapping info needed
+% for the parent-child checks. The \texttt{parenttag} variables allow to 
+% set the target role of the parent of stashed structures. 
 %    \begin{macrocode}
 \tl_new:N \g_@@_struct_tag_tl
 \tl_new:N \g_@@_struct_tag_NS_tl
 \tl_new:N \l_@@_struct_roletag_tl
 \tl_new:N \l_@@_struct_roletag_NS_tl
+\tl_new:N \l_@@_struct_parenttag_tl
+\tl_set:Nn \l_@@_struct_parenttag_tl {STASHED}
+\tl_new:N \l_@@_struct_parenttag_NS_tl
+\tl_set:Nn \l_@@_struct_parenttag_NS_tl {latex}
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\g_@@_struct_label_num_prop}
@@ -1416,7 +1422,29 @@
               { parent~key~ignored }
           }
       },
-    parent .default:n    = {-1},    
+    parent .default:n    = {-1},
+    parent-tag .code:n =
+     {
+        \prop_get:NeNTF \g__tag_role_tags_NS_prop {#1} \l_@@_tmp_unused_tl
+          {
+           \seq_set_split:Nne \l_@@_tmpa_seq { / } 
+             {#1/\l_@@_tmp_unused_tl}
+          }
+          {
+            \seq_set_split:Nne \l_@@_tmpa_seq { / } 
+              {#1/}
+          }        
+        \tl_set:Ne \l_@@_struct_parenttag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
+        \tl_set:Ne \l_@@_struct_parenttag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }
+        \@@_role_get:ooNN 
+          { \l_@@_struct_parenttag_tl }
+          { \l_@@_struct_parenttag_NS_tl}
+          \l_@@_tmpa_tl
+          \l_@@_tmpb_tl
+        \tl_set:No \l_@@_struct_parenttag_tl   {\l_@@_tmpa_tl}
+        \tl_set:No \l_@@_struct_parenttag_NS_tl{\l_@@_tmpb_tl}
+        \@@_check_structure_tag:N \l_@@_struct_parenttag_tl
+     },    
 	firstkid .code:n = { \tl_set:Nn \l_@@_struct_addkid_tl {left} },   
     tag   .code:n        = % S property
       {
@@ -1888,11 +1916,11 @@
          {
            \bool_if:NTF \l_@@_struct_elem_stash_bool
            {
-             \@@_struct_prop_gput:nno
+             \@@_struct_prop_gput:nne
                 { \int_use:N \c@g_@@_struct_abs_int }          
                 { parentrole }
                 {
-                  {STASHED}{latex}
+                  {\l_@@_struct_parenttag_tl}{\l_@@_struct_parenttag_NS_tl}
                 } 
            }
            {
@@ -2043,19 +2071,19 @@
           { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{unknown}_prop } %
           {
             \@@_check_struct_used:n {#1}
-            %add the label structure as kid to the current structure (can be the root)
+            \tl_set:Ne \l_@@_get_child_tmpa_tl 
+              { \property_ref:enn{tagpdfstruct-#1}{tagstruct}{1} } 
+%    \end{macrocode}
+%  add the label structure as kid to the current structure (can be the root)
+%    \begin{macrocode}           
             \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
-              { \property_ref:enn{tagpdfstruct-#1}{tagstruct}{1} }
-            %add the current structure to the labeled one as parents
-            %\@@_prop_gput:cne
-%              { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
-%              { P }
-%              {
-%                \pdf_object_ref_indexed:nn { @@/struct } { \g_@@_struct_stack_current_tl }
-%              }
+              { \l_@@_get_child_tmpa_tl }
+%    \end{macrocode}
+% add the current structure to the labeled one as parents
+%    \begin{macrocode}            
             \@@_prop_gput:cne
-              { g_@@_struct_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }    
+              { g_@@_struct_ \l_@@_get_child_tmpa_tl _prop }    
               { parentnum }
               {
                 \g_@@_struct_stack_current_tl 
@@ -2064,21 +2092,22 @@
 % debug code
 %    \begin{macrocode}
 %<debug>           \prop_gput:cne
-%<debug>             { g_@@_struct_debug_\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}_prop }
+%<debug>             { g_@@_struct_debug_ \l_@@_get_child_tmpa_tl _prop }
 %<debug>             { parentnum }
 %<debug>             { 
 %<debug>               \g_@@_struct_stack_current_tl\c_space_tl=~
 %<debug>               \g_@@_struct_tag_tl
 %<debug>             }
 %    \end{macrocode}
-%   check if the tag is allowed as child. Here we have to retrieve the 
-%   tag info for the child, while the data for the parent is in 
-%   the global tl-vars:
-%   TODO: this looks wrong, if the child is e.g. NonStruct, we would need the tag of the inner
-%   child.
+%   check if the tag is allowed as child.
+%   If the tag of the child after rolemapping is \emph{not} one of Part, Div, NonStruct,
+%   then the parentrole field will be identically to the rolemap field and can be used for 
+%   a check. 
+%   Otherwise the parentrole will contain latex:STASHED (if not changed with the \texttt{parent-tag}
+%   key when the structure was stashed) and will produce a warning. 
 %    \begin{macrocode}
-             \@@_struct_get_role:enNN  
-              {\property_ref:enn{tagpdfstruct-#1}{tagstruct}{1}}
+            \@@_struct_get_role:enNN  
+              {\l_@@_get_child_tmpa_tl}
               {parentrole} %is this correct???
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
@@ -2087,11 +2116,11 @@
               { \g_@@_struct_tag_NS_tl } 
               { \l_@@_tmpa_tl }
               { \l_@@_tmpb_tl }               
-              \l_@@_parent_child_check_tl             
-            \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
-              {
-               % TODO warn message?
-              }              
+              \l_@@_parent_child_check_tl                   
+            \@@_check_struct_forbidden_parent_child:onn 
+               {\l_@@_parent_child_check_tl}  
+               { \g_@@_struct_stack_current_tl }
+               { \l_@@_get_child_tmpa_tl }               
           }
           {
             \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
@@ -2123,17 +2152,15 @@
               {
                 \msg_warning:nnn { tag } {struct-used-twice} {#1}
               }
-            %add the \#1 structure as kid to the current structure (can be the root)
+%    \end{macrocode}
+% add the \#1 structure as kid to the current structure (can be the root)
+%    \begin{macrocode}
             \@@_struct_kid_struct_gput_right:ee
               { \g_@@_struct_stack_current_tl }
               { #1 }
-            %add the current structure to \#1 as parent
-%             \@@_struct_prop_gput:nne
-%              { #1 }            
-%              { P }
-%              {
-%                \pdf_object_ref_indexed:nn { @@/struct }{ \g_@@_struct_stack_current_tl }
-%              }
+%    \end{macrocode}
+% add the current structure to \#1 as parent
+%    \begin{macrocode}
              \@@_struct_prop_gput:nne
               { #1 }            
               { parentnum }
@@ -2148,28 +2175,28 @@
 %<debug>               \g_@@_struct_tag_tl
 %<debug>             }
 %    \end{macrocode}
-%   check if the tag is allowed as child. Here we have to retrieve the 
-%   tag info for the child, while the data for the parent is in 
-%   the global tl-vars:
-%   !!!!!!!!!
-%   TODO: this looks wrong, if the child is e.g. NonStruct, we would need the tag of the inner
-%   child.
+%   check if the tag is allowed as child.
+%   If the tag of the child after rolemapping is \emph{not} one of Part, Div, NonStruct,
+%   then the parentrole field will be identically to the rolemap field and can be used for 
+%   a check. 
+%   Otherwise the parentrole will contain latex:STASHED (if not changed with the \texttt{parent-tag}
+%   key when the structure was stashed) and will produce a warning. 
 %    \begin{macrocode}
              \@@_struct_get_role:enNN  
-              {#1}
-              {parentrole} %% ?? is this correct
+              {\l_@@_get_child_tmpa_tl}
+              {parentrole} %is this correct???
               \l_@@_tmpa_tl
               \l_@@_tmpb_tl
             \@@_role_check_parent_child:ooooN
               { \g_@@_struct_tag_tl }               
               { \g_@@_struct_tag_NS_tl } 
               { \l_@@_tmpa_tl }
-              { \l_@@_tmpb_tl }              
-              \l_@@_parent_child_check_tl             
-            \int_compare:nNnT {\l_@@_parent_child_check_tl}<0
-              {
-                % TODO: message??
-              }
+              { \l_@@_tmpb_tl }               
+              \l_@@_parent_child_check_tl                   
+            \@@_check_struct_forbidden_parent_child:onn 
+               {\l_@@_parent_child_check_tl}  
+               { \g_@@_struct_stack_current_tl }
+               { \l_@@_get_child_tmpa_tl } 
           }
           {
             \msg_warning:nnn{ tag }{struct-label-unknown}{#1}
