@@ -31,6 +31,7 @@ Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
 Package tagpdf Info: Checking Parent-Child 'pdf2:Formula' --> 'mathml:math'
 Package tagpdf Info: Parent-Child 'Formula' --> 'math'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mpadded'
 Package tagpdf Info: Parent-Child 'math' --> 'mpadded'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mi'
@@ -150,6 +151,7 @@ Package tagpdf Info: Checking Parent-Child 'mathml:mi' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 26 tagged /mi
+Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mtext'
 Package tagpdf Info: Parent-Child 'math' --> 'mtext'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 23 tagged /math
