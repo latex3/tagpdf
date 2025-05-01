@@ -304,7 +304,7 @@
 %    \end{macrocode}
 % \end{macro}
 % The ParentTree maps numbers to objects or (if the number represents a page)
-% to arrays of objects. The numbers refer to two dictinct types of entries:
+% to arrays of objects. The numbers refer to two distinct types of entries:
 % page streams and real objects like annotations.
 % The numbers must be distinct and ordered.
 % So we rely on abspage for the pages and put the real objects at the end.
@@ -315,7 +315,7 @@
 %  This is a counter for the real objects. It starts at the absolute last page
 %  value. It relies on l3ref.
 %    \begin{macrocode}
-\newcounter  { g_@@_parenttree_obj_int }
+\int_new:N  \c@g_@@_parenttree_obj_int 
 \hook_gput_code:nnn{begindocument}{tagpdf}
   {
     \int_gset:Nn
