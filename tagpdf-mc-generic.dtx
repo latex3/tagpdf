@@ -689,9 +689,13 @@
 %    \begin{macrocode}
             \bool_if:NF \l_@@_mc_key_stash_bool
               {
-                \@@_mc_check_parent_child:o
-                 { \g_@@_struct_stack_current_tl }
+                \socket_use:nn{tag/check/parent-child}
+                  {
+                   \@@_mc_check_parent_child:o
+                    { \g_@@_struct_stack_current_tl }
+                  }
                 \@@_mc_handle_stash:e { \int_use:N \c@g_@@_MCID_abs_int }
+ 
               }
           }
         \group_end:

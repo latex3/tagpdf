@@ -13,6 +13,7 @@ this project uses date-based 'snapshot' version identifiers.
  - improve parent-child rule tests for Part, Div and Nonstruct
  - better rolemapping messages (issue #112)
  - store structure number of parent instead of object reference
+ - add parent-child-check key to suppress parent-child checks.
   
 ### Fixed
  - mime type of files added with the mathml key to structures. 

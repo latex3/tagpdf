@@ -692,6 +692,30 @@
  }
 %    \end{macrocode}
 % \end{macro}
+% 
+% \begin{macro}{tag/check/parent-child}
+% A socket used around the parent-child checks so that we can disable them.
+%    \begin{macrocode}
+\socket_new:nn{tag/check/parent-child}{1}
+%    \end{macrocode}
+%    And a key to disable the check
+%    \begin{macrocode}
+\keys_define:nn { @@ / setup}
+  {
+    debug / parent-child-check .choice:,
+    debug / parent-child-check / on .code:n =
+     {
+       \socket_assign_plug:nn {tag/check/parent-child}{identity}
+     },
+    debug / parent-child-check / off .code:n=
+     {
+       \socket_assign_plug:nn {tag/check/parent-child}{noop}
+     } 
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% 
 % \begin{macro}{role-remapping}
 %  This is info and warning message about role-remapping
 %    \begin{macrocode}

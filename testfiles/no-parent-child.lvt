@@ -1,0 +1,22 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{tagging=on,tagging-setup={debug/parent-child-check=off},
+ debug={log=v}}
+\input{regression-test}
+
+\documentclass{article}
+\begin{document}
+\START
+\ExplSyntaxOn
+\tagstructbegin{tag=Sect}
+\prop_map_inline:Nn \g__tag_role_tags_NS_prop
+ { 
+  \tagpdfsetup{para/tag=#1}
+      #1
+     \par    
+ }
+ \tagstructend  
+\ExplSyntaxOff
+\end{document} 
