@@ -10,7 +10,8 @@
 \DocumentMetadata
  {
    % comment the following line to compile an untagged documentation:
-   testphase={latest},
+   tagging=on,
+   tagging-setup={debug/parent-child-check=atend},
    pdfversion=2.0,lang=en,pdfstandard=a-4,pdfstandard=ua-2
    %uncompress
  }
@@ -2349,7 +2350,7 @@ rules were rather vague, in the \PDF{} 2.0 reference there is a quite
 specific matrix, which sadly misses some of the tags from \PDF{}
 1.7. The now released ISO norm 32005 addresses this problem and
 extends the matrix to cover tags from \PDF{} 1.7 and 2.0 (but it still
-misses the \texttt{math} tag and mathml tags).
+misses the \texttt{math} tag and \texttt{mathml} tags).
 
 The rules in the matrix are not a simple allowed/not allowed. Instead
 some rules determine that structure elements can appear only once in a
@@ -2359,7 +2360,6 @@ often has to be the first element in the parent structure, and
 elements like \texttt{Part} and \texttt{Div} inherit restrictions from
 parent structures.  External standards like \PDF/UA can add more
 rules.
-
 
 Altogether this doesn't make it easy to check if a structure tree is 
 conformant or not without slowing down the compilation a lot. 
@@ -2401,13 +2401,31 @@ Be aware
   \enquote{real content} (the matrix has containments rules for this
   too).
 
-\item Currently there is as only negative number \texttt{\textminus1}
+\item Currently there is only only negative number \texttt{\textminus1}
   but that is bound to change, depending on if (and how) it is
   possible to \enquote{repair} a disallowed parent-child relation.
+
 \item Warnings can be wrong. 
+
+\item The tags \texttt{Part}, \texttt{Div} and \texttt{NoStruct} are sometimes (not always) \enquote{transparent}, that means that it depends on their parent if a child tag is allowed. The code tries to
+    detect this, but  if a structure using one of these tags is stashed it can't identify the parent and so won't be able to check the rule 
 \end{itemize} 
+
   
-Parent-child checks can be disabled with \verb+\tagpdfsetup{debug/parent-child-check=off}+. But this will be speed up the compilation but should be used with care, parent-child checks are an important tool to detect faulty structures!
+Parent-child checks are not fast, so there is an option to disable them
+\begin{taglstlisting}
+ \tagpdfsetup{debug/parent-child-check=off}
+\end{taglstlisting}
+This will be speed up the compilation but should be used with care, parent-child checks are an important tool to detect faulty structures!
+
+They can be reenabled with
+\begin{taglstlisting}
+ \tagpdfsetup{debug/parent-child-check=on}
+\end{taglstlisting}
+
+When using lualatex there is also the value \texttt{atend}. This disables the inline checks, but at the end of the document, the lua code will go through the structures and check the rules.  
+
+There is also an online service \cite{showtags} which validates the structure with an Relax NG schema developed by the LaTeX Team, which can be found at \cite{showtags-script}. 
 
 
 \section{\enquote{Real} space glyphs}\label{sec:spacechars}
