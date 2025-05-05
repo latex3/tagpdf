@@ -721,12 +721,12 @@
     debug / parent-child-check / off .code:n=
      {
        \socket_assign_plug:nn {tag/check/parent-child}{noop}
-       \socket_assign_plug:nn{tag/check/parent-child-end}{noop}
+       \socket_assign_plug:nn {tag/check/parent-child-end}{noop}
      },
     debug / parent-child-check / atend .code:n=
      {
        \socket_assign_plug:nn {tag/check/parent-child}{noop}
-       \socket_assign_plug:nn{tag/check/parent-child-end}{check}  
+       \socket_assign_plug:nn {tag/check/parent-child-end}{check}  
      }  
   }
 %    \end{macrocode}
