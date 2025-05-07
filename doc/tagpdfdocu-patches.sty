@@ -133,22 +133,9 @@
  }
  
 % the \meta command uses \langle/\rangle which produce formulas in code.
-% this need some general solution!
-\Atbegindocument
- {
-   \DeclareRobustCommand\meta[1]{%         
-         \ifmmode \langle \expandafter \nfss@text\else\textlangle \fi
-         {%
-          \meta@font@select
-          \edef\meta@hyphen@restore
-            {\hyphenchar\the\font\the\hyphenchar\font}%
-          \hyphenchar\font\m@ne
-          \language\l@nohyphenation
-          #1\/%
-          \meta@hyphen@restore
-         }\ifmmode \rangle\else \textrangle\fi
-    }} 
- 
+% this need some general solution! For now we suppress tagging of \ensuremath.
+ \long\def\@ensuredmath#1{{\MathCollectFalse$\relax#1$}}
+
 % ======= footnote ========
 % done in testphase code
 
