@@ -93,7 +93,10 @@
 % tagging code. This needs revisiting!
 
 \AddToHook{env/tcolorbox/before}{\par\tagstructbegin{tag=Div}}
-\AddToHook{env/tcolorbox/begin}{\tagpdfparaOff \tcbset{before upper=\tagpdfparaOn}}
+\AddToHook{env/tcolorbox/begin}{%
+\AssignTaggingSocketPlug{minipage/before}{noop}%
+\AssignTaggingSocketPlug{minipage/after}{noop}%
+\tagpdfparaOff \tcbset{before upper=\tagpdfparaOn}}
 \AddToHook{env/tcolorbox/after}{\par\tagstructend}
 
 % ========= doc Commands from tcolorbox
