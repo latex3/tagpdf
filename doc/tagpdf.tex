@@ -125,6 +125,8 @@ Issues, comments, suggestions can be added as issues to these two github tracker
 
 \tagtool{sec-add-grouping=false}
 
+\bookmark[dest=toc,level=section]{Table of Contents}
+\NextLinkTarget{toc}
 \tableofcontents
 
 \tagtool{sec-add-grouping}
@@ -359,20 +361,18 @@ current version of the pdfmanagment-testphase package is needed.
 
 \begin{figure}
 \includegraphics[alt=Screenshot showing that PAC 2024 doesn't support PDF 2.0]{pac2024-version}
-
 \caption{PAC 2024 reading a PDF 2.0 file}\label{fig:pac-version}
 \end{figure}
 
 \begin{figure}
 \includegraphics[alt=PAC 2024 complains about table header cells]{pac2024-report}
 \caption{PAC 2024 Validation of header cells}\label{fig:pac-validation}
+\end{figure}
+
 \begin{figure}
-
 \includegraphics[alt={Screenshot of Adobe report}]{acrobat}
-
 \caption{Adobe Acrobat complaining
-about the \texttt{Lbl} use}\label{fig:adobe}\par
-
+about the \texttt{Lbl} use}\label{fig:adobe}
 \end{figure}
 
 
@@ -467,7 +467,7 @@ The command should be normally used only in the preamble
 The key-val list understands at least the following keys. More keys are defined in some of the latex-lab module, see table~\ref{tab:setupkey} for an overview which also includes older, now deprecated names.
 
 \begin{table}
-\makeatletter \bookmark[dest=\@currentHref]{List of keys}\makeatother
+\makeatletter \bookmark[dest=\@currentHref,level=section]{List of keys}\makeatother
 \caption{Overview over keys for \cs{tagpdfsetup}}\label{tab:setupkey}
 \input{tagpdfsetup-keys}
 \end{table}
