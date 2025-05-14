@@ -15,6 +15,7 @@ this project uses date-based 'snapshot' version identifiers.
  - store structure number of parent instead of object reference
  - add parent-child-check key to suppress parent-child checks.
  - add option for luatex to do parent-child checks at the end.
+ - support for tagging of gotor links
   
 ### Fixed
  - mime type of files added with the mathml key to structures. 
