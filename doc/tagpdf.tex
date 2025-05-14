@@ -9,10 +9,10 @@
 
 \DocumentMetadata
  {
-   % comment the following line to compile an untagged documentation:
+   % change the following line to tagging=off to compile an untagged documentation
    tagging=on,
-   tagging-setup={debug/parent-child-check=atend},
-   pdfversion=2.0,lang=en,pdfstandard=a-4,pdfstandard=ua-2
+   tagging-setup={debug/parent-child-check=atend,tabsorder=structure},
+   pdfversion=2.0,lang=en,pdfstandard=a-4f,pdfstandard=ua-2,
    %uncompress
  }
 \DebugBlocksOff
@@ -60,9 +60,7 @@
 \makeatletter \def\lst@visiblespace{\lst@ttfamily{\char32}{\char32}}\makeatother
 
 
-\tagpdfsetup{tabsorder=structure}
-
-\usepackage[pdfdisplaydoctitle=true]{hyperref}
+\usepackage{hyperref}
 
  \hypersetup{
   pdftitle={The tagpdf package, v\csname UlrikeFischer@package@version\endcsname},
@@ -340,11 +338,13 @@ the \PDF\ management code and is now much better. Only a few
 structures---mostly some from currently unsupported packages--- still need 
 manual tagging. But sadly the output of the validators don't quite reflect 
 the improvements. The documentation uses now \PDF~2.0  and while the newest 
-PAC~2024 can at least open the file it can not validate properly the file. For example
-it complains about the tabular header cells as it doesn't follow attribute classes.
+PAC~2024 can at least open the file it can not validate properly the file.
+It doesn't fully supports \PDF~2.0 (see figure~\ref{fig:pac-version}). It also
+complains about the tabular header cells as it doesn't follow attribute classes, see
+figure~\ref{fig:pac-validation}.
 The Adobe validator has a bug and 
-doesn't like the (valid) use of  the \texttt{Lbl} tag for the section numbers 
-(see figure~\ref{fig:adobe}).  
+doesn't like the (valid) use of  the \texttt{Lbl} tag for numbers outside lists and
+so complains about the tagging of the table of content entries (see figure~\ref{fig:adobe}).  
 
 
 But even if the documentation would pass all the tests of the validators:  as 
@@ -357,10 +357,15 @@ Be aware that to create the tagged version a current lualatex-dev and a
 current version of the pdfmanagment-testphase package is needed. 
 \end{tcolorbox}
 
-\includegraphics[alt=PAC 2024 complains about PDF version]{pac2024-version}
+\begin{figure}
+\includegraphics[alt=Screenshot showing that PAC 2024 doesn't support PDF 2.0]{pac2024-version}
 
+\caption{PAC 2024 reading a PDF 2.0 file}\label{fig:pac-version}
+\end{figure}
+
+\begin{figure}
 \includegraphics[alt=PAC 2024 complains about table header cells]{pac2024-report}
-
+\caption{PAC 2024 Validation of header cells}\label{fig:pac-validation}
 \begin{figure}
 
 \includegraphics[alt={Screenshot of Adobe report}]{acrobat}
@@ -3245,7 +3250,7 @@ examples and remarks easier to understand.
     \mbox{\texttt{[0 15 0 R (hello) <</Type /X>> [1 2 3]]}}
 
 
-    \begin{tikzpicture}[baseline=(c.base),alt={Illustration of array}]
+    \begin{tikzpicture}[baseline=(a1.base),alt={Illustration of array}]
     \node[arg](a1) {0};
     \node[arg,right = of a1.east](a2) {15 0 R};
     \node[arg,right = of a2.east](a3) {(hello)};
