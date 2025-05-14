@@ -1401,8 +1401,7 @@
 % We need to close and reopen mc-chunks around links.
 % Currently we handle URI and GoTo (internal) links.
 % Links should have an alternative text in the Contents
-% key. It is unclear which text this should be and
-% how to get it.
+% key; this is added for normal links by the generic hyperref driver.
 %    \begin{macrocode}
 \hook_gput_code:nnn
   {pdfannot/link/URI/before}
@@ -1448,20 +1447,30 @@
     \tag_mc_end:
     \tag_struct_end:
     \tag_mc_begin_pop:n{}
-
   }
 
-% "alternative descriptions " for PAX3. How to get better text here??
-\pdfannot_dict_put:nnn
- { link/URI }
- { Contents }
- { (url) }
+\hook_gput_code:nnn
+  {pdfannot/link/GoToR/before}
+  {tagpdf}
+  {
+     \tag_mc_end_push:
+     \tag_struct_begin:n{tag=Link}
+     \tag_mc_begin:n{tag=Link}
+     \pdfannot_dict_put:nne
+       { link/GoToR }
+       { StructParent }
+       { \tag_struct_parent_int: }
+  }
 
-\pdfannot_dict_put:nnn
- { link/GoTo }
- { Contents }
- { (ref) }
-
+\hook_gput_code:nnn
+  {pdfannot/link/GoToR/after}
+  {tagpdf}
+  {
+    \tag_struct_insert_annot:ee {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+    \tag_mc_end:
+    \tag_struct_end:
+    \tag_mc_begin_pop:n{}
+  }  
 %    \end{macrocode}
 %
 % \subsection{Attaching css-files for derivation}
