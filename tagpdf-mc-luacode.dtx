@@ -326,8 +326,17 @@
         \lua_now:e
           {
             ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","\g_@@_struct_tag_tl")
-          }                     
-        \keys_set:nn { @@ / mc }{ label={}, #1 }
+          }    
+%    \end{macrocode}
+% 2025-05-23 allow lang on the MC (not really spec conform, but does work in acrobat).
+%    \begin{macrocode}
+        \tl_if_empty:NTF\l_@@_mc_lang_tl   
+          {
+            \keys_set:nn { @@ / mc }{ label={}, #1 }
+          }
+          {
+            \keys_set:nn { @@ / mc }{ label={},lang=\l_@@_mc_lang_tl, #1 }
+          }        
         %check that a tag or artifact has been used
         \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
         %set the attributes:
@@ -403,6 +412,7 @@
 %    tag (mc-key),
 %    raw (mc-key),
 %    alt (mc-key),
+%    lang (mc-key=,
 %    actualtext (mc-key),
 %    label (mc-key),
 %    artifact (mc-key)
@@ -448,6 +458,20 @@
               }
            }  
       },
+    lang .code:n      = % Lang property
+          {
+            \tl_if_empty:oF{#1}
+              {
+                \tl_put_right:Ne \l__tag_mc_key_properties_tl { /Lang~(#1) }
+                \lua_now:e
+                  {
+                    ltx.__tag.func.store_mc_data
+                      (
+                        \__tag_get_mc_abs_cnt:,"lang","/Lang~(#1)"
+                      )
+                  }
+               }
+          },            
     alttext .meta:n = {alt=#1},  
     actualtext .code:n      = % Alt property
       {

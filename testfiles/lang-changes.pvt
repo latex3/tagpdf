@@ -1,0 +1,26 @@
+\DocumentMetadata{lang = de,tagging=on,tagging-setup={role/user-NS=latex}}
+\input{regression-test}
+\documentclass{article}
+\ExplSyntaxOn
+\cs_new_protected:Npn\setmclang#1{\tl_set:Nn\l__tag_mc_lang_tl{#1}}
+\cs_set_eq:NN\pdfbdc\pdf_bdc:nn
+\cs_set_eq:NN\pdfemc\pdf_emc:
+\ExplSyntaxOff
+\begin{document}
+
+Deutsch, \tagmcend
+\setmclang{en}\tagmcbegin{}english, \tagmcend
+\setmclang{fr}\tagmcbegin{}français, \tagmcend
+\setmclang{}\tagmcbegin{}Deutsch
+
+Deutsch, \tagmcend
+\tagmcbegin{lang=en}english, \tagmcend
+\tagmcbegin{lang=fr}français, \tagmcend
+\tagmcbegin{}Deutsch
+
+Deutsch, 
+\pdfbdc{Span}{/Lang (en)}english, \pdfemc
+\pdfbdc{Span}{/Lang (fr)}français, \pdfemc
+Deutsch
+
+\end{document} 

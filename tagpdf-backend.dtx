@@ -1192,6 +1192,11 @@ function ltx.@@.func.mark_page_elements (box,mcpagecnt,mccntprev,mcopen,name,mct
             tostring(ltx.@@.mc[mccnt]["alt"]),3)
          dict= dict .. " " .. ltx.@@.mc[mccnt]["alt"]
         end
+        if ltx.__tag.mc[mccnt]["lang"] then
+         __tag_log("INFO TAG-USE-LANG: "..
+            tostring(ltx.__tag.mc[mccnt]["lang"]),3)
+         dict= dict .. " " .. ltx.__tag.mc[mccnt]["lang"]
+        end                
         if ltx.@@.mc[mccnt]["actualtext"] then
          @@_log("INFO TAG-USE-ACTUALTEXT: "..
            tostring(ltx.@@.mc[mccnt]["actualtext"]),3)
