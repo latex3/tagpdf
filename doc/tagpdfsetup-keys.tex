@@ -1,9 +1,9 @@
 %% Overview over tagpdfsetup keys
 %% The keys are split in a number of key paths. 
 \tagpdfsetup{table/header-rows=1}
-\begin{tabular}{lllll}
+\begin{longtable}{lllll}
 \toprule
-new key name    & old key name & value            &type   & defined in \\\midrule
+new key name    & old key name & value            &type   & defined in \\\midrule\endhead
  ???            & root-AF      & string           &code   &tagpdf-struct\\
 root-supplemental-file &       & string           &code   &tagpdf-struct\\
 attach-css      &              & string           &bool   &tagpdf-user\\
@@ -71,7 +71,8 @@ math/mathml/write-dummy & ---      &---              &code  &latex-lab-math\\
 % mathml source files:
 math/mathml/sources &---           & clist           &clist &latex-lab-math\\
 math/mathml/AF      &---           &boolean          &bool  &latex-lab-math\\
-math/tex/AF       & ---            &boolean          &bool  &latex-lab-math\\[4pt]\midrule
+math/tex/AF       & ---            &boolean          &bool  &latex-lab-math\\
+math/setup        & ---            &string           &code  &latex-lab-math\\  [4pt]\midrule
 % TODO math/alt/type = source|manual|     (later)                                                                               
 %% table key path
 % true/false/layout
@@ -80,4 +81,4 @@ table/header-rows & table-header-rows& clist         &clist &latex-lab-table\\[4
 % change for text
 text/lang         & ---             & string         & code &tagpdf-user  
 \\\bottomrule
-\end{tabular}
+\end{longtable}
