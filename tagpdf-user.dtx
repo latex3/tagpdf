@@ -713,7 +713,228 @@
 %</debug>
 %    \end{macrocode}
 % \end{macro}
-%
+% \section{Commands for class and package authors}
+% The following commands are provided temporarly by tagpdf-base until they are
+% provided by the kernel directly.
+% 
+% To test if the full latex-lab code has been loaded we check currently 
+% the following list of styles:
+% tagpdf.sty
+% latex-lab-testphase-new-or-2.sty
+% latex-lab-testphase-block.sty
+% latex-lab-testphase-sec.sty
+% latex-lab-testphase-toc.sty
+% latex-lab-testphase-minipage.sty
+% latex-lab-testphase-graphic.sty
+% latex-lab-testphase-float.sty
+% latex-lab-testphase-bib.sty
+% latex-lab-testphase-text.sty
+% latex-lab-testphase-marginpar.sty
+% latex-lab-testphase-title.sty
+% latex-lab-testphase-table.sty
+% latex-lab-testphase-math.sty
+% latex-lab-testphase-firstaid.sty
+% latex-lab-testphase-tikz.sty
+%    \begin{macrocode}
+%<*base>
+%    \end{macrocode}
+% documentmetadata-support.dtx currently uses the module name pdfmanagement,
+% but this doesn't looks good, so this uses kernel.
+% We use a clist to check if the full set of modules have been loaded:
+%    \begin{macrocode}
+\bool_new:N \l__kernel_lab_modules_loaded_bool
+\clist_if_exist:NF \l__kernel_lab_module_clist
+  {
+   \clist_new:N  \l__kernel_lab_module_clist
+   \clist_set:Nn \l__kernel_lab_module_clist
+    {
+      tagpdf,
+      latex-lab-testphase-new-or-2,
+      latex-lab-testphase-block,
+      latex-lab-testphase-sec,
+      latex-lab-testphase-toc,
+      latex-lab-testphase-minipage,
+      latex-lab-testphase-graphic,
+      latex-lab-testphase-float,
+      latex-lab-testphase-bib,
+      latex-lab-testphase-text,
+      latex-lab-testphase-marginpar,
+      latex-lab-testphase-title,
+      latex-lab-testphase-table,
+      latex-lab-testphase-math,
+      latex-lab-testphase-firstaid,
+      latex-lab-testphase-tikz   
+    }
+  }
+%    \end{macrocode}
+% We check once at the begin of the class for now. But a better place is
+% after the testphase processing in \cs{DocumentMetadata}.
+%    \begin{macrocode}
+\AddToHook{class/before}
+  {
+    \bool_set_true:N \l__kernel_lab_modules_loaded_bool
+    \clist_map_inline:Nn \l__kernel_lab_module_clist
+     {
+       \cs_if_free:cT{ver@#1.sty}
+        {          
+          \bool_set_false:N \l__kernel_lab_modules_loaded_bool
+          \clist_map_break:
+        }
+     }
+  }  
+%    \end{macrocode}
+% \begin{macro}{\NeedsDocumentMetadata}
+% This command checks if \cs{DocumentMetadata} has been used, 
+% if all modules are loaded, and disables compatibility code.
+%    \begin{macrocode}
+\ProvideDocumentCommand\NeedsDocumentMetadata{}
+ {
+%    \end{macrocode}
+% test if  \cs{DocumentMetadata} has been used at all. 
+% Not really sensible here but for later in the kernel
+%    \begin{macrocode}
+   \cs_if_free:cT{ver@tagpdf-base.sty}
+    {
+      \tl_if_eq:NNTF { \@currext }{ \@clsextension }
+       {
+         \ClassError{\@currname}
+          {
+            This~class~requires~that~the~document~starts~with\MessageBreak
+           '\string\DocumentMetadata{tagging=...}'
+          } 
+       }
+       {
+         \PackageError{\@currname}
+          {
+            This~package~requires~that~the~document~starts~with\MessageBreak
+           '\string\DocumentMetadata{tagging=...}'
+          }
+       }
+    }     
+%    \end{macrocode}
+%  This tests if everything from the latex-lab code has been loaded. 
+%  If the boolean is false everything is fine, else we have to check, which module
+%  is missing.
+%    \begin{macrocode}
+   \bool_if:NF\l__kernel_lab_modules_loaded_bool
+    {
+      \tl_if_eq:NNTF { \@currext }{ \@clsextension }
+       {
+         \ClassWarning {\@currname}
+           {This~class~requires~that~in~ '\string\DocumentMetadata{}' 
+            \MessageBreak
+            the~key~'tagging=on|off|draft'~is~used
+            \MessageBreak
+            to~load~the~tagging~support~code.
+            \MessageBreak
+            I~will~load~the~missing~modules.}
+         \clist_map_inline:Nn\l__kernel_lab_module_clist
+          {
+            \cs_if_free:cT{ver@##1.sty}
+              {              
+%    \end{macrocode}
+% in a class we load missing modules. If tagging hasn't been activated previously
+% then loading tagpdf.sty will not do that, so no special handling is needed.
+%    \begin{macrocode}              
+                 \RequirePackage{##1}
+                 \bool_set_true:N \l__kernel_lab_modules_loaded_bool
+              }
+          }
+        }
+        {
+          \PackageError {\@currname}
+            {
+              This~package~requires~that~in~ '\string\DocumentMetadata{}' 
+              \MessageBreak
+              the~key~'tagging=on|off|draft'~is~used~
+              \MessageBreak
+              to~load~the~tagging~support~code.
+            }{}
+        }  
+     }      
+%    \end{macrocode}
+%   In a class we remove compability code in begindocument, 
+%   class/after, and class/<class>/after stored with the label latex-lab-comp.
+%    \begin{macrocode}
+    \tl_if_eq:NNTF { \@currext }{ \@clsextension }
+      {
+        \AddToHook{begindocument}[latex-lab-comp-noop]{}
+        \DeclareHookRule{begindocument}{latex-lab-comp-noop}{voids}{latex-lab-comp}
+        \AddToHook{class/after}[latex-lab-comp-noop]{}
+        \DeclareHookRule{class/after}{latex-lab-comp-noop}{voids}{latex-lab-comp}
+        \ExpandArgs{e}
+          \AddToHook{class/\@currname/after}[latex-lab-comp-noop]{}
+        \ExpandArgs{e}
+          \DeclareHookRule
+            {class/\@currname/after}
+            {latex-lab-comp-noop}{voids}{latex-lab-comp}
+      }
+%    \end{macrocode}
+%    In a package we remove only compatibility code stored in package/<package>/after
+%    \begin{macrocode}
+      {
+        \ExpandArgs{e}
+        \AddToHook{package/\@currname/after}[latex-lab-comp-noop]{}
+        \ExpandArgs{e}
+          \DeclareHookRule
+          {package/\@currname/after}
+          {latex-lab-comp-noop}{voids}{latex-lab-comp}
+      }
+ }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\SupportsDocumentMetadata}
+% This command only removes compatibility code.
+%    \begin{macrocode}
+\ProvideDocumentCommand\SupportsDocumentMetadata{}
+ {
+%    \end{macrocode}
+%   In a class we remove compability code in begindocument, 
+%   class/after, and class/XXX/after stored with the label latex-lab-comp.
+%    \begin{macrocode}
+    \tl_if_eq:NNTF { \@currext }{ \@clsextension }
+      {
+        \AddToHook{begindocument}[latex-lab-comp-noop]{}
+        \DeclareHookRule{begindocument}{latex-lab-comp-noop}{voids}{latex-lab-comp}
+        \AddToHook{class/after}[latex-lab-comp-noop]{}
+        \DeclareHookRule{class/after}{latex-lab-comp-noop}{voids}{latex-lab-comp}
+        \ExpandArgs{e}
+          \AddToHook{class/\@currname/after}[latex-lab-comp-noop]{}
+        \ExpandArgs{e}
+          \DeclareHookRule
+            {class/\@currname/after}
+            {latex-lab-comp-noop}{voids}{latex-lab-comp}
+      }
+%    \end{macrocode}
+%    In a package we remove only compatibility code stored in package/XXX/after
+%    \begin{macrocode}
+      {
+        \ExpandArgs{e}
+        \AddToHook{package/\@currname/after}[latex-lab-comp-noop]{}
+        \ExpandArgs{e}
+          \DeclareHookRule
+          {package/\@currname/after}
+          {latex-lab-comp-noop}{voids}{latex-lab-comp}
+      }  
+ } 
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\IfDocumentMetadataTF}
+% The test is extended and checks if all lab modules are loaded.
+%    \begin{macrocode}
+\cs_set:Npn\IfDocumentMetadataTF
+ { \bool_if:NTF \l__kernel_lab_modules_loaded_bool }
+\cs_set:Npn\IfDocumentMetadataT
+ { \bool_if:NT \l__kernel_lab_modules_loaded_bool }
+\cs_set:Npn\IfDocumentMetadataF
+ { \bool_if:NF \l__kernel_lab_modules_loaded_bool }
+%    \end{macrocode}
+% \end{macro}
+% 
+%    \begin{macrocode}
+%</base>
+%    \end{macrocode}
+% 
 % \section{Commands to extend document commands}
 % The following commands and code parts are not core commands of tagpdf.
 % They either provide work-arounds for missing functionality elsewhere,
