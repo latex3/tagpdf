@@ -244,7 +244,7 @@ functions
 % The mc_type attribute stores the type (P, Span etc) encoded as a num,
 % The mc_cnt attribute stores the absolute number and allows so to see
 % if a node belongs to the same mc-chunk.
-%
+% The structnum attribute stores the structure number. 
 % The interwordspace attr is set by the function |@@_mark_spaces|, and marks
 % the place where spaces should be inserted.
 % The interwordfont attr is set by the function |@@_mark_spaces| too and
@@ -255,6 +255,7 @@ functions
 %    \begin{macrocode}
 local mctypeattributeid  = luatexbase.new_attribute ("g_@@_mc_type_attr")
 local mccntattributeid   = luatexbase.new_attribute ("g_@@_mc_cnt_attr")
+local structnumattributeid   = luatexbase.new_attribute ("g_@@_structnum_attr")
 local iwspaceOffattributeid = luatexbase.new_attribute ("g_@@_interwordspaceOff_attr")
 local iwspaceattributeid = luatexbase.new_attribute ("g_@@_interwordspace_attr")
 local iwfontattributeid  = luatexbase.new_attribute ("g_@@_interwordfont_attr")

@@ -315,8 +315,6 @@
 % \section{Variables}
 % \begin{variable}{\c@g_@@_struct_abs_int}
 % Every structure will have a unique, absolute number.
-% I will use a latex counter for the structure count
-% to have a chance to avoid double structures in align etc.
 %
 %    \begin{macrocode}
 %<base>\int_new:N  \c@g_@@_struct_abs_int 
@@ -383,6 +381,28 @@
 \tl_new:N     \l_@@_struct_stack_parent_tmpa_tl
 %    \end{macrocode}
 % \end{variable}
+%
+% In luatex we will store the structure number as attribute.
+%    \begin{macrocode}
+\sys_if_engine_luatex:TF
+ {
+   \cs_new:Npn \@@_struct_set_attribute:
+    {
+      \lua_now:e
+      {
+        tex.setattribute
+         (
+          "global",
+          luatexbase.attributes.g_@@_structnum_attr,
+          \g_@@_struct_stack_current_tl 
+         )
+      }
+    }
+ }
+ {
+   \cs_new_eq:NN \@@_struct_set_attribute: \prg_do_nothing:
+ }
+%    \end{macrocode}
 %
 % I will need at least one structure: the StructTreeRoot
 % normally it should have only one kid, e.g. the document element.
@@ -1963,6 +1983,7 @@
         \seq_gpush:Ne \g_@@_struct_tag_stack_seq 
           {{\g_@@_struct_tag_tl}{\l_@@_struct_roletag_tl}}
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
+        \@@_struct_set_attribute:
         %\seq_show:N   \g_@@_struct_stack_seq
 %    \end{macrocode}
 % the rolemapped role and its NS are stored in the rolemap key.
@@ -2108,6 +2129,7 @@
         \seq_get:NNTF \g_@@_struct_stack_seq \l_@@_tmpa_tl
           {
             \tl_gset:No  \g_@@_struct_stack_current_tl { \l_@@_tmpa_tl }
+            \@@_struct_set_attribute:
           }
           {
             \@@_check_no_open_struct:
