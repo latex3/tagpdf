@@ -64,6 +64,10 @@
 {
   \fontencoding{TU}\fontfamily{lmr}\fontseries{m}\fontshape{n}\fontsize{10pt}{10pt}\selectfont
 }
+%    \end{macrocode}
+% We require the lualinksplit code. Currently this is in a local package.
+%    \begin{macrocode}
+\IfFileExists{lualinksplit.sty}{\RequirePackage{lualinksplit}}{}
 \lua_now:e { tagpdf=require('tagpdf.lua') }
 %    \end{macrocode}
 %
@@ -1516,8 +1520,35 @@ function check_parent_child_rules (loglevel)
  end
 
 ltx.@@.func.check_parent_child_rules=check_parent_child_rules
+
 %    \end{macrocode}
 % \end{macro}
+% \section{Link annotations}
+% If the linksplit code has been loaded we use it to add the OBJR of links to the 
+% structure tree.
+%    \begin{macrocode}  
+  if luatexbase.callbacktypes['linksplit'] then
+   luatexbase.add_to_callback('linksplit', function(start_link, position)
+     local structnum =
+       node.get_attribute(start_link,luatexbase.attributes.g__tag_structnum_attr)
+     if structnum then  
+       local struct_insert_annot_shipout = token.create'__tag_struct_insert_annot_shipout:nnn'  
+       local parentnum = tex.count['c@g__tag_parenttree_obj_int']     
+       start_link.link_attr = 
+          start_link.link_attr .. 
+          ' /Position /' .. position .. 
+          '/StructParent ' .. parentnum  
+       tex.sprint(struct_insert_annot_shipout,'{'..
+          structnum..'}{'..
+          start_link.objnum..' 0 R}{'.. 
+          parentnum ..'}')
+       -- the counter must be set explicitly as struct_insert_annot_shipout doesn't do it!  
+       tex.setcount('global','c@g__tag_parenttree_obj_int',parentnum +1)    
+        @@_log(position .. " link part has object id " .. start_link.objnum .. " and structparent id " .. parentnum,2) 
+     end    
+   end, 'tagpdf')
+  end
+%    \end{macrocode}
 %    \begin{macrocode}
 %</lua>
 %    \end{macrocode}
