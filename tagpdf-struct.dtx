@@ -1170,7 +1170,7 @@
               { \property_ref:nnn {@tag@objr@page@#2 }{ tagabspage }{1} }
           }
         % add the parent obj number to the parent tree:
-        \exp_args:Nne
+        % the command always expands its arguments!   
         \@@_parenttree_add_objr:nn
           {
             #2
@@ -1186,6 +1186,42 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_struct_insert_annot_shipout:nnn}
+% This command is similar to the previous one but is meant to be used at shipout 
+% (currently only sensible for luatex). 
+% To move the OBJR into the right structure it has to get the structure number
+% additionally as argument. But as it is used at shipout it doesn't need a label
+% to get the page reference but can use \cs{g_shipout_readonly_int}.
+% It does \emph{not} increase the parenttree integer (timing is wrong in 
+% lua), instead code using the command has to do it. See the lua code. 
+%    \begin{macrocode}
+\cs_new_protected:Npn\@@_struct_insert_annot_shipout:nnn #1#2#3
+% #1 structnum, #2 object reference, #3 StructParentNum
+ {
+   \@@_struct_kid_OBJR_gput_right:eee
+     {
+       #1
+     }
+     {
+       #2 
+     }
+     {
+       \pdf_pageobject_ref:n 
+         { \int_use:N \g_shipout_readonly_int } %
+     }
+   % add the parent obj number to the parent tree:
+   % the command always expands its arguments!   
+   \@@_parenttree_add_objr:nn
+     {
+       #3
+     }
+     {
+       \pdf_object_ref_indexed:nn 
+         { @@/struct }{ #1 }
+     }   
+  }   
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_get_data_struct_tag:}
 % this command allows \cs{tag_get:n} to get the current
 % structure tag with the keyword |struct_tag|. 
