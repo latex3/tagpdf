@@ -64,10 +64,6 @@
 {
   \fontencoding{TU}\fontfamily{lmr}\fontseries{m}\fontshape{n}\fontsize{10pt}{10pt}\selectfont
 }
-%    \end{macrocode}
-% We require the lualinksplit code. Currently this is in a local package.
-%    \begin{macrocode}
-\IfFileExists{lualinksplit.sty}{\RequirePackage{lualinksplit}}{}
 \lua_now:e { tagpdf=require('tagpdf.lua') }
 %    \end{macrocode}
 %
@@ -1531,7 +1527,7 @@ ltx.@@.func.check_parent_child_rules=check_parent_child_rules
    luatexbase.add_to_callback('linksplit', function(start_link, position)
      local structnum =
        node.get_attribute(start_link,luatexbase.attributes.g__tag_structnum_attr)
-     if structnum then  
+     if structnum and structnum > -1 then  
        local struct_insert_annot_shipout = token.create'__tag_struct_insert_annot_shipout:nnn'  
        local parentnum = tex.count['c@g__tag_parenttree_obj_int']     
        start_link.link_attr = 

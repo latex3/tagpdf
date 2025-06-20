@@ -1406,7 +1406,7 @@
 % OBJR of all annotations into the Link structure, so the hook code
 % does not contain the command to insert the OBJR into the structure. 
 %    \begin{macrocode}
-\bool_lazy_and:nnTF {\sys_if_engine_luatex_p:}{\cs_if_exist_p:c{ver@lualinksplit.sty}}
+\sys_if_engine_luatex:TF
  {   
    \hook_gput_code:nnn
      {pdfannot/link/URI/before}
