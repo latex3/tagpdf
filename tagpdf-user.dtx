@@ -606,7 +606,7 @@
                     texio.write_nl("")
                   }
               }
-          }      
+          }
          {
           \msg_note:nn{ tag }{ mc-current }
          }
@@ -1178,7 +1178,7 @@
          }
      }
   }
-  
+
 %    \end{macrocode}
 % If the new OR is there, we use it
 %    \begin{macrocode}
@@ -1192,13 +1192,13 @@
      }
    \NewSocketPlug{tagsupport/build/column/footins}{tagpdf}
       { \tag_mc_add_missing_to_stream:Nn \footins {footnote} }
-      
-   \bool_if:NF \g_@@_mode_lua_bool  
-      {         
+
+   \bool_if:NF \g_@@_mode_lua_bool
+      {
         \AssignSocketPlug{tagsupport/build/column/outputbox}{tagpdf}
         \AssignSocketPlug{tagsupport/build/column/footins}{tagpdf}
-      }   
-  }   
+      }
+  }
 %</package>
 %    \end{macrocode}
 % \begin{macro}
@@ -1286,8 +1286,8 @@
       #2
       \@@_hook_kernel_after_head:
     }
-    
-   \AssignSocketPlug{tagsupport/build/page/header}{tagpdf} 
+
+   \AssignSocketPlug{tagsupport/build/page/header}{tagpdf}
    \NewSocketPlug{tagsupport/build/page/footer}{tagpdf}
    {
      \@@_hook_kernel_before_foot:
@@ -1296,7 +1296,7 @@
    }
   \AssignSocketPlug{tagsupport/build/page/footer}{tagpdf}
  }
- 
+
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -1402,29 +1402,29 @@
 % We handle URI, GoTo (internal) links, GoToR, Launch and Named links.
 % Links should have an alternative text in the Contents
 % key; this is added for normal links by the generic hyperref driver.
-% With luatex we make use of the lualinksplit package to get 
+% With luatex we make use of the lualinksplit package to get
 % OBJR of all annotations into the Link structure, so the hook code
-% should not contain the command to insert the OBJR into the structure. 
+% should not contain the command to insert the OBJR into the structure.
 %    \begin{macrocode}
 \bool_lazy_and:nnTF
- { \sys_if_engine_luatex_p: } 
- { 
-   \tl_if_empty_p:e  
+ { \sys_if_engine_luatex_p: }
+ {
+   \tl_if_empty_p:e
     {
       \lua_now:e
        { if~ luatexbase.in_callback('pre_shipout_filter','linksplit')~
          then~else~tex.print('1')~end
-       }  
-    } 
+       }
+    }
  }
- {   
+ {
    \hook_gput_code:nnn
      {pdfannot/link/URI/before}
      {tagpdf}
      {
        \tag_mc_end_push:
        \tag_struct_begin:n { tag=Link }
-       \tag_mc_begin:n { tag=Link }       
+       \tag_mc_begin:n { tag=Link }
      }
 
    \hook_gput_code:nnn
@@ -1448,7 +1448,7 @@
    \hook_gput_code:nnn
      {pdfannot/link/GoTo/after}
      {tagpdf}
-     { 
+     {
        \tag_mc_end:
        \tag_struct_end:
        \tag_mc_begin_pop:n{}
@@ -1460,7 +1460,7 @@
      {
         \tag_mc_end_push:
         \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link} 
+        \tag_mc_begin:n{tag=Link}
      }
 
    \hook_gput_code:nnn
@@ -1470,14 +1470,14 @@
        \tag_mc_end:
        \tag_struct_end:
        \tag_mc_begin_pop:n{}
-     }  
+     }
    \hook_gput_code:nnn
      {pdfannot/link/Launch/before}
      {tagpdf}
      {
         \tag_mc_end_push:
         \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link} 
+        \tag_mc_begin:n{tag=Link}
      }
 
    \hook_gput_code:nnn
@@ -1487,14 +1487,14 @@
        \tag_mc_end:
        \tag_struct_end:
        \tag_mc_begin_pop:n{}
-     }       
+     }
    \hook_gput_code:nnn
      {pdfannot/link/Named/before}
      {tagpdf}
      {
         \tag_mc_end_push:
         \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link} 
+        \tag_mc_begin:n{tag=Link}
      }
 
    \hook_gput_code:nnn
@@ -1504,7 +1504,7 @@
        \tag_mc_end:
        \tag_struct_end:
        \tag_mc_begin_pop:n{}
-     }         
+     }
  }
  {
    \hook_gput_code:nnn
@@ -1575,7 +1575,7 @@
        \tag_struct_end:
        \tag_mc_begin_pop:n{}
      }
-       
+
    \hook_gput_code:nnn
      {pdfannot/link/Named/before}
      {tagpdf}
@@ -1597,7 +1597,7 @@
        \tag_mc_end:
        \tag_struct_end:
        \tag_mc_begin_pop:n{}
-     }  
+     }
    \hook_gput_code:nnn
      {pdfannot/link/Launch/before}
      {tagpdf}
@@ -1619,60 +1619,60 @@
        \tag_mc_end:
        \tag_struct_end:
        \tag_mc_begin_pop:n{}
-     }                 
+     }
   }
 %    \end{macrocode}
 %
 % \subsection{Attaching css-files for derivation}
-% 
+%
 % Derivation to html (https://pdfa.org/wp-content/uploads/2019/06/Deriving_HTML_from_PDF.pdf,
 % implemented by, e.g., ngpdf) can be improved by attaching CSS style definitions
 % in associated files with relationship supplement to the StructTreeRoot.
-%  
-% Such CSS style definitions can be given in two ways: 
+%
+% Such CSS style definitions can be given in two ways:
 %  \begin{itemize}
-%   \item In files with the extension \texttt{.css}. Such files should contain only 
+%   \item In files with the extension \texttt{.css}. Such files should contain only
 %   CSS style definitions. ngpdf will store these files and include them with an
 %  \verb+<link rel=stylesheet href=...>+ in the head of the html.
 %  \item In files with the extension \texttt{.html}. Such files should contain CSS style
 %  definitions inside one (or more) \verb+<style>...</style>+ html tags. The content of these
 %  files are copied by ngpdf directly into the head of the derived html.
 %  \end{itemize}
-%  
-% By default (if tagging is active) tagpdf embeds now such CSS style definitions. 
+%
+% By default (if tagging is active) tagpdf embeds now such CSS style definitions.
 % Currently the list of files is rather short and consists of two files (with extension
 % .html and \verb+<style>...</style>+ html tags) which are provided by the tagpdf package:
 % \begin{itemize}
 % \item latex-align-css.html which improves the styling of amsmath alignments tagged with MathML.
 % \item latex-list-css.html which improves the style of list environments.
 % \end{itemize}
-% 
+%
 % It is possible to suppress the embedding of these files by setting the \cs{tagpdfsetup} key
 % \texttt{attach-css} to \texttt{false}, \texttt{attach-css=true} or \texttt{attach-css} reverts this again.
-% 
+%
 % For developers, \cs{tagpdfsetup} some keys to manipulate the list exist:
 % With \verb+css-list={file1,file2}+ the list can be overwritten. \verb+css-list=+ clears
-% the list (and so suppresses the embedding too). 
+% the list (and so suppresses the embedding too).
 % To remove a file from the list, use \verb+css-list-remove=file+, e.g.
 % \verb+css-list-remove=latex-list-css.html+. To add your
-% own file use \verb+css-list-add=my-fancy-align-css.html+. 
+% own file use \verb+css-list-add=my-fancy-align-css.html+.
 % It is also possible to attach a .css-file in this way.
 %
 % These keys do not affect files added directly with root-supplemental-file.
 %
-% The files in this list are attached at the end of the compilation (and so normally after the files attached with root-supplemental-file) 
+% The files in this list are attached at the end of the compilation (and so normally after the files attached with root-supplemental-file)
 % but you shouldn't rely on this or on a specific order of the embedding in the html.
-% 
-% We want to avoid to embed files twice, so we use a prop. 
+%
+% We want to avoid to embed files twice, so we use a prop.
 %    \begin{macrocode}
 \prop_new:N \g_@@_css_prop
 \prop_gset_from_keyval:Nn \g_@@_css_prop
- { 
-   latex-list-css.html=true, 
-   latex-align-css.html=true 
+ {
+   latex-list-css.html=true,
+   latex-align-css.html=true
  }
- 
- 
+
+
 \bool_new:N \g_@@_css_bool
 \bool_gset_true:N \g_@@_css_bool
 
@@ -1684,18 +1684,18 @@
      {
        \keys_set:nn { @@ / setup }{ root-supplemental-file= {#1} }
      }
-   } 
+   }
  }
 
 \keys_define:nn { @@ / setup }
   {
     attach-css .bool_gset:N = \g_@@_css_bool,
-    css-list .code:n = 
+    css-list .code:n =
       {
         \tl_if_empty:nTF{#1}
           {\prop_gclear:N \g_@@_css_prop }
-          {\prop_gput:Nnn \g_@@_css_prop { #1 }{true}}   
-      },          
+          {\prop_gput:Nnn \g_@@_css_prop { #1 }{true}}
+      },
     css-list-add .code:n    = { \prop_gput:Nnn \g_@@_css_prop { #1 }{true} },
     css-list-remove .code:n = { \prop_gremove:Nn \g_@@_css_prop { #1 } },
   }
