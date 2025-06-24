@@ -5,14 +5,17 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2025-06-24]
+Version 0.99r
 ### Added
- - experimental support for Lang keys on MC (not spec conform but work in acrobat)
+ - experimental support for Lang keys on MC (not spec conform but works in acrobat)
 
 ### Changed
  - links split over a line or a page now create with luatex an OBJR for all annotations (with the help of the lualinksplit code in the pdfmanagement). This improves ua-2 compability.
+ - cleaned up some outdated code
  
 ## [2025-05-16]
+Version 0.99q
 ### Changed
  - improve speed with lualatex
  - more experimental support files for verbatim tagging.
@@ -28,12 +31,13 @@ this project uses date-based 'snapshot' version identifiers.
  - mime type of files added with the mathml key to structures. 
 
 ## [2025-03-26]
-
+Version 0.99p
 ### Added
  - keyword attribute to \tag_struct_gput:nnn for graphic tagging.
  - experimental support file for verbatim tagging.
 
 ## [2025-03-05] 
+Version 0.99o
 ### Added
  - Default CSS style definition for derivation to html.
  - keys attach-css, css-list, css-list-add, css-list-remove to configure
