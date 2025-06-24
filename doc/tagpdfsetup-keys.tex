@@ -3,6 +3,10 @@
 \tagpdfsetup{table/header-rows=1}
 \begin{longtable}{lllll}
 \toprule
+\caption{Overview of the keys for \cs{tagpdfsetup}}\label{tab:setupkey}%
+\\\midrule
+new key name    & old key name & value            &type   & defined in \\\endfirsthead
+\caption{Overview of keys for \cs{tagpdfsetup} (continued)}\\\midrule%
 new key name    & old key name & value            &type   & defined in \\\midrule\endhead
  ???            & root-AF      & string           &code   &tagpdf-struct\\
 root-supplemental-file &       & string           &code   &tagpdf-struct\\
@@ -82,3 +86,4 @@ table/header-rows & table-header-rows& clist         &clist &latex-lab-table\\[4
 text/lang         & ---             & string         & code &tagpdf-user  
 \\\bottomrule
 \end{longtable}
+\bookmark[dest=\csname @currentHref\endcsname,level=section]{List of keys}

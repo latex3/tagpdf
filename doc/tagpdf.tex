@@ -74,6 +74,7 @@
 \newcommand\DescribeKey[1]{\texttt{#1}}
 
 %tagging patches:
+\usepackage{longtable}
 \usepackage{tagpdfdocu-patches}
 
 \newcommand\PDF{PDF}
@@ -466,11 +467,11 @@ The command should be normally used only in the preamble
 
 The key-val list understands at least the following keys. More keys are defined in some of the latex-lab module, see table~\ref{tab:setupkey} for an overview which also includes older, now deprecated names.
 
-\begin{table}
-\makeatletter \bookmark[dest=\@currentHref,level=section]{List of keys}\makeatother
-\caption{Overview over keys for \cs{tagpdfsetup}}\label{tab:setupkey}
-\input{tagpdfsetup-keys}
-\end{table}
+%\begin{table}
+%\makeatletter \bookmark[dest=\@currentHref,level=section]{List of keys}\makeatother
+%\caption{Overview over keys for \cs{tagpdfsetup}}\label{tab:setupkey}
+
+%\end{table}
 
 \begin{description}
 \item[\PrintKeyName{activate/all}] Boolean, initially false. Activates
@@ -602,6 +603,8 @@ key can be used more than once, the last setting will win.
    \end{description}
 
 \end{description}
+
+\input{tagpdfsetup-keys}
 
 \begin{docCommands}
  {
