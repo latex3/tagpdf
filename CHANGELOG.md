@@ -7,8 +7,11 @@ this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
 ### Added
- - experiment support for Lang keys on MC (not spec conform but work in acrobat)
+ - experimental support for Lang keys on MC (not spec conform but work in acrobat)
 
+### Changed
+ - links split over a line or a page now create with luatex an OBJR for all annotations (with the help of the lualinksplit code in the pdfmanagement). This improves ua-2 compability.
+ 
 ## [2025-05-16]
 ### Changed
  - improve speed with lualatex
