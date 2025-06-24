@@ -1404,9 +1404,19 @@
 % key; this is added for normal links by the generic hyperref driver.
 % With luatex we make use of the lualinksplit package to get 
 % OBJR of all annotations into the Link structure, so the hook code
-% does not contain the command to insert the OBJR into the structure. 
+% should not contain the command to insert the OBJR into the structure. 
 %    \begin{macrocode}
-\sys_if_engine_luatex:TF
+\bool_lazy_and:nnTF
+ { \sys_if_engine_luatex_p: } 
+ { 
+   \tl_if_empty_p:e  
+    {
+      \lua_now:e
+       { if~ luatexbase.in_callback('pre_shipout_filter','linksplit')~
+         then~else~tex.print('1')~end
+       }  
+    } 
+ }
  {   
    \hook_gput_code:nnn
      {pdfannot/link/URI/before}
@@ -1609,8 +1619,7 @@
        \tag_mc_end:
        \tag_struct_end:
        \tag_mc_begin_pop:n{}
-     }            
-     
+     }                 
   }
 %    \end{macrocode}
 %
