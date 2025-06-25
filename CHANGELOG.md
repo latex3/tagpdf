@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [2025-06-24]
+## [2025-06-25]
 Version 0.99r
 ### Added
  - experimental support for Lang keys on MC (not spec conform but works in acrobat)
