@@ -13,6 +13,7 @@ Version 0.99r
 ### Changed
  - links split over a line or a page now create with luatex an OBJR for all annotations (with the help of the lualinksplit code in the pdfmanagement). This improves ua-2 compability.
  - cleaned up some outdated code
+ - files attached with attach-css and related keys are added now to the catalog as discussed with PDF TWGs, as this is compatible with PDF/A-3.
  
 ## [2025-05-16]
 Version 0.99q

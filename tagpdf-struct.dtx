@@ -1938,6 +1938,31 @@
   }
 %    \end{macrocode}
 % \end{setupkeydecl}
+% 
+% \begin{setupkeydecl}{catalog-supplemental-file}
+% This key allows to add a file as AF with relationship Supplement to the Catalog.
+% This is typically need to add a css or an html.
+%    \begin{macrocode}
+\keys_define:nn { @@ / setup }
+  {
+    catalog-supplemental-file .code:n =
+     {
+       \group_begin:
+       \pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
+       \int_gincr:N \g_@@_unique_cnt_int
+       \pdffile_embed_file:eee 
+        {#1}
+        {#1}
+        {@@_latex_css_\int_use:N\g_@@_unique_cnt_int}
+       \pdfmanagement_add:nne
+        {Catalog}
+        {AF}
+        {\pdf_object_ref:e{@@_latex_css_\int_use:N\g_@@_unique_cnt_int }} 
+       \group_end:                 
+     }
+  }
+%    \end{macrocode}
+% \end{setupkeydecl}
 %
 % \section{User commands}
 % We allow to set a language by default

@@ -1,7 +1,5 @@
-  l3build save -e luatex test-links-backend test-empty-mc test-mc-used-twice-b spacecharoff test-add-mathml test-local-inactive-mc test-artifact-group remap-tags texsource test-parent-key test-paratag spacechar-float
-  l3build save -e pdftexmain test-empty-mc test-artifact-group remap-tags
-  l3build save -c config-pdftex -e pdftexmain test-reset-attributes test-saveboxes-structure ptagging-004-p test-pdf disable-delayed-shipout test-alttext test-attribute-dev openaction-2 openaction-1 test-sectioning-koma ptagging-006-p openaction-0 test-attribute test-header-tagging test-attribute-name orphan-02
-  l3build save -c config-pdftex test-fakespace-tagpdf test-mc-alt
-  l3build save -c config-luatex issue14-artifact-bool softhyphen test-fakespace-box test-fakespace-tagpdf issue13-mcid-array test-ref test-reset-attributes test-fakespace-fontchange test-mc-alt test-AF-file softhyphen-3 test-struct-OBJR test-sectioning-koma issue66-missing-space test-saveboxes-structure test-root-AF test-luatex-pdf test-link test-fakespace-gh72 test-header-footer test-alttext test-header-tagging root-file css-file test-attribute phoneme softhyphen-2
+ l3build save -e luatex open-structures lang-changes teststructref test-mc-ifinartifact mc-parent-child no-parent-child test-fancyhdr test-get-counter
 
-  l3build check --show-saves -c config-pdftex test-fakespace-tagpdf test-mc-alt
+ 
+l3build check --show-saves -c config-pdftex test-struct-user ptagging-003 debug-structures parent-child-20-nonstruct debug-structures-2 socket-3 ptagging-005 test-patch-koma testauxtree test-mcid-cnt parent-child-rolemap-20 test-mc-manual-para-split orphan-01 ptagging-006 test-mc-low-bdc-emc test-structuse-parent-child test-showattributes check-child ptagging-004 parent-child-20-structures parent-child-rolemap-17 test-ref2 parent-child-17-nonstruct test-mc-savebox para-main-struct socket-2 expandable-socket ptagging-001b ptagging-002 test-mc-tag-expansion parent-child-17-structures test-mc-user test-parentkey test-mc-low-luaonly
+REM  l3build check --show-saves -c config-luatex testauxtree debug-structures-2 test-struct-user test-mc-user test-patch-koma test-showattributes test-mc-savebox test-mc-manual-para-split debug-structures parent-child-20-structures gotor-link css-file getstructnum parent-child-atend

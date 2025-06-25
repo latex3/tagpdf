@@ -1627,7 +1627,8 @@
 %
 % Derivation to html (https://pdfa.org/wp-content/uploads/2019/06/Deriving_HTML_from_PDF.pdf,
 % implemented by, e.g., ngpdf) can be improved by attaching CSS style definitions
-% in associated files with relationship supplement to the StructTreeRoot.
+% in associated files with relationship supplement to the Catalog\footnote{Previously they
+% suggested the StructTreeRoot, but this is not compatible with pdf/A-3}.
 %
 % Such CSS style definitions can be given in two ways:
 %  \begin{itemize}
@@ -1658,10 +1659,10 @@
 % own file use \verb+css-list-add=my-fancy-align-css.html+.
 % It is also possible to attach a .css-file in this way.
 %
-% These keys do not affect files added directly with root-supplemental-file.
+% These keys do not affect files added directly with root-supplemental-file or catalog-supplemental-file.
 %
-% The files in this list are attached at the end of the compilation (and so normally after the files attached with root-supplemental-file)
-% but you shouldn't rely on this or on a specific order of the embedding in the html.
+% The files in this list are attached at the end of the compilation 
+% but you shouldn't rely on a specific order of the embedding in the html.
 %
 % We want to avoid to embed files twice, so we use a prop.
 %    \begin{macrocode}
@@ -1675,14 +1676,16 @@
 
 \bool_new:N \g_@@_css_bool
 \bool_gset_true:N \g_@@_css_bool
-
-\hook_gput_code:nnn{tagpdf/finish/before}{tagpdf/css}
+%    \end{macrocode}
+% The files for the catalog must be added before the catalog is pushed.
+%    \begin{macrocode}
+\tl_gput_left:Nn \g__kernel_pdfmanagement_end_run_code_tl
  {
   \bool_lazy_and:nnT  { \g_@@_css_bool }{ \tag_if_active_p: }
    {
     \prop_map_inline:Nn \g_@@_css_prop
      {
-       \keys_set:nn { @@ / setup }{ root-supplemental-file= {#1} }
+       \keys_set:nn { @@ / setup }{ catalog-supplemental-file= {#1} }
      }
    }
  }
