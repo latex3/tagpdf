@@ -1527,20 +1527,27 @@ ltx.@@.func.check_parent_child_rules=check_parent_child_rules
    luatexbase.add_to_callback('linksplit', function(start_link, position)
      local structnum =
        node.get_attribute(start_link,luatexbase.attributes.g__tag_structnum_attr)
-     if structnum and structnum > -1 then  
-       local struct_insert_annot_shipout = token.create'__tag_struct_insert_annot_shipout:nnn'  
-       local parentnum = tex.count['c@g__tag_parenttree_obj_int']     
-       start_link.link_attr = 
-          start_link.link_attr .. 
-          ' /LTEX_position /' .. position .. 
-          '/StructParent ' .. parentnum  
-       tex.sprint(struct_insert_annot_shipout,'{'..
-          structnum..'}{'..
-          start_link.objnum..' 0 R}{'.. 
-          parentnum ..'}')
-       -- the counter must be set explicitly as struct_insert_annot_shipout doesn't do it!  
-       tex.setcount('global','c@g__tag_parenttree_obj_int',parentnum +1)    
-        @@_log(position .. " link part has object id " .. start_link.objnum .. " and structparent id " .. parentnum,2) 
+     if structnum and structnum > -1 then 
+      local s = ltx.__tag.tables['g__tag_struct_'..structnum..'_prop']['rolemap']
+      if s and (string.find(s,'Link') or string.find(s,'Reference')) then         
+           local struct_insert_annot_shipout = token.create'__tag_struct_insert_annot_shipout:nnn'  
+           local parentnum = tex.count['c@g__tag_parenttree_obj_int']     
+           start_link.link_attr = 
+              start_link.link_attr .. 
+              ' /LTEX_position /' .. position .. 
+              '/StructParent ' .. parentnum  
+           tex.sprint(struct_insert_annot_shipout,'{'..
+              structnum..'}{'..
+              start_link.objnum..' 0 R}{'.. 
+              parentnum ..'}')
+           -- the counter must be set explicitly as struct_insert_annot_shipout doesn't do it!  
+           tex.setcount('global','c@g__tag_parenttree_obj_int',parentnum +1)    
+            @@_log(position .. " link part has object id " .. start_link.objnum .. " and structparent id " .. parentnum,2) 
+       else
+        @@_log('Warning: Link not in Link or Reference structure element',0)
+        @@_log('OBJR not created',0)
+        @@_log('',0)
+       end     
      end    
    end, 'tagpdf')
   end
