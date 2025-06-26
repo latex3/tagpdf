@@ -193,37 +193,37 @@ Package tagpdf Info: closing structure 80 tagged /text-unit
 ==> @endpe=false on input line ...
 ==> increment P on input line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 83 tagged /Artifact
+Package tagpdf Info: closing structure 83 tagged /Art
 Package tagpdf Info: closing structure 82 tagged /text-unit
 ==> @endpe=false on input line ...
 ==> increment P on input line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 85 tagged /Art
+Package tagpdf Info: closing structure 85 tagged /BlockQuote
 Package tagpdf Info: closing structure 84 tagged /text-unit
 ==> @endpe=false on input line ...
 ==> increment P on input line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 87 tagged /BlockQuote
+Package tagpdf Info: closing structure 87 tagged /TOC
 Package tagpdf Info: closing structure 86 tagged /text-unit
 ==> @endpe=false on input line ...
 ==> increment P on input line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 89 tagged /TOC
+Package tagpdf Info: closing structure 89 tagged /TOCI
 Package tagpdf Info: closing structure 88 tagged /text-unit
 ==> @endpe=false on input line ...
 ==> increment P on input line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 91 tagged /TOCI
+Package tagpdf Info: closing structure 91 tagged /Index
 Package tagpdf Info: closing structure 90 tagged /text-unit
 ==> @endpe=false on input line ...
 ==> increment P on input line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 93 tagged /Index
+Package tagpdf Info: closing structure 93 tagged /Private
 Package tagpdf Info: closing structure 92 tagged /text-unit
 ==> @endpe=false on input line ...
 ==> increment P on input line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 95 tagged /Private
+Package tagpdf Info: closing structure 95 tagged /Artifact
 Package tagpdf Info: closing structure 94 tagged /text-unit
 ==> @endpe=false on input line ...
 ==> increment P on input line ...
@@ -1415,26 +1415,40 @@ Package tagpdf Info: closing structure 566 tagged /text-unit
 Package tagpdf Info: closing structure 5 tagged /Sect
 [7]<<latex-list-css.html>><<latex-align-css.html>> (parent-child-atend.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
+tagpdf: checking parent-child rules ...
+tagpdf: Warning: Real content (MC) is not allowed in Document
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:StructTreeRoot is unknown
 tagpdf: Structure 6 -> 7
+tagpdf: Warning: Real content (MC) is not allowed in StructTreeRoot
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:Document is not allowed
 tagpdf: Structure 8 -> 9
+tagpdf: Warning: Real content (MC) is not allowed in Document
+tagpdf: Warning: Real content (MC) is not allowed in Part
+tagpdf: Warning: Real content (MC) is not allowed in Sect
+tagpdf: Warning: Real content (MC) is not allowed in Div
+tagpdf: Warning: Real content (MC) is not allowed in NonStruct
+tagpdf: Warning: Real content (MC) is not allowed in L
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:LI is not allowed
 tagpdf: Structure 38 -> 39
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:LBody is not allowed
 tagpdf: Structure 42 -> 43
+tagpdf: Warning: Real content (MC) is not allowed in Table
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:TR is not allowed
 tagpdf: Structure 46 -> 47
+tagpdf: Warning: Real content (MC) is not allowed in TR
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:TH is not allowed
 tagpdf: Structure 48 -> 49
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:TD is not allowed
 tagpdf: Structure 50 -> 51
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:THead is not allowed
 tagpdf: Structure 52 -> 53
+tagpdf: Warning: Real content (MC) is not allowed in THead
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:TBody is not allowed
 tagpdf: Structure 54 -> 55
+tagpdf: Warning: Real content (MC) is not allowed in TBody
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:TFoot is not allowed
 tagpdf: Structure 56 -> 57
+tagpdf: Warning: Real content (MC) is not allowed in TFoot
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:Span is not allowed
 tagpdf: Structure 58 -> 59
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:Ruby is not allowed
@@ -1449,14 +1463,19 @@ tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:WT is not allowed
 tagpdf: Structure 78 -> 79
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:WP is not allowed
 tagpdf: Structure 80 -> 81
+tagpdf: Warning: Real content (MC) is not allowed in Art
+tagpdf: Warning: Real content (MC) is not allowed in TOC
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf:TOCI is not allowed
-tagpdf: Structure 90 -> 91
+tagpdf: Structure 88 -> 89
+tagpdf: Warning: Real content (MC) is not allowed in TOCI
+tagpdf: Warning: Real content (MC) is not allowed in Index
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf:Quote is not allowed
 tagpdf: Structure 96 -> 97
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf:Reference is not allowed
 tagpdf: Structure 100 -> 101
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf:BibEntry is not allowed
 tagpdf: Structure 102 -> 103
+tagpdf: Warning: Real content (MC) is not allowed in DocumentFragment
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:Sub is not allowed
 tagpdf: Structure 122 -> 123
 tagpdf: Warning: Parent-Child relation latex:text-unit -> pdf2:Em is not allowed
@@ -1647,6 +1666,7 @@ tagpdf: Warning: Parent-Child relation latex:text-unit -> mathml:malignmark is n
 tagpdf: Structure 308 -> 309
 tagpdf: Warning: Parent-Child relation latex:text-unit -> mathml:math is not allowed
 tagpdf: Structure 310 -> 311
+tagpdf: Warning: Real content (MC) is not allowed in math
 tagpdf: Warning: Parent-Child relation latex:text-unit -> mathml:matrix is not allowed
 tagpdf: Structure 312 -> 313
 tagpdf: Warning: Parent-Child relation latex:text-unit -> mathml:matrixrow is not allowed
@@ -1845,17 +1865,25 @@ tagpdf: Warning: Parent-Child relation latex:text-unit -> mathml:vectorproduct i
 tagpdf: Structure 506 -> 507
 tagpdf: Warning: Parent-Child relation latex:text-unit -> mathml:xor is not allowed
 tagpdf: Structure 508 -> 509
+tagpdf: Warning: Real content (MC) is not allowed in L
+tagpdf: Warning: Real content (MC) is not allowed in L
+tagpdf: Warning: Real content (MC) is not allowed in L
+tagpdf: Warning: Real content (MC) is not allowed in L
 tagpdf: Warning: Parent-Child relation latex:text-unit -> latex:item is not allowed
 tagpdf: Structure 540 -> 541
 tagpdf: Warning: Parent-Child relation latex:text-unit -> latex:itembody is not allowed
 tagpdf: Structure 544 -> 545
+tagpdf: Warning: Real content (MC) is not allowed in Part
 tagpdf: Warning: Parent-Child relation latex:text-unit -> latex:section-number is not allowed
 tagpdf: Structure 556 -> 557
+tagpdf: Warning: Real content (MC) is not allowed in Sect
 tagpdf: Warning: Parent-Child relation latex:text-unit -> latex:codeline is not allowed
 tagpdf: Structure 560 -> 561
+tagpdf: Warning: Real content (MC) is not allowed in Sect
+tagpdf: Warning: Real content (MC) is not allowed in Sect
 Package tagpdf Info: Finalizing the tagging structure:
 (tagpdf)             Writing out ~567 structure objects
-(tagpdf)             with ~295 'MC' leaf nodes.
+(tagpdf)             with ~298 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree
