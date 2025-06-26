@@ -42,13 +42,13 @@ The property list \g__tag_role_tags_NS_prop contains the pairs (without outer br
 >  {Warichu}  =>  {pdf2}
 >  {WT}  =>  {pdf2}
 >  {WP}  =>  {pdf2}
->  {Artifact}  =>  {pdf2}
 >  {Art}  =>  {pdf}
 >  {BlockQuote}  =>  {pdf}
 >  {TOC}  =>  {pdf}
 >  {TOCI}  =>  {pdf}
 >  {Index}  =>  {pdf}
 >  {Private}  =>  {pdf}
+>  {Artifact}  =>  {pdf2}
 >  {Quote}  =>  {pdf}
 >  {Note}  =>  {pdf}
 >  {Reference}  =>  {pdf}
@@ -327,13 +327,13 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {Warichu}  =>  {I}
 >  {WT}  =>  {I}
 >  {WP}  =>  {I}
->  {Artifact}  =>  {GBI}
 >  {Art}  =>  {--UNKNOWN--}
 >  {BlockQuote}  =>  {G}
 >  {TOC}  =>  {G}
 >  {TOCI}  =>  {G}
 >  {Index}  =>  {G}
 >  {Private}  =>  {G}
+>  {Artifact}  =>  {GBI}
 >  {Quote}  =>  {I}
 >  {Note}  =>  {GBI}
 >  {Reference}  =>  {B}
@@ -591,7 +591,7 @@ The property list \g__pdfdict_/g__tag_role/RoleMap_dict_prop is empty
 TEST 5: show RoleMapprop (1.7)
 ============================================================
 The property list \g__tag_role_rolemap_prop contains the pairs (without outer braces):
->  {Artifact}  =>  {NonStruct}
+>  {Artifact}  =>  {Private}
 >  {DocumentFragment}  =>  {Art}
 >  {Aside}  =>  {Note}
 >  {H7}  =>  {H6}
@@ -674,13 +674,13 @@ The property list \g__tag_role_NS_pdf_prop contains the pairs (without outer bra
 >  {Warichu}  =>  {{Warichu}{}}
 >  {WT}  =>  {{WT}{}}
 >  {WP}  =>  {{WP}{}}
->  {Artifact}  =>  {{NonStruct}{}}
 >  {Art}  =>  {{Art}{}}
 >  {BlockQuote}  =>  {{BlockQuote}{}}
 >  {TOC}  =>  {{TOC}{}}
 >  {TOCI}  =>  {{TOCI}{}}
 >  {Index}  =>  {{Index}{}}
 >  {Private}  =>  {{Private}{}}
+>  {Artifact}  =>  {{Private}{}}
 >  {Quote}  =>  {{Quote}{}}
 >  {Note}  =>  {{Note}{}}
 >  {Reference}  =>  {{Reference}{}}
@@ -1080,13 +1080,13 @@ The property list \g__tag_role_NS_pdf_class_prop contains the pairs (without out
 >  {Warichu}  =>  {--UNUSED--}
 >  {WT}  =>  {--UNUSED--}
 >  {WP}  =>  {--UNUSED--}
->  {Artifact}  =>  {--UNUSED--}
 >  {Art}  =>  {--UNUSED--}
 >  {BlockQuote}  =>  {--UNUSED--}
 >  {TOC}  =>  {--UNUSED--}
 >  {TOCI}  =>  {--UNUSED--}
 >  {Index}  =>  {--UNUSED--}
 >  {Private}  =>  {--UNUSED--}
+>  {Artifact}  =>  {--UNUSED--}
 >  {Quote}  =>  {--UNUSED--}
 >  {Note}  =>  {--UNUSED--}
 >  {Reference}  =>  {--UNUSED--}
