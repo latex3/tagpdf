@@ -1398,6 +1398,66 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% 
+%  A special, experimental tagged version, which only works with fancyhdr or similar that uses
+%  parbox
+%    \begin{macrocode}
+\AtBeginDocument
+  {
+   \socket_if_exist:nT{tagsupport/parbox/before}
+     {
+      \NewTaggingSocketPlug{parbox/before}{tag/footer}
+        {
+         \tag_struct_begin:n{tag=Span}
+         \tag_mc_begin:n{}
+        }
+        
+      \NewTaggingSocketPlug{parbox/after}{tag/footer}
+        {
+         \tag_mc_end:   
+         \tag_struct_end:
+        } 
+     }
+   }  
+  
+\cs_new_protected:Npn \@@_headfoot_tagged_begin:n #1
+ { 
+   \AssignTaggingSocketPlug{parbox/before}{tag/footer}
+   \AssignTaggingSocketPlug{parbox/after}{tag/footer}
+    \bool_set_false:N  \l_@@_para_bool
+    \bool_if:NTF \g_@@_mode_lua_bool
+     {
+      \tag_mc_end_push:
+     }
+     {
+       \bool_gset_eq:NN   \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
+       \bool_gset_false:N \g_@@_in_mc_bool
+     }    
+    \tag_struct_begin:n{tag=Artifact,attribute-class=_@@/attr/#1,parent=\tag_get:n{current_Sect}}
+ }
+
+\cs_new_protected:Npn \@@_headfoot_tagged_end:
+ {
+    \tag_struct_end:
+    \bool_if:NTF \g_@@_mode_lua_bool
+     {
+      \tag_mc_begin_pop:n{}
+     }
+     {
+       \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
+     }
+ }  
+\keys_define:nn { @@ / setup }
+ { 
+   page/tag-header-footer .code:n = 
+    {    
+      \cs_set:Nn \__tag_hook_kernel_before_head: { \__tag_headfoot_tagged_begin:n {pagination}}
+      \cs_set:Nn \__tag_hook_kernel_before_foot: { \__tag_headfoot_tagged_begin:n {pagination}}
+      \cs_set_eq:NN \__tag_hook_kernel_after_head:  \__tag_headfoot_tagged_end:
+      \cs_set_eq:NN \__tag_hook_kernel_after_foot:  \__tag_headfoot_tagged_end:    
+    }
+ }   
+%    \end{macrocode}
 % \subsection{Links}
 % We need to close and reopen mc-chunks around links.
 % We handle URI, GoTo (internal) links, GoToR, Launch and Named links.

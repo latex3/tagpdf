@@ -12,6 +12,9 @@ this project uses date-based 'snapshot' version identifiers.
  - parent-child-check=atend didn't detect misplaced real content.
  - catcode table in lua code for parent-child-checks
 
+### Added 
+ - experimental header tagging (page/tag-header-footer) (tagging-project issue #928)
+ 
 ## [2025-06-25]
 Version 0.99r
 ### Added
