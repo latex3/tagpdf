@@ -1,14 +1,11 @@
-## [2025-06-25]
-Version 0.99r
+## [2025-06-27]
+Version 0.99s
 
-### Added
- - experimental support for Lang keys on MC (not spec conform but 
-   works in acrobat)
+### Fixed
+ - links not in a Link or Reference structure should not create an OBJR (lua only)
+ - Artifact should be mapped to Private in PDF 1.7
+ - parent-child-check=atend didn't detect misplaced real content.
+ - catcode table in lua code for parent-child-checks
 
-### Changed
- - links split over a line or a page now create with luatex 
-   an OBJR for all annotations (with the help of the lualinksplit 
-   code in the pdfmanagement). This improves ua-2 compability.
- 
- - files attached with attach-css and related keys are added now to the catalog
-   to allow compatibility with PDF/A-3.
+### Added 
+ - experimental header tagging (page/tag-header-footer) (tagging-project issue #928)
