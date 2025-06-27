@@ -137,12 +137,12 @@
 %Hm not quite sure about the naming
 \cs_set:Npn \@@_seq_item:cn #1 #2
   {
-    \lua_now:e { tex.print(ltx.@@.tables['#1'][#2]) }
+    \lua_now:e { tex.sprint(\int_use:N\c_document_cctab,ltx.@@.tables['#1'][#2]) }
   }
 
 \cs_set:Npn \@@_prop_item:cn #1 #2
   {
-    \lua_now:e { tex.print(ltx.@@.tables['#1']["#2"]) }
+    \lua_now:e { tex.sprint(\int_use:N\c_document_cctab,ltx.@@.tables['#1']["#2"]) }
   }
 
 %for debugging commands that show both the seq/prop and the lua tables
@@ -998,7 +998,7 @@ function ltx.@@.func.mc_insert_kids (mcnum,single)
   @@_log("INFO TEX-MC-INSERT-KID-TEST: " .. mcnum,4)
    if ltx.@@.mc[mcnum]["kids"] then
     if #ltx.@@.mc[mcnum]["kids"] > 1 and single==1 then
-     tex.sprint("[")
+     tex.sprint(catlatex,"[")
     end
     for i,kidstable in ipairs( ltx.@@.mc[mcnum]["kids"] ) do
      local kidnum  = kidstable["kid"]
@@ -1011,14 +1011,14 @@ function ltx.@@.func.mc_insert_kids (mcnum,single)
      tex.sprint(catlatex,"<</Type /MCR /Pg "..kidpageobjnum .. " 0 R /MCID "..kidnum.. ">> " )
     end
     if #ltx.@@.mc[mcnum]["kids"] > 1 and single==1 then
-     tex.sprint("]")
+     tex.sprint(catlatex,"]")
     end
    else
     -- this is typically not a problem, e.g. empty hbox in footer/header can
     -- trigger this warning.
     @@_log("WARN TEX-MC-INSERT-NO-KIDS: "..mcnum.." has no kids",2)
     if single==1 then
-      tex.sprint("null")
+      tex.sprint(catlatex,"null")
     end
    end
   else
@@ -1552,7 +1552,7 @@ ltx.@@.func.check_parent_child_rules=check_parent_child_rules
               start_link.link_attr .. 
               ' /LTEX_position /' .. position .. 
               '/StructParent ' .. parentnum  
-           tex.sprint(struct_insert_annot_shipout,'{'..
+           tex.sprint(catlatex,struct_insert_annot_shipout,'{'..
               structnum..'}{'..
               start_link.objnum..' 0 R}{'.. 
               parentnum ..'}')

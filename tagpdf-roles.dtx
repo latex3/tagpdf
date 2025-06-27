@@ -989,7 +989,7 @@
      {
        \tl_set:Ne#3
          {
-           \lua_now:e{tex.print(ltx.@@.func.role_get_parent_child_rule('#1','#2'))}
+           \lua_now:e{tex.print(\int_use:N\c_document_cctab,ltx.@@.func.role_get_parent_child_rule('#1','#2'))}
          }
 %    \end{macrocode}
 % Debugging messages, this can perhaps go into debug mode.

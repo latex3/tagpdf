@@ -10,6 +10,7 @@ this project uses date-based 'snapshot' version identifiers.
  - links not in a Link or Reference structure should not create an OBJR (lua only)
  - Artifact should be mapped to Private in PDF 1.7
  - parent-child-check=atend didn't detect misplaced real content.
+ - catcode table in lua code for parent-child-checks
 
 ## [2025-06-25]
 Version 0.99r
