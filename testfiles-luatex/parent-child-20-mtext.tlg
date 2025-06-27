@@ -34,27 +34,31 @@ Package tagpdf Info: Parent-Child 'Formula' --> 'math'.
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mpadded'
 Package tagpdf Info: Parent-Child 'math' --> 'mpadded'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mrow'
+Package tagpdf Info: Parent-Child 'math' --> 'mrow'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 11 tagged /mrow
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mi'
 Package tagpdf Info: Parent-Child 'math' --> 'mi'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:mi' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 11 tagged /mi
+Package tagpdf Info: closing structure 12 tagged /mi
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mo'
 Package tagpdf Info: Parent-Child 'math' --> 'mo'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:mo' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mo' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 12 tagged /mo
+Package tagpdf Info: closing structure 13 tagged /mo
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mi'
 Package tagpdf Info: Parent-Child 'math' --> 'mi'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:mi' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 13 tagged /mi
+Package tagpdf Info: closing structure 14 tagged /mi
 Package tagpdf Info: closing structure 10 tagged /math
 Package tagpdf Info: closing structure 6 tagged /Formula
 ==> @endpe=true on input line ...
@@ -89,30 +93,30 @@ Package tagpdf Info: Parent-Child 'Em' --> 'math'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Em' --> 'mathml:math'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 17, Em --> struct 18, math
+(tagpdf)                struct 18, Em --> struct 19, math
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mi'
 Package tagpdf Info: Parent-Child 'math' --> 'mi'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:mi' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 19 tagged /mi
+Package tagpdf Info: closing structure 20 tagged /mi
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mo'
 Package tagpdf Info: Parent-Child 'math' --> 'mo'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:mo' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mo' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 20 tagged /mo
+Package tagpdf Info: closing structure 21 tagged /mo
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mi'
 Package tagpdf Info: Parent-Child 'math' --> 'mi'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:mi' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 21 tagged /mi
-Package tagpdf Info: closing structure 18 tagged /math
-Package tagpdf Info: closing structure 17 tagged /Em
+Package tagpdf Info: closing structure 22 tagged /mi
+Package tagpdf Info: closing structure 19 tagged /math
+Package tagpdf Info: closing structure 18 tagged /Em
 Package tagpdf Info: Checking Parent-Child 'mathml:mtext' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -122,11 +126,11 @@ Package tagpdf Info: Parent-Child 'mtext' --> 'Link'.
 Package tagpdf Info: Checking Parent-Child 'pdf2:Link' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Link' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 22 tagged /Link
+Package tagpdf Info: closing structure 23 tagged /Link
 Package tagpdf Info: Checking Parent-Child 'mathml:mtext' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 16 tagged /mtext
+Package tagpdf Info: closing structure 17 tagged /mtext
 Package tagpdf Info: Checking Parent-Child 'pdf2:Formula' --> 'mathml:math'
 Package tagpdf Info: Parent-Child 'Formula' --> 'math'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -136,31 +140,31 @@ Package tagpdf Info: Parent-Child 'math' --> 'mi'.
 Package tagpdf Info: Checking Parent-Child 'mathml:mi' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 24 tagged /mi
+Package tagpdf Info: closing structure 25 tagged /mi
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mo'
 Package tagpdf Info: Parent-Child 'math' --> 'mo'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:mo' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mo' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 25 tagged /mo
+Package tagpdf Info: closing structure 26 tagged /mo
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mi'
 Package tagpdf Info: Parent-Child 'math' --> 'mi'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'mathml:mi' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 26 tagged /mi
+Package tagpdf Info: closing structure 27 tagged /mi
 Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mtext'
 Package tagpdf Info: Parent-Child 'math' --> 'mtext'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 23 tagged /math
-Package tagpdf Info: closing structure 15 tagged /Formula
+Package tagpdf Info: closing structure 24 tagged /math
+Package tagpdf Info: closing structure 16 tagged /Formula
 Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 14 tagged /text
+Package tagpdf Info: closing structure 15 tagged /text
 Package tagpdf Info: closing structure 5 tagged /text-unit
 Completed box being shipped out [1]
 \vbox(633.0+0.0)x407.0, direction TLT
@@ -226,10 +230,11 @@ Completed box being shipped out [1]
 .......\pdfliteral page <lua data reference ...>
 .......\pdfliteral page <lua data reference ...>
 .......\mathon
-.......\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-........\pdfdest name{equation.1} xyz
-........\pdfdest name{equation.1} xyz
-........\penalty 10000
+.......\hbox(12.0+0.0)x0.0, direction TLT
+........\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
+.........\pdfdest name{equation.1} xyz
+.........\pdfdest name{equation.1} xyz
+.........\penalty 10000
 .......\mathoff
 ......\hbox(0.0+0.0)x0.0, direction TLT
 ......\pdfliteral page <lua data reference ...>
@@ -354,7 +359,7 @@ Completed box being shipped out [1]
 (parent-child-20-mtext.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~26 structure objects
+(tagpdf)             Writing out ~27 structure objects
 (tagpdf)             with ~22 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
