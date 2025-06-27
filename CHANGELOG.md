@@ -4,6 +4,13 @@ All notable changes to the `tagpdf` package since the
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
+## [Unreleased]
+
+### Fixed
+ - links not in a Link or Reference structure should not create an OBJR (lua only)
+ - Artifact should be mapped to Private in PDF 1.7
+ - parent-child-check=atend didn't detect misplaced real content.
+ - catcode table in lua code for parent-child-checks
 
 ## [2025-06-25]
 Version 0.99r

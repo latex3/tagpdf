@@ -565,7 +565,8 @@
                 \lua_now:e
                   {
                      tex.print
-                      (tex.getattribute
+                      (\int_use:N\c_document_cctab,
+                       tex.getattribute
                         (luatexbase.attributes.g_@@_mc_cnt_attr))
                   }
               }
