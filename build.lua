@@ -1,10 +1,6 @@
 -- Build script for tagpdf
 packageversion="0.99s"
-<<<<<<< HEAD
-packagedate="2025-06-27"
-=======
 packagedate="2025-07-12"
->>>>>>> newblockcode
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
