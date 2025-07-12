@@ -45,17 +45,17 @@
 % copy taglstlisting for now
 \DeclareInstance{blockenv}{lstlisting}{display}
 {
-  env-name       = lstlisting,
+  name           = lstlisting,
   tag-name       = verbatim,
-  tag-class      = ,
+  tag-attr-class = ,
   tagging-recipe = standard,
   inner-level-counter  = ,
-  level-increase = false,
+  increment-level = false,
   setup-code     = ,
   block-instance = displayblock ,
   inner-instance = ,
   final-code     = \tagtool{paratag=codeline},
-  para-flattened = true
+  tagging-suppress-paras = true
 }
 
 \lstnewenvironment{taglstlisting}[2][]{%
@@ -104,12 +104,12 @@
 % be a pagebreak 
 \DeclareInstance{blockenv}{docCommand}{display}
 {
-  env-name       = docCommand,
+  name       = docCommand,
   tag-name       = Div,
-  tag-class      = ,
+  tag-attr-class      = ,
   tagging-recipe = standalone,
   inner-level-counter  = ,
-  level-increase = false,
+  increment-level = false,
   setup-code     = ,
   block-instance = displayblock ,
 }
