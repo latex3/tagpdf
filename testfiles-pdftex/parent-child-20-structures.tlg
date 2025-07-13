@@ -1,8 +1,10 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
+==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -11,7 +13,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 4 tagged /text
+Package tagpdf Info: closing structure 6 tagged /text
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'pdf2:Sect'
 Package tagpdf Info: Parent-Child 'Part' --> 'Sect'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -30,42 +32,44 @@ Package tagpdf Info: Parent-Child 'P' --> 'P'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 7, P --> struct 8, P
+(tagpdf)                struct 9, P --> struct 10, P
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'latex-book:chapter'
 Package tagpdf Info: Parent-Child 'P' --> 'H1'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:H1'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 8, P --> struct 9, chapter
+(tagpdf)                struct 10, P --> struct 11, chapter
 Package tagpdf Info: Checking Parent-Child 'latex-book:chapter' --> 'pdf2:Strong'
 Package tagpdf Info: Parent-Child 'H1' --> 'Strong'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 10 tagged /Strong
-Package tagpdf Info: closing structure 9 tagged /chapter
-Package tagpdf Info: closing structure 8 tagged /P
-Package tagpdf Info: closing structure 7 tagged /P
-Package tagpdf Info: closing structure 6 tagged /Div
-Package tagpdf Info: closing structure 5 tagged /Sect
+Package tagpdf Info: closing structure 12 tagged /Strong
+Package tagpdf Info: closing structure 11 tagged /chapter
+Package tagpdf Info: closing structure 10 tagged /P
+Package tagpdf Info: closing structure 9 tagged /P
+Package tagpdf Info: closing structure 8 tagged /Div
+Package tagpdf Info: closing structure 7 tagged /Sect
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 3, /text-unit 
+(tagpdf)                struct 5, /text-unit 
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 11 tagged /P
-Package tagpdf Info: closing structure 3 tagged /text-unit
+Package tagpdf Info: closing structure 13 tagged /P
+Package tagpdf Info: closing structure 5 tagged /text-unit
 ============================================================
 TEST 1: Parent Key
 ============================================================
+==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -79,24 +83,26 @@ Package tagpdf Info: Parent-Child 'StructTreeRoot' --> 'H1'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf:StructTreeRoot' --> 'pdf2:H1'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 1, StructTreeRoot --> struct 14, H1
+(tagpdf)                struct 1, StructTreeRoot --> struct 16, H1
 Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 14 tagged /H1
+Package tagpdf Info: closing structure 16 tagged /H1
 Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ============================================================
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 13 tagged /text
-Package tagpdf Info: closing structure 12 tagged /text-unit
+Package tagpdf Info: closing structure 15 tagged /text
+Package tagpdf Info: closing structure 14 tagged /text-unit
 ============================================================
 TEST 2: Label later use
 ============================================================
+==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -108,16 +114,18 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 17 tagged /H1
+Package tagpdf Info: closing structure 19 tagged /H1
 Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 16 tagged /text
-Package tagpdf Info: closing structure 15 tagged /text-unit
+Package tagpdf Info: closing structure 18 tagged /text
+Package tagpdf Info: closing structure 17 tagged /text-unit
+==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'pdf2:Sect'
 Package tagpdf Info: Parent-Child 'Part' --> 'Sect'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -128,18 +136,18 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 19, /Sect 
+(tagpdf)                struct 21, /Sect 
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:H1'
 Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 19 tagged /Sect
-Package tagpdf Info: closing structure 18 tagged /text-unit
+Package tagpdf Info: closing structure 21 tagged /Sect
+Package tagpdf Info: closing structure 20 tagged /text-unit
 ============================================================
 ====> In \@makecol 1
 Pick up new bot mark!
-=> first b-, 1, 4, text
-=> bot e+, 9, 19
+=> first b-, 1, 6, text
+=> bot e+, 9, 21
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq is empty
@@ -204,14 +212,14 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,1,4,text,,,}
-...\marks4{b+,1,4,text,,,}
-...\marks4{e-,1,4,}
-...\marks4{e+,1,4,}
-...\marks4{b-,2,3,P,,,}
-...\marks4{b+,2,3,P,,,}
-...\marks4{e-,2,11,}
-...\marks4{e+,2,11,}
+...\marks4{b-,1,6,text,,,}
+...\marks4{b+,1,6,text,,,}
+...\marks4{e-,1,6,}
+...\marks4{e+,1,6,}
+...\marks4{b-,2,5,P,,,}
+...\marks4{b+,2,5,P,,,}
+...\marks4{e-,2,13,}
+...\marks4{e+,2,13,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.1128
@@ -242,18 +250,18 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,3,13,text,,,}
-...\marks4{b+,3,13,text,,,}
-...\marks4{e-,3,13,}
-...\marks4{e+,3,13,}
-...\marks4{b-,4,14,H1,,,}
-...\marks4{b+,4,14,H1,,,}
-...\marks4{e-,4,14,}
-...\marks4{e+,4,14,}
-...\marks4{b-,5,13,P,,,}
-...\marks4{b+,5,13,P,,,}
-...\marks4{e-,5,13,}
-...\marks4{e+,5,13,}
+...\marks4{b-,3,15,text,,,}
+...\marks4{b+,3,15,text,,,}
+...\marks4{e-,3,15,}
+...\marks4{e+,3,15,}
+...\marks4{b-,4,16,H1,,,}
+...\marks4{b+,4,16,H1,,,}
+...\marks4{e-,4,16,}
+...\marks4{e+,4,16,}
+...\marks4{b-,5,15,P,,,}
+...\marks4{b+,5,15,P,,,}
+...\marks4{e-,5,15,}
+...\marks4{e+,5,15,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.1128
@@ -266,7 +274,7 @@ Completed box being shipped out [1]
 ....\kern0.27771
 ....\T1/cmr/m/n/10 c
 ....\pdfliteral page{EMC}
-....\write1{\new@label@record{tagpdfstruct-blub}{{tagstruct}{17}{tagstructobj}{37 0 R}}}
+....\write1{\new@label@record{tagpdfstruct-blub}{{tagstruct}{19}{tagstructobj}{39 0 R}}}
 ....\write1{\new@label@record{mcid-7}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{7}{tagmcid}{\__property_code_tagmcid: }}}
 ....\pdfliteral shipout page{/H1 <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\T1/cmr/m/n/10 H
@@ -282,18 +290,18 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,6,16,text,,,}
-...\marks4{b+,6,16,text,,,}
-...\marks4{e-,6,16,}
-...\marks4{e+,6,16,}
-...\marks4{b-,7,17,H1,,,}
-...\marks4{b+,7,17,H1,,,}
-...\marks4{e-,7,17,}
-...\marks4{e+,7,17,}
-...\marks4{b-,8,16,P,,,}
-...\marks4{b+,8,16,P,,,}
-...\marks4{e-,8,16,}
-...\marks4{e+,8,16,}
+...\marks4{b-,6,18,text,,,}
+...\marks4{b+,6,18,text,,,}
+...\marks4{e-,6,18,}
+...\marks4{e+,6,18,}
+...\marks4{b-,7,19,H1,,,}
+...\marks4{b+,7,19,H1,,,}
+...\marks4{e-,7,19,}
+...\marks4{e+,7,19,}
+...\marks4{b-,8,18,P,,,}
+...\marks4{b+,8,18,P,,,}
+...\marks4{e-,8,18,}
+...\marks4{e+,8,18,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 7.6955
@@ -307,10 +315,10 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,9,19,Sect,,,}
-...\marks4{b+,9,19,Sect,,,}
-...\marks4{e-,9,19,}
-...\marks4{e+,9,19,}
+...\marks4{b-,9,21,Sect,,,}
+...\marks4{b+,9,21,Sect,,,}
+...\marks4{e-,9,21,}
+...\marks4{e+,9,21,}
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
 ...\glue 0.0 plus 1.0fil
@@ -338,7 +346,7 @@ Completed box being shipped out [1]
 <<latex-list-css.html>><<latex-align-css.html>> (parent-child-20-structures.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~19 structure objects
+(tagpdf)             Writing out ~21 structure objects
 (tagpdf)             with ~11 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree

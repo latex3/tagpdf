@@ -3,7 +3,7 @@ Don't change this file in any respect.
 ============================================================
 TEST 1: tag-check-child
 ============================================================
-> \tag_check_child:nnTF=\protected\long macro:#1#2->\prg_return_true: \exp_end: .
+> \tag_check_child:nnTF=\protected\long macro:#1#2->\seq_get:NN \g__tag_struct_stack_seq \l__tag_tmpa_tl \__tag_struct_get_role:enNN {\l__tag_tmpa_tl }{rolemap}\l__tag_get_parent_tmpa_tl \l__tag_get_parent_tmpb_tl \__tag_role_check_parent_child:oonnN {\l__tag_get_parent_tmpa_tl }{\l__tag_get_parent_tmpb_tl }{#1}{#2}\l__tag_parent_child_check_tl \int_compare:nNnT {\l__tag_parent_child_check_tl }={\c__tag_role_rule_checkparent_tl }{\seq_get:NN \g__tag_struct_stack_seq \l__tag_tmpa_tl \__tag_struct_get_role:enNN {\l__tag_tmpa_tl }{parentrole}\l__tag_get_parent_tmpa_tl \l__tag_get_parent_tmpb_tl \__tag_role_check_parent_child:oonnN {\l__tag_get_parent_tmpa_tl }{\l__tag_get_parent_tmpb_tl }{#1}{#2}\l__tag_parent_child_check_tl }\int_compare:nNnTF {\l__tag_parent_child_check_tl }<{0}{\prg_return_false: }{\prg_return_true: }\exp_end: .
 ============================================================
 (base.aux)
 ***************

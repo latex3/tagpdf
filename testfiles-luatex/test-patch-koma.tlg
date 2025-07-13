@@ -1,14 +1,24 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:H1'
-Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:Sect'
+Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'latex-book:chapter'
+Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'latex-book:chapter' --> 'pdf2:H1'
+Package tagpdf Info: Parent-Child 'H1' --> 'H1'.
+(tagpdf)             Relation is -1 (='∅') on line ...
+Package tagpdf Warning: Parent-Child 'pdf2:H1' --> 'pdf2:H1'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 6, chapter --> struct 7, H1
 Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 3 tagged /H1
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf:TOC'
-Package tagpdf Info: Parent-Child 'Document' --> 'TOC'.
+Package tagpdf Info: closing structure 7 tagged /H1
+Package tagpdf Info: closing structure 6 tagged /chapter
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf:TOC'
+Package tagpdf Info: Parent-Child 'Sect' --> 'TOC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 (test-patch-koma.toc
 Package tagpdf Info: Checking Parent-Child 'pdf:TOC' --> 'pdf:TOCI'
@@ -20,50 +30,25 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
 Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 6 tagged /Lbl
+Package tagpdf Info: closing structure 10 tagged /Lbl
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 7 tagged /P
+Package tagpdf Info: closing structure 11 tagged /P
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf:Reference'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf:Reference' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 8 tagged /Reference
-Package tagpdf Info: closing structure 5 tagged /TOCI
-Package tagpdf Info: Checking Parent-Child 'pdf:TOC' --> 'pdf:TOCI'
-Package tagpdf Info: Parent-Child 'TOC' --> 'TOCI'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:P'
-Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'P' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 10 tagged /P
-Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf:Reference'
-Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf:Reference' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 11 tagged /Reference
+Package tagpdf Info: closing structure 12 tagged /Reference
 Package tagpdf Info: closing structure 9 tagged /TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOC' --> 'pdf:TOCI'
 Package tagpdf Info: Parent-Child 'TOC' --> 'TOCI'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:Lbl'
-Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 13 tagged /Lbl
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -71,12 +56,6 @@ Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 14 tagged /P
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line ....
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line ....
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line ....
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf:Reference'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -84,7 +63,7 @@ Package tagpdf Info: Checking Parent-Child 'pdf:Reference' --> 'MC (real content
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 15 tagged /Reference
-Package tagpdf Info: closing structure 12 tagged /TOCI
+Package tagpdf Info: closing structure 13 tagged /TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOC' --> 'pdf:TOCI'
 Package tagpdf Info: Parent-Child 'TOC' --> 'TOCI'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -110,83 +89,139 @@ Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 19 tagged /Reference
 Package tagpdf Info: closing structure 16 tagged /TOCI
-)
-\tf@toc=\write...
-Package tagpdf Info: closing structure 4 tagged /TOC
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [1
-]
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [2
-]
-chapter 1.
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:H1'
-Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
+Package tagpdf Info: Checking Parent-Child 'pdf:TOC' --> 'pdf:TOCI'
+Package tagpdf Info: Parent-Child 'TOC' --> 'TOCI'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
+Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:Lbl'
+Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
+Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 20 tagged /H1
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [3]
-tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [4
-]
-chapter without number
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:H1'
-Package tagpdf Info: Parent-Child 'Document' --> 'H1'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 21 tagged /H1
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:H2'
-Package tagpdf Info: Parent-Child 'Document' --> 'H2'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H2' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H2' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 22 tagged /H2
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:H3'
-Package tagpdf Info: Parent-Child 'Document' --> 'H3'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H3' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H3' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 23 tagged /H3
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:H4'
-Package tagpdf Info: Parent-Child 'Document' --> 'H4'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H4' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:H4' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 24 tagged /H4
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:P'
-Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+Package tagpdf Info: closing structure 21 tagged /Lbl
+Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:P'
+Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 25 tagged /P
+Package tagpdf Info: closing structure 22 tagged /P
+Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf:Reference'
+Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf:Reference' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 23 tagged /Reference
+Package tagpdf Info: closing structure 20 tagged /TOCI
+)
+\tf@toc=\write...
+Package tagpdf Info: closing structure 8 tagged /TOC
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [1
+Non-PDF special ignored!]
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [2
+]
+Package tagpdf Info: closing structure 5 tagged /Sect
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:Sect'
+Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'latex-book:chapter'
+Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+chapter 1.
+Package tagpdf Info: Checking Parent-Child 'latex-book:chapter' --> 'pdf2:H1'
+Package tagpdf Info: Parent-Child 'H1' --> 'H1'.
+(tagpdf)             Relation is -1 (='∅') on line ...
+Package tagpdf Warning: Parent-Child 'pdf2:H1' --> 'pdf2:H1'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 25, chapter --> struct 26, H1
+Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 26 tagged /H1
+Package tagpdf Info: closing structure 25 tagged /chapter
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [3]
+tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact [4
+]
+Package tagpdf Info: closing structure 24 tagged /Sect
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:Sect'
+Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'latex-book:chapter'
+Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+chapter without number
+Package tagpdf Info: Checking Parent-Child 'latex-book:chapter' --> 'pdf2:H1'
+Package tagpdf Info: Parent-Child 'H1' --> 'H1'.
+(tagpdf)             Relation is -1 (='∅') on line ...
+Package tagpdf Warning: Parent-Child 'pdf2:H1' --> 'pdf2:H1'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 28, chapter --> struct 29, H1
+Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 29 tagged /H1
+Package tagpdf Info: closing structure 28 tagged /chapter
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:Sect'
+Package tagpdf Info: Parent-Child 'Sect' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:H2'
+Package tagpdf Info: Parent-Child 'Sect' --> 'H2'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H2' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H2' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 31 tagged /H2
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:Sect'
+Package tagpdf Info: Parent-Child 'Sect' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:H3'
+Package tagpdf Info: Parent-Child 'Sect' --> 'H3'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H3' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H3' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 33 tagged /H3
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:Sect'
+Package tagpdf Info: Parent-Child 'Sect' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:H4'
+Package tagpdf Info: Parent-Child 'Sect' --> 'H4'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H4' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H4' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 35 tagged /H4
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:P'
+Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 36 tagged /P
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 tagpdf: INFO TAG-NOT-TAGGED: this has not been tagged, using artifact
 Completed box being shipped out [5]
-\vbox(655.63496+0.0)x405.73636, direction TLT
+\vbox(655.63496+0.2409)x405.73636, direction TLT
 .\hbox(0.0+0.0)x0.0, direction TLT
 ..\kern-72.26999
 ..\vbox(0.0+0.0)x0.0, glue set 72.26999fil, direction TLT
@@ -197,7 +232,7 @@ Completed box being shipped out [5]
 ....\glue 0.0 plus 1.0fil minus 1.0fil
 ...\glue 0.0 plus 1.0fil minus 1.0fil
 .\glue -25.16531
-.\vbox(680.80028+0.0)x418.25555, shifted -12.5192, direction TLT
+.\vbox(680.80028+0.2409)x418.25555, shifted -12.5192, direction TLT
 ..\vbox(17.0+0.0)x418.25555, glue set 17.0fil, direction TLT
 ...\glue 0.0 plus 1.0fil
 ...\pdflinkstate 1
@@ -207,7 +242,8 @@ Completed box being shipped out [5]
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
 ..\vbox(595.80026+0.0)x418.25555, glue set 407.24701fil, direction TLT
-...\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}chapter\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
+...\special{}
+...\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}chapter\tagmcend \tagstructend }{\thepage }{target*.2}\protected@file@percent }}
 ...\marks1{\__mark_value:nn {3}{\protect \foreignlanguage {english}{\protect \bbl@restore@actives chapter}}}
 ...\marks2{\__mark_value:nn {4}{}}
 ...\write1{\@writefile{lof}{\protect \addvspace {10\p@ }}}
@@ -226,7 +262,7 @@ Completed box being shipped out [5]
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 10.60643
-...\hbox(14.39357+4.02356)x418.25555, glue set 173.63126fil, direction TLT
+...\hbox(14.39357+4.02356)x418.25555, glue set 347.26251fil, direction TLT
 ....\localpar
 .....\localinterlinepenalty=0
 .....\localbrokenpenalty=0
@@ -245,7 +281,7 @@ Completed box being shipped out [5]
 ....\TU/lmss/bx/n/20.74 e
 ....\TU/lmss/bx/n/20.74 r
 ....\penalty 10000
-....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\parfillskip) 0.0
 ....\glue(\rightskip) 0.0 plus 1.0fil
 ...\penalty 10000
 ...\penalty 10000
@@ -255,7 +291,7 @@ Completed box being shipped out [5]
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.66605
-...\hbox(10.3104+0.1584)x418.25555, glue set 172.41498fil, direction TLT
+...\hbox(10.3104+0.1584)x418.25555, glue set 344.82996fil, direction TLT
 ....\localpar
 .....\localinterlinepenalty=0
 .....\localbrokenpenalty=0
@@ -281,7 +317,7 @@ Completed box being shipped out [5]
 ....\TU/lmss/bx/n/14.4 o
 ....\TU/lmss/bx/n/14.4 n
 ....\penalty 10000
-....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\parfillskip) 0.0
 ....\glue(\rightskip) 0.0 plus 1.0fil
 ...\pdfliteral page <lua data reference ...>
 ...\pdfliteral page <lua data reference ...>
@@ -289,7 +325,7 @@ Completed box being shipped out [5]
 ...\penalty 10000
 ...\marks3{\__mark_value:nn {6}{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}}
 ...\penalty 10000
-...\write1{\@writefile{toc}{\protect \contentsline {section}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}section\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
+...\write1{\@writefile{toc}{\protect \contentsline {section}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}section\tagmcend \tagstructend }{\thepage }{section.1.1}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 10.85475 plus 0.94386
@@ -298,7 +334,7 @@ Completed box being shipped out [5]
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.2496
-...\hbox(8.592+0.132)x418.25555, glue set 164.13377fil, direction TLT
+...\hbox(8.592+0.132)x418.25555, glue set 328.26755fil, direction TLT
 ....\localpar
 .....\localinterlinepenalty=0
 .....\localbrokenpenalty=0
@@ -331,11 +367,11 @@ Completed box being shipped out [5]
 ....\TU/lmss/bx/n/12 o
 ....\TU/lmss/bx/n/12 n
 ....\penalty 10000
-....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\parfillskip) 0.0
 ....\glue(\rightskip) 0.0 plus 1.0fil
 ...\pdfliteral page <lua data reference ...>
 ...\pdfliteral page <lua data reference ...>
-...\write1{\@writefile{toc}{\protect \contentsline {subsection}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsection\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
+...\write1{\@writefile{toc}{\protect \contentsline {subsection}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsection\tagmcend \tagstructend }{\thepage }{subsection.1.1.1}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 7.07918 plus 0.94386
@@ -344,7 +380,7 @@ Completed box being shipped out [5]
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.8687
-...\hbox(7.5993+0.12045)x418.25555, glue set 174.73933fil, direction TLT
+...\hbox(7.5993+0.12045)x418.25555, glue set 349.47867fil, direction TLT
 ....\localpar
 .....\localinterlinepenalty=0
 .....\localbrokenpenalty=0
@@ -374,11 +410,11 @@ Completed box being shipped out [5]
 ....\TU/lmss/bx/n/10.95 o
 ....\TU/lmss/bx/n/10.95 n
 ....\penalty 10000
-....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\parfillskip) 0.0
 ....\glue(\rightskip) 0.0 plus 1.0fil
 ...\pdfliteral page <lua data reference ...>
 ...\pdfliteral page <lua data reference ...>
-...\write1{\@writefile{toc}{\protect \contentsline {subsubsection}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsubsection\tagmcend \tagstructend }{\thepage }{}\protected@file@percent }}
+...\write1{\@writefile{toc}{\protect \contentsline {subsubsection}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsubsection\tagmcend \tagstructend }{\thepage }{subsection.1.1.1}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 7.07918 plus 0.94386
@@ -428,19 +464,29 @@ Completed box being shipped out [5]
 ..\pdfliteral page <lua data reference ...>
 ..\pdfliteral page <lua data reference ...>
 ..\pdflinkstate 1
-..\glue(\baselineskip) 47.6
-..\hbox(0.0+0.0)x418.25555, direction TLT
-...\hbox(0.0+0.0)x418.25555, direction TLT
+..\glue(\baselineskip) 40.30731
+..\hbox(7.2927+0.2409)x418.25555, direction TLT
+...\hbox(7.2927+0.2409)x418.25555, direction TLT
+....\hbox(7.2927+0.2409)x418.25555, direction TLT
+.....\vbox(7.2927+0.2409)x418.25555, direction TLT
+......\hbox(7.2927+0.2409)x418.25555, glue set 412.78055fil, direction TLT
+.......\glue 0.0 plus 1.0fil
+.......\TU/lmr/m/n/10.95 5
+....\glue 0.0 plus 1.0fil minus 1.0fil
 ..\pdflinkstate 0
 .\kern0.0
-.\kern-655.63496
+.\kern-655.87587
 .\hbox(0.0+0.0)x0.0, direction TLT
-.\kern655.63496
+.\kern655.87587
 .\pdfliteral page <lua data reference ...>
-<<latex-list-css.html>><<latex-align-css.html>> (test-patch-koma.aux)
+Non-PDF special ignored!<<latex-list-css.html>><<latex-align-css.html>> (test-patch-koma.aux)
+Package tagpdf Info: closing structure 34 tagged /Sect
+Package tagpdf Info: closing structure 32 tagged /Sect
+Package tagpdf Info: closing structure 30 tagged /Sect
+Package tagpdf Info: closing structure 27 tagged /Sect
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~25 structure objects
+(tagpdf)             Writing out ~36 structure objects
 (tagpdf)             with ~24 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree

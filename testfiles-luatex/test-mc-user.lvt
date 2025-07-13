@@ -8,7 +8,6 @@
 \documentclass[11pt]{article}
 
 \usepackage[english]{babel}
-\usepackage[genericmode]{tagpdf}
 \usepackage{graphicx,iftex}
 \ifpdftex
   \usepackage[T1]{fontenc}
@@ -19,11 +18,7 @@
   \usepackage{luacode}
 \fi
 
-
-
-
-
-\tagpdfsetup{activate/all}
+\tagpdfsetup{activate/mc}
 
 
 \begin{document}

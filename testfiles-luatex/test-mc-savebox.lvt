@@ -3,12 +3,11 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass[11pt]{article}
 
 \usepackage[english]{babel}
-\usepackage[genericmode]{tagpdf}
 \usepackage{graphicx,iftex}
 \ifpdftex
   \usepackage[T1]{fontenc}
@@ -23,7 +22,6 @@
 
 
 
-\tagpdfsetup{activate/all}
 
 \newsavebox\mybox
 \begin{document}

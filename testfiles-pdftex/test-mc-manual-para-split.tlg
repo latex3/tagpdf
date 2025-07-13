@@ -32,10 +32,10 @@ Completed box being shipped out [1]
 .......\hbox(0.0+0.0)x360.0
 ........\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 .........\vbox(0.0+0.0)x360.0
-..........\hbox(0.0+0.0)x360.0, glue set 180.0fil
+..........\hbox(0.0+0.0)x360.0, glue set 360.0fil
 ...........\hbox(0.0+0.0)x0.0
 ...........\penalty 10000
-...........\glue(\parfillskip) 0.0 plus 1.0fil
+...........\glue(\parfillskip) 0.0
 ...........\glue(\rightskip) 0.0 plus 1.0fil
 .........\glue 0.0 plus 1.0fil minus 1.0fil
 ........\glue 0.0 plus 1.0fill
@@ -650,10 +650,10 @@ Completed box being shipped out [1]
 ......\hbox(9.51996+4.08003)x360.0
 .......\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 ........\vbox(0.0+0.0)x360.0
-.........\hbox(0.0+0.0)x360.0, glue set 180.0fil
+.........\hbox(0.0+0.0)x360.0, glue set 360.0fil
 ..........\hbox(0.0+0.0)x0.0
 ..........\penalty 10000
-..........\glue(\parfillskip) 0.0 plus 1.0fil
+..........\glue(\parfillskip) 0.0
 ..........\glue(\rightskip) 0.0 plus 1.0fil
 ........\glue 0.0 plus 1.0fil minus 1.0fil
 .......\glue 0.0 plus 1.0fill
@@ -707,10 +707,10 @@ Completed box being shipped out [2]
 .......\hbox(0.0+0.0)x360.0
 ........\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 .........\vbox(0.0+0.0)x360.0
-..........\hbox(0.0+0.0)x360.0, glue set 180.0fil
+..........\hbox(0.0+0.0)x360.0, glue set 360.0fil
 ...........\hbox(0.0+0.0)x0.0
 ...........\penalty 10000
-...........\glue(\parfillskip) 0.0 plus 1.0fil
+...........\glue(\parfillskip) 0.0
 ...........\glue(\rightskip) 0.0 plus 1.0fil
 .........\glue 0.0 plus 1.0fil minus 1.0fil
 ........\glue 0.0 plus 1.0fill
@@ -857,10 +857,10 @@ Completed box being shipped out [2]
 ......\hbox(9.51996+4.08003)x360.0
 .......\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 ........\vbox(0.0+0.0)x360.0
-.........\hbox(0.0+0.0)x360.0, glue set 180.0fil
+.........\hbox(0.0+0.0)x360.0, glue set 360.0fil
 ..........\hbox(0.0+0.0)x0.0
 ..........\penalty 10000
-..........\glue(\parfillskip) 0.0 plus 1.0fil
+..........\glue(\parfillskip) 0.0
 ..........\glue(\rightskip) 0.0 plus 1.0fil
 ........\glue 0.0 plus 1.0fil minus 1.0fil
 .......\glue 0.0 plus 1.0fill
@@ -913,10 +913,10 @@ Completed box being shipped out [3]
 .......\hbox(0.0+0.0)x360.0
 ........\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 .........\vbox(0.0+0.0)x360.0
-..........\hbox(0.0+0.0)x360.0, glue set 180.0fil
+..........\hbox(0.0+0.0)x360.0, glue set 360.0fil
 ...........\hbox(0.0+0.0)x0.0
 ...........\penalty 10000
-...........\glue(\parfillskip) 0.0 plus 1.0fil
+...........\glue(\parfillskip) 0.0
 ...........\glue(\rightskip) 0.0 plus 1.0fil
 .........\glue 0.0 plus 1.0fil minus 1.0fil
 ........\glue 0.0 plus 1.0fill
@@ -1470,10 +1470,10 @@ Completed box being shipped out [3]
 ......\hbox(9.51996+4.08003)x360.0
 .......\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 ........\vbox(0.0+0.0)x360.0
-.........\hbox(0.0+0.0)x360.0, glue set 180.0fil
+.........\hbox(0.0+0.0)x360.0, glue set 360.0fil
 ..........\hbox(0.0+0.0)x0.0
 ..........\penalty 10000
-..........\glue(\parfillskip) 0.0 plus 1.0fil
+..........\glue(\parfillskip) 0.0
 ..........\glue(\rightskip) 0.0 plus 1.0fil
 ........\glue 0.0 plus 1.0fil minus 1.0fil
 .......\glue 0.0 plus 1.0fill
@@ -1507,7 +1507,7 @@ Completed box being shipped out [3]
 .\kern 174.4383
 <<latex-list-css.html>><<latex-align-css.html>> (test-mc-manual-para-split.aux)
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~2 structure objects
+(tagpdf)             Writing out ~4 structure objects
 (tagpdf)             with ~9 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree

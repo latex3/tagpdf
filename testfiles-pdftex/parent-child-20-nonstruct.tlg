@@ -13,11 +13,13 @@ Package tagpdf Info: Parent-Child 'NonStruct' --> 'NonStruct'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'NonStruct'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:NonStruct' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'NonStruct' --> 'Part'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:footnote'
 Package tagpdf Info: Parent-Child 'Part' --> 'FENote'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -26,12 +28,12 @@ Package tagpdf Info: Parent-Child 'Document' --> 'FENote'.
 Package tagpdf Info: Checking Parent-Child 'latex:footnote' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'FENote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 7 tagged /footnote
-Package tagpdf Info: closing structure 6 tagged /text-unit
-Package tagpdf Info: closing structure 5 tagged /NonStruct
+Package tagpdf Info: closing structure 9 tagged /footnote
+Package tagpdf Info: closing structure 8 tagged /text-unit
+Package tagpdf Info: closing structure 7 tagged /NonStruct
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 4 tagged /NonStruct
-Package tagpdf Info: closing structure 3 tagged /NonStruct
+Package tagpdf Info: closing structure 6 tagged /NonStruct
+Package tagpdf Info: closing structure 5 tagged /NonStruct
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:NonStruct'
 Package tagpdf Info: Parent-Child 'Document' --> 'NonStruct'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -45,11 +47,13 @@ Package tagpdf Info: Parent-Child 'Part' --> 'NonStruct'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'NonStruct'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:NonStruct' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'NonStruct' --> 'Part'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:footnote'
 Package tagpdf Info: Parent-Child 'Part' --> 'FENote'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -58,16 +62,16 @@ Package tagpdf Info: Parent-Child 'Document' --> 'FENote'.
 Package tagpdf Info: Checking Parent-Child 'latex:footnote' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'FENote' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 12 tagged /footnote
-Package tagpdf Info: closing structure 11 tagged /text-unit
-Package tagpdf Info: closing structure 10 tagged /NonStruct
+Package tagpdf Info: closing structure 14 tagged /footnote
+Package tagpdf Info: closing structure 13 tagged /text-unit
+Package tagpdf Info: closing structure 12 tagged /NonStruct
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 9 tagged /Part
-Package tagpdf Info: closing structure 8 tagged /NonStruct
+Package tagpdf Info: closing structure 11 tagged /Part
+Package tagpdf Info: closing structure 10 tagged /NonStruct
 ====> In \@makecol 1
 Pick up new bot mark!
-=> first b-, 1, 7, footnote
-=> bot e+, 2, 9
+=> first b-, 1, 9, footnote
+=> bot e+, 2, 11
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq is empty
@@ -114,10 +118,10 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,1,7,footnote,,,}
-...\marks4{b+,1,7,footnote,,,}
-...\marks4{e-,1,4,}
-...\marks4{e+,1,4,}
+...\marks4{b-,1,9,footnote,,,}
+...\marks4{b+,1,9,footnote,,,}
+...\marks4{e-,1,6,}
+...\marks4{e+,1,6,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 7.6955
@@ -132,10 +136,10 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,2,12,footnote,,,}
-...\marks4{b+,2,12,footnote,,,}
-...\marks4{e-,2,9,}
-...\marks4{e+,2,9,}
+...\marks4{b-,2,14,footnote,,,}
+...\marks4{b+,2,14,footnote,,,}
+...\marks4{e-,2,11,}
+...\marks4{e+,2,11,}
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
 ...\glue 0.0 plus 1.0fil
@@ -163,7 +167,7 @@ Completed box being shipped out [1]
 <<latex-list-css.html>><<latex-align-css.html>> (parent-child-20-nonstruct.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~12 structure objects
+(tagpdf)             Writing out ~14 structure objects
 (tagpdf)             with ~4 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree

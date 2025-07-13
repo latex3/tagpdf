@@ -9,14 +9,31 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'H'.
 Package tagpdf Info: Checking Parent-Child 'pdf2:H' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 4 tagged /H
+Package tagpdf Info: Checking Parent-Child 'pdf2:H' --> 'pdf2:Sect'
+Package tagpdf Info: Parent-Child 'H' --> 'Sect'.
+(tagpdf)             Relation is 2 (='0..1') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'latex:section'
+Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'latex:section' --> 'latex:section-number'
+Package tagpdf Info: Parent-Child 'H1' --> 'Span'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Warning: nested marked content found - mcid 1
+Package tagpdf Info: Checking Parent-Child 'latex:section-number' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 9 tagged /section-number
+Package tagpdf Info: Checking Parent-Child 'latex:section' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 8 tagged /section
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 5 tagged /P
+Package tagpdf Info: closing structure 10 tagged /P
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:L'
 Package tagpdf Info: Parent-Child 'Sect' --> 'L'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -29,15 +46,15 @@ Package tagpdf Info: Parent-Child 'LI' --> 'Lbl'.
 Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 8 tagged /Lbl
+Package tagpdf Info: closing structure 13 tagged /Lbl
 Package tagpdf Info: Checking Parent-Child 'pdf2:LI' --> 'pdf2:LBody'
 Package tagpdf Info: Parent-Child 'LI' --> 'LBody'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:LBody' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'LBody' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 9 tagged /LBody
-Package tagpdf Info: closing structure 7 tagged /LI
+Package tagpdf Info: closing structure 14 tagged /LBody
+Package tagpdf Info: closing structure 12 tagged /LI
 Package tagpdf Info: Checking Parent-Child 'pdf2:L' --> 'pdf2:LI'
 Package tagpdf Info: Parent-Child 'L' --> 'LI'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -47,17 +64,17 @@ Package tagpdf Info: Parent-Child 'LI' --> 'Lbl'.
 Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 11 tagged /Lbl
+Package tagpdf Info: closing structure 16 tagged /Lbl
 Package tagpdf Info: Checking Parent-Child 'pdf2:LI' --> 'pdf2:LBody'
 Package tagpdf Info: Parent-Child 'LI' --> 'LBody'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:LBody' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'LBody' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 12 tagged /LBody
-Package tagpdf Info: closing structure 10 tagged /LI
-Package tagpdf Info: closing structure 6 tagged /L
-Package tagpdf Info: closing structure 3 tagged /Sect
+Package tagpdf Info: closing structure 17 tagged /LBody
+Package tagpdf Info: closing structure 15 tagged /LI
+Package tagpdf Info: closing structure 11 tagged /L
+Package tagpdf Info: closing structure 7 tagged /Sect
 Completed box being shipped out [1]
 \vbox(680.80026+4.08003)x406.0
 .\hbox(0.0+0.0)x0.0
@@ -79,10 +96,10 @@ Completed box being shipped out [1]
 .......\hbox(0.0+0.0)x360.0
 ........\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 .........\vbox(0.0+0.0)x360.0
-..........\hbox(0.0+0.0)x360.0, glue set 180.0fil
+..........\hbox(0.0+0.0)x360.0, glue set 360.0fil
 ...........\hbox(0.0+0.0)x0.0
 ...........\penalty 10000
-...........\glue(\parfillskip) 0.0 plus 1.0fil
+...........\glue(\parfillskip) 0.0
 ...........\glue(\rightskip) 0.0 plus 1.0fil
 .........\glue 0.0 plus 1.0fil minus 1.0fil
 ........\glue 0.0 plus 1.0fill
@@ -115,14 +132,23 @@ Completed box being shipped out [1]
 ...\write1{\babel@aux{english}{}}
 ...\write1{\new@label@record{mcid-1}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{1}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/H <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,1,4,H,,,}
-...\marks4{b+,1,4,H,,,}
+...\marks4{b-,1,6,H,,,}
+...\marks4{b+,1,6,H,,,}
 ...\glue(\topskip) 1.06242
 ...\hbox(9.93758+0.0)x360.0, glue set 285.93542fil
+....\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/section-number <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(9.20918+0.0)x23.75433
 .....\glue 0.0
+.....\hbox(0.0+0.0)x0.0
+......\kern 0.0
+......\hbox(0.0+0.0)x0.0
+......\glue 0.0 plus 1.0fil minus 1.0fil
 .....\T1/cmr/bx/n/14.4 1
 .....\glue 15.83623
+....\pdfliteral page{EMC}
+....\write1{\new@label@record{mcid-3}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{3}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/section <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\T1/cmr/bx/n/14.4 S
 ....\T1/cmr/bx/n/14.4 e
 ....\T1/cmr/bx/n/14.4 c
@@ -133,20 +159,26 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
+...\marks4{b-,2,9,section-number,,,}
+...\marks4{b+,2,9,section-number,,,}
+...\marks4{e-,2,9,}
+...\marks4{e+,2,9,}
+...\marks4{b-,3,8,section,,,}
+...\marks4{b+,3,8,section,,,}
 ...\marks1{\__mark_value:nn {1}{\protect \foreignlanguage {english}{\protect \bbl@restore@actives \MakeUppercase    []{1\hskip 1em\relax Section}}}}
 ...\marks2{\__mark_value:nn {2}{}}
-...\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1}Section}{\thepage }{}\protected@file@percent }}
+...\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1}Section}{\thepage }{target*.1}\protected@file@percent }}
 ...\penalty 10000
 ...\glue 10.84085 plus 0.94266
 ...\pdfliteral page{EMC}
-...\marks4{e-,1,4,}
-...\marks4{e+,1,4,}
-...\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
+...\marks4{e-,3,8,}
+...\marks4{e+,3,8,}
+...\write1{\new@label@record{mcid-4}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{4}{tagmcid}{\__property_code_tagmcid: }}}
 ...\penalty 10000
 ...\penalty 10000
 ...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,2,5,P,,,}
-...\marks4{b+,2,5,P,,,}
+...\marks4{b-,4,10,P,,,}
+...\marks4{b+,4,10,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 6.05852
@@ -175,12 +207,12 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,2,5,}
-...\marks4{e+,2,5,}
-...\write1{\new@label@record{mcid-3}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{3}{tagmcid}{\__property_code_tagmcid: }}}
+...\marks4{e-,4,10,}
+...\marks4{e+,4,10,}
+...\write1{\new@label@record{mcid-5}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{5}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,3,8,Lbl,,,}
-...\marks4{b+,3,8,Lbl,,,}
+...\marks4{b-,5,13,Lbl,,,}
+...\marks4{b+,5,13,Lbl,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 6.05852
@@ -190,7 +222,7 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 .
 ....\pdfliteral page{EMC}
 ....\glue 4.83946 plus 5.44011 minus 0.40297
-....\write1{\new@label@record{mcid-4}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{4}{tagmcid}{\__property_code_tagmcid: }}}
+....\write1{\new@label@record{mcid-6}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{6}{tagmcid}{\__property_code_tagmcid: }}}
 ....\penalty 10000
 ....\glue 0.0
 ....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
@@ -214,16 +246,16 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,3,8,}
-...\marks4{e+,3,8,}
-...\marks4{b-,4,9,P,,,}
-...\marks4{b+,4,9,P,,,}
-...\marks4{e-,4,9,}
-...\marks4{e+,4,9,}
-...\write1{\new@label@record{mcid-5}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{5}{tagmcid}{\__property_code_tagmcid: }}}
+...\marks4{e-,5,13,}
+...\marks4{e+,5,13,}
+...\marks4{b-,6,14,P,,,}
+...\marks4{b+,6,14,P,,,}
+...\marks4{e-,6,14,}
+...\marks4{e+,6,14,}
+...\write1{\new@label@record{mcid-7}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{7}{tagmcid}{\__property_code_tagmcid: }}}
 ...\pdfliteral shipout page{/Lbl <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,5,11,Lbl,,,}
-...\marks4{b+,5,11,Lbl,,,}
+...\marks4{b-,7,16,Lbl,,,}
+...\marks4{b+,7,16,Lbl,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.92989
@@ -233,7 +265,7 @@ Completed box being shipped out [1]
 ....\T1/cmr/m/n/10.95 .
 ....\pdfliteral page{EMC}
 ....\glue 4.83946 plus 5.44011 minus 0.40297
-....\write1{\new@label@record{mcid-6}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{6}{tagmcid}{\__property_code_tagmcid: }}}
+....\write1{\new@label@record{mcid-8}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{8}{tagmcid}{\__property_code_tagmcid: }}}
 ....\penalty 10000
 ....\glue 0.0
 ....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
@@ -265,12 +297,12 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,5,11,}
-...\marks4{e+,5,11,}
-...\marks4{b-,6,12,P,,,}
-...\marks4{b+,6,12,P,,,}
-...\marks4{e-,6,12,}
-...\marks4{e+,6,12,}
+...\marks4{e-,7,16,}
+...\marks4{e+,7,16,}
+...\marks4{b-,8,17,P,,,}
+...\marks4{b+,8,17,P,,,}
+...\marks4{e-,8,17,}
+...\marks4{e+,8,17,}
 ...\glue -2.12863
 ...\glue 0.0 plus 1.0fil
 ...\glue 0.0
@@ -286,10 +318,10 @@ Completed box being shipped out [1]
 ......\hbox(9.51996+4.08003)x360.0
 .......\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 ........\vbox(0.0+0.0)x360.0
-.........\hbox(0.0+0.0)x360.0, glue set 180.0fil
+.........\hbox(0.0+0.0)x360.0, glue set 360.0fil
 ..........\hbox(0.0+0.0)x0.0
 ..........\penalty 10000
-..........\glue(\parfillskip) 0.0 plus 1.0fil
+..........\glue(\parfillskip) 0.0
 ..........\glue(\rightskip) 0.0 plus 1.0fil
 ........\glue 0.0 plus 1.0fil minus 1.0fil
 .......\glue 0.0 plus 1.0fill
@@ -304,10 +336,10 @@ Completed box being shipped out [1]
 .........\penalty 10000
 .........\glue(\parfillskip) 0.0
 .........\glue(\rightskip) 0.0 plus 1.0fil
-........\marks4{b-,7,-1,Pagination}
-........\marks4{b+,7,-1,Pagination}
-........\marks4{e-,7,2,}
-........\marks4{e+,7,2,}
+........\marks4{b-,9,-1,Pagination}
+........\marks4{b+,9,-1,Pagination}
+........\marks4{e-,9,6,}
+........\marks4{e+,9,6,}
 .......\glue 0.0 plus 1.0fill
 .......\hbox(0.0+0.0)x0.0, glue set - 360.0fil
 ........\glue 0.0 plus 1.0fil minus 1.0fil
@@ -325,10 +357,25 @@ Completed box being shipped out [1]
 .\hbox(0.0+0.0)x0.0
 .\kern 684.8803
 <<latex-list-css.html>><<latex-align-css.html>> (test-struct-user.aux)
+! Package tagpdf Error: The number of automatic begin (1) and end (0) text para hooks differ!
+For immediate help type H <return>.
+ ...                                              
+l. ...\end{document}
+This quite probably a coding error and the structure will be wrong!
+Package tagpdf Warning: The structure Sect can not be closed.
+(tagpdf)                It is not equal to the current structure H on the main stack
+Package tagpdf Warning: The structure Sect can not be closed.
+(tagpdf)                It is not equal to the current structure H on the main stack
+Package tagpdf Info: closing structure 6 tagged /H
+Package tagpdf Warning: There are still open structures on the stack!
+(tagpdf)                The stack contains {Sect}{Sect},{Document}{Document},{Root}{StructTreeRoot}.
+(tagpdf)                The structures are automatically closed,
+(tagpdf)                but their nesting can be wrong.
+Package tagpdf Info: closing structure 5 tagged /Sect
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~12 structure objects
-(tagpdf)             with ~7 'MC' leaf nodes.
+(tagpdf)             Writing out ~17 structure objects
+(tagpdf)             with ~9 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree
@@ -338,6 +385,6 @@ Package tagpdf Info: writing NameSpaces
 Package tagpdf Info: writing StructElems
 Package tagpdf Info: writing Root
 ***************
-Compilation 1 of test file completed with exit status 0
-Compilation 2 of test file completed with exit status 0
-Compilation 3 of test file completed with exit status 0
+Compilation 1 of test file completed with exit status 1
+Compilation 2 of test file completed with exit status 1
+Compilation 3 of test file completed with exit status 1
