@@ -1,0 +1,109 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
+Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 2, /Document 
+Completed box being shipped out [1]
+\vbox(680.80026+0.0)x406.0
+.\hbox(0.0+0.0)x0.0
+..\pdfinterwordspaceon
+.\hbox(0.0+0.0)x0.0
+..\kern -72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil
+...\kern -72.26999
+...\hbox(0.0+0.0)x0.0
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue 18.0
+.\vbox(662.80026+0.0)x360.0, shifted 46.0
+..\vbox(12.0+0.0)x360.0, glue set 12.0fil
+...\glue 0.0 plus 1.0fil
+...\pdfrunninglinkoff
+...\pdfliteral page{/Artifact BMC}
+...\marks4{b-,3,-1,}
+...\marks4{b+,3,-1,}
+...\hbox(0.0+0.0)x360.0
+....\hbox(0.0+0.0)x360.0
+...\pdfliteral page{EMC}
+...\marks4{e-,3,2,}
+...\marks4{e+,3,2,}
+...\pdfrunninglinkon
+..\glue 25.0
+..\glue(\lineskip) 0.0
+..\vbox(595.80026+0.0)x360.0, glue set 584.73781fil
+...\write-{}
+...\write1{\babel@aux{english}{}}
+...\pdfliteral page{/Artifact <</Type/Pagination>> BDC}
+...\marks4{b-,1,-1,Pagination}
+...\marks4{b+,1,-1,Pagination}
+...\glue(\topskip) 3.45851
+...\hbox(7.54149+0.0)x360.0, glue set 281.29875fil
+....\hbox(0.0+0.0)x17.0
+....\T1/cmr/m/n/10.95 A
+....\T1/cmr/m/n/10.95 r
+....\T1/cmr/m/n/10.95 t
+....\T1/cmr/m/n/10.95 i
+....\T1/cmr/m/n/10.95 f
+....\T1/cmr/m/n/10.95 a
+....\T1/cmr/m/n/10.95 c
+....\T1/cmr/m/n/10.95 t
+....\pdfliteral page{EMC}
+....\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\T1/cmr/m/n/10.95 b
+....\T1/cmr/m/n/10.95 l
+....\T1/cmr/m/n/10.95 b
+....\T1/cmr/m/n/10.95 l
+....\T1/cmr/m/n/10.95 b
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{e-,1,2,}
+...\marks4{e+,1,2,}
+...\marks4{b-,2,2,P,,,}
+...\marks4{b+,2,2,P,,,}
+...\marks4{e-,2,2,}
+...\marks4{e+,2,2,}
+...\glue 0.0 plus 1.0fil
+...\glue 0.0
+...\glue 0.0 plus 0.0001fil
+..\pdfrunninglinkoff
+..\pdfliteral page{/Artifact BMC}
+..\marks4{b-,4,-1,}
+..\marks4{b+,4,-1,}
+..\glue(\baselineskip) 22.91861
+..\hbox(7.08139+0.0)x360.0
+...\hbox(7.08139+0.0)x360.0, glue set 177.27803fil
+....\glue 0.0 plus 1.0fil
+....\T1/cmr/m/n/10.95 1
+....\glue 0.0 plus 1.0fil
+..\pdfliteral page{EMC}
+..\marks4{e-,4,2,}
+..\marks4{e+,4,2,}
+..\pdfrunninglinkon
+.\kern 0.0
+.\kern 0.0
+.\kern -680.80026
+.\hbox(0.0+0.0)x0.0
+.\kern 680.80026
+<<latex-list-css.html>><<latex-align-css.html>> (test-mc-tag-expansion.aux)
+Package tagpdf Info: closing structure 2 tagged /Document
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~2 structure objects
+(tagpdf)             with ~4 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
+***************
+Compilation 1 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 0
+Compilation 3 of test file completed with exit status 0

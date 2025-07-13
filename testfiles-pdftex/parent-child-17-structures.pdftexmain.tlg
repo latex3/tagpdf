@@ -1,0 +1,218 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package tagpdf Info: Checking Parent-Child ':Document' --> ':text-unit'
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':text-unit' --> ':text'
+Package tagpdf Info: Parent-Child 'Part' --> 'P'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':text' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 4 tagged /text
+Package tagpdf Info: Checking Parent-Child ':text-unit' --> ':Sect'
+Package tagpdf Info: Parent-Child 'Part' --> 'Sect'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':Sect' --> ':Div'
+Package tagpdf Info: Parent-Child 'Sect' --> 'Div'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':Div' --> ':P'
+Package tagpdf Info: Parent-Child 'Div' --> 'P'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':P' --> ':P'
+Package tagpdf Info: Parent-Child 'P' --> 'P'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
+Package tagpdf Warning: Parent-Child ':P' --> ':P'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 7, P --> struct 8, P
+Package tagpdf Warning: tag chapter is not known
+Package tagpdf Info: Checking Parent-Child ':P' --> ':chapter'
+Package tagpdf Warning: Parent-Child 'P' --> 'chapter'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Info: Checking Parent-Child ':chapter' --> ':Strong'
+Package tagpdf Warning: Parent-Child 'chapter' --> 'Span'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Info: Checking Parent-Child ':Strong' --> ':Sect'
+Package tagpdf Info: Parent-Child 'Span' --> 'Sect'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
+Package tagpdf Warning: Parent-Child ':Span' --> ':Sect'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 10, Strong --> struct 11, Sect
+Package tagpdf Info: Checking Parent-Child ':Sect' --> ':Div'
+Package tagpdf Info: Parent-Child 'Sect' --> 'Div'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':Div' --> ':Div'
+Package tagpdf Info: Parent-Child 'Div' --> 'Div'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'Div'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':Div' --> ':Div'
+Package tagpdf Info: Parent-Child 'Div' --> 'Div'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'Div'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':Div' --> ':Div'
+Package tagpdf Info: Parent-Child 'Div' --> 'Div'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'Div'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child ':Div' --> ':P'
+Package tagpdf Info: Parent-Child 'Div' --> 'P'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 16 tagged /P
+Package tagpdf Info: closing structure 15 tagged /Div
+Package tagpdf Info: closing structure 14 tagged /Div
+Package tagpdf Info: closing structure 13 tagged /Div
+Package tagpdf Info: closing structure 12 tagged /Div
+Package tagpdf Info: closing structure 11 tagged /Sect
+Package tagpdf Info: closing structure 10 tagged /Strong
+Package tagpdf Info: closing structure 9 tagged /chapter
+Package tagpdf Info: closing structure 8 tagged /P
+Package tagpdf Info: closing structure 7 tagged /P
+Package tagpdf Info: closing structure 6 tagged /Div
+Package tagpdf Info: closing structure 5 tagged /Sect
+Package tagpdf Info: Checking Parent-Child ':text-unit' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
+(tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
+Package tagpdf Warning: Parent-Child ':Part' --> 'MC (realcontent)'.
+(tagpdf)                Relation is not allowed! on line ...
+(tagpdf)                struct 3, /text-unit 
+Package tagpdf Info: Checking Parent-Child ':text-unit' --> ':P'
+Package tagpdf Info: Parent-Child 'Part' --> 'P'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 17 tagged /P
+Package tagpdf Info: closing structure 3 tagged /text-unit
+====> In \@makecol 1
+Pick up new bot mark!
+=> first b-, 1, 4, text
+=> bot e+, 2, 17
+=> TMB not missing
+=> TME not missing
+The sequence \g__tag_mc_main_marks_seq is empty
+> .
+Completed box being shipped out [1]
+\vbox(633.0+0.0)x407.0
+.\hbox(0.0+0.0)x0.0
+..\pdfinterwordspaceon
+.\hbox(0.0+0.0)x0.0
+..\kern -72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil
+...\kern -72.26999
+...\hbox(0.0+0.0)x0.0
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue 16.0
+.\vbox(617.0+0.0)x345.0, shifted 62.0
+..\vbox(12.0+0.0)x345.0, glue set 12.0fil
+...\glue 0.0 plus 1.0fil
+...\pdfrunninglinkoff
+...\pdfliteral page{/Artifact BMC}
+...\marks4{b-,3,-1,}
+...\marks4{b+,3,-1,}
+...\hbox(0.0+0.0)x345.0
+....\hbox(0.0+0.0)x345.0
+...\pdfliteral page{EMC}
+...\marks4{e-,3,2,}
+...\marks4{e+,3,2,}
+...\pdfrunninglinkon
+..\glue 25.0
+..\glue(\lineskip) 0.0
+..\vbox(550.0+0.0)x345.0, glue set 539.94232fil
+...\hbox(0.0+0.0)x0.0
+...\write-{}
+...\glue(\topskip) 3.1128
+...\hbox(6.8872+0.0)x345.0, glue set 248.07556fil
+....\write1{\new@label@record{mcid-1}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{1}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\hbox(0.0+0.0)x15.0
+....\T1/cmr/m/n/10 a
+....\T1/cmr/m/n/10 b
+....\kern0.27771
+....\T1/cmr/m/n/10 c
+....\pdfliteral page{EMC}
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\write1{\new@label@record{mcid-2}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{2}{tagmcid}{\__property_code_tagmcid: }}}
+....\penalty 10000
+....\glue 0.0
+....\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\glue 3.33252 plus 1.66626 minus 1.11084
+....\T1/cmr/m/n/10 a
+....\T1/cmr/m/n/10 a
+....\T1/cmr/m/n/10 a
+....\T1/cmr/m/n/10 a
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,1,4,text,,,}
+...\marks4{b+,1,4,text,,,}
+...\marks4{e-,1,4,}
+...\marks4{e+,1,4,}
+...\marks4{b-,2,3,P,,,}
+...\marks4{b+,2,3,P,,,}
+...\marks4{e-,2,17,}
+...\marks4{e+,2,17,}
+...\kern 0.0
+...\hbox(0.0+0.0)x0.0
+...\glue 0.0 plus 1.0fil
+...\glue 0.0
+...\glue 0.0 plus 0.0001fil
+..\pdfrunninglinkoff
+..\pdfliteral page{/Artifact BMC}
+..\marks4{b-,4,-1,}
+..\marks4{b+,4,-1,}
+..\glue(\baselineskip) 23.5849
+..\hbox(6.4151+0.0)x345.0
+...\hbox(6.4151+0.0)x345.0, glue set 170.00061fil
+....\glue 0.0 plus 1.0fil
+....\T1/cmr/m/n/10 1
+....\glue 0.0 plus 1.0fil
+..\pdfliteral page{EMC}
+..\marks4{e-,4,2,}
+..\marks4{e+,4,2,}
+..\pdfrunninglinkon
+.\kern 0.0
+.\kern 0.0
+.\kern -633.0
+.\hbox(0.0+0.0)x0.0
+.\kern 633.0
+<<latex-list-css.html>><<latex-align-css.html>> (parent-child-17-structures.aux)
+Package tagpdf Info: closing structure 2 tagged /Document
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~17 structure objects
+(tagpdf)             with ~4 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
+***************
+Compilation 1 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 0
+Compilation 3 of test file completed with exit status 0
