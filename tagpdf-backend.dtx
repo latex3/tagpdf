@@ -1541,6 +1541,7 @@ ltx.@@.func.check_parent_child_rules=check_parent_child_rules
 %    \begin{macrocode}  
   if luatexbase.callbacktypes['linksplit'] then
    luatexbase.add_to_callback('linksplit', function(start_link, position)
+     if start_link == nil then return end
      local structnum =
        node.get_attribute(start_link,luatexbase.attributes.g__tag_structnum_attr)
      if structnum and structnum > -1 then 
