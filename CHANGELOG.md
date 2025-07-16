@@ -5,8 +5,16 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [2025-06-27]
+## [2025-07-16]
+### Fixed 
+	- link error with luatex, issue #120
 
+### Changed
+	- use new block code in documentation
+	- updated some examples
+
+## [2025-06-27]
+Version 0.99s
 ### Fixed
  - links not in a Link or Reference structure should not create an OBJR (lua only)
  - Artifact should be mapped to Private in PDF 1.7
