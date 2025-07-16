@@ -1,15 +1,10 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\DocumentMetadata
- {
-   uncompress,
-   pdfversion=2.0,
-   lang=de-DE,
-   testphase=phase-I %load and activate tagpdf
- }
+\DocumentMetadata{tagging=on,pdfversion=2.0,lang=de-DE}
+\tagpdfsetup{tabsorder=structure}
+
 \documentclass{article}
 
 \usepackage{iftex}
-\tagpdfsetup{tabsorder=structure}
 
 \ifluatex
   \usepackage{fontspec}
