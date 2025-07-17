@@ -12,13 +12,12 @@
 \DocumentMetadata{pdfversion=1.7,uncompress,tagging=on}
 
 
-\documentclass{scrbook}
+\documentclass{book}
 \usepackage[english]{babel}
 
 \usepackage{iftex}
 \ifluatex
   \usepackage{fontspec}
-  \usepackage{luacode}
 \else
   \usepackage[T1]{fontenc}
 \fi
@@ -30,13 +29,8 @@
     tabsorder=structure,
   }
 
-\usepackage{lipsum}%\textheight3cm
 
 \begin{document}
-%I don't want to handle pagestyles, so set everything to empty:
-\pagestyle{empty}\renewcommand\chapterpagestyle{empty}
-
-
 
 \begin{itemize}
 \item Ducks say quack

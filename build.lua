@@ -155,12 +155,8 @@ docfiles = {"tagpdf.tex",
             "pac2024-report.png",
             "acrobat.png",
             "global-ex.png",
-            "examples/mc/ex-*.tex",
-            "examples/mc/ex-*.pdf",
             "examples/structure/ex-*.tex",
-            "examples/structure/ex-*.pdf",
             "examples/other/ex-*.tex",
-            "examples/other/ex-*.pdf",
             }
 
 textfiles= {"doc/CTANREADME.md"}

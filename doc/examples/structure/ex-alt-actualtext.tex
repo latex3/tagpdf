@@ -1,11 +1,8 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 
 
-\DocumentMetadata{pdfversion=1.7,lang=de-DE,testphase=phase-II}
-
+\DocumentMetadata{pdfversion=1.7,lang=de,tagging=on}
 \documentclass{article}
-
-\usepackage{tagpdf}
 \tagpdfsetup{tabsorder=structure}
 \usepackage{iftex}
 \iftutex
@@ -20,14 +17,14 @@
 
 \usepackage{graphicx}
 % This is not a perfectly tagged document!
+% example and comments are from <2022, results can be different now
 % It doesn't use paratagging!
 % one sentence is not marked (luatex will mark it as artifact)
 % with pdflatex there is a encoding problem with the math
-
+% 
 \begin{document}
 \tagpdfparaOff
 \pagestyle{empty}
-
 
 %This isn't read by voice software
 Etwas unmarkierter Text.
