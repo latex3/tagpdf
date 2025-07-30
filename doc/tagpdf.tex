@@ -2677,6 +2677,10 @@ tagging commands) the following strategy can be used:
  \item if it has no tagging commands then reset the attribute and use 
      the box. 
   \begin{verbatim}
+  \ExplSyntaxOn
+  \let\tagmcresetbox\tag_mc_reset_box:N %make a copy 
+  \ExplSyntaxOff
+  ...
   The \tagmcresetbox\mybox\box\mybox{} sun
   \end{verbatim}
   The stashed \texttt{NonStruct} structure is then thrown away. 
