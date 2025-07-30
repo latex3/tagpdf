@@ -173,7 +173,7 @@ various changes in the \LaTeX\ kernel and the engines: There is a new PDF
 management, the new para hooks allows to automatically tag paragraphs, after 
 changes in the output routine page breaks and header and footer are handled 
 correctly, the engines now support structure destinations. More changes are 
-in the latex-lab bundle and can be loaded through \texttt{testphase} keys. 
+in the latex-lab bundle and are loaded through the \texttt{tagging} keys. 
 
 I'm sure that tagpdf still has bugs. Bugs reports, suggestions and comments 
 can be added to the issue tracker on github either 
@@ -379,23 +379,20 @@ about the \texttt{Lbl} use}\label{fig:adobe}
 
 \section{Loading}
 
-The package requires the new PDF management. With a current \LaTeX{} (2022-06-01 or newer)
+The package requires the new PDF management. With a current \LaTeX{} (2025-06-01 or newer)
 the PDF management is loaded if you use the \cs{DocumentMetadata} command before \cs{documentclass}.
-The \pkg{tagpdf} package can then be loaded and activated by using the \texttt{testphase} key. The exact behavior of
-the \texttt{testphase} key is documented in \texttt{documentmetadata-support-doc.pdf} which
+The \pkg{tagpdf} package can then be loaded and activated by using the \texttt{tagging=on} key. The exact behavior of
+the \texttt{tagging} key is documented in \texttt{documentmetadata-support-doc.pdf} which
 is part of the \pkg{latex-lab} bundle.
 
-Various parts of the code differentiate between \PDF{} version 2.0 and lower versions. If 
-\PDF{} 2.0 is wanted it is required to set the version early in the \cs{DocumentMetadata}
+Various parts of the code differentiate between \PDF{} version 2.0 and lower versions. By default \cs{DocumentMetadata} will now set the \PDF{} version to 2.0.
+If \PDF{} 1.7 is wanted it is required to set the version early in the first \cs{DocumentMetadata}
 command so that \pkg{tagpdf} can pick up the correct code path. 
 
 \begin{taglstlisting}
 \DocumentMetadata
  {
-  % testphase = phase-I,  % tagging without paragraph tagging
-  % testphase = phase-II, % tagging with paragraph tagging 
-   testphase = phase-III, % tagging with paragraph sec, toc, blocks and more
-   pdfversion = 2.0,   % pdfversion must be set here.
+   tagging=on,
    pdfstandard=ua-2,   % pdfstandard can be set too 
  }
 \documentclass{article}
@@ -406,30 +403,27 @@ some text
 
 \minisec{Deactivation}
 
-When loading \pkg{tagpdf} through the \texttt{testphase} keys, it is automatically activated. 
-To deactivate it while still retaining all the other new code from the latex-lab testphase files,
-use in the preamble |\tagpdfsetup{activate/all=false}|. You can additionally also deactivate the 
-paratagging and the interword space code. 
-To suppress the loading of the package altogether you can try
+When loading \pkg{tagpdf} through the \texttt{tagging=on} keys, it is automatically activated. 
+To deactivate it while still retaining all the other new code from the latex-lab files, you can use the \texttt{tagging=off} key. 
 
-\begin{taglstlisting}
-\makeatletter 
-\disable@package@load{tagpdf}{}
-\makeatother
-\DocumentMetadata{...}
-\end{taglstlisting}
-
+Starting with \LaTeX{} 2025-11-01, you can also use |\DocumentMetadata{}|, which will
+then do the same as |\DocumentMetadata{tagging=off}|. This also deactivates the interword space code.
 
 \minisec{Loading as package needs activation!}
 
 It is not recommended anymore, but the package can also be loaded
-normally with |\usepackage| (but it is still required to
-use \cs{DocumentMetadata} to load the \PDF\ management) but it will
-then -- apart from loading more packages and defining a lot of things
+normally with |\usepackage| or |\RequirePackage|. But it still requires 
+the \PDF\ management, so you need to do something like this:
+\begin{taglstlisting}
+\RequirePackage{pdfmanagement}
+\RequirePackage{tagpdf}
+\end{taglstlisting}
+
+But it will then -- apart from loading more packages and defining a lot of things
 -- not do much. You will have to \emph{activate} it
 with \verb+\tagpdfsetup+.
 
-The \PDF\ management loaded with \cs{DocumentMetadata} will in any
+The \PDF\ management will in any
 case load \pkg{tagpdf-base} a small package that provides no-op
 versions of the main tagging commands.
 
@@ -2764,7 +2758,7 @@ already mentioned there are more requirements:
  the list (and so suppresses the embedding too). 
 \item[\PrintKeyName{css-list-remove}]  This key allows to remove a file from
 the list, e.g. \verb+css-list-remove=latex-list-css.html+. 
-\item[\PrintKeyName{css-list-add}] this keys allows to add more files to the
+\item[\PrintKeyName{css-list-add}] this key allows to add more files to the
 list, e.g., \verb+css-list-add=my-fancy-align-css.html+. 
  It is also possible to attach a .css-file in this way.
 \end{description}
