@@ -1,11 +1,9 @@
-## [2025-07-13]
-Version 0.99s
+## [2025-07-16]
+Version 0.99u
 
-### Fixed
- - links not in a Link or Reference structure should not create an OBJR (lua only)
- - Artifact should be mapped to Private in PDF 1.7
- - parent-child-check=atend didn't detect misplaced real content.
- - catcode table in lua code for parent-child-checks
+### Fixed 
+	- link error with luatex, issue #120
 
-### Added 
- - experimental header tagging (page/tag-header-footer) (tagging-project issue #928)
+### Changed
+	- use new block code in documentation
+	- updated some examples

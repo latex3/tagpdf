@@ -27,7 +27,7 @@ checked.
 
 The following uses the shortcut \savebox{text} for something like 
 \setbox\mybox\hbox{text} and \usebox for \copy\mybox. 
- 
+
 ### pdflatex
 
 With pdftex this simply works as expect. One can do \sbox0\hbox{hello} and 
@@ -37,11 +37,11 @@ So
 
 ~~~~ 
 
-para 1 \savebox{hello}\usebox monde  
+para 1 \savebox\mybox{hello}\usebox\mybox monde  
 
-para 2 \usebox welt 
+para 2 \usebox\mybox welt 
 
-para 3 \usebox world 
+para 3 \usebox\mybox world 
 
 ~~~~
 
@@ -55,7 +55,7 @@ para 2 hello welt
 
 para 3 hello world
 
-~~~~~  
+~~~~~
 
 
 ### lualatex
@@ -67,11 +67,11 @@ So
 
 ~~~~ 
 
-para 1 \savebox{hello}\usebox monde
+para 1 \savebox\mybox {hello}\usebox\mybox monde
 
-para 2 \usebox welt
+para 2 \usebox\mybox welt
 
-para 3 \usebox world
+para 3 \usebox\mybox world
 
 ~~~~
 
@@ -85,7 +85,7 @@ para 2 welt
 
 para 3 world
 
-~~~~~  
+~~~~~
 
 ### Fixing lualatex
 
@@ -94,7 +94,7 @@ There are two options.
 * At first, before the box is used the MC-attributes can be reset: 
 
 ~~~~ 
-para 2 \tag_mc_reset_box:N \mybox \usebox welt 
+para 2 \tag_mc_reset_box:N \mybox \usebox\mybox welt 
 ~~~~
 
 * At second, if the box is used only once,
@@ -102,14 +102,14 @@ the box can be gives it own special attributes which are not
 recorded directly but stashed and used later:
 
 ~~~~ 
-para 1 \tagmcbegin{stash,label=X}\savebox{hello}\tagmcbegin{} monde 
+para 1 \tagmcbegin{stash,label=X}\savebox\mybox{hello}\tagmcbegin{} monde 
   
-para 2 \tagmcuse{X}\usebox welt 
+para 2 \tagmcuse{X}\usebox\mybox welt 
 ~~~~
- 
+
 ## Box with inner MC-commands
 
-Lets now look at the box `\savebox{\tagmcbegin{}hello\tagmcend}`.
+Lets now look at the box `\savebox\mybox{\tagmcbegin{}hello\tagmcend}`.
 
 ### pdflatex
 
@@ -128,19 +128,19 @@ additional MC-commands are needed:
 
 ~~~~ 
 
-\savebox{\tagmcbegin{stash,label=blub}hello\tagmcend} 
+\savebox\mybox{\tagmcbegin{stash,label=blub}hello\tagmcend} 
  
-para1 \tagmcend\tagmcuse{blub}\usebox\tagmcbegin{} welt
+para1 \tagmcend\tagmcuse{blub}\usebox\mybox\tagmcbegin{} welt
 
-~~~~ 
+~~~~
 
 In vmode some structure would be enough:
 
 ~~~~ 
 
-\savebox{\tagmcbegin{stash,label=blub}hello\tagmcend} 
+\savebox\mybox{\tagmcbegin{stash,label=blub}hello\tagmcend} 
  
-\tagstructbegin{tag=Part}\tagmcuse{blub}\usebox\tagstructend
+\tagstructbegin{tag=Part}\tagmcuse{blub}\usebox\mybox\tagstructend
 
 ~~~~
 

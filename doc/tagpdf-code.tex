@@ -23,9 +23,9 @@
  for those people who are interested.
 
  \fi
-\DocumentMetadata{testphase=new-OR}
+\DocumentMetadata{}
 \documentclass{l3doc}
-
+\usepackage{latex-lab-testphase-l3doc}
 % The next line is needed so that \GetFileInfo will be able to pick up
 % version data.
 \usepackage{iftex}
@@ -37,7 +37,6 @@
    {<-> \UnicodeFontFile{lmmonoslant10-regular}{}}{}
 \fi
 \usepackage{longtable}
-\usepackage{tagpdf}
 
 \input{tagpdf-docelements}
 %\def\@setupverbvisiblespace{}
@@ -75,7 +74,7 @@
 
 % Make the separate source files into a single whole, format-wise
 \makeatletter
-\RenewDocumentCommand\maketitle{}{%
+\NewDocumentCommand\maketitle{}{%
   \clearpage
   \part{\@title}%
 }

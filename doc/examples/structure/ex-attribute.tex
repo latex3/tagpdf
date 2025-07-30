@@ -1,5 +1,9 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\DocumentMetadata{testphase=phase-I,uncompress,lang=de-DE}
+% we do not want all the latex goodies as this 
+% demonstrates low-level tagging, so load only tagpdf
+\RequirePackage{pdfmanagement}
+\RequirePackage{tagpdf}
+\tagpdfsetup{activate}
 \documentclass{scrartcl}
 \usepackage[english]{babel}
 
@@ -10,11 +14,12 @@
 
 \tagpdfsetup
 {
- newattribute = {TH-col} { <</O /Table /Scope /Column>> },
- newattribute = {TH-row} { <</O /Table /Scope /Row>>    },
- newattribute = {TH-both}{ <</O /Table /Scope /Both>>   },
- newattribute = {Lay-borderdotted}{ <</O /Layout /Borderstyle /Dotted >>   },
+ role/new-attribute = {TH-col} { /O /Table /Scope /Column },
+ role/new-attribute = {TH-row} { /O /Table /Scope /Row   },
+ role/new-attribute = {TH-both}{ /O /Table /Scope /Both   },
+ role/new-attribute = {Lay-borderdotted}{ /O /Layout /Borderstyle /Dotted    },
 }
+
 \begin{document}
 \pagestyle{empty} %
 

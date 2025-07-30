@@ -24,6 +24,7 @@
 %<*driver>
 \DocumentMetadata{}
 \documentclass{l3doc}
+\usepackage{latex-lab-testphase-l3doc}
 \usepackage{array,booktabs,caption}
 \hypersetup{pdfauthor=Ulrike Fischer,
  pdftitle=tagpdf (main module)}
@@ -47,7 +48,7 @@
 %    }^^A
 % }
 %
-% \date{Version 0.99s, released 2025-07-13}
+% \date{Version 0.99u, released 2025-07-16}
 % \maketitle% 
 % 
 % \begin{documentation}
@@ -153,7 +154,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*package>
-\ProvidesExplPackage {tagpdf} {2025-07-13} {0.99s}
+\ProvidesExplPackage {tagpdf} {2025-07-16} {0.99u}
   { LaTeX kernel code for PDF tagging }
 
 \IfPDFManagementActiveF  
@@ -173,7 +174,7 @@
 %    \end{macrocode}
 %<*debug>
 %    \begin{macrocode}
-\ProvidesExplPackage {tagpdf-debug} {2025-07-13} {0.99s}
+\ProvidesExplPackage {tagpdf-debug} {2025-07-16} {0.99u}
   { debug code for tagpdf }
 \@ifpackageloaded{tagpdf}{}{\PackageWarning{tagpdf-debug}{tagpdf~not~loaded,~quitting}\endinput}
 %    \end{macrocode}
@@ -196,7 +197,7 @@
 % we define a base package with dummy functions
 %    \begin{macrocode}
 %<*base>
-\ProvidesExplPackage {tagpdf-base} {2025-07-13} {0.99s}
+\ProvidesExplPackage {tagpdf-base} {2025-07-16} {0.99u}
   {part of tagpdf - provide base, no-op versions of the user commands }
 %</base>
 %    \end{macrocode} 

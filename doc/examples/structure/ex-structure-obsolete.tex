@@ -3,8 +3,8 @@
 %!!!!!!!
 % manual tagging without paratagging. Won't work correctly in later phases.
 %
-\DocumentMetadata{testphase=phase-I,pdfversion=1.7,uncompress}
-
+\RequirePackage{pdfmanagement}
+\RequirePackage{tagpdf}
 \documentclass{book}
 \usepackage[english,ngerman]{babel}
 \usepackage{amsmath}
@@ -19,8 +19,7 @@
 \fi
 
 
-\tagpdfsetup{tabsorder=structure}
-\newsavebox\mybox
+\tagpdfsetup{activate,tabsorder=structure}
 
 % this works only as we have only one page. Footer/header must be handle in the output routine.
 \usepackage{fancyhdr}

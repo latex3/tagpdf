@@ -47,13 +47,13 @@
 %    }^^A
 % }
 %
-% \date{Version 0.99s, released 2025-07-13}
+% \date{Version 0.99u, released 2025-07-16}
 % \maketitle
 % \begin{implementation}
 %    \begin{macrocode}
 %<@@=tag>
 %<*luatex>
-\ProvidesExplFile {tagpdf-luatex.def} {2025-07-13} {0.99s}
+\ProvidesExplFile {tagpdf-luatex.def} {2025-07-16} {0.99u}
   {tagpdf~driver~for~luatex}
 %    \end{macrocode}
 % \section{Loading the lua}
@@ -173,8 +173,8 @@
 
 local ProvidesLuaModule = {
     name          = "tagpdf",
-    version       = "0.99s",       --TAGVERSION
-    date          = "2025-07-13", --TAGDATE
+    version       = "0.99u",       --TAGVERSION
+    date          = "2025-07-16", --TAGDATE
     description   = "tagpdf lua code",
     license       = "The LATEX Project Public License 1.3c"
 }
@@ -1541,6 +1541,7 @@ ltx.@@.func.check_parent_child_rules=check_parent_child_rules
 %    \begin{macrocode}  
   if luatexbase.callbacktypes['linksplit'] then
    luatexbase.add_to_callback('linksplit', function(start_link, position)
+     if start_link == nil then return end
      local structnum =
        node.get_attribute(start_link,luatexbase.attributes.g__tag_structnum_attr)
      if structnum and structnum > -1 then 
