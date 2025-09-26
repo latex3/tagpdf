@@ -461,11 +461,7 @@ The command should be normally used only in the preamble
 
 The key-val list understands at least the following keys. More keys are defined in some of the latex-lab module, see table~\ref{tab:setupkey} for an overview which also includes older, now deprecated names.
 
-%\begin{table}
-%\makeatletter \bookmark[dest=\@currentHref,level=section]{List of keys}\makeatother
-%\caption{Overview over keys for \cs{tagpdfsetup}}\label{tab:setupkey}
-
-%\end{table}
+The command is deactivated before the class is loaded if the key |tagging=off| is used in \cs{DocumentMetadata} and then does nothing. 
 
 \begin{description}
 \item[\PrintKeyName{activate/all}] Boolean, initially false. Activates
@@ -498,7 +494,8 @@ The key-val list understands at least the following keys. More keys are defined 
 \item[\PrintKeyName{activate/spaces}] Boolean. The key
   activates/deactivates the insertion of space glyphs, see
   section~\ref{sec:spacechars}. In the luamode it only works if at
-  least \PrintKeyName{activate/mc} has been used.
+  least \PrintKeyName{activate/mc} has been used. It is on by default if you use 
+  |tagging=on| in \cs{DocumentMetadata}. The |tagging=off| key of \cs{DocumentMetadata} deactivates it. 
   The old name of the key |interwordspace| is still supported but deprecated.
 
 \item[\PrintKeyName{activate/softhyphen}] Boolean. luamode only.
@@ -531,16 +528,11 @@ maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|.
   used by the paratagging code. The default tag is \texttt{text}, a
   \LaTeX{} specific tag that is role mapped to \texttt{P}. A useful
   local setting here can be \texttt{NonStruct}, which creates a
-  structure \enquote{without meaning}. For local changes it is
-  recommended to use the newer \cs{tagtool} command described below
-  instead of \cs{tagpdfsetup}.
+  structure \enquote{without meaning}. 
 
 \item[\PrintKeyName{para/maintag}] String. This key changes the first tag
   used by the paratagging code. The default tag is \texttt{text-unit}, a
   \LaTeX{} specific tag that is role mapped to \texttt{Part}. 
-  For local changes it is
-  recommended to use the newer \cs{tagtool} command described below
-  instead of \cs{tagpdfsetup}.
 
 \item[\PrintKeyName{page/tabsorder}] Choice key, possible values are
   \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure},
@@ -606,33 +598,7 @@ key can be used more than once, the last setting will win.
  }
 \end{docCommands}
 
-The tagging of document elements requires a variety of small
-commands. This command will unify them under a common interface. This
-is work-in-progress and syntax and implementation can change! While
-the argument looks like a key-val \emph{list} (and currently is
-actually one), this should not be relied on. Instead only one argument
-should be used as the implementation will change to improve the
-speed. Currently the following arguments are supported
-
-\begin{description}
-\item[\PrintKeyName{para/tagging}] Boolean. It will replace the
-  \cs{tagpdfparaOn} and \cs{tagpdfparaOff} command.
-
-\item[\PrintKeyName{para/maintag}] String. It allows to change the outer
-  tag used in the following automatically tagged paragraphs. The
-  setting is local.
-
-\item[\PrintKeyName{para/tag}] String. It allows to change the inner
-  tag used in the following automatically tagged paragraphs. The
-  setting is local.
-
-\item[\PrintKeyName{para/flattened}] Boolean. If set it will suppress
-  the outer structure in the automatic paratagging.  This should be
-  applied to the start and end hook in the same way! The setting is
-  local.
-
-\end{description}
-
+These commands are deprecated. Tagging sockets (documented in source2e) should be used instead. 
 
 
 \section{Tagging}
