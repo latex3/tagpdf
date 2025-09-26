@@ -238,11 +238,13 @@
 %
 % \subsection{a LastPage label}
 % With LaTeX 2025-06-01 we no longer need a special version as the label is now
-% written directly.
+% written directly. To avoid problems with the xr package, we undefine the label command
+% before reading the aux-file.
 %    \begin{macrocode}
 %<*package>
- \AddToHook{enddocument/afterlastpage}
-  {\property_record:nn{@tag@LastPage}{abspage,tagmcabs,tagstruct}} 
+\AddToHook{begindocument/before}{\cs_undefine:N\r@@tag@LastPage}
+\AddToHook{enddocument/afterlastpage}
+ {\property_record:nn{@tag@LastPage}{abspage,tagmcabs,tagstruct}} 
 %    \end{macrocode}
 %
 % \section{Variables}

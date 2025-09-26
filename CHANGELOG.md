@@ -5,6 +5,12 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [Unreleased]
+
+### Fixed
+    - undefine internal LastPage label, tagging issue 959
+    - documentation clean-up
+    
 ## [2025-07-16]
 ### Fixed 
 	- link error with luatex, issue #120
