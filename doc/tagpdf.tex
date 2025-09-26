@@ -4,8 +4,8 @@
 % Note on the compilation of the documentation:
 % The documentation uses for the tagging sometimes code 
 % that is under development and/or not public yet. 
-% To compile an *untagged* documentation, comment the line with
-% the testphase keys in the following \DocumentMetadata command. 
+% To compile an *untagged* documentation, replace tagging=on by 
+% tagging=of in the following \DocumentMetadata command. 
 
 \DocumentMetadata
  {
@@ -556,8 +556,7 @@ maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|.
   is that one doesn't have to mark up every deco rule oneself. The
   danger is that it perhaps marks things that shouldn't be marked --
   it hasn't been tested yet with complicated documents containing
-  annotations etc. See also section~\ref{sec:lazy} for a discussion
-  about automatic tagging.
+  annotations etc. 
   
 \item[\PrintKeyName{viewer/startstructure}] A structure number. If a \texttt{OpenAction}
 is set in the PDF Catalog (which is normally the case if hyperref is used) 
@@ -1359,7 +1358,7 @@ trial step, but this will need better support from these environments.
 
 Typically using this commands is not often needed: Since version 0.81
 \pkg{tagpdf} already handles (unnested) links, and form fields created
-with the \pkg{l3pdffield-testphase} package will be handle by this
+with the \pkg{l3pdffield} package will be handled by this
 package.
 
 The following listing shows low-level to create link where the two
@@ -2097,23 +2096,6 @@ These commands are now deprecated in favor or |\tag_suspend:n| and |\tag_resume:
 but are still provided for some time. 
 
 
-\subsection{Lazy and automatic tagging}\label{sec:lazy}
-
-
-A number of features of \PDF{} readers need a fully tagged \PDF{}. As
-an example screen readers tend to ignore alternative text (see
-section~\ref{sec:alt}) if the \PDF{} is not fully tagged. Also
-reflowing a \PDF{} only works for me (even if real space chars are in
-the \PDF{}) if the \PDF{} is fully tagged (recent versions of the
-adobe reader manage to reflow also not tagged \PDF{} but it is very
-slow).
-
-This means that even if you don't care about a proper structure you
-should try to add at least some minimal tagging. With the now
-available automatic tagging of paragraphs all that is needed, is to
-use |testphase=phase-II| in |\DocumentMetadata|.  With lualatex this
-can work quite OK if you don't have unbalanced paragraphs in your
-document (pdflatex is more fragile).
 
 
 \subsection{Adding tagging to commands}
