@@ -1053,8 +1053,9 @@ The key-val list understands the following keys:
   \texttt{/ActualText} can actually be used in a MC dictionary or if it 
   should be in a separate BDC-operator. 
 
-\item[\PrintKeyName{lang}] This (experimental) key allows to add a \texttt{/Lang} entry on the MC. This is not conforming to the PDF specification but it works in Adobe reader. The value is a BCP-string, e.g. \texttt{en} or \texttt{de}. With \verb+\setmclang{fr}+ it is possible to set the key for all MC in the current group.
-
+\item[\PrintKeyName{lang}] This (experimental) key allows to add a \texttt{/Lang} entry on the MC. This probably is not conforming to the PDF specification but it works in Adobe reader. The value is a BCP-string, e.g. \texttt{en} or \texttt{de}. 
+    The key is not so useful as you typically want to the set `/Lang` entry on all MC inside a region or structure. Once the requirements of the PDF specification has been clarified the interface will be extended. 
+ 
   \item[\PrintKeyName{raw}] This key allows you to add more entries to the 
       properties dictionary. The value must be correct, low-level \PDF{}. 
       E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text. 
