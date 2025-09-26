@@ -5,15 +5,16 @@
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 %\mathitalicsmode=2
-\DocumentMetadata{xmp=false} 
+\DocumentMetadata{tagging=off,xmp=false} 
+\tagpdfsetup{attach-css=false}
 \input{regression-test} 
 \documentclass[a4paper]{article}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage[english]{babel}
-\usepackage{tagpdf}
-\tagpdfsetup{attach-css=false}
-\tagpdfsetup{activate/all,activate/spaces,debug/show=spaces}
+\ExplSyntaxOn
+\keys_set:nn{__tag / setup}{activate/spaces}
+\ExplSyntaxOff
 \usepackage{kantlipsum}
 \begin{document}\START\showoutput
 
