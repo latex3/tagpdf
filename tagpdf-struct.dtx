@@ -538,42 +538,12 @@
 % TODO: remove after 11/2024 release. 
 %    \begin{macrocode}
 \prop_new_linked:N \g_@@_struct_ref_by_dest_prop
+%</package>  
 %    \end{macrocode}
 % \end{variable} 
 % 
 % \section{Commands}
-%
-% The properties must be in some places handled expandably.
-% So I need an output handler for each prop, to get expandable output
-% see \url{https://tex.stackexchange.com/questions/424208}.
-% There is probably room here for a more efficient implementation.
-% TODO check if this can now be implemented with the pdfdict commands.
-% The property contains currently non pdf keys, but e.g. object numbers are
-% perhaps no longer needed as we have named object anyway.
-%
-% \begin{macro}{\@@_struct_output_prop_aux:nn,\@@_new_output_prop_handler:n}
-%    \begin{macrocode}
-\cs_new:Npn \@@_struct_output_prop_aux:nn #1 #2 %#1 num, #2 key
-  {
-    \prop_if_in:cnT
-      { g_@@_struct_#1_prop }
-      { #2 }
-      {
-        \c_space_tl/#2~ \prop_item:cn{ g_@@_struct_#1_prop } { #2 }
-      }
-  }
 
-\cs_new_protected:Npn \@@_new_output_prop_handler:n #1
-  {
-    \cs_new:cn { @@_struct_output_prop_#1:n }
-      {
-        \@@_struct_output_prop_aux:nn {#1}{##1}
-      }
-  }
-%</package>  
-%    \end{macrocode}
-% \end{macro}
-%
 % \begin{macro}{\@@_struct_prop_gput:nnn}
 % The structure props must be filled in various places.
 % For this we use a common command which also takes care of the debug package: 
@@ -614,7 +584,6 @@
 %    \begin{macrocode}
 %<*package>
 \@@_prop_new:c { g_@@_struct_1_prop }
-\@@_new_output_prop_handler:n {1}
 \@@_seq_new:c  { g_@@_struct_kids_1_seq }
 
 \@@_struct_prop_gput:nne
@@ -1989,7 +1958,6 @@
         \int_gincr:N \c@g_@@_struct_abs_int
         \@@_prop_new:c  { g_@@_struct_\int_eval:n { \c@g_@@_struct_abs_int }_prop }
 %<debug>         \prop_new:c { g_@@_struct_debug_\int_eval:n {\c@g_@@_struct_abs_int}_prop }    
-        \@@_new_output_prop_handler:n {\int_eval:n { \c@g_@@_struct_abs_int }}
         \@@_seq_new:c  { g_@@_struct_kids_\int_eval:n { \c@g_@@_struct_abs_int }_seq}
 %<debug>         \seq_new:c { g_@@_struct_debug_kids_\int_eval:n {\c@g_@@_struct_abs_int}_seq }            
           \pdf_object_new_indexed:nn { @@/struct }
