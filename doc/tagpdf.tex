@@ -4,8 +4,8 @@
 % Note on the compilation of the documentation:
 % The documentation uses for the tagging sometimes code 
 % that is under development and/or not public yet. 
-% To compile an *untagged* documentation, comment the line with
-% the testphase keys in the following \DocumentMetadata command. 
+% To compile an *untagged* documentation, replace tagging=on by 
+% tagging=of in the following \DocumentMetadata command. 
 
 \DocumentMetadata
  {
@@ -461,11 +461,7 @@ The command should be normally used only in the preamble
 
 The key-val list understands at least the following keys. More keys are defined in some of the latex-lab module, see table~\ref{tab:setupkey} for an overview which also includes older, now deprecated names.
 
-%\begin{table}
-%\makeatletter \bookmark[dest=\@currentHref,level=section]{List of keys}\makeatother
-%\caption{Overview over keys for \cs{tagpdfsetup}}\label{tab:setupkey}
-
-%\end{table}
+The command is deactivated before the class is loaded if the key |tagging=off| is used in \cs{DocumentMetadata} and then does nothing. 
 
 \begin{description}
 \item[\PrintKeyName{activate/all}] Boolean, initially false. Activates
@@ -498,7 +494,8 @@ The key-val list understands at least the following keys. More keys are defined 
 \item[\PrintKeyName{activate/spaces}] Boolean. The key
   activates/deactivates the insertion of space glyphs, see
   section~\ref{sec:spacechars}. In the luamode it only works if at
-  least \PrintKeyName{activate/mc} has been used.
+  least \PrintKeyName{activate/mc} has been used. It is on by default if you use 
+  |tagging=on| in \cs{DocumentMetadata}. The |tagging=off| key of \cs{DocumentMetadata} deactivates it. 
   The old name of the key |interwordspace| is still supported but deprecated.
 
 \item[\PrintKeyName{activate/softhyphen}] Boolean. luamode only.
@@ -531,16 +528,11 @@ maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|.
   used by the paratagging code. The default tag is \texttt{text}, a
   \LaTeX{} specific tag that is role mapped to \texttt{P}. A useful
   local setting here can be \texttt{NonStruct}, which creates a
-  structure \enquote{without meaning}. For local changes it is
-  recommended to use the newer \cs{tagtool} command described below
-  instead of \cs{tagpdfsetup}.
+  structure \enquote{without meaning}. 
 
 \item[\PrintKeyName{para/maintag}] String. This key changes the first tag
   used by the paratagging code. The default tag is \texttt{text-unit}, a
   \LaTeX{} specific tag that is role mapped to \texttt{Part}. 
-  For local changes it is
-  recommended to use the newer \cs{tagtool} command described below
-  instead of \cs{tagpdfsetup}.
 
 \item[\PrintKeyName{page/tabsorder}] Choice key, possible values are
   \PrintKeyName{row}, \PrintKeyName{column}, \PrintKeyName{structure},
@@ -556,8 +548,7 @@ maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|.
   is that one doesn't have to mark up every deco rule oneself. The
   danger is that it perhaps marks things that shouldn't be marked --
   it hasn't been tested yet with complicated documents containing
-  annotations etc. See also section~\ref{sec:lazy} for a discussion
-  about automatic tagging.
+  annotations etc. 
   
 \item[\PrintKeyName{viewer/startstructure}] A structure number. If a \texttt{OpenAction}
 is set in the PDF Catalog (which is normally the case if hyperref is used) 
@@ -607,33 +598,7 @@ key can be used more than once, the last setting will win.
  }
 \end{docCommands}
 
-The tagging of document elements requires a variety of small
-commands. This command will unify them under a common interface. This
-is work-in-progress and syntax and implementation can change! While
-the argument looks like a key-val \emph{list} (and currently is
-actually one), this should not be relied on. Instead only one argument
-should be used as the implementation will change to improve the
-speed. Currently the following arguments are supported
-
-\begin{description}
-\item[\PrintKeyName{para/tagging}] Boolean. It will replace the
-  \cs{tagpdfparaOn} and \cs{tagpdfparaOff} command.
-
-\item[\PrintKeyName{para/maintag}] String. It allows to change the outer
-  tag used in the following automatically tagged paragraphs. The
-  setting is local.
-
-\item[\PrintKeyName{para/tag}] String. It allows to change the inner
-  tag used in the following automatically tagged paragraphs. The
-  setting is local.
-
-\item[\PrintKeyName{para/flattened}] Boolean. If set it will suppress
-  the outer structure in the automatic paratagging.  This should be
-  applied to the start and end hook in the same way! The setting is
-  local.
-
-\end{description}
-
+These commands are deprecated. Tagging sockets (documented in source2e) should be used instead. 
 
 
 \section{Tagging}
@@ -1053,8 +1018,9 @@ The key-val list understands the following keys:
   \texttt{/ActualText} can actually be used in a MC dictionary or if it 
   should be in a separate BDC-operator. 
 
-\item[\PrintKeyName{lang}] This (experimental) key allows to add a \texttt{/Lang} entry on the MC. This is not conforming to the PDF specification but it works in Adobe reader. The value is a BCP-string, e.g. \texttt{en} or \texttt{de}. With \verb+\setmclang{fr}+ it is possible to set the key for all MC in the current group.
-
+\item[\PrintKeyName{lang}] This (experimental) key allows to add a \texttt{/Lang} entry on the MC. This probably is not conforming to the PDF specification but it works in Adobe reader. The value is a BCP-string, e.g. \texttt{en} or \texttt{de}. 
+    The key is not so useful as you typically want to the set `/Lang` entry on all MC inside a region or structure. Once the requirements of the PDF specification has been clarified the interface will be extended. 
+ 
   \item[\PrintKeyName{raw}] This key allows you to add more entries to the 
       properties dictionary. The value must be correct, low-level \PDF{}. 
       E.g. \verb+raw=/Alt (Hello)+ will insert an alternative Text. 
@@ -1358,7 +1324,7 @@ trial step, but this will need better support from these environments.
 
 Typically using this commands is not often needed: Since version 0.81
 \pkg{tagpdf} already handles (unnested) links, and form fields created
-with the \pkg{l3pdffield-testphase} package will be handle by this
+with the \pkg{l3pdffield} package will be handled by this
 package.
 
 The following listing shows low-level to create link where the two
@@ -2096,23 +2062,6 @@ These commands are now deprecated in favor or |\tag_suspend:n| and |\tag_resume:
 but are still provided for some time. 
 
 
-\subsection{Lazy and automatic tagging}\label{sec:lazy}
-
-
-A number of features of \PDF{} readers need a fully tagged \PDF{}. As
-an example screen readers tend to ignore alternative text (see
-section~\ref{sec:alt}) if the \PDF{} is not fully tagged. Also
-reflowing a \PDF{} only works for me (even if real space chars are in
-the \PDF{}) if the \PDF{} is fully tagged (recent versions of the
-adobe reader manage to reflow also not tagged \PDF{} but it is very
-slow).
-
-This means that even if you don't care about a proper structure you
-should try to add at least some minimal tagging. With the now
-available automatic tagging of paragraphs all that is needed, is to
-use |testphase=phase-II| in |\DocumentMetadata|.  With lualatex this
-can work quite OK if you don't have unbalanced paragraphs in your
-document (pdflatex is more fragile).
 
 
 \subsection{Adding tagging to commands}
