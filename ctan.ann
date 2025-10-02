@@ -1,9 +1,7 @@
-## [2025-07-16]
-Version 0.99u
+## [2025-10-02]
+Version 0.99v
 
-### Fixed 
-	- link error with luatex, issue #120
-
-### Changed
-	- use new block code in documentation
-	- updated some examples
+### Fixed
+    - undefine internal LastPage label, tagging issue 959
+    - documentation clean-up
+    - removed unneeded csname in tagpdf-struct to reduce memory usage

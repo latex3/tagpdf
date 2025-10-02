@@ -10,6 +10,7 @@ this project uses date-based 'snapshot' version identifiers.
 ### Fixed
     - undefine internal LastPage label, tagging issue 959
     - documentation clean-up
+    - removed unneeded csname in tagpdf-struct to reduce memory usage
     
 ## [2025-07-16]
 ### Fixed 
