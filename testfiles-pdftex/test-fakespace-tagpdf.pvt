@@ -4,8 +4,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false,pdfversion=1.7,testphase=
-phase-I} 
+\DocumentMetadata{xmp=false,pdfversion=1.7,tagging=off} 
 \input{regression-test}
 
 \documentclass[a4paper]{article}
@@ -14,9 +13,11 @@ phase-I}
 \usepackage[english]{babel}
 \usepackage{kantlipsum}
 \tagpdfsetup{attach-css=false}
+\ExplSyntaxOn
+\keys_set:nn{__tag / setup}{activate/spaces}
+\ExplSyntaxOff
 \begin{document}\START\showoutput
 
-\tagstructbegin{tag=Document}
 ab
 
 a\pdffakespace b
@@ -39,8 +40,9 @@ c &=d
 
 VA VA abc\hspace{0pt}abc abc""abc
 abc abc \sffamily abc abc
-\tagmcbegin{tag=P}\kant[1]\tagmcend
+
+\kant[1]
 
 \fontencoding{T1}\selectfont abc abc
-\tagstructend
+
 \end{document} 
