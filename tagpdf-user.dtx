@@ -824,8 +824,8 @@
 \tl_new:N   \l_@@_para_tag_tl
 \tl_set:Nn  \l_@@_para_tag_tl { \l_@@_para_tag_default_tl }
 \tl_new:N   \l_@@_para_main_tag_tl
-\cs_if_exist:NT \UseStructureName
- {   
+\IfFormatAtLeastTF{2025-11-01}
+ {
    \tl_set:Nn  \l_@@_para_tag_default_tl { \UseStructureName {para/textblock} }
    \tl_set:Nn  \l_@@_para_main_tag_tl    { \UseStructureName {para/semantic} }
  }
@@ -833,6 +833,7 @@
    \tl_set:Nn  \l_@@_para_tag_default_tl { text }
    \tl_set:Nn  \l_@@_para_main_tag_tl    {text-unit}
  }
+
 %    \end{macrocode}
 % this is perhaps already defined by the block code
 %    \begin{macrocode}
