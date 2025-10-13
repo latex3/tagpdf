@@ -105,6 +105,7 @@
     \sys_if_output_pdf:TF
       {
         \pdfglyphtounicode{space}{0020}
+        \AddToHook{shipout/firstpage}[tagpdf/space]{}
         \keys_define:nn { @@ / setup }
           {
             activate/spaces/true .code:n  = { \AddToHook{shipout/firstpage}[tagpdf/space]{\pdfinterwordspaceon} },
