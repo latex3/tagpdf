@@ -1427,7 +1427,48 @@
 % With luatex we make use of the lualinksplit package to get
 % OBJR of all annotations into the Link structure, so the hook code
 % should not contain the command to insert the OBJR into the structure.
+% 
+% At first we provide some commands that will be in the next LaTeX release (11/2025)
 %    \begin{macrocode}
+\AddToHookNext{class/before}
+ {
+   \cs_if_exist:NF \UseStructureName
+    {
+      \cs_new:Npn\UseStructureName#1
+       {
+         \cs:w l_@@_name_#1_tl\cs_end:
+       }
+    }
+   \cs_if_exist:NF \l_@@_name_link_tl
+    {
+      \tl_new:N  \l_@@_name_link_tl
+      \tl_set:Nn \l_@@_name_link_tl{Link}
+    }
+ }
+%    \end{macrocode}
+% Tagging sockets for links
+%    \begin{macrocode}
+\NewTaggingSocket{link/before}{1}
+\NewTaggingSocketPlug{link/before}{kernel}
+ { 
+   \mode_leave_vertical:
+   \tag_mc_end_push:
+   \tag_struct_begin:n { tag=\UseStructureName{link} }
+   \tag_mc_begin:n {}
+   #1
+ }
+\AssignTaggingSocketPlug{link/before}{kernel}
+\NewTaggingSocket{link/after}{1}
+\NewTaggingSocketPlug{link/after}{kernel}
+ {
+   #1
+   \tag_mc_end:
+   \tag_struct_end:
+   \tag_mc_begin_pop:n{}
+ }
+\AssignTaggingSocketPlug{link/after}{kernel}
+
+
 \bool_lazy_and:nnTF
  { \sys_if_engine_luatex_p: }
  {
@@ -1444,88 +1485,68 @@
      {pdfannot/link/URI/before}
      {tagpdf}
      {
-       \tag_mc_end_push:
-       \tag_struct_begin:n { tag=Link }
-       \tag_mc_begin:n { tag=Link }
+       \UseTaggingSocket{link/before}{}
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/URI/after}
      {tagpdf}
      {
-        \tag_mc_end:
-        \tag_struct_end:
-        \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}{}
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/GoTo/before}
      {tagpdf}
      {
-        \tag_mc_end_push:
-        \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link}
+       \UseTaggingSocket{link/before}{}
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/GoTo/after}
      {tagpdf}
      {
-       \tag_mc_end:
-       \tag_struct_end:
-       \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}{}
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/GoToR/before}
      {tagpdf}
      {
-        \tag_mc_end_push:
-        \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link}
+       \UseTaggingSocket{link/before}
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/GoToR/after}
      {tagpdf}
      {
-       \tag_mc_end:
-       \tag_struct_end:
-       \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}{}
      }
    \hook_gput_code:nnn
      {pdfannot/link/Launch/before}
      {tagpdf}
      {
-        \tag_mc_end_push:
-        \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link}
+       \UseTaggingSocket{link/before}{}
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/Launch/after}
      {tagpdf}
      {
-       \tag_mc_end:
-       \tag_struct_end:
-       \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}{}
      }
    \hook_gput_code:nnn
      {pdfannot/link/Named/before}
      {tagpdf}
      {
-        \tag_mc_end_push:
-        \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link}
+       \UseTaggingSocket{link/before}{}
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/Named/after}
      {tagpdf}
      {
-       \tag_mc_end:
-       \tag_struct_end:
-       \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}{}
      }
  }
  {
@@ -1533,114 +1554,119 @@
      {pdfannot/link/URI/before}
      {tagpdf}
      {
-       \tag_mc_end_push:
-       \tag_struct_begin:n { tag=Link }
-       \tag_mc_begin:n { tag=Link }
-       \pdfannot_dict_put:nne
-         { link/URI }
-         { StructParent }
-         { \tag_struct_parent_int: }
+       \UseTaggingSocket{link/before}
+        {       
+         \pdfannot_dict_put:nne
+           { link/URI }
+           { StructParent }
+           { \tag_struct_parent_int: }
+        } 
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/URI/after}
      {tagpdf}
      {
-        \tag_struct_insert_annot:ee {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
-        \tag_mc_end:
-        \tag_struct_end:
-        \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}
+        { 
+         \tag_struct_insert_annot:ee 
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
+        } 
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/GoTo/before}
      {tagpdf}
      {
-        \tag_mc_end_push:
-        \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link}
-        \pdfannot_dict_put:nne
-          { link/GoTo }
-          { StructParent }
-          { \tag_struct_parent_int: }
+       \UseTaggingSocket{link/before}
+        {       
+         \pdfannot_dict_put:nne
+           { link/GoTo }
+           { StructParent }
+           { \tag_struct_parent_int: }
+        } 
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/GoTo/after}
      {tagpdf}
      {
-       \tag_struct_insert_annot:ee {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
-       \tag_mc_end:
-       \tag_struct_end:
-       \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}
+        { 
+         \tag_struct_insert_annot:ee 
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
+        } 
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/GoToR/before}
      {tagpdf}
      {
-        \tag_mc_end_push:
-        \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link}
-        \pdfannot_dict_put:nne
-          { link/GoToR }
-          { StructParent }
-          { \tag_struct_parent_int: }
+        \UseTaggingSocket{link/before}
+        {       
+         \pdfannot_dict_put:nne
+           { link/GoToR }
+           { StructParent }
+           { \tag_struct_parent_int: }
+        } 
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/GoToR/after}
      {tagpdf}
      {
-       \tag_struct_insert_annot:ee {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
-       \tag_mc_end:
-       \tag_struct_end:
-       \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}
+        { 
+         \tag_struct_insert_annot:ee 
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
+        } 
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/Named/before}
      {tagpdf}
      {
-        \tag_mc_end_push:
-        \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link}
-        \pdfannot_dict_put:nne
-          { link/Named }
-          { StructParent }
-          { \tag_struct_parent_int: }
+       \UseTaggingSocket{link/before}
+        {       
+         \pdfannot_dict_put:nne
+           { link/Named }
+           { StructParent }
+           { \tag_struct_parent_int: }
+        } 
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/Named/after}
      {tagpdf}
      {
-       \tag_struct_insert_annot:ee {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
-       \tag_mc_end:
-       \tag_struct_end:
-       \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}
+        { 
+         \tag_struct_insert_annot:ee 
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
+        } 
      }
    \hook_gput_code:nnn
      {pdfannot/link/Launch/before}
      {tagpdf}
      {
-        \tag_mc_end_push:
-        \tag_struct_begin:n{tag=Link}
-        \tag_mc_begin:n{tag=Link}
-        \pdfannot_dict_put:nne
-          { link/Launch }
-          { StructParent }
-          { \tag_struct_parent_int: }
+        \UseTaggingSocket{link/before}
+         {       
+           \pdfannot_dict_put:nne
+             { link/Launch }
+             { StructParent }
+             { \tag_struct_parent_int: }
+         } 
      }
 
    \hook_gput_code:nnn
      {pdfannot/link/Launch/after}
      {tagpdf}
      {
-       \tag_struct_insert_annot:ee {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
-       \tag_mc_end:
-       \tag_struct_end:
-       \tag_mc_begin_pop:n{}
+       \UseTaggingSocket{link/after}
+        { 
+         \tag_struct_insert_annot:ee 
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
+        } 
      }
   }
 %    \end{macrocode}
