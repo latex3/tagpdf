@@ -1448,7 +1448,11 @@
 %    \end{macrocode}
 % Tagging sockets for links
 %    \begin{macrocode}
-\NewTaggingSocket{link/before}{1}
+\socket_if_exist:nF {link/before}
+ { 
+   \NewTaggingSocket{link/before}{1} 
+   \NewTaggingSocket{link/after}{1}
+ }
 \NewTaggingSocketPlug{link/before}{kernel}
  { 
    \mode_leave_vertical:
@@ -1458,7 +1462,7 @@
    #1
  }
 \AssignTaggingSocketPlug{link/before}{kernel}
-\NewTaggingSocket{link/after}{1}
+
 \NewTaggingSocketPlug{link/after}{kernel}
  {
    #1
