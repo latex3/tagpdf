@@ -389,7 +389,7 @@ Various parts of the code differentiate between \PDF{} version 2.0 and lower ver
 If \PDF{} 1.7 is wanted it is required to set the version early in the first \cs{DocumentMetadata}
 command so that \pkg{tagpdf} can pick up the correct code path. 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \DocumentMetadata
  {
    tagging=on,
@@ -399,7 +399,7 @@ command so that \pkg{tagpdf} can pick up the correct code path.
 \begin{document}
 some text
 \end{document}
-\end{taglstlisting}
+\end{lstlisting}
 
 \minisec{Deactivation}
 
@@ -414,10 +414,10 @@ then do the same as |\DocumentMetadata{tagging=off}|. This also deactivates the 
 It is not recommended anymore, but the package can also be loaded
 normally with |\usepackage| or |\RequirePackage|. But it still requires 
 the \PDF\ management, so you need to do something like this:
-\begin{taglstlisting}
+\begin{lstlisting}
 \RequirePackage{pdfmanagement}
 \RequirePackage{tagpdf}
-\end{taglstlisting}
+\end{lstlisting}
 
 But it will then -- apart from loading more packages and defining a lot of things
 -- not do much. You will have to \emph{activate} it
@@ -609,7 +609,7 @@ at various coordinates on a page. A simple stream of a page can look
 like this\footnote{The appendix contains some remarks about the syntax
 of a \PDF{} file}:
 
-\begin{taglstlisting}[columns=fixed]
+\begin{lstlisting}[columns=fixed]
 stream
    BT
    /F27 14.3462 Tf                 %select font
@@ -622,7 +622,7 @@ stream
     [(1)]TJ                        %print text
    ET
 endstream
-\end{taglstlisting}
+\end{lstlisting}
 
 
 From this stream one can extract the characters and their placement on the page 
@@ -752,11 +752,11 @@ called \enquote{marked content}. The three main variants needed here are:
     complain. 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 /Artifact BMC
  text to be marked
 /EMC
-\end{taglstlisting}
+\end{lstlisting}
 
 
 
@@ -769,11 +769,11 @@ called \enquote{marked content}. The three main variants needed here are:
     in header and footer can e.g. be declared as pagination like this: 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 /Artifact <</Type /Pagination>> BDC
  text to be marked
 /EMC
-\end{taglstlisting}
+\end{lstlisting}
 
 
 
@@ -793,11 +793,11 @@ data can be stored. \emph{Required} is an \texttt{/MCID}-key which takes an
 integer as a value: 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 /H1 <</MCID 3>> BDC
  text to be marked
 /EMC
-\end{taglstlisting}
+\end{lstlisting}
 
 
 This integer is used to identify the chunk when building the structure 
@@ -815,11 +815,11 @@ title, alternative text or a local language setting.
 The needed markers can be added with low level code e.g. like this (in pdftex syntax):
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \pdfliteral page {/H1 <</MCID 3>> BDC}%
  text to be marked
 \pdfliteral page {EMC}%
-\end{taglstlisting}
+\end{lstlisting}
 
 
 This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
@@ -832,11 +832,11 @@ This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
       section could end on the previous page: 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \pdfliteral page {/H1 <</MCID 3>> BDC} %problem: possible pagebreak here
  \section{mysection}
 \pdfliteral page {EMC}%
-\end{taglstlisting}
+\end{lstlisting}
 
 
   Using the literals \emph{inside} the section argument is better, but then 
@@ -988,10 +988,10 @@ The key-val list understands the following keys:
   That means that you can do something like in the following listing
   and it will insert \verb+\frac{a}{b}+  (hex encoded) in the \PDF{}.
 
-  \begin{taglstlisting}
+  \begin{lstlisting}
   \newcommand\myalttext{\frac{a}{b}}
   \tagmcbegin{tag=P,alt=\myalttext}
-  \end{taglstlisting}
+  \end{lstlisting}
 
 
 
@@ -1007,10 +1007,10 @@ The key-val list understands the following keys:
   it will insert \verb+X+ (hex encoded)  in the \PDF{}. 
 
 
-  \begin{taglstlisting}
+  \begin{lstlisting}
    \newcommand\myactualtext{X}
    \tagmcbegin{tag=Span,actualtext=\myactualtext}
-  \end{taglstlisting}
+  \end{lstlisting}
 
   According to the PDF reference, \texttt{/ActualText} should only be used 
   on marked content sequence of type Span. This is not enforced by the code 
@@ -1151,7 +1151,7 @@ disadvantage that it was difficult for an inner structure to correctly
 interrupt the outer mc-chunk if it can't control the group level. For example 
 this didn't work due to the grouping inserted by the user: 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tagstructbegin{tag=P}
 \tagmcbegin{tag=P}
   Start paragraph
@@ -1167,7 +1167,7 @@ this didn't work due to the grouping inserted by the user:
  Continuation of paragraph
 \tagmcend
 \tagstructend
-\end{taglstlisting}
+\end{lstlisting}
 
 The reading order was then wrong, and the \emph{emphasized text} moved in the structure at the end.
 
@@ -1175,7 +1175,7 @@ So starting with version 0.9 this has been reverted. The attribute is now global
 This solves the \enquote{interruption} problem, but has its price: Material inserted by the output routine
 must be properly guarded. For example
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \DocumentMetadata{uncompress}
 \documentclass{article}
 
@@ -1185,7 +1185,7 @@ must be properly guarded. For example
 \AddToHook{shipout/background}{\put(5cm,-5cm){BACKGROUND}}
 \tagmcbegin{tag=P}Page 1\newpage Page 2\tagmcend
 \end{document}
-\end{taglstlisting}
+\end{lstlisting}
 
 Here the header and the background code on the  \emph{first} page will be marked up as paragraph
 and added as chunk to the document structure. The header and the background code on
@@ -1263,7 +1263,7 @@ structure with the attribute \texttt{/Pagination}.
 If some additional markup (or even a structure) is wanted, something like this should be used (here with
 the syntax of the \pkg{fancyhdr} package) to close the open mc-chunk and restart if after the content:
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \ExplSyntaxOn
 \cfoot{\leavevmode
   \tag_mc_end_push:
@@ -1272,7 +1272,7 @@ the syntax of the \pkg{fancyhdr} package) to close the open mc-chunk and restart
    \tagmcend
   \tag_mc_begin_pop:n{artifact}}
 \ExplSyntaxOff
-\end{taglstlisting}
+\end{lstlisting}
 
 \subsubsection{Links and other annotations}\label{sec:link+annot}
 
@@ -1331,7 +1331,7 @@ The following listing shows low-level to create link where the two
 commands are used:
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \pdfextension startlink
     attr
      {
@@ -1349,7 +1349,7 @@ commands are used:
     This is a link.
 \pdfextension endlink
 \tag_struct_insert_annot:xx {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
-\end{taglstlisting}
+\end{lstlisting}
 
 
 
@@ -1384,13 +1384,13 @@ symbol} has been marked up with tags from MathML along with an
 describes how to read the symbol.  The \PDF{} then looked like this
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 /mn <</MCID 6 /ActualText<FEFF0034>/Alt(  : open bracket: four )>>BDC
 ...
 /mn <</MCID 7 /ActualText<FEFF0033>/Alt(  third s  )>>BDC
 ...
 /mo <</MCID 8 /ActualText<FEFF2062>/Alt(  times  )>>BDC
-\end{taglstlisting}
+\end{lstlisting}
 
 
 If this is really the way to go one would need some script to add the
@@ -1432,7 +1432,7 @@ The example \texttt{mc-manual-para-split} demonstrates how this can be
 done. The general idea was to use \verb+\vadjust+ in the right place:
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tagmcbegin{tag=P}
 ...
 fringilla, ligula wisi commodo felis, ut adipiscing felis dui in
@@ -1441,7 +1441,7 @@ enim. Suspendisse malesuada ultrices ante.% page break
 Pellentesque scelerisque
 ...
 sit amet, lacus.\tagmcend
-\end{taglstlisting}
+\end{lstlisting}
 
 Starting with version 0.92 there is code which resolves this
 problem. Basically it works like this: every mc-command issues a mark
@@ -1488,17 +1488,17 @@ this is to model such \enquote{big} paragraphs with a structure named
 (portions of) the actual paragraph text in a way that the \texttt{P}s are not 
 nested. As a result we have for a simple paragraph two structures: 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 <text-unit>
   <P>
    The paragraph text ...
   </P>
 </text-unit
-\end{taglstlisting}
+\end{lstlisting}
 
  In the case of an element, such as a display quote or a display list
   inside the paragraph, we then have  
-\begin{taglstlisting}
+\begin{lstlisting}
 <text-unit>
   <text>
    The paragraph text before the display element ...
@@ -1510,7 +1510,7 @@ nested. As a result we have for a simple paragraph two structures:
    ... continuing the outer paragraph text
   </text>
 </text-unit>
-\end{taglstlisting}  
+\end{lstlisting}  
 
 
 In other words such a display block is always embedded in a |<text-unit>| 
@@ -1562,12 +1562,12 @@ of your own you must declare them. E.g. this declares two new types
 \texttt{TAB} and {FIG} and bases them on \texttt{P}: 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tagpdfsetup{
   role/new-tag = TAB/P,
   role/new-tag = FIG/P,
             }
-\end{taglstlisting}
+\end{lstlisting}
 
 
 
@@ -1578,12 +1578,12 @@ more (in pdf/UA2 basically deprecated) xml-like version. The flat version
 creates a structure like this: 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 <H1>section header</H1>
 <P> text</P>
 <H2>subsection header</H2>
 ...
-\end{taglstlisting}
+\end{lstlisting}
 
 
 So here the headings are marked according their level with \texttt{H1}, \texttt{H2}, etc.
@@ -1594,7 +1594,7 @@ with the \texttt{Sect} tag, and all headers with the tag \texttt{H}. Here the
 nesting defines the level of a sectioning heading. 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 <Sect>
  <H>section heading</H>
  <P> text</p>
@@ -1603,7 +1603,7 @@ nesting defines the level of a sectioning heading.
    ...
  </Sect>
 </Sect>
-\end{taglstlisting}
+\end{lstlisting}
 
 
 
@@ -1679,10 +1679,10 @@ The key-val list understands the following keys:
    That means that you can do something like this:
 
 
-      \begin{taglstlisting}
+      \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
       \tagstructbegin{tag=P,alt=\myalttext}
-      \end{taglstlisting}
+      \end{lstlisting}
 
 
 
@@ -1700,10 +1700,10 @@ The key-val list understands the following keys:
       
       That means that you can do something like this: 
 
-      \begin{taglstlisting}
+      \begin{lstlisting}
       \newcommand\myactualtext{X}
       \tagstructbegin{tag=P,actualtext=\myactualtext}
-      \end{taglstlisting}
+      \end{lstlisting}
 
 
 
@@ -1717,9 +1717,9 @@ The key-val list understands the following keys:
      attribute dictionary entries in the structure object. As an
      example
 
-      \begin{taglstlisting}
+      \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute= TH-row}
-      \end{taglstlisting}
+      \end{lstlisting}
 
     See also section~\ref{sec:attributes}.
 
@@ -1729,9 +1729,9 @@ The key-val list understands the following keys:
     attribute classes to the structure object. As an example
 
 
-      \begin{taglstlisting}
+      \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute-class= TH-row}
-      \end{taglstlisting}
+      \end{lstlisting}
 
   See also section~\ref{sec:attributes}.
 
@@ -1751,13 +1751,13 @@ The key-val list understands the following keys:
      expected by \verb+\pdf_object_ref:n+ from a current
      \texttt{l3kernel}.  For example:
 
-   \begin{taglstlisting}
+   \begin{lstlisting}
    \group_begin:
    \pdfdict_put:nnn {l_pdffile/Filespec} {AFRelationship}{/Supplement}
    \pdffile_embed_file:nnn{example-input-file.tex}{}{tag/AFtest}
    \group_end:
    \tagstructbegin{tag=P,AF=tag/AFtest}
-   \end{taglstlisting}
+   \end{lstlisting}
 
    As shown, the wanted AFRelationship can be set by filling the dictionary 
    with the value. The mime type is here detected automatically, but for 
@@ -1780,9 +1780,9 @@ The key-val list understands the following keys:
      which is embedded in the PDF as a text file with mime type
      text/plain.
 
-   \begin{taglstlisting}
+   \begin{lstlisting}
    \tagstructbegin{tag=P,AFinline=Some extra text}
-   \end{taglstlisting}
+   \end{lstlisting}
 
    \item[\PrintKeyName{AFinline-o}]
     This is like \verb+AFinline+, but it expands the value once.
@@ -1875,9 +1875,9 @@ as I don't know an use-case) with at least the required key \verb+/O+ (for
 example here an attribute that can be attached to tabular header (type TH) 
 and adds the info that the header is a column header: 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 <</O /Table /Scope /Column>>
-\end{taglstlisting}
+\end{lstlisting}
 
 
 One or more such attributes can be attached to a structure element. It is 
@@ -1894,7 +1894,7 @@ and spaces are allow. The content should be a dictionary without the
 bracket. 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tagpdfsetup
  {
   role/new-attribute =
@@ -1902,7 +1902,7 @@ bracket.
   role/new-attribute =
    {TH-row}{/O /Table /Scope /Row},
   }
-\end{taglstlisting}
+\end{lstlisting}
 
 
 Attributes are only written to the \PDF{} when used, so it is not a problem 
@@ -1918,12 +1918,12 @@ Attributes can then be used with the key \PrintKeyName{attribute} or
 names as argument: 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tagstructbegin{tag=TH,
  attribute-class= {TH-row,TH-col},
  attribute      = {TH-row,TH-col},
  }
-\end{taglstlisting}
+\end{lstlisting}
 
 
 
@@ -1952,7 +1952,7 @@ real documents. If tagging should be usable, the commands must be hidden as
 much as possible inside suitable \LaTeX\ commands and environments. 
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \begin{document}
 
 \tagstructbegin{tag=Document}
@@ -2000,7 +2000,7 @@ much as possible inside suitable \LaTeX\ commands and environments.
   \tagstructend  %Sect
 \tagstructend   %Document
 \end{document}
-\end{taglstlisting}
+\end{lstlisting}
 
 \subsection{Interrupting the tagging}
 
@@ -2037,7 +2037,7 @@ The \meta{label} can be used to identify the command in debugging message. The l
 The commands are the L3-layer versions of |\SuspendTagging| and |\ResumeTagging|
 and will be available in the kernel with the 2024 november release. 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tag_suspend:n{\outercommand}
  ...
  \tag_suspend:n{\innercommand}
@@ -2045,7 +2045,7 @@ and will be available in the kernel with the 2024 november release.
  \tag_resume:n{\innercommand}
  ...
 \tag_resume:n{\outercommand}
-\end{taglstlisting} 
+\end{lstlisting} 
  
 \begin{docCommands}
  {
@@ -2070,11 +2070,11 @@ but are still provided for some time.
 As mentioned above the mc-markers should not be nested. Basically you write:
 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tagmcbegin{..}some text ...\tagmcend
 <optional structure commands>
 \tagmcbegin{..}some other text\tagmcend
-\end{taglstlisting}
+\end{lstlisting}
 
 
 This is quite workable as long as you mark everything manually. But
@@ -2136,9 +2136,9 @@ role mapping is a simple key-value in the RoleMap dictionary.
 So instead of |H1| the type |section| could be used. The role mapping
 can then be declared with the |role/new-tag| key:
 
-\begin{taglstlisting}
+\begin{lstlisting}
  \tagpdfsetup{role/new-tag = section/H1}
-\end{taglstlisting}
+\end{lstlisting}
 
 In PDF 2.0 the situation is a bit more complicated. At first PDF~2.0
 introduced \emph{name spaces}.  That means that a type can have more
@@ -2241,10 +2241,10 @@ most cases do the right thing.
  \item[unknown key] An unknown key is interpreted as a |tag/role|,
    this preserves the old syntax. So this two calls are equivalent:
 
-   \begin{taglstlisting}
+   \begin{lstlisting}
     \tagpdfsetup{role/new-tag = section/H1}
     \tagpdfsetup{role/new-tag = {tag=section,role=H1}}
-   \end{taglstlisting}
+   \end{lstlisting}
 
 \end{description}
 
@@ -2266,9 +2266,9 @@ As mentioned above new tags are created by default in the user namespace.
 Namespaces are identified through an ID which is normally given as an URI. 
 By default tagpdf creates an random URI for the user namespace but it is possible to change that:
 
-\begin{taglstlisting}
+\begin{lstlisting}
  \tagpdfsetup{role/user-NS = somestring}
-\end{taglstlisting}
+\end{lstlisting}
 
 will create use the URI \texttt{https://www.latex-project.org/ns/local/somestring} as ID for the namespace.
 
@@ -2322,7 +2322,7 @@ log-level is increased.
 
 Typical messages will look then like this
 
-\begin{taglstlisting}[mathescape]
+\begin{lstlisting}[mathescape]
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -2330,7 +2330,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Ruby'.
 (tagpdf)                Relation is not allowed! on line ...
 (tagpdf)                struct 67, text-unit --> struct 68, Ruby
-\end{taglstlisting}
+\end{lstlisting}
 
 
 The descriptions of the parent and child are rather verbose as the checks 
@@ -2364,15 +2364,15 @@ Be aware
 
   
 Parent-child checks are not fast, so there is an option to disable them
-\begin{taglstlisting}
+\begin{lstlisting}
  \tagpdfsetup{debug/parent-child-check=off}
-\end{taglstlisting}
+\end{lstlisting}
 This will be speed up the compilation but should be used with care, parent-child checks are an important tool to detect faulty structures!
 
 They can be reenabled with
-\begin{taglstlisting}
+\begin{lstlisting}
  \tagpdfsetup{debug/parent-child-check=on}
-\end{taglstlisting}
+\end{lstlisting}
 
 When using lualatex there is also the value \texttt{atend}. This disables the inline checks, but at the end of the document, the lua code will go through the structures and check the rules.  
 
@@ -2497,12 +2497,12 @@ If no tagging commands were used (or if they were inactive) when the box
 was stored then there is no problem to use this box with 
 pdf\LaTeX{}/generic mode in various places. So 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \newbox\mybox
 The\setbox\mybox\hbox{yellow} duck
 
 The \box\mybox{} sun
-\end{taglstlisting}
+\end{lstlisting}
 
 will produce (assuming para tagging is activated) the paragraph structures 
 \enquote{The duck} and \enquote{The yellow sun}. 
@@ -2518,11 +2518,11 @@ sun}.
 
 The solution here is to reset the attributes before using the box: 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 The\setbox\mybox\hbox{yellow} duck
 
 The \tag_mc_reset_box:N\mybox\box\mybox{} sun
-\end{taglstlisting}
+\end{lstlisting}
 
 
 The box can in both modes be used without problems many times. 
@@ -2534,29 +2534,29 @@ We assume in the following that the box contains only well balanced tagging
 commands and no parts that are \enquote{untagged}. It should be possible to 
 copy the whole box inside a \verb+\tagstructbegin+/\hspace{0pt}\verb+\tagstructend+ 
 pair. So the following is fine as box content 
-\begin{taglstlisting}
+\begin{lstlisting}
 box=\tagstructbegin{...}\tagmcbegin{} balanced content\tagmcend\tagstructend
 box=
   \tagmcbegin{}text\tagmcend 
   \tagstructbegin{...}\tagmcbegin{} balanced content\tagmcend\tagstructend
   \tagmcbegin{}text\tagmcend 
-\end{taglstlisting}
+\end{lstlisting}
 but this not (this case could probably be handled nevertheless with a bit 
 care at least in lua mode) 
-\begin{taglstlisting}
+\begin{lstlisting}
 box= text\tagmcend\tagstructbegin{...}...\tagstructend\tagmcbegin{}text
-\end{taglstlisting}
+\end{lstlisting}
 and this is absolutely unusable: 
-\begin{taglstlisting}
+\begin{lstlisting}
 box= text\tagmcend\tagstructbegin{...}\tagmcbegin{}text
-\end{taglstlisting}
+\end{lstlisting}
 
 We also assume that we want to move the structure of the box to the place 
 where the box is used (if the structure should stay where the box is saved, 
 simply save it and that will happen). For this we must add a structure that 
 we can stash and label. 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tag_mc_end_push: % interrupt an open mc
 \tagstructbegin{tag=NonStruct,stash}
  \edef\myboxnum{\tag_get:n{struct_num}} % store structure number
@@ -2564,17 +2564,17 @@ we can stash and label.
    {content}
 \tagstructend
 \tag_mc_begin_pop:n{}% restart open mc
-\end{taglstlisting}
+\end{lstlisting}
 
 At the place where the box is then used we also have to inject this 
 structure: 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 \tag_mc_end_push: % interrupt an open mc
 \tag_struct_use_num:n {\myboxnum} % use structure
 \box\mybox             % use box   
 \tag_mc_begin_pop:n{}% restart open mc
-\end{taglstlisting}
+\end{lstlisting}
 
 With pdf\LaTeX{} Boxes with tagging commands can currently be used only 
 once. The tagging commands set labels and reusing the box gives multiple 
@@ -3218,7 +3218,7 @@ examples and remarks easier to understand.
   \texttt{<</Type/Page/Contents 3 0 R/Resources 1 0 R/Parent 5 0 R>>}\\
   but at least for examples a layout with line breaks and indentation is more readable:
 
-    \begin{taglstlisting}
+    \begin{lstlisting}
     <<
       /Type      /Page
       /Contents  3 0 R
@@ -3226,7 +3226,7 @@ examples and remarks easier to understand.
       /MediaBox  [0 0 595.276 841.89]
       /Parent    5 0 R
     >>
-    \end{taglstlisting}
+    \end{lstlisting}
 
 
 
@@ -3256,7 +3256,7 @@ examples and remarks easier to understand.
   the second displaces the reference point on the page and the third 
   inserts the text. 
 
-  \begin{taglstlisting}
+  \begin{lstlisting}
   % a page object (shortened)
   2 0 obj
     <<
@@ -3276,7 +3276,7 @@ examples and remarks easier to understand.
     ET
    endstream
   endobj
-  \end{taglstlisting}
+  \end{lstlisting}
 
  In such a stream the \texttt{BT}--\texttt{ET} pair encloses texts while 
  drawing and graphics are outside of such pairs. 
@@ -3285,7 +3285,7 @@ examples and remarks easier to understand.
     index objects by numbers. In the core is an array with number-value 
     pairs. A simple version of number tree which has the keys 0 and 3 is 
 
-\begin{taglstlisting}
+\begin{lstlisting}
 6 0 obj
 <<
   /Nums [
@@ -3294,7 +3294,7 @@ examples and remarks easier to understand.
         ]
 >>
 endobj
-\end{taglstlisting}
+\end{lstlisting}
 
 This maps 0 to an array and 2 to the object reference \texttt{21 0 R}. 
 Number trees can be split over various nodes -- root, intermediate and 
@@ -3304,7 +3304,5 @@ leaf nodes. We will need such a tree for the \emph{parent tree}.
 
 
 \end{document}
-hyphenation 
-hyphenation hyphenation
-hyphenation
+
 

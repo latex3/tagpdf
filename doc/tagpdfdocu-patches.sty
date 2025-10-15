@@ -41,23 +41,45 @@
   \@afterheading
 }                    
 
-% listings. Unclear how to make it work for the original lstlisting, so we make a 
-% copy taglstlisting for now
+% listings. 
+% The following seems to work, but it errors if the last line of
+% a listing is empty. 
+% from previous tries there is also a copy taglstlisting.
+
 \DeclareInstance{blockenv}{lstlisting}{display}
-{
-  name           = lstlisting,
+{ %use new key names from PR #1790    
+                               % old block key names
+  name           = lstlisting, %env-name 
   tag-name       = verbatim,
-  tag-attr-class = ,
+  tag-attr-class = ,           %tag-class
   tagging-recipe = standard,
   inner-level-counter  = ,
-  increment-level = false,
+  increment-level = false,    % level-increase
   setup-code     = ,
   block-instance = displayblock ,
   inner-instance = ,
-  final-code     = \tagtool{paratag=codeline},
-  tagging-suppress-paras = true
+  final-code     = \tagpdfsetup{paratag=codeline}\ignorespaces,
+  tagging-suppress-paras = true %paraflattened
 }
 
+\lst@UserCommand\lstrenewenvironment#1#2#{%
+    \cs_undefine:c{#1@}
+    \let\lst@arg\@empty
+    \lst@XConvert{#1}\@nil
+    \expandafter\lstnewenvironment@\lst@arg{#1}{#2}}
+
+\lstrenewenvironment{lstlisting}[2][]{%
+   \MathCollectFalse 
+   \UseInstance{blockenv}{lstlisting} {}
+   \lst@TestEOLChar{#2}%
+   \lstset{#1}%
+   \csname\@lst @SetFirstNumber\endcsname%
+ }{%
+   \@nobreakfalse
+   \csname\@lst @SaveFirstNumber\endcsname%
+   \endblockenv
+ }  
+   
 \lstnewenvironment{taglstlisting}[2][]{%
      \MathCollectFalse 
      \UseInstance{blockenv}{lstlisting} {}
