@@ -1015,15 +1015,15 @@
 % be used if the block code is used.
 % It is possible that we will need more variants, so
 % we setup a socket so that the code can be easily switched.
-% This code should move into lttagging, so we add a test for
+% This code moves into lttagging (2025/11), so we add a test for
 % the transition.
 %    \begin{macrocode}
-\str_if_exist:cF { l__socket_tagsupport/para/begin_plug_str }
+\socket_if_exist:nF { tagsupport/para/begin }
  {
-    \socket_new:nn      {tagsupport/para/begin}{0}
-    \socket_new:nn      {tagsupport/para/end}{0}
+    \NewTaggingSocket  {para/begin}{0}
+    \NewTaggingSocket  {para/end}{0}
 
-    \socket_new_plug:nnn{tagsupport/para/begin}{plain}
+    \NewTaggingSocketPlug{para/begin}{plain}
      {
        \bool_if:NT \l_@@_para_bool
          {
@@ -1042,7 +1042,7 @@
             \tag_mc_begin:n {}
          }
      }
-    \socket_new_plug:nnn{tagsupport/para/begin}{block}
+    \NewTaggingSocketPlug{para/begin}{block}
      {
        \bool_if:NT \l_@@_para_bool
          {
@@ -1080,7 +1080,7 @@
 % in the block variant, only a debug message. We therefore
 % define only a plain variant.
 %    \begin{macrocode}
-    \socket_new_plug:nnn{tagsupport/para/end}{plain}
+    \NewTaggingSocketPlug {para/end}{plain}
       {
         \bool_if:NT \l_@@_para_bool
           {
@@ -1100,14 +1100,14 @@
 %    \end{macrocode}
 % By default we assign the plain plug:
 %    \begin{macrocode}
-\socket_assign_plug:nn { tagsupport/para/begin}{plain}
-\socket_assign_plug:nn { tagsupport/para/end}{plain}
+\AssignTaggingSocketPlug { para/begin}{plain}
+\AssignTaggingSocketPlug { para/end}{plain}
 %    \end{macrocode}
 % And use the sockets in the hooks. Once tagging sockets exist, this
 % can be adapted.
 %    \begin{macrocode}
-\AddToHook{para/begin}{ \socket_use:n { tagsupport/para/begin } }
-\AddToHook{para/end} { \socket_use:n { tagsupport/para/end } }
+\AddToHook{para/begin}{ \tag_socket_use:n { para/begin } }
+\AddToHook{para/end}  { \tag_socket_use:n { para/end } }
 %    \end{macrocode}
 %
 % If the block code is loaded we must ensure that it doesn't overwrite
@@ -1238,27 +1238,23 @@
    }
  }
 %    \end{macrocode}
-% If the new page sockets exist, we use them.
+% We use the page sockets.
 %    \begin{macrocode}
-\str_if_exist:cT { l__socket_tagsupport/build/page/footer_plug_str }
- {
-   \NewSocketPlug{tagsupport/build/page/header}{tagpdf}
+\NewTaggingSocketPlug{build/page/header}{tagpdf}
     {
       \@@_hook_kernel_before_head:
       #2
       \@@_hook_kernel_after_head:
     }
 
-   \AssignSocketPlug{tagsupport/build/page/header}{tagpdf}
-   \NewSocketPlug{tagsupport/build/page/footer}{tagpdf}
+\AssignTaggingSocketPlug{build/page/header}{tagpdf}
+\NewTaggingSocketPlug{build/page/footer}{tagpdf}
    {
      \@@_hook_kernel_before_foot:
      #2
      \@@_hook_kernel_after_foot:
    }
-  \AssignSocketPlug{tagsupport/build/page/footer}{tagpdf}
- }
-
+\AssignTaggingSocketPlug{build/page/footer}{tagpdf}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -1448,7 +1444,11 @@
 %    \end{macrocode}
 % Tagging sockets for links
 %    \begin{macrocode}
-\NewTaggingSocket{link/before}{1}
+\socket_if_exist:nF {tagsupport/link/before}
+ { 
+   \NewTaggingSocket{link/before}{1} 
+   \NewTaggingSocket{link/after}{1}
+ }
 \NewTaggingSocketPlug{link/before}{kernel}
  { 
    \mode_leave_vertical:
@@ -1458,7 +1458,7 @@
    #1
  }
 \AssignTaggingSocketPlug{link/before}{kernel}
-\NewTaggingSocket{link/after}{1}
+
 \NewTaggingSocketPlug{link/after}{kernel}
  {
    #1
