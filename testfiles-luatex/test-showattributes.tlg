@@ -1,67 +1,26 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: closing structure 6 tagged /text
-Package tagpdf Info: closing structure 5 tagged /text-unit
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
 (tagpdf)                struct 2, /Document 
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
-Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
-Package tagpdf Info: Parent-Child 'Part' --> 'P'.
-(tagpdf)             Relation is 7 (='‡') on line ...
-Package tagpdf Info: Parent-Child 'Document' --> 'P'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'P' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-tagpdf: mc-current: abscnt=4==4 =>tag=text=275
-Package tagpdf Info: closing structure 8 tagged /text
-Package tagpdf Info: closing structure 7 tagged /text-unit
+tagpdf: mc-current: abscnt=2==2 =>tag=P=15
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
 (tagpdf)                struct 2, /Document 
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
-Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
-Package tagpdf Info: Parent-Child 'Part' --> 'P'.
-(tagpdf)             Relation is 7 (='‡') on line ...
-Package tagpdf Info: Parent-Child 'Document' --> 'P'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'P' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-tagpdf: mc-current: abscnt=6==6 =>tag=text=275
-Package tagpdf Info: closing structure 10 tagged /text
-Package tagpdf Info: closing structure 9 tagged /text-unit
+tagpdf: mc-current: abscnt=3==3 =>tag=P=15
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
 (tagpdf)                struct 2, /Document 
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
-Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
-Package tagpdf Info: Parent-Child 'Part' --> 'P'.
-(tagpdf)             Relation is 7 (='‡') on line ...
-Package tagpdf Info: Parent-Child 'Document' --> 'P'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'P' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-tagpdf: mc-current: abscnt=8==8 =>tag=text=275
-Package tagpdf Info: closing structure 12 tagged /text
-Package tagpdf Info: closing structure 11 tagged /text-unit
+tagpdf: mc-current: abscnt=4==4 =>tag=H1=9
 Package tagpdf Warning: tag Blub is not known
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
@@ -69,20 +28,7 @@ Package tagpdf Info: Parent-Child 'Document' --> 'MC'.
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
 (tagpdf)                struct 2, /Document 
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
-Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
-Package tagpdf Info: Parent-Child 'Part' --> 'P'.
-(tagpdf)             Relation is 7 (='‡') on line ...
-Package tagpdf Info: Parent-Child 'Document' --> 'P'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'P' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-tagpdf: mc-current: abscnt=10==10 =>tag=text=275
-Package tagpdf Info: closing structure 14 tagged /text
-Package tagpdf Info: closing structure 13 tagged /text-unit
+tagpdf: mc-current: abscnt=5==5 =>tag=UNKNOWN=-1
 Package tagpdf Info: -1 has been pushed to the mc stack
 Package tagpdf Info: -1 has been removed from the mc stack
 Package tagpdf Info: -1 has been pushed to the mc stack
@@ -993,8 +939,8 @@ Completed box being shipped out [1]
 <<latex-list-css.html>><<latex-align-css.html>> (test-showattributes.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~14 structure objects
-(tagpdf)             with ~12 'MC' leaf nodes.
+(tagpdf)             Writing out ~4 structure objects
+(tagpdf)             with ~7 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree
@@ -1002,11 +948,6 @@ Package tagpdf Info: writing RoleMap
 Package tagpdf Info: writing ClassMap
 Package tagpdf Info: writing NameSpaces
 Package tagpdf Info: writing StructElems
-tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 1 has no kids
-tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 3 has no kids
-tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 5 has no kids
-tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 7 has no kids
-tagpdf: WARN TEX-MC-INSERT-NO-KIDS: 9 has no kids
 Package tagpdf Info: writing Root
 ***************
 Compilation 1 of test file completed with exit status 0

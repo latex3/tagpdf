@@ -5,26 +5,14 @@ Don't change this file in any respect.
 \new@label@record{mcid-2}{{tagabspage}{1}{tagmcabs}{2}{tagmcid}{0}}[nl]
 \new@label@record{mcid-5}{{tagabspage}{1}{tagmcabs}{5}{tagmcid}{1}}[nl]
 \new@label@record{mcid-8}{{tagabspage}{1}{tagmcabs}{8}{tagmcid}{2}}[nl]
-\new@label@record{@tag@LastPage}{{abspage}{1}{tagmcabs}{11}{tagstruct}{8}}[nl]
+\new@label@record{@tag@LastPage}{{abspage}{1}{tagmcabs}{11}{tagstruct}{10}}[nl]
 \gdef \@abspage@last{1}[nl]
 -------- ptagging-002.aux (end) -----------
+==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
-Package tagpdf Info: Parent-Child 'Part' --> 'P'.
-(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
-Package tagpdf Info: Parent-Child 'Document' --> 'P'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'P' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-==> increment /P on input line ...
-Package tagpdf Info: closing structure 4 tagged /text
-Package tagpdf Info: closing structure 3 tagged /text-unit
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
-Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -36,9 +24,11 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 6 tagged /text
 Package tagpdf Info: closing structure 5 tagged /text-unit
+==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
@@ -50,10 +40,26 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 8 tagged /text
 Package tagpdf Info: closing structure 7 tagged /text-unit
+==> @endpe=false on input line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
+Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
+Package tagpdf Info: Parent-Child 'Part' --> 'P'.
+(tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 10 tagged /text
+Package tagpdf Info: closing structure 9 tagged /text-unit
 ====> In \@makecol 1
 Pick up new bot mark!
 => first b-, 1, -1
-=> bot e+, 9, 8
+=> bot e+, 9, 10
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq is empty
@@ -91,9 +97,12 @@ Completed box being shipped out [1]
 ...\glue(\topskip) 3.1128
 ...\hbox(6.8872+0.0)x345.0, glue set 300.00732fil
 ....\pdfliteral page{/Artifact BMC}
-....\hbox(3.22144+0.0)x0.0, glue set - 5.76248fil
+....\hbox(3.4436+0.0)x0.0, glue set - 17.5235fil
 .....\glue 0.0 plus 1.0fil minus 1.0fil
 .....\pdfcolorstack 0 push {0.0 1.0 0.0 rg 0.0 1.0 0.0 RG}
+.....\T1/cmr/m/n/5 N
+.....\T1/cmr/m/n/5 P
+.....\T1/cmr/m/n/5 -
 .....\T1/cmr/m/n/5 1
 .....\glue 2.36053 plus 1.04141 minus 0.69427
 ....\pdfcolorstack 0 pop
@@ -119,24 +128,27 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{b-,1,-1,}
 ...\marks4{b+,1,-1,}
-...\marks4{e-,1,4,}
-...\marks4{e+,1,4,}
-...\marks4{b-,2,4,text,,,}
-...\marks4{b+,2,4,text,,,}
-...\marks4{e-,2,4,}
-...\marks4{e+,2,4,}
+...\marks4{e-,1,6,}
+...\marks4{e+,1,6,}
+...\marks4{b-,2,6,text,,,}
+...\marks4{b+,2,6,text,,,}
+...\marks4{e-,2,6,}
+...\marks4{e+,2,6,}
 ...\marks4{b-,3,-1,}
 ...\marks4{b+,3,-1,}
-...\marks4{e-,3,4,}
-...\marks4{e+,3,4,}
+...\marks4{e-,3,6,}
+...\marks4{e+,3,6,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.1128
 ...\hbox(6.8872+0.0)x345.0, glue set 301.67358fil
 ....\pdfliteral page{/Artifact BMC}
-....\hbox(3.22144+0.0)x0.0, glue set - 5.76248fil
+....\hbox(3.4436+0.0)x0.0, glue set - 17.5235fil
 .....\glue 0.0 plus 1.0fil minus 1.0fil
 .....\pdfcolorstack 0 push {0.0 1.0 0.0 rg 0.0 1.0 0.0 RG}
+.....\T1/cmr/m/n/5 N
+.....\T1/cmr/m/n/5 P
+.....\T1/cmr/m/n/5 -
 .....\T1/cmr/m/n/5 2
 .....\glue 2.36053 plus 1.04141 minus 0.69427
 ....\pdfcolorstack 0 pop
@@ -162,24 +174,27 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{b-,4,-1,}
 ...\marks4{b+,4,-1,}
-...\marks4{e-,4,6,}
-...\marks4{e+,4,6,}
-...\marks4{b-,5,6,text,,,}
-...\marks4{b+,5,6,text,,,}
-...\marks4{e-,5,6,}
-...\marks4{e+,5,6,}
+...\marks4{e-,4,8,}
+...\marks4{e+,4,8,}
+...\marks4{b-,5,8,text,,,}
+...\marks4{b+,5,8,text,,,}
+...\marks4{e-,5,8,}
+...\marks4{e+,5,8,}
 ...\marks4{b-,6,-1,}
 ...\marks4{b+,6,-1,}
-...\marks4{e-,6,6,}
-...\marks4{e+,6,6,}
+...\marks4{e-,6,8,}
+...\marks4{e+,6,8,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.1128
 ...\hbox(6.8872+0.0)x345.0, glue set 301.11816fil
 ....\pdfliteral page{/Artifact BMC}
-....\hbox(3.22144+0.0)x0.0, glue set - 5.76248fil
+....\hbox(3.4436+0.0)x0.0, glue set - 17.5235fil
 .....\glue 0.0 plus 1.0fil minus 1.0fil
 .....\pdfcolorstack 0 push {0.0 1.0 0.0 rg 0.0 1.0 0.0 RG}
+.....\T1/cmr/m/n/5 N
+.....\T1/cmr/m/n/5 P
+.....\T1/cmr/m/n/5 -
 .....\T1/cmr/m/n/5 3
 .....\glue 2.36053 plus 1.04141 minus 0.69427
 ....\pdfcolorstack 0 pop
@@ -205,16 +220,16 @@ Completed box being shipped out [1]
 ....\glue(\rightskip) 0.0
 ...\marks4{b-,7,-1,}
 ...\marks4{b+,7,-1,}
-...\marks4{e-,7,8,}
-...\marks4{e+,7,8,}
-...\marks4{b-,8,8,text,,,}
-...\marks4{b+,8,8,text,,,}
-...\marks4{e-,8,8,}
-...\marks4{e+,8,8,}
+...\marks4{e-,7,10,}
+...\marks4{e+,7,10,}
+...\marks4{b-,8,10,text,,,}
+...\marks4{b+,8,10,text,,,}
+...\marks4{e-,8,10,}
+...\marks4{e+,8,10,}
 ...\marks4{b-,9,-1,}
 ...\marks4{b+,9,-1,}
-...\marks4{e-,9,8,}
-...\marks4{e+,9,8,}
+...\marks4{e-,9,10,}
+...\marks4{e+,9,10,}
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
 ...\glue 0.0 plus 1.0fil
@@ -242,7 +257,7 @@ Completed box being shipped out [1]
 <<latex-list-css.html>><<latex-align-css.html>> (ptagging-002.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~8 structure objects
+(tagpdf)             Writing out ~10 structure objects
 (tagpdf)             with ~11 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
