@@ -1,7 +1,7 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
-\DocumentMetadata{uncompress,testphase=phase-III}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass{book}
 \textwidth=10mm
