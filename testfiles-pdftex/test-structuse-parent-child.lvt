@@ -3,7 +3,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{uncompress,testphase=phase-II,debug={log=vv}}
+\DocumentMetadata{tagging=on,debug={log=vv}}
 \input{regression-test}
 \documentclass{article}
 \begin{document}

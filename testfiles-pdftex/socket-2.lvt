@@ -2,7 +2,7 @@
 \debug_on:n { check-declarations , deprecation }
 \ExplSyntaxOff
 \input{regression-test}
-\DocumentMetadata{testphase=phase-III} 
+\DocumentMetadata{tagging=on} 
 \documentclass{article}
 \begin{document}
 \START \showoutput \NewSocket{tagsupport/blub}{0} 

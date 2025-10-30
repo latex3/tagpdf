@@ -10,16 +10,13 @@
 \ExplSyntaxOff
 
 \DocumentMetadata{
-   testphase={phase-I},xmp=false
+   tagging=on,xmp=false
   }
 \input{regression-test}
 \documentclass{article}
-\makeatletter
-\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
-\@ifundefined{stockheight}{\newdimen\stockheight}{}
 \stockheight   = 297mm
 \stockwidth    = 210mm
-\makeatother
+
 \tagpdfsetup{attach-css=false}
 \usepackage{lipsum}
 \begin{document}\tagpdfparaOff

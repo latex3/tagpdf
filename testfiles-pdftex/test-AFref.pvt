@@ -7,8 +7,7 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
 \ExplSyntaxOff 
-\DocumentMetadata{pdfversion=2.0 
-  ,lang=de-DE,xmp=false,tagging=on}
+\DocumentMetadata{lang=de-DE,xmp=false,tagging=on}
 \input{regression-test}
 \documentclass{article}
 \makeatletter

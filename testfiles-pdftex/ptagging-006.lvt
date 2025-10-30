@@ -3,7 +3,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false,testphase=phase-II,debug=para}
+\DocumentMetadata{xmp=false,tagging=on,debug=para}
 \input{regression-test}
 \documentclass[12pt,a4paper]{article}
 

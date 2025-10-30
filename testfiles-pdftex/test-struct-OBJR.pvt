@@ -7,7 +7,7 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
 \ExplSyntaxOff 
-\DocumentMetadata{pdfversion=2.0,xmp=false,testphase=phase-II} 
+\DocumentMetadata{xmp=false,tagging=on} 
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 \tagpdfsetup{attach-css=false}

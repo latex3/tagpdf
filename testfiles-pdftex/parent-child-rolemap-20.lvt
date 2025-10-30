@@ -4,7 +4,7 @@
 \ExplSyntaxOff
 
 \ExplSyntaxOn \sys_gset_rand_seed:n{1000} \ExplSyntaxOff 
-\DocumentMetadata{uncompress,tagging=on,debug={log=vv}}
+\DocumentMetadata{tagging=on,debug={log=vv}}
 \input{regression-test} 
 \documentclass{article}
 \tagpdfsetup{role/new-tag=tpara/Div}

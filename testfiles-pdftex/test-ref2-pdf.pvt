@@ -6,14 +6,13 @@
 	%pdfstandard=A-4f,
 	pdfversion=2.0,
 	lang=en,
-	testphase={phase-III},
 }
 \input{regression-test}
 \RequirePackage{tagpdf-debug}
 \documentclass{article}
 \tagpdfsetup{attach-css=false}
 \begin{document}
-\START
+\START\tagpdfparaOff
 \pagestyle{empty}
 \tagstructbegin{tag=Section,label=sec1}
   \tagmcbegin{}

@@ -5,19 +5,22 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2025-10-30]
+Version 0.99w
 
 ### Changed
-  - perpare use of symbolic structure names for paragraphs.
+  - prepare use of symbolic structure names for paragraphs.
+  - use tagging sockets in links
     
 ## [2025-10-02]
-
+Version 0.99v
 ### Fixed
     - undefine internal LastPage label, tagging issue 959
     - documentation clean-up
     - removed unneeded csname in tagpdf-struct to reduce memory usage
     
 ## [2025-07-16]
+Version 0.99t
 ### Fixed 
 	- link error with luatex, issue #120
 

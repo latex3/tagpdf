@@ -3,13 +3,13 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{testphase=phase-I}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass{article}
 \NewSocket{tagsupport/blub}{0}
 \NewSocketPlug{tagsupport/blub}{test}{hello}
 \AssignSocketPlug{tagsupport/blub}{test}
-\begin{document}
+\begin{document}\tagpdfparaOff
 \START 
 
 \ExplSyntaxOn

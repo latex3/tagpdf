@@ -5,7 +5,7 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{testphase=phase-I,debug={log=vv}}
+\DocumentMetadata{tagging=on,debug={log=vv}}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 \stockheight   = 297mm
@@ -15,15 +15,11 @@
 \usepackage{tagpdf}
 \usepackage{graphicx,iftex}
 
-\iftutex
-  \usepackage{fontspec}
-  \usepackage{luacode}
-\else
-  \usepackage[T1]{fontenc}
-\fi
+\ \usepackage[T1]{fontenc}
+
 
 \begin{document}
-
+\tagpdfparaOff
 \tagmcbegin{tag=P}%
 abc%
 \tagmcend

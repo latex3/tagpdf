@@ -3,16 +3,14 @@
 \ExplSyntaxOff
 
 \DocumentMetadata{%
-	%pdfstandard=A-4f,
-	pdfversion=2.0,
 	lang=en,
-	testphase={phase-III},
+	tagging=on
 }
 \input{regression-test}
 \RequirePackage{tagpdf-debug}
 \documentclass{article}
 \begin{document}
-\START
+\START \tagpdfparaOff
 \pagestyle{empty}
 \tagstructbegin{tag=Section,label=sec1}
   \tagmcbegin{}

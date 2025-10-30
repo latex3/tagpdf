@@ -7,7 +7,7 @@
 \ExplSyntaxOff
 
 \PassOptionsToPackage{disabledelayedshipout}{tagpdf}
-\DocumentMetadata{testphase=phase-II}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass{article}
 \tagpdfsetup{attach-css=false}
