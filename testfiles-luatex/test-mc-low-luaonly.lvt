@@ -3,12 +3,12 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass{article}
 
 \usepackage[english]{babel}
-\usepackage{tagpdf}
+
 \usepackage{graphicx,iftex}
 
 \iftutex
@@ -18,9 +18,10 @@
   \usepackage[T1]{fontenc}
 \fi
 
-\tagpdfsetup{activate/mc,debug/log=vv} %not too much in the log .. tests fails then
+\tagpdfsetup{debug/log=vv} %not too much in the log .. tests fails then
 \usepackage{kantlipsum}
 \begin{document}
+\tagpdfparaOff
 some things untagged.
 \START
 \showoutput

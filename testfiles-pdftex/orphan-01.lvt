@@ -3,12 +3,12 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{uncompress,testphase=phase-I}
+\DocumentMetadata{uncompress,tagging=on}
 \input{regression-test}
 
 \documentclass{book} 
 \begin{document}
-\START
+\START\tagpdfparaOff
 \tagstructbegin{tag=P}\tagstructbegin{tag=Span,stash}\tagmcbegin{}xxxx\tagmcend\tagstructend\tagstructend
 
 \tagstructbegin{tag=P}\tagstructbegin{tag=Strong,stash}\tagstructend\tagstructend

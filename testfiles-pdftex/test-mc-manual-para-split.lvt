@@ -4,7 +4,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{testphase=phase-I}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 
@@ -30,11 +30,10 @@
 \pdfmanagement_add:nnn {Catalog} {Lang}{(en-UK)}
 \pdfmanagement_add:nnn {Info} {Title}{(Title)}
 
-\cfoot{\leavevmode\tag_mc_end_push:\tagmcbegin{artifact=pagination}\thepage\tagmcend\tag_mc_begin_pop:n{artifact}}
 
 \ExplSyntaxOff\makeatother
 \textheight=3cm
-\begin{document}\showoutput
+\begin{document}\showoutput\tagpdfparaOff
 \START
 \tagmcbegin{tag=P}
 Cras egestas ipsum a nisl. Vivamus varius dolor

@@ -3,29 +3,24 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass[11pt]{article}
 
 \usepackage[english]{babel}
-\usepackage{tagpdf}
+
 \usepackage{graphicx,iftex}
-\ifpdftex
-  \usepackage[T1]{fontenc}
-\fi
 
-\ifluatex
   \usepackage{fontspec}
-  \usepackage{luacode}
-\fi
+ 
 
 
 
 
-
-\tagpdfsetup{activate/mc,debug/log=vv} %not too much in the log .. tests fails then
+\tagpdfsetup{debug/log=vv} %not too much in the log .. tests fails then
 \begin{document}
-\START
+\START\tagpdfparaOff
+
 \showoutput
 \ExplSyntaxOn
 %\iow_log:x { \c_sys_engine_str }

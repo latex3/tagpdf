@@ -15,6 +15,18 @@ Package tagpdf Warning: Parent-Child 'pdf2:H1' --> 'pdf2:H1'.
 Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+==> @endpe=false on input line ...
+==> increment P on input line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'pdf2:Span'
+Package tagpdf Info: Parent-Child 'H1' --> 'Span'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Warning: nested marked content found - mcid 1
+Package tagpdf Info: Checking Parent-Child 'pdf2:Span' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 8 tagged /Span
+Package tagpdf Warning: there is no mc to end at 2
 Package tagpdf Info: closing structure 7 tagged /H1
 Package tagpdf Info: closing structure 6 tagged /chapter
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf:TOC'
@@ -32,30 +44,30 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'TOCI'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf:TOCI' --> 'pdf:TOCI'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 10, TOCI --> struct 11, TOCI
+(tagpdf)                struct 11, TOCI --> struct 12, TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:Lbl'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 12 tagged /Lbl
+Package tagpdf Info: closing structure 13 tagged /Lbl
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 13 tagged /P
+Package tagpdf Info: closing structure 14 tagged /P
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf:Reference'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf:Reference' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 14 tagged /Reference
+Package tagpdf Info: closing structure 15 tagged /Reference
+Package tagpdf Info: closing structure 12 tagged /TOCI
 Package tagpdf Info: closing structure 11 tagged /TOCI
-Package tagpdf Info: closing structure 10 tagged /TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOC' --> 'pdf:TOCI'
 Package tagpdf Info: Parent-Child 'TOC' --> 'TOCI'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -64,23 +76,23 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'TOCI'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf:TOCI' --> 'pdf:TOCI'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 15, TOCI --> struct 16, TOCI
+(tagpdf)                struct 16, TOCI --> struct 17, TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 17 tagged /P
+Package tagpdf Info: closing structure 18 tagged /P
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf:Reference'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf:Reference' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 18 tagged /Reference
+Package tagpdf Info: closing structure 19 tagged /Reference
+Package tagpdf Info: closing structure 17 tagged /TOCI
 Package tagpdf Info: closing structure 16 tagged /TOCI
-Package tagpdf Info: closing structure 15 tagged /TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOC' --> 'pdf:TOC'
 Package tagpdf Info: Parent-Child 'TOC' --> 'TOC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -92,30 +104,30 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'TOCI'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf:TOCI' --> 'pdf:TOCI'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 20, TOCI --> struct 21, TOCI
+(tagpdf)                struct 21, TOCI --> struct 22, TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:Lbl'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 22 tagged /Lbl
+Package tagpdf Info: closing structure 23 tagged /Lbl
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 23 tagged /P
+Package tagpdf Info: closing structure 24 tagged /P
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf:Reference'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf:Reference' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 24 tagged /Reference
+Package tagpdf Info: closing structure 25 tagged /Reference
+Package tagpdf Info: closing structure 22 tagged /TOCI
 Package tagpdf Info: closing structure 21 tagged /TOCI
-Package tagpdf Info: closing structure 20 tagged /TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOC' --> 'pdf:TOC'
 Package tagpdf Info: Parent-Child 'TOC' --> 'TOC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -127,40 +139,40 @@ Package tagpdf Info: Parent-Child 'TOCI' --> 'TOCI'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf:TOCI' --> 'pdf:TOCI'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 26, TOCI --> struct 27, TOCI
+(tagpdf)                struct 27, TOCI --> struct 28, TOCI
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:Lbl'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Lbl'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 28 tagged /Lbl
+Package tagpdf Info: closing structure 29 tagged /Lbl
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 29 tagged /P
+Package tagpdf Info: closing structure 30 tagged /P
 Package tagpdf Info: Checking Parent-Child 'pdf:TOCI' --> 'pdf:Reference'
 Package tagpdf Info: Parent-Child 'TOCI' --> 'Reference'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf:Reference' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Reference' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 30 tagged /Reference
+Package tagpdf Info: closing structure 31 tagged /Reference
+Package tagpdf Info: closing structure 28 tagged /TOCI
 Package tagpdf Info: closing structure 27 tagged /TOCI
-Package tagpdf Info: closing structure 26 tagged /TOCI
 )
-Package tagpdf Info: closing structure 25 tagged /TOC
-Package tagpdf Info: closing structure 19 tagged /TOC
-Package tagpdf Info: closing structure 9 tagged /TOC
+Package tagpdf Info: closing structure 26 tagged /TOC
+Package tagpdf Info: closing structure 20 tagged /TOC
+Package tagpdf Info: closing structure 10 tagged /TOC
 \tf@toc=\write...
-Package tagpdf Info: closing structure 8 tagged /TOC
+Package tagpdf Info: closing structure 9 tagged /TOC
 ====> In \@makecol 1
 Pick up new bot mark!
-=> first b-, 2, 12, Lbl
-=> bot e+, 12, 29
+=> first b-, 2, 8, Span
+=> bot e+, 13, 30
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq is empty
@@ -168,15 +180,15 @@ The sequence \g__tag_mc_main_marks_seq is empty
 [1
 ]
 ====> In \@makecol 2
-No marks so use saved bot mark: e+, 12, 29
-=> first e+, 12, 29
-=> bot e+, 12, 29
+No marks so use saved bot mark: e+, 13, 30
+=> first e+, 13, 30
+=> bot e+, 13, 30
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {e+}
->  {12}
->  {29}.
+>  {13}
+>  {30}.
 [2
 ]
 Package tagpdf Info: closing structure 5 tagged /Sect
@@ -192,36 +204,48 @@ Package tagpdf Info: Parent-Child 'H1' --> 'H1'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:H1' --> 'pdf2:H1'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 32, chapter --> struct 33, H1
+(tagpdf)                struct 33, chapter --> struct 34, H1
 Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 33 tagged /H1
-Package tagpdf Info: closing structure 32 tagged /chapter
+==> @endpe=false on input line ...
+==> increment P on input line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'pdf2:Span'
+Package tagpdf Info: Parent-Child 'H1' --> 'Span'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Warning: nested marked content found - mcid 20
+Package tagpdf Info: Checking Parent-Child 'pdf2:Span' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 35 tagged /Span
+Package tagpdf Warning: there is no mc to end at 21
+Package tagpdf Info: closing structure 34 tagged /H1
+Package tagpdf Info: closing structure 33 tagged /chapter
 ====> In \@makecol 3
-No marks so use saved bot mark: e+, 12, 29
-=> first e+, 12, 29
-=> bot e+, 12, 29
+Pick up new bot mark!
+=> first b-, 21, 35, Span
+=> bot e+, 21, 35
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {e+}
->  {12}
->  {29}.
+>  {13}
+>  {30}.
 [3]
 ====> In \@makecol 4
-No marks so use saved bot mark: e+, 12, 29
-=> first e+, 12, 29
-=> bot e+, 12, 29
+No marks so use saved bot mark: e+, 21, 35
+=> first e+, 21, 35
+=> bot e+, 21, 35
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {e+}
->  {12}
->  {29}.
+>  {21}
+>  {35}.
 [4
 ]
-Package tagpdf Info: closing structure 31 tagged /Sect
+Package tagpdf Info: closing structure 32 tagged /Sect
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:Sect'
 Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -234,59 +258,211 @@ Package tagpdf Info: Parent-Child 'H1' --> 'H1'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:H1' --> 'pdf2:H1'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 35, chapter --> struct 36, H1
+(tagpdf)                struct 37, chapter --> struct 38, H1
 Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 36 tagged /H1
-Package tagpdf Info: closing structure 35 tagged /chapter
+==> @endpe=false on input line ...
+==> increment P on input line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'pdf2:Span'
+Package tagpdf Info: Parent-Child 'H1' --> 'Span'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Warning: nested marked content found - mcid 26
+Package tagpdf Info: Checking Parent-Child 'pdf2:Span' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 39 tagged /Span
+Package tagpdf Warning: there is no mc to end at 27
+Package tagpdf Info: closing structure 38 tagged /H1
+Package tagpdf Info: closing structure 37 tagged /chapter
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\section{section}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\section{section}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 1\relax _tl\cs_end:  is not known
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:Sect'
 Package tagpdf Info: Parent-Child 'Sect' --> 'Sect'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\section{section}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:H2'
 Package tagpdf Info: Parent-Child 'Sect' --> 'H2'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:H2' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H2' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 38 tagged /H2
+==> @endpe=false on input line ...
+==> increment P on input line ...
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 1\relax  is not known
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Info: Checking Parent-Child 'pdf2:H2' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 1\relax '
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'pdf2:H2' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 1\relax '.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: nested marked content found - mcid 28
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 1\relax  is not known
+Package tagpdf Info: Checking Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 1\relax ' --> 'MC (real content)'
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 1\relax ' --> ':MC'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Info: closing structure 42 tagged /\l__tag_name_sec#2F#20\numexpr#201\relax#20
+==> increment /P on input line ...
+Package tagpdf Warning: there is no mc to end at 29
+Package tagpdf Info: closing structure 41 tagged /H2
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\subsection{subsection}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\subsection{subsection}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 2\relax _tl\cs_end:  is not known
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:Sect'
 Package tagpdf Info: Parent-Child 'Sect' --> 'Sect'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\subsection{subsection}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:H3'
 Package tagpdf Info: Parent-Child 'Sect' --> 'H3'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:H3' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H3' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 40 tagged /H3
+==> @endpe=false on input line ...
+==> increment P on input line ...
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 2\relax  is not known
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Info: Checking Parent-Child 'pdf2:H3' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 2\relax '
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'pdf2:H3' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 2\relax '.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: nested marked content found - mcid 30
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 2\relax  is not known
+Package tagpdf Info: Checking Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 2\relax ' --> 'MC (real content)'
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 2\relax ' --> ':MC'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Info: closing structure 45 tagged /\l__tag_name_sec#2F#20\numexpr#202\relax#20
+==> increment /P on input line ...
+Package tagpdf Warning: there is no mc to end at 31
+Package tagpdf Info: closing structure 44 tagged /H3
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\subsubsection{subsubsection}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\subsubsection{subsubsection}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 3\relax _tl\cs_end:  is not known
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:Sect'
 Package tagpdf Info: Parent-Child 'Sect' --> 'Sect'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+! Missing \endcsname inserted.
+<to be read again> 
+                   \numexpr 
+l. ...\subsubsection{subsubsection}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:H4'
 Package tagpdf Info: Parent-Child 'Sect' --> 'H4'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:H4' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H4' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 42 tagged /H4
+==> @endpe=false on input line ...
+==> increment P on input line ...
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 3\relax  is not known
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Info: Checking Parent-Child 'pdf2:H4' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax '
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'pdf2:H4' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax '.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: nested marked content found - mcid 32
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 3\relax  is not known
+Package tagpdf Info: Checking Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax ' --> 'MC (real content)'
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax ' --> ':MC'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Info: closing structure 48 tagged /\l__tag_name_sec#2F#20\numexpr#203\relax#20
+==> increment /P on input line ...
+Package tagpdf Warning: there is no mc to end at 33
+Package tagpdf Info: closing structure 47 tagged /H4
 Package tagpdf Info: Checking Parent-Child 'pdf2:Sect' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'Sect' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 43 tagged /P
+==> @endpe=false on input line ...
+==> increment P on input line ...
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 3\relax  is not known
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax '
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax '.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: nested marked content found - mcid 34
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 3\relax  is not known
+Package tagpdf Info: Checking Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax ' --> 'MC (real content)'
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax ' --> ':MC'.
+(tagpdf)                Relation is unknown! on line ...
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 50 tagged /\l__tag_name_sec#2F#20\numexpr#203\relax#20
+==> @endpe=false on input line ...
+==> increment P on input line ...
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 3\relax  is not known
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax '
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax '.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Warning: tag \l__tag_name_sec/ \numexpr 3\relax  is not known
+Package tagpdf Info: Checking Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax ' --> 'MC (real content)'
+Package tagpdf Warning: NS title_tl\cs_end:  is not known
+Package tagpdf Warning: Parent-Child 'title_tl\cs_end: :\l__tag_name_sec/ \numexpr 3\relax ' --> ':MC'.
+(tagpdf)                Relation is unknown! on line ...
+Package tagpdf Info: closing structure 51 tagged /\l__tag_name_sec#2F#20\numexpr#203\relax#20
+==> increment /P on input line ...
+Package tagpdf Warning: there is no mc to end at 36
+Package tagpdf Info: closing structure 49 tagged /P
 ====> In \@makecol 5
 Pick up new bot mark!
-=> first b-, 28, 43, P
-=> bot e+, 28, 43
+=> first b-, 27, 39, Span
+=> bot e+, 36, 49
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
 >  {e+}
->  {12}
->  {29}.
+>  {21}
+>  {35}.
 Completed box being shipped out [5]
 \vbox(655.63496+0.0)x405.73636
 .\hbox(0.0+0.0)x0.0
@@ -302,13 +478,13 @@ Completed box being shipped out [5]
 ...\glue 0.0 plus 1.0fil
 ...\pdfrunninglinkoff
 ...\pdfliteral page{/Artifact BMC}
-...\marks4{b-,29,-1,}
-...\marks4{b+,29,-1,}
+...\marks4{b-,37,-1,}
+...\marks4{b+,37,-1,}
 ...\hbox(0.0+0.0)x418.25555
 ....\hbox(0.0+0.0)x418.25555
 ...\pdfliteral page{EMC}
-...\marks4{e-,29,41,}
-...\marks4{e+,29,41,}
+...\marks4{e-,37,46,}
+...\marks4{e+,37,46,}
 ...\pdfrunninglinkon
 ..\glue 20.40001
 ..\glue(\lineskip) 0.0
@@ -335,11 +511,13 @@ Completed box being shipped out [5]
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 10.23811
 ...\hbox(14.76189+3.99005)x418.25555, glue set 342.76956fil
+....\write1{\new@label@record{mcid-27}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{27}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/Span <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(0.0+0.0)x0.0
-.....\write1{\new@label@record{mcid-24}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{24}{tagmcid}{\__property_code_tagmcid: }}}
+.....\write1{\new@label@record{mcid-26}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{26}{tagmcid}{\__property_code_tagmcid: }}}
 .....\pdfliteral shipout page{/H1 <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-.....\marks4{b-,24,36,H1,,,}
-.....\marks4{b+,24,36,H1,,,}
+.....\marks4{b-,26,38,H1,,,}
+.....\marks4{b+,26,38,H1,,,}
 ....\T1/cmss/bx/n/20.74 c
 ....\T1/cmss/bx/n/20.74 h
 ....\T1/cmss/bx/n/20.74 a
@@ -347,9 +525,14 @@ Completed box being shipped out [5]
 ....\T1/cmss/bx/n/20.74 t
 ....\T1/cmss/bx/n/20.74 e
 ....\T1/cmss/bx/n/20.74 r
+....\pdfliteral page{EMC}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0
 ....\glue(\rightskip) 0.0 plus 1.0fil
+...\marks4{b-,27,39,Span,,,}
+...\marks4{b+,27,39,Span,,,}
+...\marks4{e-,27,39,}
+...\marks4{e+,27,39,}
 ...\pdfliteral page{EMC}
 ...\penalty 10000
 ...\penalty 10000
@@ -360,12 +543,14 @@ Completed box being shipped out [5]
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 3.80417
 ...\hbox(10.20578+0.0)x418.25555, glue set 340.94489fil
+....\write1{\new@label@record{mcid-29}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{29}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/\l__tag_name_sec/ \numexpr 1\relax  <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(9.87387+0.0)x29.40816
 .....\glue 0.0
-.....\write1{\new@label@record{mcid-25}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{25}{tagmcid}{\__property_code_tagmcid: }}}
+.....\write1{\new@label@record{mcid-28}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{28}{tagmcid}{\__property_code_tagmcid: }}}
 .....\pdfliteral shipout page{/H2 <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-.....\marks4{b-,25,38,H2,,,}
-.....\marks4{b+,25,38,H2,,,}
+.....\marks4{b-,28,41,H2,,,}
+.....\marks4{b+,28,41,H2,,,}
 .....\T1/cmss/bx/n/14.4 1
 .....\T1/cmss/bx/n/14.4 .
 .....\T1/cmss/bx/n/14.4 1
@@ -378,9 +563,14 @@ Completed box being shipped out [5]
 ....\T1/cmss/bx/n/14.4 o
 ....\T1/cmss/bx/n/14.4 n
 ....\pdfliteral page{EMC}
+....\pdfliteral page{EMC}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0
 ....\glue(\rightskip) 0.0 plus 1.0fil
+...\marks4{b-,29,42,\l__tag_name_sec/ \numexpr 1\relax ,,,}
+...\marks4{b+,29,42,\l__tag_name_sec/ \numexpr 1\relax ,,,}
+...\marks4{e-,29,41,}
+...\marks4{e+,29,41,}
 ...\marks2{\__mark_value:nn {5}{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}}
 ...\penalty 10000
 ...\marks3{\__mark_value:nn {6}{\protect \foreignlanguage {english}{\protect \bbl@restore@actives 1.1\hskip .5em\relax section}}}
@@ -395,12 +585,14 @@ Completed box being shipped out [5]
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.25214
 ...\hbox(8.74786+0.0)x418.25555, glue set 325.64345fil
+....\write1{\new@label@record{mcid-31}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{31}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/\l__tag_name_sec/ \numexpr 2\relax  <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(7.9286+0.0)x34.49158
 .....\glue 0.0
-.....\write1{\new@label@record{mcid-26}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{26}{tagmcid}{\__property_code_tagmcid: }}}
+.....\write1{\new@label@record{mcid-30}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{30}{tagmcid}{\__property_code_tagmcid: }}}
 .....\pdfliteral shipout page{/H3 <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-.....\marks4{b-,26,40,H3,,,}
-.....\marks4{b+,26,40,H3,,,}
+.....\marks4{b-,30,44,H3,,,}
+.....\marks4{b+,30,44,H3,,,}
 .....\T1/cmss/bx/n/12 1
 .....\T1/cmss/bx/n/12 .
 .....\T1/cmss/bx/n/12 1
@@ -418,9 +610,14 @@ Completed box being shipped out [5]
 ....\T1/cmss/bx/n/12 o
 ....\T1/cmss/bx/n/12 n
 ....\pdfliteral page{EMC}
+....\pdfliteral page{EMC}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0
 ....\glue(\rightskip) 0.0 plus 1.0fil
+...\marks4{b-,31,45,\l__tag_name_sec/ \numexpr 2\relax ,,,}
+...\marks4{b+,31,45,\l__tag_name_sec/ \numexpr 2\relax ,,,}
+...\marks4{e-,31,44,}
+...\marks4{e+,31,44,}
 ...\write1{\@writefile{toc}{\protect \contentsline {subsection}{\tagstructbegin {tag=Lbl}\tagmcbegin {tag=Lbl}\protect \numberline {1.1.1}\tagmcend \tagstructend \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsection\tagmcend \tagstructend }{\thepage }{subsection.1.1.1}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
@@ -431,12 +628,14 @@ Completed box being shipped out [5]
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 5.62268
 ...\hbox(7.97733+0.0)x418.25555, glue set 349.36357fil
+....\write1{\new@label@record{mcid-33}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{33}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/\l__tag_name_sec/ \numexpr 3\relax  <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(0.0+0.0)x0.0
 .....\glue 0.0
-.....\write1{\new@label@record{mcid-27}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{27}{tagmcid}{\__property_code_tagmcid: }}}
+.....\write1{\new@label@record{mcid-32}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{32}{tagmcid}{\__property_code_tagmcid: }}}
 .....\pdfliteral shipout page{/H4 <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-.....\marks4{b-,27,42,H4,,,}
-.....\marks4{b+,27,42,H4,,,}
+.....\marks4{b-,32,47,H4,,,}
+.....\marks4{b+,32,47,H4,,,}
 ....\T1/cmss/bx/n/10.95 s
 ....\T1/cmss/bx/n/10.95 u
 ....\T1/cmss/bx/n/10.95 b
@@ -451,23 +650,30 @@ Completed box being shipped out [5]
 ....\T1/cmss/bx/n/10.95 o
 ....\T1/cmss/bx/n/10.95 n
 ....\pdfliteral page{EMC}
+....\pdfliteral page{EMC}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0
 ....\glue(\rightskip) 0.0 plus 1.0fil
+...\marks4{b-,33,48,\l__tag_name_sec/ \numexpr 3\relax ,,,}
+...\marks4{b+,33,48,\l__tag_name_sec/ \numexpr 3\relax ,,,}
+...\marks4{e-,33,47,}
+...\marks4{e+,33,47,}
 ...\write1{\@writefile{toc}{\protect \contentsline {subsubsection}{\protect \nonumberline \tagstructbegin {tag=P}\tagmcbegin {tag=P}subsubsection\tagmcend \tagstructend }{\thepage }{subsection.1.1.1}\protected@file@percent }}
 ...\penalty 10000
 ...\penalty 10000
 ...\glue 7.07011 plus 0.94266
-...\write1{\new@label@record{mcid-28}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{28}{tagmcid}{\__property_code_tagmcid: }}}
+...\write1{\new@label@record{mcid-34}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{34}{tagmcid}{\__property_code_tagmcid: }}}
 ...\penalty 10000
 ...\penalty 10000
 ...\pdfliteral shipout page{/P <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
-...\marks4{b-,28,43,P,,,}
-...\marks4{b+,28,43,P,,,}
+...\marks4{b-,34,49,P,,,}
+...\marks4{b+,34,49,P,,,}
 ...\glue(\parskip) 0.0 plus 1.0
 ...\glue(\parskip) 0.0
 ...\glue(\baselineskip) 6.05852
 ...\hbox(7.54149+2.12863)x418.25555, glue set 360.79013fil
+....\write1{\new@label@record{mcid-35}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{35}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/\l__tag_name_sec/ \numexpr 3\relax  <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\T1/cmr/m/n/10.95 a
 ....\glue 3.63054 plus 1.81337 minus 1.20892
 ....\T1/cmr/m/n/10.95 p
@@ -479,29 +685,41 @@ Completed box being shipped out [5]
 ....\T1/cmr/m/n/10.95 a
 ....\T1/cmr/m/n/10.95 p
 ....\T1/cmr/m/n/10.95 h
-....\penalty 10000
-....\glue(\parfillskip) 0.0 plus 1.0fil
-....\glue(\rightskip) 0.0
-...\glue(\parskip) 0.0 plus 1.0
-...\glue(\parskip) 0.0
-...\glue(\baselineskip) 6.75797
-...\hbox(4.71341+0.0)x418.25555, glue set 401.62152fil
-....\hbox(0.0+0.0)x10.88788
-....\T1/cmr/m/n/10.95 x
 ....\pdfliteral page{EMC}
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{e-,28,43,}
-...\marks4{e+,28,43,}
+...\marks4{b-,35,50,\l__tag_name_sec/ \numexpr 3\relax ,,,}
+...\marks4{b+,35,50,\l__tag_name_sec/ \numexpr 3\relax ,,,}
+...\marks4{e-,35,50,}
+...\marks4{e+,35,50,}
+...\glue(\parskip) 0.0 plus 1.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 6.75797
+...\hbox(4.71341+0.0)x418.25555, glue set 401.62152fil
+....\write1{\new@label@record{mcid-36}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{36}{tagmcid}{\__property_code_tagmcid: }}}
+....\pdfliteral shipout page{/\l__tag_name_sec/ \numexpr 3\relax  <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\hbox(0.0+0.0)x10.88788
+....\T1/cmr/m/n/10.95 x
+....\pdfliteral page{EMC}
+....\pdfliteral page{EMC}
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\marks4{b-,36,51,\l__tag_name_sec/ \numexpr 3\relax ,,,}
+...\marks4{b+,36,51,\l__tag_name_sec/ \numexpr 3\relax ,,,}
+...\marks4{e-,36,51,}
+...\marks4{e+,36,51,}
+...\marks4{e-,36,49,}
+...\marks4{e+,36,49,}
 ...\kern 0.0
 ...\hbox(0.0+0.0)x0.0
 ...\glue 0.0 plus 1.0fil
 ...\glue 0.0
 ..\pdfrunninglinkoff
 ..\pdfliteral page{/Artifact BMC}
-..\marks4{b-,30,-1,}
-..\marks4{b+,30,-1,}
+..\marks4{b-,38,-1,}
+..\marks4{b+,38,-1,}
 ..\glue(\baselineskip) 40.51862
 ..\hbox(7.08139+0.0)x418.25555
 ...\hbox(7.08139+0.0)x418.25555
@@ -512,22 +730,22 @@ Completed box being shipped out [5]
 .......\T1/cmr/m/n/10.95 5
 ....\glue 0.0 plus 1.0fil minus 1.0fil
 ..\pdfliteral page{EMC}
-..\marks4{e-,30,41,}
-..\marks4{e+,30,41,}
+..\marks4{e-,38,46,}
+..\marks4{e+,38,46,}
 ..\pdfrunninglinkon
 .\kern 0.0
 .\kern -655.63496
 .\hbox(0.0+0.0)x0.0
 .\kern 655.63496
 <<latex-list-css.html>><<latex-align-css.html>> (test-patch-koma.aux)
-Package tagpdf Info: closing structure 41 tagged /Sect
-Package tagpdf Info: closing structure 39 tagged /Sect
-Package tagpdf Info: closing structure 37 tagged /Sect
-Package tagpdf Info: closing structure 34 tagged /Sect
+Package tagpdf Info: closing structure 46 tagged /Sect
+Package tagpdf Info: closing structure 43 tagged /Sect
+Package tagpdf Info: closing structure 40 tagged /Sect
+Package tagpdf Info: closing structure 36 tagged /Sect
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~43 structure objects
-(tagpdf)             with ~30 'MC' leaf nodes.
+(tagpdf)             Writing out ~51 structure objects
+(tagpdf)             with ~38 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree
@@ -538,5 +756,5 @@ Package tagpdf Info: writing StructElems
 Package tagpdf Info: writing Root
 ***************
 Compilation 1 of test file completed with exit status 1
-Compilation 2 of test file completed with exit status 0
-Compilation 3 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 1
+Compilation 3 of test file completed with exit status 1

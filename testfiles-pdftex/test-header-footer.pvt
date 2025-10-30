@@ -7,14 +7,14 @@
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
 \ExplSyntaxOff 
 \DocumentMetadata{ 
-   pdfversion=2.0,
-   testphase={tagpdf},
+   tagging=on,
    debug={para,uncompress}
   ,lang=de-DE,xmp=false}
 \input{regression-test}
-\documentclass[sfdefaults=true]{scrartcl}
+\documentclass{article}
 \usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
+\automark{section}
 \tagpdfsetup{attach-css=false}
 \begin{document}
 \START

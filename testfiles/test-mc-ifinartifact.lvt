@@ -2,12 +2,12 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{testphase=phase-I}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 
 \documentclass[a4paper, 12pt]{article}
 
-\begin{document}\START \showoutput
+\begin{document}\START \showoutput\tagpdfparaOff
 
 xxx\ExplSyntaxOn
 \tag_mc_artifact_group_begin:n{}

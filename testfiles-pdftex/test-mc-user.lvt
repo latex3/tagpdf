@@ -5,33 +5,18 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 
 \usepackage[english]{babel}
-\usepackage[genericmode]{tagpdf}
+
 \usepackage{graphicx,iftex}
-\ifpdftex
   \usepackage[T1]{fontenc}
-\fi
-
-\ifluatex
-  \usepackage{fontspec}
-  \usepackage{luacode}
-\fi
-
-
-
-
-
-\tagpdfsetup{activate/all}
 
 
 \begin{document}
-\START
-\marginpar{%
- \tagmcbegin{tag=P}marginpar\tagmcend}
+\START \tagpdfparaOff
 
 \tagmcbegin{artifact=pagination}%
 Artifact%
@@ -45,89 +30,12 @@ test unknown tag
 
 \tagmcbegin{tag=P,label=stored,stash}
 test stored MC\tagmcend
-\begin{figure}
-\tagmcbegin{tag=FIG}
- a figure
-\tagmcend
-\end{figure}
-
-\begin{table}
-\tagmcbegin{tag=TAB}
-a table
-\tagmcend
-\end{table}
-
-\begin{table}
-\tagmcbegin{tag=TAB}
-more tables
-\tagmcend
-\end{table}
-
-some text
-\begin{figure}
-\tagmcbegin{tag=FIG}
- a figure
-\tagmcend
-\end{figure}
-
-some text
-\begin{figure}
-\tagmcbegin{tag=FIG}
- a figure
-\tagmcend
-\end{figure}
-
-\begin{table}
-\tagmcbegin{tag=TAB}
-a table\tagmcend
-\end{table}
-
-\ExplSyntaxOn
-\int_step_inline:nnnn {1 }{1}{80}
-{\tagmcbegin{tag=P}%
-lots~of~lines\tagmcend\\
-}
-
-\begin{figure}
-\tagmcbegin{tag=FIG}
-\rule{4pt}{0.2\textwidth}
-\tagmcend
-\end{figure}
-
-\begin{table}
-\tagmcbegin{tag=TAB}
-\rule{4pt}{0.2\textwidth}
-\tagmcend
-\end{table}
-
-\begin{figure}
-\tagmcbegin{tag=FIG}
-\rule{4pt}{0.2\textwidth}
-\tagmcend
-\end{figure}
-
-\begin{table}
-\tagmcbegin{tag=TAB}
-\rule{4pt}{0.2\textwidth}
-\tagmcend
-\end{table}
-
-\begin{figure}
-\tagmcbegin{tag=FIG}
-\rule{4pt}{0.2\textwidth}
-\tagmcend
-\end{figure}
-
-\begin{table}
-\tagmcbegin{tag=TAB}
-\rule{4pt}{0.2\textwidth}
-\tagmcend
-\end{table}
 
 \tagmcuse{stored}
 
-\clearpage
-\seq_log:c {g__tag_struct_kids_1_seq}
+\clearpage\tagpdfparaOn
+\ExplSyntaxOn
+\seq_log:c {g__tag_struct_kids_2_seq}
 \ExplSyntaxOff
 
 \end{document}

@@ -4,7 +4,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 
-\DocumentMetadata{testphase=phase-I}
+\DocumentMetadata{tagging=on}
 \documentclass[11pt,a4paper]{article}
 \input{regression-test}
 
@@ -16,7 +16,7 @@
 
 
 \begin{document}
-\START
+\START\tagpdfparaOff
 \showoutput
 \ExplSyntaxOn
 \iow_log:x { \c_sys_engine_str }

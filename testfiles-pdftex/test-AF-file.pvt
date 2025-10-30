@@ -7,8 +7,7 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
 \ExplSyntaxOff 
-\DocumentMetadata{pdfversion=2.0 
-  ,lang=de-DE,xmp=false,testphase=phase-I}
+\DocumentMetadata{lang=de-DE,xmp=false,tagging=on}
 \input{regression-test}
 \documentclass{article}
 \stockheight   = 297mm
@@ -16,15 +15,15 @@
 \usepackage{iftex}
 
 \tagpdfsetup{page/tabsorder=structure}
-\ifpdftex
+
   \usepackage[T1]{fontenc}
-\fi
+
 \tagpdfsetup{attach-css=false}
 
 \begin{document}
-\pagestyle{empty}
+\pagestyle{empty}\tagpdfparaOff
 
-\tagstructbegin{tag=Document}
+
 
 \ExplSyntaxOn
 \pdfdict_put:nnn { l_pdffile/Params }
@@ -58,5 +57,5 @@
   \tagmcend
 \tagstructend
 
-\tagstructend
+
 \end{document} 

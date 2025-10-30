@@ -2,11 +2,9 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass{article}
-\usepackage{tagpdf}
-\tagpdfsetup{activate/mc}
 \ExplSyntaxOn
 \cs_set_eq:NN\tagpdfget\tag_get:n
 \ExplSyntaxOff
@@ -14,10 +12,5 @@
 \START \showoutput
 x\tagpdfget{mc_tag}x
 
-{\tagmcbegin{tag=P}%
- \tagpdfget{mc_tag}%
- abc}y\tagpdfget{mc_tag}y%with pdflatex P, with luatex P
-\tagmcend
-
-x\tagpdfget{mc_tag}x
+\section{x\tagpdfget{mc_tag}x}
 \end{document} 

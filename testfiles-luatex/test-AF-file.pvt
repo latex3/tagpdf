@@ -7,20 +7,16 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
 \ExplSyntaxOff 
-\DocumentMetadata{pdfversion=2.0 
+\DocumentMetadata{tagging=on,
   ,lang=de-DE,xmp=false}
 \input{regression-test}
 \documentclass{article}
-\makeatletter
-\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
-\@ifundefined{stockheight}{\newdimen\stockheight}{}
 \stockheight   = 297mm
 \stockwidth    = 210mm
-\makeatother
-\usepackage{tagpdf,iftex}
+
+\usepackage{iftex}
 \tagpdfsetup{attach-css=false}
-\tagpdfsetup{page/tabsorder=structure,
-             activate/all}
+
 \ifpdftex
   \usepackage[T1]{fontenc}
 \fi
@@ -29,7 +25,7 @@
 \begin{document}
 \pagestyle{empty}
 
-
+\tagpdfparaOff
 
 \ExplSyntaxOn
 \pdfdict_put:nnn { l_pdffile/Params }

@@ -2,13 +2,12 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass{article}
-\usepackage{tagpdf}
-\tagpdfsetup{activate/all,activate/spaces=true,}
+
 \pagestyle{empty}
-\begin{document}
+\begin{document}\tagpdfparaOff
 \setbox0\hbox{blub}
 
 \START

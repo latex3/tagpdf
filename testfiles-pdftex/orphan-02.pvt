@@ -4,12 +4,12 @@
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 
-\DocumentMetadata{uncompress,testphase=phase-I}
+\DocumentMetadata{uncompress,tagging=on}
 \input{regression-test}
 \tagpdfsetup{role/user-NS=latex-test}
 \tagpdfsetup{attach-css=false}
 \documentclass{book} 
-\begin{document}
+\begin{document}\tagpdfparaOff
 \START
 \tagstructbegin{tag=P}\tagstructbegin{tag=Span,stash}\tagmcbegin{}xxxx\tagmcend\tagstructend\tagstructend
 

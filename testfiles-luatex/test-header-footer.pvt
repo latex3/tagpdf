@@ -7,14 +7,15 @@
 \ExplSyntaxOff 
 \DocumentMetadata{ 
    pdfversion=2.0,
-   testphase={tagpdf},
+   tagging=on,
    debug={para,uncompress}
   ,lang=de-DE,xmp=false}
 \input{regression-test}
 \tagpdfsetup{attach-css=false}
-\documentclass[sfdefaults=true]{scrartcl}
+\documentclass{article}
 \usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
+\automark{section}
 \begin{document}
 \START
 \section{abc}

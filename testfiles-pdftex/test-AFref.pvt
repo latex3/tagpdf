@@ -8,7 +8,7 @@
 \sys_gset_rand_seed:n{1000} % before tagging is loaded ...
 \ExplSyntaxOff 
 \DocumentMetadata{pdfversion=2.0 
-  ,lang=de-DE,xmp=false,testphase=phase-I}
+  ,lang=de-DE,xmp=false,tagging=on}
 \input{regression-test}
 \documentclass{article}
 \makeatletter
@@ -17,7 +17,7 @@
 \makeatother
 \tagpdfsetup{attach-css=false}
 
-\begin{document}
+\begin{document}\tagpdfparaOff
 \newcommand\mathmlcontent{<math>
  <msqrt><msup><mi>x</mi><mn>2</mn></msup></msqrt>
  <mo>=</mo>

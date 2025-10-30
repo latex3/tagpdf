@@ -1,8 +1,8 @@
-\DocumentMetadata{uncompress,testphase={phase-I},pdfversion=1.7}
+\DocumentMetadata{uncompress,tagging=on,pdfversion=1.7}
 \input{regression-test}
 \documentclass{article}
 \tagpdfsetup{attach-css=false}
-\begin{document}
+\begin{document}\tagpdfparaOff
 \ExplSyntaxOn
 a~b~c\par
 

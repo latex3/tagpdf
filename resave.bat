@@ -1,1 +1,4 @@
-l3build check --show-saves -c config-luatex issue14-artifact-bool
+ l3build save -e luatex spacecharoff test-parent-key test-paratag test-add-mathml remap-tags
+  l3build save -e pdftexmain test-empty-mc test-links-backend spacecharoff texsource test-local-inactive-mc test-mc-ifinartifact test-mc-used-twice test-mc-used-twice-b mc-parent-child test-artifact-group
+  l3build save -c config-pdftex -e pdftexmain debug-structures socket-3 orphan-01 test-saveboxes-structure debug-structures-2 test-user-NS-17 parent-child-rolemap-20 test-ref test-mc-low-bdc-emc test-AFref test-header-footer test-AF-file test-mc-tag-expansion test-mc-savebox show-variables-17 test-mc-manual-para-split parent-child-rolemap-17 test-alttext test-mc-alt test-mc-user test-mcid-cnt ptagging-005 orphan-02
+  l3build save -c config-luatex -e luatexmain debug-structures-2 issue14-artifact-bool test-ref test-alttext parent-child-20-mtext test-mc-alt test-root-AF debug-structures test-mc-user test-mc-low-luaonly test-saveboxes-structure test-fakespace-fontchange test-AF-file test-fakespace-box test-header-footer issue13-mcid-array

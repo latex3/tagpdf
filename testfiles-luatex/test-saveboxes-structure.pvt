@@ -4,7 +4,7 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
-\DocumentMetadata{xmp=false,testphase=phase-I,debug={log=vv}}
+\DocumentMetadata{xmp=false,tagging=on,debug={log=vv}}
 \input{regression-test}
 \documentclass[11pt]{article}
 \usepackage[english]{babel}
@@ -30,7 +30,7 @@
 \pagestyle{empty}
 \begin{document}
 
-
+\tagpdfparaOff
 % Some tests with mc/structs + boxes
 % How must a box be marked up that is used in some other place?
 

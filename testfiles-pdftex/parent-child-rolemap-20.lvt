@@ -4,12 +4,12 @@
 \ExplSyntaxOff
 
 \ExplSyntaxOn \sys_gset_rand_seed:n{1000} \ExplSyntaxOff 
-\DocumentMetadata{uncompress,testphase=phase-I,debug={log=vv}}
+\DocumentMetadata{uncompress,tagging=on,debug={log=vv}}
 \input{regression-test} 
 \documentclass{article}
 \tagpdfsetup{role/new-tag=tpara/Div}
 \begin{document}
-\START
+\START\tagpdfparaOff
 
 \tagstructbegin{tag=tpara}
  \tagstructbegin{tag=P}

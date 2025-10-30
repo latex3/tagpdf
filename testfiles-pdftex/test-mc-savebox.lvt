@@ -5,7 +5,7 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{testphase=phase-I}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 
@@ -20,7 +20,7 @@
 
 
 \newsavebox\mybox
-\begin{document}
+\begin{document}\tagpdfparaOff
 \START
 \ExplSyntaxOn
 \makeatletter

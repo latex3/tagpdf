@@ -283,7 +283,8 @@ The linked property list \g__tag_role_tags_NS_prop contains the pairs (without o
 >  {codeline}  =>  {user}
 >  {float}  =>  {user}
 >  {figures}  =>  {user}
->  {tables}  =>  {user}.
+>  {tables}  =>  {user}
+>  {chapter}  =>  {user}.
 ============================================================
 ============================================================
 TEST 2: show tags ->class (1.7)
@@ -568,7 +569,8 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {codeline}  =>  {I}
 >  {float}  =>  {G}
 >  {figures}  =>  {G}
->  {tables}  =>  {G}.
+>  {tables}  =>  {G}
+>  {chapter}  =>  {G}.
 ============================================================
 ============================================================
 TEST 3: show namespaces
@@ -630,7 +632,8 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {codeline}  =>  {Span}
 >  {float}  =>  {Note}
 >  {figures}  =>  {Sect}
->  {tables}  =>  {Sect}.
+>  {tables}  =>  {Sect}
+>  {chapter}  =>  {NonStruct}.
 ============================================================
 ============================================================
 TEST 6: show tags of namespace pdf
@@ -1036,7 +1039,8 @@ The property list \g__tag_role_NS_user_prop contains the pairs (without outer br
 >  {codeline}  =>  {{}{}}
 >  {float}  =>  {{}{}}
 >  {figures}  =>  {{}{}}
->  {tables}  =>  {{}{}}.
+>  {tables}  =>  {{}{}}
+>  {chapter}  =>  {{}{}}.
 ============================================================
 ============================================================
 TEST 12: show class of tags in namespace pdf
@@ -1442,7 +1446,8 @@ The property list \g__tag_role_NS_user_class_prop contains the pairs (without ou
 >  {codeline}  =>  {--UNUSED--}
 >  {float}  =>  {--UNUSED--}
 >  {figures}  =>  {--UNUSED--}
->  {tables}  =>  {--UNUSED--}.
+>  {tables}  =>  {--UNUSED--}
+>  {chapter}  =>  {--UNUSED--}.
 ============================================================
 ============================================================
 TEST 18: show namespace dict pdf

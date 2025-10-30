@@ -3,26 +3,22 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass[11pt]{article}
 
 \usepackage[english]{babel}
 \usepackage{graphicx,iftex}
-\ifpdftex
-  \usepackage[T1]{fontenc}
-\fi
 
-\ifluatex
   \usepackage{fontspec}
-  \usepackage{luacode}
-\fi
-
-\tagpdfsetup{activate/mc}
 
 
+
+\renewenvironment{figure}{\par}{\par}
+\renewenvironment{table}{\par}{\par}
 \begin{document}
-\START
+\START \tagpdfparaOff
+
 \marginpar{%
  \tagmcbegin{tag=P}marginpar\tagmcend}
 
@@ -119,8 +115,8 @@ lots~of~lines\tagmcend\\
 
 \tagmcuse{stored}
 
-\clearpage
-\seq_log:c {g__tag_struct_kids_1_seq}
+\clearpage\tagpdfparaOn
+\seq_log:c {g__tag_struct_kids_2_seq}
 \ExplSyntaxOff
 
 \end{document}

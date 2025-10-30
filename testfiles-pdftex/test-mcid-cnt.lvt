@@ -5,7 +5,7 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{testphase=phase-I}
+\DocumentMetadata{tagging=on}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 
@@ -17,9 +17,9 @@
 
 
 
-\begin{document}
+\begin{document}\tagpdfparaOff
 \START
-\tagstructbegin{tag=Document}
+
 \ExplSyntaxOn
 \iow_log:x { \c_sys_engine_str }
 \showoutput
@@ -37,5 +37,5 @@ xxx\\
 }
 
 \ExplSyntaxOff
-\tagstructend
+
 \end{document}

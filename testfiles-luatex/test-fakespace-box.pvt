@@ -5,15 +5,14 @@
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false} 
+\DocumentMetadata{xmp=false,tagging=on} 
 \input{regression-test} 
 \documentclass[a4paper]{article}
-\usepackage{tagpdf}
-\tagpdfsetup{activate/all,activate/spaces}
 \tagpdfsetup{attach-css=false}
 
 \begin{document}\START\showoutput
 
+\tagpdfparaOff
 
 \tagmcbegin{tag=P}
 abc \fbox{abc} abc

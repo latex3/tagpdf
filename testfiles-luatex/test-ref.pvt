@@ -6,24 +6,22 @@
 \DocumentMetadata{
    pdfversion=2.0
   ,lang=de-DE
-  ,xmp=false}
+  ,xmp=false,
+  tagging=on}
 \input{regression-test}
 \documentclass{article}
-\makeatletter
-\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
-\@ifundefined{stockheight}{\newdimen\stockheight}{}
+
 \stockheight   = 297mm
 \stockwidth    = 210mm
-\makeatother
 
-\usepackage{tagpdf}
+
 \tagpdfsetup{attach-css=false}
-\tagpdfsetup{page/tabsorder=structure,
-             activate/all}
+\tagpdfsetup{page/tabsorder=structure}
 
 \begin{document}
 \pagestyle{empty}
 
+\tagpdfparaOff
 
 \tagstructbegin{tag=P,label=blub}
   \tagmcbegin{tag=P,}

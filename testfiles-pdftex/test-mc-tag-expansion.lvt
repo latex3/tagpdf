@@ -5,24 +5,17 @@
 \ExplSyntaxOff
 
 
-\DocumentMetadata{testphase=phase-I,debug={log=vv}}
+\DocumentMetadata{tagging=on,debug={log=vv}}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 
 \usepackage[english]{babel}
 \usepackage{graphicx,iftex}
-\ifpdftex
   \usepackage[T1]{fontenc}
-\fi
-
-\ifluatex
-  \usepackage{fontspec}
-\fi
-
 
 
 \begin{document}
-\START
+\START\tagpdfparaOff
 \showoutput
 \ExplSyntaxOn
 %\iow_log:x { \c_sys_engine_str }

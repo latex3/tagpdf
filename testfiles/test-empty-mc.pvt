@@ -4,22 +4,16 @@
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false}
+\DocumentMetadata{xmp=false,tagging=on}
 \input{regression-test}
 \documentclass{book}
-\makeatletter
-\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
-\@ifundefined{stockheight}{\newdimen\stockheight}{}
 \stockheight   = 297mm
 \stockwidth    = 210mm
-\makeatother
-
-\usepackage{tagpdf}
 \pagestyle{empty}
-\tagpdfsetup{page/tabsorder=structure,debug/uncompress,activate/all,activate/spaces=true}
+\tagpdfsetup{page/tabsorder=structure,debug/uncompress,}
 \tagpdfsetup{attach-css=false}
 \begin{document}
-
+\tagpdfparaOff
 \tagstructbegin{tag=H1}
 \tagmcbegin{tag=P}\tagmcend
 \tagstructend

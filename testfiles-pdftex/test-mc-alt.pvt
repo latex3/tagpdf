@@ -7,25 +7,17 @@
 \sys_gset_rand_seed:n{42}
 \ExplSyntaxOff
 
-\DocumentMetadata{lang=de-DE,xmp=false,testphase=phase-I}
+\DocumentMetadata{lang=de-DE,xmp=false,tagging=on}
 \input{regression-test}
 \documentclass{article}
-\usepackage{iftex}
 
-\ifpdftex
+
   \usepackage[T1]{fontenc}
-\fi
-
-\ifluatex
-  \usepackage{fontspec}
-  \usepackage{luacode}
-   \newfontface\zerowidthfont{freeserif}
-\fi
 
 \tagpdfsetup{attach-css=false}
 \usepackage{graphicx}
 \showthe\pdfsuppressptexinfo
-\begin{document}
+\begin{document}\tagpdfparaOff
 \showthe\pdfsuppressptexinfo
 \pagestyle{empty}
 

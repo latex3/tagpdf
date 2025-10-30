@@ -1,14 +1,12 @@
 \DocumentMetadata{
  lang=en,
- testphase={
-     phase-I
-     },
+ tagging=on
 }
 \input{regression-test}
 \documentclass{article}
 
 \begin{document}
-\START\showoutput
+\START\showoutput\tagpdfparaOff
 \NewSocket{tagsupport/zero}{0}
 \NewSocketPlug{tagsupport/zero}{test}{zero}
 \AssignSocketPlug{tagsupport/zero}{test}
@@ -36,4 +34,4 @@
 \UseTaggingSocket{two}{??}{!!}
 
 \ResumeTagging{a}
-\end{document}
+\end{document} 

@@ -7,7 +7,7 @@
 \sys_gset_rand_seed:n{42}
 \ExplSyntaxOff
 
-\DocumentMetadata{xmp=false,testphase=phase-I}
+\DocumentMetadata{xmp=false,tagging=on}
 \input{regression-test}
 \documentclass[11pt,a4paper]{article}
 \usepackage[english]{babel}
@@ -26,7 +26,7 @@
 
 \pagestyle{empty}
 \begin{document}
-\tagstructbegin{tag=Document}
+\tagstructbegin{tag=Document}\tagpdfparaOff
 
 % Some tests with mc/structs + boxes
 % How must a box be marked up that is used in some other place?

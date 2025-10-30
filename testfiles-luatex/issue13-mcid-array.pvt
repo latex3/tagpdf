@@ -3,24 +3,20 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
-\DocumentMetadata{xmp=false} 
+\DocumentMetadata{xmp=false,tagging=on} 
 \input{regression-test} 
-\makeatletter
-\@ifundefined{stockwidth}{\newdimen\stockwidth}{}
-\@ifundefined{stockheight}{\newdimen\stockheight}{}
 \stockheight   = 297mm
 \stockwidth    = 210mm
-\makeatother
 \START
 \documentclass{article}
-\usepackage{tagpdf}
 \tagpdfsetup{attach-css=false}
-\tagpdfsetup{page/tabsorder=structure,activate/all,activate/spaces=true,debug/log=v}
+\tagpdfsetup{page/tabsorder=structure,debug/log=v}
 \pagestyle{empty}
 \thispagestyle{empty}
 \textheight=40pt
 \begin{document}
 
+\tagpdfparaOff
 
 \tagstructbegin{tag=P}
 \tagmcbegin{tag=P}%
