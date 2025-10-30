@@ -8,7 +8,7 @@
 \begin{document}
 \START
 \ExplSyntaxOn
-\tag_tool:n{para=false}
+\tagpdfparaOff
 
 \TYPE{structure:~\tag_get:n{struct_counter},~mc:~\tag_get:n{mc_counter}}
 \tagstructbegin{}\tagmcbegin{}xxx\tagmcend\tagstructend

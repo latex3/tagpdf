@@ -3,7 +3,7 @@
 \debug_on:n { check-declarations , deprecation }
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
-\DocumentMetadata{pdfversion=2.0,testphase=phase-I,debug={log=all}}
+\DocumentMetadata{tagging=on,debug={log=all}}
 \input{regression-test}
 \documentclass{article}
 
@@ -15,7 +15,6 @@
 
 \ifluatex
   \usepackage{fontspec}
-
 \fi
 
 

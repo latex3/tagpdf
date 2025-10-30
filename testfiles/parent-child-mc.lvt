@@ -5,7 +5,7 @@
 \ExplSyntaxOn
 \sys_gset_rand_seed:n{1000}
 \ExplSyntaxOff
-\DocumentMetadata{testphase=phase-II,pdfversion=2.0,debug={log=v}} 
+\DocumentMetadata{tagging=on,debug={log=v}} 
 \input{regression-test}
 \documentclass{article}
 \begin{document}
