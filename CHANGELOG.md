@@ -11,6 +11,9 @@ Version 0.99w
 ### Changed
   - prepare use of symbolic structure names for paragraphs.
   - use tagging sockets in links
+
+### Fixed
+  - space code error with preloaded fonts, issue #126, tagging issue #159  
     
 ## [2025-10-02]
 Version 0.99v

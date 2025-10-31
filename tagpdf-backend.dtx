@@ -921,7 +921,7 @@ default_space_char.font  = default_fontid
 local function @@_font_has_space (fontid)
  t= fonts.hashes.identifiers[fontid]
  if luaotfload.aux.slot_of_name(fontid,"space")
-    or t.characters and t.characters[32] and t.characters[32]["unicode"]==32
+    or t and t.characters and t.characters[32] and t.characters[32]["unicode"]==32
  then
     return true
  else
