@@ -1,5 +1,5 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
-\DocumentMetadata{uncompress,testphase=phase-I}
+\DocumentMetadata{uncompress,tagging=on}
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage[ngerman]{babel}
@@ -11,8 +11,8 @@
 \def\lst@visiblespace{\lst@ttfamily{\char32}{\char32}}
 % with pdftex this could work
 %\def\lst@visiblespace{\lst@ttfamily{\pdffakespace\ }{\pdffakespace\ }}
-\tagpdfsetup{show-spaces,log=v}
 \begin{document}\pagestyle{empty}
+\tagpdfparaOff
 
 \begin{lstlisting}[showspaces]
 aaa aaa    xxxx

@@ -1,15 +1,10 @@
 % !Mode:: "TeX:DE:UTF-8:Main"
 
-% This example shows how one can patch lists command
-% it is based on enumitem
-
-% Pay attention to casing. Li/LI, Lbody/Lbody are different.
-
-% It doesn't test nesting!
-
-% lists are now handled in phase-III,
+% This example shows small adjustment to lists
 % enumitem is currently incompatible!
-\DocumentMetadata{pdfversion=1.7,uncompress,tagging=on}
+
+
+\DocumentMetadata{tagging=on}
 
 
 \documentclass{book}
@@ -37,12 +32,12 @@
 \item Marmots say something Parmotlike
 \end{itemize}
 
-\begin{enumerate}
+\begin{enumerate}[item-label=(\alph{*})]
 \item The highest pass is the Col de l'Iseran.
 \item The second highest pass is the Passo dello Stelvio.
 \end{enumerate}
 
-\begin{description}
+\begin{description}[label-width=3cm,label-align=right]
 \item[ducks] yellow
 \item[marmots] brown
 \end{description}
