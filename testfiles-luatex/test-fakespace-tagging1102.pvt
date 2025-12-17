@@ -5,8 +5,9 @@
 \msg_redirect_module:nnn { pdf } { none } { warning }
 \ExplSyntaxOff
 %\mathitalicsmode=2
-\input{regression-test}
 \DocumentMetadata{xmp=false,tagging=on}
+\input{regression-test}
+
 \documentclass{article}
 \textwidth1.5cm
 \begin{document}
