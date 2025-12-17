@@ -1,0 +1,15 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+%\mathitalicsmode=2
+\input{regression-test}
+\DocumentMetadata{xmp=false,tagging=on}
+\documentclass{article}
+\textwidth1.5cm
+\begin{document}
+this is \textbf{bold} 
+
+this is{\kern0pt} \textbf{bold} %still wrong
+\end{document} 

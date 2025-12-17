@@ -5,6 +5,11 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [Unreleased]
+### Fixed 
+  - space chars lost at line breaks, tagging issue #1102
+
+
 ## [2025-10-30]
 Version 0.99w
 
