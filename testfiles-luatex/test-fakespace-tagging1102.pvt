@@ -11,5 +11,7 @@
 \begin{document}
 this is \textbf{bold} 
 
-this is{\kern0pt} \textbf{bold} %still wrong
+this is{\kern0pt} abc %
+
+this is{\kern1pt\kern0pt} abc %still wrong
 \end{document} 
