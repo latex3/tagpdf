@@ -839,7 +839,12 @@ local function @@_mark_spaces (head)
       elseif glyph.next and (glyph.next.id==KERN) and not inside_math then
        local kern = glyph.next
        if kern.next and (kern.next.id== GLUE)  and (kern.next.width >0)
+       -- the attribute is also set on the kern in case the kern+glue is 
+       -- discarded at a line break tagging issue #1102  
+       -- TODO iterate back through all discardable nodes. 
        then
+        nodesetattribute(kern,iwspaceattributeid,1)
+        nodesetattribute(kern,iwfontattributeid,glyph.font)
         nodesetattribute(kern.next,iwspaceattributeid,1)
         nodesetattribute(kern.next,iwfontattributeid,glyph.font)
        end
