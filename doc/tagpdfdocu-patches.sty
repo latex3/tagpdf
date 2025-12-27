@@ -83,8 +83,8 @@
      tag-attr-class = ,           %tag-class
      tagging-recipe = standard,
      inner-level-counter  = ,
-     transparent-level = true,    % level-increase
-     legacy-code     = ,
+     increment-level = true,    % level-increase
+     setup-code     = ,
      block-instance = displayblock ,
      inner-instance = ,
      final-code     = \tagpdfsetup{paratag=codeline}\ignorespaces,
@@ -193,8 +193,7 @@
       setup-code     = ,
       block-instance = displayblock ,
     }
-
-     \RenewDocumentEnvironment{tcb@manual@entry}{}
+   \RenewDocumentEnvironment{tcb@manual@entry}{}
          {\UseInstance{blockenv}{docCommand} 
            {tag-name=Div,
             leftmargin=\kvtcb@doc@left,
@@ -208,40 +207,43 @@
           \AssignSocketPlug{tagsupport/para/restore}{noop}%  
          }   
          {\endblockenv } 
+     \tcbset{doc head command=
+      {before upper=\tagstructbegin{tag=Code}\tagmcbegin{},
+      after upper=\tagmcend\tagstructend},}    
  }
  {
-    \DeclareInstance{blockenv}{docCommand}{std}
+  \NewTaggingSocketPlug{para/begin}{tagpdf/mc}{\tagmcbegin{}}
+  \NewTaggingSocketPlug{para/end}{tagpdf/mc}{\tagmcend} 
+ 
+   \DeclareInstance{blockenv}{docCommand}{std}
     {
       name       = docCommand,
       tag-name       = Div,
       tag-attr-class      = ,
       tagging-recipe = standalone,
       inner-level-counter  = ,
-      increment-level = false,
+      transparent-level = true,
       legacy-code     = ,
-      block-instance = displayblock ,
+      block-instance = std-display ,
     }
 
    \RenewDocumentEnvironment{tcb@manual@entry}{}
-       {\SimpleBlockEnv{docCommand} 
-         {tag-name=Div,
+     {\SimpleBlockEnv{docCommand} 
+        {
           leftmargin=\kvtcb@doc@left,
           rightmargin=\kvtcb@doc@right,
+          tag-name=verbatim
           }%
-        \tagpdfparaOff%\tagtool{para=false}% 
-        \AssignSocketPlug{tagsupport/minipage/before}{noop}%
-        \AssignSocketPlug{tagsupport/minipage/after}{noop}%      
-        \AssignSocketPlug{tagsupport/parbox/before}{noop}%
-        \AssignSocketPlug{tagsupport/parbox/after}{noop}%  
-        \AssignSocketPlug{tagsupport/para/restore}{noop}%  
-       }   
-       {\SimpleBlockEnv } 
+      \MathCollectFalse   
+      \AssignStructureRole {tcb/box}{codeline}%
+      \AssignTaggingSocketPlug{para/begin}{tagpdf/mc}
+      \AssignTaggingSocketPlug{para/end}{tagpdf/mc}
+      \AssignTaggingSocketPlug{minipage/before}{noop}%
+      \AssignTaggingSocketPlug{minipage/after}{noop}%      
+    }   
+    {\BlockEnvEnd } 
  }
-\tcbset{
- doc head command=
-   {before upper=\tagstructbegin{tag=Code}\tagmcbegin{},
-    after upper=\tagmcend\tagstructend},
- }
+
  
 %  
 % the \meta command uses \langle/\rangle which produce formulas in code.
