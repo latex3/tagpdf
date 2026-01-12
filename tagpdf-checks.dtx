@@ -752,6 +752,17 @@
 % \end{macro}
 %
 % \subsection{Miscellaneous}
+% \begin{macro}{wrong-pdfversion}
+% Used a begin document if the pdfversion has been changed after the reading.
+%    \begin{macrocode}
+\msg_new:nnn { tag } {wrong-pdfversion}
+  {
+    The~PDF~version~has~changed~after~the~loading~of~tagpdf~from~#1~to~#2.\\
+    The~structure~will~be~faulty.\\
+    Trying~to~revert~to~#1.
+  }
+%    \end{macrocode}
+% \end{macro} 
 % \begin{macro}{tree-mcid-index-wrong}
 % Used in the tree code, typically indicates the document must be rerun.
 %    \begin{macrocode}
@@ -797,6 +808,21 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \section{PDF version check}
+%    \begin{macrocode}
+%<*package>
+\tl_const:Ne\c_@@_check_pdfversion_tl {\pdf_version:}
+\AddToHook{begindocument/before}
+  {
+    \tl_if_eq:eeF{\c_@@_check_pdfversion_tl}{\pdf_version:}
+      {
+        \msg_error:nnee {tag}{wrong-pdfversion}{\c_@@_check_pdfversion_tl}{\pdf_version:}
+        \pdf_version_gset:e {\c_@@_check_pdfversion_tl}
+        \pdf_object_unnamed_write:nn{dict}{}
+      }        
+  }  
+%</package>
+%    \end{macrocode}
 % \section{User conditionals}
 % \begin{macro}[pTF]{\tag_if_active:}
 % This tests if tagging is active. This allows packages

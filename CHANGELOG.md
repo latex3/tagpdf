@@ -8,7 +8,8 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 ### Fixed 
   - space chars lost at line breaks, tagging issue #1102
-
+### Changed
+  - check if PDF version has been changed and error if needed, pdfresource issue 112 
 
 ## [2025-10-30]
 Version 0.99w
