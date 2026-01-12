@@ -1,10 +1,8 @@
-## [2025-10-30]
-Version 0.99w
+## [2026-01-12]
+Version 0.99x
 
+### Fixed 
+  - space chars lost at line breaks, tagging issue #1102
+  
 ### Changed
-  - prepare use of symbolic structure names for paragraphs.
-  - use tagging sockets in links
-
-
-### Fixed
-  - space code error with preloaded fonts, issue #126, tagging issue #159  
+  - check if PDF version has been changed and error if needed, pdfresources issue 112 
