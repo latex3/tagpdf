@@ -135,8 +135,17 @@
 %
 % \begin{setupkeydecl}{activate/softhyphen}
 % This key allows to activates automatic handling of hyphens inserted
-% by hyphenation. It only is used in luamode and replaces hyphens
-% by U+00AD if the font supports this.
+% by hyphenation. It is only used in luamode.
+% It accepts the following values: 
+% \begin{itemize}
+% \item \texttt{false} and \texttt{off} deactivates the automatic
+% handline. 
+% \item \texttt{char} Replaces the hyphens by U+00AD if the font contains this glyph.
+% Note that in some newer fonts U+00AD is an invisible character and so this could led
+% to disappearing hyphens. 
+% \item \texttt{artifact} (default value) This keeps the hard hyphen U+002D but
+% surrounds it by an Artifact-MC. This (probably) make only sense if the document is tagged.
+% \item \texttt{true} TODO: decide
 % \end{setupkeydecl}
 % 
 % \begin{setupkeydecl}{page/tabsorder, tabsorder (deprecated)}
@@ -380,6 +389,7 @@
 % handle hyphens from hyphenation. It is currently only used in luamode.
 %    \begin{macrocode}
 \bool_new:N \g_@@_softhyphen_bool
+\bool_gset_true:N \g_@@_softhyphen_bool
 %    \end{macrocode}
 % \end{variable}
 % 
@@ -688,8 +698,54 @@
 % \begin{setupkeydecl}{activate/softhyphen}
 % This key activates (in luamode) the handling of soft hyphens.
 %    \begin{macrocode}
-    activate/softhyphen     .bool_gset:N = \g_@@_softhyphen_bool,
-    activate/softhyphen     .initial:n  = true,
+    activate/softhyphen .choice:,
+    activate/softhyphen/false .code:n = {\bool_gset_false:N \g_@@_softhyphen_bool},
+    activate/softhyphen/char  .code:n = 
+     {
+       \bool_gset_true:N \g_@@_softhyphen_bool
+       \sys_if_engine_luatex:T
+        {
+         \lua_now:e
+          {
+            tex.setattribute
+             (
+               luatexbase.attributes.l_@@_softhyphen_attr,
+               1
+             )
+          }
+        }
+     },
+    activate/softhyphen/artifact  .code:n = 
+     {
+       \bool_gset_true:N \g_@@_softhyphen_bool
+       \sys_if_engine_luatex:T
+        {
+         \lua_now:e
+          {
+            tex.setattribute
+             (
+               luatexbase.attributes.l_@@_softhyphen_attr,
+               -2147483647
+             )
+          }
+        }
+     },
+    activate/softhyphen/true  .code:n = 
+     {
+       \bool_gset_true:N \g_@@_softhyphen_bool
+       \sys_if_engine_luatex:T
+        {
+         \lua_now:e
+          {
+            tex.setattribute
+             (
+               luatexbase.attributes.l_@@_softhyphen_attr,
+               -2147483647
+             )
+          }
+        }
+     },     
+    activate/softhyphen     .default:n  = artifact
 %    \end{macrocode}
 % \end{setupkeydecl}
 % \begin{setupkeydecl}{page/tabsorder,tabsorder (deprecated)}

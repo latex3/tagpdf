@@ -252,6 +252,9 @@ functions
 % to use for the real space char.
 % The interwordspaceOff attr allows to locally suppress the insertion of
 % real space chars, e.g. when they are inserted by other means (e.g. with |\char|).
+% The softhyphenattribute allows to decide how to handle a soft hyphen:
+% if unset it is surrounded by an Artifact mc, if set to 1 the char is changed. 
+% Other values will perhaps be used later. 
 %    \begin{macrocode}
 local mctypeattributeid  = luatexbase.new_attribute ("g_@@_mc_type_attr")
 local mccntattributeid   = luatexbase.new_attribute ("g_@@_mc_cnt_attr")
@@ -259,6 +262,7 @@ local structnumattributeid   = luatexbase.new_attribute ("g_@@_structnum_attr")
 local iwspaceOffattributeid = luatexbase.new_attribute ("g_@@_interwordspaceOff_attr")
 local iwspaceattributeid = luatexbase.new_attribute ("g_@@_interwordspace_attr")
 local iwfontattributeid  = luatexbase.new_attribute ("g_@@_interwordfont_attr")
+local softhyphenattribute = luatexbase.new_attribute ("l_@@_softhyphen_attr")
 %    \end{macrocode}
 % with this token we can query the state of the boolean
 % and so detect if unmarked nodes should be marked as attributes
@@ -1396,8 +1400,13 @@ do
       for n, ch, fid in node.traverse_glyph(disc.pre) do
         local props = properties[n]
         if softhyphen_fonts[fid] and ch == hyphen_char and props and props[is_soft_hyphen_prop] then
-          n.char = soft_hyphen_char
-          props.glyph_info = nil
+          if nodegetattribute(n,softhyphenattribute) then 
+            n.char = soft_hyphen_char
+            props.glyph_info = nil
+          else
+            nodesetattribute(n,mctypeattributeid,-2147483647)  
+            nodesetattribute(n,mccntattributeid,-2147483647)
+          end
         end
       end
     end
