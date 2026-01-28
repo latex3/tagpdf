@@ -3,7 +3,7 @@
 30 0 obj
 <<
 /Type /Metadata /Subtype /XML
-/Length 10969     
+/Length 12082     
 >>
 stream
 <?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
@@ -27,7 +27,8 @@ stream
     xmlns:pdfaSchema="http://www.aiim.org/pdfa/ns/schema#"
     xmlns:pdfaProperty="http://www.aiim.org/pdfa/ns/property#"
     xmlns:pdfaType="http://www.aiim.org/pdfa/ns/type#"
-    xmlns:pdfaField="http://www.aiim.org/pdfa/ns/field#">
+    xmlns:pdfaField="http://www.aiim.org/pdfa/ns/field#"
+    xmlns:tdm="http://www.w3.org/ns/tdmrep/">
    <pdfaExtension:schemas>
     <rdf:Bag>
      <rdf:li rdf:parseType="Resource">
@@ -182,6 +183,27 @@ stream
          <pdfaProperty:valueType>Text</pdfaProperty:valueType>
          <pdfaProperty:category>external</pdfaProperty:category>
          <pdfaProperty:description>Document's subtitle</pdfaProperty:description>
+        </rdf:li>
+       </rdf:Seq>
+      </pdfaSchema:property>
+     </rdf:li>
+     <rdf:li rdf:parseType="Resource">
+      <pdfaSchema:schema>TDMRep</pdfaSchema:schema>
+      <pdfaSchema:prefix>tdm</pdfaSchema:prefix>
+      <pdfaSchema:namespaceURI>http://www.w3.org/ns/tdmrep/</pdfaSchema:namespaceURI>
+      <pdfaSchema:property>
+       <rdf:Seq>
+        <rdf:li rdf:parseType="Resource">
+         <pdfaProperty:name>reservation</pdfaProperty:name>
+         <pdfaProperty:valueType>Closed Choice of Integer</pdfaProperty:valueType>
+         <pdfaProperty:category>internal</pdfaProperty:category>
+         <pdfaProperty:description>TDM rights are reserved (1) or not reserved (0)</pdfaProperty:description>
+        </rdf:li>
+        <rdf:li rdf:parseType="Resource">
+         <pdfaProperty:name>policy</pdfaProperty:name>
+         <pdfaProperty:valueType>URI</pdfaProperty:valueType>
+         <pdfaProperty:category>internal</pdfaProperty:category>
+         <pdfaProperty:description>URL pointing to a TDM Policy set by the rightsholder</pdfaProperty:description>
         </rdf:li>
        </rdf:Seq>
       </pdfaSchema:property>
@@ -746,61 +768,61 @@ endobj
 xref
 0 51
 0000000002 65535 f 
-0000011689 00000 n 
+0000012802 00000 n 
 0000000003 00000 f 
 0000000004 00000 f 
 0000000010 00000 f 
-0000015155 00000 n 
-0000011772 00000 n 
-0000012043 00000 n 
-0000014205 00000 n 
-0000012807 00000 n 
+0000016268 00000 n 
+0000012885 00000 n 
+0000013156 00000 n 
+0000015318 00000 n 
+0000013920 00000 n 
 0000000012 00000 f 
-0000012875 00000 n 
+0000013988 00000 n 
 0000000014 00000 f 
-0000012945 00000 n 
+0000014058 00000 n 
 0000000020 00000 f 
-0000013741 00000 n 
-0000013026 00000 n 
-0000014014 00000 n 
-0000013843 00000 n 
-0000014116 00000 n 
+0000014854 00000 n 
+0000014139 00000 n 
+0000015127 00000 n 
+0000014956 00000 n 
+0000015229 00000 n 
 0000000000 00000 f 
-0000014266 00000 n 
-0000014363 00000 n 
-0000014450 00000 n 
-0000014537 00000 n 
-0000014640 00000 n 
-0000014794 00000 n 
-0000011478 00000 n 
-0000014924 00000 n 
-0000015023 00000 n 
+0000015379 00000 n 
+0000015476 00000 n 
+0000015563 00000 n 
+0000015650 00000 n 
+0000015753 00000 n 
+0000015907 00000 n 
+0000012591 00000 n 
+0000016037 00000 n 
+0000016136 00000 n 
 0000000015 00000 n 
-0000011613 00000 n 
-0000011073 00000 n 
-0000032091 00000 n 
-0000034357 00000 n 
-0000034535 00000 n 
-0000011736 00000 n 
-0000011829 00000 n 
-0000012006 00000 n 
-0000012645 00000 n 
-0000029915 00000 n 
-0000015292 00000 n 
-0000015731 00000 n 
-0000016047 00000 n 
-0000019787 00000 n 
-0000020016 00000 n 
-0000029686 00000 n 
-0000030002 00000 n 
-0000032268 00000 n 
-0000034594 00000 n 
-0000034709 00000 n 
+0000012726 00000 n 
+0000012186 00000 n 
+0000033204 00000 n 
+0000035470 00000 n 
+0000035648 00000 n 
+0000012849 00000 n 
+0000012942 00000 n 
+0000013119 00000 n 
+0000013758 00000 n 
+0000031028 00000 n 
+0000016405 00000 n 
+0000016844 00000 n 
+0000017160 00000 n 
+0000020900 00000 n 
+0000021129 00000 n 
+0000030799 00000 n 
+0000031115 00000 n 
+0000033381 00000 n 
+0000035707 00000 n 
+0000035822 00000 n 
 trailer
 << /Size 51
 /Root 49 0 R
 /Info 50 0 R
 /ID [<9BD18DF3359C1216B83ADB4AA401CC9A> <9BD18DF3359C1216B83ADB4AA401CC9A>] >>
 startxref
-34841
+35954
 %%EOF
