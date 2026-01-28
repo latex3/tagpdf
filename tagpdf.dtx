@@ -139,13 +139,24 @@
 % It accepts the following values: 
 % \begin{itemize}
 % \item \texttt{false} and \texttt{off} deactivates the automatic
-% handline. 
+% handling. 
 % \item \texttt{char} Replaces the hyphens by U+00AD if the font contains this glyph.
 % Note that in some newer fonts U+00AD is an invisible character and so this could led
 % to disappearing hyphens. 
 % \item \texttt{artifact} (default value) This keeps the hard hyphen U+002D but
-% surrounds it by an Artifact-MC. This (probably) make only sense if the document is tagged.
+% surrounds it by an Artifact-MC. This only works if the document is tagged.
 % \item \texttt{true} TODO: decide
+% \end{itemize}
+% 
+% If tagging is not activate the softhyphen handling is not activated, by default. The hyphen
+% stays a hard-hyphen. If is possible to use the \texttt{char} mode with 
+% \begin{verbatim}
+% \DocumentMetadata{tagging=off,tagging-setup={activate/softhyphen=char},}
+% \end{verbatim}
+% 
+% 
+% If tagging is active the default is \texttt{artifact} mode, this requires that \texttt{tagunmarked}
+% is active too. The mode can be switched at any time, also locally. 
 % \end{setupkeydecl}
 % 
 % \begin{setupkeydecl}{page/tabsorder, tabsorder (deprecated)}
