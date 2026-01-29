@@ -1,8 +1,8 @@
-## [2026-01-12]
-Version 0.99x
+## [2026-01-29]
+Version 0.99y
 
-### Fixed 
-  - space chars lost at line breaks, tagging issue #1102
-  
-### Changed
-  - check if PDF version has been changed and error if needed, pdfresources issue 112 
+### Changed 
+	* hyphens from hyphenation are now marked with an Artifact if tagging is active, and 
+	no longer uses the U+00AD glyph by default, this resolves tagging issue #967.
+	* active/softhyphen key has more options.
+	* update parent-child rules for 2.0 (adapted to upcoming changes in ISO 32005 + best practice for math)

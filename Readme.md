@@ -1,7 +1,7 @@
 # tagpdf
 
-![Version: 0.99x](https://img.shields.io/badge/current_version-0.99x-blue.svg?style=flat-square)
-![Date: 2026-01-12](https://img.shields.io/badge/date-2026--01--12-blue.svg?style=flat-square)
+![Version: 0.99y](https://img.shields.io/badge/current_version-0.99y-blue.svg?style=flat-square)
+![Date: 2026-01-29](https://img.shields.io/badge/date-2026--01--29-blue.svg?style=flat-square)
 [![License: LPPL1.3c ](https://img.shields.io/badge/license-LPPL1.3c-blue.svg?style=flat-square)](https://ctan.org/license/lppl1.3c)
 
 A package to experiment with tagging and other requirements of accessible pdfs with pdflatex and lualatex
