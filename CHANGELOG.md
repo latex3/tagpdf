@@ -10,6 +10,7 @@ this project uses date-based 'snapshot' version identifiers.
 	* hyphens from hyphenation are now marked with an Artifact if tagging is active, and 
 	no longer uses the U+00AD glyph by default, this resolves tagging issue #967.
 	* active/softhyphen key has now more options.
+	* parent-child rules for 2.0 adapted to upcoming changes in ISO 32005 + Best Practice guide for math
 
 ## [2026-01-12]
 ### Fixed 
