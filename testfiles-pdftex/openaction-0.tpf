@@ -3,7 +3,7 @@
 29 0 obj
 <<
 /Type /Metadata /Subtype /XML
-/Length 10972     
+/Length 12085     
 >>
 stream
 <?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
@@ -27,7 +27,8 @@ stream
     xmlns:pdfaSchema="http://www.aiim.org/pdfa/ns/schema#"
     xmlns:pdfaProperty="http://www.aiim.org/pdfa/ns/property#"
     xmlns:pdfaType="http://www.aiim.org/pdfa/ns/type#"
-    xmlns:pdfaField="http://www.aiim.org/pdfa/ns/field#">
+    xmlns:pdfaField="http://www.aiim.org/pdfa/ns/field#"
+    xmlns:tdm="http://www.w3.org/ns/tdmrep/">
    <pdfaExtension:schemas>
     <rdf:Bag>
      <rdf:li rdf:parseType="Resource">
@@ -182,6 +183,27 @@ stream
          <pdfaProperty:valueType>Text</pdfaProperty:valueType>
          <pdfaProperty:category>external</pdfaProperty:category>
          <pdfaProperty:description>Document's subtitle</pdfaProperty:description>
+        </rdf:li>
+       </rdf:Seq>
+      </pdfaSchema:property>
+     </rdf:li>
+     <rdf:li rdf:parseType="Resource">
+      <pdfaSchema:schema>TDMRep</pdfaSchema:schema>
+      <pdfaSchema:prefix>tdm</pdfaSchema:prefix>
+      <pdfaSchema:namespaceURI>http://www.w3.org/ns/tdmrep/</pdfaSchema:namespaceURI>
+      <pdfaSchema:property>
+       <rdf:Seq>
+        <rdf:li rdf:parseType="Resource">
+         <pdfaProperty:name>reservation</pdfaProperty:name>
+         <pdfaProperty:valueType>Closed Choice of Integer</pdfaProperty:valueType>
+         <pdfaProperty:category>internal</pdfaProperty:category>
+         <pdfaProperty:description>TDM rights are reserved (1) or not reserved (0)</pdfaProperty:description>
+        </rdf:li>
+        <rdf:li rdf:parseType="Resource">
+         <pdfaProperty:name>policy</pdfaProperty:name>
+         <pdfaProperty:valueType>URI</pdfaProperty:valueType>
+         <pdfaProperty:category>internal</pdfaProperty:category>
+         <pdfaProperty:description>URL pointing to a TDM Policy set by the rightsholder</pdfaProperty:description>
         </rdf:li>
        </rdf:Seq>
       </pdfaSchema:property>
@@ -659,66 +681,66 @@ endobj
 xref
 0 56
 0000000002 65535 f 
-0000011931 00000 n 
+0000013044 00000 n 
 0000000003 00000 f 
 0000000004 00000 f 
 0000000010 00000 f 
-0000015241 00000 n 
-0000012014 00000 n 
-0000012263 00000 n 
-0000014438 00000 n 
-0000013040 00000 n 
+0000016354 00000 n 
+0000013127 00000 n 
+0000013376 00000 n 
+0000015551 00000 n 
+0000014153 00000 n 
 0000000012 00000 f 
-0000013108 00000 n 
+0000014221 00000 n 
 0000000014 00000 f 
-0000013178 00000 n 
+0000014291 00000 n 
 0000000020 00000 f 
-0000013974 00000 n 
-0000013259 00000 n 
-0000014247 00000 n 
-0000014076 00000 n 
-0000014349 00000 n 
+0000015087 00000 n 
+0000014372 00000 n 
+0000015360 00000 n 
+0000015189 00000 n 
+0000015462 00000 n 
 0000000000 00000 f 
-0000011498 00000 n 
-0000014499 00000 n 
-0000014605 00000 n 
-0000014692 00000 n 
-0000014779 00000 n 
-0000014878 00000 n 
-0000015010 00000 n 
-0000015109 00000 n 
+0000012611 00000 n 
+0000015612 00000 n 
+0000015718 00000 n 
+0000015805 00000 n 
+0000015892 00000 n 
+0000015991 00000 n 
+0000016123 00000 n 
+0000016222 00000 n 
 0000000015 00000 n 
-0000011855 00000 n 
-0000011076 00000 n 
-0000011633 00000 n 
-0000011693 00000 n 
-0000031521 00000 n 
-0000011744 00000 n 
-0000011804 00000 n 
-0000032412 00000 n 
-0000032576 00000 n 
-0000011978 00000 n 
-0000012064 00000 n 
-0000012226 00000 n 
-0000012878 00000 n 
-0000015378 00000 n 
-0000029340 00000 n 
-0000015400 00000 n 
-0000015839 00000 n 
-0000018503 00000 n 
-0000018721 00000 n 
-0000029105 00000 n 
-0000029432 00000 n 
-0000031699 00000 n 
-0000032635 00000 n 
-0000032732 00000 n 
-0000032768 00000 n 
-0000033008 00000 n 
+0000012968 00000 n 
+0000012189 00000 n 
+0000012746 00000 n 
+0000012806 00000 n 
+0000032634 00000 n 
+0000012857 00000 n 
+0000012917 00000 n 
+0000033525 00000 n 
+0000033689 00000 n 
+0000013091 00000 n 
+0000013177 00000 n 
+0000013339 00000 n 
+0000013991 00000 n 
+0000016491 00000 n 
+0000030453 00000 n 
+0000016513 00000 n 
+0000016952 00000 n 
+0000019616 00000 n 
+0000019834 00000 n 
+0000030218 00000 n 
+0000030545 00000 n 
+0000032812 00000 n 
+0000033748 00000 n 
+0000033845 00000 n 
+0000033881 00000 n 
+0000034121 00000 n 
 trailer
 << /Size 56
 /Root 54 0 R
 /Info 55 0 R
 /ID [<9BD18DF3359C1216B83ADB4AA401CC9A> <9BD18DF3359C1216B83ADB4AA401CC9A>] >>
 startxref
-33217
+34330
 %%EOF
