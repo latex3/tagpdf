@@ -1,0 +1,110 @@
+% !Mode:: "TeX:UTF-8:Main"
+\DocumentMetadata{uncompress,tagging=on,tagging-setup={role/user-NS=latex}}
+\input{regression-test}
+\documentclass{book}
+\textwidth=15mm
+\usepackage{parskip}
+\tagpdfsetup{role/map-tags=pdf}
+\pagestyle{empty}
+\tagpdfsetup{attach-css=false}
+\ExplSyntaxOn
+\cs_set_eq:NN\pdfbdc\pdf_bdc:nn
+\cs_set_eq:NN\pdfbmc\pdf_bmc:n
+\cs_set_eq:NN\pdfemc\pdf_emc:
+\ExplSyntaxOff
+
+\begin{document}\START
+Off
+
+\tagpdfsetup{activate/softhyphen=off}
+mathematics
+
+Artifact
+
+\tagpdfsetup{activate/softhyphen=artifact}
+mathematics
+
+Actualtext
+
+\tagpdfsetup{activate/softhyphen=off}
+mathemat\pdfbdc{Span}{/ActualText <FEFF00AD>}-\pdfemc\hspace{0pt}ics
+
+Softhyphen character
+
+\tagpdfsetup{activate/softhyphen=char}
+mathematics
+
+\end{document}
+Adobe 
+
+Copy & paste into editor
+
+Note: results depends on if NVDA is active or not
+
+With NVDA open:
+
+Off
+mathemat-ics
+Artifact
+mathematics
+Actualtext
+mathematics
+Softhyphen character
+mathematics
+
+With NVDA closed:
+
+Off
+mathemat-ics
+Artifact
+mathemat-
+ics
+Actualtext
+mathemat
+ics
+Softhyphen character
+mathematics
+
+
+Reading with NVDA: 
+Off
+mathemat-ics
+Artifact
+mathematics
+Actualtext
+mathematics
+Softhyphen character
+mathematics
+
+Foxit
+
+Copy& paste (with and without NVDA open)
+
+Off
+mathematics
+Artifact
+mathematics
+Actualtext
+mathemat­
+ics
+Softhyphen
+character
+mathematics
+
+
+Reading (note: Foxit interjects reading from the file list, this not shown here)
+
+Off
+mathemat-ics
+Artifact
+mathemat  ics
+Actualtext
+mathemat-ics
+Softhyphen character
+mathematics
+
+
+
+Adobe: 3+4 correct
+         Foxit: none
+         ngpdf: 2+4 correct 
