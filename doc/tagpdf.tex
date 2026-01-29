@@ -92,13 +92,15 @@
 
 \begin{tcolorbox}[colframe=red]
 
-This package is not meant for direct use in (normal) documents. It started in 2018 as 
-a support tool to \emph{research} tagging. It is now the base of the code developed 
-in the \pkg{latex-lab} bundle for the Tagged PDF project (i.e., loaded by that code)
-\url{https://www.latex-project.org/publications/indexbytopic/pdf/}. 
+This package is not meant for direct use in document preambles. It is loaded automatically 
+if \cs{DocumentMetadata} is used. 
 
-The package is developed and improved in parallel with the code in the \pkg{latex-lab} 
-bundle (part of the core \LaTeX{} distribution),  the \pkg{pdfmanagement-testphase} 
+The package started in 2018 as a tool to \emph{research} tagging. It is now the base of the code developed 
+in the \pkg{latex-lab} bundle for the Tagged PDF project (i.e., loaded by that code)
+\url{https://latex3.github.io/tagging-project/}. 
+
+The package is developed and improved in parallel with the \LaTeX{} kernel, the code in 
+the \pkg{latex-lab} bundle (part of the core \LaTeX{} distribution),  the \pkg{pdfmanagement-testphase} 
 package (the \LaTeX{} PDF management bundle) and the L3 programming layer (part of the \LaTeX{} format). 
 That means you must ensure that all these components are up-to-date and in 
 sync which each other. 
@@ -111,7 +113,8 @@ Because of its function as a research and development tool it is
 important to understand that this package can still change in
 incompatible ways from one version to the next.
 
-You need some knowledge about \TeX, \PDF{} and perhaps even lua to use it.
+You need some knowledge about \TeX, \PDF{} and perhaps even lua to use its commands
+directly.
 
 \medskip
 
@@ -124,13 +127,11 @@ Issues, comments, suggestions can be added as issues to these two github tracker
 \end{tcolorbox}
 
 
-\tagtool{sec-add-grouping=false}
 
 \bookmark[dest=toc,level=section]{Table of Contents}
 \NextLinkTarget{toc}
 \tableofcontents
 
-\tagtool{sec-add-grouping}
 
 
 \section{Introduction}
@@ -1484,7 +1485,7 @@ Please note
 \subsubsection{Automatic tagging of paragraphs}\label{sec:paratagging}
 
 Another feature that emerged from the \LaTeX{} tagged PDF project are hooks 
-at the begin and end of paragraphs. \pkg{tagpdf} makes use of these hooks to 
+at the begin and end of paragraphs. The tagging code makes use of these hooks to 
 tag paragraphs. In the first version it added only one structure, but this 
 proved to be not adequate: 
 
@@ -1498,9 +1499,10 @@ In the \PDF{} model and in the HTML model that is not supported: the rules in
 limitation that conflicts with real live, given that such constructs are 
 quite normal in spoken and written language. 
 
-The approach we take (starting with march 2023, version 0.98e) to resolve 
-this is to model such \enquote{big} paragraphs with a structure named 
-\texttt{text-unit} and use \texttt{P} (under the name \texttt{text}) only for 
+The approach we take (starting with march 2023) to resolve 
+this is to model such \enquote{semantic} paragraphs with a structure named 
+\texttt{\UseStructureName{para/semantic}} and use \texttt{P} 
+(under the name \texttt{\UseStructureName{para/textblock}}) only for 
 (portions of) the actual paragraph text in a way that the \texttt{P}s are not 
 nested. As a result we have for a simple paragraph two structures: 
 
@@ -1532,10 +1534,10 @@ nested. As a result we have for a simple paragraph two structures:
 In other words such a display block is always embedded in a |<text-unit>| 
 structure, possibly preceded by a |<text>|\ldots|</text>| block and possibly 
 followed by one, though both such blocks are optional. More information about 
-this can be found in the documentation of \texttt{latex-lab-block-tagging}. 
+this can be found in the documentation of \texttt{latex-lab-block}. 
 
-As a consequence \pkg{tagpdf} now adds two structures if paratagging is 
-activated. The new code to tag display blocks extends this code to handle the 
+As a consequence the tagging code adds two structures if paratagging is 
+activated. The code to tag display blocks extends this code to handle the 
 nesting of lists and other display structures. 
 
 The automatic tagging require that for every begin of a paragraph with the 
@@ -1547,13 +1549,15 @@ paragraph structures created with the automatic paratagging code are equal
 and it will error if not. 
 
 The automatic tagging of paragraphs can be deactivated completely or only the 
-outer level with the |\tagtool| keys |para| and |para-flattened| or with the 
-(now deprecated) commands |\tagpdfparaOn|  and |\tagpdfparaOff|. 
+outer level with the |\tagpdfsetup| key |para/tagging| and |para-flattened| 
+or with the commands |\tagpdfparaOn|  and |\tagpdfparaOff| or by changing the plugs
+of the tagging sockets -- they are defined and described in source2e, section lttagging. 
+
 
 Nesting the activation and deactivation of the tagging of paragraphs can be 
 quite difficult.  For example if it is unclear if the inner code issues a 
 |\par| or not it is not trivial to exclude an end hook for every excluded 
-begin hook. In such cases it can be easier to use the |paratag| key with the 
+begin hook. In such cases it can be easier to use the |para/tag| key with the 
 value |NonStruct| to convert some |P|-structures into |NonStruct|-structures 
 without real meaning. 
 
