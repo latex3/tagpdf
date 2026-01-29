@@ -498,10 +498,26 @@ The command is deactivated before the class is loaded if the key |tagging=off| i
   |tagging=on| in \cs{DocumentMetadata}. The |tagging=off| key of \cs{DocumentMetadata} deactivates it. 
   The old name of the key |interwordspace| is still supported but deprecated.
 
-\item[\PrintKeyName{activate/softhyphen}] Boolean. luamode only.
-  The key activates/deactivates the replacing of hard hyphens from hyphenation
-  by soft hyphens. By default this is activated.
-
+\item[\PrintKeyName{activate/softhyphen}] luamode only.
+  The key activates and controls the replacing of hard hyphens from hyphenation
+  by soft hyphens. It knows the values 
+  \begin{itemize}
+  \item \texttt{false} and \texttt{off} deactivates the automatic handling. 
+  \item \texttt{char} Replaces the hyphens by U+00AD if the font contains this glyph.
+  Note that in some newer fonts U+00AD is an invisible character and so this could led to disappearing hyphens. 
+  \item \texttt{artifact} This keeps the hard hyphen U+002D but
+   surrounds it by an Artifact-MC if tagging. This only works if the document is tagged. It requires that the \PrintKeyName{active/tagunmarked} key is not set to false.
+  \item \texttt{true}, \texttt{on}  do currently the same as \texttt{artifact}.
+ \end{itemize}
+ 
+  If tagging is not activate the softhyphen handling is not activated, by default and the hyphen stays a hard-hyphen. If is possible to use the \texttt{char} mode with 
+  \begin{verbatim}
+  \DocumentMetadata{tagging=off,tagging-setup={activate/softhyphen=char},}
+  \end{verbatim}
+  As \cs{tagpdfsetup} is deactivated in the document is not possible to 
+  change the mode locally in the document with it. 
+  
+  If tagging is active the default is the \texttt{artifact} mode. The mode can be changed with \cs{tagpdfsetup} at any time. Switching on and off the softhyphen is a global operation, a switch between artifact and char more is a local operation. 
 
 \item[\PrintKeyName{role/new-tag}] Allows to define new tag names, see
   section \ref{sec:new-tag} for a description.

@@ -145,7 +145,7 @@
 % to disappearing hyphens. 
 % \item \texttt{artifact} (default value) This keeps the hard hyphen U+002D but
 % surrounds it by an Artifact-MC. This only works if the document is tagged.
-% \item \texttt{true} TODO: decide
+% \item \texttt{true}, \texttt{on}  do the same as \texttt{artifact}.
 % \end{itemize}
 % 
 % If tagging is not activate the softhyphen handling is not activated, by default. The hyphen
@@ -153,10 +153,13 @@
 % \begin{verbatim}
 % \DocumentMetadata{tagging=off,tagging-setup={activate/softhyphen=char},}
 % \end{verbatim}
-% 
+% As \cs{tagpdfsetup} is deactivated at the begin of the class, 
+% there is no interface to switch in the document. 
 % 
 % If tagging is active the default is \texttt{artifact} mode, this requires that \texttt{tagunmarked}
-% is active too. The mode can be switched at any time, also locally. 
+% is active too. The mode can be switched at any time with \cs{tagpdfsetup}. 
+% Switching on and off the softhyphen is a global operation, 
+% a switch between artifact and char more is a local operation. 
 % \end{setupkeydecl}
 % 
 % \begin{setupkeydecl}{page/tabsorder, tabsorder (deprecated)}
@@ -711,6 +714,7 @@
 %    \begin{macrocode}
     activate/softhyphen .choice:,
     activate/softhyphen/false .code:n = {\bool_gset_false:N \g_@@_softhyphen_bool},
+    activate/softhyphen/off .code:n = {\bool_gset_false:N \g_@@_softhyphen_bool},
     activate/softhyphen/char  .code:n = 
      {
        \bool_gset_true:N \g_@@_softhyphen_bool
@@ -756,6 +760,21 @@
           }
         }
      },     
+    activate/softhyphen/on  .code:n = 
+     {
+       \bool_gset_true:N \g_@@_softhyphen_bool
+       \sys_if_engine_luatex:T
+        {
+         \lua_now:e
+          {
+            tex.setattribute
+             (
+               luatexbase.attributes.l_@@_softhyphen_attr,
+               -2147483647
+             )
+          }
+        }
+     },          
     activate/softhyphen     .default:n  = artifact,
 %    \end{macrocode}
 % \end{setupkeydecl}
