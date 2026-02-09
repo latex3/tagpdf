@@ -103,7 +103,7 @@ The package is developed and improved in parallel with the \LaTeX{} kernel, the 
 the \pkg{latex-lab} bundle (part of the core \LaTeX{} distribution),  the \pkg{pdfmanagement-testphase} 
 package (the \LaTeX{} PDF management bundle) and the L3 programming layer (part of the \LaTeX{} format). 
 That means you must ensure that all these components are up-to-date and in 
-sync which each other. 
+sync with each other. 
 
 This package quite probably still contains some bugs. It is in some parts quite slow because
 the code currently prefers readability over speed. At some point in the future its code will 
@@ -113,7 +113,7 @@ Because of its function as a research and development tool it is
 important to understand that this package can still change in
 incompatible ways from one version to the next.
 
-You need some knowledge about \TeX, \PDF{} and perhaps even lua to use its commands
+You need some knowledge about \TeX, \PDF{} and perhaps even Lua to use its commands
 directly.
 
 \medskip
@@ -158,25 +158,25 @@ use of this package would in the end allow to decide if and how code to do
 tagging should become part of the \LaTeX\ kernel. 
 
 
-The code has been written so that it can be added as module to the \LaTeX{} 
-kernel itself if it turned out to be usable. It therefore avoid to patch 
+The code has been written so that it can be added as a module to the \LaTeX{} 
+kernel itself if it turned out to be usable. It therefore avoids to patch 
 commands from other packages. It was also not an aim of the package to 
 develop patches to directly enable tagging in other packages. While in the end changes to various commands in many 
 classes and packages will be needed to automatically get tagged \PDF{} files, these changes 
 should be done by class, package and document writers themselves using a 
 sensible API provided by the kernel and not by some external package that 
-adds patches everywhere and would need constant maintenance --- one only need 
+adds patches everywhere and would need constant maintenance --- one only needs 
 to look at packages like \pkg{tex4ht} or \pkg{bidi} or \pkg{hyperref} to see how difficult and 
 sometimes fragile this is. 
 
 The package is now a part of the Tagged PDF project and triggered already 
 various changes in the \LaTeX\ kernel and the engines: There is a new PDF 
-management, the new para hooks allows to automatically tag paragraphs, after 
+management, the new para hooks allow to automatically tag paragraphs, after 
 changes in the output routine page breaks and header and footer are handled 
 correctly, the engines now support structure destinations. More changes are 
 in the latex-lab bundle and are loaded through the \texttt{tagging} keys. 
 
-I'm sure that tagpdf still has bugs. Bugs reports, suggestions and comments 
+I'm sure that tagpdf still has bugs. Bug reports, suggestions and comments 
 can be added to the issue tracker on github either 
 \url{https://github.com/latex3/tagpdf} or
 \url{https://github.com/latex3/tagging-project}. 
@@ -206,16 +206,16 @@ documents; it needs more compilations to resolve all cross references needed
 for the tagging. 
 
 The package has two modes: the \emph{generic mode} which should work in 
-theory with every engine and the \emph{lua mode} which works only with 
+theory with every engine and the \emph{Lua mode} which works only with 
 lualatex and (since version 0.98k) with dvilualatex. Since version 0.99m, 
-the lua mode is forced if luatex is detected, otherwise generic mode is used. 
+the Lua mode is forced if luatex is detected, otherwise generic mode is used. 
 
 I implemented the generic mode first. Mostly because my \TeX\ skills are much 
-better than my lua skills and I wanted to get the \TeX\ side right before 
+better than my Lua skills and I wanted to get the \TeX\ side right before 
 starting to fight with attributes and node traversing. 
 
 While the generic mode is not bad and I spent quite some time to get it 
-working I nevertheless think that the lua mode is the future and the only one 
+working I nevertheless think that the Lua mode is the future and the only one 
 that will be usable for larger documents. \PDF{} is a page orientated format 
 and so the ability of luatex to manipulate pages and nodes after the 
 \TeX-processing has finished is really useful here. Also with luatex characters are 
@@ -225,8 +225,8 @@ The package uses quite a lot labels (in generic mode more than with luamode).
 It is now based on the property module of the \LaTeX{} kernel. This module 
 provides expandable references but the drawback is that (right now) they don't always give 
 good rerun messages if they have changed. I advise to use the 
-\pkg{rerunfilecheck} package as a intermediate work-around and when using 
-pdflatex compile at least once or twice more often then normal. 
+\pkg{rerunfilecheck} package as an intermediate work-around and when using 
+pdflatex compile at least once or twice more often than normal. 
 
 
 \subsection{References and target PDF version}
@@ -445,10 +445,10 @@ false.
 
 The package has two different modes: The \textbf{generic mode} works
 (in theory, currently only fully tested with pdflatex) probably with
-all engines, the \textbf{lua mode} only with lualatex. The differences
+all engines, the \textbf{Lua mode} only with lualatex. The differences
 between both modes will be described later. 
 
-Starting with version 0.99m the mode is set automatically (lua mode for luatex, generic mode otherwise). The package options do nothing anymore and will be remove in future versions. 
+Starting with version 0.99m the mode is set automatically (Lua mode for luatex, generic mode otherwise). The package options do nothing anymore and will be remove in future versions. 
 
 
 \subsection{Setup and activation}\label{ssec:setup}
@@ -560,7 +560,7 @@ maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|.
   same for all pages. Perhaps this should be changed \ldots.
 
 \item[\PrintKeyName{activate/tagunmarked}] Boolean,\sidenote{luamode} initially
-  true. When this boolean is true, the lua code will try to mark
+  true. When this boolean is true, the Lua code will try to mark
   everything that has not been marked yet as an artifact. The benefit
   is that one doesn't have to mark up every deco rule oneself. The
   danger is that it perhaps marks things that shouldn't be marked --
@@ -584,7 +584,7 @@ key can be used more than once, the last setting will win.
   \item[\PrintKeyName{debug/show}] This takes a comma list of keywords:
   
   \texttt{spaces}/\texttt{spacesOff}: \sidenote{luamode} 
-   That helps in lua mode to see where space glyph will be
+   That helps in Lua mode to see where space glyph will be
    inserted if \PrintKeyName{activate/spaces} is activated. 
    This can also be activated with the now deprecated key |show-spaces|
 
@@ -890,17 +890,17 @@ This sounds easy. But there are quite a number of traps, mostly with pdfLaTeX:
 \end{enumerate}
 
 
-\subsubsection{Generic mode versus lua mode in the mc-task}
+\subsubsection{Generic mode versus Lua mode in the mc-task}
 
 While in generic mode the commands insert the literals directly and so have 
-all the problems described above the lua mode works quite differently: The 
+all the problems described above the Lua mode works quite differently: The 
 tagging commands don't insert literals but set some (global) 
 \emph{attributes}  which are attached to all the following nodes. When the 
-page is shipped out some lua code is called which wanders through the shipout 
+page is shipped out some Lua code is called which wanders through the shipout 
 box and injects the literals at the places where the attributes changes. 
 
 This means that quite a number of problems mentioned above are not relevant 
-for the lua mode: 
+for the Lua mode: 
 
 \begin{enumerate} 
 \item Page breaks between start and end of the marker are 
@@ -943,7 +943,7 @@ They don't start a paragraph. \emph{They don't start a group}. Such markers
 should not be nested. The command will warn you if this happens. 
 
 In the generic mode the commands insert literals. These are whatsits and so 
-can affect spacing. In lua mode they set an attribute \emph{globally}.  
+can affect spacing. In Lua mode they set an attribute \emph{globally}.  
 
 The key-val list understands the following keys:
 
@@ -978,7 +978,7 @@ The key-val list understands the following keys:
   The validators complain if some text is not marked up, but it is not 
   quite clear if this is a serious problem. 
 
-  The\sidenote{lua mode} lua mode will mark up everything unmarked as 
+  The\sidenote{Lua mode} Lua mode will mark up everything unmarked as 
   \texttt{artifact=notype}. You can suppress this behavior by setting the 
   tagpdfsetup key \texttt{activate/tagunmarked} to false. See section 
   \ref{ssec:setup}. 
@@ -1098,13 +1098,13 @@ These commands check if a marked content is currently open and allows you to e.g
 
 In \emph{generic mode}, where marked content command shouldn't be nested, it works with a global boolean.
 
-In \emph{lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!
+In \emph{Lua mode} it tests if the mc-attribute is currently unset. You can't test the nesting level with it!
 
 
 
 \begin{docCommand}{tag_mc_reset_box:N}{\marg{box}}\end{docCommand}
 
-In lua mode this command will process the given box and reset all mc
+In Lua mode this command will process the given box and reset all mc
 related attributes in the box to the current values.  This means that
 if the box is used all its contents will be a kid of the current
 structure.  This should (probably) only be used on boxes which don't
@@ -1133,7 +1133,7 @@ This (expandable) command returns the values of some variables. Currently, the w
   \pkg{tagpdf-base} is loaded nesting of structure is not tracked and
   so the command gives back the number of the last structure that has
   been created. In luatex this number can also be retrieved with the 
-  lua function \verb+ltx.tag.get_struct_num()+.  
+  Lua function \verb+ltx.tag.get_struct_num()+.  
 
 \item \verb+struct_counter+: This returns a number and works also if
   only \pkg{tagpdf-base} has been loaded. It gives back the state of
@@ -1142,7 +1142,7 @@ This (expandable) command returns the values of some variables. Currently, the w
   code there are structure commands. Be aware that this is a \LaTeX{}
   counter and so is reset in some places.
   In luatex this number can also be retrieved with the 
-  lua function \verb+ltx.tag.get_struct_counter()+. The number of the next
+  Lua function \verb+ltx.tag.get_struct_counter()+. The number of the next
   structure to be created is then \verb+ltx.tag.get_struct_counter()+ increased by
   one), this can also be retrieved with the function \verb+ltx.tag.get_struct_num_next()+.
 
@@ -1156,7 +1156,7 @@ This (expandable) command returns the values of some variables. Currently, the w
 
 \subsubsection{Luamode: global or not global -- that is the question}\label{sec:global-local}
 
-In\sidenote{lua mode} luamode the mc-commands set and unset an 
+In\sidenote{Lua mode} luamode the mc-commands set and unset an 
 attribute to mark the nodes. One can view such an attribute like a font 
 change or a color: they affect all following chars and glue nodes until 
 stopped. 
@@ -1413,7 +1413,7 @@ describes how to read the symbol.  The \PDF{} then looked like this
 If this is really the way to go one would need some script to add the
 mark-up as doing it manually is too much work and would make the
 source unreadable -- at least with pdflatex and the generic mode. In
-lua mode is it possible to hook into the \texttt{mlist\_to\_hlist}
+Lua mode is it possible to hook into the \texttt{mlist\_to\_hlist}
 callback and add marker automatically. Some first implementation in this direction
 has been done by Marcel Krüger in the luamml project. But up-to-now it was not possible 
 to test the usability of this approach: With the exception of the html derivation
@@ -2394,7 +2394,7 @@ They can be reenabled with
  \tagpdfsetup{debug/parent-child-check=on}
 \end{lstlisting}
 
-When using lualatex there is also the value \texttt{atend}. This disables the inline checks, but at the end of the document, the lua code will go through the structures and check the rules.  
+When using lualatex there is also the value \texttt{atend}. This disables the inline checks, but at the end of the document, the Lua code will go through the structures and check the rules.  
 
 There is also an online service \cite{showtags} which validates the structure with an Relax NG schema developed by the LaTeX Team, which can be found at \cite{showtags-script}. 
 
@@ -2422,7 +2422,7 @@ and off and insert manually such a space glyph with
 \verb+\pdffakespace+.
 
 With luatex (in luamode) |activate/spaces| is implemented with a
-lua-function which is inserted in two callbacks and marks up the
+Lua-function which is inserted in two callbacks and marks up the
 places where it seems sensible to inter a space glyph. Later in the
 process the space glyphs are injected -- the code will take the glyph
 from the current font if this has a space glyph or switch to the
@@ -2431,7 +2431,7 @@ normal text. |activate/spaces| can be used without actually tagging a
 document.
 
 The key-value \PrintKeyName{debug/show=spaces} will show lines at the places where
-in lua mode spaces are inserted and so can help you to find
+in Lua mode spaces are inserted and so can help you to find
 problematic places. For listings -- which have a quite specific
 handling of spaces -- you can find a suggestion in the example
 \texttt{ex-space-glyph-listings}.
@@ -2528,11 +2528,11 @@ will produce (assuming para tagging is activated) the paragraph structures
 \enquote{The duck} and \enquote{The yellow sun}. 
 
 
-With lua\LaTeX{}/lua mode this is different: The nodes in the box will have 
+With Lua\LaTeX{}/Lua mode this is different: The nodes in the box will have 
 the mc-attribute value attached which were active when the box was saved 
-and this value is recorded as kid of the first paragraph. So when the lua 
+and this value is recorded as kid of the first paragraph. So when the Lua 
 code later wanders through the box to find all kids of structure it will 
-also find the content of the \cs{usebox}. This means with lua\LaTeX{} we 
+also find the content of the \cs{usebox}. This means with Lua\LaTeX{} we 
 get the two paragraph structures \enquote{The duck yellow} and \enquote{The 
 sun}. 
 
@@ -2562,7 +2562,7 @@ box=
   \tagmcbegin{}text\tagmcend 
 \end{lstlisting}
 but this not (this case could probably be handled nevertheless with a bit 
-care at least in lua mode) 
+care at least in Lua mode) 
 \begin{lstlisting}
 box= text\tagmcend\tagstructbegin{...}...\tagstructend\tagmcbegin{}text
 \end{lstlisting}
@@ -2600,7 +2600,7 @@ With pdf\LaTeX{} Boxes with tagging commands can currently be used only
 once. The tagging commands set labels and reusing the box gives multiple 
 label warnings. 
 
-With lua\LaTeX{} it is possible to reset the attributes as done with the 
+With Lua\LaTeX{} it is possible to reset the attributes as done with the 
 untagged box and then to reuse at least the content. 
 
 \subsection{Detecting tagging commands}
@@ -2657,7 +2657,7 @@ tagging commands) the following strategy can be used:
  \end{itemize}
  
  \item if the box is used a second time then throw an error with 
-     pdf\LaTeX{}. With lua\LaTeX{} reset the attributes and issue a 
+     pdf\LaTeX{}. With Lua\LaTeX{} reset the attributes and issue a 
      warning. 
  
 \end{itemize}
@@ -2798,8 +2798,8 @@ This command takes as argument a key-val list which implements a number of show 
 \item Tag as proof of concept the documentation (nearly done)
 \item Document the code better (progress: mostly done)
 \item Create dtx (progress: done)
-\item Find someone to check and improve the lua code
-\item Move more things to lua in the luamode
+\item Find someone to check and improve the Lua code
+\item Move more things to Lua in the luamode
 \item Find someone to check and improve the rest of the code
 \item Check differences between \PDF{} versions 1.7 and 2.0.  (progress: 
     WIP, namespaces done) 
@@ -2959,7 +2959,7 @@ command.
     following spaces or remove earlier one. While this is nice in some 
     places, it also ate spaces in places where this wasn't expected. From 
     now on both commands behave exactly like the expl3 versions. 
-\item The lua-code to add real space glyphs has been separated from the 
+\item The Lua-code to add real space glyphs has been separated from the 
     tagging code. This means that |activate/spaces| now works also if 
     tagging is not active. 
 \item The key |activate| has been added, it open the first structure, see 
