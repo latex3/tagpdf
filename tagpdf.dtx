@@ -162,6 +162,19 @@
 % a switch between artifact and char more is a local operation. 
 % \end{setupkeydecl}
 % 
+% \begin{setupkeydecl}{activate/linkbin}
+%  PDF/UA requires that link annotations are in a Link (or Reference) structure element even
+%  if there are connected to text that is marked as artifact, as is the text in the
+%  header and footer. Fulfilling this requirement
+%  has sadly the bad side effect that a screen reader will, e.g., 
+%  read suddenly \enquote{Link} in the middle of a paragraph when it encounters a header
+%  at a page break. Leaving the annotations untagged leds to complains of the validator.
+%  With lualatex it is possible to detect such untagged link annotations and to move them into
+%  a structure at the end of the document, so that they at least no longer harm.
+%  The setting is on by default, but can be deactivated with this key.
+% \end{setupkeydecl}
+%
+% 
 % \begin{setupkeydecl}{page/tabsorder, tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be

@@ -1,0 +1,21 @@
+\DocumentMetadata{tagging=on,uncompress}
+\documentclass{article}
+\usepackage{hyperref}
+\begin{document}
+\ExplSyntaxOn\makeatletter
+\tagstructbegin{tag=Link,stash}
+\tl_set:Ne \g__tag_struct_link_bin_tl {\int_use:N\c@g__tag_struct_abs_int}%
+\tagstructend
+\AddToHook{tagpdf/finish/before}[tagpdf/linkbin]
+  {\par\tagstructbegin{tag=Artifact}\exp_args:Ne\tag_struct_use_num:n{\g__tag_struct_link_bin_tl}\tagstructend}
+\ExplSyntaxOff\makeatother
+some text 
+
+
+\tagstructbegin{tag=Artifact}\tagmcbegin{artifact}\SuspendTagging{}%
+\url{https://latex3.github.io/tagging-project}\par\ResumeTagging{}\tagmcend\tagstructend 
+
+more text
+
+
+\end{document}
