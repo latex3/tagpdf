@@ -49,20 +49,20 @@
 % }
 %
 % \date{Version 0.99y, released 2026-01-29}
-% \maketitle% 
-% 
+% \maketitle%
+%
 % \begin{documentation}
 % \begin{function}{\tag_suspend:n, \tag_resume:n,\tag_stop:n, \tag_start:n }%
 % \begin{syntax}
 % \cs{tag_suspend:n} \Arg{label}\\
-% \cs{tag_resume:n} \Arg{label}\\ 
+% \cs{tag_resume:n} \Arg{label}\\
 % \cs{tag_stop:n} \Arg{label} (\emph{deprecated})\\
-% \cs{tag_start:n} \Arg{label} (\emph{deprecated}) 
+% \cs{tag_start:n} \Arg{label} (\emph{deprecated})
 % \end{syntax}
 % We need commands to stop tagging in some places.
 % They switches three local booleans and also stop the counting
 % of paragraphs. If they are nested an inner \cs{tag_resume:n} will not
-% restart tagging. 
+% restart tagging.
 % \meta{label} is only used in debugging messages to allow to follow the nesting
 % and to identify which code is disabling the tagging.
 % The label is not expanded so can be a single token, e.g. |\caption|.
@@ -70,15 +70,15 @@
 % |\SuspendTagging| and |\ResumeTagging| and will be provided by the kernel
 % in the next release.
 % \end{function}
-% 
+%
 % \begin{function}{
-%  \tag_stop:, \tag_start:, 
+%  \tag_stop:, \tag_start:,
 %  \tagstop, \tagstart }
 % \emph{deprecated} These are variants of the above commands
-% without the debuging level. They are now deprecated and it 
+% without the debuging level. They are now deprecated and it
 % is recommended to use the kernel command
 % |\SuspendTagging|, |\ResumeTagging|, |\tag_suspend:n| and |\tag_resume:n|
-% instead. 
+% instead.
 % \end{function}
 %
 %
@@ -93,12 +93,12 @@
 % A key to activate the marked content code. It should be used
 % only in special cases, e.g. for debugging.
 % \end{setupkeydecl}
-% 
+%
 % \begin{setupkeydecl}{
 %    activate/tree,
 %    activate-tree (deprecated),
 %    }
-% This key activates the code that finalize the 
+% This key activates the code that finalize the
 % various trees. It should be used
 % only in special cases, e.g. for debugging.
 % \end{setupkeydecl}
@@ -118,7 +118,7 @@
 % This is a meta key for the three previous keys
 % and is normally what should be used to activate tagging.
 % \end{setupkeydecl}
-% 
+%
 %\begin{setupkeydecl}{activate/struct-dest,no-struct-dest (deprecated)}
 % The key allows to suppress the creation of structure destinations
 % \end{setupkeydecl}
@@ -136,37 +136,37 @@
 % \begin{setupkeydecl}{activate/softhyphen}
 % This key allows to activates automatic handling of hyphens inserted
 % by hyphenation. It is only used in luamode.
-% It accepts the following values: 
+% It accepts the following values:
 % \begin{itemize}
 % \item \texttt{false} and \texttt{off} deactivates the automatic
-% handling. 
+% handling.
 % \item \texttt{char} Replaces the hyphens by U+00AD if the font contains this glyph.
 % Note that in some newer fonts U+00AD is an invisible character and so this could led
-% to disappearing hyphens. 
+% to disappearing hyphens.
 % \item \texttt{artifact} (default value) This keeps the hard hyphen U+002D but
 % surrounds it by an Artifact-MC. This only works if the document is tagged.
 % \item \texttt{true}, \texttt{on}  do the same as \texttt{artifact}.
 % \end{itemize}
-% 
+%
 % If tagging is not activate the softhyphen handling is not activated, by default. The hyphen
-% stays a hard-hyphen. If is possible to use the \texttt{char} mode with 
+% stays a hard-hyphen. If is possible to use the \texttt{char} mode with
 % \begin{verbatim}
 % \DocumentMetadata{tagging=off,tagging-setup={activate/softhyphen=char},}
 % \end{verbatim}
-% As \cs{tagpdfsetup} is deactivated at the begin of the class, 
-% there is no interface to switch in the document. 
-% 
+% As \cs{tagpdfsetup} is deactivated at the begin of the class,
+% there is no interface to switch in the document.
+%
 % If tagging is active the default is \texttt{artifact} mode, this requires that \texttt{tagunmarked}
-% is active too. The mode can be switched at any time with \cs{tagpdfsetup}. 
-% Switching on and off the softhyphen is a global operation, 
-% a switch between artifact and char more is a local operation. 
+% is active too. The mode can be switched at any time with \cs{tagpdfsetup}.
+% Switching on and off the softhyphen is a global operation,
+% a switch between artifact and char more is a local operation.
 % \end{setupkeydecl}
-% 
-% \begin{setupkeydecl}{activate/linkbin}
+%
+% \begin{setupkeydecl}{activate/nolinkbin}
 %  PDF/UA requires that link annotations are in a Link (or Reference) structure element even
 %  if there are connected to text that is marked as artifact, as is the text in the
 %  header and footer. Fulfilling this requirement
-%  has sadly the bad side effect that a screen reader will, e.g., 
+%  has sadly the bad side effect that a screen reader will, e.g.,
 %  read suddenly \enquote{Link} in the middle of a paragraph when it encounters a header
 %  at a page break. Leaving the annotations untagged leds to complains of the validator.
 %  With lualatex it is possible to detect such untagged link annotations and to move them into
@@ -174,7 +174,7 @@
 %  The setting is on by default, but can be deactivated with this key.
 % \end{setupkeydecl}
 %
-% 
+%
 % \begin{setupkeydecl}{page/tabsorder, tabsorder (deprecated)}
 % This sets the tabsorder on a page. The values are |row|, |column|, |structure| (default)
 % or |none|. Currently this is set more or less globally. More finer control can be
@@ -193,8 +193,8 @@
 \ProvidesExplPackage {tagpdf} {2026-01-29} {0.99y}
   { LaTeX kernel code for PDF tagging }
 
-\IfPDFManagementActiveF  
-  { 
+\IfPDFManagementActiveF
+  {
     \PackageError{tagpdf}
      {
        PDF~resource~management~is~no~active!\MessageBreak
@@ -236,7 +236,7 @@
 \ProvidesExplPackage {tagpdf-base} {2026-01-29} {0.99y}
   {part of tagpdf - provide base, no-op versions of the user commands }
 %</base>
-%    \end{macrocode} 
+%    \end{macrocode}
 %\section{Package options}
 % The boolean is kept for now for compatibility, can go in 2026.
 %    \begin{macrocode}
@@ -280,7 +280,7 @@
 %<*package>
 \AddToHook{begindocument/before}{\cs_undefine:N\r@@tag@LastPage}
 \AddToHook{enddocument/afterlastpage}
- {\property_record:nn{@tag@LastPage}{abspage,tagmcabs,tagstruct}} 
+ {\property_record:nn{@tag@LastPage}{abspage,tagmcabs,tagstruct}}
 %    \end{macrocode}
 %
 % \section{Variables}
@@ -291,13 +291,13 @@
 %    \l_@@_tmpc_tl,
 %    \l_@@_tmp_unused_tl
 %    \l_@@_Ref_tmpa_tl,
-%    \l_@@_get_tmpc_tl,    
+%    \l_@@_get_tmpc_tl,
 %    \l_@@_get_parent_tmpa_tl,
 %    \l_@@_get_parent_tmpb_tl,
 %    \l_@@_get_parent_tmpc_tl,
 %    \l_@@_get_child_tmpa_tl,
 %    \l_@@_get_child_tmpb_tl,
-%    \l_@@_get_child_tmpc_tl,            
+%    \l_@@_get_child_tmpc_tl,
 %    \l_@@_tmpa_str,
 %    \l_@@_tmpa_prop,
 %    \l_@@_tmpa_seq,
@@ -419,7 +419,7 @@
 \bool_gset_true:N \g_@@_softhyphen_bool
 %    \end{macrocode}
 % \end{variable}
-% 
+%
 % \begin{variable}{\g_@@_unique_cnt_int}
 % If tagpdf has to create unique names (e.g. for object names when embedding files)
 % it can use this integer to get an unique name. At every use it should be increased
@@ -427,7 +427,7 @@
 \int_new:N \g_@@_unique_cnt_int
 %    \end{macrocode}
 % \end{variable}
- 
+
 % \section{Variants of l3 commands}
 %     \begin{macrocode}
 \prg_generate_conditional_variant:Nnn \pdf_object_if_exist:n {e}{T,F,TF}
@@ -437,7 +437,7 @@
 \cs_generate_variant:Nn \prop_gput:Nnn {Nee,Nen} %** unneeded
 \cs_generate_variant:Nn \prop_put:Nnn  {Nee}     %** unneeded
 \cs_generate_variant:Nn \prop_item:Nn {No,Ne}    %**  unneeded
-\cs_generate_variant:Nn \seq_set_split:Nnn{Nno}  
+\cs_generate_variant:Nn \seq_set_split:Nnn{Nno}
 \cs_generate_variant:Nn \str_set_convert:Nnnn {Nonn, Noon, Nnon }
 \cs_generate_variant:Nn \clist_map_inline:nn {on}
 \cs_generate_variant:Nn \pdffile_embed_file:nnn {eee}
@@ -447,15 +447,15 @@
 % The code uses mostly the kernel properties but need a few local variants.
 % \begin{macro}{\@@_property_record:nn}
 % The command to record a property while preserving the spaces similar to the standard
-% \cs{label}.    
+% \cs{label}.
 %    \begin{macrocode}
     \cs_new_protected:Npn \@@_property_record:nn #1#2
       {
         \@bsphack
         \property_record:nn{#1}{#2}
         \@esphack
-      }  
-  
+      }
+
 %    \end{macrocode}
 % And a few variants
 %    \begin{macrocode}
@@ -464,7 +464,7 @@
 \cs_generate_variant:Nn \@@_property_record:nn {en,eo}
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{\@@_property_ref_lastpage:nn}
 % A command to retrieve the lastpage label, this will be adapted when there
 % is a proper, kernel lastpage label.
@@ -488,23 +488,23 @@
 % With mc-chunks we store the absolute page number |tagabspage|,
 % the absolute id |tagmcabc|, and the id on the page |tagmcid|.
 %    \begin{macrocode}
-\property_new:nnnn 
-  { tagstruct } { now } 
+\property_new:nnnn
+  { tagstruct } { now }
   {1} { \int_use:N \c@g_@@_struct_abs_int }
 \property_new:nnnn  { tagstructobj } { now }  {}
   {
      \pdf_object_ref_indexed:nn { @@/struct } { \c@g_@@_struct_abs_int }
   }
-\property_new:nnnn  
-  { tagabspage } { shipout } 
+\property_new:nnnn
+  { tagabspage } { shipout }
   {0} { \int_use:N \g_shipout_readonly_int }
 \property_new:nnnn  { tagmcabs } { now }
   {0} { \int_use:N \c@g_@@_MCID_abs_int }
 
-\flag_new:n { @@/mcid }     
+\flag_new:n { @@/mcid }
 \property_new:nnnn  {tagmcid } { shipout }
    {0} { \flag_height:n { @@/mcid } }
-  
+
 %    \end{macrocode}
 % \end{macro}
 %
@@ -561,10 +561,10 @@
 % The commands with argument allow to give a label. This is only used
 % in debugging messages to allow to follow the nesting. The label is
 % not expand so can e.g. be a single command token.
-% 
+%
 % \begin{variable}{\l_@@_tag_stop_int}
-% When stop/start pairs are nested we do not want the inner 
-% start command to restart tagging. To control this we use a 
+% When stop/start pairs are nested we do not want the inner
+% start command to restart tagging. To control this we use a
 % local int: The stop command will increase it. The starting
 % will decrease it and only restart tagging, if it is zero.
 % This will replace the label version.
@@ -573,11 +573,11 @@
 %<package>\int_new:N \l_@@_tag_stop_int
 %    \end{macrocode}
 % \end{variable}
-% 
+%
 %    \begin{macrocode}
 \cs_set_protected:Npn \tag_stop:
   {
-%<debug>     \msg_note:nne {tag / debug }{tag-suspend}{ \int_use:N \l_@@_tag_stop_int }      
+%<debug>     \msg_note:nne {tag / debug }{tag-suspend}{ \int_use:N \l_@@_tag_stop_int }
     \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
@@ -594,23 +594,23 @@
         \bool_set_true:N \l_@@_active_socket_bool
         \@@_start_para_ints:
       }
-%<debug>    \msg_note:nne {tag / debug }{tag-resume}{ \int_use:N \l_@@_tag_stop_int }                   
+%<debug>    \msg_note:nne {tag / debug }{tag-resume}{ \int_use:N \l_@@_tag_stop_int }
   }
 \cs_set_eq:NN\tagstop\tag_stop:
-\cs_set_eq:NN\tagstart\tag_start:  
+\cs_set_eq:NN\tagstart\tag_start:
 %    \end{macrocode}
 %    \begin{macrocode}
 \cs_set_protected:Npn \tag_suspend:n #1
   {
 %<debug>    \msg_note:nnee {tag / debug }{tag-suspend}
-%<debug>       { \int_use:N \l_@@_tag_stop_int }{\exp_not:n{#1}}           
+%<debug>       { \int_use:N \l_@@_tag_stop_int }{\exp_not:n{#1}}
     \int_incr:N \l_@@_tag_stop_int
     \bool_set_false:N \l_@@_active_struct_bool
     \bool_set_false:N \l_@@_active_mc_bool
     \bool_set_false:N \l_@@_active_socket_bool
     \@@_stop_para_ints:
   }
-\cs_set_eq:NN \tag_stop:n \tag_suspend:n 
+\cs_set_eq:NN \tag_stop:n \tag_suspend:n
 \cs_set_protected:Npn \tag_resume:n #1
   {
     \int_if_zero:nF { \l_@@_tag_stop_int } { \int_decr:N \l_@@_tag_stop_int }
@@ -620,11 +620,11 @@
         \bool_set_true:N \l_@@_active_mc_bool
         \bool_set_true:N \l_@@_active_socket_bool
         \@@_start_para_ints:
-      }     
+      }
 %<debug>    \msg_note:nnee {tag / debug }{tag-resume}
-%<debug>       { \int_use:N \l_@@_tag_stop_int }{\exp_not:n{#1}}             
+%<debug>       { \int_use:N \l_@@_tag_stop_int }{\exp_not:n{#1}}
   }
-\cs_set_eq:NN \tag_start:n \tag_resume:n    
+\cs_set_eq:NN \tag_start:n \tag_resume:n
 %</package|debug>
 %<*base>
 \cs_new_protected:Npn \tag_stop:{}
@@ -642,6 +642,38 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \section{Handling link artifacts}
+% Links that should be artifacts, e.g. in header or an overlay frame,
+% can not be simply kept untagged as the validators then complain about the link
+% annotations that are not in a Link structure.
+% But tagging them gives a bad reading experience as they can interrupt the text.
+% Probably long term the best is not to interrupt tagging inside an Artifact
+% structure and to move these structures to the end of the structure tree to keep them
+% out of the way.
+% But with luatex we have an easy option to detect untagged link annotations and so
+% can move them to the end of the structure tree too and this is done here.
+%
+%    \begin{macrocode}
+%<*package>
+\cs_new_protected:Npn \@@_activate_linkbin:
+  {
+   \sys_if_engine_luatex:T
+    {
+      \tagstructbegin{tag=Link,stash}
+      \tl_const:Ne \c__tag_struct_link_bin_tl {\int_use:N\c@g__tag_struct_abs_int}%
+      \tagstructend
+      \AddToHook{tagpdf/finish/before}[tagpdf/linkbin]
+       {
+         \par
+         \tagstructbegin{tag=Artifact,title=link~artifacts}
+         \tag_struct_use_num:o{\c__tag_struct_link_bin_tl}
+         \tagstructend
+       }
+     }
+  }
+\AddToHook{begindocument/end}[tagpdf/linkbin]{\@@_activate_linkbin:}
+%</package>
+%    \end{macrocode}
 %
 % \section{Keys for tagpdfsetup}
 %
@@ -657,7 +689,7 @@
 %  }
 %  Keys to (globally) activate tagging.
 %  |activate/spaces| activates the additional parsing needed for
-%  interword spaces. It is defined in tagpdf-space. 
+%  interword spaces. It is defined in tagpdf-space.
 %  |activate/struct-dest| allows to activate or suppress structure destinations.
 %    \begin{macrocode}
 %<*package>
@@ -679,7 +711,7 @@
     activate-all    .meta:n =
       {activate/mc={#1},activate/tree={#1},activate/struct={#1}},
     activate-all  .default:n = true,
-    no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,    
+    no-struct-dest .bool_gset_inverse:N = \g_@@_active_struct_dest_bool,
 %    \end{macrocode}
 % \end{setupkeydecl}
 % \begin{setupkeydecl}{debug/show}
@@ -702,7 +734,7 @@
     debug/log / vv        .code:n = {\int_set:Nn \l_@@_loglevel_int { 2 }},
     debug/log / vvv       .code:n = {\int_set:Nn \l_@@_loglevel_int { 3 }},
     debug/log / all       .code:n = {\int_set:Nn \l_@@_loglevel_int { 10 }},
-    debug/uncompress .code:n = { \pdf_uncompress:  },    
+    debug/uncompress .code:n = { \pdf_uncompress:  },
 %    \end{macrocode}
 % deprecated but still needed as the documentmetadata key argument uses it.
 %    \begin{macrocode}
@@ -728,7 +760,7 @@
     activate/softhyphen .choice:,
     activate/softhyphen/false .code:n = {\bool_gset_false:N \g_@@_softhyphen_bool},
     activate/softhyphen/off .code:n = {\bool_gset_false:N \g_@@_softhyphen_bool},
-    activate/softhyphen/char  .code:n = 
+    activate/softhyphen/char  .code:n =
      {
        \bool_gset_true:N \g_@@_softhyphen_bool
        \sys_if_engine_luatex:T
@@ -743,7 +775,7 @@
           }
         }
      },
-    activate/softhyphen/artifact  .code:n = 
+    activate/softhyphen/artifact  .code:n =
      {
        \bool_gset_true:N \g_@@_softhyphen_bool
        \sys_if_engine_luatex:T
@@ -758,7 +790,7 @@
           }
         }
      },
-    activate/softhyphen/true  .code:n = 
+    activate/softhyphen/true  .code:n =
      {
        \bool_gset_true:N \g_@@_softhyphen_bool
        \sys_if_engine_luatex:T
@@ -772,8 +804,8 @@
              )
           }
         }
-     },     
-    activate/softhyphen/on  .code:n = 
+     },
+    activate/softhyphen/on  .code:n =
      {
        \bool_gset_true:N \g_@@_softhyphen_bool
        \sys_if_engine_luatex:T
@@ -787,8 +819,14 @@
              )
           }
         }
-     },          
+     },
     activate/softhyphen     .default:n  = artifact,
+%    \end{macrocode}
+% \end{setupkeydecl}
+% \begin{setupkeydecl}{activate/nolinkbin}
+%    \begin{macrocode}
+    activate/nolinkbin.code:n =
+      {\RemoveFromHook{begindocument/end}[tagpdf/linkbin]},
 %    \end{macrocode}
 % \end{setupkeydecl}
 % \begin{setupkeydecl}{page/tabsorder,tabsorder (deprecated)}
@@ -809,7 +847,7 @@
 %    \end{macrocode}
 % deprecated name
 %    \begin{macrocode}
-    tabsorder .meta:n = {page/tabsorder={#1}},    
+    tabsorder .meta:n = {page/tabsorder={#1}},
   }
 %    \end{macrocode}
 % \end{setupkeydecl}
