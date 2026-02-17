@@ -227,6 +227,7 @@ functions
  ltx.@@.func.output_parenttree(): outputs the content of the parenttree
  ltx.@@.func.pdf_object_ref(name,index): outputs the object reference for the object name
  ltx.@@.func.markspaceon(), ltx.@@.func.markspaceoff(): (de)activates the marking of positions for space chars
+ ltx.@@.func.linkbin() returns the number of OBJR stored in the linkbin structure
  ltx.@@.trace.show_mc_data (num,loglevel): shows ltx.@@.mc[num] is the current log level is >= loglevel
  ltx.@@.trace.show_all_mc_data (max,loglevel): shows a maximum about mc's if the current log level is >= loglevel
  ltx.@@.trace.show_seq: shows a sequence (array)
@@ -1553,6 +1554,12 @@ ltx.@@.func.check_parent_child_rules=check_parent_child_rules
 % If the linksplit code has been loaded we use it to add the OBJR of links to the
 % structure tree.
 %    \begin{macrocode}
+local linkbincnt = 0
+
+function ltx.__tag.func.linkbin()
+ return linkbincnt
+end 
+
 if luatexbase.callbacktypes['linksplit'] then
  luatexbase.add_to_callback('linksplit', function(start_link, position)
    if start_link == nil then return end
@@ -1589,13 +1596,16 @@ if luatexbase.callbacktypes['linksplit'] then
             start_link.objnum..' 0 R}{'..
             parentnum ..'}')
           tex.setcount('global','c@g__tag_parenttree_obj_int',parentnum +1)
-          __tag_log('Info: Link not in Link or Reference structure element',0)
-          __tag_log('      moved into a container at the end of the structure tree\n',0)
-     else
+          linkbincnt=linkbincnt+1
+          if linkbincnt == 1 then
+           __tag_log('Info: some Link annotation(s) are not in Link or Reference structure elements',0)
+           __tag_log('      moved into a container at the end of the structure tree\n',0)
+          end          
+        else
           __tag_log('Warning: Link not in Link or Reference structure element',0)
           __tag_log('OBJR not created',0)
           __tag_log('',0)
-     end
+        end
     end
    end
  end, 'tagpdf')

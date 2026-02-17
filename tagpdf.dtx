@@ -665,9 +665,12 @@
       \AddToHook{tagpdf/finish/before}[tagpdf/linkbin]
        {
          \par
-         \tagstructbegin{tag=Artifact,title=link~artifacts}
-         \tag_struct_use_num:o{\c__tag_struct_link_bin_tl}
-         \tagstructend
+         \int_compare:nNnT {\directlua{tex.sprint(ltx.__tag.func.linkbin())}}>{0}
+          {
+            \tagstructbegin{tag=Artifact,title=Ignored~link~annotations}         
+            \tag_struct_use_num:o{\c__tag_struct_link_bin_tl}
+            \tagstructend
+          }  
        }
      }
   }
