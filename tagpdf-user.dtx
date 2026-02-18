@@ -1225,19 +1225,6 @@
 \cs_new_protected:Npn\@@_hook_kernel_before_foot:{}
 \cs_new_protected:Npn\@@_hook_kernel_after_foot:{}
 %    \end{macrocode}
-% This can go once the new OR is active (June 2025)
-%    \begin{macrocode}
-\AddToHook{begindocument}
- {
-  \cs_if_exist:NT \@kernel@before@head
-   {
-     \tl_put_right:Nn \@kernel@before@head {\@@_hook_kernel_before_head:}
-     \tl_put_left:Nn  \@kernel@after@head  {\@@_hook_kernel_after_head:}
-     \tl_put_right:Nn \@kernel@before@foot {\@@_hook_kernel_before_foot:}
-     \tl_put_left:Nn  \@kernel@after@foot  {\@@_hook_kernel_after_foot:}
-   }
- }
-%    \end{macrocode}
 % We use the page sockets.
 %    \begin{macrocode}
 \NewTaggingSocketPlug{build/page/header}{tagpdf}
@@ -1359,24 +1346,18 @@
 %  A special, experimental tagged version, which only works with fancyhdr or similar that uses
 %  parbox
 %    \begin{macrocode}
-\AtBeginDocument
+\NewTaggingSocketPlug{parbox/before}{tag/footer}
   {
-   \socket_if_exist:nT{tagsupport/parbox/before}
-     {
-      \NewTaggingSocketPlug{parbox/before}{tag/footer}
-        {
-         \tag_struct_begin:n{tag=Span}
-         \tag_mc_begin:n{}
-        }
-        
-      \NewTaggingSocketPlug{parbox/after}{tag/footer}
-        {
-         \tag_mc_end:   
-         \tag_struct_end:
-        } 
-     }
-   }  
+   \tag_struct_begin:n{tag=Span}
+   \tag_mc_begin:n{}
+  }
   
+\NewTaggingSocketPlug{parbox/after}{tag/footer}
+  {
+   \tag_mc_end:   
+   \tag_struct_end:
+  } 
+
 \cs_new_protected:Npn \@@_headfoot_tagged_begin:n #1
  { 
    \AssignTaggingSocketPlug{parbox/before}{tag/footer}
@@ -1406,13 +1387,15 @@
  }  
 \keys_define:nn { @@ / setup }
  { 
-   page/tag-header-footer .code:n = 
+   page/tag-header-footer .choice:,   
+   page/tag-header-footer/artifact .code:n = 
     {    
       \cs_set:Nn \__tag_hook_kernel_before_head: { \__tag_headfoot_tagged_begin:n {pagination}}
       \cs_set:Nn \__tag_hook_kernel_before_foot: { \__tag_headfoot_tagged_begin:n {pagination}}
       \cs_set_eq:NN \__tag_hook_kernel_after_head:  \__tag_headfoot_tagged_end:
       \cs_set_eq:NN \__tag_hook_kernel_after_foot:  \__tag_headfoot_tagged_end:    
-    }
+    },
+   page/tag-header-footer .default:n = artifact, 
  }   
 %    \end{macrocode}
 % \subsection{Links}

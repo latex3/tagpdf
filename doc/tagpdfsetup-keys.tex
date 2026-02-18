@@ -10,7 +10,7 @@ new key name    & old key name & value            &type   & defined in \\\endfir
 new key name    & old key name & value            &type   & defined in \\\midrule\endhead
  ???            & root-AF      & string           &code   &tagpdf-struct\\
 root-supplemental-file &       & string           &code   &tagpdf-struct\\
-attach-css      &              & string           &bool   &tagpdf-user\\
+attach-css      &              & boolean           &bool   &tagpdf-user\\
 css-list        &              & string           &code   &tagpdf-user\\ 
 css-list-remove &              & string           &code   &tagpdf-user\\
 css-list-add    &              & string           &code   &tagpdf-user\\
@@ -61,7 +61,10 @@ viewer/startstructure & ---        &number            &code  &tagpdf-tree \\[4pt
 %%% Document element keys
 %%  page key path 
 page/tabsorder  &tabsorder         & choice          & code & tagpdf\\   
-page/exclude-header-footer & exclude-header-footer &choice & code &tagpdf-user\\[4pt]\midrule
+page/exclude-header-footer & exclude-header-footer &choice & code &tagpdf-user\\
+page/tag-header-footer & &choice & code &tagpdf-user\\
+
+\\[4pt]\midrule
 %% para key path
 para/tagging     &paratagging      &boolean          &bool  &tagpdf-user\\
 para/tag         &paratag          &string           &code  &tagpdf-user\\
