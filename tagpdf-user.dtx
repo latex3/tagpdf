@@ -1407,17 +1407,10 @@
 % OBJR of all annotations into the Link structure, so the hook code
 % should not contain the command to insert the OBJR into the structure.
 % 
-% At first we provide some commands that will be in the next LaTeX release (11/2025)
+% At first we provide the link name that will be in the next LaTeX release (06/2026)
 %    \begin{macrocode}
 \AddToHookNext{class/before}
  {
-   \cs_if_exist:NF \UseStructureName
-    {
-      \cs_new:Npn\UseStructureName#1
-       {
-         \cs:w l_@@_name_#1_tl\cs_end:
-       }
-    }
    \cs_if_exist:NF \l_@@_name_link_tl
     {
       \tl_new:N  \l_@@_name_link_tl
