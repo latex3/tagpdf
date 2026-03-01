@@ -162,16 +162,18 @@
 % a switch between artifact and char more is a local operation.
 % \end{setupkeydecl}
 %
-% \begin{setupkeydecl}{activate/nolinkbin}
+% \begin{setupkeydecl}{activate/collect-link-artifacts}
 %  PDF/UA requires that link annotations are in a Link (or Reference) structure element even
 %  if there are connected to text that is marked as artifact, as is the text in the
 %  header and footer. Fulfilling this requirement
 %  has sadly the bad side effect that a screen reader will, e.g.,
-%  read suddenly \enquote{Link} in the middle of a paragraph when it encounters a header
-%  at a page break. Leaving the annotations untagged leds to complains of the validator.
+%  read suddenly \enquote{Link} between paragraphs when it encounters a header
+%  at a page break. Leaving the annotations untagged gives a better reading but 
+%  leads to complains of the UA-validators.
 %  With lualatex it is possible to detect such untagged link annotations and to move them into
-%  a structure at the end of the document, so that they at least no longer harm.
-%  The setting is on by default, but can be deactivated with this key.
+%  a structure at the end of the document, so that they at least no longer interrupt the reading.
+%  The setting is on by default, but can be deactivated (in the preamble) with this key.
+%  It knows currently only the value \texttt{off}. 
 % \end{setupkeydecl}
 %
 %
@@ -826,9 +828,9 @@
     activate/softhyphen     .default:n  = artifact,
 %    \end{macrocode}
 % \end{setupkeydecl}
-% \begin{setupkeydecl}{activate/nolinkbin}
+% \begin{setupkeydecl}{activate/collect-link-artifacts}
 %    \begin{macrocode}
-    activate/nolinkbin.code:n =
+    activate/collect-link-artifacts/off .code:n =
       {\RemoveFromHook{begindocument/end}[tagpdf/linkbin]},
 %    \end{macrocode}
 % \end{setupkeydecl}
