@@ -1344,20 +1344,23 @@
 % \end{macro}
 % 
 %  A special, experimental tagged version, which only works with fancyhdr or similar that uses
-%  parbox
+%  parbox. The sockets aren't in lttagging yet, so until 2026-06-01 we have to declare
+%  the plugs at begin document:
 %    \begin{macrocode}
-\NewTaggingSocketPlug{parbox/before}{tag/footer}
+\AtBeginDocument
   {
-   \tag_struct_begin:n{tag=Span}
-   \tag_mc_begin:n{}
+    \NewTaggingSocketPlug{parbox/before}{tag/footer}
+      {
+       \tag_struct_begin:n{tag=Span}
+       \tag_mc_begin:n{}
+      }
+      
+    \NewTaggingSocketPlug{parbox/after}{tag/footer}
+      {
+       \tag_mc_end:   
+       \tag_struct_end:
+      } 
   }
-  
-\NewTaggingSocketPlug{parbox/after}{tag/footer}
-  {
-   \tag_mc_end:   
-   \tag_struct_end:
-  } 
-
 \cs_new_protected:Npn \@@_headfoot_tagged_begin:n #1
  { 
    \AssignTaggingSocketPlug{parbox/before}{tag/footer}
