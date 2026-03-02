@@ -75,6 +75,9 @@ Package tagpdf Info: closing structure 15 tagged /mtd
 Package tagpdf Info: closing structure 13 tagged /mtr
 Package tagpdf Info: closing structure 12 tagged /mtable
 Package tagpdf Info: closing structure 11 tagged /math
+Package tagpdf Info: Checking Parent-Child 'pdf2:Formula' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 7 tagged /Formula
 ==> @endpe=true on input line ...
 ==> increment P on input line ...
@@ -127,6 +130,9 @@ Package tagpdf Info: Parent-Child 'mi' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 27 tagged /mi
 Package tagpdf Info: closing structure 24 tagged /math
+Package tagpdf Info: Checking Parent-Child 'pdf2:Em' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Em' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 23 tagged /Em
 Package tagpdf Info: Checking Parent-Child 'mathml:mtext' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
@@ -170,6 +176,9 @@ Package tagpdf Info: Checking Parent-Child 'mathml:math' --> 'mathml:mtext'
 Package tagpdf Info: Parent-Child 'math' --> 'mtext'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 29 tagged /math
+Package tagpdf Info: Checking Parent-Child 'pdf2:Formula' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 21 tagged /Formula
 Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
@@ -351,6 +360,8 @@ Completed box being shipped out [1]
 ....\glue 0.0 plus 1.0fil
 ....\glue 0.0
 ....\glue 0.0 plus 0.0001fil
+...\pdfliteral page <lua data reference ...>
+...\pdfliteral page <lua data reference ...>
 ...\pdflinkstate 1
 ...\glue(\baselineskip) 23.34
 ...\hbox(6.66+0.0)x345.0, direction TLT
@@ -373,7 +384,7 @@ Completed box being shipped out [1]
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
 (tagpdf)             Writing out ~32 structure objects
-(tagpdf)             with ~22 'MC' leaf nodes.
+(tagpdf)             with ~25 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree
