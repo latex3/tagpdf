@@ -10,6 +10,8 @@ this project uses date-based 'snapshot' version identifiers.
 ### Added
   - container for untagged links in luatex. See issue https://github.com/josephwright/ltx-talk/issues/165
   
+### Fixed
+  - Artifacts where added to StructTreeRoot instead of Document   
   
 ## [2026-01-29]
 ### Changed 
