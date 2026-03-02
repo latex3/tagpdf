@@ -7,7 +7,7 @@ UNTAGGED
 ============================================================
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Span'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 2, Document --> struct 5, Span
+(tagpdf)                struct 2, Document --> struct 6, Span
 ============================================================
 TEST 2: box with structure
 ============================================================
@@ -23,7 +23,7 @@ TAGGED
 ============================================================
 (test-box-is-tagged.aux)
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~5 structure objects
+(tagpdf)             Writing out ~6 structure objects
 (tagpdf)             with ~1 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree

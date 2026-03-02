@@ -15,16 +15,12 @@ Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
 Package tagpdf Info: Checking Parent-Child 'mathml:mpadded' --> 'mathml:mtext'
 Package tagpdf Info: Parent-Child 'mpadded' --> 'mtext'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 8 tagged /mtext
-Package tagpdf Info: closing structure 7 tagged /mpadded
-Package tagpdf Info: Checking Parent-Child 'mathml:mtext' --> 'pdf2:Lbl'
-Package tagpdf Info: Parent-Child 'mtext' --> 'Lbl'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:Lbl' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 10 tagged /Lbl
 Package tagpdf Info: closing structure 9 tagged /mtext
+Package tagpdf Info: closing structure 8 tagged /mpadded
+Package tagpdf Info: Checking Parent-Child 'mathml:mtext' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'mtext' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 10 tagged /mtext
 Package tagpdf Info: Checking Parent-Child 'pdf2:Formula' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -79,7 +75,7 @@ Package tagpdf Info: closing structure 15 tagged /mtd
 Package tagpdf Info: closing structure 13 tagged /mtr
 Package tagpdf Info: closing structure 12 tagged /mtable
 Package tagpdf Info: closing structure 11 tagged /math
-Package tagpdf Info: closing structure 6 tagged /Formula
+Package tagpdf Info: closing structure 7 tagged /Formula
 ==> @endpe=true on input line ...
 ==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
@@ -180,7 +176,7 @@ Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 20 tagged /text
-Package tagpdf Info: closing structure 5 tagged /text-unit
+Package tagpdf Info: closing structure 6 tagged /text-unit
 Completed box being shipped out [1]
 \vbox(633.0+0.0)x407.0, direction TLT
 .\hbox(0.0+0.0)x0.0, direction TLT
@@ -237,8 +233,8 @@ Completed box being shipped out [1]
 ....\glue(\abovedisplayshortskip) 0.0 plus 3.0
 ....\glue(\baselineskip) 4.5
 ....\hbox(7.5+2.5)x345.0, direction TLT
-.....\kern160.94229 (font)
-.....\hbox(6.94+0.11)x23.11542, direction TLT
+.....\kern160.8223 (font)
+.....\hbox(6.94+0.11)x23.35542, direction TLT
 ......\penalty 10000
 ......\hbox(0.0+0.0)x0.0, direction TLT
 ......\hbox(0.0+0.0)x0.0, direction TLT
@@ -264,7 +260,8 @@ Completed box being shipped out [1]
 ......\pdfliteral page <lua data reference ...>
 ......\pdfliteral page <lua data reference ...>
 ......\TU/latinmodern-math.otf(1)/m/n/10 𝑑
-.....\kern148.1623 (font)
+......\kern0.24 (italic)
+.....\kern148.04228 (font)
 .....\hbox(7.5+2.5)x12.78, direction TLT
 ......\hbox(7.5+2.5)x12.78, direction TLT
 .......\pdfliteral page <lua data reference ...>
@@ -286,7 +283,7 @@ Completed box being shipped out [1]
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 2.45
-....\hbox(7.05+2.05)x345.0, glue set 255.91917fil, direction TLT
+....\hbox(7.05+2.05)x345.0, glue set 255.77917fil, direction TLT
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
@@ -307,6 +304,7 @@ Completed box being shipped out [1]
 .....\pdfliteral page <lua data reference ...>
 .....\pdfliteral page <lua data reference ...>
 .....\TU/latinmodern-math.otf(1)/m/n/10 𝑏
+.....\kern0.14 (italic)
 .....\hbox(7.05+2.05)x62.83542, direction TLT
 ......\pdfliteral page <lua data reference ...>
 ......\pdfliteral page <lua data reference ...>

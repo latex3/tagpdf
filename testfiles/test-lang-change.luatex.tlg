@@ -1,18 +1,5 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'pdf2:Span'.
-(tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 6, Sect --> struct 12, Span
-tagpdf DEBUG Info: Tagging suspended
-(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
-tagpdf DEBUG Info: Tagging resumed
-(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
-tagpdf DEBUG Info: Tagging suspended
-(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
-tagpdf DEBUG Info: Tagging resumed
-(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
-[1
-]<<latex-list-css.html>><<latex-align-css.html>> (debug-structures-2.aux)
 =========================
 The structure 1 contains:
 >  Type  =>  /StructTreeRoot
@@ -34,6 +21,8 @@ The structure 2 contains:
 >  parentnum  =>  1 = /StructTreeRoot
 The structure has the following kids:
 >  Struct 6
+>  Struct 8
+>  Struct 10
 =========================
 =========================
 The structure 3 contains:
@@ -74,110 +63,69 @@ The structure has the following kids:
 =========================
 The structure 6 contains:
 >  Type  =>  /StructElem
->  S  =>  /Sect
->  NS  =>  pdf2
->  tag  =>  {Sect}{pdf2}
->  rolemap  =>  {Sect}{pdf2}
->  parentrole  =>  {Sect}{pdf2}
+>  S  =>  /text-unit
+>  NS  =>  latex
+>  tag  =>  {text-unit}{latex}
+>  rolemap  =>  {Part}{pdf2}
+>  parentrole  =>  {Document}{pdf2}
 >  parentnum  =>  2 = /Document
 The structure has the following kids:
 >  Struct 7
->  Struct 9
->  Struct 12
->  Struct 13
 =========================
 =========================
 The structure 7 contains:
 >  Type  =>  /StructElem
->  T  =>  <FEFF0062006C00750062>
->  S  =>  /section
+>  C  =>  /justify
+>  S  =>  /text
 >  NS  =>  latex
->  tag  =>  {section}{latex}
->  rolemap  =>  {H1}{pdf2}
->  parentrole  =>  {H1}{pdf2}
->  parentnum  =>  6 = /Sect
-The structure has the following kids:
->  Struct 8
->  MC 2
-=========================
-=========================
-The structure 8 contains:
->  Type  =>  /StructElem
->  S  =>  /section-number
->  NS  =>  latex
->  tag  =>  {section-number}{latex}
->  rolemap  =>  {Span}{pdf2}
->  parentrole  =>  {Span}{pdf2}
->  parentnum  =>  7 = /section
+>  tag  =>  {text}{latex}
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  parentnum  =>  6 = /text-unit
 The structure has the following kids:
 >  MC 1
 =========================
 =========================
-The structure 9 contains:
+The structure 8 contains:
 >  Type  =>  /StructElem
+>  Lang  =>  (de)
 >  S  =>  /text-unit
 >  NS  =>  latex
 >  tag  =>  {text-unit}{latex}
 >  rolemap  =>  {Part}{pdf2}
->  parentrole  =>  {Sect}{pdf2}
->  parentnum  =>  6 = /Sect
+>  parentrole  =>  {Document}{pdf2}
+>  parentnum  =>  2 = /Document
 The structure has the following kids:
->  Struct 10
+>  Struct 9
+=========================
+=========================
+The structure 9 contains:
+>  Type  =>  /StructElem
+>  Lang  =>  (de)
+>  C  =>  /justify
+>  S  =>  /text
+>  NS  =>  latex
+>  tag  =>  {text}{latex}
+>  rolemap  =>  {P}{pdf2}
+>  parentrole  =>  {P}{pdf2}
+>  parentnum  =>  8 = /text-unit
+The structure has the following kids:
+>  MC 2
 =========================
 =========================
 The structure 10 contains:
 >  Type  =>  /StructElem
->  C  =>  /justify
->  S  =>  /text
->  NS  =>  latex
->  tag  =>  {text}{latex}
->  rolemap  =>  {P}{pdf2}
->  parentrole  =>  {P}{pdf2}
->  parentnum  =>  9 = /text-unit
-The structure has the following kids:
->  MC 3
->  Struct 11
->  MC 5
-=========================
-=========================
-The structure 11 contains:
->  Type  =>  /StructElem
->  S  =>  /Link
->  NS  =>  pdf2
->  tag  =>  {Link}{pdf2}
->  rolemap  =>  {Link}{pdf2}
->  parentrole  =>  {Link}{pdf2}
->  parentnum  =>  10 = /text
-The structure has the following kids:
->  MC 4
->  OBJR reference
-=========================
-=========================
-The structure 12 contains:
->  Type  =>  /StructElem
->  S  =>  /Span
->  NS  =>  pdf2
->  tag  =>  {Span}{pdf2}
->  rolemap  =>  {Span}{pdf2}
->  parentrole  =>  {Span}{pdf2}
->  parentnum  =>  6 = Sect
-The structure has the following kids:
-> NONE
-=========================
-=========================
-The structure 13 contains:
->  Type  =>  /StructElem
 >  S  =>  /text-unit
 >  NS  =>  latex
 >  tag  =>  {text-unit}{latex}
 >  rolemap  =>  {Part}{pdf2}
->  parentrole  =>  {Sect}{pdf2}
->  parentnum  =>  6 = /Sect
+>  parentrole  =>  {Document}{pdf2}
+>  parentnum  =>  2 = /Document
 The structure has the following kids:
->  Struct 14
+>  Struct 11
 =========================
 =========================
-The structure 14 contains:
+The structure 11 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
 >  S  =>  /text
@@ -185,13 +133,23 @@ The structure 14 contains:
 >  tag  =>  {text}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  parentnum  =>  13 = /text-unit
+>  parentnum  =>  10 = /text-unit
 The structure has the following kids:
->  MC 6
+>  MC 3
 =========================
+tagpdf DEBUG Info: Tagging suspended
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging resumed
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging suspended
+(tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
+tagpdf DEBUG Info: Tagging resumed
+(tagpdf DEBUG)     level: 1 ==> 0, label: headfoot [on line ...]
+[1
+]<<latex-list-css.html>><<latex-align-css.html>> (test-lang-change.aux)
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~14 structure objects
-(tagpdf)             with ~8 'MC' leaf nodes.
+(tagpdf)             Writing out ~11 structure objects
+(tagpdf)             with ~5 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree
@@ -203,4 +161,3 @@ Package tagpdf Info: writing Root
 ***************
 Compilation 1 of test file completed with exit status 0
 Compilation 2 of test file completed with exit status 0
-Compilation 3 of test file completed with exit status 0
