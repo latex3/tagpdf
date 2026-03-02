@@ -88,6 +88,16 @@
 %  \cs{ShowTagging}{debug/structures = num} & log+termn & debug mode only
 %  \end{tabular}
 %
+% \begin{function}[pTF]{\tag_if_in:n}
+%  \begin{syntax}
+%  \cs{tag_if_in:n} \Arg{standard structure type}
+%  \end{syntax}
+% This command tests if we are currently \enquote{in} a specific structure by checking
+% if the argument is on the stack. The argument must be a standard structure type as no role mapping is applied.
+% 
+% The main use case is to check if there is an open P structure that should be closed.
+% \end{function}
+
 % \subsection{Messages in checks and commands}
 % \scriptsize
 % \begin{tabular}{llll}
@@ -883,6 +893,24 @@
        }
     }
 %</base>
+%    \end{macrocode}
+% \end{macro}
+% 
+% 
+% \begin{macro}{\tag_if_in:n}
+% This tests if we are in a specific structure, so if the structure is part of the
+% current stack. The argument must be a standard structure
+% type as no role mapping is applied. The main use case is to test if we are in a
+% paragraph P.
+%    \begin{macrocode}
+%<*package>
+\prg_new_conditional:Npnn\tag_if_in:n #1 {T,F,TF}
+ {
+   \seq_if_in:NnTF \g_@@_struct_roletag_stack_seq {#1}
+    {\prg_return_true:}
+    {\prg_return_false:}
+ }
+%</package> 
 %    \end{macrocode}
 % \end{macro}
 %

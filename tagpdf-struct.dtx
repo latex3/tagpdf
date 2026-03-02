@@ -362,9 +362,13 @@
 % \begin{variable}{\g_@@_struct_tag_stack_seq}
 % We will perhaps also need the tags. While it is possible to get them from the
 % numbered stack, lets build a tag stack too.
+% We create one which contains also the real tags and one with only the rolemapped
+% tags for faster testing.
 %    \begin{macrocode}
 \seq_new:N    \g_@@_struct_tag_stack_seq
+\seq_new:N    \g_@@_struct_roletag_stack_seq
 \seq_gpush:Nn \g_@@_struct_tag_stack_seq {{Root}{StructTreeRoot}}
+\seq_gpush:Nn \g_@@_struct_roletag_stack_seq {StructTreeRoot}
 %    \end{macrocode}
 % \end{variable}
 %
@@ -2011,6 +2015,8 @@
 %    \begin{macrocode}
         \seq_gpush:Ne \g_@@_struct_tag_stack_seq
           {{\g_@@_struct_tag_tl}{\l_@@_struct_roletag_tl}}
+        \seq_gpush:Ne \g_@@_struct_roletag_stack_seq
+          {\l_@@_struct_roletag_tl}  
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
         \@@_struct_set_attribute:
         %\seq_show:N   \g_@@_struct_stack_seq
@@ -2148,6 +2154,7 @@
 %<package>\@@_check_if_active_struct:T
 %<debug>\@@_check_if_active_struct:TF
       {
+        \seq_gpop:NN   \g_@@_struct_roletag_stack_seq \l_@@_tmpa_tl
         \seq_gpop:NN   \g_@@_struct_tag_stack_seq \l_@@_tmpa_tl
         \seq_gpop:NNTF \g_@@_struct_stack_seq \l_@@_tmpa_tl
           {
