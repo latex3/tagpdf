@@ -1,8 +1,9 @@
-## [2026-01-29]
-Version 0.99y
+## [2026-03-08]
+Version 0.99z
 
-### Changed 
-	* hyphens from hyphenation are now marked with an Artifact if tagging is active, and 
-	no longer uses the U+00AD glyph by default, this resolves tagging issue #967.
-	* active/softhyphen key has more options.
-	* update parent-child rules for 2.0 (adapted to upcoming changes in ISO 32005 + best practice for math)
+### Added
+  - container for untagged links in luatex. See issue https://github.com/josephwright/ltx-talk/issues/165
+  - new command \tag_if_in:nTF
+  
+### Fixed
+  - Artifacts where added to StructTreeRoot instead of Document  

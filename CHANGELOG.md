@@ -5,8 +5,8 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
-
+## [2026-03-08]
+Version 0.99z
 ### Added
   - container for untagged links in luatex. See issue https://github.com/josephwright/ltx-talk/issues/165
   - \tag_if_in:nTF
@@ -15,6 +15,7 @@ this project uses date-based 'snapshot' version identifiers.
   - Artifacts where added to StructTreeRoot instead of Document   
   
 ## [2026-01-29]
+Version 0.99y
 ### Changed 
 	* hyphens from hyphenation are now marked with an Artifact if tagging is active, and 
 	no longer uses the U+00AD glyph by default, this resolves tagging issue #967.
@@ -22,6 +23,7 @@ this project uses date-based 'snapshot' version identifiers.
 	* parent-child rules for 2.0 adapted to upcoming changes in ISO 32005 + Best Practice guide for math
 
 ## [2026-01-12]
+Version 0.99x
 ### Fixed 
   - space chars lost at line breaks, tagging issue #1102
 ### Changed
