@@ -1,9 +1,6 @@
-## [2026-03-19]
-Version 0.99z
+## [2026-04-11]
+Version 1.0a
 
-### Added
-  - container for untagged links in luatex. See issue https://github.com/josephwright/ltx-talk/issues/165
-  - new command \tag_if_in:nTF
-  
-### Fixed
-  - Artifacts where added to StructTreeRoot instead of Document  
+### Changed
+   - deprecated the command `\tagtool`/`\tag_tool:n`
+   - code clean up in tagpdf-user (e.g. removed old para-socket plug definitions that have been move to lttagging.)
