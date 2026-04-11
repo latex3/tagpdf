@@ -65,15 +65,6 @@
 % adds a document structure.
 % \end{function}
 %
-% \begin{function}{\tag_tool:n,\tagtool}
-% \begin{syntax}
-% \cs{tag_tool:n} \Arg{key val}
-% \end{syntax}
-% The tagging of basic document elements will require a variety of small commands
-% to configure and adapt the tagging. This command will collect them under a command
-% interface. The argument is \emph{one} key-value like string. This is work in progress
-% and both syntax, known arguments and implementation can change!
-% \end{function}
 %
 % \section{Commands related to mc-chunks}
 % \begin{function}{\tagmcbegin, \tagmcend,\tagmcuse}
@@ -112,9 +103,7 @@
 % |\tag_struct_end:| and |\tag_struct_use:n|.
 % The commands and their argument are documented in the \pkg{tagpdf-struct} module.
 % \end{function}
-
-
-
+%
 % \section{Debugging}
 % \begin{function}{\ShowTagging}
 %   \begin{syntax}
@@ -173,7 +162,7 @@
 % They either provide work-arounds for missing functionality elsewhere,
 % or do a first step to apply tagpdf commands to document commands.
 %
-% The commands and keys should be view as experimental!
+% The commands and keys should be viewed as experimental!
 %
 % This part will be regularly revisited to check if the code should go to a
 % better place or can be improved and so can change easily.
@@ -247,11 +236,10 @@
 % \subsection{Link tagging}
 % Links need a special structure and cross reference system.
 % This is added through hooks of the l3pdfannot module and will work
-% automatically if tagging is activated.
+% automatically if tagging is activated. 
 %
-% Links should (probably) have an alternative text in the Contents
-% key. It is unclear which text this should be and
-% how to get it. Currently the code simply adds the fix texts |url| and |ref|.
+% Links can have an alternative text in the Contents but this disturbs reading,
+% so it is not done by default. 
 % Another text can be added by changing the dictionary value:
 % \begin{verbatim}
 % \pdfannot_dict_put:nnn
@@ -339,10 +327,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\tag_tool:n,\tagtool}
-% This is a first definition of the tool command.
-% Currently it uses key-val, but this should be probably
-% be flattened to speed it up.
+% \begin{macro}{\tag_tool:n,\tagtool (deprecated)}
+% This command is deprecated and will be removed.
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn\tag_tool:n #1 {}
 %<base>\cs_set_eq:NN\tagtool\tag_tool:n
@@ -418,23 +404,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \section{Socket support}
-% Until we can be sure that the kernel defines the commands we provide them before
-% redefining them:
-% The expandable version will only work correctly after the 2024-11-01 release.
-%    \begin{macrocode}
-%<*base>
-\providecommand\tag_socket_use:n[1]{}
-\providecommand\tag_socket_use:nn[2]{}
-\providecommand\tag_socket_use:nnn[3]{#3}
-\providecommand\tag_socket_use_expandable:n[1]{}
-\providecommand\socket_use_expandable:nw [1] {
-  \use:c { __socket_#1_plug_ \str_use:c { l__socket_#1_plug_str } :w }
-}
-\providecommand\UseTaggingSocket[1]{}
-\providecommand\UseExpandableTaggingSocket[1]{}
-%</base>
-%    \end{macrocode}
+% \section{Tagging Socket support}
 %
 % \begin{macro}{\tag_socket_use:n,\tag_socket_use:nn,\tag_socket_use:nnn,\UseTaggingSocket,
 % \tag_socket_use_expandable:n,\UseExpandableTaggingSocket}
@@ -824,22 +794,10 @@
 \tl_new:N   \l_@@_para_tag_tl
 \tl_set:Nn  \l_@@_para_tag_tl { \l_@@_para_tag_default_tl }
 \tl_new:N   \l_@@_para_main_tag_tl
-\IfFormatAtLeastTF{2025-11-01}
- {
-   \tl_set:Nn  \l_@@_para_tag_default_tl { \UseStructureName {para/textblock} }
-   \tl_set:Nn  \l_@@_para_main_tag_tl    { \UseStructureName {para/semantic} }
- }
- {
-   \tl_set:Nn  \l_@@_para_tag_default_tl { text }
-   \tl_set:Nn  \l_@@_para_main_tag_tl    {text-unit}
- }
-
-%    \end{macrocode}
-% this is perhaps already defined by the block code
-%    \begin{macrocode}
-\tl_if_exist:NF \l_@@_para_attr_class_tl
- {\tl_new:N \l_@@_para_attr_class_tl }
-\tl_new:N \l_@@_para_main_attr_class_tl
+\tl_set:Nn  \l_@@_para_tag_default_tl { \UseStructureName {para/textblock} }
+\tl_set:Nn  \l_@@_para_main_tag_tl    { \UseStructureName {para/semantic} }
+\tl_new:N   \l_@@_para_attr_class_tl 
+\tl_new:N   \l_@@_para_main_attr_class_tl
 %    \end{macrocode}
 % \end{macro}
 
@@ -912,16 +870,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% temporary adaption for the block module:
-%    \begin{macrocode}
-\AddToHook{package/latex-lab-testphase-block/after}
- {
-   \tl_if_exist:NT \l_tag_para_attr_class_tl
-    {
-      \tl_set:Nn \l_@@_para_attr_class_tl { \l_tag_para_attr_class_tl }
-    }
-}
-%    \end{macrocode}
+%
 %\begin{macro}
 % {
 %  para/tagging (setup-key),
@@ -958,6 +907,9 @@
     para/maintag      .tl_set:N   = \l_@@_para_main_tag_tl,
     para/flattened    .bool_set:N = \l_@@_para_flattened_bool
   }
+%    \end{macrocode}
+% deprecated key definitions:
+%    \begin{macrocode}
 \keys_define:nn { tag / tool}
   {
     para/tagging   .bool_set:N = \l_@@_para_bool,
@@ -973,13 +925,6 @@
     paratagging      .bool_set:N = \l_@@_para_bool,
     paratagging-show .bool_set:N = \l_@@_para_show_bool,
     paratag          .tl_set:N   = \l_@@_para_tag_tl
-  }
-\keys_define:nn { tag / tool}
-  {
-    para    .bool_set:N = \l_@@_para_bool,
-    paratag .tl_set:N = \l_@@_para_tag_tl,
-    unittag .tl_set:N = \l_@@_para_main_tag_tl,
-    para-flattened .bool_set:N = \l_@@_para_flattened_bool
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1017,8 +962,8 @@
 %    \end{macrocode}
 %
 % We check the para count at the end. If tagging is not active it is not a error,
-% but we issue a warning as it perhaps indicates that the testphase code didn't guard
-% everything correctly.
+% but we issue a warning as it perhaps indicates that the code didn't guard
+% everything correctly with tagging sockets.
 %    \begin{macrocode}
 \AddToHook{enddocument/info}
   {
@@ -1100,7 +1045,7 @@
 % \end{macro}
 % \subsection{Header and footer}
 % Header and footer should normally be tagged as artifacts. The following code
-% requires the new hooks.
+% requires the output tagging sockets.
 % For now we allow to disable this function, but probably the code should always there at
 % the end.
 % TODO check if Pagination should be changeable.

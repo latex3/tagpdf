@@ -8,8 +8,9 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 ### Changed
-   - removed old para-socket plug definitions, they are now in lttagging.
-
+   - deprecated the command `\tagtool`/`\tag_tool:n`
+   - code clean up in tagpdf-user (e.g. removed old para-socket plug definitions that have been move to lttagging.)
+   
 ## [2026-03-19]
 Version 0.99z
 ### Added
