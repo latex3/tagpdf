@@ -796,7 +796,7 @@
 \tl_new:N   \l_@@_para_main_tag_tl
 \tl_set:Nn  \l_@@_para_tag_default_tl { \UseStructureName {para/textblock} }
 \tl_set:Nn  \l_@@_para_main_tag_tl    { \UseStructureName {para/semantic} }
-\tl_new:N   \l_@@_para_attr_class_tl 
+%\tl_new:N   \l_@@_para_attr_class_tl % defined in lttagging
 \tl_new:N   \l_@@_para_main_attr_class_tl
 %    \end{macrocode}
 % \end{macro}
@@ -926,6 +926,16 @@
     paratagging-show .bool_set:N = \l_@@_para_show_bool,
     paratag          .tl_set:N   = \l_@@_para_tag_tl
   }
+%    \end{macrocode}
+% still needed as used in block code ...
+%    \begin{macrocode}
+\keys_define:nn { tag / tool}
+  {
+    para    .bool_set:N = \l_@@_para_bool,
+    paratag .tl_set:N = \l_@@_para_tag_tl,
+    unittag .tl_set:N = \l_@@_para_main_tag_tl,
+    para-flattened .bool_set:N = \l_@@_para_flattened_bool
+  }  
 %    \end{macrocode}
 % \end{macro}
 % Helper command for debugging:
