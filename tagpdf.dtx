@@ -661,7 +661,7 @@
   {
    \sys_if_engine_luatex:T
     {
-      \tagstructbegin{tag=\UseSymbolicName{link},stash}
+      \tagstructbegin{tag=\UseStructureName{link},stash}
       \tl_const:Ne \c__tag_struct_link_bin_tl {\int_use:N\c@g__tag_struct_abs_int}%
       \tagstructend
       \AddToHook{tagpdf/finish/before}[tagpdf/linkbin]
