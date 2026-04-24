@@ -9,6 +9,11 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Fixed
 	- use symbolic name for link
+	- code documentation had no section titles and was untagged
+
+### Added
+	- key word `ref_dest_parent` for the `\tag_struct_gput:nnn` command
+
 
 ## [2026-04-11]
 
