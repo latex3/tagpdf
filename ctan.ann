@@ -1,6 +1,5 @@
-## [2026-04-11]
-Version 1.0a
+## [2026-05-17]
+Version 1.0c
 
-### Changed
-   - deprecated the command `\tagtool`/`\tag_tool:n`
-   - code clean up in tagpdf-user (e.g. removed old para-socket plug definitions that have been move to lttagging.)
+### Fixed
+	- really undefine internal LastPage label before reading the aux-file, latex3/tagging-project#959

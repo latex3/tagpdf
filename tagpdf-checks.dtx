@@ -24,9 +24,9 @@
 %
 %
 %<*driver>
-\DocumentMetadata{}
-\documentclass{l3doc}
-\usepackage{array,booktabs,caption}
+\DocumentMetadata{tagging=on}
+\documentclass{l3in2edoc}
+\usepackage{array,booktabs,caption,longtable}
 \hypersetup{pdfauthor=Ulrike Fischer,
  pdftitle=tagpdf-checks module (tagpdf)}
 \begin{document}
@@ -36,7 +36,6 @@
 % \fi
 % \title{^^A
 %   The \pkg{tagpdf-checks} module\\ Messages and check code   ^^A
-%   \\ Part of the tagpdf package
 % }
 %
 % \author{^^A
@@ -48,7 +47,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0a, released 2026-04-11}
+% \date{Version 1.0b, released 2026-04-24}
 % \maketitle
 % \begin{documentation}
 % \section{Commands}
@@ -341,7 +340,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-checks-code} {2026-04-11} {1.0a}
+\ProvidesExplPackage {tagpdf-checks-code} {2026-04-24} {1.0b}
  {part of tagpdf - code related to checks, conditionals, debugging and messages}
 %</header>
 %    \end{macrocode}

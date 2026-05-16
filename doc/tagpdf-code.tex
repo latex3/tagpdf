@@ -2,7 +2,7 @@
 
 % File: tagpdf-code.tex
 
- Copyright (C) 2019-2023 Ulrike Fischer
+ Copyright (C) 2019-2026 Ulrike Fischer
 
  It may be distributed and/or modified under the conditions of the
  LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -23,29 +23,11 @@
  for those people who are interested.
 
  \fi
-\DocumentMetadata{}
-\documentclass{l3doc}
-\usepackage{latex-lab-testphase-l3doc}
-% The next line is needed so that \GetFileInfo will be able to pick up
-% version data.
-\usepackage{iftex}
-%until l3doc is corrected
-\ifluatex
-\usepackage[TU]{fontenc}
-\ttfamily
-  \DeclareFontShape{TU}{lmtt}{m}{it}
-   {<-> \UnicodeFontFile{lmmonoslant10-regular}{}}{}
-\fi
+\DocumentMetadata{tagging=on}
+\documentclass{l3in2edoc}
 \usepackage{longtable}
 
 \input{tagpdf-docelements}
-%\def\@setupverbvisiblespace{}
-%\def\verb{\relax\ifmmode\hbox\else\leavevmode\null\fi
-%  \bgroup
-%    \verb@eol@error \let\do\@makeother \dospecials
-%    \verbatim@font\@noligs
-%    \language\l@nohyphenation
-%    \@ifstar\@verb\@verb}
 \begin{document}
 
 \GetFileInfo{tagpdf.sty}
@@ -68,6 +50,12 @@
 \date{Released \filedate}
 
 \maketitle
+% reset \title:
+\makeatletter
+\providecommand\title{}
+\RenewDocumentCommand\title{m}{\def\@title{#1}}
+\makeatother
+
 \tableofcontents
 
 \clearpage

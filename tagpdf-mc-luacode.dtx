@@ -22,8 +22,8 @@
 %
 % for those people who are interested.
 %<*driver>
-\DocumentMetadata{}
-\documentclass{l3doc}
+\DocumentMetadata{tagging=on}
+\documentclass{l3in2edoc}
 \usepackage{array,booktabs,caption}
 \hypersetup{pdfauthor=Ulrike Fischer,
  pdftitle=tagpdf-mc module (tagpdf)}
@@ -34,7 +34,6 @@
 % \fi
 % \title{^^A
 %   The \pkg{tagpdf-mc-luacode} module\\ Code related to Marked Content (mc-chunks), luamode-specific  ^^A
-%   \\ Part of the tagpdf package
 % }
 %
 % \author{^^A
@@ -46,7 +45,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0a, released 2026-04-11}
+% \date{Version 1.0b, released 2026-04-24}
 % \maketitle
 % \begin{implementation}
 % The code is split into three parts: code shared by all engines,
@@ -86,11 +85,11 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*luamode>
-\ProvidesExplPackage {tagpdf-mc-code-lua} {2026-04-11} {1.0a}
+\ProvidesExplPackage {tagpdf-mc-code-lua} {2026-04-24} {1.0b}
   {tagpdf - mc code only for the luamode }
 %</luamode>
 %<*debug>
-\ProvidesExplPackage {tagpdf-debug-lua} {2026-04-11} {1.0a}
+\ProvidesExplPackage {tagpdf-debug-lua} {2026-04-24} {1.0b}
  {part of tagpdf - debugging code related to marking chunks - lua mode}
 %</debug>
 %    \end{macrocode}

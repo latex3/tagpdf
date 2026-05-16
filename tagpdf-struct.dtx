@@ -22,8 +22,8 @@
 %
 % for those people who are interested.
 %<*driver>
-\DocumentMetadata{}
-\documentclass{l3doc}
+\DocumentMetadata{tagging=on}
+\documentclass{l3in2edoc}
 \usepackage{array,booktabs,caption}
 \hypersetup{pdfauthor=Ulrike Fischer,
  pdftitle=tagpdf-tree module (tagpdf)}
@@ -35,7 +35,6 @@
 % \fi
 % \title{^^A
 %   The \pkg{tagpdf-struct} module\\ Commands to create the structure   ^^A
-%   \\ Part of the tagpdf package
 % }
 %
 % \author{^^A
@@ -47,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0a, released 2026-04-11}
+% \date{Version 1.0b, released 2026-04-24}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -308,7 +307,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-struct-code} {2026-04-11} {1.0a}
+\ProvidesExplPackage {tagpdf-struct-code} {2026-04-24} {1.0b}
  {part of tagpdf - code related to storing structure}
 %</header>
 %    \end{macrocode}
@@ -1641,12 +1640,12 @@
 % clist of commands which are executed at the end of the document,
 % when the structure elements are written.
 % \begin{macro}{\@@_struct_Ref_obj:nN,\@@_struct_Ref_label:nN,
-%  \@@_struct_Ref_dest:nN,\@@_struct_Ref_num:nN}
+%  \@@_struct_Ref_dest:nN,\@@_struct_Ref_dest_parent:nN,\@@_struct_Ref_num:nN}
 % this commands are helper commands that are stored as clist
 % in the Ref key of a structure. They are executed when the structure
 % elements are written in  \cs{@@_struct_write_obj}. They are used
 % in \cs{@@_struct_format_Ref}. They allow to add a Ref by object reference,
-% label, destname and structure number
+% label, destname, the parent structure of a destname and by structure number
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_struct_Ref_obj:nN #1 #2 %#1 a object reference
   {
@@ -1682,6 +1681,21 @@
         \msg_warning:nnn {tag}{struct-Ref-unknown}{Destination~'#1'}
       }
   }
+\cs_new_protected:Npn \@@_struct_Ref_dest_parent:nN #1 #2 %#1 a dest name
+  { 
+    \prop_get:NnNTF \g_@@_struct_dest_num_prop {#1} \l_@@_tmpb_tl
+      { %do not overwrite  \l_@@_tmpa_tl!
+        \prop_get:cnN 
+         { g_@@_struct_\l_@@_tmpb_tl _prop }{parentnum}\l_@@_tmpb_tl         
+        \tl_put_right:Ne#2
+          {
+            \c_space_tl\tag_struct_object_ref:e{ \l_@@_tmpb_tl }
+          }
+      }
+      {
+        \msg_warning:nnn {tag}{struct-Ref-unknown}{Destination~'#1'}
+      }
+  }  
 \cs_new_protected:Npn \@@_struct_Ref_num:nN #1 #2 %#1 a structure number
   {
     \tl_put_right:Ne#2
@@ -2348,8 +2362,11 @@
 % a structure. The keyword \texttt{ref_label} expects as value a label name (from
 % a label set in a \cs{tagstructbegin} command). The keyword \texttt{ref_dest}
 % expects a destination name set with \cs{MakeLinkTarget}. It then will refer to
-% the structure in which this \cs{MakeLinkTarget} was used. The
-% keyword \texttt{ref_num} expects a structure number.
+% the structure in which this \cs{MakeLinkTarget} was used. The keyword \texttt{ref_dest_parent} 
+% expects a destination name set with \cs{MakeLinkTarget} too. It then will refer to 
+% the parent of structure in which this \cs{MakeLinkTarget} was used---this is useful if the
+% target command is, e.g., in a list and one wants to reference the surrounding list item structure.  
+% The keyword \texttt{ref_num} expects a structure number.
 % At last there is the keyword \texttt{attribute} which allows to add or extend the \texttt{/A}
 % key of the structure. The value is the content of one attribute dictionary, so for example
 % \texttt{/O /Layout /BBox [10 10 50 50]}. The content is stored in an object and the object
@@ -2406,6 +2423,10 @@
   {
     \@@_struct_gput_data_ref_aux:nnn {#1}{dest}{#2}
   }
+\cs_new_protected:Npn \@@_struct_gput_data_ref_dest_parent:nn #1 #2
+  {
+    \@@_struct_gput_data_ref_aux:nnn {#1}{dest_parent}{#2}
+  }  
 \cs_new_protected:Npn \@@_struct_gput_data_ref_num:nn #1 #2
   {
     \@@_struct_gput_data_ref_aux:nnn {#1}{num}{#2}
@@ -2477,7 +2498,7 @@
 % \section{Attributes and attribute classes}
 %    \begin{macrocode}
 %<*header>
-\ProvidesExplPackage {tagpdf-attr-code} {2026-04-11} {1.0a}
+\ProvidesExplPackage {tagpdf-attr-code} {2026-04-24} {1.0b}
   {part of tagpdf - code related to attributes and attribute classes}
 %</header>
 %    \end{macrocode}

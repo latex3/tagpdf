@@ -6,10 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
 ## [Unreleased]
+### Fixed
+	- really undefine internal LastPage label before reading the aux-file, latex3/tagging-project#959
+
+## [2026-04-24]
 
 ### Fixed
 	- use symbolic name for link
-	- tagging issue 959
+	- code documentation had no section titles and was untagged
+
+### Added
+	- key word `ref_dest_parent` for the `\tag_struct_gput:nnn` command
+
 
 ## [2026-04-11]
 
