@@ -280,7 +280,7 @@
 % before reading the aux-file.
 %    \begin{macrocode}
 %<*package>
-\AddToHook{begindocument/before}{\cs_undefine:N\r@@tag@LastPage}
+\AddToHook{begindocument/before}{\cs_undefine:N\r@@@@tag@LastPage}
 \AddToHook{enddocument/afterlastpage}
  {\property_record:nn{@tag@LastPage}{abspage,tagmcabs,tagstruct}}
 %    \end{macrocode}

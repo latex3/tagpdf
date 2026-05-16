@@ -9,6 +9,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Fixed
 	- use symbolic name for link
+	- tagging issue 959
 
 ## [2026-04-11]
 
