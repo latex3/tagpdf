@@ -6,13 +6,17 @@ Don't change this file in any respect.
 \new@label@record{mcid-7}{{tagabspage}{2}{tagmcabs}{7}{tagmcid}{0}}[nl]
 \new@label@record{mcid-8}{{tagabspage}{2}{tagmcabs}{8}{tagmcid}{1}}[nl]
 \new@label@record{mcid-9}{{tagabspage}{2}{tagmcabs}{9}{tagmcid}{2}}[nl]
-\new@label@record{mcid-17}{{tagabspage}{2}{tagmcabs}{17}{tagmcid}{3}}[nl]
+\new@label@record{mcid-10}{{tagabspage}{2}{tagmcabs}{10}{tagmcid}{3}}[nl]
 \new@label@record{mcid-11}{{tagabspage}{2}{tagmcabs}{11}{tagmcid}{4}}[nl]
-\new@label@record{mcid-12}{{tagabspage}{2}{tagmcabs}{12}{tagmcid}{5}}[nl]
+\new@label@record{mcid-21}{{tagabspage}{2}{tagmcabs}{21}{tagmcid}{5}}[nl]
 \new@label@record{mcid-13}{{tagabspage}{2}{tagmcabs}{13}{tagmcid}{6}}[nl]
 \new@label@record{mcid-14}{{tagabspage}{2}{tagmcabs}{14}{tagmcid}{7}}[nl]
 \new@label@record{mcid-15}{{tagabspage}{2}{tagmcabs}{15}{tagmcid}{8}}[nl]
-\new@label@record{@tag@LastPage}{{abspage}{2}{tagmcabs}{20}{tagstruct}{13}}[nl]
+\new@label@record{mcid-16}{{tagabspage}{2}{tagmcabs}{16}{tagmcid}{9}}[nl]
+\new@label@record{mcid-17}{{tagabspage}{2}{tagmcabs}{17}{tagmcid}{10}}[nl]
+\new@label@record{mcid-18}{{tagabspage}{2}{tagmcabs}{18}{tagmcid}{11}}[nl]
+\new@label@record{mcid-19}{{tagabspage}{2}{tagmcabs}{19}{tagmcid}{12}}[nl]
+\new@label@record{@tag@LastPage}{{abspage}{2}{tagmcabs}{24}{tagstruct}{15}}[nl]
 \gdef \@abspage@last{2}[nl]
 -------- ptagging-001b.aux (end) -----------
 ==> @endpe=false on input line ...
@@ -60,6 +64,16 @@ Package tagpdf Info: Parent-Child 'P' --> 'Lbl'.
 Package tagpdf Info: Checking Parent-Child 'latex:footnotemark' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'latex:footnotemark' --> 'pdf2:Span'
+Package tagpdf Info: Parent-Child 'Lbl' --> 'Span'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Span' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 10 tagged /Span
+Package tagpdf Info: Checking Parent-Child 'latex:footnotemark' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 9 tagged /footnotemark
 Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
@@ -88,7 +102,17 @@ Package tagpdf Info: Parent-Child 'FENote' --> 'Lbl'.
 Package tagpdf Info: Checking Parent-Child 'latex:footnotelabel' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 13 tagged /footnotelabel
+Package tagpdf Info: Checking Parent-Child 'latex:footnotelabel' --> 'pdf2:Span'
+Package tagpdf Info: Parent-Child 'Lbl' --> 'Span'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Span' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 15 tagged /Span
+Package tagpdf Info: Checking Parent-Child 'latex:footnotelabel' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: closing structure 14 tagged /footnotelabel
 Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -99,9 +123,9 @@ Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 12 tagged /text
-Package tagpdf Info: closing structure 11 tagged /text-unit
-Package tagpdf Info: closing structure 10 tagged /footnote
+Package tagpdf Info: closing structure 13 tagged /text
+Package tagpdf Info: closing structure 12 tagged /text-unit
+Package tagpdf Info: closing structure 11 tagged /footnote
 Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
@@ -111,7 +135,7 @@ Package tagpdf Info: closing structure 7 tagged /text-unit
 ====> In \@makecol 2
 Pick up new bot mark!
 => first b-, 6, -1
-=> bot e+, 18, 8
+=> bot e+, 22, 8
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces):
@@ -119,8 +143,8 @@ The sequence \g__tag_mc_main_marks_seq contains the items (without outer braces)
 >  {3}
 >  {6}.
 Pick up new bot mark!
-=> first b-, 10, -1
-=> bot e+, 16, 12
+=> first b-, 12, -1
+=> bot e+, 20, 13
 => TMB not missing
 => TME not missing
 The sequence \g__tag_mc_footnote_marks_seq is empty
@@ -128,8 +152,8 @@ The sequence \g__tag_mc_footnote_marks_seq is empty
 [2]<<latex-list-css.html>><<latex-align-css.html>> (ptagging-001b.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~13 structure objects
-(tagpdf)             with ~20 'MC' leaf nodes.
+(tagpdf)             Writing out ~15 structure objects
+(tagpdf)             with ~24 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree

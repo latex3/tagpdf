@@ -26,7 +26,7 @@ Completed box being shipped out [1]
 .......\hbox(8.39996+3.60004)x345.0
 ........\hbox(8.39996+3.60004)x0.0, glue set - 345.0fil
 .........\vbox(8.39996+3.60004)x345.0
-..........\hbox(8.39996+3.60004)x345.0, glue set 299.79025fil
+..........\hbox(8.39996+3.60004)x345.0, glue set 149.89513fil
 ...........\hbox(0.0+0.0)x0.0
 ...........\T1/cmr/m/n/10 s
 ...........\T1/cmr/m/n/10 o
@@ -41,7 +41,7 @@ Completed box being shipped out [1]
 ...........\glue 3.33252 plus 1.66626 minus 1.11084
 ...........\rule(8.39996+3.60004)x0.0
 ...........\penalty 10000
-...........\glue(\parfillskip) 0.0
+...........\glue(\parfillskip) 0.0 plus 1.0fil
 ...........\glue(\rightskip) 0.0 plus 1.0fil
 .........\glue 0.0 plus 1.0fil minus 1.0fil
 ........\glue 0.0 plus 1.0fill
@@ -92,11 +92,9 @@ Completed box being shipped out [1]
 ....\write1{\new@label@record{mcid-1}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{1}{tagmcid}{\__property_code_tagmcid: }}}
 ....\pdfliteral shipout page{/section-number <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(9.20918+0.0)x23.75433
-.....\glue 0.0
 .....\hbox(0.0+0.0)x0.0
-......\kern 0.0
-......\hbox(0.0+0.0)x0.0
-......\glue 0.0 plus 1.0fil minus 1.0fil
+.....\penalty 10000
+.....\glue 0.0
 .....\T1/cmr/bx/n/14.4 1
 .....\glue 15.83623
 ....\pdfliteral page{EMC}
@@ -135,11 +133,9 @@ Completed box being shipped out [1]
 ....\write1{\new@label@record{mcid-3}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{3}{tagmcid}{\__property_code_tagmcid: }}}
 ....\pdfliteral shipout page{/section-number <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(7.78143+0.0)x30.7425
-.....\glue 0.0
 .....\hbox(0.0+0.0)x0.0
-......\kern 0.0
-......\hbox(0.0+0.0)x0.0
-......\glue 0.0 plus 1.0fil minus 1.0fil
+.....\penalty 10000
+.....\glue 0.0
 .....\T1/cmr/bx/n/12 1
 .....\T1/cmr/bx/n/12 .
 .....\T1/cmr/bx/n/12 1
@@ -190,7 +186,7 @@ Completed box being shipped out [1]
 ......\hbox(8.39996+3.60004)x345.0
 .......\hbox(8.39996+3.60004)x0.0, glue set - 345.0fil
 ........\vbox(8.39996+3.60004)x345.0
-.........\hbox(8.39996+3.60004)x345.0, glue set 299.79025fil
+.........\hbox(8.39996+3.60004)x345.0, glue set 149.89513fil
 ..........\hbox(0.0+0.0)x0.0
 ..........\T1/cmr/m/n/10 s
 ..........\T1/cmr/m/n/10 o
@@ -205,7 +201,7 @@ Completed box being shipped out [1]
 ..........\glue 3.33252 plus 1.66626 minus 1.11084
 ..........\rule(8.39996+3.60004)x0.0
 ..........\penalty 10000
-..........\glue(\parfillskip) 0.0
+..........\glue(\parfillskip) 0.0 plus 1.0fil
 ..........\glue(\rightskip) 0.0 plus 1.0fil
 ........\glue 0.0 plus 1.0fil minus 1.0fil
 .......\glue 0.0 plus 1.0fill

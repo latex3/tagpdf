@@ -246,16 +246,18 @@ Completed box being shipped out [1]
 .....\hbox(6.94+0.11)x23.35542, direction TLT
 ......\penalty 10000
 ......\hbox(0.0+0.0)x0.0, direction TLT
-......\hbox(0.0+0.0)x0.0, direction TLT
-.......\pdfliteral page <lua data reference ...>
-.......\pdfliteral page <lua data reference ...>
-.......\mathon
-.......\hbox(12.0+0.0)x0.0, direction TLT
-........\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
-.........\pdfdest name{equation.1} xyz
-.........\pdfdest name{equation.1} xyz
-.........\penalty 10000
-.......\mathoff
+.......\hbox(0.0+0.0)x0.0, direction TLT
+.......\hbox(0.0+0.0)x0.0, direction TLT
+........\pdfliteral page <lua data reference ...>
+........\pdfliteral page <lua data reference ...>
+........\mathon
+........\hbox(12.0+0.0)x0.0, direction TLT
+.........\hbox(0.0+0.0)x0.0, shifted -12.0, direction TLT
+..........\pdfdest name{equation.1} xyz
+..........\pdfdest name{equation.1} xyz
+..........\penalty 10000
+........\mathoff
+.......\whatsit2=0
 ......\kern0.0
 ......\hbox(0.0+0.0)x0.0, direction TLT
 ......\pdfliteral page <lua data reference ...>
@@ -288,12 +290,12 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue 6.0 plus 3.0 minus 3.0
 ....\penalty 0
-....\glue 6.0 plus 3.0 minus 3.0
 ....\glue 0.0 plus -1.0
+....\glue 6.0 plus 3.0 minus 3.0
 ....\glue(\parskip) 0.0 plus 1.0
 ....\glue(\parskip) 0.0
 ....\glue(\baselineskip) 2.45
-....\hbox(7.05+2.05)x345.0, glue set 255.77917fil, direction TLT
+....\hbox(7.05+2.05)x345.0, glue set 259.10919fil, direction TLT
 .....\localpar
 ......\localinterlinepenalty=0
 ......\localbrokenpenalty=0
@@ -353,7 +355,6 @@ Completed box being shipped out [1]
 .....\pdfliteral page <lua data reference ...>
 .....\pdfliteral page <lua data reference ...>
 .....\mathoff
-.....\glue(\spaceskip) 3.33 plus 1.665 minus 1.11
 .....\penalty 10000
 .....\glue(\parfillskip) 0.0 plus 1.0fil
 .....\glue(\rightskip) 0.0
