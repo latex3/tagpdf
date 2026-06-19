@@ -327,9 +327,22 @@
               }
           }        
         \@@_struct_fill_kid_key:n { ##1 }
+%    \end{macrocode}
+% temporary!! Debug messages during the test:
+%    \begin{macrocode}
         \bool_if:NTF \l_@@_struct_nokids_bool 
-          {\typeout{##1,nokids}}
-          {\typeout{##1,kids}  }
+          {
+            \@@_check_typeout_v:n
+             {
+               \int_compare:nNnT {\l_@@_loglevel_int} > { 1 }{structure~##1,~nokids}
+             }
+          }
+          {          
+            \@@_check_typeout_v:n
+             {
+               \int_compare:nNnT {\l_@@_loglevel_int} > { 1 }{structure~##1,~kids}
+             }
+          }
       }
       {
          \msg_error:nnn { tag } { struct-no-objnum } { ##1}
