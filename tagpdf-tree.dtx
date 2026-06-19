@@ -296,6 +296,47 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{Preparing the structure elements}
+% This checks for orphaned or empty structures and 
+% fills the kid entries. 
+%    \begin{macrocode}
+\cs_new_protected:Npn\@@_tree_prepare_structure:
+ {
+  \int_step_inline:nnnn {2}{1}{\c@g_@@_struct_abs_int}
+    {
+      \prop_if_exist:cTF { g_@@_struct_##1_prop }
+       {
+%    \end{macrocode}
+% It can happen that a structure is not used and so has not parent.
+% Simply ignoring it is problematic as it is also recorded in
+% the IDTree, so we make an artifact out of it.
+%    \begin{macrocode}
+        \prop_get:cnNF { g_@@_struct_##1_prop } {parentnum}\l_@@_tmpb_tl
+          {
+%            \prop_gput:cne { g_@@_struct_#1_prop } {P}
+%              {\pdf_object_ref_indexed:nn { @@/struct }{1}}
+            \prop_gput:cne { g_@@_struct_##1_prop } {parentnum}{2}
+            \prop_gput:cne { g_@@_struct_##1_prop } {S}{/Artifact}
+            \seq_if_empty:cF {g_@@_struct_kids_##1_seq}
+              {
+                \msg_warning:nnee
+                  {tag}
+                  {struct-orphan}
+                  { ##1 }
+                  {\seq_count:c{g_@@_struct_kids_##1_seq}}
+              }
+          }        
+        \@@_struct_fill_kid_key:n { ##1 }
+        \bool_if:NTF \l_@@_struct_nokids_bool 
+          {\typeout{##1,nokids}}
+          {\typeout{##1,kids}  }
+      }
+      {
+         \msg_error:nnn { tag } { struct-no-objnum } { ##1}
+      }     
+   }
+ }  
+%    \end{macrocode}
 % \subsection{ParentTree}
 % \begin{macro}{@@/tree/parenttree}
 % The object which will hold the parenttree
@@ -603,6 +644,9 @@
       {
         \hook_use:n {tagpdf/finish/before}
         \@@_tree_final_checks:
+        \@@_check_benchmark_tic:
+        \@@_tree_prepare_structure:
+        \@@_check_benchmark_toc:        
         \iow_term:n{Package~tagpdf~Info:~writing~ParentTree}
         \@@_check_benchmark_tic:
         \@@_tree_write_parenttree:
