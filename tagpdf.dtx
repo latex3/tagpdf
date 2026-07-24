@@ -58,7 +58,7 @@
 % \cs{tag_start:n} \Arg{label} (\emph{deprecated})
 % \end{syntax}
 % We need commands to stop tagging in some places.
-% They switches three local booleans and also stop the counting
+% They switch three local booleans and also stop the counting
 % of paragraphs. If they are nested an inner \cs{tag_resume:n} will not
 % restart tagging.
 % \meta{label} is only used in debugging messages to allow to follow the nesting
@@ -73,8 +73,8 @@
 %  \tag_stop:, \tag_start:,
 %  \tagstop, \tagstart }
 % \emph{deprecated} These are variants of the above commands
-% without the debuging level. They are now deprecated and it
-% is recommended to use the kernel command
+% without the debugging level. They are now deprecated and it
+% is recommended to use the kernel commands
 % |\SuspendTagging|, |\ResumeTagging|, |\tag_suspend:n| and |\tag_resume:n|
 % instead.
 % \end{function}
@@ -96,7 +96,7 @@
 %    activate/tree,
 %    activate-tree (deprecated),
 %    }
-% This key activates the code that finalize the
+% This key activates the code that finalizes the
 % various trees. It should be used
 % only in special cases, e.g. for debugging.
 % \end{setupkeydecl}
@@ -118,7 +118,7 @@
 % \end{setupkeydecl}
 %
 %\begin{setupkeydecl}{activate/struct-dest,no-struct-dest (deprecated)}
-% The key allows to suppress the creation of structure destinations
+% This key allows to suppress the creation of structure destinations.
 % \end{setupkeydecl}
 %
 % \begin{setupkeydecl}{debug/log}
@@ -139,14 +139,14 @@
 % \item \texttt{false} and \texttt{off} deactivates the automatic
 % handling.
 % \item \texttt{char} Replaces the hyphens by U+00AD if the font contains this glyph.
-% Note that in some newer fonts U+00AD is an invisible character and so this could led
+% Note that in some newer fonts U+00AD is an invisible character and so this could lead
 % to disappearing hyphens.
 % \item \texttt{artifact} (default value) This keeps the hard hyphen U+002D but
 % surrounds it by an Artifact-MC. This only works if the document is tagged.
 % \item \texttt{true}, \texttt{on}  do the same as \texttt{artifact}.
 % \end{itemize}
 %
-% If tagging is not activate the softhyphen handling is not activated, by default. The hyphen
+% If tagging is not active the softhyphen handling is not activated, by default. The hyphen
 % stays a hard-hyphen. If is possible to use the \texttt{char} mode with
 % \begin{verbatim}
 % \DocumentMetadata{tagging=off,tagging-setup={activate/softhyphen=char},}
@@ -154,7 +154,7 @@
 % As \cs{tagpdfsetup} is deactivated at the begin of the class,
 % there is no interface to switch in the document.
 %
-% If tagging is active the default is \texttt{artifact} mode, this requires that \texttt{tagunmarked}
+% If tagging is active the default is \texttt{artifact} mode; this requires that \texttt{tagunmarked}
 % is active too. The mode can be switched at any time with \cs{tagpdfsetup}.
 % Switching on and off the softhyphen is a global operation,
 % a switch between artifact and char more is a local operation.
@@ -197,8 +197,8 @@
   {
     \PackageError{tagpdf}
      {
-       PDF~resource~management~is~no~active!\MessageBreak
-       tagpdf~will~no~work.
+       PDF~resource~management~is~not~active!\MessageBreak
+       tagpdf~will~not~work.
      }
      {
        Activate~it~with \MessageBreak
