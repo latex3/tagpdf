@@ -8,9 +8,10 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unreleased]
 
 ### Fixed
-	- (tagpdf-backend) softhyphen=artifact has no effect for T1 fonts (https://github.com/latex3/tagpdf/issues/138)
+  - (tagpdf-backend) softhyphen=artifact has no effect for T1 fonts (https://github.com/latex3/tagpdf/issues/138)
   - (tagpdf-backend) real space code of lualatex errors if the space is directly at the begin of the document, https://github.com/latex3/tagging-project/issues/1494
-
+   - some expl3 syntax (as found with explcheck)
+   
 ## [2026-05-17]
 ### Fixed
 	- really undefine internal LastPage label before reading the aux-file, latex3/tagging-project#959
