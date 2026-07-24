@@ -456,7 +456,7 @@
 %    arguments, so for now we only provide those.
 %    \begin{macrocode}
             }
-            \ERRORusetaggingsocket
+            { \ERRORusetaggingsocket }
       }
   }
 %    \end{macrocode}
@@ -478,7 +478,7 @@
 %    arguments, so for now we only provide those.
 %    \begin{macrocode}
             }
-            \ERRORusetaggingsocket
+            { \ERRORusetaggingsocket }
       }
   }
 %</package>
@@ -863,7 +863,7 @@
 % we need a command to store its structure number
 % \begin{macro}{\@@_para_main_store_struct:}
 %    \begin{macrocode}
-\cs_new:Npn \@@_para_main_store_struct:
+\cs_new_protected:Npn \@@_para_main_store_struct:
   {
     \tl_gset:Ne \g_@@_para_main_struct_tl {\int_use:N \c@g_@@_struct_abs_int }
   }

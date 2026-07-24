@@ -327,9 +327,9 @@
 % value provided by the user. It stores the attributes\\
 % |tagabspage|: the absolute page, |\g_shipout_readonly_int|,\\
 % |tagmcabs|: the absolute mc-counter |\c@g_@@_MCID_abs_int|.
-%  The reference command is based on l3ref.
+%  The reference command is based on ltproperty.
 %    \begin{macrocode}
-\cs_new:Npn \@@_mc_handle_mc_label:e #1
+\cs_new_protected:Npn \@@_mc_handle_mc_label:e #1
   {
     \@@_property_record:en{tagpdf-#1}{tagabspage,tagmcabs}
   }

@@ -476,7 +476,7 @@
 %    \begin{macrocode}
 \pdf_version_compare:NnT < {2.0}
  {
-   \cs_new:Npn \@@_role_get:nnNN #1#2#3#4 %#1 tag, #2 NS, #3 tlvar which hold the role tag #4 empty
+   \cs_new_protected:Npn \@@_role_get:nnNN #1#2#3#4 %#1 tag, #2 NS, #3 tlvar which hold the role tag #4 empty
     {
       \prop_get:NnNF \g_@@_role_rolemap_prop {#1}#3
         {
@@ -575,7 +575,7 @@
 %    \begin{macrocode}
 \pdf_version_compare:NnF < {2.0}
  {
-   \cs_new:Npn \@@_role_get:nnNN #1#2#3#4
+   \cs_new_protected:Npn \@@_role_get:nnNN #1#2#3#4
      %#1 tag, #2 NS,
      %#3 tlvar which hold the role tag
      %#4 tlvar which hold the name of the target NS

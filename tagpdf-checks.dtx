@@ -623,7 +623,7 @@
 % #1 check number, #2 number of parent struct
 % #3 parent info,  #4 child info 
  {  
-   \int_compare:nNnT {#1 } <0
+   \int_compare:nNnT {#1} < {0}
      {
        \msg_warning:nneee 
          { tag } 
@@ -641,7 +641,7 @@
 % #2 number of parent struct
 % #3 number of child struct
  {  
-   \int_compare:nNnT {#1 } <0
+   \int_compare:nNnT {#1} < {0}
      {
        \prop_get:cnN {g_@@_struct_#2_prop}{parentrole}\l_@@_get_parent_tmpc_tl
        \prop_get:cnN {g_@@_struct_#3_prop}{rolemap}\l_@@_get_child_tmpc_tl
@@ -903,7 +903,7 @@
 % paragraph P.
 %    \begin{macrocode}
 %<*package>
-\prg_new_conditional:Npnn\tag_if_in:n #1 {T,F,TF}
+\prg_new_protected_conditional:Npnn\tag_if_in:n #1 {T,F,TF}
  {
    \seq_if_in:NnTF \g_@@_struct_roletag_stack_seq {#1}
     {\prg_return_true:}

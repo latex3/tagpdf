@@ -69,24 +69,6 @@
 %<*generic>
 %    \end{macrocode}
 %
-% \begin{variable}{\l_@@_mc_ref_abspage_tl}
-% We need a ref-label system to ensure that the MCID cnt
-% restarts at 0 on a new page
-% This will be used to store the tagabspage attribute retrieved from
-% a label.
-%    \begin{macrocode}
-\tl_new:N \l_@@_mc_ref_abspage_tl
-%    \end{macrocode}
-% \end{variable}
-%
-%
-% \begin{variable}{\l_@@_mc_tmpa_tl}
-% temporary variable
-%    \begin{macrocode}
-\tl_new:N \l_@@_mc_tmpa_tl
-%    \end{macrocode}
-% \end{variable}
-
 % \begin{variable}
 %   {
 %     \g_@@_mc_marks,
@@ -423,7 +405,7 @@
 %    all content (but to be sure that there is no issue we could test
 %    out test box is empty now (not done).
 %    \begin{macrocode}
-    \vbox_set_split_to_ht:NNn \l_@@_tmpa_box \l_@@_tmpa_box \c_max_dim
+    \vbox_set_split_to_ht:NNn \l_@@_tmpa_box \l_@@_tmpa_box { \c_max_dim }
 %    \end{macrocode}
 %    As a side effect of this split we should now have the first and
 %    bottom split marks set up. We use this to set up
@@ -686,7 +668,7 @@
               { \l_@@_mc_key_tag_tl }
               { \l_@@_mc_key_properties_tl }
             \@@_mc_begin_marks:oo{\l_@@_mc_key_tag_tl}{\l_@@_mc_key_label_tl}
-            \tl_if_empty:NF {\l_@@_mc_key_label_tl}
+            \tl_if_empty:NF \l_@@_mc_key_label_tl
               {
                 \@@_mc_handle_mc_label:e { \l_@@_mc_key_label_tl }
               }
