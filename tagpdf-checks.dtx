@@ -367,7 +367,7 @@
 % or has been undefined as the mc was already used.
 %    \begin{macrocode}
 \msg_new:nnn { tag } {mc-label-unknown}
-  { label~#1~unknown~or~has~been~already~used.\\
+  { label~#1~unknown~or~has~already~been~used.\\
     Either~rerun~or~remove~one~of~the~uses. }
 %    \end{macrocode}
 % \end{macro}
@@ -375,7 +375,7 @@
 % An mc-chunk can be inserted only in one structure. This indicates wrong coding
 % and so should at least give a warning.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {mc-used-twice} { mc~#1~has~been~already~used }
+\msg_new:nnn { tag } {mc-used-twice} { mc~#1~has~already~been~used }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{mc-not-open}
@@ -424,7 +424,7 @@
   {
     Structure~#1~has~#2~kids~but~no~parent.\\
     It~is~turned~into~an~artifact.\\
-    Did~you~stash~a~structure~and~then~didn't~use~it?
+    Did~you~stash~a~structure~and~then~not~use~it?
   }
 
 %    \end{macrocode}
@@ -783,7 +783,7 @@
 % Currently only pdflatex and lualatex have some support for real spaces.
 %    \begin{macrocode}
 \msg_new:nnn { tag } {sys-no-interwordspace}
-  {engine/output~mode~#1~doesn't~support~the~interword~spaces}
+  {engine/output~mode~#1~doesn't~support~interword~spaces}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -802,7 +802,7 @@
 %    \begin{macrocode}
 \msg_new:nnnn { tag } {para-hook-count-wrong}
   {The~number~of~automatic~begin~(#1)~and~end~(#2)~#3~para~hooks~differ!}
-  {This~quite~probably~a~coding~error~and~the~structure~will~be~wrong!}
+  {This~is~quite~probably~a~coding~error~and~the~structure~will~be~wrong!}
 %</package>
 %    \end{macrocode}
 % \end{macro}
@@ -1131,7 +1131,7 @@
 %
 % \begin{variable}{\g_@@_check_mc_used_intarray, \@@_check_init_mc_used:}
 % This variable holds the list of used mc numbers.
-% Everytime we store a mc-number we will add one the relevant array index
+% Every time we store a mc-number we will add one the relevant array index
 % If everything is right at the end there should be only 1 until the max count
 % of the mcid. 2 indicates that one mcid was used twice, 0 that we lost one.
 % In engines other than luatex the total number of all intarray entries
