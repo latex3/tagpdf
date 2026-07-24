@@ -1,0 +1,16 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+%https://github.com/latex3/tagging-project/issues/1494
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{1000} % before tagging is loaded ...
+\ExplSyntaxOff 
+\DocumentMetadata{xmp=false,tagging=on} 
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START
+\hspace*{1cm}aaa abc abc 
+\end{document}

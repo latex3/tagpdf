@@ -929,6 +929,10 @@ default_space_char.font  = default_fontid
 %    \begin{macrocode}
 local function @@_font_has_space (fontid)
  t= fonts.hashes.identifiers[fontid]
+%    \end{macrocode}
+% test if t is nil, see https://github.com/latex3/tagging-project/issues/1494
+%    \begin{macrocode}
+ if not t then return false end
  if luaotfload.aux.slot_of_name(fontid,"space")
     or t and t.characters and t.characters[32] and t.characters[32]["unicode"]==32
  then
