@@ -112,7 +112,7 @@
 %
 % \begin{function}[ EXP,added=2023-06-11]{\tag_mc_reset_box:N}
 %   \begin{syntax}
-%     \cs{tag_mc_reset_box:N} \meta{box} 
+%     \cs{tag_mc_reset_box:N} \meta{box}
 %   \end{syntax}
 %   This resets in lua mode the mc attributes to the one currently in use.
 %   It does nothing in generic mode.
@@ -124,22 +124,22 @@
 %   \end{syntax}
 %   This command is only needed in generic mode, in lua mode it gobbles its arguments.
 %   In generic mode it adds MC literals to the stream that are missing because of
-%   page breaks. 
+%   page breaks.
 %   The first argument is the box with the stream, the second a
-%   string representing the stream. Predeclared are the names 
+%   string representing the stream. Predeclared are the names
 %   \texttt{main}, \texttt{footnote} and \texttt{multicol}.
 %   If more streams should be handle the underlying interface must be enabled
-%   with \cs{tag_mc_new_stream:n} 
-%   The command is only for packages doing deep manipulations 
-%   of the output routine! 
+%   with \cs{tag_mc_new_stream:n}
+%   The command is only for packages doing deep manipulations
+%   of the output routine!
 %   Example of use are in the multicol package and in tagpdf itself.
 % \end{function}
-% 
+%
 % \begin{function}[added=2024-11-18]{\tag_mc_new_stream:n}
 %   \begin{syntax}
 %     \cs{tag_mc_new_stream:n} \Arg{stream name}
 %   \end{syntax}
-%   This declares the interface needed to handle 
+%   This declares the interface needed to handle
 %   a new stream with \cs{tag_mc_add_missing_to_stream:Nn}.
 %   Predeclared are the names \texttt{main}, \texttt{footnote} and \texttt{multicol}.
 % \end{function}
@@ -230,8 +230,8 @@
 % \end{variable}
 % \begin{macro}{\@@_get_data_mc_counter:}
 % This command allows \cs{tag_get:n} to get the current
-% state of the mc counter with the keyword |mc_counter|. 
-% By comparing the numbers it can be used to check the number of 
+% state of the mc counter with the keyword |mc_counter|.
+% By comparing the numbers it can be used to check the number of
 % structure commands in a piece of code.
 %    \begin{macrocode}
 \cs_new:Npn \@@_get_data_mc_counter:
@@ -251,7 +251,7 @@
 \cs_new:Npn \@@_get_mc_abs_cnt: { \int_use:N \c@g_@@_MCID_abs_int }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 %
 % \begin{variable}{\g_@@_in_mc_bool}
 % This booleans record if a mc is open, to test nesting.
@@ -300,7 +300,7 @@
 \tl_new:N \l_@@_mc_lang_tl
 %    \end{macrocode}
 % \end{variable}
-% 
+%
 % \begin{variable}
 %  {
 %   \l_@@_mc_key_tag_tl,
@@ -413,7 +413,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\tag_mc_reset_box:N}
-% This allows to reset the mc-attributes in box. On base and generic mode it should do 
+% This allows to reset the mc-attributes in box. On base and generic mode it should do
 % nothing.
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_mc_reset_box:N #1 {}
@@ -466,11 +466,11 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{\@@_mc_check_parent_child:n}
 % This checks if an MC can be used in a structure.
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_mc_check_parent_child:n #1 
+\cs_new_protected:Npn \@@_mc_check_parent_child:n #1
 % #1 structure number of parent
   {
 %    \end{macrocode}
@@ -486,60 +486,60 @@
            \quark_if_no_value:NTF \l__tag_get_parent_tmpa_tl
             {??}
             {
-              \exp_last_unbraced:No\use_ii:nn 
+              \exp_last_unbraced:No\use_ii:nn
                { \l_@@_get_parent_tmpa_tl }
               :
-             \exp_last_unbraced:No\use_i:nn 
-               { \l_@@_get_parent_tmpa_tl }             
-            }   
+             \exp_last_unbraced:No\use_i:nn
+               { \l_@@_get_parent_tmpa_tl }
+            }
          }
          {
            MC~(real~content)
-         }           
-      }        
-    \@@_struct_get_role:nnNN  
-      {#1} 
+         }
+      }
+    \@@_struct_get_role:nnNN
+      {#1}
       {rolemap}
       \l_@@_get_parent_tmpa_tl
       \l_@@_get_parent_tmpb_tl
-    \@@_role_check_parent_child:ooooN  
-      { \l_@@_get_parent_tmpa_tl } 
-      { \l_@@_get_parent_tmpb_tl }  
-      { MC } % 
-      {  } %   
+    \@@_role_check_parent_child:ooooN
+      { \l_@@_get_parent_tmpa_tl }
+      { \l_@@_get_parent_tmpb_tl }
+      { MC } %
+      {  } %
       \l_@@_parent_child_check_tl
 %    \end{macrocode}
 % if the return value is 7 we have to check against the parentrole field.
 % TODO ruby and warichu use 7 too, that should be changed!
-%    \begin{macrocode}     
+%    \begin{macrocode}
     \int_compare:nNnT {\l_@@_parent_child_check_tl} = { \c_@@_role_rule_checkparent_tl }
       {
-        \@@_struct_get_role:nnNN  
-         {#1} 
+        \@@_struct_get_role:nnNN
+         {#1}
          {parentrole}
          \l_@@_get_parent_tmpa_tl
          \l_@@_get_parent_tmpb_tl
-       \@@_role_check_parent_child:ooooN  
-         { \l_@@_get_parent_tmpa_tl } 
-         { \l_@@_get_parent_tmpb_tl }  
-         { MC } % 
-         {  } %   
-         \l_@@_parent_child_check_tl  
-      }  
-    \@@_check_forbidden_parent_child:nnee 
-     {\l_@@_parent_child_check_tl}  
+       \@@_role_check_parent_child:ooooN
+         { \l_@@_get_parent_tmpa_tl }
+         { \l_@@_get_parent_tmpb_tl }
+         { MC } %
+         {  } %
+         \l_@@_parent_child_check_tl
+      }
+    \@@_check_forbidden_parent_child:nnee
+     {\l_@@_parent_child_check_tl}
      {#1}
      {
        \l_@@_get_parent_tmpb_tl : \l_@@_get_parent_tmpa_tl
      }
      {
        MC~(real content)
-     } 
-  } 
-\cs_generate_variant:Nn \@@_mc_check_parent_child:n {o}             
+     }
+  }
+\cs_generate_variant:Nn \@@_mc_check_parent_child:n {o}
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \subsection{Keys}
 % This are the keys where the code can be shared between the modes.
 %

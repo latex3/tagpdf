@@ -1682,11 +1682,11 @@
       }
   }
 \cs_new_protected:Npn \@@_struct_Ref_dest_parent:nN #1 #2 %#1 a dest name
-  { 
+  {
     \prop_get:NnNTF \g_@@_struct_dest_num_prop {#1} \l_@@_tmpb_tl
       { %do not overwrite  \l_@@_tmpa_tl!
-        \prop_get:cnN 
-         { g_@@_struct_\l_@@_tmpb_tl _prop }{parentnum}\l_@@_tmpb_tl         
+        \prop_get:cnN
+         { g_@@_struct_\l_@@_tmpb_tl _prop }{parentnum}\l_@@_tmpb_tl
         \tl_put_right:Ne#2
           {
             \c_space_tl\tag_struct_object_ref:e{ \l_@@_tmpb_tl }
@@ -1695,7 +1695,7 @@
       {
         \msg_warning:nnn {tag}{struct-Ref-unknown}{Destination~'#1'}
       }
-  }  
+  }
 \cs_new_protected:Npn \@@_struct_Ref_num:nN #1 #2 %#1 a structure number
   {
     \tl_put_right:Ne#2
@@ -2030,7 +2030,7 @@
         \seq_gpush:Ne \g_@@_struct_tag_stack_seq
           {{\g_@@_struct_tag_tl}{\l_@@_struct_roletag_tl}}
         \seq_gpush:Ne \g_@@_struct_roletag_stack_seq
-          {\l_@@_struct_roletag_tl}  
+          {\l_@@_struct_roletag_tl}
         \tl_gset:NV   \g_@@_struct_stack_current_tl \c@g_@@_struct_abs_int
         \@@_struct_set_attribute:
         %\seq_show:N   \g_@@_struct_stack_seq
@@ -2362,10 +2362,10 @@
 % a structure. The keyword \texttt{ref_label} expects as value a label name (from
 % a label set in a \cs{tagstructbegin} command). The keyword \texttt{ref_dest}
 % expects a destination name set with \cs{MakeLinkTarget}. It then will refer to
-% the structure in which this \cs{MakeLinkTarget} was used. The keyword \texttt{ref_dest_parent} 
-% expects a destination name set with \cs{MakeLinkTarget} too. It then will refer to 
+% the structure in which this \cs{MakeLinkTarget} was used. The keyword \texttt{ref_dest_parent}
+% expects a destination name set with \cs{MakeLinkTarget} too. It then will refer to
 % the parent of structure in which this \cs{MakeLinkTarget} was used---this is useful if the
-% target command is, e.g., in a list and one wants to reference the surrounding list item structure.  
+% target command is, e.g., in a list and one wants to reference the surrounding list item structure.
 % The keyword \texttt{ref_num} expects a structure number.
 % At last there is the keyword \texttt{attribute} which allows to add or extend the \texttt{/A}
 % key of the structure. The value is the content of one attribute dictionary, so for example
@@ -2426,7 +2426,7 @@
 \cs_new_protected:Npn \@@_struct_gput_data_ref_dest_parent:nn #1 #2
   {
     \@@_struct_gput_data_ref_aux:nnn {#1}{dest_parent}{#2}
-  }  
+  }
 \cs_new_protected:Npn \@@_struct_gput_data_ref_num:nn #1 #2
   {
     \@@_struct_gput_data_ref_aux:nnn {#1}{num}{#2}

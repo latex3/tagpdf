@@ -522,7 +522,7 @@
 % The first argument is the tag, e.g. |P| or |Span|, the second is used to pass
 % more properties.
 % Starting with texlive 2023 this is much simpler and faster as we can use
-% delay the numbering to the shipout. 
+% delay the numbering to the shipout.
 % We also define a wrapper around the low-level command as luamode will need
 % something different.
 %    \begin{macrocode}
@@ -534,12 +534,12 @@
      {
        mcid-\int_use:N \c@g_@@_MCID_abs_int
      }
-     { \c_@@_property_mc_clist }    
+     { \c_@@_property_mc_clist }
     \@@_mc_bdc_shipout:ee
       {#1}
-      { 
+      {
         /MCID~\flag_height:n { @@/mcid }
-        \flag_raise:n { @@/mcid }~  #2  
+        \flag_raise:n { @@/mcid }~  #2
       }
   }
  \cs_new_protected:Npn \@@_mc_bdc_mcid:n #1
@@ -648,14 +648,14 @@
 % set default MC tags to structure:
 %    \begin{macrocode}
         \tl_set_eq:NN \l_@@_mc_key_tag_tl \g_@@_struct_tag_tl
-        \tl_gset_eq:NN\g_@@_mc_key_tag_tl \g_@@_struct_tag_tl        
-        \tl_if_empty:NTF\l_@@_mc_lang_tl   
+        \tl_gset_eq:NN\g_@@_mc_key_tag_tl \g_@@_struct_tag_tl
+        \tl_if_empty:NTF\l_@@_mc_lang_tl
           {
             \keys_set:nn { @@ / mc }{ #1 }
           }
           {
             \keys_set:nn { @@ / mc }{ lang=\l_@@_mc_lang_tl, #1 }
-          }        
+          }
         \bool_if:NTF \l_@@_mc_artifact_bool
           { %handle artifact
             \@@_mc_handle_artifact:N \l_@@_mc_artifact_type_tl
@@ -683,7 +683,7 @@
                     { \g_@@_struct_stack_current_tl }
                   }
                 \@@_mc_handle_stash:e { \int_use:N \c@g_@@_MCID_abs_int }
- 
+
               }
           }
         \group_end:
@@ -766,9 +766,9 @@
 % We assume that this are simple strings that do not need escaping.
 %    \begin{macrocode}
     lang .code:n      = % Lang property
-      { 
-        \tl_put_right:Ne \l_@@_mc_key_properties_tl { /Lang~(#1) }        
-      },    
+      {
+        \tl_put_right:Ne \l_@@_mc_key_properties_tl { /Lang~(#1) }
+      },
     actualtext .code:n      = % ActualText property
       {
         \tl_if_empty:oF{#1}
@@ -780,7 +780,7 @@
              { utf16/hex }
            \tl_put_right:Nn \l_@@_mc_key_properties_tl { /ActualText~< }
            \tl_put_right:No \l_@@_mc_key_properties_tl { \l_@@_tmpa_str>~ }
-         }  
+         }
       },
     label .tl_set:N        = \l_@@_mc_key_label_tl,
     artifact .code:n       =

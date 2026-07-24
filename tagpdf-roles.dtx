@@ -971,19 +971,19 @@
 %
 % \begin{macro}{\@@_role_get_parent_child_rule:nnN}
 %  This command retrieves the rule (as a number) and stores it in the tl-var.
-%  It assumes that the tags in \#1 and \#2 are standard tags after role mapping 
+%  It assumes that the tags in \#1 and \#2 are standard tags after role mapping
 %  for which a rule exist.  If the parent is one of Part, Div, NonStruct
 %  the result can be state 7, which means that a check must be
-%  repeated for the \enquote{real parent}. 
-%  
+%  repeated for the \enquote{real parent}.
+%
 %  TODO check temporary variables. Check if the tl-var should be fix.
 %    \begin{macrocode}
 \tl_new:N \l_@@_parent_child_check_tl
 \sys_if_engine_luatex:TF
  {
    \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
-     % #1 parent (string, standard tag after rolemapping!) 
-     % #2 child (string, standard tag after rolemapping!) 
+     % #1 parent (string, standard tag after rolemapping!)
+     % #2 child (string, standard tag after rolemapping!)
      % #3 tl for state
      {
        \tl_set:Ne#3
@@ -1010,21 +1010,21 @@
                }
            }
         \int_compare:nNnT {#3} = { 0 }
-         {            
+         {
           \msg_warning:nneee
             { tag }
             {role-parent-child-result}
             { #1 }
             { #2 }
             { unknown! }
-         }         
-         
+         }
+
      }
  }
  {
    \cs_new_protected:Npn \@@_role_get_parent_child_rule:nnN #1 #2 #3
-     % #1 parent (string, standard tag after rolemapping) 
-     % #2 child (string, standard tag after rolemapping) 
+     % #1 parent (string, standard tag after rolemapping)
+     % #2 child (string, standard tag after rolemapping)
      % #3 tl for state
      {
 %    \end{macrocode}
@@ -1048,7 +1048,7 @@
            }
            {
              \tl_set:Nn#3 {0}
-           }              
+           }
 %    \end{macrocode}
 % Debugging messages, this can perhaps go into debug mode.
 %    \begin{macrocode}
@@ -1069,7 +1069,7 @@
                }
            }
         \int_compare:nNnT {#3} = { 0 }
-         {            
+         {
           \msg_warning:nneee
             { tag }
             {role-parent-child-result}
@@ -1090,8 +1090,8 @@
 % It does not try to resolve inheritation rules of \texttt{Part},
 % \texttt{Div} and \texttt{NonStruct} but
 % instead gives back the state 7. It is then the task
-% of the caller command to find the real parent and run the 
-% check again. 
+% of the caller command to find the real parent and run the
+% check again.
 % In pdf 2.0 the name spaces of the tags are relevant, so we
 % have arguments for them, but in pdf <2.0 they are ignored and can
 % be left empty.
@@ -1102,8 +1102,8 @@
     % #1 parent tag,% not necessarily rolemapped, but often the case
     % #2 NS (empty in pdf 1.x)
     % #3 child tag, % not necessarily rolemapped, but often the case
-    % #4 NS (empty in pdf 1.x) 
-    % #5 tl var: to give the result back. 
+    % #4 NS (empty in pdf 1.x)
+    % #5 tl var: to give the result back.
      {
 %    \end{macrocode}
 % get the standard tags through rolemapping if needed

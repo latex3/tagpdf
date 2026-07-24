@@ -93,7 +93,7 @@
 %  \end{syntax}
 % This command tests if we are currently \enquote{in} a specific structure by checking
 % if the argument is on the stack. The argument must be a standard structure type as no role mapping is applied.
-% 
+%
 % The main use case is to check if there is an open P structure that should be closed.
 % \end{function}
 
@@ -555,7 +555,7 @@
 % This is an info message that inform which elements are checked, typically
 % used to show the original tags, not the rolemapped one.
 %    \begin{macrocode}
-\msg_new:nnn { tag } {role-parent-child-check}  
+\msg_new:nnn { tag } {role-parent-child-check}
   { Checking~Parent-Child~'#1'~-->~'#2' }
 %    \end{macrocode}
 % \end{macro}
@@ -568,18 +568,18 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{role-struct-parent-child-forbidden}
-%  The most important message is that the relation 
+%  The most important message is that the relation
 %  is not allowed between two structures.
 %  Argument \#1 is the parent structure number, \#2 is the child structure number,
 %  \#3 NS:tag info of the parent (TODO perhaps rolemapped),
-%  \#4 NS:tag of the child. (TODO ) 
+%  \#4 NS:tag of the child. (TODO )
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-struct-parent-child-forbidden}
-  { 
+  {
     Parent-Child~'#3'~-->~'#4'.\\
-    Relation~is~not~allowed! ~\msg_line_context:\\                 
+    Relation~is~not~allowed! ~\msg_line_context:\\
     struct~#1,~
-    \exp_last_unbraced:Ne\use_i:nn  { \prop_item:cn{ g_@@_struct_#1_prop}{tag} }    
+    \exp_last_unbraced:Ne\use_i:nn  { \prop_item:cn{ g_@@_struct_#1_prop}{tag} }
     \c_space_tl-->\c_space_tl
     struct~#2,~
     \exp_last_unbraced:Ne\use_i:nn  { \prop_item:cn{ g_@@_struct_#2_prop}{tag} }
@@ -587,14 +587,14 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{role-MC-child-forbidden}
-%  In case that MC is forbidden we use 
-%  a special message. 
+%  In case that MC is forbidden we use
+%  a special message.
 %  Argument \#1 is the parent structure number. \#2 NS:tag of the parent,
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-MC-child-forbidden}
-  { 
+  {
     Parent-Child~'#2'~-->~'MC~(real~content)'.\\
-    Relation~is~not~allowed! ~\msg_line_context:\\                 
+    Relation~is~not~allowed! ~\msg_line_context:\\
     struct~#1,~
     \exp_last_unbraced:Ne\use_i:nn { \prop_item:cn{ g_@@_struct_#1_prop}{tag} }
   }
@@ -603,12 +603,12 @@
 % \begin{macro}{role-parent-child-forbidden}
 %  The most important message is that the relation is not allowed.
 %  Argument \#1 is the parent structure number. \#2 NS:tag of the parent,
-%  \#3 NS:tag of the child.  
+%  \#3 NS:tag of the child.
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-parent-child-forbidden}
-  { 
+  {
     Parent-Child~'#2'~-->~'#3'.\\
-    Relation~is~not~allowed! ~\msg_line_context:\\                 
+    Relation~is~not~allowed! ~\msg_line_context:\\
     struct~#1,~\prop_item:cn{ g_@@_struct_#1_prop}{S}
     \c_space_tl
     \str_if_eq:nnF{#3}{MC~(realcontent)}
@@ -621,87 +621,87 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_forbidden_parent_child:nnnn #1#2#3#4
 % #1 check number, #2 number of parent struct
-% #3 parent info,  #4 child info 
- {  
+% #3 parent info,  #4 child info
+ {
    \int_compare:nNnT {#1} < {0}
      {
-       \msg_warning:nneee 
-         { tag } 
-         {role-parent-child-forbidden} 
-         { #2} 
+       \msg_warning:nneee
+         { tag }
+         {role-parent-child-forbidden}
+         { #2}
          { #3 }
-         { #4 }  
+         { #4 }
      }
  }
-\cs_generate_variant:Nn \@@_check_forbidden_parent_child:nnnn {nnee} 
+\cs_generate_variant:Nn \@@_check_forbidden_parent_child:nnnn {nnee}
 
 % new with structure numbers:
 \cs_new_protected:Npn \@@_check_struct_forbidden_parent_child:nnn #1#2#3
-% #1 check number, 
+% #1 check number,
 % #2 number of parent struct
 % #3 number of child struct
- {  
+ {
    \int_compare:nNnT {#1} < {0}
      {
        \prop_get:cnN {g_@@_struct_#2_prop}{parentrole}\l_@@_get_parent_tmpc_tl
        \prop_get:cnN {g_@@_struct_#3_prop}{rolemap}\l_@@_get_child_tmpc_tl
-       \msg_warning:nneeee 
-         { tag } 
-         {role-struct-parent-child-forbidden} 
+       \msg_warning:nneeee
+         { tag }
+         {role-struct-parent-child-forbidden}
          { #2 }
-         { #3 } 
-         { 
+         { #3 }
+         {
            \exp_last_unbraced:No \use_ii:nn  { \l_@@_get_parent_tmpc_tl }
-           : 
-           \exp_last_unbraced:No \use_i:nn  {\l_@@_get_parent_tmpc_tl }        
+           :
+           \exp_last_unbraced:No \use_i:nn  {\l_@@_get_parent_tmpc_tl }
          }
-         {  
+         {
            \exp_last_unbraced:No \use_ii:nn { \l_@@_get_child_tmpc_tl }
-           : 
+           :
            \exp_last_unbraced:No \use_i:nn { \l_@@_get_child_tmpc_tl }
-         }  
+         }
      }
- } 
-\cs_generate_variant:Nn\@@_check_struct_forbidden_parent_child:nnn{onn} 
+ }
+\cs_generate_variant:Nn\@@_check_struct_forbidden_parent_child:nnn{onn}
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{role-parent-child-unresolved}
 %  If a structure is stashed and then used later and its root is one
 %  of Part, Div or NonStruct, then we can not check the parent-child
-%  rules. This would require to know all children. In this case we only 
-%  warn.   
-%  resolved a 
+%  rules. This would require to know all children. In this case we only
+%  warn.
+%  resolved a
 %  Argument \#1 is the parent structure number. \#2 NS:tag of the parent,
-%  \#3 NS:tag of the child.  
+%  \#3 NS:tag of the child.
 %    \begin{macrocode}
 \msg_new:nnn { tag } {role-parent-child-unresolved}
-  { 
+  {
     Structure~\int_eval:n {\c@g_@@_struct_abs_int}~was~moved~into~structure~#1.\\
     Parent-Child~'#2'~-->~'#3'~can~not~checked.
   }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{\@@_check_unresolved_parent_child:nnnn}
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_unresolved_parent_child:nnnn #1#2#3#4
 % #1 check number, #2 number of parent struct
-% #3 parent info, #4 child info 
- {  
+% #3 parent info, #4 child info
+ {
    \int_compare:nNnT { #1 } = {\c_@@_role_rule_checkparent_tl}
      {
-       \msg_warning:nneee 
-         { tag } 
-         {role-parent-child-unresolved} 
-         { #2 } 
+       \msg_warning:nneee
+         { tag }
+         {role-parent-child-unresolved}
+         { #2 }
          { #3 }
-         { #4 }  
+         { #4 }
      }
  }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{tag/check/parent-child,tag/check/parent-child-end,}
 % Sockets used around the parent-child checks so that we can disable them.
 %    \begin{macrocode}
@@ -711,11 +711,11 @@
   {
    \sys_if_engine_luatex:T
      {
-       \lua_now:e 
+       \lua_now:e
         {
           ltx.@@.func.check_parent_child_rules ( 2 )
         }
-     }   
+     }
   }
 %    \end{macrocode}
 %    And a key to disable the check
@@ -735,13 +735,13 @@
     debug / parent-child-check / atend .code:n=
      {
        \socket_assign_plug:nn {tag/check/parent-child}{noop}
-       \socket_assign_plug:nn {tag/check/parent-child-end}{check}  
-     }  
+       \socket_assign_plug:nn {tag/check/parent-child-end}{check}
+     }
   }
 %    \end{macrocode}
 % \end{macro}
-% 
-% 
+%
+%
 % \begin{macro}{role-remapping}
 %  This is info and warning message about role-remapping
 %    \begin{macrocode}
@@ -771,7 +771,7 @@
     Trying~to~revert~to~#1.
   }
 %    \end{macrocode}
-% \end{macro} 
+% \end{macro}
 % \begin{macro}{tree-mcid-index-wrong}
 % Used in the tree code, typically indicates the document must be rerun.
 %    \begin{macrocode}
@@ -828,8 +828,8 @@
         \msg_error:nnee {tag}{wrong-pdfversion}{\c_@@_check_pdfversion_tl}{\pdf_version:}
         \pdf_version_gset:e {\c_@@_check_pdfversion_tl}
         \pdf_object_unnamed_write:nn{dict}{}
-      }        
-  }  
+      }
+  }
 %</package>
 %    \end{macrocode}
 % \section{User conditionals}
@@ -894,8 +894,8 @@
 %</base>
 %    \end{macrocode}
 % \end{macro}
-% 
-% 
+%
+%
 % \begin{macro}{\tag_if_in:n}
 % This tests if we are in a specific structure, so if the structure is part of the
 % current stack. The argument must be a standard structure
@@ -909,7 +909,7 @@
     {\prg_return_true:}
     {\prg_return_false:}
  }
-%</package> 
+%</package>
 %    \end{macrocode}
 % \end{macro}
 %
@@ -952,8 +952,8 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_structure_has_tag:n #1 %#1 struct num
   {
-    \prop_get:cnNF 
-      { g_@@_struct_#1_prop } 
+    \prop_get:cnNF
+      { g_@@_struct_#1_prop }
       {S}
       \l_@@_tmp_unused_tl
       {
@@ -1108,8 +1108,8 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_check_mc_tag:N}
-% This checks if the mc has a (known) tag, if it is empty 
-% (e.g. if due to a call to the output routine, see issue https://github.com/latex3/tagpdf/issues/111) 
+% This checks if the mc has a (known) tag, if it is empty
+% (e.g. if due to a call to the output routine, see issue https://github.com/latex3/tagpdf/issues/111)
 % then  we fall back to the structure name.
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_check_mc_tag:N #1  %#1 is var with a tag name in it

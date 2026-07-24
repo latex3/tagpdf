@@ -235,10 +235,10 @@
 % \subsection{Link tagging}
 % Links need a special structure and cross reference system.
 % This is added through hooks of the l3pdfannot module and will work
-% automatically if tagging is activated. 
+% automatically if tagging is activated.
 %
 % Links can have an alternative text in the Contents but this disturbs reading,
-% so it is not done by default. 
+% so it is not done by default.
 % Another text can be added by changing the dictionary value:
 % \begin{verbatim}
 % \pdfannot_dict_put:nnn
@@ -934,7 +934,7 @@
     paratag .tl_set:N = \l_@@_para_tag_tl,
     unittag .tl_set:N = \l_@@_para_main_tag_tl,
     para-flattened .bool_set:N = \l_@@_para_flattened_bool
-  }  
+  }
 %    \end{macrocode}
 % \end{macro}
 % Helper command for debugging:
@@ -1001,7 +1001,7 @@
   }
 %    \end{macrocode}
 %</package>
-%   
+%
 % \begin{macro}
 %   {
 %    \tagpdfparaOn,
@@ -1181,7 +1181,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 %  A special, experimental tagged version, which only works with fancyhdr or similar that uses
 %  parbox. The sockets aren't in lttagging yet, so until 2026-06-01 we have to declare
 %  the plugs at begin document:
@@ -1193,15 +1193,15 @@
        \tag_struct_begin:n{tag=Span}
        \tag_mc_begin:n{}
       }
-      
+
     \NewTaggingSocketPlug{parbox/after}{tag/footer}
       {
-       \tag_mc_end:   
+       \tag_mc_end:
        \tag_struct_end:
-      } 
+      }
   }
 \cs_new_protected:Npn \@@_headfoot_tagged_begin:n #1
- { 
+ {
    \AssignTaggingSocketPlug{parbox/before}{tag/footer}
    \AssignTaggingSocketPlug{parbox/after}{tag/footer}
     \bool_set_false:N  \l_@@_para_bool
@@ -1212,7 +1212,7 @@
      {
        \bool_gset_eq:NN   \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
        \bool_gset_false:N \g_@@_in_mc_bool
-     }    
+     }
     \tag_struct_begin:n{tag=Artifact,attribute-class=_@@/attr/#1,parent=\tag_get:n{current_Sect}}
  }
 
@@ -1226,19 +1226,19 @@
      {
        \bool_gset_eq:NN \g_@@_in_mc_bool\g_@@_saved_in_mc_bool
      }
- }  
+ }
 \keys_define:nn { @@ / setup }
- { 
-   page/tag-header-footer .choice:,   
-   page/tag-header-footer/artifact .code:n = 
-    {    
+ {
+   page/tag-header-footer .choice:,
+   page/tag-header-footer/artifact .code:n =
+    {
       \cs_set:Nn \__tag_hook_kernel_before_head: { \__tag_headfoot_tagged_begin:n {pagination}}
       \cs_set:Nn \__tag_hook_kernel_before_foot: { \__tag_headfoot_tagged_begin:n {pagination}}
       \cs_set_eq:NN \__tag_hook_kernel_after_head:  \__tag_headfoot_tagged_end:
-      \cs_set_eq:NN \__tag_hook_kernel_after_foot:  \__tag_headfoot_tagged_end:    
+      \cs_set_eq:NN \__tag_hook_kernel_after_foot:  \__tag_headfoot_tagged_end:
     },
-   page/tag-header-footer .default:n = artifact, 
- }   
+   page/tag-header-footer .default:n = artifact,
+ }
 %    \end{macrocode}
 % \subsection{Links}
 % We need to close and reopen mc-chunks around links.
@@ -1248,7 +1248,7 @@
 % With luatex we make use of the lualinksplit package to get
 % OBJR of all annotations into the Link structure, so the hook code
 % should not contain the command to insert the OBJR into the structure.
-% 
+%
 % At first we provide the link name that will be in the next LaTeX release (06/2026)
 %    \begin{macrocode}
 \AddToHookNext{class/before}
@@ -1263,12 +1263,12 @@
 % Tagging sockets for links
 %    \begin{macrocode}
 \socket_if_exist:nF {tagsupport/link/before}
- { 
-   \NewTaggingSocket{link/before}{1} 
+ {
+   \NewTaggingSocket{link/before}{1}
    \NewTaggingSocket{link/after}{1}
  }
 \NewTaggingSocketPlug{link/before}{kernel}
- { 
+ {
    \mode_leave_vertical:
    \tag_mc_end_push:
    \tag_struct_begin:n { tag=\UseStructureName{link} }
@@ -1373,12 +1373,12 @@
      {tagpdf}
      {
        \UseTaggingSocket{link/before}
-        {       
+        {
          \pdfannot_dict_put:nne
            { link/URI }
            { StructParent }
            { \tag_struct_parent_int: }
-        } 
+        }
      }
 
    \hook_gput_code:nnn
@@ -1386,10 +1386,10 @@
      {tagpdf}
      {
        \UseTaggingSocket{link/after}
-        { 
-         \tag_struct_insert_annot:ee 
-          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
-        } 
+        {
+         \tag_struct_insert_annot:ee
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+        }
      }
 
    \hook_gput_code:nnn
@@ -1397,12 +1397,12 @@
      {tagpdf}
      {
        \UseTaggingSocket{link/before}
-        {       
+        {
          \pdfannot_dict_put:nne
            { link/GoTo }
            { StructParent }
            { \tag_struct_parent_int: }
-        } 
+        }
      }
 
    \hook_gput_code:nnn
@@ -1410,10 +1410,10 @@
      {tagpdf}
      {
        \UseTaggingSocket{link/after}
-        { 
-         \tag_struct_insert_annot:ee 
-          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
-        } 
+        {
+         \tag_struct_insert_annot:ee
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+        }
      }
 
    \hook_gput_code:nnn
@@ -1421,12 +1421,12 @@
      {tagpdf}
      {
         \UseTaggingSocket{link/before}
-        {       
+        {
          \pdfannot_dict_put:nne
            { link/GoToR }
            { StructParent }
            { \tag_struct_parent_int: }
-        } 
+        }
      }
 
    \hook_gput_code:nnn
@@ -1434,10 +1434,10 @@
      {tagpdf}
      {
        \UseTaggingSocket{link/after}
-        { 
-         \tag_struct_insert_annot:ee 
-          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
-        } 
+        {
+         \tag_struct_insert_annot:ee
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+        }
      }
 
    \hook_gput_code:nnn
@@ -1445,12 +1445,12 @@
      {tagpdf}
      {
        \UseTaggingSocket{link/before}
-        {       
+        {
          \pdfannot_dict_put:nne
            { link/Named }
            { StructParent }
            { \tag_struct_parent_int: }
-        } 
+        }
      }
 
    \hook_gput_code:nnn
@@ -1458,22 +1458,22 @@
      {tagpdf}
      {
        \UseTaggingSocket{link/after}
-        { 
-         \tag_struct_insert_annot:ee 
-          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
-        } 
+        {
+         \tag_struct_insert_annot:ee
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+        }
      }
    \hook_gput_code:nnn
      {pdfannot/link/Launch/before}
      {tagpdf}
      {
         \UseTaggingSocket{link/before}
-         {       
+         {
            \pdfannot_dict_put:nne
              { link/Launch }
              { StructParent }
              { \tag_struct_parent_int: }
-         } 
+         }
      }
 
    \hook_gput_code:nnn
@@ -1481,10 +1481,10 @@
      {tagpdf}
      {
        \UseTaggingSocket{link/after}
-        { 
-         \tag_struct_insert_annot:ee 
-          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:} 
-        } 
+        {
+         \tag_struct_insert_annot:ee
+          {\pdfannot_link_ref_last:}{\tag_struct_parent_int:}
+        }
      }
   }
 %    \end{macrocode}
@@ -1527,7 +1527,7 @@
 %
 % These keys do not affect files added directly with root-supplemental-file or catalog-supplemental-file.
 %
-% The files in this list are attached at the end of the compilation 
+% The files in this list are attached at the end of the compilation
 % but you shouldn't rely on a specific order of the embedding in the html.
 %
 % We want to avoid to embed files twice, so we use a prop.

@@ -287,7 +287,7 @@
 %<debug>      { g_@@_struct_debug_kids_\g_@@_struct_stack_current_tl _seq }
 %<debug>      {
 %<debug>        MC~#1%
-%<debug>      }      
+%<debug>      }
     \lua_now:e
       {
         ltx.@@.func.store_struct_mcabs
@@ -321,21 +321,21 @@
 % set the default tag to the structure:
 %    \begin{macrocode}
         \tl_set_eq:NN \l_@@_mc_key_tag_tl \g_@@_struct_tag_tl
-        \tl_gset_eq:NN\g_@@_mc_key_tag_tl \g_@@_struct_tag_tl  
+        \tl_gset_eq:NN\g_@@_mc_key_tag_tl \g_@@_struct_tag_tl
         \lua_now:e
           {
             ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"tag","\g_@@_struct_tag_tl")
-          }    
+          }
 %    \end{macrocode}
 % 2025-05-23 allow lang on the MC (not really spec conform, but does work in acrobat).
 %    \begin{macrocode}
-        \tl_if_empty:NTF\l_@@_mc_lang_tl   
+        \tl_if_empty:NTF\l_@@_mc_lang_tl
           {
             \keys_set:nn { @@ / mc }{ label={}, #1 }
           }
           {
             \keys_set:nn { @@ / mc }{ label={},lang=\l_@@_mc_lang_tl, #1 }
-          }        
+          }
         %check that a tag or artifact has been used
         \@@_check_mc_tag:N \l_@@_mc_key_tag_tl
         %set the attributes:
@@ -353,7 +353,7 @@
                   {
                     \@@_mc_check_parent_child:o
                      { \g_@@_struct_stack_current_tl }
-                  }   
+                  }
                 \@@_mc_handle_stash:e { \@@_get_mc_abs_cnt: }
               }
           }
@@ -382,7 +382,7 @@
 % \end{macro}
 %
 % \begin{macro}{\tag_mc_reset_box:N}
-% This allows to reset the mc-attributes in box. On base and generic mode it should do 
+% This allows to reset the mc-attributes in box. On base and generic mode it should do
 % nothing.
 %    \begin{macrocode}
 \cs_set_protected:Npn \tag_mc_reset_box:N #1
@@ -396,7 +396,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{ \@@_get_data_mc_tag: }
 % The command to retrieve the current mc tag.
 % TODO: Perhaps this should use the attribute instead.
@@ -455,7 +455,7 @@
                     \@@_get_mc_abs_cnt:,"alt","/Alt~<\str_use:N \l_@@_tmpa_str>"
                   )
               }
-           }  
+           }
       },
     lang .code:n      = % Lang property
           {
@@ -470,8 +470,8 @@
                       )
                   }
                }
-          },            
-    alttext .meta:n = {alt=#1},  
+          },
+    alttext .meta:n = {alt=#1},
     actualtext .code:n      = % Alt property
       {
         \tl_if_empty:oF{#1}
@@ -492,7 +492,7 @@
                     "/ActualText~<\str_use:N \l_@@_tmpa_str>"
                   )
               }
-          }  
+          }
       },
     label .code:n =
       {
