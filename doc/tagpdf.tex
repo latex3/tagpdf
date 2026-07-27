@@ -176,7 +176,7 @@ changes in the output routine page breaks and header and footer are handled
 correctly, the engines now support structure destinations. More changes are 
 in the latex-lab bundle and are loaded through the \texttt{tagging} keys. 
 
-I'm sure that tagpdf still has bugs. Bug reports, suggestions and comments 
+I'm sure that \pkg{tagpdf} still has bugs. Bug reports, suggestions and comments 
 can be added to the issue tracker on github either 
 \url{https://github.com/latex3/tagpdf} or
 \url{https://github.com/latex3/tagging-project}. 
@@ -244,7 +244,7 @@ structures---these are small, embedded files that can, for example, contain
 the mathML or source code of an equation---it knows structure destinations, 
 which allows to link to a structure. It knows the MathML namespace. 
 
-\LaTeX{} therefore targets \PDF{} 2.0 and tagpdf has support for 
+\LaTeX{} therefore targets \PDF{} 2.0 and \pkg{tagpdf} has support for 
 associated files, for name spaces and other \PDF{} 2.0 features.
 
 \PDF{}~2.0 features are currently (beginning of 2025) still not well supported by 
@@ -358,7 +358,7 @@ patches used are still rather crude. So there is lot of space for improvement.
 
 \begin{tcolorbox}[]
 Be aware that to create the tagged version a current lualatex-dev and a 
-current version of the \pkg{pdfmanagment} package is needed. 
+current version of the \pkg{pdfmanagement} package is needed. 
 \end{tcolorbox}
 
 \begin{figure}
@@ -568,7 +568,7 @@ maps all tags to their standard PDF role, e.g. |itemize| will be mapped to |L|.
   annotations etc. 
   
 \item[\PrintKeyName{viewer/startstructure}] A structure number. If a \texttt{OpenAction}
-is set in the PDF Catalog (which is normally the case if hyperref is used) 
+is set in the PDF Catalog (which is normally the case if \pkg{hyperref} is used) 
 a structure destination pointing to the structure is added. The initial value is structure 1 (the \texttt{Document} structure), the default value is the current structure. The 
 key can be used more than once, the last setting will win.
 
@@ -985,7 +985,7 @@ The key-val list understands the following keys:
 
   \item[\PrintKeyName{stash}] Normally marked content will be stored in the 
       \enquote{current} structure. This may not be what you want. As an 
-      example you may perhaps want to put a marginnote behind or before the 
+      example you may perhaps want to put a margin note behind or before the 
       paragraph it is in the tex-code. With this boolean key the content is 
       marked but not stored in the kid-key of the current structure. 
 
@@ -1232,7 +1232,7 @@ add the needed code.
 \item Don't use a saved box with markers twice.
 
 \item If boxes are unboxed you will have to analyze the \PDF{} to
-  check if everything is ok.
+  check if everything is okay.
 
 \item If you use complicated structures and commands (breakable boxes
   like the one from \pkg{tcolorbox}, \pkg{multicol}, many footnotes)
@@ -1268,11 +1268,11 @@ should be added to the structure (where?) but even if this address is
 repeated on every page at best only once. All this need some thoughts both from the users and the packages and code
 providing support for header and footers.
 
-For now tagpdf added some first support for automatically tagging:
+For now \pkg{tagpdf} added some first support for automatically tagging:
 Starting with version 0.92 header and footer are by default automatically marked up as (simple) artifacts.
 
 With the key \PrintKeyName{page/exclude-header-footer} the behavior can be
-changed: The value \texttt{false} disables the automatic tagging (the resulting tagging is then rather unpredicatable and depends on the surrounding page), the
+changed: The value \texttt{false} disables the automatic tagging (the resulting tagging is then rather unpredictable and depends on the surrounding page), the
 value \texttt{pagination} adds additionally an \texttt{/Artifact}
 structure with the attribute \texttt{/Pagination}, but the contents is still not tagged.
 
@@ -1427,7 +1427,7 @@ how to read an equation.
 
 The last option 4 has been implemented in the math module in the \texttt{latex-lab}
 bundle. Here happily a proof of
-concept was possible: With development versions of foxit and the NVDA reader
+concept was possible: With development versions of Foxit and the NVDA reader
 it was possible to access an attached MathML and get speech output from it \cite{todasoifferdeims2024,mittelbachfischerdeims2024}. See also \cite{mathexamples} for some
 examples and section~\ref{sec:alt} for some more remarks and tests.
 
@@ -1785,12 +1785,12 @@ The key-val list understands the following keys:
    with the value. The mime type is here detected automatically, but for 
    unknown types it can be set too. See the \texttt{l3pdffile} 
    documentation for details.  Associated files are a concept new in PDF 
-   1.7, but the code currently doesn't check the pdf version, it is your 
+   1.7, but the code currently doesn't check the \PDF{} version, it is your 
    responsibility to set it (this can be done with the \texttt{pdfversion} 
    key in \verb+\DocumentMetadata+). 
 
    \item[\PrintKeyName{root-AF}] This key allows to reference an
-     associated file in the root structure element. The use of the key is no longer usefull as ngpdf \cite{ngpdf} will change its implementation and use files attached to the Catalog. 
+     associated file in the root structure element. The use of the key is no longer useful as ngpdf \cite{ngpdf} will change its implementation and use files attached to the Catalog. 
  
    \item[\PrintKeyName{root-supplemental-file}] This is a variant of the previous key. It takes as argument a file name. It then embeds this file with \texttt{/AFRelationship /Supplement} and appends it as associated file to the structure root. This key is like \texttt{root-AF} no longer recommended. Use the following key instead.
 
@@ -1835,7 +1835,7 @@ The key-val list understands the following keys:
 
    \item[\PrintKeyName{E}] This key sets the |/E| key, the expanded
      form of an abbreviation or an acronym (I couldn't think of a
-     better name, so I sticked to E).
+     better name, so I stuck to E).
      
    \item[\PrintKeyName{phoneme}] This key sets the |/Phoneme| key, a pronunciation hint. The value should be a IPA text (the PDF spec
        allows other variants but this not yet implemented).
@@ -1876,7 +1876,7 @@ The allowed \meta{keywords} are \texttt{ref}, \texttt{ref\_label} \texttt{ref\_d
  
 This command allows to add the value, the target structure of the \texttt{Ref} key, with four methods: directly as object reference (key word \texttt{ref}), through a label name set with the |label| key (key word \texttt{ref\_label}), through a destination name if a \cs{MakeLinkTarget} has been used in 
 the target structure (key words \texttt{ref\_dest} and
-\texttt{ref\_dest\_parent})---this also works if hyperref has not been loaded---and through
+\texttt{ref\_dest\_parent})---this also works if \pkg{hyperref} has not been loaded---and through
 the structure number, which has been stored e.g. in a label.    
 
 With the keyword \texttt{attribute} the attribute of the structure is
@@ -1913,7 +1913,7 @@ classes to a structure.
 To use such attributes you must at first declare it in \verb+\tagpdfsetup+ 
 with the key \texttt{role/new-attribute}. This key takes two argument, a name and 
 the content of the attribute. The name should be a sensible key name, it is 
-converted to a pdf name with \verb+\pdf_name_from_unicode_e:n+, so slashes 
+converted to a \PDF{} name with \verb+\pdf_name_from_unicode_e:n+, so slashes 
 and spaces are allow. The content should be a dictionary without the 
 bracket. 
 
@@ -2066,7 +2066,7 @@ through a local counter which keeps track of the level.
 The \meta{label} can be used to identify the command in debugging message. The label is not expanded and so can for example be a single command token.
 
 The commands are the L3-layer versions of |\SuspendTagging| and |\ResumeTagging|
-and will be available in the kernel with the 2024 november release. 
+and will be available in the kernel with the 2024 November release. 
 
 \begin{lstlisting}
 \tag_suspend:n{\outercommand}
@@ -2126,17 +2126,17 @@ object describing the structure.
 The value of \PrintKeyName{/ActualText} (inserted by \texttt{tagpdf}
 with \PrintKeyName{actualtext}) is meant to replace single characters
 or rather small pieces of text. It can be used also without any
-tagging (e.g. with the package accsupp). If the \PDF{} reader support
-this (adobe reader does, sumatra not) one can change with it how a
+tagging (e.g. with the package \pkg{accsupp}). If the \PDF{} reader support
+this (Adobe Reader does, Sumatra does not) one can change with it how a
 piece of text is copied and pasted e.g. to split up a ligature.
 
-\PrintKeyName{/Alt} (inserted by \texttt{tagpdf} with
+\PrintKeyName{/Alt} (inserted by \pkg{tagpdf} with
 \PrintKeyName{alt}) is a key to improve accessibility: with it one can
 add to a picture or something else an alternative text.
 
 The file \texttt{ex-alt-actualtext.tex} shows some experiments I made
-with both keys and text-to-speech software (the in-built of adobe and
-nvda).  To sum them up:
+with both keys and text-to-speech software (the built-in of Adobe and
+NVDA).  To sum them up:
 
 \begin{itemize}
 \item The keys have an impact on text-to-speech software only if the
@@ -2259,7 +2259,7 @@ most cases do the right thing.
   set, in PDF 2.0 from the |pdf|, |pdf2| or |mathml| set. It can also
   be a user type, then this user tag must have been declared
   before. The PDF format allows mapping to be done transitively. But
-  you should be aware that tagpdf can't (or more precisely won't)
+  you should be aware that \pkg{tagpdf} can't (or more precisely won't)
   check if some unusual role mapping makes really sense, this lies in
   the responsibility of the author.
     
@@ -2295,7 +2295,7 @@ tags are role mapped. This is work in progress and bound to change.
 
 As mentioned above new tags are created by default in the user namespace.
 Namespaces are identified through an ID which is normally given as an URI. 
-By default tagpdf creates an random URI for the user namespace but it is possible to change that:
+By default \pkg{tagpdf} creates an random URI for the user namespace but it is possible to change that:
 
 \begin{lstlisting}
  \tagpdfsetup{role/user-NS = somestring}
@@ -2380,7 +2380,7 @@ Be aware
   then has different containment rules.
 
 \item The special tag \texttt{MC} stands for mc-chunks, so
-  \enquote{real content} (the matrix has containments rules for this
+  \enquote{real content} (the matrix has containment rules for this
   too).
 
 \item Currently there is only only negative number \texttt{\textminus1}
@@ -2447,11 +2447,11 @@ problematic places. For listings -- which have a quite specific
 handling of spaces -- you can find a suggestion in the example
 \texttt{ex-space-glyph-listings}.
 
-\emph{Attention:} Even with real spaces copy\& pasting of code doesn't
+\emph{Attention:} Even with real spaces copy \& pasting of code doesn't
 need to give the correct results: you get spaces but not necessarily
 the right number of spaces. The \PDF{} viewers I tried all copied four
 real space glyphs as one space. I only got the four spaces with the
-export to text or xml in the AdobePro.
+export to text or xml in Adobe Pro.
 
 \begin{docCommand}{pdffakespace}{}\end{docCommand}
 
@@ -2477,13 +2477,13 @@ more or less consistent with pdftex. In dvi-mode the commands do nothing.
 \section{Structure destinations}\label{sec:struct-dest}
 
  Standard destinations (anchors for internal links) consist of a
- reference to a page in the pdf and instructions how to display
+ reference to a page in the \PDF{} and instructions how to display
  it---typically they will put a specific coordinate in the left top
  corner of the viewer and so give the impression that a link jumped to
  the word in this place.  But in reality they are not connected to the
  content.
 
- Starting with pdf~2.0 destinations can in a tagged PDF also point to a 
+ Starting with \PDF{}~2.0 destinations can in a tagged PDF also point to a 
  structure (to a \texttt{/StructElem} object). GoTo links can then 
  additionally to the \texttt{/D} key which points to a standard page 
  destination also point to such a structure destination with an 
@@ -2721,11 +2721,11 @@ already mentioned there are more requirements:
   files are copied directly into the head of the derived html.
   \end{itemize}
   
- By default (if tagging is active) tagpdf embeds now such CSS style definitions. 
+ By default (if tagging is active) \pkg{tagpdf} embeds now such CSS style definitions. 
  Currently the list of files is rather short and consists of two files (with extension
- .html and \verb+<style>...</style>+ html tags) which are provided by the tagpdf package:
+ .html and \verb+<style>...</style>+ html tags) which are provided by the \pkg{tagpdf} package:
  \begin{itemize}
- \item \texttt{latex-align-css.html} which improves the styling of amsmath alignments tagged with MathML.
+ \item \texttt{latex-align-css.html} which improves the styling of \pkg{amsmath} alignments tagged with MathML.
  \item \texttt{latex-list-css.html} which improves the style of list environments.
  \end{itemize}
  
@@ -2762,7 +2762,7 @@ This command takes as argument a key-val list which implements a number of show 
   \item[\PrintKeyName{mc-data}] This key is relevant for luamode only.
   It shows the data of all mc-chunks created so far.
   It is accurate only after shipout, so typically should be issued after a
-  newpage. The value is a positive integer and sets the first mc-shown. If no value
+  new page. The value is a positive integer and sets the first mc-shown. If no value
   is given, 1 is used and so all mc-chunks created so far are shown.
 
   \item[\PrintKeyName{mc-current}]  This key shows the number and the tag of
@@ -2796,7 +2796,7 @@ This command takes as argument a key-val list which implements a number of show 
 \item Think about math (progress: examples using luamml, associated files exists).
 \item Think about Links/Annotations
      (progress: mostly done, see section~\ref{sec:link+annot} and the code in \pkg{l3pdffield})
-\item Keys for alternative and actualtext. How to define the input encoding? Like in Accsupp?
+\item Keys for alternative and actualtext. How to define the input encoding? Like in \pkg{accsupp}?
      (progress: keys are there, but encoding interface needs perhaps improving)
 \item Check twocolumn documents
 \item Examples
@@ -2946,7 +2946,7 @@ command.
     now works (theoretically, it is not much tested) with all engines 
     supported by the \PDF\ management. So compilations with Xe\LaTeX{} or 
     with dvips should work. But it should be noted that these engines and 
-    backends don't support the |interspaceword| option. With Xe\LaTeX{} 
+    backends don't support the |interwordspace| option. With Xe\LaTeX{} 
     it is perhaps possible implement something with 
     |\XeTeXinterchartoks|, but for the dvips route I don't see an option 
     (apart from lots of manual macros everywhere). 
@@ -3012,8 +3012,8 @@ command.
     miktex already has the new pdftex, the new luatex will probably 
     follow soon. 
 
-\item The commands \cs{tagpdfifluatexT}, \cs{tagpdfifluatexTF} has been 
-    removed \cs{tagpdfifpdftexT}, 
+\item The commands \cs{tagpdfifluatexTF} and \cs{tagpdfifpdftexTF} have been 
+    removed.
 
 \end{itemize}
 
@@ -3109,7 +3109,7 @@ dvilualatex is not much tested yet.
 
 \subsection{Changes in version 0.98l}
 
-In 2023 the primitives to write literal code into the pdf have been 
+In 2023 the primitives to write literal code into the \PDF{} have been 
 extended in all engines and now allow to delay the expansion of their 
 argument to the shipout. This made it possible to greatly simplify and 
 speed up the code used in generic mode to number the MC-chunks. In most 
@@ -3196,7 +3196,7 @@ examples and remarks easier to understand.
   \texttt{/a} are different names. \verb+/.notdef+ and
   \verb+/Adobe#20Green+ are valid names.
 
-  Quite a number of the options of \texttt{tagpdf} actually define
+  Quite a number of the options of \pkg{tagpdf} actually define
   such a name which is later added to the \PDF{}. I recommend
   \emph{strongly} not to use spaces and exotic chars in such
   names. While it is possible to escape such names it is rather a pain
@@ -3211,7 +3211,7 @@ examples and remarks easier to understand.
     \verb+(gr\374\377ehello[]\050\051)+.
 
 
-    \emph{Hexadezimal strings} are enclosed in angle brackets. They
+    \emph{Hexadecimal strings} are enclosed in angle brackets. They
     allow for a representation of all characters the whole Unicode
     ranges. This is the default output of lualatex.
 
