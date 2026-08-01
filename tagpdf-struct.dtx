@@ -2671,7 +2671,23 @@
          }
     },
   }
-%</package>
 %    \end{macrocode}
 % \end{structkeydecl}
+% \begin{function}{\@@_struct_get_current_tag:N}
+%   \begin{syntax}
+%     \cs{@@_struct_get_current_tag:N} \Arg{tl-var}
+%   \end{syntax}
+%  Get the currently active structure tag. The \Arg{tl-var} get assigned
+%  two brace groups containing the current structure tag and the role-mapped
+%  current structure tag.
+% \end{function}
+% \begin{macro}{\@@_struct_get_current_tag:N}
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_get_current_tag:N
+  {
+    \seq_get:NN \g_@@_struct_tag_stack_seq
+  }
+%</package>
+%    \end{macrocode}
+% \end{macro}
 % \end{implementation}

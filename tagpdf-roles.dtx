@@ -1389,6 +1389,19 @@
    , mathml-tags .bool_gset:N = \g_@@_role_add_mathml_bool
    , add-new-tag .meta:n = {role/new-tag={#1}}
   }
+%    \end{macrocode}
+% \end{macro}
+% \begin{function}[TF]{\@@_if_tag_known:n}
+%  \begin{syntax}
+%   \cs{@@_if_tag_known:nTF} \Arg{tag} \Arg{true code} \Arg{false code}
+%  \end{syntax}
+% \end{function}
+% \begin{macro}[TF]{\@@_if_tag_known:n}
+%    \begin{macrocode}
+\prg_new_protected_conditional:Nnn \@@_if_tag_known:n { T, F, TF }
+  {
+    \prop_get:NnNTF\g_@@_role_tags_NS_prop{#1}\l_@@_tmp_unused_tl { \prg_return_true: } { \prg_return_false: }
+  }
 %</package>
 %    \end{macrocode}
 % \end{macro}
