@@ -302,9 +302,9 @@
 % to add associated files to the root structure. Like |AF| it can be used more than
 % once to add more than one file.
 % \end{setupkeydecl}
-% \begin{function}{\tag_struct_get_current_tag:N}
+% \begin{function}{\tag_struct_get_current_name:N}
 %   \begin{syntax}
-%     \cs{tag_struct_get_current_tag:N} \Arg{tl-var}
+%     \cs{tag_struct_get_current_name:N} \Arg{tl-var}
 %   \end{syntax}
 %  Get the currently active structure tag. The \Arg{tl-var} get assigned
 %  two brace groups containing the current structure tag and the role-mapped
@@ -2681,9 +2681,9 @@
   }
 %    \end{macrocode}
 % \end{structkeydecl}
-% \begin{macro}{\tag_struct_get_current_tag:N}
+% \begin{macro}{\tag_struct_get_current_name:N}
 %    \begin{macrocode}
-\cs_new_protected:Npn \tag_struct_get_current_tag:N
+\cs_new_protected:Npn \tag_struct_get_current_name:N
   {
     \seq_get:NN \g_@@_struct_tag_stack_seq
   }
