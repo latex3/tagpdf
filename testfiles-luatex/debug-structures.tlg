@@ -115,8 +115,8 @@ The structure has the following kids:
 =========================
 The structure 9 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
->  tag  =>  {text-unit}{}
+>  S  =>  /semantic-para
+>  tag  =>  {semantic-para}{}
 >  rolemap  =>  {Part}{}
 >  parentrole  =>  {Sect}{}
 >  parentnum  =>  6 = /Sect
@@ -128,11 +128,11 @@ The structure has the following kids:
 The structure 10 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
->  S  =>  /text
->  tag  =>  {text}{}
+>  S  =>  /text-block
+>  tag  =>  {text-block}{}
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
->  parentnum  =>  9 = /text-unit
+>  parentnum  =>  9 = /semantic-para
 >  NS  =>  user
 The structure has the following kids:
 >  MC 3
@@ -146,7 +146,7 @@ The structure 11 contains:
 >  tag  =>  {Link}{}
 >  rolemap  =>  {Link}{}
 >  parentrole  =>  {Link}{}
->  parentnum  =>  10 = /text
+>  parentnum  =>  10 = /text-block
 >  NS  =>  pdf2
 The structure has the following kids:
 >  MC 4
@@ -167,8 +167,8 @@ The structure has the following kids:
 =========================
 The structure 13 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
->  tag  =>  {text-unit}{}
+>  S  =>  /semantic-para
+>  tag  =>  {semantic-para}{}
 >  rolemap  =>  {Part}{}
 >  parentrole  =>  {Sect}{}
 >  parentnum  =>  6 = /Sect
@@ -180,11 +180,11 @@ The structure has the following kids:
 The structure 14 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
->  S  =>  /text
->  tag  =>  {text}{}
+>  S  =>  /text-block
+>  tag  =>  {text-block}{}
 >  rolemap  =>  {P}{}
 >  parentrole  =>  {P}{}
->  parentnum  =>  13 = /text-unit
+>  parentnum  =>  13 = /semantic-para
 >  NS  =>  user
 The structure has the following kids:
 >  MC 6

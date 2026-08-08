@@ -63,9 +63,9 @@ The structure has the following kids:
 =========================
 The structure 6 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
+>  S  =>  /semantic-para
 >  NS  =>  latex
->  tag  =>  {text-unit}{latex}
+>  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Document}{pdf2}
 >  parentnum  =>  2 = /Document
@@ -76,12 +76,12 @@ The structure has the following kids:
 The structure 7 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
->  S  =>  /text
+>  S  =>  /text-block
 >  NS  =>  latex
->  tag  =>  {text}{latex}
+>  tag  =>  {text-block}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  parentnum  =>  6 = /text-unit
+>  parentnum  =>  6 = /semantic-para
 The structure has the following kids:
 >  MC 1
 =========================
@@ -89,9 +89,9 @@ The structure has the following kids:
 The structure 8 contains:
 >  Type  =>  /StructElem
 >  Lang  =>  (de)
->  S  =>  /text-unit
+>  S  =>  /semantic-para
 >  NS  =>  latex
->  tag  =>  {text-unit}{latex}
+>  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Document}{pdf2}
 >  parentnum  =>  2 = /Document
@@ -103,21 +103,21 @@ The structure 9 contains:
 >  Type  =>  /StructElem
 >  Lang  =>  (de)
 >  C  =>  /justify
->  S  =>  /text
+>  S  =>  /text-block
 >  NS  =>  latex
->  tag  =>  {text}{latex}
+>  tag  =>  {text-block}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  parentnum  =>  8 = /text-unit
+>  parentnum  =>  8 = /semantic-para
 The structure has the following kids:
 >  MC 2
 =========================
 =========================
 The structure 10 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
+>  S  =>  /semantic-para
 >  NS  =>  latex
->  tag  =>  {text-unit}{latex}
+>  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Document}{pdf2}
 >  parentnum  =>  2 = /Document
@@ -128,12 +128,12 @@ The structure has the following kids:
 The structure 11 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
->  S  =>  /text
+>  S  =>  /text-block
 >  NS  =>  latex
->  tag  =>  {text}{latex}
+>  tag  =>  {text-block}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  parentnum  =>  10 = /text-unit
+>  parentnum  =>  10 = /semantic-para
 The structure has the following kids:
 >  MC 3
 =========================

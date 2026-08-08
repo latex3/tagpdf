@@ -9,11 +9,11 @@ Package tagpdf Warning: Parent-Child 'pdf2:L' --> 'MC (realcontent)'.
 [1
 ]<<latex-list-css.html>><<latex-align-css.html>> (open-structures.aux)
 The sequence \g__tag_struct_tag_stack_seq contains the items (without outer braces):
->  {{text-unit}{Part}}
+>  {{semantic-para}{Part}}
 >  {{Document}{Document}}
 >  {{Root}{StructTreeRoot}}.
 Package tagpdf Warning: There are still open structures on the stack!
-(tagpdf)                The stack contains {text-unit}{Part},{Document}{Document},{Root}{StructTreeRoot}.
+(tagpdf)                The stack contains {semantic-para}{Part},{Document}{Document},{Root}{StructTreeRoot}.
 (tagpdf)                The structures are automatically closed,
 (tagpdf)                but their nesting can be wrong.
 Package tagpdf Info: Finalizing the tagging structure:

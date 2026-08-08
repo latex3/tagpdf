@@ -52,9 +52,9 @@ The structure has the following kids:
 =========================
 The structure 5 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
+>  S  =>  /semantic-para
 >  NS  =>  latex
->  tag  =>  {text-unit}{latex}
+>  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Document}{pdf2}
 >  parentnum  =>  2 = /Document
@@ -65,21 +65,21 @@ The structure has the following kids:
 The structure 6 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
->  S  =>  /text
+>  S  =>  /text-block
 >  NS  =>  latex
->  tag  =>  {text}{latex}
+>  tag  =>  {text-block}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  parentnum  =>  5 = /text-unit
+>  parentnum  =>  5 = /semantic-para
 The structure has the following kids:
 >  MC 1
 =========================
 =========================
 The structure 7 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
+>  S  =>  /semantic-para
 >  NS  =>  latex
->  tag  =>  {text-unit}{latex}
+>  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Document}{pdf2}
 >  parentnum  =>  2 = /Document
@@ -90,12 +90,12 @@ The structure has the following kids:
 The structure 8 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
->  S  =>  /text
+>  S  =>  /text-block
 >  NS  =>  latex
->  tag  =>  {text}{latex}
+>  tag  =>  {text-block}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  parentnum  =>  7 = /text-unit
+>  parentnum  =>  7 = /semantic-para
 The structure has the following kids:
 >  MC 2
 =========================
