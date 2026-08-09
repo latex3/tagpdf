@@ -11,7 +11,7 @@
 ### __tagzrl
 * tagabspage:  (could use abspage) \int_use:N \g_shipout_readonly_int, default 0
   -1
-* tagmcabs     \c@g__tag_MCID_abs_int, absolut mcid counter (latex counter)
+* tagmcabs     \c@g__tag_MCID_abs_int, absolute mcid counter (latex counter)
   empty, -1
 * tagmcid      \g_@@_MCID_tmp_bypage_int
 

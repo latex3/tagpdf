@@ -99,7 +99,7 @@ Version 0.99r
  - experimental support for Lang keys on MC (not spec conform but works in acrobat)
 
 ### Changed
- - links split over a line or a page now create with luatex an OBJR for all annotations (with the help of the lualinksplit code in the pdfmanagement). This improves ua-2 compability.
+ - links split over a line or a page now create with luatex an OBJR for all annotations (with the help of the lualinksplit code in the pdfmanagement). This improves ua-2 compatibility.
  - cleaned up some outdated code
  - files attached with attach-css and related keys are added now to the catalog
    to allow compatibility with PDF/A-3.
