@@ -61,8 +61,20 @@
 %  \end{syntax}
 % This is a generic command to retrieve data for the current structure or
 % mc-chunk. Currently
-% the only sensible values for the argument \meta{keyword}
-% are |mc_tag|, |struct_tag|, |struct_id| and |struct_num|.
+% the supported values for the argument \meta{keyword}
+% are |mc_tag|, |struct_tag|, |struct_id|, |struct_num|, |struct_counter|, |mc_counter|
+%  |current_Sect|.
+% \begin{itemize}
+% \item |mc_tag| is the tag name of the current mc-chunk.
+% \item |struct_tag| is the tag name of the current structure 
+% (without rolemapping, retrieved from the property).
+% \item |struct_id| is the id (a string |ID.07|, where the number is the structure number padded with zeros).
+% \item |struct_num| is the current number as stored in |\g_@@_struct_stack_current_tl|.
+% \item |struct_counter| the state of the absolute structure counter, |\c@g_@@_struct_abs_int|.
+% \item |mc_counter| the state of the absolute mc counter, |\c@g_@@_MCID_abs_int|.
+% \item |current_Sect| (defined in latex-lab-sec) gives back the number of current Sect structure, it is
+% e.g. used by the footnote code.
+% \end{itemize}
 % \end{function}
 %
 % \begin{function}[pTF,EXP]{\tag_if_box_tagged:N}
@@ -810,8 +822,8 @@
 % \begin{macro}[EXP]{\tag_get:n}
 % This retrieves some data.
 % This is a generic command to retrieve data. Currently
-% the only sensible values for the argument are |mc_tag|, |struct_tag|
-% and |struct_num|.
+% the supported values for the argument are |mc_tag|, |struct_tag|, |struct_id|, 
+% |struct_num|, |struct_counter|, |mc_counter|, |current_Sect|.
 %    \begin{macrocode}
 %<base>\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
 %    \end{macrocode}
