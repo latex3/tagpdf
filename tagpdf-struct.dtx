@@ -533,6 +533,22 @@
 %<*package>
 %    \end{macrocode}
 % \end{variable}
+% 
+% \begin{macro}{\tag_struct_recordtarget:}
+% This records for the current target (as stored in \cs{@currentHref}) the structure number
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_struct_recordtarget:
+ {  
+   \tl_if_blank:VF \@currentHref
+    {
+      \prop_gput:Nee
+        \g__tag_struct_dest_num_prop
+        {\@currentHref}
+        {\g_@@_struct_stack_current_tl}
+    }
+ }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{variable}{\g_@@_struct_ref_by_dest_prop}
 % This variable contains structures whose Ref key should be updated
