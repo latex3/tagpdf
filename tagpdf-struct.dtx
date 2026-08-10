@@ -133,6 +133,16 @@
 % or a structure number.
 % \end{function}
 %
+% \begin{function}{\tag_struct_map_function:N}
+% \begin{syntax}
+%  \cs{tag_struct_map_function:N} \Arg{function} 
+%  \end{syntax}
+% This command maps pairwise over the tag and the number stack.
+% The argument should be a function with two arguments, where the first
+% is two brace group (tag and rolemap) and the second a structure number.
+% See the marginpar code for an example of use.
+% \end{function}
+
 % \section{Public keys}
 % \subsection{Keys for the structure commands}
 % \begin{structkeydecl}{tag}
@@ -2403,6 +2413,24 @@
     {#1}{#3}
  }
 \cs_generate_variant:Nn \tag_struct_gput:nnn {ene,nne}
+%    \end{macrocode}
+
+% \begin{macro}{\tag_struct_map_function:N}
+% This maps over the tag stack 
+% (which contains the tag and the rolemap in two brace groups)
+% and the number stack. The argument is a function that can handle this two 
+% arguments.
+%    \begin{macrocode}
+\cs_new_protected:Npn\tag_struct_map_function:N #1
+ {
+   \seq_map_pairwise_function:NNN
+     \g_@@_struct_tag_stack_seq
+     \g_@@_struct_stack_seq
+     #1
+ }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 %</package>
 %    \end{macrocode}
 % \end{macro}
