@@ -1,0 +1,22 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
+
+\DocumentMetadata{tagging=on,xmp=false}
+\input{regression-test}
+\documentclass[11pt,a4paper]{article}
+ \tagpdfsetup{attach-css=false}
+ \tagpdfsetup
+  {
+   role/new-attribute =
+    {unusued}{/O /Test /Scope /Column},
+   role/new-attribute* =
+    {starred}{/O /Test /Scope /Row},
+   } 
+\begin{document}\START
+aaa
+\end{document} 

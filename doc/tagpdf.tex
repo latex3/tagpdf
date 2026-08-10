@@ -525,6 +525,8 @@ The command is deactivated before the class is loaded if the key |tagging=off| i
 
 \item[\PrintKeyName{role/new-attribute}] This key takes two arguments and
   declares an attribute. See \ref{sec:attributes}.
+
+\item[\PrintKeyName{role/new-attribute*}] Normally attributes declared with the previous key are only written into the PDF if used in a structure. This starred version of the key ensures that the attribute is always written to the PDF.
   
 \item[\PrintKeyName{role/map-tags}] This key allows to remap the structure 
 tags. Currently it supports only two values: |false| (the default) and |pdf| which

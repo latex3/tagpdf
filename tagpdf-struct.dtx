@@ -276,13 +276,16 @@
 % \end{structkeydecl}
 %
 % \subsection{Setup keys}
-% \begin{function}{role/new-attribute (setup-key), newattribute (deprecated)}
+% \begin{function}{role/new-attribute (setup-key), role/new-attribute* (setup-key),
+% newattribute (deprecated)}
 % \begin{syntax}
 % role/new-attribute = \Arg{name}\Arg{Content}
 % \end{syntax}
 % This key can be used in the setup command \cs{tagpdfsetup} and allow to declare a
 % new attribute, which can be used as attribute or attribute class.
 % The value are two brace groups, the first contains the name, the second the content.
+% Normally such attributes are added to the PDF only if used in some structure.
+% The starred version will add them always.  
 % \begin{verbatim}
 % \tagpdfsetup
 %  {
@@ -2546,7 +2549,8 @@
 %    \end{macrocode}
 % \end{variable}
 % \subsection{Commands and keys}
-% \begin{macro}{\@@_attr_new_entry:nn,role/new-attribute (setup-key), newattribute (deprecated)}
+% \begin{macro}{\@@_attr_new_entry:nn,role/new-attribute (setup-key), 
+%  role/new-attribute* (setup-key),newattribute (deprecated)}
 % This allows to define attributes. Defined attributes
 % are stored in a global property. |role/new-attribute| expects
 % two brace group, the name and the content. The content typically
@@ -2570,6 +2574,13 @@
     \prop_gput:Nen \g_@@_attr_entries_prop
       {\pdf_name_from_unicode_e:n{#1}}{#2}
   }
+\cs_new_protected:Npn \@@_attr_new_used_entry:nn #1 #2 %#1:name, #2: content
+  {
+    \prop_gput:Nen \g_@@_attr_entries_prop
+      {\pdf_name_from_unicode_e:n{#1}}{#2}
+    \seq_gput_left:Ne\g__tag_attr_class_used_seq
+      {\pdf_name_from_unicode_e:n{#1}}   
+  }
 
 \cs_generate_variant:Nn \__tag_attr_new_entry:nn {ee}
 \keys_define:nn { @@ / setup }
@@ -2577,7 +2588,11 @@
     role/new-attribute .code:n =
       {
         \@@_attr_new_entry:nn #1
-      }
+      },
+    role/new-attribute* .code:n =
+      {
+        \@@_attr_new_used_entry:nn #1
+      } 
 %    \end{macrocode}
 % deprecated name
 %    \begin{macrocode}

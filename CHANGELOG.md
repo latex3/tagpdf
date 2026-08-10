@@ -11,6 +11,7 @@ this project uses date-based 'snapshot' version identifiers.
 
   - \tag_struct_recordtarget:
   - \tag_if_tag_known:n 
+  - key role/new-attribute*
   
 ## [2026-07-25]
 
