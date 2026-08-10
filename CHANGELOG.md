@@ -10,6 +10,7 @@ this project uses date-based 'snapshot' version identifiers.
 ### Added
 
   - \tag_struct_recordtarget:
+  - \tag_if_tag_known:n 
   
 ## [2026-07-25]
 

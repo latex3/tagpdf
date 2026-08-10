@@ -92,6 +92,12 @@
 % This checks if the tag \meta{tag} from the name space \meta{namespace}
 % can be used at the current position. In tagpdf-base it is always true.
 % \end{function}
+% \begin{function}[TF]{\tag_if_tag_known:n}
+%  \begin{syntax}
+%   \cs{tag_if_tag_known:nTF} \Arg{tag} \Arg{true code} \Arg{false code}
+%  \end{syntax}
+% Check if a specified structure tag has been declared in the current document.
+% \end{function}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -1388,6 +1394,14 @@
 %    \begin{macrocode}
    , mathml-tags .bool_gset:N = \g_@@_role_add_mathml_bool
    , add-new-tag .meta:n = {role/new-tag={#1}}
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[TF]{\tag_if_tag_known:n}
+%    \begin{macrocode}
+\prg_new_protected_conditional:Nnn \tag_if_tag_known:n { T, F, TF }
+  {
+    \prop_get:NnNTF\g_@@_role_tags_NS_prop{#1}\l_@@_tmp_unused_tl { \prg_return_true: } { \prg_return_false: }
   }
 %</package>
 %    \end{macrocode}
