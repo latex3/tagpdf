@@ -13,6 +13,7 @@ this project uses date-based 'snapshot' version identifiers.
   - \tag_if_tag_known:n 
   - key role/new-attribute*
   - \tag_struct_map_function:N
+  - \tag_get:nN (with keywords struct_tag and struct_num)
   
 ## [2026-07-25]
 
