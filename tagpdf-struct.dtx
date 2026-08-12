@@ -1238,6 +1238,29 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_get_data_struct_tag:N}
+% this command allows \cs{tag_get:nN} to get the current
+% structure tag with the keyword |struct_tag|.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_get_data_struct_tag:N #1
+  {
+    \seq_get:NN\g__tag_struct_tag_stack_seq \l__tag_tmpb_tl
+    \tl_set:Ne #1 {\exp_last_unbraced:NV\use_i:nn\l__tag_tmpb_tl}
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_get_data_struct_num:N}
+% this command allows \cs{tag_get:nN} to get the current
+% structure number with the keyword |struct_num|. 
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_get_data_struct_num:N #1
+  {
+    \seq_get:NN \g_@@_struct_stack_seq #1
+  }
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_get_data_struct_id:}
 % this command allows \cs{tag_get:n} to get the current
 % structure id with the keyword |struct_id|.

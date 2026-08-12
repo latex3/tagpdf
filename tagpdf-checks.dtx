@@ -77,6 +77,21 @@
 % \end{itemize}
 % \end{function}
 %
+% \begin{function}[EXP]{\tag_get:nN}
+%  \begin{syntax}
+%  \cs{tag_get:nN} \Arg{keyword}\Arg{tl var}
+%  \end{syntax}
+% This is a generic command to retrieve data for the current structure or
+% mc-chunk. Unlike \cs{tag_get:n} it is not expandable but stores the data in the 
+% \meta{tl var}. Often this will be faster. Currently
+% the supported values for the argument \meta{keyword}
+% are |struct_tag| and |struct_num|.
+% \begin{itemize}
+% \item |struct_tag| is the tag name of the current structure 
+% (without rolemapping, retrieved from the tag stack).
+% \item |struct_num| is the current number as stored in number stack.
+% \end{itemize}
+% \end{function}
 % \begin{function}[pTF,EXP]{\tag_if_box_tagged:N}
 %  \begin{syntax}
 %  \cs{tag_if_box_tagged:NTF} \meta{box} \Arg{true code} \Arg{false code}
@@ -829,6 +844,16 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\tag_get:nN}
+% This retrieves some data.
+% This is a generic command to retrieve data which are then stored in the given tl_var. 
+% Currently the supported values for the argument are |struct_tag| and
+% |struct_num|.
+%    \begin{macrocode}
+%<base>\cs_new_protected:Npn \tag_get:nN #1#2   { \use:c {@@_get_data_#1:N }#2 }
+%    \end{macrocode}
+% \end{macro}
+% 
 % \section{PDF version check}
 %    \begin{macrocode}
 %<*package>
