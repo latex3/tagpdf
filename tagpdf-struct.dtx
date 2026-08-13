@@ -117,8 +117,37 @@
 % adjusted to the key in question.
 % The first argument is the number of the structure,
 % the second a keyword referring to a function,
-% the third the value. Currently the only keyword is \texttt{ref} which updates
-% the Ref key (an array)
+% the third the value. Currently the existing keywords are mostly related
+% to the \texttt{Ref} key (an array).
+% \begin{itemize}
+% \item The keyword \texttt{tag} updates the tag of a structure (the \texttt{S} entry}.
+% So e.g. \verb+\tag_struct_gput:nnn{\tag_get:n{struct_num}}{tag}{/Bla}+ will
+% replace the tag of the current structure by \texttt{/Bla}.
+% \item The keyword \texttt{C} \emph{replaces} the 
+%  attribute-class array. The argument should be a comma list of PDF names 
+%  \texttt{/TH-row,/justify}.
+%  In case that the list should be extended it is up to the user to get the original
+%  list first and manipulate it.   
+% \item 
+% The keyword \texttt{ref} takes as value an explicit object reference to
+% a structure. 
+% \item The keyword \texttt{ref_label} expects as value a label name (from
+% a label set in a \cs{tagstructbegin} command). 
+% \item The keyword \texttt{ref_dest}
+% expects a destination name set with \cs{MakeLinkTarget}. It then will refer to
+% the structure in which this \cs{MakeLinkTarget} was used. 
+% \item The keyword \texttt{ref_dest_parent}
+% expects a destination name set with \cs{MakeLinkTarget} too. It then will refer to
+% the parent of structure in which this \cs{MakeLinkTarget} was used---this is useful if the
+% target command is, e.g., in a list and one wants to reference the surrounding list item structure.
+% \item 
+% The keyword \texttt{ref_num} expects a structure number.
+% \item 
+% At last there is the keyword \texttt{attribute} which allows to add or extend the \texttt{/A}
+% key of the structure. The value is the content of one attribute dictionary, so for example
+% \texttt{/O /Layout /BBox [10 10 50 50]}. The content is stored in an object and the object
+% reference is than added to the \texttt{/A}.
+% \end{itemize}
 % \end{function}
 %
 % \begin{function}{\tag_struct_gput_ref:nnn}
@@ -1244,8 +1273,8 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn \@@_get_data_struct_tag:N #1
   {
-    \seq_get:NN\g__tag_struct_tag_stack_seq \l__tag_tmpb_tl
-    \tl_set:Ne #1 {\exp_last_unbraced:NV\use_i:nn\l__tag_tmpb_tl}
+    \seq_get:NN\g_@@_struct_tag_stack_seq \l_@@_tmpb_tl
+    \tl_set:Ne #1 {\exp_last_unbraced:NV\use_i:nn\l_@@_tmpb_tl}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1261,6 +1290,30 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_get_data_struct_C:nN}
+% This command allows \cs{tag_get:nnN} to get the C entries of a structure as a comma list
+% with the keyword |C|. The items are PDF names. 
+% TODO: this is too complicated, the |C| entry should be stored differently to allow
+% easier access, but that can only be done after 2026-11-01, as the table code currently
+% relies on the internal representation.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_get_data_struct_C:nN #1 #2
+  {
+    \prop_get:cnNTF {g__tag_struct_ #1 _prop}
+      {C}
+      \l_@@_tmp_unused_tl
+      {
+        \str_remove_once:Nn \l_@@_tmp_unused_tl {[}
+        \str_remove_once:Nn \l_@@_tmp_unused_tl {]}
+        \seq_set_split:Nne \l_@@_tmpa_seq {/} {\l_@@_tmp_unused_tl}
+        \seq_remove_all:Nn \l_@@_tmpa_seq {}
+        \seq_set_map:NNn \l_@@_tmpa_seq \l_@@_tmpa_seq {/##1}
+        \tl_set:Ne #2 {\seq_use:Nn \l_@@_tmpa_seq {,}}
+      }
+      { \tl_set:Nn #2 {} }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_get_data_struct_id:}
 % this command allows \cs{tag_get:n} to get the current
 % structure id with the keyword |struct_id|.
@@ -2388,6 +2441,7 @@
 % \begin{macro}[EXP]{\tag_struct_object_ref:n}
 % This is a command that allows to reference a structure. The argument is the
 % number which can be get for the current structure with |\tag_get:n{struct_num}|
+% or |\tag_get:nN{struct_num}|
 % TODO check if it should be in base too.
 %    \begin{macrocode}
 %<*package>
@@ -2410,19 +2464,33 @@
 % the second a keyword referring to a function,
 % the third the value. Currently the existing keywords are mostly related
 % to the \texttt{Ref} key (an array).
+% \begin{itemize}
+% \item The keyword \texttt{tag} updates the tag of a structure (the \texttt{S} entry}.
+% \item The keyword \texttt{C} \emph{replaces} the 
+%  attribute-class array. The argument should be a comma list of PDF names 
+%  \texttt{/TH-row,/justify}.
+%  In case that the list should be extended it is up to the user to get the original
+%  list first and manipulate it.   
+% \item 
 % The keyword \texttt{ref} takes as value an explicit object reference to
-% a structure. The keyword \texttt{ref_label} expects as value a label name (from
-% a label set in a \cs{tagstructbegin} command). The keyword \texttt{ref_dest}
+% a structure. 
+% \item The keyword \texttt{ref_label} expects as value a label name (from
+% a label set in a \cs{tagstructbegin} command). 
+% \item The keyword \texttt{ref_dest}
 % expects a destination name set with \cs{MakeLinkTarget}. It then will refer to
-% the structure in which this \cs{MakeLinkTarget} was used. The keyword \texttt{ref_dest_parent}
+% the structure in which this \cs{MakeLinkTarget} was used. 
+% \item The keyword \texttt{ref_dest_parent}
 % expects a destination name set with \cs{MakeLinkTarget} too. It then will refer to
 % the parent of structure in which this \cs{MakeLinkTarget} was used---this is useful if the
 % target command is, e.g., in a list and one wants to reference the surrounding list item structure.
+% \item 
 % The keyword \texttt{ref_num} expects a structure number.
+% \item 
 % At last there is the keyword \texttt{attribute} which allows to add or extend the \texttt{/A}
 % key of the structure. The value is the content of one attribute dictionary, so for example
 % \texttt{/O /Layout /BBox [10 10 50 50]}. The content is stored in an object and the object
 % reference is than added to the \texttt{/A}.
+% \end{itemize}
 %
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3{}
@@ -2526,6 +2594,33 @@
          { A }
          { \pdf_object_ref_last: }
       }
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_struct_gput_data_tag:nn}
+% This is used by |\tag_struct_gput:nnn| to update the tag of a structure.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_gput_data_tag:nn #1 #2
+  {
+    \__tag_struct_prop_gput:nne{#1}{S}{#2}
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_struct_gput_data_C:nn}
+% This is used by |\tag_struct_gput:nnn| to update the C entry of a structure.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_gput_data_C:nn #1 #2
+  {
+    \int_case:nnF {\clist_count:n{#2}}
+     {
+      {0}{}
+      {1}{\__tag_struct_prop_gput:nne{#1}{C}{#2}}
+     }
+     {
+       \__tag_struct_prop_gput:nne{#1}{C}{[\clist_use:nn{#2}{}]}
+     }
   }
 %    \end{macrocode}
 % \end{macro}

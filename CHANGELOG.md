@@ -14,6 +14,8 @@ this project uses date-based 'snapshot' version identifiers.
   - key role/new-attribute*
   - \tag_struct_map_function:N
   - \tag_get:nN (with keywords struct_tag and struct_num)
+  - \tag_get:nnN (with keyword struct_C)
+  - \tag_if_struct_exist:nTF
   
 ## [2026-07-25]
 
