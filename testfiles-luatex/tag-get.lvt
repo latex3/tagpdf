@@ -1,0 +1,51 @@
+\ExplSyntaxOn
+\sys_gset_rand_seed:n{42}
+\ExplSyntaxOff
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START
+\section{section}
+
+\ExplSyntaxOn
+\TEST{get tag}
+{
+  \tag_get:nN {struct_tag}\blub 
+  \typeout{\blub}
+  \typeout{\tag_get:n{struct_tag}}
+  \ASSERT{\tl_to_str:o{\blub}}{\tag_get:n{struct_tag}}
+}  
+
+\TEST{get num}
+{
+  \tag_get:nN {struct_num}\blub 
+  \typeout{\blub}
+  \ASSERT{\blub}{\tag_get:n{struct_num}}
+}  
+
+
+\ExplSyntaxOff
+
+
+some text \emph{text} some text\par
+
+\ExplSyntaxOn
+\TEST{get tag}
+{
+  \tag_get:nN {struct_tag}\blub 
+  \typeout{\blub}
+  \ASSERT{\tl_to_str:o{\blub}}{\tag_get:n{struct_tag}}
+}  
+
+\TEST{get num}
+{
+  \tag_get:nN {struct_num}\blub 
+  \typeout{\blub}
+  \ASSERT{\blub}{\tag_get:n{struct_num}}
+}  
+
+\ExplSyntaxOff
+
+
+\end{document}

@@ -67,7 +67,8 @@
 % \begin{itemize}
 % \item |mc_tag| is the tag name of the current mc-chunk.
 % \item |struct_tag| is the tag name of the current structure 
-% (without rolemapping, retrieved from the property).
+% (without rolemapping). It is retrieved from the property and is a string! This is
+% rather slow and |\tag_get:nN| should be preferred. 
 % \item |struct_id| is the id (a string |ID.07|, where the number is the structure number padded with zeros).
 % \item |struct_num| is the current number as stored in |\g_@@_struct_stack_current_tl|.
 % \item |struct_counter| the state of the absolute structure counter, |\c@g_@@_struct_abs_int|.
@@ -850,7 +851,7 @@
 % Currently the supported values for the argument are |struct_tag| and
 % |struct_num|.
 %    \begin{macrocode}
-%<base>\cs_new_protected:Npn \tag_get:nN #1#2   { \use:c {@@_get_data_#1:N }#2 }
+%<base>\cs_new_protected:Npn \tag_get:nN #1#2 { \cs_if_exist_use:cT {@@_get_data_#1:N }#2 }
 %    \end{macrocode}
 % \end{macro}
 % 
