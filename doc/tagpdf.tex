@@ -1927,7 +1927,7 @@ classes to a structure.
 
 
 To use such attributes you must at first declare it in \verb+\tagpdfsetup+ 
-with the key \texttt{role/new-attribute}. This key takes two argument, a name and 
+with the key \texttt{role/new-attribute} or with the command \verb+\tag_attr_new:nn+. Both take two arguments, a name and 
 the content of the attribute. The name should be a sensible key name, it is 
 converted to a \PDF{} name with \verb+\pdf_name_from_unicode_e:n+, so slashes 
 and spaces are allow. The content should be a dictionary without the 

@@ -336,6 +336,16 @@
 % \end{verbatim}
 %
 % \end{function}
+% 
+% \begin{function}{\tag_attr_new:nn}
+% \begin{syntax}
+%  \cs{tag_attr_new:nn} \Arg{name}\Arg{Content} 
+%  \end{syntax}
+% As attributes have to be generated also quite often in code there is 
+% also a function, which is a bit faster than the key-val and also more
+% control over the expansion behaviour.
+% \end{function}
+% 
 % \begin{setupkeydecl}{root-AF}
 % \begin{syntax}
 % root-AF = \meta{object name}
@@ -2695,7 +2705,7 @@
 %    \end{macrocode}
 % \end{variable}
 % \subsection{Commands and keys}
-% \begin{macro}{\@@_attr_new_entry:nn,role/new-attribute (setup-key), 
+% \begin{macro}{\tag_attr_new_entry:nn,\@@_attr_new_entry:nn,role/new-attribute (setup-key), 
 %  role/new-attribute* (setup-key),newattribute (deprecated)}
 % This allows to define attributes. Defined attributes
 % are stored in a global property. |role/new-attribute| expects
@@ -2728,7 +2738,10 @@
       {\pdf_name_from_unicode_e:n{#1}}   
   }
 
+\cs_set_eq:NN \tag_attr_new:nn \@@_attr_new_entry:nn
 \cs_generate_variant:Nn \__tag_attr_new_entry:nn {ee}
+\cs_generate_variant:Nn \tag_attr_new:nn {ee}
+
 \keys_define:nn { @@ / setup }
   {
     role/new-attribute .code:n =
