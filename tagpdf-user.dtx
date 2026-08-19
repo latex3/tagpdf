@@ -769,7 +769,8 @@
 %   \g_@@_para_main_end_int,
 %   \g_@@_para_main_struct_tl,
 %   \l_@@_para_tag_default_tl,
-%   \l_@@_para_main_tag_default_tl,
+%   \l_@@_para_tag_std_tl,
+%   \l_@@_para_main_tag_std_tl,
 %   \l_@@_para_tag_tl,
 %   \l_@@_para_main_tag_tl,
 %   \l_@@_para_attr_class_tl,
@@ -791,15 +792,20 @@
 \tl_new:N   \g_@@_para_main_struct_tl
 \tl_gset:Nn \g_@@_para_main_struct_tl {1}
 %    \end{macrocode}
+% TODO: check the use in lttagging in para/restore
+%    \begin{macrocode}
+\tl_new:N   \l_@@_para_tag_default_tl
+\tl_set:Nn  \l_@@_para_tag_default_tl      { \UseStructureName {para/textblock} }
+%    \end{macrocode}
 % The para-tag names are changed in some structures, so we store the default
 % values for messages, resets and places where we want to force the default names. 
 %    \begin{macrocode}
-\tl_new:N   \l_@@_para_tag_default_tl
-\tl_new:N   \l_@@_para_main_tag_default_tl
+\tl_new:N   \l_@@_para_tag_std_tl
+\tl_new:N   \l_@@_para_main_tag_std_tl
 \AddToHook{class/before}
  {%
-   \tl_set:Ne  \l_@@_para_tag_default_tl      { \UseStructureName {para/textblock} }
-   \tl_set:Ne  \l_@@_para_main_tag_default_tl { \UseStructureName {para/semantic} }
+   \tl_set:Ne  \l_@@_para_tag_std_tl      { \UseStructureName {para/textblock} }
+   \tl_set:Ne  \l_@@_para_main_tag_std_tl { \UseStructureName {para/semantic} }
  }
 \tl_new:N   \l_@@_para_tag_tl
 \tl_set:Nn  \l_@@_para_tag_tl {  \UseStructureName {para/textblock} }
@@ -997,7 +1003,7 @@
              {para-hook-count-wrong}
              {\int_use:N\g_@@_para_main_begin_int}
              {\int_use:N\g_@@_para_main_end_int}
-             {\l_@@_para_tag_default_tl}
+             {\l_@@_para_tag_std_tl}
          }
     \int_compare:nNnF {\g_@@_para_begin_int}={\g_@@_para_end_int}
          {
@@ -1006,7 +1012,7 @@
              {para-hook-count-wrong}
              {\int_use:N\g_@@_para_begin_int}
              {\int_use:N\g_@@_para_end_int}
-             {\l_@@_para_main_tag_default_tl}
+             {\l_@@_para_main_tag_std_tl}
          }
   }
 %    \end{macrocode}
