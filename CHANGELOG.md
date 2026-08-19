@@ -17,7 +17,9 @@ this project uses date-based 'snapshot' version identifiers.
   - \tag_get:nnN (with keyword struct_C)
   - \tag_if_struct_exist:nTF
   - \tag_attr_new:nn
-  
+ 
+### Changed
+ - adapted para-count message to new names in latex-dev  
   
 ## [2026-07-25]
 
