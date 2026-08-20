@@ -800,7 +800,7 @@
 % The para-tag names are changed in some structures, so we store the default
 % values for messages, resets and places where we want to force the default names. 
 %    \begin{macrocode}
-\AddToHook{class/before}
+\AddToHookNext{class/before}
  {%
    \tl_const:Ne  \c_tag_para_textblock_tl      { \UseStructureName {para/textblock} }
    \tl_const:Ne  \c_tag_para_semantic_tl     { \UseStructureName {para/semantic} }
@@ -889,10 +889,10 @@
 %  para/tagging (setup-key),
 %  para/tag (setup-key),
 %  para/maintag (setup-key),
-%  para/tagging (tool-key),
-%  para/tag (tool-key),
-%  para/maintag (tool-key),
-%  para/flattened (tool-key),
+%  para/tagging (deprecated tool-key),
+%  para/tag (deprecated tool-key),
+%  para/maintag (deprecated tool-key),
+%  para/flattened (deprecated tool-key),
 %  unittag (deprecated),
 %  para-flattened (deprecated),
 %  paratagging (deprecated),
@@ -914,10 +914,18 @@
 \keys_define:nn { @@ / setup }
   {
     para/tagging      .bool_set:N = \l_@@_para_bool,
-    debug/show/para   .code:n = {\bool_set_true:N \l_@@_para_show_bool},
-    debug/show/paraOff  .code:n = {\bool_set_false:N \l_@@_para_show_bool},
-    para/tag          .tl_set:N   = \l_@@_para_tag_tl,
-    para/maintag      .tl_set:N   = \l_@@_para_main_tag_tl,
+    debug/show/para   .code:n     = {\bool_set_true:N \l_@@_para_show_bool},
+    debug/show/paraOff.code:n     = {\bool_set_false:N \l_@@_para_show_bool},
+    para/tag          .code:n     = 
+      { 
+        \tl_set:Nn \l_@@_para_tag_tl  {#1}% needed for compatibility with 2026-06-01
+        \AssignStructureRole{para/texblock}{#1}
+      },
+    para/maintag      .code:n     =
+      {
+       \tl_set:Nn \l_@@_para_main_tag_tl{#1}% needed for compatibility with 2026-06-01
+       \AssignStructureRole{para/semantic}{#1}
+      },
     para/flattened    .bool_set:N = \l_@@_para_flattened_bool
   }
 %    \end{macrocode}
@@ -926,8 +934,16 @@
 \keys_define:nn { tag / tool}
   {
     para/tagging   .bool_set:N = \l_@@_para_bool,
-    para/tag       .tl_set:N = \l_@@_para_tag_tl,
-    para/maintag   .tl_set:N = \l_@@_para_main_tag_tl,
+    para/tag          .code:n     = 
+      { 
+        \tl_set:Nn \l_@@_para_tag_tl  {#1}% needed for compatibility with 2026-06-01
+        \AssignStructureRole{para/texblock}{#1}
+      },
+    para/maintag      .code:n     =
+      {
+       \tl_set:Nn \l_@@_para_main_tag_tl{#1}% needed for compatibility with 2026-06-01
+       \AssignStructureRole{para/semantic}{#1}
+      },
     para/flattened .bool_set:N = \l_@@_para_flattened_bool
   }
 %    \end{macrocode}
@@ -938,16 +954,6 @@
     paratagging      .bool_set:N = \l_@@_para_bool,
     paratagging-show .bool_set:N = \l_@@_para_show_bool,
     paratag          .tl_set:N   = \l_@@_para_tag_tl
-  }
-%    \end{macrocode}
-% still needed as used in block code ...
-%    \begin{macrocode}
-\keys_define:nn { tag / tool}
-  {
-    para    .bool_set:N = \l_@@_para_bool,
-    paratag .tl_set:N = \l_@@_para_tag_tl,
-    unittag .tl_set:N = \l_@@_para_main_tag_tl,
-    para-flattened .bool_set:N = \l_@@_para_flattened_bool
   }
 %    \end{macrocode}
 % \end{macro}
