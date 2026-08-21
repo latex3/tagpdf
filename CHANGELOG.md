@@ -5,6 +5,22 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [2026-08-21]
+
+### Added
+
+  - \tag_struct_recordtarget:
+  - \tag_if_tag_known:n 
+  - key role/new-attribute*
+  - \tag_struct_map_function:N
+  - \tag_get:nN (with keywords struct_tag and struct_num)
+  - \tag_get:nnN (with keyword struct_C)
+  - \tag_if_struct_exist:nTF
+  - \tag_attr_new:nn
+ 
+### Changed
+ - adapted para-count message to new names in latex-dev  
+  
 ## [2026-07-25]
 
 ### Fixed
@@ -99,7 +115,7 @@ Version 0.99r
  - experimental support for Lang keys on MC (not spec conform but works in acrobat)
 
 ### Changed
- - links split over a line or a page now create with luatex an OBJR for all annotations (with the help of the lualinksplit code in the pdfmanagement). This improves ua-2 compability.
+ - links split over a line or a page now create with luatex an OBJR for all annotations (with the help of the lualinksplit code in the pdfmanagement). This improves ua-2 compatibility.
  - cleaned up some outdated code
  - files attached with attach-css and related keys are added now to the catalog
    to allow compatibility with PDF/A-3.

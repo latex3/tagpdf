@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0d, released 2026-07-25}
+% \date{Version 1.0e, released 2026-08-21}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -117,8 +117,37 @@
 % adjusted to the key in question.
 % The first argument is the number of the structure,
 % the second a keyword referring to a function,
-% the third the value. Currently the only keyword is \texttt{ref} which updates
-% the Ref key (an array)
+% the third the value. Currently the existing keywords are mostly related
+% to the \texttt{Ref} key (an array).
+% \begin{itemize}
+% \item The keyword \texttt{tag} updates the tag of a structure (the \texttt{S} entry}.
+% So e.g. \verb+\tag_struct_gput:nnn{\tag_get:n{struct_num}}{tag}{/Bla}+ will
+% replace the tag of the current structure by \texttt{/Bla}.
+% \item The keyword \texttt{C} \emph{replaces} the 
+%  attribute-class array. The argument should be a comma list of PDF names 
+%  \texttt{/TH-row,/justify}.
+%  In case that the list should be extended it is up to the user to get the original
+%  list first and manipulate it.   
+% \item 
+% The keyword \texttt{ref} takes as value an explicit object reference to
+% a structure. 
+% \item The keyword \texttt{ref_label} expects as value a label name (from
+% a label set in a \cs{tagstructbegin} command). 
+% \item The keyword \texttt{ref_dest}
+% expects a destination name set with \cs{MakeLinkTarget}. It then will refer to
+% the structure in which this \cs{MakeLinkTarget} was used. 
+% \item The keyword \texttt{ref_dest_parent}
+% expects a destination name set with \cs{MakeLinkTarget} too. It then will refer to
+% the parent of structure in which this \cs{MakeLinkTarget} was used---this is useful if the
+% target command is, e.g., in a list and one wants to reference the surrounding list item structure.
+% \item 
+% The keyword \texttt{ref_num} expects a structure number.
+% \item 
+% At last there is the keyword \texttt{attribute} which allows to add or extend the \texttt{/A}
+% key of the structure. The value is the content of one attribute dictionary, so for example
+% \texttt{/O /Layout /BBox [10 10 50 50]}. The content is stored in an object and the object
+% reference is than added to the \texttt{/A}.
+% \end{itemize}
 % \end{function}
 %
 % \begin{function}{\tag_struct_gput_ref:nnn}
@@ -133,6 +162,16 @@
 % or a structure number.
 % \end{function}
 %
+% \begin{function}{\tag_struct_map_function:N}
+% \begin{syntax}
+%  \cs{tag_struct_map_function:N} \Arg{function} 
+%  \end{syntax}
+% This command maps pairwise over the tag and the number stack.
+% The argument should be a function with two arguments, where the first
+% is two brace group (tag and rolemap) and the second a structure number.
+% See the marginpar code for an example of use.
+% \end{function}
+
 % \section{Public keys}
 % \subsection{Keys for the structure commands}
 % \begin{structkeydecl}{tag}
@@ -276,13 +315,16 @@
 % \end{structkeydecl}
 %
 % \subsection{Setup keys}
-% \begin{function}{role/new-attribute (setup-key), newattribute (deprecated)}
+% \begin{function}{role/new-attribute (setup-key), role/new-attribute* (setup-key),
+% newattribute (deprecated)}
 % \begin{syntax}
 % role/new-attribute = \Arg{name}\Arg{Content}
 % \end{syntax}
 % This key can be used in the setup command \cs{tagpdfsetup} and allow to declare a
 % new attribute, which can be used as attribute or attribute class.
 % The value are two brace groups, the first contains the name, the second the content.
+% Normally such attributes are added to the PDF only if used in some structure.
+% The starred version will add them always.  
 % \begin{verbatim}
 % \tagpdfsetup
 %  {
@@ -294,6 +336,16 @@
 % \end{verbatim}
 %
 % \end{function}
+% 
+% \begin{function}{\tag_attr_new:nn}
+% \begin{syntax}
+%  \cs{tag_attr_new:nn} \Arg{name}\Arg{Content} 
+%  \end{syntax}
+% As attributes have to be generated also quite often in code there is 
+% also a function, which is a bit faster than the key-val and also more
+% control over the expansion behaviour.
+% \end{function}
+% 
 % \begin{setupkeydecl}{root-AF}
 % \begin{syntax}
 % root-AF = \meta{object name}
@@ -307,7 +359,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-struct-code} {2026-07-25} {1.0d}
+\ProvidesExplPackage {tagpdf-struct-code} {2026-08-21} {1.0e}
  {part of tagpdf - code related to storing structure}
 %</header>
 %    \end{macrocode}
@@ -533,6 +585,22 @@
 %<*package>
 %    \end{macrocode}
 % \end{variable}
+% 
+% \begin{macro}{\tag_struct_recordtarget:}
+% This records for the current target (as stored in \cs{@currentHref}) the structure number
+%    \begin{macrocode}
+\cs_new_protected:Npn \tag_struct_recordtarget:
+ {  
+   \tl_if_blank:VF \@currentHref
+    {
+      \prop_gput:Nee
+        \g__tag_struct_dest_num_prop
+        {\@currentHref}
+        {\g_@@_struct_stack_current_tl}
+    }
+ }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{variable}{\g_@@_struct_ref_by_dest_prop}
 % This variable contains structures whose Ref key should be updated
@@ -1209,6 +1277,53 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\@@_get_data_struct_tag:N}
+% this command allows \cs{tag_get:nN} to get the current
+% structure tag with the keyword |struct_tag|.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_get_data_struct_tag:N #1
+  {
+    \seq_get:NN\g_@@_struct_tag_stack_seq \l_@@_tmpb_tl
+    \tl_set:Ne #1 {\exp_last_unbraced:NV\use_i:nn\l_@@_tmpb_tl}
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_get_data_struct_num:N}
+% this command allows \cs{tag_get:nN} to get the current
+% structure number with the keyword |struct_num|. 
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_get_data_struct_num:N #1
+  {
+    \seq_get:NN \g_@@_struct_stack_seq #1
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_get_data_struct_C:nN}
+% This command allows \cs{tag_get:nnN} to get the C entries of a structure as a comma list
+% with the keyword |C|. The items are PDF names. 
+% TODO: this is too complicated, the |C| entry should be stored differently to allow
+% easier access, but that can only be done after 2026-11-01, as the table code currently
+% relies on the internal representation.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_get_data_struct_C:nN #1 #2
+  {
+    \prop_get:cnNTF {g__tag_struct_ #1 _prop}
+      {C}
+      \l_@@_tmp_unused_tl
+      {
+        \str_remove_once:Nn \l_@@_tmp_unused_tl {[}
+        \str_remove_once:Nn \l_@@_tmp_unused_tl {]}
+        \seq_set_split:Nne \l_@@_tmpa_seq {/} {\l_@@_tmp_unused_tl}
+        \seq_remove_all:Nn \l_@@_tmpa_seq {}
+        \seq_set_map:NNn \l_@@_tmpa_seq \l_@@_tmpa_seq {/##1}
+        \tl_set:Ne #2 {\seq_use:Nn \l_@@_tmpa_seq {,}}
+      }
+      { \tl_set:Nn #2 {} }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_get_data_struct_id:}
 % this command allows \cs{tag_get:n} to get the current
 % structure id with the keyword |struct_id|.
@@ -2336,6 +2451,7 @@
 % \begin{macro}[EXP]{\tag_struct_object_ref:n}
 % This is a command that allows to reference a structure. The argument is the
 % number which can be get for the current structure with |\tag_get:n{struct_num}|
+% or |\tag_get:nN{struct_num}|
 % TODO check if it should be in base too.
 %    \begin{macrocode}
 %<*package>
@@ -2358,19 +2474,33 @@
 % the second a keyword referring to a function,
 % the third the value. Currently the existing keywords are mostly related
 % to the \texttt{Ref} key (an array).
+% \begin{itemize}
+% \item The keyword \texttt{tag} updates the tag of a structure (the \texttt{S} entry}.
+% \item The keyword \texttt{C} \emph{replaces} the 
+%  attribute-class array. The argument should be a comma list of PDF names 
+%  \texttt{/TH-row,/justify}.
+%  In case that the list should be extended it is up to the user to get the original
+%  list first and manipulate it.   
+% \item 
 % The keyword \texttt{ref} takes as value an explicit object reference to
-% a structure. The keyword \texttt{ref_label} expects as value a label name (from
-% a label set in a \cs{tagstructbegin} command). The keyword \texttt{ref_dest}
+% a structure. 
+% \item The keyword \texttt{ref_label} expects as value a label name (from
+% a label set in a \cs{tagstructbegin} command). 
+% \item The keyword \texttt{ref_dest}
 % expects a destination name set with \cs{MakeLinkTarget}. It then will refer to
-% the structure in which this \cs{MakeLinkTarget} was used. The keyword \texttt{ref_dest_parent}
+% the structure in which this \cs{MakeLinkTarget} was used. 
+% \item The keyword \texttt{ref_dest_parent}
 % expects a destination name set with \cs{MakeLinkTarget} too. It then will refer to
 % the parent of structure in which this \cs{MakeLinkTarget} was used---this is useful if the
 % target command is, e.g., in a list and one wants to reference the surrounding list item structure.
+% \item 
 % The keyword \texttt{ref_num} expects a structure number.
+% \item 
 % At last there is the keyword \texttt{attribute} which allows to add or extend the \texttt{/A}
 % key of the structure. The value is the content of one attribute dictionary, so for example
 % \texttt{/O /Layout /BBox [10 10 50 50]}. The content is stored in an object and the object
 % reference is than added to the \texttt{/A}.
+% \end{itemize}
 %
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_struct_gput:nnn #1 #2 #3{}
@@ -2384,6 +2514,24 @@
     {#1}{#3}
  }
 \cs_generate_variant:Nn \tag_struct_gput:nnn {ene,nne}
+%    \end{macrocode}
+
+% \begin{macro}{\tag_struct_map_function:N}
+% This maps over the tag stack 
+% (which contains the tag and the rolemap in two brace groups)
+% and the number stack. The argument is a function that can handle this two 
+% arguments.
+%    \begin{macrocode}
+\cs_new_protected:Npn\tag_struct_map_function:N #1
+ {
+   \seq_map_pairwise_function:NNN
+     \g_@@_struct_tag_stack_seq
+     \g_@@_struct_stack_seq
+     #1
+ }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 %</package>
 %    \end{macrocode}
 % \end{macro}
@@ -2459,6 +2607,33 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% 
+% \begin{macro}{\@@_struct_gput_data_tag:nn}
+% This is used by |\tag_struct_gput:nnn| to update the tag of a structure.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_gput_data_tag:nn #1 #2
+  {
+    \__tag_struct_prop_gput:nne{#1}{S}{#2}
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\@@_struct_gput_data_C:nn}
+% This is used by |\tag_struct_gput:nnn| to update the C entry of a structure.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_struct_gput_data_C:nn #1 #2
+  {
+    \int_case:nnF {\clist_count:n{#2}}
+     {
+      {0}{}
+      {1}{\__tag_struct_prop_gput:nne{#1}{C}{#2}}
+     }
+     {
+       \__tag_struct_prop_gput:nne{#1}{C}{[\clist_use:nn{#2}{}]}
+     }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}
 %   {
 %     \tag_struct_insert_annot:nn,
@@ -2498,7 +2673,7 @@
 % \section{Attributes and attribute classes}
 %    \begin{macrocode}
 %<*header>
-\ProvidesExplPackage {tagpdf-attr-code} {2026-07-25} {1.0d}
+\ProvidesExplPackage {tagpdf-attr-code} {2026-08-21} {1.0e}
   {part of tagpdf - code related to attributes and attribute classes}
 %</header>
 %    \end{macrocode}
@@ -2530,7 +2705,8 @@
 %    \end{macrocode}
 % \end{variable}
 % \subsection{Commands and keys}
-% \begin{macro}{\@@_attr_new_entry:nn,role/new-attribute (setup-key), newattribute (deprecated)}
+% \begin{macro}{\tag_attr_new_entry:nn,\@@_attr_new_entry:nn,role/new-attribute (setup-key), 
+%  role/new-attribute* (setup-key),newattribute (deprecated)}
 % This allows to define attributes. Defined attributes
 % are stored in a global property. |role/new-attribute| expects
 % two brace group, the name and the content. The content typically
@@ -2554,14 +2730,28 @@
     \prop_gput:Nen \g_@@_attr_entries_prop
       {\pdf_name_from_unicode_e:n{#1}}{#2}
   }
+\cs_new_protected:Npn \@@_attr_new_used_entry:nn #1 #2 %#1:name, #2: content
+  {
+    \prop_gput:Nen \g_@@_attr_entries_prop
+      {\pdf_name_from_unicode_e:n{#1}}{#2}
+    \seq_gput_left:Ne\g__tag_attr_class_used_seq
+      {\pdf_name_from_unicode_e:n{#1}}   
+  }
 
+\cs_set_eq:NN \tag_attr_new:nn \@@_attr_new_entry:nn
 \cs_generate_variant:Nn \__tag_attr_new_entry:nn {ee}
+\cs_generate_variant:Nn \tag_attr_new:nn {ee}
+
 \keys_define:nn { @@ / setup }
   {
     role/new-attribute .code:n =
       {
         \@@_attr_new_entry:nn #1
-      }
+      },
+    role/new-attribute* .code:n =
+      {
+        \@@_attr_new_used_entry:nn #1
+      } 
 %    \end{macrocode}
 % deprecated name
 %    \begin{macrocode}

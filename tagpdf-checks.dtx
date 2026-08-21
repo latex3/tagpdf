@@ -47,7 +47,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0d, released 2026-07-25}
+% \date{Version 1.0e, released 2026-08-21}
 % \maketitle
 % \begin{documentation}
 % \section{Commands}
@@ -55,16 +55,61 @@
 % This command tests if tagging is active. It only gives true if all tagging has
 % been activated, \emph{and} if tagging hasn't been stopped locally.
 % \end{function}
+% \begin{function}[pTF,EXP]{\tag_if_struct_exist:n}
+%  \begin{syntax}
+%  \cs{tag_if_struct_exist:n} \Arg{structure number}
+%  \end{syntax}
+% This command tests if a number maps to a structure.
+% \end{function}
+% 
 % \begin{function}[EXP]{\tag_get:n}
 %  \begin{syntax}
 %  \cs{tag_get:n} \Arg{keyword}
 %  \end{syntax}
 % This is a generic command to retrieve data for the current structure or
 % mc-chunk. Currently
-% the only sensible values for the argument \meta{keyword}
-% are |mc_tag|, |struct_tag|, |struct_id| and |struct_num|.
+% the supported values for the argument \meta{keyword}
+% are |mc_tag|, |struct_tag|, |struct_id|, |struct_num|, |struct_counter|, |mc_counter|
+%  |current_Sect|.
+% \begin{itemize}
+% \item |mc_tag| is the tag name of the current mc-chunk.
+% \item |struct_tag| is the tag name of the current structure 
+% (without rolemapping). It is retrieved from the property and is a string! This is
+% rather slow and |\tag_get:nN| should be preferred. 
+% \item |struct_id| is the id (a string |ID.07|, where the number is the structure number padded with zeros).
+% \item |struct_num| is the current number as stored in |\g_@@_struct_stack_current_tl|.
+% \item |struct_counter| the state of the absolute structure counter, |\c@g_@@_struct_abs_int|.
+% \item |mc_counter| the state of the absolute mc counter, |\c@g_@@_MCID_abs_int|.
+% \item |current_Sect| (defined in latex-lab-sec) gives back the number of current Sect structure, it is
+% e.g. used by the footnote code.
+% \end{itemize}
 % \end{function}
 %
+% \begin{function}{\tag_get:nN}
+%  \begin{syntax}
+%  \cs{tag_get:nN} \Arg{keyword}\Arg{tl var}
+%  \end{syntax}
+% This is a generic command to retrieve data for the current structure or
+% mc-chunk. Unlike \cs{tag_get:n} it is not expandable but stores the data in the 
+% \meta{tl var}. Often this will be faster. Currently
+% the supported values for the argument \meta{keyword}
+% are |struct_tag|, |struct_num| and |C|.
+% \begin{itemize}
+% \item |struct_tag| is the tag name of the current structure 
+% (without rolemapping, retrieved from the tag stack).
+% \item |struct_num| is the current number as stored in number stack.
+% \item |C| is a comma list of the current attribute classes values.
+% \end{itemize}
+% \end{function}
+% 
+% \begin{function}{\tag_get:nnN}
+%  \begin{syntax}
+%  \cs{tag_get:nnN} \Arg{number} \Arg{keyword}\Arg{tl var}
+%  \end{syntax}
+% This is a generic command to retrieve data for the structure \Arg{number}. See
+% \cs{tag_get:nN} for a description of the keywords. 
+% \end{function}
+% 
 % \begin{function}[pTF,EXP]{\tag_if_box_tagged:N}
 %  \begin{syntax}
 %  \cs{tag_if_box_tagged:NTF} \meta{box} \Arg{true code} \Arg{false code}
@@ -340,7 +385,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-checks-code} {2026-07-25} {1.0d}
+\ProvidesExplPackage {tagpdf-checks-code} {2026-08-21} {1.0e}
  {part of tagpdf - code related to checks, conditionals, debugging and messages}
 %</header>
 %    \end{macrocode}
@@ -810,13 +855,34 @@
 % \begin{macro}[EXP]{\tag_get:n}
 % This retrieves some data.
 % This is a generic command to retrieve data. Currently
-% the only sensible values for the argument are |mc_tag|, |struct_tag|
-% and |struct_num|.
+% the supported values for the argument are |mc_tag|, |struct_tag|, |struct_id|, 
+% |struct_num|, |struct_counter|, |mc_counter|, |current_Sect|.
 %    \begin{macrocode}
 %<base>\cs_new:Npn \tag_get:n #1   { \use:c {@@_get_data_#1: } }
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\tag_get:nN}
+% This retrieves some data.
+% This is a generic command to retrieve data which are then stored in the given tl_var. 
+% Currently the supported values for the argument are |struct_tag|, 
+% |struct_num| and |struct_C|.
+%    \begin{macrocode}
+%<base>\cs_new_protected:Npn \tag_get:nN #1#2 
+%<base>  { \cs_if_exist_use:cT {@@_get_data_#1:N } #2 }
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\tag_get:nnN}
+% This retrieves some data.
+% This is a generic command to retrieve data from a specific structure 
+% which are then stored in the given tl_var. 
+% Currently the supported values for the argument are |struct_C|.
+%    \begin{macrocode}
+%<base>\cs_new_protected:Npn \tag_get:nnN #1#2#3 
+%<base>  { \cs_if_exist_use:cT {@@_get_data_#2:nN }{{#1} #3}}
+%    \end{macrocode}
+% \end{macro}
 % \section{PDF version check}
 %    \begin{macrocode}
 %<*package>
@@ -868,6 +934,22 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[pTF]{\tag_if_struct_exist:n}
+% this allows to test if a number belongs to a structure.
+%    \begin{macrocode}
+\prg_set_conditional:Npnn \tag_if_struct_exist:n #1 { p , T , TF, F }
+  {
+    \prop_if_exist:cTF { g__tag_struct_#1_prop }
+       {
+         \prg_return_true:
+       }
+       {
+         \prg_return_false:
+       }
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
 % \begin{macro}[pTF]{\tag_if_box_tagged:N}
 % This tests if a box contains tagging commands.
 % It relies on that the code that saved the box correctly set

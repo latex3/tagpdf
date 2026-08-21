@@ -279,6 +279,9 @@ The linked property list \g__tag_role_tags_NS_prop contains the pairs (without o
 >  {footnotelabel}  =>  {latex}
 >  {text-unit}  =>  {latex}
 >  {text}  =>  {latex}
+>  {semantic-para}  =>  {latex}
+>  {text-block}  =>  {latex}
+>  {text-fragment}  =>  {latex}
 >  {section-number}  =>  {latex}
 >  {theorem-like}  =>  {latex}
 >  {codeline}  =>  {latex}
@@ -565,6 +568,9 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {footnotelabel}  =>  {--UNUSED--}
 >  {text-unit}  =>  {--UNUSED--}
 >  {text}  =>  {--UNUSED--}
+>  {semantic-para}  =>  {--UNUSED--}
+>  {text-block}  =>  {--UNUSED--}
+>  {text-fragment}  =>  {--UNUSED--}
 >  {section-number}  =>  {--UNUSED--}
 >  {theorem-like}  =>  {--UNUSED--}
 >  {codeline}  =>  {--UNUSED--}
@@ -932,6 +938,9 @@ The property list \g__tag_role_NS_latex_prop contains the pairs (without outer b
 >  {footnotelabel}  =>  {{Lbl}{pdf2}}
 >  {text-unit}  =>  {{Part}{pdf2}}
 >  {text}  =>  {{P}{pdf2}}
+>  {semantic-para}  =>  {{Part}{pdf2}}
+>  {text-block}  =>  {{P}{pdf2}}
+>  {text-fragment}  =>  {{Span}{pdf2}}
 >  {section-number}  =>  {{Span}{pdf2}}
 >  {theorem-like}  =>  {{Sect}{pdf2}}
 >  {codeline}  =>  {{Sub}{pdf2}}
@@ -998,7 +1007,7 @@ The property list \g__tag_role_NS_pdf_class_prop contains the pairs (without out
 >  {Warichu}  =>  {I}
 >  {WT}  =>  {I}
 >  {WP}  =>  {I}
->  {Art}  =>  {--UNKNOWN--}
+>  {Art}  =>  {G}
 >  {BlockQuote}  =>  {G}
 >  {TOC}  =>  {G}
 >  {TOCI}  =>  {G}
@@ -1010,7 +1019,7 @@ The property list \g__tag_role_NS_pdf_class_prop contains the pairs (without out
 >  {Reference}  =>  {B}
 >  {BibEntry}  =>  {B}
 >  {Code}  =>  {I}
->  {DocumentFragment}  =>  {--UNKNOWN--}
+>  {DocumentFragment}  =>  {G}
 >  {Aside}  =>  {GBI}
 >  {H7}  =>  {B}
 >  {H8}  =>  {B}
@@ -1299,6 +1308,9 @@ The property list \g__tag_role_NS_latex_class_prop contains the pairs (without o
 >  {footnotelabel}  =>  {I}
 >  {text-unit}  =>  {G}
 >  {text}  =>  {B}
+>  {semantic-para}  =>  {G}
+>  {text-block}  =>  {B}
+>  {text-fragment}  =>  {I}
 >  {section-number}  =>  {I}
 >  {theorem-like}  =>  {G}
 >  {codeline}  =>  {I}
@@ -1395,6 +1407,9 @@ The property list \g__pdfdict_/g__tag_role/RoleMapNS_latex_dict_prop contains th
 >  {footnotelabel}  =>  {[/Lbl 11 0 R]}
 >  {text-unit}  =>  {[/Part 11 0 R]}
 >  {text}  =>  {[/P 11 0 R]}
+>  {semantic-para}  =>  {[/Part 11 0 R]}
+>  {text-block}  =>  {[/P 11 0 R]}
+>  {text-fragment}  =>  {[/Span 11 0 R]}
 >  {section-number}  =>  {[/Span 11 0 R]}
 >  {theorem-like}  =>  {[/Sect 11 0 R]}
 >  {codeline}  =>  {[/Sub 11 0 R]}

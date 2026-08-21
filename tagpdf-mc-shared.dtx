@@ -45,7 +45,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0d, released 2026-07-25}
+% \date{Version 1.0e, released 2026-08-21}
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
@@ -206,7 +206,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-mc-code-shared} {2026-07-25} {1.0d}
+\ProvidesExplPackage {tagpdf-mc-code-shared} {2026-08-21} {1.0e}
   {part of tagpdf - code related to marking chunks -
    code shared by generic and luamode }
 %</header>
@@ -232,7 +232,7 @@
 % This command allows \cs{tag_get:n} to get the current
 % state of the mc counter with the keyword |mc_counter|.
 % By comparing the numbers it can be used to check the number of
-% structure commands in a piece of code.
+% mc-commands in a piece of code.
 %    \begin{macrocode}
 \cs_new:Npn \@@_get_data_mc_counter:
   {

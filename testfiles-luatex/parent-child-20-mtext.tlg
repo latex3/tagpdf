@@ -1,10 +1,10 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 WARNING: mathml missing for hash F651DCD82C2CF82EA99063F2E05A3DE9
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'pdf2:Formula'
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'pdf2:Formula'
 Package tagpdf Info: Parent-Child 'Part' --> 'Formula'.
 (tagpdf)             Relation is 7 (='‡') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'Formula'.
@@ -81,16 +81,16 @@ Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
 Package tagpdf Info: closing structure 7 tagged /Formula
 ==> @endpe=true on input line ...
 ==> increment P on input line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'latex:text-block'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='‡') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 WARNING: mathml missing for hash 456C9AD95D378D6828BB1065AA6A0096
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'pdf2:Formula'
+Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'pdf2:Formula'
 Package tagpdf Info: Parent-Child 'P' --> 'Formula'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Formula' --> 'MC (real content)'
@@ -180,12 +180,12 @@ Package tagpdf Info: Checking Parent-Child 'pdf2:Formula' --> 'MC (real content)
 Package tagpdf Info: Parent-Child 'Formula' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 21 tagged /Formula
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 20 tagged /text
-Package tagpdf Info: closing structure 6 tagged /text-unit
+Package tagpdf Info: closing structure 20 tagged /text-block
+Package tagpdf Info: closing structure 6 tagged /semantic-para
 Completed box being shipped out [1]
 \vbox(633.0+0.0)x407.0, direction TLT
 .\hbox(0.0+0.0)x0.0, direction TLT

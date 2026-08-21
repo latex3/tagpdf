@@ -103,9 +103,9 @@ The structure has the following kids:
 =========================
 The structure 8 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
+>  S  =>  /semantic-para
 >  NS  =>  latex
->  tag  =>  {text-unit}{latex}
+>  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
 >  parentnum  =>  5 = /Sect
@@ -116,12 +116,12 @@ The structure has the following kids:
 The structure 9 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
->  S  =>  /text
+>  S  =>  /text-block
 >  NS  =>  latex
->  tag  =>  {text}{latex}
+>  tag  =>  {text-block}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  parentnum  =>  8 = /text-unit
+>  parentnum  =>  8 = /semantic-para
 The structure has the following kids:
 >  MC 3
 >  Struct 10
@@ -135,7 +135,7 @@ The structure 10 contains:
 >  tag  =>  {Link}{pdf2}
 >  rolemap  =>  {Link}{pdf2}
 >  parentrole  =>  {Link}{pdf2}
->  parentnum  =>  9 = /text
+>  parentnum  =>  9 = /text-block
 The structure has the following kids:
 >  MC 4
 >  OBJR reference
@@ -155,9 +155,9 @@ The structure has the following kids:
 =========================
 The structure 12 contains:
 >  Type  =>  /StructElem
->  S  =>  /text-unit
+>  S  =>  /semantic-para
 >  NS  =>  latex
->  tag  =>  {text-unit}{latex}
+>  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
 >  parentnum  =>  5 = /Sect
@@ -168,12 +168,12 @@ The structure has the following kids:
 The structure 13 contains:
 >  Type  =>  /StructElem
 >  C  =>  /justify
->  S  =>  /text
+>  S  =>  /text-block
 >  NS  =>  latex
->  tag  =>  {text}{latex}
+>  tag  =>  {text-block}{latex}
 >  rolemap  =>  {P}{pdf2}
 >  parentrole  =>  {P}{pdf2}
->  parentnum  =>  12 = /text-unit
+>  parentnum  =>  12 = /semantic-para
 The structure has the following kids:
 >  MC 6
 =========================

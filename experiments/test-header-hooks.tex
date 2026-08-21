@@ -18,7 +18,7 @@
 \def\pdfrunninglinkoff{\special{pdf:nolink}}
 \def\pdfrunninglinkon{\special{pdf:link}}
 \fi
-\ifluatex  %no there yet, but planed for TL21
+\ifluatex  %no there yet, but planned for TL21
  \protected\def\pdfrunninglinkoff{\pdfextension linkstate 1 }
  \protected\def\pdfrunninglinkon {\pdfextension linkstate 0 }
 \fi

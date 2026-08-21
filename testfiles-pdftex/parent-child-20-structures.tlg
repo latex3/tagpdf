@@ -1,20 +1,20 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 ==> @endpe=false on input line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment P on input line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'latex:text-block'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: closing structure 6 tagged /text
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'pdf2:Sect'
+Package tagpdf Info: closing structure 6 tagged /text-block
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'pdf2:Sect'
 Package tagpdf Info: Parent-Child 'Part' --> 'Sect'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
@@ -48,34 +48,34 @@ Package tagpdf Info: closing structure 10 tagged /P
 Package tagpdf Info: closing structure 9 tagged /P
 Package tagpdf Info: closing structure 8 tagged /Div
 Package tagpdf Info: closing structure 7 tagged /Sect
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'MC (real content)'
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 5, /text-unit 
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'pdf2:P'
+(tagpdf)                struct 5, /semantic-para 
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'pdf2:P'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 13 tagged /P
-Package tagpdf Info: closing structure 5 tagged /text-unit
+Package tagpdf Info: closing structure 5 tagged /semantic-para
 ============================================================
 TEST 1: Parent Key
 ============================================================
 ==> @endpe=false on input line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment P on input line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'latex:text-block'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf:StructTreeRoot' --> 'pdf2:H1'
@@ -88,45 +88,45 @@ Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 16 tagged /H1
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ============================================================
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 15 tagged /text
-Package tagpdf Info: closing structure 14 tagged /text-unit
+Package tagpdf Info: closing structure 15 tagged /text-block
+Package tagpdf Info: closing structure 14 tagged /semantic-para
 ============================================================
 TEST 2: Label later use
 ============================================================
 ==> @endpe=false on input line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment P on input line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'latex:text-block'
 Package tagpdf Info: Parent-Child 'Part' --> 'P'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'P'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:H1' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'H1' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 19 tagged /H1
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 18 tagged /text
-Package tagpdf Info: closing structure 17 tagged /text-unit
+Package tagpdf Info: closing structure 18 tagged /text-block
+Package tagpdf Info: closing structure 17 tagged /semantic-para
 ==> @endpe=false on input line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment P on input line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'pdf2:Sect'
+Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'pdf2:Sect'
 Package tagpdf Info: Parent-Child 'Part' --> 'Sect'.
 (tagpdf)             Relation is 7 (='^^e2^^80^^a1') on line ...
 Package tagpdf Info: Parent-Child 'Document' --> 'Sect'.
@@ -142,11 +142,11 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'H1'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
 Package tagpdf Info: closing structure 21 tagged /Sect
-Package tagpdf Info: closing structure 20 tagged /text-unit
+Package tagpdf Info: closing structure 20 tagged /semantic-para
 ============================================================
 ====> In \@makecol 1
 Pick up new bot mark!
-=> first b-, 1, 6, text
+=> first b-, 1, 6, text-block
 => bot e+, 9, 21
 => TMB not missing
 => TME not missing
@@ -185,7 +185,7 @@ Completed box being shipped out [1]
 ...\glue(\topskip) 3.1128
 ...\hbox(6.8872+0.0)x345.0, glue set 268.07068fil
 ....\write1{\new@label@record{mcid-1}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{1}{tagmcid}{\__property_code_tagmcid: }}}
-....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\pdfliteral shipout page{/text-block <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(0.0+0.0)x15.0
 ....\T1/cmr/m/n/10 a
 ....\T1/cmr/m/n/10 b
@@ -213,8 +213,8 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,1,6,text,,,}
-...\marks4{b+,1,6,text,,,}
+...\marks4{b-,1,6,text-block,,,}
+...\marks4{b+,1,6,text-block,,,}
 ...\marks4{e-,1,6,}
 ...\marks4{e+,1,6,}
 ...\marks4{b-,2,5,P,,,}
@@ -226,7 +226,7 @@ Completed box being shipped out [1]
 ...\glue(\baselineskip) 5.1128
 ...\hbox(6.8872+0.0)x345.0, glue set 282.23389fil
 ....\write1{\new@label@record{mcid-3}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{3}{tagmcid}{\__property_code_tagmcid: }}}
-....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\pdfliteral shipout page{/text-block <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(0.0+0.0)x15.0
 ....\T1/cmr/m/n/10 a
 ....\T1/cmr/m/n/10 b
@@ -250,8 +250,8 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,3,15,text,,,}
-...\marks4{b+,3,15,text,,,}
+...\marks4{b-,3,15,text-block,,,}
+...\marks4{b+,3,15,text-block,,,}
 ...\marks4{e-,3,15,}
 ...\marks4{e+,3,15,}
 ...\marks4{b-,4,16,H1,,,}
@@ -267,7 +267,7 @@ Completed box being shipped out [1]
 ...\glue(\baselineskip) 5.1128
 ...\hbox(6.8872+0.0)x345.0, glue set 286.95496fil
 ....\write1{\new@label@record{mcid-6}{{tagabspage}{\__property_code_tagabspage: }{tagmcabs}{6}{tagmcid}{\__property_code_tagmcid: }}}
-....\pdfliteral shipout page{/text <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
+....\pdfliteral shipout page{/text-block <</MCID \flag_height:n {__tag/mcid}\flag_raise:n {__tag/mcid} >> BDC}
 ....\hbox(0.0+0.0)x15.0
 ....\T1/cmr/m/n/10 a
 ....\T1/cmr/m/n/10 b
@@ -290,8 +290,8 @@ Completed box being shipped out [1]
 ....\penalty 10000
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
-...\marks4{b-,6,18,text,,,}
-...\marks4{b+,6,18,text,,,}
+...\marks4{b-,6,18,text-block,,,}
+...\marks4{b+,6,18,text-block,,,}
 ...\marks4{e-,6,18,}
 ...\marks4{e+,6,18,}
 ...\marks4{b-,7,19,H1,,,}
