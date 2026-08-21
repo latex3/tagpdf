@@ -59,6 +59,7 @@
    \tag_mc_begin_pop:n{} 
  }
 \AssignTaggingSocketPlug{listings/number}{default} 
+
 \ExplSyntaxOff
 \lst@Key{numbers}{none}{%
     \let\lst@PlaceNumber\@empty
@@ -70,41 +71,71 @@
                 \kern\linewidth \kern\lst@numbersep
                 \UseTaggingSocket{listings/number}{}{\lst@numberstyle{\thelstnumber}}}}%
     }{\PackageError{Listings}{value `#1' for keyword `numbers' not supported}\@ehc}}
-\ExplSyntaxOn
 
-% environment tagging. Updated 2025-12-27 to new block code
 
-% new code from 2025-12-27, requires latex-dev     
-  \DeclareInstance{blockenv}{lstlisting}{std}
+% environment tagging. Updated 2026-08-21 to new block code
+
+\DeclareInstance{blockenv}{lstlisting}{std}
    {
     name           = lstlisting, 
     tag-name       = verbatim,
-    tag-attr-class = ,           
+    tag-attr-class = , 
     tagging-recipe = standard,
     inner-level-counter  = ,
     transparent-level = true,    
-    legacy-code     = ,
-    block-instance = verbatim ,
+    block-instance = lstlisting ,
     inner-instance = ,
     final-code     = \AssignStructureRole {para/textblock}%
                          {\UseStructureName{block/verbatim/codeline}}\ignorespaces,
     tagging-suppress-paras = true 
    }  
-   
- \lst@AddToHook{PreInit}
-  { 
+
+\DeclareInstance{block}{lstlisting-1}{std}  {
+  ,left-margin      = 0pt
+  ,para-vspace      = 0pt
+  ,begin-vspace=0pt
+  ,end-vspace= 0pt
+} 
+\DeclareInstanceCopy{block}{lstlisting-2}{lstlisting-1}
+\DeclareInstanceCopy{block}{lstlisting-3}{lstlisting-1}
+\DeclareInstanceCopy{block}{lstlisting-4}{lstlisting-1}
+\DeclareInstanceCopy{block}{lstlisting-5}{lstlisting-1}
+\DeclareInstanceCopy{block}{lstlisting-6}{lstlisting-1}
+
+
+\def\lst@EveryDisplay{%
     \MathCollectFalse 
-    \ifx\lst@float\relax
-     \SimpleBlockEnv{lstlisting}{}%
-    \else 
-     \SimpleBlockEnv{lstlisting}{tagging-recipe = standalone}
+     \ifx\lst@float\relax
+      \SimpleBlockEnv{lstlisting}{}%
+     \else 
+      \SimpleBlockEnv{lstlisting}{tagging-recipe = standalone}
+     \fi}
+
+ \lst@AddToHook{PreInit}
+  {%
+   \ifhmode 
+    \UseTaggingSocket{inline/begin}{tag=\UseStructureName{text/verb}}%
     \fi
   }
 
  \lst@AddToHook{DeInit}
-   {\BlockEnvEnd}% 
+   {\ifhmode
+    \UseTaggingSocket{inline/end}%
+    \else
+    \edef\@current@float@struct{\UseName{tag_get:n}{struct_num}}\BlockEnvEnd
+    \fi}% 
 
- \tagpdfsetup{float/new=lstlisting}
+\def\lst@makecaption{%
+  \AssignStructureRole {para/textblock}{Span}\def\@captype{lstlisting}\@makecaption}
+  
+\def\lst@maketitle{\def\@captype{lstlisting}%
+ \AssignStructureRole {para/textblock}{Span}
+ \AssignTaggingSocketPlug{caption/label/begin}{noop}%
+ \AssignTaggingSocketPlug{caption/label/end}{noop}%
+ \AssignSocketPlug{caption/label}{noop}%
+ \@makecaption\lst@title@dropdelim}
+ 
+\tagpdfsetup{float/new=lstlisting} 
 
 % ======== marginnote ==========
 % 2024-03-23 currently marginnote is no longer used, we use marginpar
@@ -150,7 +181,8 @@
     tagging-recipe = standalone,
     inner-level-counter  = ,
     transparent-level = true,
-    legacy-code     = ,
+    early-legacy-code     = ,
+    late-legacy-code =,
     block-instance = std-display ,
   }
 
