@@ -1156,7 +1156,8 @@ This (expandable) command returns the values of some variables. Currently, the w
 \item \verb+current_Sect+: (defined in latex-lab-sec) gives back the number of current Sect structure, it is, e.g., used by the footnote code.  
 \end{itemize}              
 
-\begin{docCommand}{tag_get:nN}{\marg{key word}\marg{tl var}\end{docCommand}
+\begin{docCommand}{tag_get:nN}{\marg{key word}\marg{tl var}}\end{docCommand}
+
 This (not expandable) command returns the values of some variables and stores them into the tl var. Currently, the working key words are 
 \begin{itemize} 
 \item  \verb+struct_tag+: the tag name of the current structure (without role-mapping).
@@ -1164,7 +1165,7 @@ This (not expandable) command returns the values of some variables and stores th
 \item \verb+struct_num+: This returns a number.
 \end{itemize}
 
-\begin{docCommand}{tag_get:nnN}{\marg{number} \marg{key word}\marg{tl var}\end{docCommand}
+\begin{docCommand}{tag_get:nnN}{\marg{number} \marg{key word}\marg{tl var}}\end{docCommand}
 This (not expandable) command returns the values of some variables of the structure \marg{number} and stores them into the tl var. Currently, the working key words are 
 \begin{itemize} 
 \item  \verb+struct_C+: the attribute classes as a comma list. 
