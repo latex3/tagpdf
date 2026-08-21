@@ -1,7 +1,16 @@
-## [2026-07-25]
-Version 1.0d
+## [2026-08-21]
+Version 1.0e
 
-### Fixed
-  - (tagpdf-backend) softhyphen=artifact has no effect for T1 fonts (https://github.com/latex3/tagpdf/issues/138)
-  - (tagpdf-backend) real space code of lualatex errors if the space is directly at the begin of the document, https://github.com/latex3/tagging-project/issues/1494
-  - improved some expl3 syntax  (as found with explcheck)
+### Added
+A number of public wrappers around internal functions have been added:
+  - \tag_struct_recordtarget:
+  - \tag_if_tag_known:n 
+  - key role/new-attribute*
+  - \tag_struct_map_function:N
+  - \tag_get:nN (with keywords struct_tag and struct_num)
+  - \tag_get:nnN (with keyword struct_C)
+  - \tag_if_struct_exist:nTF
+  - \tag_attr_new:nn
+ 
+### Changed
+ - adapted para-count message to new names in latex-dev  
