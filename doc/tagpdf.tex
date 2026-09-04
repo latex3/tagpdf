@@ -656,6 +656,28 @@ store all sorts of layout information like font properties and indentation
 with tags. But as I already wrote this package concentrates on the part of 
 tagging that is needed to improve accessibility.)
 
+\subsection{Tag names}\label{sec:tagnames}
+In the following there will be many references to \enquote{tag names}. 
+In the PDF these are \enquote{PDF names}: strings with a slash at the begin like \texttt{/LBody} and \texttt{/Em}.
+In the commands of \package{tagpdf} they are -- with some exceptions for commands meant for developers -- input without the slash. 
+
+Tag names are used a lot and to avoid to slow down the compilation they are not purified and checked. They are also normally not passed through some escaping command, but there can be code parts where it happens anyway. It lies in the responsability of the user to use sensible names that do not break under such conditions.
+
+The value should therefore be a string that can be used as a PDF name (by adding a slash at the begin) and that is not changed if it is passed through a command that escapes
+names. A good test is to use \verb+\pdf_name_from_unicode_e:n+: if this only adds a slash the name should be fine. Some examples:\\[1ex]   
+    \ExplSyntaxOn
+    \tagpdfsetup{table/header-rows=1}
+    \begin{tabular}{>{\ttfamily}l>{\ttfamily}ll}
+    tag~name      & escaped~with~\verb+\pdf_name_from_unicode_e:n+ & comment \\\midrule
+    chapter       & \pdf_name_from_unicode_e:n{chapter} & good\\
+    chapter-title & \pdf_name_from_unicode_e:n{chapter-title}& good\\
+    chapter.title & \pdf_name_from_unicode_e:n{chapter.title}&good\\
+    chapter~title &\pdf_name_from_unicode_e:n{chapter~title} & bad\\
+    chapter/title &\pdf_name_from_unicode_e:n{chapter/title} &bad\\
+    chapter(title)&\pdf_name_from_unicode_e:n{chapter(title)}& bad\\
+    grüße         &\pdf_name_from_unicode_e:n{grüße}         & bad\\
+    \end{tabular} 
+    \ExplSyntaxOff
 
 \subsection{Three tasks}
 
@@ -1679,7 +1701,9 @@ The key-val list understands the following keys:
     names spaces |pdf|, |pdf2|, |mathml| and |user| are defined. This
     allows to use a different name space than the one connected by
     default to the tag. But normally this should not be needed.
-
+    
+    
+    
   \item[\PrintKeyName{stash}] Normally a new structure inserts itself
     as a kid into the currently active structure. This key prohibits
     this. The structure is nevertheless from now on \enquote{the
@@ -2269,7 +2293,7 @@ most cases do the right thing.
 
 \begin{description}
 \item[\PrintKeyName{tag}] This is the name of the new type as it
-  should then be used in \cs{tagstructbegin}.
+  should then be used in \cs{tagstructbegin}. See section \ref{sec:tagnames} regarding the syntax of the value. 
 
 \item[\PrintKeyName{tag-namespace}] This is the namespace of the new type. 
     The value should be a shorthand of a namespace. The allowed values are 
