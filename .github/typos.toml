@@ -1,9 +1,11 @@
-[files.extend-exclude]
-support/*
-*.lvt
-*.pvt
-*.tlg
-*.tpf
+[files]
+extend-exclude=[
+  "support/*",
+  "*.lvt",
+  "*.pvt",
+  "*.tlg",
+  "*.tpf"
+]
 
 [default.extend-words]
 tme   = "tme"
