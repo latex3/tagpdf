@@ -1,5 +1,13 @@
+[files.extend-exclude]
+support/*
+*.lvt
+*.pvt
+*.tlg
+*.tpf
+
 [default.extend-words]
 tme   = "tme"
 
 [default.extend-identifiers]
 atend = "atend"
+{onn} = "{onn}"
