@@ -2705,7 +2705,7 @@
 %    \end{macrocode}
 % \end{variable}
 % \subsection{Commands and keys}
-% \begin{macro}{\tag_attr_new_entry:nn,\@@_attr_new_entry:nn,role/new-attribute (setup-key), 
+% \begin{macro}{\tag_attr_new:nn,\@@_attr_new_entry:nn,role/new-attribute (setup-key), 
 %  role/new-attribute* (setup-key),newattribute (deprecated)}
 % This allows to define attributes. Defined attributes
 % are stored in a global property. |role/new-attribute| expects
@@ -2808,6 +2808,7 @@
 % \end{structkeydecl}
 % \begin{structkeydecl}{attribute}
 %    \begin{macrocode}
+\tl_new:N\l_@@_attr_array_end_tl
 \keys_define:nn { @@ / struct }
   {
     attribute .code:n  = % A property (attribute, value currently a dictionary)
@@ -2823,10 +2824,30 @@
              {
                \pdf_name_from_unicode_e:n {##1}
              }
-            \tl_set:Ne \l_@@_attr_value_tl
-              {
-                \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{[}%]
-              }
+            \prop_get:cnNTF 
+              { g_@@_struct_ \int_use:N \c@g_@@_struct_abs_int _prop }
+              {A}
+              \l_@@_tmpa_tl 
+             { %there was already an attribute
+               \tl_remove_once:Nn\l_@@_tmpa_tl{[}
+               \tl_remove_once:Nn\l_@@_tmpa_tl{]}
+   
+               \tl_set:Nn \l_@@_attr_value_tl {[}
+               \tl_put_right:No \l_@@_attr_value_tl {\l_@@_tmpa_tl}
+               \tl_set:Nn \l_@@_attr_array_end_tl {]}
+             } 
+             {
+               %no attribute
+               \int_compare:nNnTF { \seq_count:N \l_@@_tmpa_seq} > {1}
+                {
+                  \tl_set:Nn \l_@@_attr_value_tl {[}
+                  \tl_set:Nn \l_@@_attr_array_end_tl {]}
+                }
+                {
+                  \tl_set:Nn \l_@@_attr_value_tl {}
+                  \tl_set:Nn \l_@@_attr_array_end_tl {}
+                }  
+             } 
             \seq_map_inline:Nn \l_@@_tmpa_seq
               {
                 \prop_get:NnNF \g_@@_attr_entries_prop {##1}\l_@@_tmp_unused_tl
@@ -2847,19 +2868,22 @@
                     \c_space_tl
                     \prop_item:Nn \g_@@_attr_objref_prop {##1}
                   }
-     %     \tl_show:N \l_@@_attr_value_tl
               }
-            \tl_put_right:Ne \l_@@_attr_value_tl
-              { %[
-                \int_compare:nT { \seq_count:N \l_@@_tmpa_seq > 1 }{]}%
+            \tl_put_right:No \l_@@_attr_value_tl
+              { 
+                \l_@@_attr_array_end_tl
               }
-     %     \tl_show:N \l_@@_attr_value_tl
             \@@_struct_prop_gput:nne
               { \int_use:N \c@g_@@_struct_abs_int }
               { A }
               { \l_@@_attr_value_tl }
          }
     },
+   attribute-raw .code:n =  
+    {
+      \@@_struct_gput_data_attribute:nn 
+        { \int_use:N \c@g_@@_struct_abs_int }{#1}
+    }    
   }
 %</package>
 %    \end{macrocode}
