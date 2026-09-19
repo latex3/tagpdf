@@ -285,7 +285,7 @@ One must check how good the accessibility is \emph{practically}.
 
 Syntax validation and formal standard validation can be done with the
 validator veraPDF \parencite{verapdf} which can also handle PDF 2.0 files. 
-Other options (only for PDF 1.7 and older) are preflight of the (non-free) Adobe Acrobat and the free \PDF{} Accessibility Checker (PAC~2024) \parencite{pac2024}. 
+Other options (only for PDF 1.7 and older) are preflight of the (non-free) Adobe Acrobat and the free \PDF{} Accessibility Checker (PAC~2026) \parencite{pac2026}. 
 A quite useful tool 
 is \enquote{Next Generation PDF} \parencite{ngpdf}, a browser application 
 which converts a tagged PDF to html, allows to inspect its structure and also 
@@ -299,13 +299,15 @@ It needs a screen reader, users which actually know how to handle them,
 can test documents and can report where a \PDF{} has real accessibility problems.
 
 
-\minisec{Preflight woes}
+\minisec{Validation woes}
 
 Sadly validators can not always be trusted. 
-As an example, for a reason that I don't understand the Adobe preflight 
-don't like the list structure \texttt{L}.
-It is also possible that validators contradict: that the one says everything is okay, 
-while the other complains. Generally when in doubt I recommend to use and trust verapdf. 
+
+At first lots of the requirements for PDF/UA-1 and PDF/UA-2 are human checks.
+This means that a validator either doesn't check it or has to use some heuristic.
+
+At second \LaTeX{} creates by default PDF 2.0 and not many validators handle that correctly. 
+ 
 
 \subsection{Examples wanted!}
 
@@ -1440,8 +1442,6 @@ E.g. I have seen an example where \emph{every single
 symbol} has been marked up with tags from MathML along with an
 \texttt{/ActualText} entry and an entry with alternate text which
 describes how to read the symbol.  The \PDF{} then looked like this
-
-
 \begin{lstlisting}
 /mn <</MCID 6 /ActualText<FEFF0034>/Alt(  : open bracket: four )>>BDC
 ...
@@ -1488,8 +1488,6 @@ So with pdflatex in generic mode one until now had to do the splitting manually.
 
 The example \texttt{mc-manual-para-split} demonstrates how this can be
 done. The general idea was to use \verb+\vadjust+ in the right place:
-
-
 \begin{lstlisting}
 \tagmcbegin{tag=P}
 ...
@@ -1512,7 +1510,6 @@ TUG~2021 \enquote{Taming the beast — Advances in paragraph tagging
 
 
 Please note
-
 \begin{itemize}
 \item Typically you will need more compilations than previously, don't
   rely on the rerun messages, but if something looks wrong rerun.
@@ -1546,7 +1543,6 @@ this is to model such \enquote{semantic} paragraphs with a structure named
 (under the name \texttt{\UseStructureName{para/textblock}}) only for 
 (portions of) the actual paragraph text in a way that the \texttt{P}s are not 
 nested. As a result we have for a simple paragraph two structures: 
-
 \begin{lstlisting}
 <text-unit>
   <P>
@@ -1621,8 +1617,6 @@ so on. A number of standard structure types is predefined, see section
 \ref{sec:new-tag} but it is allowed to create more. If you want to use types 
 of your own you must declare them. E.g. this declares two new types 
 \texttt{TAB} and {FIG} and bases them on \texttt{P}: 
-
-
 \begin{lstlisting}
 \tagpdfsetup{
   role/new-tag = TAB/P,
@@ -1637,8 +1631,6 @@ of your own you must declare them. E.g. this declares two new types
 The sectioning units can be structured in two ways: a flat, html-like and a 
 more (in pdf/UA2 basically deprecated) xml-like version. The flat version 
 creates a structure like this: 
-
-
 \begin{lstlisting}
 <H1>section header</H1>
 <P> text</P>
@@ -1740,15 +1732,10 @@ The key-val list understands the following keys:
       nothing will happen. 
    
    That means that you can do something like this:
-
-
       \begin{lstlisting}
       \newcommand\myalttext{\frac{a}{b}}
       \tagstructbegin{tag=P,alt=\myalttext}
       \end{lstlisting}
-
-
-
    and it will insert \verb+\frac{a}{b}+ (hex encoded) in the
    \PDF{}. In case that the text begins with a command that should not
    be expanded protect it e.g. with a \verb+\empty+.
@@ -1762,14 +1749,10 @@ The key-val list understands the following keys:
       the value is empty, nothing will happen. 
       
       That means that you can do something like this: 
-
       \begin{lstlisting}
       \newcommand\myactualtext{X}
       \tagstructbegin{tag=P,actualtext=\myactualtext}
       \end{lstlisting}
-
-
-
    and it will insert \verb+X+ (hex encoded) in the \PDF{}. In case
    that the text begins with a command that should not be expanded
    protect it e.g. with a \verb+\empty+
@@ -1779,13 +1762,26 @@ The key-val list understands the following keys:
      the external key-val parser) and allows to add one or more
      attribute dictionary entries in the structure object. As an
      example
-
       \begin{lstlisting}
       \tagstructbegin{tag=TH,attribute= TH-row}
       \end{lstlisting}
-
+    
+    The key can be used more than once and works then additively: new attributes are added to the existing once. See the next key if you want
+    to overwrite existing attributes.
+      
     See also section~\ref{sec:attributes}.
-
+  
+  \item[\PrintKeyName{attribute*}] This key first clears the attributes
+  and then works like \PrintKeyName{attribute}. This will be rarely needed
+  but is offered in case that additional settings for a structure are passed  through a socket.
+  
+  \item[\PrintKeyName{attribute-unnamed}] This takes a list of attributes
+  contents (the part which is set in the second argument of \texttt{role/new-attribute}). Note that unlike \PrintKeyName{attribute} it can not reuse attribute objects, every use creates a new object. 
+  The argument is not expanded, but expansion can be forced (as with all keys) with \verb+attribute-unnamed:o+ or \verb+attribute-unnamed:e+
+ 
+  \item[\PrintKeyName{attribute-unnamed*}] This clears the attributes and
+  then works like \PrintKeyName{attribute-unnamed}
+  
   \item[\PrintKeyName{attribute-class}] This key takes as argument a
     comma list of attribute names (use braces to protect the commas
     from the external key-val parser) and allows to add them as
