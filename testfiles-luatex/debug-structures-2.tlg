@@ -99,15 +99,16 @@ The structure 7 contains:
 The structure has the following kids:
 >  Struct 8
 >  MC 2
+>  MC 3
 =========================
 =========================
 The structure 8 contains:
 >  Type  =>  /StructElem
->  S  =>  /section-number
+>  S  =>  /heading-number
 >  NS  =>  latex
->  tag  =>  {section-number}{latex}
->  rolemap  =>  {Span}{pdf2}
->  parentrole  =>  {Span}{pdf2}
+>  tag  =>  {heading-number}{latex}
+>  rolemap  =>  {Lbl}{pdf2}
+>  parentrole  =>  {Lbl}{pdf2}
 >  parentnum  =>  7 = /section
 The structure has the following kids:
 >  MC 1
@@ -135,9 +136,9 @@ The structure 10 contains:
 >  parentrole  =>  {P}{pdf2}
 >  parentnum  =>  9 = /semantic-para
 The structure has the following kids:
->  MC 3
+>  MC 4
 >  Struct 11
->  MC 5
+>  MC 6
 =========================
 =========================
 The structure 11 contains:
@@ -149,7 +150,7 @@ The structure 11 contains:
 >  parentrole  =>  {Link}{pdf2}
 >  parentnum  =>  10 = /text-block
 The structure has the following kids:
->  MC 4
+>  MC 5
 >  OBJR reference
 =========================
 =========================
@@ -187,11 +188,11 @@ The structure 14 contains:
 >  parentrole  =>  {P}{pdf2}
 >  parentnum  =>  13 = /semantic-para
 The structure has the following kids:
->  MC 6
+>  MC 7
 =========================
 Package tagpdf Info: Finalizing the tagging structure:
 (tagpdf)             Writing out ~14 structure objects
-(tagpdf)             with ~8 'MC' leaf nodes.
+(tagpdf)             with ~9 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree

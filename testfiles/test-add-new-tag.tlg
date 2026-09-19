@@ -44,7 +44,12 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {semantic-para}  =>  {Part}
 >  {text-block}  =>  {P}
 >  {text-fragment}  =>  {Span}
->  {section-number}  =>  {Span}
+>  {text-parbox}  =>  {Div}
+>  {text-minipage}  =>  {Div}
+>  {heading-parbox}  =>  {Span}
+>  {heading-minipage}  =>  {Span}
+>  {heading-number}  =>  {Lbl}
+>  {heading-fragment}  =>  {Span}
 >  {theorem-like}  =>  {Sect}
 >  {codeline}  =>  {Span}
 >  {float}  =>  {Note}
