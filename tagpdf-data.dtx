@@ -55,41 +55,13 @@
 % \end{documentation}
 % \begin{implementation}
 % \section{The LaTeX namespace}
-% This is the main new namespace. It is bound to change a lot!
-% It lists the new tag, the rolemap and the namespace of the rolemap.
-% latex-lab has also a namespace module, which takes precedence!
-%    \begin{macrocode}
-%<*ns-latex>
-%% \ProvidesExplFile {tagpdf-ns-latex.def} {2026-08-21} {1.0e}
-%% {latex} {https://www.latex-project.org/ns/dflt}{}
-title,        Title,    pdf2,
-part,         Title,    pdf2,
-section,      H1,       pdf2, 
-subsection,   H2,       pdf2,
-subsubsection,H3,       pdf2,
-paragraph,    H4,       pdf2, 
-subparagraph, H5,       pdf2,
-list,         L,        pdf2,
-itemize,      L,        pdf2,
-enumerate,    L,        pdf2,
-description,  L,        pdf2,
-quote,        BlockQuote,pdf,
-quotation,    BlockQuote,pdf,
-verbatim,     Div,      pdf2, 
-item,         LI,       pdf2,
-itemlabel,    Lbl,      pdf2,
-itembody,     LBody,    pdf2,
-footnote,     FENote,   pdf2,
-footnotemark, Lbl,      pdf2,
-footnotelabel,Lbl,      pdf2,
-text-unit,    Part,     pdf2,
-text,         P,        pdf2,
-%</ns-latex>
-%    \end{macrocode}
+% The \LaTeX{} namespace is now maintained in latex-lab.
+%
 % \section{The LaTeX-book namespace}
 % This changes the rolemapping of some tags for heading with
 % to values more suitable in book classes. 
-% It is bound to change
+% It is only loaded as long a latex-lab does not provide
+% tagpdf-ns-latex-lab-book.def.
 %    \begin{macrocode}
 %<*ns-latex-book>
 %% \ProvidesExplFile {tagpdf-ns-latex-book.def} {2026-08-21} {1.0e}
