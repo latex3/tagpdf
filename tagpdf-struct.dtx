@@ -2813,7 +2813,7 @@
   {
     attribute .code:n  = % A property (attribute, value currently a dictionary)
       {
-        \clist_set:Ne          \l_@@_tmpa_clist { #1 }
+        \clist_set:Ne \l_@@_tmpa_clist { #1 }
         \clist_if_empty:NF \l_@@_tmpa_clist
          {
             \seq_set_from_clist:NN \l_@@_tmpb_seq \l_@@_tmpa_clist
@@ -2879,11 +2879,26 @@
               { \l_@@_attr_value_tl }
          }
     },
-   attribute-raw .code:n =  
+   attribute-unnamed .code:n =  
     {
-      \@@_struct_gput_data_attribute:nn 
-        { \int_use:N \c@g_@@_struct_abs_int }{#1}
-    }    
+      \clist_map_inline:nn {#1}
+       {
+         \@@_struct_gput_data_attribute:nn 
+           { \int_use:N \c@g_@@_struct_abs_int }{##1}
+       } 
+    },
+   attribute* .code:n = 
+    {
+      \@@_prop_gremove:cn 
+      { g_@@_struct_ \int_use:N \c@g_@@_struct_abs_int _prop }{A}
+      \keys_set:nn { @@ / struct }{ attribute = {#1} }
+    },
+   attribute-unnamed* .code:n = 
+    {
+      \@@_prop_gremove:cn 
+      { g_@@_struct_ \int_use:N \c@g_@@_struct_abs_int _prop }{A}
+      \keys_set:nn { @@ / struct }{ attribute-unnamed = {#1} }
+    }       
   }
 %</package>
 %    \end{macrocode}
