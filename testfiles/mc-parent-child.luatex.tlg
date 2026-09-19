@@ -4693,41 +4693,6 @@ Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-p
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment P on input line ...
-Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'latex:text-unit'
-Package tagpdf Info: Parent-Child 'Part' --> 'Part'.
-(tagpdf)             Relation is 7 (='‡') on line ...
-Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
-(tagpdf)             Relation is -1 (='∅') on line ...
-Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'MC (realcontent)'.
-(tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 553, /text-unit 
-==> increment /P on input line ...
-Package tagpdf Info: closing structure 553 tagged /text-unit
-Package tagpdf Info: closing structure 552 tagged /semantic-para
-==> @endpe=false on input line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
-Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-==> increment P on input line ...
-Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'latex:text'
-Package tagpdf Info: Parent-Child 'Part' --> 'P'.
-(tagpdf)             Relation is 7 (='‡') on line ...
-Package tagpdf Info: Parent-Child 'Document' --> 'P'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
-Package tagpdf Info: Parent-Child 'P' --> 'MC'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-==> increment /P on input line ...
-Package tagpdf Info: closing structure 555 tagged /text
-Package tagpdf Info: closing structure 554 tagged /semantic-para
-==> @endpe=false on input line ...
-Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
-Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
-(tagpdf)             Relation is 1 (='0..n') on line ...
-==> increment P on input line ...
 Package tagpdf Info: Checking Parent-Child 'latex:semantic-para' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Part' --> 'Part'.
 (tagpdf)             Relation is 7 (='‡') on line ...
@@ -4738,10 +4703,10 @@ Package tagpdf Info: Parent-Child 'Part' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Part' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 557, /semantic-para 
+(tagpdf)                struct 553, /semantic-para 
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 557 tagged /semantic-para
-Package tagpdf Info: closing structure 556 tagged /semantic-para
+Package tagpdf Info: closing structure 553 tagged /semantic-para
+Package tagpdf Info: closing structure 552 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4756,9 +4721,8 @@ Package tagpdf Info: Checking Parent-Child 'latex:text-block' --> 'MC (real cont
 Package tagpdf Info: Parent-Child 'P' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 559 tagged /text-block
-Package tagpdf Info: closing structure 558 tagged /semantic-para
-[6]
+Package tagpdf Info: closing structure 555 tagged /text-block
+Package tagpdf Info: closing structure 554 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4769,13 +4733,13 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Span'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Span'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 560, semantic-para --> struct 561, text-fragment
+(tagpdf)                struct 556, semantic-para --> struct 557, text-fragment
 Package tagpdf Info: Checking Parent-Child 'latex:text-fragment' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 561 tagged /text-fragment
-Package tagpdf Info: closing structure 560 tagged /semantic-para
+Package tagpdf Info: closing structure 557 tagged /text-fragment
+Package tagpdf Info: closing structure 556 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4791,10 +4755,11 @@ Package tagpdf Info: Parent-Child 'Div' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Div' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 563, /text-parbox 
+(tagpdf)                struct 559, /text-parbox 
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 563 tagged /text-parbox
-Package tagpdf Info: closing structure 562 tagged /semantic-para
+Package tagpdf Info: closing structure 559 tagged /text-parbox
+Package tagpdf Info: closing structure 558 tagged /semantic-para
+[6]
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4810,10 +4775,10 @@ Package tagpdf Info: Parent-Child 'Div' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Div' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 565, /text-minipage 
+(tagpdf)                struct 561, /text-minipage 
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 565 tagged /text-minipage
-Package tagpdf Info: closing structure 564 tagged /semantic-para
+Package tagpdf Info: closing structure 561 tagged /text-minipage
+Package tagpdf Info: closing structure 560 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4824,13 +4789,13 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Span'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Span'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 566, semantic-para --> struct 567, heading-parbox
+(tagpdf)                struct 562, semantic-para --> struct 563, heading-parbox
 Package tagpdf Info: Checking Parent-Child 'latex:heading-parbox' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 567 tagged /heading-parbox
-Package tagpdf Info: closing structure 566 tagged /semantic-para
+Package tagpdf Info: closing structure 563 tagged /heading-parbox
+Package tagpdf Info: closing structure 562 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4841,13 +4806,13 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Span'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Span'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 568, semantic-para --> struct 569, heading-minipage
+(tagpdf)                struct 564, semantic-para --> struct 565, heading-minipage
 Package tagpdf Info: Checking Parent-Child 'latex:heading-minipage' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 569 tagged /heading-minipage
-Package tagpdf Info: closing structure 568 tagged /semantic-para
+Package tagpdf Info: closing structure 565 tagged /heading-minipage
+Package tagpdf Info: closing structure 564 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4860,13 +4825,13 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Lbl'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Lbl'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 570, semantic-para --> struct 571, heading-number
+(tagpdf)                struct 566, semantic-para --> struct 567, heading-number
 Package tagpdf Info: Checking Parent-Child 'latex:heading-number' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Lbl' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 571 tagged /heading-number
-Package tagpdf Info: closing structure 570 tagged /semantic-para
+Package tagpdf Info: closing structure 567 tagged /heading-number
+Package tagpdf Info: closing structure 566 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4877,13 +4842,13 @@ Package tagpdf Info: Parent-Child 'Part' --> 'Span'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Span'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 572, semantic-para --> struct 573, heading-fragment
+(tagpdf)                struct 568, semantic-para --> struct 569, heading-fragment
 Package tagpdf Info: Checking Parent-Child 'latex:heading-fragment' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Span' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 573 tagged /heading-fragment
-Package tagpdf Info: closing structure 572 tagged /semantic-para
+Package tagpdf Info: closing structure 569 tagged /heading-fragment
+Package tagpdf Info: closing structure 568 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4899,10 +4864,10 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 575, /theorem-like 
+(tagpdf)                struct 571, /theorem-like 
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 575 tagged /theorem-like
-Package tagpdf Info: closing structure 574 tagged /semantic-para
+Package tagpdf Info: closing structure 571 tagged /theorem-like
+Package tagpdf Info: closing structure 570 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4915,13 +4880,13 @@ Package tagpdf Info: Parent-Child 'Document' --> 'Sub'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Document' --> 'pdf2:Sub'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 576, semantic-para --> struct 577, codeline
+(tagpdf)                struct 572, semantic-para --> struct 573, codeline
 Package tagpdf Info: Checking Parent-Child 'latex:codeline' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Sub' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 577 tagged /codeline
-Package tagpdf Info: closing structure 576 tagged /semantic-para
+Package tagpdf Info: closing structure 573 tagged /codeline
+Package tagpdf Info: closing structure 572 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4936,8 +4901,8 @@ Package tagpdf Info: Checking Parent-Child 'latex:float' --> 'MC (real content)'
 Package tagpdf Info: Parent-Child 'Aside' --> 'MC'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 579 tagged /float
-Package tagpdf Info: closing structure 578 tagged /semantic-para
+Package tagpdf Info: closing structure 575 tagged /float
+Package tagpdf Info: closing structure 574 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4953,10 +4918,10 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 581, /figures 
+(tagpdf)                struct 577, /figures 
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 581 tagged /figures
-Package tagpdf Info: closing structure 580 tagged /semantic-para
+Package tagpdf Info: closing structure 577 tagged /figures
+Package tagpdf Info: closing structure 576 tagged /semantic-para
 ==> @endpe=false on input line ...
 Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:semantic-para'
 Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
@@ -4972,15 +4937,15 @@ Package tagpdf Info: Parent-Child 'Sect' --> 'MC'.
 (tagpdf)             Relation is -1 (='∅') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'MC (realcontent)'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 583, /tables 
+(tagpdf)                struct 579, /tables 
 ==> increment /P on input line ...
-Package tagpdf Info: closing structure 583 tagged /tables
-Package tagpdf Info: closing structure 582 tagged /semantic-para
+Package tagpdf Info: closing structure 579 tagged /tables
+Package tagpdf Info: closing structure 578 tagged /semantic-para
 [7]<<latex-list-css.html>><<latex-align-css.html>> (mc-parent-child.aux)
 Package tagpdf Info: closing structure 2 tagged /Document
 Package tagpdf Info: Finalizing the tagging structure:
-(tagpdf)             Writing out ~583 structure objects
-(tagpdf)             with ~303 'MC' leaf nodes.
+(tagpdf)             Writing out ~579 structure objects
+(tagpdf)             with ~301 'MC' leaf nodes.
 (tagpdf)             Be patient if there are lots of objects!
 Package tagpdf Info: writing ParentTree
 Package tagpdf Info: writing IDTree

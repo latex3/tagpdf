@@ -1,0 +1,153 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:P'
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+The property list \g__tag_struct_6_prop contains the pairs (without outer braces):
+>  {Type}  =>  {/StructElem}
+>  {A}  =>  {[ 26 0 R 27 0 R 28 0 R 29 0 R]}
+>  {S}  =>  {/P}
+>  {NS}  =>  {11 0 R }
+>  {tag}  =>  {{P}{pdf2}}
+>  {rolemap}  =>  {{P}{pdf2}}
+>  {parentrole}  =>  {{P}{pdf2}}
+>  {parentnum}  =>  {2}.
+tagpdf: lua property table g__tag_struct_6_prop
+tagpdf: [A] => [ 26 0 R 27 0 R 28 0 R 29 0 R]
+tagpdf: [NS] => 11 0 R 
+tagpdf: [S] => /P
+tagpdf: [Type] => /StructElem
+tagpdf: [parentnum] => 2
+tagpdf: [parentrole] => {P}{pdf2}
+tagpdf: [rolemap] => {P}{pdf2}
+tagpdf: [tag] => {P}{pdf2}
+Package tagpdf Info: closing structure 6 tagged /P
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:P'
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+The property list \g__tag_struct_7_prop contains the pairs (without outer braces):
+>  {Type}  =>  {/StructElem}
+>  {A}  =>  {[ 26 0 R 27 0 R]}
+>  {S}  =>  {/P}
+>  {NS}  =>  {11 0 R }
+>  {tag}  =>  {{P}{pdf2}}
+>  {rolemap}  =>  {{P}{pdf2}}
+>  {parentrole}  =>  {{P}{pdf2}}
+>  {parentnum}  =>  {2}.
+tagpdf: lua property table g__tag_struct_7_prop
+tagpdf: [A] => [ 26 0 R 27 0 R]
+tagpdf: [NS] => 11 0 R 
+tagpdf: [S] => /P
+tagpdf: [Type] => /StructElem
+tagpdf: [parentnum] => 2
+tagpdf: [parentrole] => {P}{pdf2}
+tagpdf: [rolemap] => {P}{pdf2}
+tagpdf: [tag] => {P}{pdf2}
+Package tagpdf Info: closing structure 7 tagged /P
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'pdf2:P'
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+The property list \g__tag_struct_8_prop contains the pairs (without outer braces):
+>  {Type}  =>  {/StructElem}
+>  {A}  =>  {[34 0 R 35 0 R]}
+>  {S}  =>  {/P}
+>  {NS}  =>  {11 0 R }
+>  {tag}  =>  {{P}{pdf2}}
+>  {rolemap}  =>  {{P}{pdf2}}
+>  {parentrole}  =>  {{P}{pdf2}}
+>  {parentnum}  =>  {2}.
+tagpdf: lua property table g__tag_struct_8_prop
+tagpdf: [A] => [34 0 R 35 0 R]
+tagpdf: [NS] => 11 0 R 
+tagpdf: [S] => /P
+tagpdf: [Type] => /StructElem
+tagpdf: [parentnum] => 2
+tagpdf: [parentrole] => {P}{pdf2}
+tagpdf: [rolemap] => {P}{pdf2}
+tagpdf: [tag] => {P}{pdf2}
+Package tagpdf Info: closing structure 8 tagged /P
+==> @endpe=false on input line ...
+Package tagpdf Info: Checking Parent-Child 'pdf2:Document' --> 'latex:text-unit'
+Package tagpdf Info: Parent-Child 'Document' --> 'Part'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+==> increment P on input line ...
+Package tagpdf Info: Checking Parent-Child 'latex:text-unit' --> 'latex:text'
+Package tagpdf Info: Parent-Child 'Part' --> 'P'.
+(tagpdf)             Relation is 7 (='‡') on line ...
+Package tagpdf Info: Parent-Child 'Document' --> 'P'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+Package tagpdf Info: Checking Parent-Child 'latex:text' --> 'MC (real content)'
+Package tagpdf Info: Parent-Child 'P' --> 'MC'.
+(tagpdf)             Relation is 1 (='0..n') on line ...
+============================================================
+TEST 1: Show PDF Tags
+============================================================
+-------- attributes.xml (start) ---------
+<PDF>
+ <StructTreeRoot>
+  <Document xmlns="http://iso.org/pdf2/ssn"
+     id="ID.002"
+    >
+   <P xmlns="http://iso.org/pdf2/ssn"
+      id="ID.006"
+      xmlns:ABC="http://iso.org/pdf/ssn/ABC"
+      xmlns:Layout="http://iso.org/pdf/ssn/Layout"
+      Layout:TextAlign="Justify"
+      xmlns:PX="http://iso.org/pdf/ssn/PX"
+      xmlns:Table="http://iso.org/pdf/ssn/Table"
+      Table:Scope="Column"
+     >
+   </P>
+   <P xmlns="http://iso.org/pdf2/ssn"
+      id="ID.007"
+      xmlns:Layout="http://iso.org/pdf/ssn/Layout"
+      Layout:TextAlign="Justify"
+      xmlns:Table="http://iso.org/pdf/ssn/Table"
+      Table:Scope="Column"
+     >
+   </P>
+   <P xmlns="http://iso.org/pdf2/ssn"
+      id="ID.008"
+      xmlns:ABC="http://iso.org/pdf/ssn/ABC"
+      xmlns:PX="http://iso.org/pdf/ssn/PX"
+     >
+   </P>
+   <text-unit xmlns="https://www.latex-project.org/ns/dflt"
+      id="ID.009"
+      rolemaps-to="Part"
+     >
+    <text xmlns="https://www.latex-project.org/ns/dflt"
+       id="ID.010"
+       xmlns:Layout="http://iso.org/pdf/ssn/Layout"
+       Layout:TextAlign="Justify"
+       rolemaps-to="P"
+      >
+     <?MarkedContent page="1" ?>some text
+    </text>
+   </text-unit>
+  </Document>
+ </StructTreeRoot>
+</PDF>
+-------- attributes.xml (end) -----------
+============================================================
+==> increment /P on input line ...
+Package tagpdf Info: closing structure 10 tagged /text
+Package tagpdf Info: closing structure 9 tagged /text-unit
+[1
+]<<latex-list-css.html>><<latex-align-css.html>> (attributes.aux)
+Package tagpdf Info: closing structure 2 tagged /Document
+Package tagpdf Info: Finalizing the tagging structure:
+(tagpdf)             Writing out ~10 structure objects
+(tagpdf)             with ~3 'MC' leaf nodes.
+(tagpdf)             Be patient if there are lots of objects!
+Package tagpdf Info: writing ParentTree
+Package tagpdf Info: writing IDTree
+Package tagpdf Info: writing RoleMap
+Package tagpdf Info: writing ClassMap
+Package tagpdf Info: writing NameSpaces
+Package tagpdf Info: writing StructElems
+Package tagpdf Info: writing Root
+***************
+Compilation 1 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 0
+Compilation 3 of test file completed with exit status 0
