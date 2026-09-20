@@ -19,6 +19,9 @@
 
 \tag_if_tag_known:nnTF {body}{html2}{\TYPE{TRUE}}{\TYPE{OK!FALSE}}
 
+\tl_set:Nn\l_tmpa_tl{pdf2}
+\tag_if_tag_known:eeTF {\UseStructureName{sec/0}}{\l_tmpa_tl}{\TYPE{OK!TRUE}}{\TYPE{FALSE}}
+
 \ExplSyntaxOff
 \OMIT
 blub
