@@ -10,6 +10,7 @@ this project uses date-based 'snapshot' version identifiers.
 ### Added 
   - structure key `attribute*`, `attribute-unnamed`, `attribute-unnamed*`
   - \tag_if_tag_known:nn
+  - added role/new-NS
   
 ### Changed
   - `attribute` key now can be used more than once and then appends attributes.
