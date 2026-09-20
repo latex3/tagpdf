@@ -13,7 +13,8 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed
   - `attribute` key now can be used more than once and then appends attributes.
   
-      
+  - `\pdffakespace` in lualatex does nothing when used in vertical mode, issue #137
+        
 ## [2026-08-21]
 
 ### Added

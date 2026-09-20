@@ -741,13 +741,14 @@
 % \subsection{Fake space}
 % \begin{macro}{\pdffakespace}
 % We need a luatex variant for |\pdffakespace|. This should probably go into
-% the kernel at some time. We also provide a no-op version for dvi mode
+% the kernel at some time. We also provide a no-op version for dvi mode.
+% The command does nothing in vertical mode. 
 %    \begin{macrocode}
 \bool_if:NT \g_@@_mode_lua_bool
   {
     \NewDocumentCommand\pdffakespace { }
      {
-       \@@_fakespace:
+       \mode_if_vertical:F {\@@_fakespace:}
      }
   }
 \providecommand\pdffakespace{}
