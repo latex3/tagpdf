@@ -1,0 +1,25 @@
+\DocumentMetadata{tagging=on,debug={log=v}}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START
+\ExplSyntaxOn
+\__tag_role_NS_new:nnn {html}{http://www.w3.org/1999/xhtml}{}
+\tagpdfsetup{
+  role/new-tag={tag=body, role=Document, tag-namespace=html}}
+
+\tag_if_tag_known:nTF {Span}{\TYPE{OK!TRUE}}{\TYPE{FALSE}}
+
+\tag_if_tag_known:nTF {SpanX}{\TYPE{TRUE}}{\TYPE{OK!FALSE}}
+
+
+\tag_if_tag_known:nnTF {body}{html}{\TYPE{OK!TRUE}}{\TYPE{FALSE}}
+
+\tag_if_tag_known:nnTF {BODY}{html}{\TYPE{TRUE}}{\TYPE{OK!FALSE}}
+
+\tag_if_tag_known:nnTF {body}{html2}{\TYPE{TRUE}}{\TYPE{OK!FALSE}}
+
+\ExplSyntaxOff
+\OMIT
+blub
+\end{document}

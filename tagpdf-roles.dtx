@@ -98,6 +98,16 @@
 %  \end{syntax}
 % Check if a specified structure tag has been declared in the current document.
 % \end{function}
+% \begin{function}[TF]{\tag_if_tag_known:nn}
+%  \begin{syntax}
+%   \cs{tag_if_tag_known:nTF} \Arg{tag} \Arg{name space}\Arg{true code} \Arg{false code}
+%  \end{syntax}
+% Check if a specified structure tag \meta{tag} has been declared in the current document
+% in name space \Arg{name space}. In PDF 2.0 it is true if the name space exists and the tag
+% in the name space, in PDF 1.7 it only tests if the tag exists at all, the name space argument
+% is ignored.  
+% \end{function}
+
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -1405,8 +1415,38 @@
   {
     \prop_get:NnNTF\g_@@_role_tags_NS_prop{#1}\l_@@_tmp_unused_tl { \prg_return_true: } { \prg_return_false: }
   }
-%</package>
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}[TF]{\tag_if_tag_known:nn}
+% This tests if a tag exists in a names space. This only makes sense for
+% PDF 2.0, in 1.7 it falls back to \cs{\tag_if_tag_known:n}
+%    \begin{macrocode}
+\pdf_version_compare:NnTF < {2.0}
+ {
+   \prg_new_protected_conditional:Nnn \tag_if_tag_known:nn { T, F, TF }
+    {
+      \tag_if_tag_known:nTF {#1}{ \prg_return_true: } { \prg_return_false: }
+    }
+ }
+ {
+   \prg_new_protected_conditional:Nnn \tag_if_tag_known:nn { T, F, TF }
+     {
+       \prop_if_exist:cTF { g_@@_role_NS_#2_prop }
+        {
+          \prop_get:cnNTF { g_@@_role_NS_#2_prop } {#1}\l_@@_tmp_unused_tl
+           { \prg_return_true: } 
+           { \prg_return_false: }
+        }
+        {
+          \prg_return_false:
+        }
+     }
+  }   
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
 % \end{implementation}
 % \PrintIndex
