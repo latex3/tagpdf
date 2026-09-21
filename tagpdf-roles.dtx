@@ -107,6 +107,12 @@
 % in the name space, in PDF 1.7 it only tests if the tag exists at all, the name space argument
 % is ignored.  
 % \end{function}
+% \begin{function}[TF]{\tag_if_NS_known:n}
+%  \begin{syntax}
+%   \cs{tag_if_NS_known:nTF} \Arg{NS} \Arg{true code} \Arg{false code}
+%  \end{syntax}
+% Check if the name space has \meta{NS} been declared in the current document. 
+% \end{function}
 %
 % \begin{function}{\tag_set_split:NNn,\tag_set_split:NNe,\tag_gset_split:NNn,\tag_gset_split:NNe}
 % \begin{syntax}
@@ -1489,6 +1495,15 @@
      }
   }
 \prg_generate_conditional_variant:Nnn \tag_if_tag_known:nn {ee}{T, F, TF}      
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}[TF]{\tag_if_NS_known:n}
+%    \begin{macrocode}
+\prg_new_protected_conditional:Nnn \tag_if_NS_known:n { T, F, TF }
+  {
+    \prop_if_exist:cTF {g__tag_role_NS_#1_prop } { \prg_return_true: } { \prg_return_false: }
+  }
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}

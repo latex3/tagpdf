@@ -12,6 +12,7 @@ this project uses date-based 'snapshot' version identifiers.
   - \tag_if_tag_known:nn
   - added role/new-NS
   - \tag_set_split:NNn, \tag_gset_split:NNn to split up tag/NS pairs faster.
+  - \tag_if_NS_known:n
   
 ### Changed
   - `attribute` key now can be used more than once and then appends attributes.
