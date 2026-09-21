@@ -1560,15 +1560,17 @@
  {
    \prop_get:NeNTF \g__tag_role_tags_NS_prop {#1} \l_@@_tmp_unused_tl
     {
-      \seq_set_split:Nne \l_@@_tmpa_seq { / }
+      \tag_gset_split:NNe  
+        \g_@@_struct_tag_tl 
+        \g_@@_struct_tag_NS_tl 
         {#1/\l_@@_tmp_unused_tl}
     }
     {
-      \seq_set_split:Nne \l_@@_tmpa_seq { / }
-        {#1/}
+      \tag_gset_split:NNe  
+        \g_@@_struct_tag_tl 
+        \g_@@_struct_tag_NS_tl 
+        {#1}
     }
-   \tl_gset:Ne \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
-   \tl_gset:Ne \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }
    \@@_check_structure_tag:N \g_@@_struct_tag_tl
  }
 
@@ -1576,15 +1578,19 @@
  {
    \prop_get:NeNTF \g__tag_role_tags_NS_prop {#1} \l_@@_tmp_unused_tl
      {
-      \seq_set_split:Nne \l_@@_tmpa_seq { / }
+      \tag_gset_split:NNe  
+        \g_@@_struct_tag_tl 
+        \g_@@_struct_tag_NS_tl 
         {#1/\l_@@_tmp_unused_tl}
      }
      {
-       \seq_set_split:Nne \l_@@_tmpa_seq { / }
-         {#1/}
+       \tag_gset_split:NNe  
+        \g_@@_struct_tag_tl 
+        \g_@@_struct_tag_NS_tl 
+        {#1/\l_@@_tmp_unused_tl}
      }
-   \tl_gset:Ne \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
-   \tl_gset:Ne \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }
+   %\tl_gset:Ne \g_@@_struct_tag_tl   { \seq_item:Nn\l_@@_tmpa_seq {1} }
+   %\tl_gset:Ne \g_@@_struct_tag_NS_tl{ \seq_item:Nn\l_@@_tmpa_seq {2} }
    \@@_role_get:ooNN
      { \g_@@_struct_tag_tl }
      { \g_@@_struct_tag_NS_tl}
@@ -1642,6 +1648,10 @@
           }
       },
     parent .default:n    = {-1},
+%    \end{macrocode}
+% this allows to change the tag of a parent if a structure is stashed (and so 
+% doesn't know its parent) so that the check doesn't give a warning. 
+%    \begin{macrocode}
     parent-tag .code:n =
      {
         \prop_get:NeNTF \g__tag_role_tags_NS_prop {#1} \l_@@_tmp_unused_tl

@@ -11,6 +11,7 @@ this project uses date-based 'snapshot' version identifiers.
   - structure key `attribute*`, `attribute-unnamed`, `attribute-unnamed*`
   - \tag_if_tag_known:nn
   - added role/new-NS
+  - \tag_set_split:NNn, \tag_gset_split:NNn to split up tag/NS pairs faster.
   
 ### Changed
   - `attribute` key now can be used more than once and then appends attributes.
