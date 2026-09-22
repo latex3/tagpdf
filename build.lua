@@ -1,6 +1,6 @@
 -- Build script for tagpdf
-packageversion="1.0e"
-packagedate="2026-08-21"
+packageversion="1.0f"
+packagedate="2026-09-21"
 
 module   = "tagpdf"
 ctanpkg  = "tagpdf"
@@ -146,6 +146,7 @@ elseif string.match (file, "%.sty$" ) then
 docfiles = {"tagpdf.tex",
             "tagpdf-code.tex",
             "tagpdfdocu-patches.sty",
+            "tagpdfdocu-listings-support.ltx",
             "tagpdfsetup-keys.tex",
             "tagpdf-docelements.tex",
             "tagpdf.bib",

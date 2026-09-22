@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0e, released 2026-08-21}
+% \date{Version 1.0f, released 2026-09-21}
 % \maketitle
 % \begin{documentation}
 % \section{Setup commands}
@@ -309,7 +309,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-user} {2026-08-21} {1.0e}
+\ProvidesExplPackage {tagpdf-user} {2026-09-21} {1.0f}
   {tagpdf - user commands}
 %</header>
 %    \end{macrocode}
@@ -741,13 +741,14 @@
 % \subsection{Fake space}
 % \begin{macro}{\pdffakespace}
 % We need a luatex variant for |\pdffakespace|. This should probably go into
-% the kernel at some time. We also provide a no-op version for dvi mode
+% the kernel at some time. We also provide a no-op version for dvi mode.
+% The command does nothing in vertical mode. 
 %    \begin{macrocode}
 \bool_if:NT \g_@@_mode_lua_bool
   {
     \NewDocumentCommand\pdffakespace { }
      {
-       \@@_fakespace:
+       \mode_if_vertical:F {\@@_fakespace:}
      }
   }
 \providecommand\pdffakespace{}
@@ -953,7 +954,7 @@
   {
     paratagging      .bool_set:N = \l_@@_para_bool,
     paratagging-show .bool_set:N = \l_@@_para_show_bool,
-    paratag          .tl_set:N   = \l_@@_para_tag_tl
+    paratag          .meta:n   = {para/tag=#1}
   }
 %    \end{macrocode}
 % \end{macro}

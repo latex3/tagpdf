@@ -8,11 +8,11 @@
 %\def\lst@outputspace{\pdffakespace\ } %not so good
 % this here works fine with luatex, if the font has a space glyph:
 % the pdf then has four space glyphs. But this doesn't mean that they get copied&pasted!
-\def\lst@visiblespace{\lst@ttfamily{\char32}{\char32}}
+\IfFileExists{latex-lab-listings.sty}{}{\def\lst@visiblespace{\lst@ttfamily{\char32}{\char32}}}
 % with pdftex this could work
 %\def\lst@visiblespace{\lst@ttfamily{\pdffakespace\ }{\pdffakespace\ }}
 \begin{document}\pagestyle{empty}
-\tagpdfparaOff
+\IfFileExists{latex-lab-listings.sty}{}{\tagpdfparaOff}
 
 \begin{lstlisting}[showspaces]
 aaa aaa    xxxx

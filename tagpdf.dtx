@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0e, released 2026-08-21}
+% \date{Version 1.0f, released 2026-09-21}
 % \maketitle%
 %
 % \begin{documentation}
@@ -190,7 +190,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*package>
-\ProvidesExplPackage {tagpdf} {2026-08-21} {1.0e}
+\ProvidesExplPackage {tagpdf} {2026-09-21} {1.0f}
   { LaTeX kernel code for PDF tagging }
 
 \IfPDFManagementActiveF
@@ -210,7 +210,7 @@
 %    \end{macrocode}
 %<*debug>
 %    \begin{macrocode}
-\ProvidesExplPackage {tagpdf-debug} {2026-08-21} {1.0e}
+\ProvidesExplPackage {tagpdf-debug} {2026-09-21} {1.0f}
   { debug code for tagpdf }
 \@ifpackageloaded{tagpdf}{}{\PackageWarning{tagpdf-debug}{tagpdf~not~loaded,~quitting}\endinput}
 %    \end{macrocode}
@@ -233,7 +233,7 @@
 % we define a base package with dummy functions
 %    \begin{macrocode}
 %<*base>
-\ProvidesExplPackage {tagpdf-base} {2026-08-21} {1.0e}
+\ProvidesExplPackage {tagpdf-base} {2026-09-21} {1.0f}
   {part of tagpdf - provide base, no-op versions of the user commands }
 %</base>
 %    \end{macrocode}
@@ -521,6 +521,7 @@
 %    ,\@@_prop_item:cn
 %    ,\@@_seq_show:N
 %    ,\@@_prop_show:N
+%    ,\@@_prop_remove:cn
 %  }
 %    \begin{macrocode}
 \cs_set_eq:NN \@@_prop_new:N        \prop_new:N
@@ -533,6 +534,7 @@
 \cs_set_eq:NN \@@_prop_item:cn      \prop_item:cn
 \cs_set_eq:NN \@@_seq_show:N        \seq_show:N
 \cs_set_eq:NN \@@_prop_show:N       \prop_show:N
+\cs_set_eq:NN \@@_prop_gremove:cn   \prop_gremove:cn
 % cnx temporary needed for latex-lab-graphic code
 \cs_generate_variant:Nn \@@_prop_gput:Nnn      { Nen, Nee, Nne, Nno, cnn, cen, cne, cno}
 \cs_generate_variant:Nn \@@_seq_gput_right:Nn  { Ne  , No, cn, ce }

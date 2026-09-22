@@ -1,0 +1,31 @@
+\DocumentMetadata{tagging=on,debug={log=v}}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START
+\newcommand\blub{/O/ABC}
+\tagstructbegin
+ {tag=P,attribute=justify,attribute=TH-col,attribute-unnamed={/O/PX},attribute-unnamed:o=\blub}
+\ExplSyntaxOn
+\exp_args:Nc\__tag_prop_log:N {g__tag_struct_\tag_get:n{struct_num}_prop }
+\ExplSyntaxOff
+\tagstructend
+
+\tagstructbegin
+ {tag=P,attribute-unnamed*={/O/PX},attribute-unnamed:o=\blub,attribute*=justify,attribute=TH-col}
+\ExplSyntaxOn
+\exp_args:Nc\__tag_prop_log:N {g__tag_struct_\tag_get:n{struct_num}_prop }
+\ExplSyntaxOff
+\tagstructend
+
+
+\tagstructbegin
+ {tag=P,attribute=justify,attribute=TH-col,attribute-unnamed*={/O/PX},attribute-unnamed:o=\blub}
+\ExplSyntaxOn
+\exp_args:Nc\__tag_prop_log:N {g__tag_struct_\tag_get:n{struct_num}_prop }
+\ExplSyntaxOff
+\tagstructend
+
+some text
+\SHOWPDFTAGS
+\end{document}

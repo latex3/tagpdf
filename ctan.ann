@@ -1,16 +1,12 @@
-## [2026-08-21]
-Version 1.0e
-
-### Added
-A number of public wrappers around internal functions have been added:
-  - \tag_struct_recordtarget:
-  - \tag_if_tag_known:n 
-  - key role/new-attribute*
-  - \tag_struct_map_function:N
-  - \tag_get:nN (with keywords struct_tag and struct_num)
-  - \tag_get:nnN (with keyword struct_C)
-  - \tag_if_struct_exist:nTF
-  - \tag_attr_new:nn
- 
+## [2026-09-21]
+Version 1.0f
+### Added 
+  - structure key `attribute*`, `attribute-unnamed`, `attribute-unnamed*`
+  - \tag_if_tag_known:nn
+  - added role/new-NS
+  - \tag_set_split:NNn, \tag_gset_split:NNn to split up tag/NS pairs faster.
+  - \tag_if_NS_known:n
+  
 ### Changed
- - adapted para-count message to new names in latex-dev  
+  - `attribute` key now can be used more than once and then appends attributes.  
+  - `\pdffakespace` in lualatex does nothing when used in vertical mode, issue #137

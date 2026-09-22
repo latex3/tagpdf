@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0e, released 2026-08-21}
+% \date{Version 1.0f, released 2026-09-21}
 % \maketitle
 % \begin{documentation}
 % This files contains a various data files which are read in
@@ -55,44 +55,16 @@
 % \end{documentation}
 % \begin{implementation}
 % \section{The LaTeX namespace}
-% This is the main new namespace. It is bound to change a lot!
-% It lists the new tag, the rolemap and the namespace of the rolemap.
-% latex-lab has also a namespace module, which takes precedence!
-%    \begin{macrocode}
-%<*ns-latex>
-%% \ProvidesExplFile {tagpdf-ns-latex.def} {2026-08-21} {1.0e}
-%% {latex} {https://www.latex-project.org/ns/dflt}{}
-title,        Title,    pdf2,
-part,         Title,    pdf2,
-section,      H1,       pdf2, 
-subsection,   H2,       pdf2,
-subsubsection,H3,       pdf2,
-paragraph,    H4,       pdf2, 
-subparagraph, H5,       pdf2,
-list,         L,        pdf2,
-itemize,      L,        pdf2,
-enumerate,    L,        pdf2,
-description,  L,        pdf2,
-quote,        BlockQuote,pdf,
-quotation,    BlockQuote,pdf,
-verbatim,     Div,      pdf2, 
-item,         LI,       pdf2,
-itemlabel,    Lbl,      pdf2,
-itembody,     LBody,    pdf2,
-footnote,     FENote,   pdf2,
-footnotemark, Lbl,      pdf2,
-footnotelabel,Lbl,      pdf2,
-text-unit,    Part,     pdf2,
-text,         P,        pdf2,
-%</ns-latex>
-%    \end{macrocode}
+% The \LaTeX{} namespace is now maintained in latex-lab.
+%
 % \section{The LaTeX-book namespace}
 % This changes the rolemapping of some tags for heading with
 % to values more suitable in book classes. 
-% It is bound to change
+% It is only loaded as long a latex-lab does not provide
+% tagpdf-ns-latex-lab-book.def.
 %    \begin{macrocode}
 %<*ns-latex-book>
-%% \ProvidesExplFile {tagpdf-ns-latex-book.def} {2026-08-21} {1.0e}
+%% \ProvidesExplFile {tagpdf-ns-latex-book.def} {2026-09-21} {1.0f}
 %% {latex-book} {https://www.latex-project.org/ns/book}{}
 chapter,       H1,pdf2,
 section,       H2,pdf2,
@@ -106,7 +78,7 @@ subparagraph,  H6,pdf2,
 % \section{The pdf namespace data}
 %    \begin{macrocode}
 %<*ns-pdf>
-%% \ProvidesExplFile {tagpdf-ns-pdf.def} {2026-08-21} {1.0e}
+%% \ProvidesExplFile {tagpdf-ns-pdf.def} {2026-09-21} {1.0f}
 %%  {pdf}   {http://iso.org/pdf/ssn}{}
 StructTreeRoot,StructTreeRoot,pdf,D,
 Document,Document,pdf,D,   
@@ -174,7 +146,7 @@ Strong,Span,pdf,I,
 % \section{The pdf 2.0 namespace data}
 %    \begin{macrocode}
 %<*ns-pdf2>
-%% \ProvidesExplFile {tagpdf-ns-pdf2.def} {2026-08-21} {1.0e} 
+%% \ProvidesExplFile {tagpdf-ns-pdf2.def} {2026-09-21} {1.0f} 
 %%  {pdf2}  {http://iso.org/pdf2/ssn}{}
 StructTreeRoot,StructTreeRoot,pdf2,D,
 Document,Document,pdf2,D,   
@@ -231,7 +203,7 @@ Strong,Strong,pdf2,I,
 % \section{The mathml namespace data}
 %    \begin{macrocode}
 %<*ns-mathml>
-%% \ProvidesExplFile {tagpdf-ns-mathml.def} {2026-08-21} {1.0e}
+%% \ProvidesExplFile {tagpdf-ns-mathml.def} {2026-09-21} {1.0f}
 % {mathml}{http://www.w3.org/1998/Math/MathML}{}
 abs,abs,mathml,
 and,and,mathml,
@@ -467,7 +439,7 @@ xor,xor,mathml,
 % This will perhaps change in future.
 %    \begin{macrocode}
 %<*parent-child>
-%% \ProvidesExplFile {tagpdf-parent-child.csv} {2026-08-21} {1.0e}
+%% \ProvidesExplFile {tagpdf-parent-child.csv} {2026-09-21} {1.0f}
 ,,,StructTreeRoot,Document,Art,Part,Div,Sect,BlockQuote,NonStruct,TOC,TOCI,Index,Private,Quote,Note,Reference,BibEntry,P,Hn,H,Lbl,Code,Span,Link,Annot,Form,Ruby,RB,RT,RP,Warichu,WT,WP,L,LI,LBody,Table,TR,TH,TD,THead,TBody,TFoot,Caption,Figure,Formula,MC
 Document,both,document level,1,0..n,∅,‡,‡,∅,0..n,‡,∅,∅,∅,0..n,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅
 Art,1.7,grouping,∅,0..n,∅,‡,‡,0..n,0..n,‡,∅,∅,∅,0..n,∅,0..n,∅,∅,∅,0..1,0..1,∅,0..n,∅,0..n,0..n,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,0..n,∅,∅,0..n,0..n,∅,∅,∅,0..n,0..n,∅,∅
@@ -522,7 +494,7 @@ MC,both,---,∅,∅,∅,∅,∅,∅,0..n,‡,∅,∅,∅,0..n,0..n,0..n,0..n,0..
 % This will perhaps change in future.
 %    \begin{macrocode}
 %<*parent-child-2>
-%% \ProvidesExplFile {tagpdf-parent-child-2.csv} {2026-08-21} {1.0e}
+%% \ProvidesExplFile {tagpdf-parent-child-2.csv} {2026-09-21} {1.0f}
 ,,,StructTreeRoot,Document,DocumentFragment,Art,Part,Div,Sect,Aside,BlockQuote,NonStruct,TOC,TOCI,Index,Private,Title,Sub,Quote,Note,Reference,BibEntry,P,Hn,H,Lbl,Code,Em,Strong,Span,Link,Annot,Form,Ruby,RB,RT,RP,Warichu,WT,WP,FENote,L,LI,LBody,Table,TR,TH,TD,THead,TBody,TFoot,Caption,Figure,Formula,math,mathml,mtext,Artifact,MC
 Document,both,document level,1,0..n,0..n,∅,‡,‡,∅,0..n,0..n,‡,∅,∅,∅,0..n,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,0..n,∅
 DocumentFragment,2.0,document level,∅,0..n,0..n,0..n,‡,‡,0..n,0..n,0..n,‡,∅,∅,∅,0..n,∅,∅,∅,0..n,0..n,∅,∅,∅,∅,∅,0..n,∅,∅,∅,0..n,0..n,∅,∅,∅,∅,∅,∅,∅,∅,0..n,∅,∅,∅,∅,∅,∅,∅,∅,∅,∅,0..n,∅,∅,∅,∅,∅,0..n,∅
