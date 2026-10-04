@@ -1,0 +1,16 @@
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+\usepackage{hyperref}
+\begin{document}
+\START
+a link to 
+\ExplSyntaxOn
+\hrefurl{https://www.blub.de}{%
+\tag_struct_gput:nnn{\tag_get:n{struct_num}}{alt}{an~alternative~text} 
+\tag_struct_gput:nnn{\tag_get:n{struct_num}}{title}{a~title} 
+more~text}
+\ExplSyntaxOff 
+
+\SHOWPDFTAGS
+\end{document} 

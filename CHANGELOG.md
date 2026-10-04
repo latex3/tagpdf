@@ -5,6 +5,11 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [Unreleased]
+
+### Added 
+ - keywords `alt` and `title` to `\tag_struct_gput:nnn`
+
 ## [2026-08-21]
 Version 1.0f
 

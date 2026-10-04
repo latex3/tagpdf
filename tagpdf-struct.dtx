@@ -2482,10 +2482,15 @@
 % adjusted to the key in question.
 % The first argument is the number of the structure,
 % the second a keyword referring to a function,
-% the third the value. Currently the existing keywords are mostly related
-% to the \texttt{Ref} key (an array).
+% the third the value. 
 % \begin{itemize}
 % \item The keyword \texttt{tag} updates the tag of a structure (the \texttt{S} entry).
+% \item The keyword \texttt{alt} \emph{replaces} the current value of \texttt{Alt}.
+% The argument is not purified, only converted to utf18/hex. If needed \cs{pdf_purify:nN} 
+% should be applied first.
+% \item The keyword \texttt{title} \emph{replaces} the current value of \texttt{T}.
+% The argument is not purified, only converted to utf18/hex. If needed \cs{pdf_purify:nN} 
+% should be applied first.
 % \item The keyword \texttt{C} \emph{replaces} the 
 %  attribute-class array. The argument should be a comma list of PDF names 
 %  \texttt{/TH-row,/justify}.
@@ -2624,6 +2629,38 @@
 \cs_new_protected:Npn \@@_struct_gput_data_tag:nn #1 #2
   {
     \__tag_struct_prop_gput:nne{#1}{S}{#2}
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% 
+% \begin{macro}{\@@_struct_gput_data_alt:nn}
+% This is used by |\tag_struct_gput:nnn| to update the Alt of a structure.
+%    \begin{macrocode}
+\cs_new_protected:Npn \__tag_struct_gput_data_alt:nn #1 #2
+  {
+    \str_set_convert:Nnnn
+          \l__tag_tmpa_str
+          { #2 }
+          { default }
+          { utf16/hex }
+    \__tag_struct_prop_gput:nne{#1}{Alt}{<\l__tag_tmpa_str>}
+  }
+%    \end{macrocode}
+% \end{macro}
+% 
+% 
+% \begin{macro}{\@@_struct_gput_data_title:nn}
+% This is used by |\tag_struct_gput:nnn| to update the title key of a structure.
+%    \begin{macrocode}
+\cs_new_protected:Npn \__tag_struct_gput_data_title:nn #1 #2
+  {
+    \str_set_convert:Nnnn
+          \l__tag_tmpa_str
+          { #2 }
+          { default }
+          { utf16/hex }
+    \__tag_struct_prop_gput:nne{#1}{T}{<\l__tag_tmpa_str>}
   }
 %    \end{macrocode}
 % \end{macro}

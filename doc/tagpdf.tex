@@ -1900,18 +1900,19 @@ structure already has a parent you will get a warning.
 
 \subsubsection{Updating structure keys}\label{sec:Refkey}
 
-In a number of cases structures must be updated later. Such updates often can not simply replace values but must extend them in special ways. For this a generic commands exists. Currently it supports updating the \texttt{/A} key (attributes) and the \texttt{Ref} key.
+In a number of cases structures must be updated later. Such updates often can not simply replace values but must extend them in special ways. For this a generic commands exists. Currently it supports updating the \texttt{/S} (tag), \texttt{/Alt}, \texttt{/T} (title), \texttt{/C} (attribute classes), \texttt{/A} key (attributes) and the \texttt{Ref} key.
  
 \begin{docCommands}
  {  
   {doc name=tag_struct_gput:nnn,doc parameter=\marg{structure number}\marg{keyword}\marg{value}},
  }\end{docCommands}
 
-The allowed \meta{keywords} are \texttt{ref}, \texttt{ref\_label} \texttt{ref\_dest}, 
+The allowed \meta{keywords} are \texttt{tag}, \texttt{alt}, \texttt{title},  \texttt{C}, \texttt{ref}, \texttt{ref\_label} \texttt{ref\_dest}, 
 \texttt{ref\_dest\_parent},\texttt{ref\_num} and \texttt{attribute}.
 
+The first four values \emph{replace} the relevant entries in the structure. 
  
-This command allows to add the value, the target structure of the \texttt{Ref} key, with four methods: directly as object reference (key word \texttt{ref}), through a label name set with the |label| key (key word \texttt{ref\_label}), through a destination name if a \cs{MakeLinkTarget} has been used in 
+The keywords related to the \texttt{/Ref} allow to \emph{extend} its value (\texttt{/Ref} is an array), with four methods: directly as object reference (key word \texttt{ref}), through a label name set with the |label| key (key word \texttt{ref\_label}), through a destination name if a \cs{MakeLinkTarget} has been used in 
 the target structure (key words \texttt{ref\_dest} and
 \texttt{ref\_dest\_parent})---this also works if \pkg{hyperref} has not been loaded---and through
 the structure number, which has been stored e.g. in a label.    
