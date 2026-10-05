@@ -44,13 +44,20 @@
  
 \TEST{Rolemapping:~Sect-section~allowed}
  {
-   \__tag_role_check_parent_child:nnnnN {Sect}{}{section}{}\l_tmpa_tl
+   \IfFormatAtLeastTF{2026-11-01}
+   {\__tag_role_check_parent_child:nnnnN {Sect}{}{section-heading}{}\l_tmpa_tl}
+   {\__tag_role_check_parent_child:nnnnN {Sect}{}{section}{}\l_tmpa_tl}
    \tl_log:N\l_tmpa_tl
  }   
  
 \TEST{Double~rolemapping:~subsection-section~no}
  {
-   \__tag_role_check_parent_child:nnnnN {subsection}{}{section}{}\l_tmpa_tl
+  
+   \IfFormatAtLeastTF{2026-11-01}
+   {\__tag_role_check_parent_child:nnnnN {subsection-heading}{}{section-heading}{}\l_tmpa_tl
+   }
+   {\__tag_role_check_parent_child:nnnnN {subsection}{}{section}{}\l_tmpa_tl}
+
    \tl_log:N\l_tmpa_tl
  }    
  

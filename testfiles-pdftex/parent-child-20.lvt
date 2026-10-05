@@ -51,13 +51,18 @@
  
 \TEST{Rolemapping:~Sect-section~allowed}
  {
-   \__tag_role_check_parent_child:nnnnN {Sect}{pdf2}{section}{latex}\l_tmpa_tl
+   \IfFormatAtLeastTF{2026-11-01}
+   {\__tag_role_check_parent_child:nnnnN {Sect}{pdf2}{section-heading}{latex}\l_tmpa_tl}
+   {\__tag_role_check_parent_child:nnnnN {Sect}{pdf2}{section}{latex}\l_tmpa_tl}
    \tl_log:N\l_tmpa_tl
  }   
  
-\TEST{Double~rolemapping:~subsection-section~no}
+\TEST{Double~rolemapping:~subsection-heading-section-heading~no}
  {
-   \__tag_role_check_parent_child:nnnnN {subsection}{latex}{section}{latex}\l_tmpa_tl
+    \IfFormatAtLeastTF{2026-11-01}
+   {\__tag_role_check_parent_child:nnnnN {subsection-heading}{latex}{section-heading}{latex}\l_tmpa_tl
+   }
+   {\__tag_role_check_parent_child:nnnnN {subsection}{latex}{section}{latex}\l_tmpa_tl}
    \tl_log:N\l_tmpa_tl
  }    
  

@@ -4,10 +4,10 @@ luatex
 Package tagpdf Info: mapping tag section to role H1
 Package tagpdf Warning: tag mnx has no role assigned
 Package tagpdf Info: adding new tag mnx
-tagpdf: Add mnx 288
+tagpdf: Add mnx 295
 Package tagpdf Warning: role HX is not known
 Package tagpdf Info: adding new tag wrongtag
-tagpdf: Add wrongtag 289
+tagpdf: Add wrongtag 296
 The property list \g__tag_role_rolemap_prop contains the pairs (without outer braces):
 >  {Artifact}  =>  {Private}
 >  {DocumentFragment}  =>  {Art}
@@ -22,19 +22,24 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {Em}  =>  {Span}
 >  {Strong}  =>  {Span}
 >  {title}  =>  {P}
->  {part}  =>  {P}
+>  {part}  =>  {Part}
+>  {part-heading}  =>  {P}
 >  {section}  =>  {H1}
->  {subsection}  =>  {H2}
->  {subsubsection}  =>  {H3}
->  {paragraph}  =>  {H4}
->  {subparagraph}  =>  {H5}
+>  {subsection}  =>  {Sect}
+>  {subsubsection}  =>  {Sect}
+>  {paragraph}  =>  {Sect}
+>  {subparagraph}  =>  {Sect}
+>  {section-heading}  =>  {H1}
+>  {subsection-heading}  =>  {H2}
+>  {subsubsection-heading}  =>  {H3}
+>  {paragraph-heading}  =>  {H4}
+>  {subparagraph-heading}  =>  {H5}
 >  {list}  =>  {L}
 >  {itemize}  =>  {L}
 >  {enumerate}  =>  {L}
 >  {description}  =>  {L}
 >  {quote}  =>  {BlockQuote}
 >  {quotation}  =>  {BlockQuote}
->  {verbatim}  =>  {Code}
 >  {item}  =>  {LI}
 >  {itemlabel}  =>  {Lbl}
 >  {itembody}  =>  {LBody}
@@ -51,6 +56,7 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {heading-number}  =>  {Lbl}
 >  {heading-fragment}  =>  {Span}
 >  {theorem-like}  =>  {Sect}
+>  {verbatim}  =>  {Code}
 >  {codeline}  =>  {Span}
 >  {float}  =>  {Note}
 >  {figures}  =>  {Sect}

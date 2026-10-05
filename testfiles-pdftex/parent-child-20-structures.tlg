@@ -33,17 +33,17 @@ Package tagpdf Info: Parent-Child 'P' --> 'P'.
 Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
 (tagpdf)                Relation is not allowed! on line ...
 (tagpdf)                struct 9, P --> struct 10, P
-Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'latex-book:chapter'
+Package tagpdf Info: Checking Parent-Child 'pdf2:P' --> 'latex-book:chapter-heading'
 Package tagpdf Info: Parent-Child 'P' --> 'H1'.
 (tagpdf)             Relation is -1 (='^^e2^^88^^85') on line ...
 Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:H1'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 10, P --> struct 11, chapter
-Package tagpdf Info: Checking Parent-Child 'latex-book:chapter' --> 'pdf2:Strong'
+(tagpdf)                struct 10, P --> struct 11, chapter-heading
+Package tagpdf Info: Checking Parent-Child 'latex-book:chapter-heading' --> 'pdf2:Strong'
 Package tagpdf Info: Parent-Child 'H1' --> 'Strong'.
 (tagpdf)             Relation is 1 (='0..n') on line ...
 Package tagpdf Info: closing structure 12 tagged /Strong
-Package tagpdf Info: closing structure 11 tagged /chapter
+Package tagpdf Info: closing structure 11 tagged /chapter-heading
 Package tagpdf Info: closing structure 10 tagged /P
 Package tagpdf Info: closing structure 9 tagged /P
 Package tagpdf Info: closing structure 8 tagged /Div

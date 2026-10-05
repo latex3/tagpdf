@@ -257,20 +257,26 @@ The linked property list \g__tag_role_tags_NS_prop contains the pairs (without o
 >  {vectorproduct}  =>  {mathml}
 >  {xor}  =>  {mathml}
 >  {chapter}  =>  {latex-book}
+>  {chapter-heading}  =>  {latex-book}
+>  {section-heading}  =>  {latex}
+>  {subsection-heading}  =>  {latex}
+>  {subsubsection-heading}  =>  {latex}
+>  {paragraph-heading}  =>  {latex}
+>  {subparagraph-heading}  =>  {latex}
+>  {title}  =>  {latex}
+>  {part}  =>  {latex}
+>  {part-heading}  =>  {latex}
 >  {section}  =>  {latex}
 >  {subsection}  =>  {latex}
 >  {subsubsection}  =>  {latex}
 >  {paragraph}  =>  {latex}
 >  {subparagraph}  =>  {latex}
->  {title}  =>  {latex}
->  {part}  =>  {latex}
 >  {list}  =>  {latex}
 >  {itemize}  =>  {latex}
 >  {enumerate}  =>  {latex}
 >  {description}  =>  {latex}
 >  {quote}  =>  {latex}
 >  {quotation}  =>  {latex}
->  {verbatim}  =>  {latex}
 >  {item}  =>  {latex}
 >  {itemlabel}  =>  {latex}
 >  {itembody}  =>  {latex}
@@ -287,6 +293,7 @@ The linked property list \g__tag_role_tags_NS_prop contains the pairs (without o
 >  {heading-number}  =>  {latex}
 >  {heading-fragment}  =>  {latex}
 >  {theorem-like}  =>  {latex}
+>  {verbatim}  =>  {latex}
 >  {codeline}  =>  {latex}
 >  {float}  =>  {latex}
 >  {figures}  =>  {latex}
@@ -549,20 +556,26 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {vectorproduct}  =>  {--UNUSED--}
 >  {xor}  =>  {--UNUSED--}
 >  {chapter}  =>  {--UNUSED--}
+>  {chapter-heading}  =>  {--UNUSED--}
+>  {section-heading}  =>  {--UNUSED--}
+>  {subsection-heading}  =>  {--UNUSED--}
+>  {subsubsection-heading}  =>  {--UNUSED--}
+>  {paragraph-heading}  =>  {--UNUSED--}
+>  {subparagraph-heading}  =>  {--UNUSED--}
+>  {title}  =>  {--UNUSED--}
+>  {part}  =>  {--UNUSED--}
+>  {part-heading}  =>  {--UNUSED--}
 >  {section}  =>  {--UNUSED--}
 >  {subsection}  =>  {--UNUSED--}
 >  {subsubsection}  =>  {--UNUSED--}
 >  {paragraph}  =>  {--UNUSED--}
 >  {subparagraph}  =>  {--UNUSED--}
->  {title}  =>  {--UNUSED--}
->  {part}  =>  {--UNUSED--}
 >  {list}  =>  {--UNUSED--}
 >  {itemize}  =>  {--UNUSED--}
 >  {enumerate}  =>  {--UNUSED--}
 >  {description}  =>  {--UNUSED--}
 >  {quote}  =>  {--UNUSED--}
 >  {quotation}  =>  {--UNUSED--}
->  {verbatim}  =>  {--UNUSED--}
 >  {item}  =>  {--UNUSED--}
 >  {itemlabel}  =>  {--UNUSED--}
 >  {itembody}  =>  {--UNUSED--}
@@ -579,6 +592,7 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {heading-number}  =>  {--UNUSED--}
 >  {heading-fragment}  =>  {--UNUSED--}
 >  {theorem-like}  =>  {--UNUSED--}
+>  {verbatim}  =>  {--UNUSED--}
 >  {codeline}  =>  {--UNUSED--}
 >  {float}  =>  {--UNUSED--}
 >  {figures}  =>  {--UNUSED--}
@@ -923,19 +937,24 @@ TEST 8: show tags of namespace latex
 ============================================================
 The property list \g__tag_role_NS_latex_prop contains the pairs (without outer braces):
 >  {title}  =>  {{Title}{pdf2}}
->  {part}  =>  {{Title}{pdf2}}
->  {section}  =>  {{H1}{pdf2}}
->  {subsection}  =>  {{H2}{pdf2}}
->  {subsubsection}  =>  {{H3}{pdf2}}
->  {paragraph}  =>  {{H4}{pdf2}}
->  {subparagraph}  =>  {{H5}{pdf2}}
+>  {part}  =>  {{Part}{pdf2}}
+>  {part-heading}  =>  {{Title}{pdf2}}
+>  {section}  =>  {{Sect}{pdf2}}
+>  {subsection}  =>  {{Sect}{pdf2}}
+>  {subsubsection}  =>  {{Sect}{pdf2}}
+>  {paragraph}  =>  {{Sect}{pdf2}}
+>  {subparagraph}  =>  {{Sect}{pdf2}}
+>  {section-heading}  =>  {{H1}{pdf2}}
+>  {subsection-heading}  =>  {{H2}{pdf2}}
+>  {subsubsection-heading}  =>  {{H3}{pdf2}}
+>  {paragraph-heading}  =>  {{H4}{pdf2}}
+>  {subparagraph-heading}  =>  {{H5}{pdf2}}
 >  {list}  =>  {{L}{pdf2}}
 >  {itemize}  =>  {{L}{pdf2}}
 >  {enumerate}  =>  {{L}{pdf2}}
 >  {description}  =>  {{L}{pdf2}}
 >  {quote}  =>  {{BlockQuote}{pdf}}
 >  {quotation}  =>  {{BlockQuote}{pdf}}
->  {verbatim}  =>  {{Code}{pdf}}
 >  {item}  =>  {{LI}{pdf2}}
 >  {itemlabel}  =>  {{Lbl}{pdf2}}
 >  {itembody}  =>  {{LBody}{pdf2}}
@@ -952,6 +971,7 @@ The property list \g__tag_role_NS_latex_prop contains the pairs (without outer b
 >  {heading-number}  =>  {{Lbl}{pdf2}}
 >  {heading-fragment}  =>  {{Span}{pdf2}}
 >  {theorem-like}  =>  {{Sect}{pdf2}}
+>  {verbatim}  =>  {{Code}{pdf}}
 >  {codeline}  =>  {{Sub}{pdf2}}
 >  {float}  =>  {{Aside}{pdf2}}
 >  {figures}  =>  {{Sect}{pdf2}}
@@ -961,12 +981,13 @@ The property list \g__tag_role_NS_latex_prop contains the pairs (without outer b
 TEST 9: show tags of namespace latex-book
 ============================================================
 The property list \g__tag_role_NS_latex-book_prop contains the pairs (without outer braces):
->  {chapter}  =>  {{H1}{pdf2}}
->  {section}  =>  {{H2}{pdf2}}
->  {subsection}  =>  {{H3}{pdf2}}
->  {subsubsection}  =>  {{H4}{pdf2}}
->  {paragraph}  =>  {{H5}{pdf2}}
->  {subparagraph}  =>  {{H6}{pdf2}}.
+>  {chapter}  =>  {{Sect}{pdf2}}
+>  {chapter-heading}  =>  {{H1}{pdf2}}
+>  {section-heading}  =>  {{H2}{pdf2}}
+>  {subsection-heading}  =>  {{H3}{pdf2}}
+>  {subsubsection-heading}  =>  {{H4}{pdf2}}
+>  {paragraph-heading}  =>  {{H5}{pdf2}}
+>  {subparagraph-heading}  =>  {{H6}{pdf2}}.
 ============================================================
 ============================================================
 TEST 10: show tags of namespace user
@@ -1296,19 +1317,24 @@ TEST 14: show class of tags in namespace latex
 ============================================================
 The property list \g__tag_role_NS_latex_class_prop contains the pairs (without outer braces):
 >  {title}  =>  {GB}
->  {part}  =>  {GB}
->  {section}  =>  {B}
->  {subsection}  =>  {B}
->  {subsubsection}  =>  {B}
->  {paragraph}  =>  {B}
->  {subparagraph}  =>  {B}
+>  {part}  =>  {G}
+>  {part-heading}  =>  {GB}
+>  {section}  =>  {G}
+>  {subsection}  =>  {G}
+>  {subsubsection}  =>  {G}
+>  {paragraph}  =>  {G}
+>  {subparagraph}  =>  {G}
+>  {section-heading}  =>  {B}
+>  {subsection-heading}  =>  {B}
+>  {subsubsection-heading}  =>  {B}
+>  {paragraph-heading}  =>  {B}
+>  {subparagraph-heading}  =>  {B}
 >  {list}  =>  {BI}
 >  {itemize}  =>  {BI}
 >  {enumerate}  =>  {BI}
 >  {description}  =>  {BI}
 >  {quote}  =>  {G}
 >  {quotation}  =>  {G}
->  {verbatim}  =>  {I}
 >  {item}  =>  {L}
 >  {itemlabel}  =>  {I}
 >  {itembody}  =>  {L}
@@ -1325,6 +1351,7 @@ The property list \g__tag_role_NS_latex_class_prop contains the pairs (without o
 >  {heading-number}  =>  {I}
 >  {heading-fragment}  =>  {I}
 >  {theorem-like}  =>  {G}
+>  {verbatim}  =>  {I}
 >  {codeline}  =>  {I}
 >  {float}  =>  {G}
 >  {figures}  =>  {G}
@@ -1334,12 +1361,13 @@ The property list \g__tag_role_NS_latex_class_prop contains the pairs (without o
 TEST 15: show class of tags in namespace latex-book
 ============================================================
 The property list \g__tag_role_NS_latex-book_class_prop contains the pairs (without outer braces):
->  {chapter}  =>  {B}
->  {section}  =>  {B}
->  {subsection}  =>  {B}
->  {subsubsection}  =>  {B}
->  {paragraph}  =>  {B}
->  {subparagraph}  =>  {B}.
+>  {chapter}  =>  {G}
+>  {chapter-heading}  =>  {B}
+>  {section-heading}  =>  {B}
+>  {subsection-heading}  =>  {B}
+>  {subsubsection-heading}  =>  {B}
+>  {paragraph-heading}  =>  {B}
+>  {subparagraph-heading}  =>  {B}.
 ============================================================
 ============================================================
 TEST 16: show class of tags in namespace user
@@ -1398,19 +1426,24 @@ TEST 24: show RoleMap dict latex
 ============================================================
 The property list \g__pdfdict_/g__tag_role/RoleMapNS_latex_dict_prop contains the pairs (without outer braces):
 >  {title}  =>  {[/Title 11 0 R]}
->  {part}  =>  {[/Title 11 0 R]}
->  {section}  =>  {[/H1 11 0 R]}
->  {subsection}  =>  {[/H2 11 0 R]}
->  {subsubsection}  =>  {[/H3 11 0 R]}
->  {paragraph}  =>  {[/H4 11 0 R]}
->  {subparagraph}  =>  {[/H5 11 0 R]}
+>  {part}  =>  {[/Part 11 0 R]}
+>  {part-heading}  =>  {[/Title 11 0 R]}
+>  {section}  =>  {[/Sect 11 0 R]}
+>  {subsection}  =>  {[/Sect 11 0 R]}
+>  {subsubsection}  =>  {[/Sect 11 0 R]}
+>  {paragraph}  =>  {[/Sect 11 0 R]}
+>  {subparagraph}  =>  {[/Sect 11 0 R]}
+>  {section-heading}  =>  {[/H1 11 0 R]}
+>  {subsection-heading}  =>  {[/H2 11 0 R]}
+>  {subsubsection-heading}  =>  {[/H3 11 0 R]}
+>  {paragraph-heading}  =>  {[/H4 11 0 R]}
+>  {subparagraph-heading}  =>  {[/H5 11 0 R]}
 >  {list}  =>  {[/L 11 0 R]}
 >  {itemize}  =>  {[/L 11 0 R]}
 >  {enumerate}  =>  {[/L 11 0 R]}
 >  {description}  =>  {[/L 11 0 R]}
 >  {quote}  =>  {[/BlockQuote 9 0 R]}
 >  {quotation}  =>  {[/BlockQuote 9 0 R]}
->  {verbatim}  =>  {[/Code 9 0 R]}
 >  {item}  =>  {[/LI 11 0 R]}
 >  {itemlabel}  =>  {[/Lbl 11 0 R]}
 >  {itembody}  =>  {[/LBody 11 0 R]}
@@ -1427,6 +1460,7 @@ The property list \g__pdfdict_/g__tag_role/RoleMapNS_latex_dict_prop contains th
 >  {heading-number}  =>  {[/Lbl 11 0 R]}
 >  {heading-fragment}  =>  {[/Span 11 0 R]}
 >  {theorem-like}  =>  {[/Sect 11 0 R]}
+>  {verbatim}  =>  {[/Code 9 0 R]}
 >  {codeline}  =>  {[/Sub 11 0 R]}
 >  {float}  =>  {[/Aside 11 0 R]}
 >  {figures}  =>  {[/Sect 11 0 R]}
@@ -1443,12 +1477,13 @@ The property list \g__pdfdict_/g__tag_role/Namespace_latex-book_dict_prop contai
 TEST 26: show RoleMap dict latex-book
 ============================================================
 The property list \g__pdfdict_/g__tag_role/RoleMapNS_latex-book_dict_prop contains the pairs (without outer braces):
->  {chapter}  =>  {[/H1 11 0 R]}
->  {section}  =>  {[/H2 11 0 R]}
->  {subsection}  =>  {[/H3 11 0 R]}
->  {subsubsection}  =>  {[/H4 11 0 R]}
->  {paragraph}  =>  {[/H5 11 0 R]}
->  {subparagraph}  =>  {[/H6 11 0 R]}.
+>  {chapter}  =>  {[/Sect 11 0 R]}
+>  {chapter-heading}  =>  {[/H1 11 0 R]}
+>  {section-heading}  =>  {[/H2 11 0 R]}
+>  {subsection-heading}  =>  {[/H3 11 0 R]}
+>  {subsubsection-heading}  =>  {[/H4 11 0 R]}
+>  {paragraph-heading}  =>  {[/H5 11 0 R]}
+>  {subparagraph-heading}  =>  {[/H6 11 0 R]}.
 ============================================================
 ============================================================
 TEST 27: show namespace dict user

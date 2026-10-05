@@ -18,7 +18,9 @@ abc\tagmcend\tagstructend% End P
 \tagstructbegin{tag=Div}
 \tagstructbegin{tag=P}
 \tagstructbegin{tag=P}
-\tagstructbegin{tag=chapter}
+\IfFormatAtLeastTF{2026-11-01}
+{\tagstructbegin{tag=chapter-heading}}
+{\tagstructbegin{tag=chapter}}
 \tagstructbegin{tag=Strong}
 \tagstructend
 \tagstructend
