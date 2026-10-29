@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unreleased]
+## [2026-10-29]
 ### Fixed
   - used different identifier in pre_shipout_filter callback to avoid warning in LaTeX 2026-11-01 (tagpdf-mc-luacode.dtx)
 

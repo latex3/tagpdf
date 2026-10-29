@@ -1,5 +1,5 @@
-## [2026-10-08]
-Version 1.0h
+## [2026-10-29]
+Version 1.0i
 
-### Added 
- - keywords `alt` and `title` to `\tag_struct_gput:nnn`
+### Fixed
+  - used different identifier in pre_shipout_filter callback to avoid warning in LaTeX 2026-11-01 (tagpdf-mc-luacode.dtx)
