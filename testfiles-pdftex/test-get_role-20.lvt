@@ -11,15 +11,15 @@ xxx
 \START
 \ExplSyntaxOn
 \TEST{pdf 1.7} {}
-\TEST{get~known~role:~title}
+\TEST{get~known~role:~title-text}
  {
-   \__tag_role_get:nnNN {title}{latex}\l_tmpa_tl\l_tmpb_tl
+   \__tag_role_get:nnNN {title-text}{latex}\l_tmpa_tl\l_tmpb_tl
    \tl_log:N \l_tmpa_tl\tl_log:N \l_tmpb_tl
  }  
  
-\TEST{get~known~role~title,~unknown~name~space}
+\TEST{get~known~role~title-text,~unknown~name~space}
  {
-   \__tag_role_get:nnNN {title}{blub}\l_tmpa_tl\l_tmpb_tl
+   \__tag_role_get:nnNN {title-text}{blub}\l_tmpa_tl\l_tmpb_tl
    \tl_log:N \l_tmpa_tl\tl_log:N \l_tmpb_tl
  }  
  

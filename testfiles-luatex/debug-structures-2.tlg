@@ -2,7 +2,7 @@ This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 Package tagpdf Warning: Parent-Child 'pdf2:Sect' --> 'pdf2:Span'.
 (tagpdf)                Relation is not allowed! on line ...
-(tagpdf)                struct 6, Sect --> struct 12, Span
+(tagpdf)                struct 6, section --> struct 12, Span
 tagpdf DEBUG Info: Tagging suspended
 (tagpdf DEBUG)     level: 0 ==> 1, label: headfoot [on line ...]
 tagpdf DEBUG Info: Tagging resumed
@@ -74,9 +74,9 @@ The structure has the following kids:
 =========================
 The structure 6 contains:
 >  Type  =>  /StructElem
->  S  =>  /Sect
->  NS  =>  pdf2
->  tag  =>  {Sect}{pdf2}
+>  S  =>  /section
+>  NS  =>  latex
+>  tag  =>  {section}{latex}
 >  rolemap  =>  {Sect}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
 >  parentnum  =>  2 = /Document
@@ -90,12 +90,12 @@ The structure has the following kids:
 The structure 7 contains:
 >  Type  =>  /StructElem
 >  T  =>  <FEFF0062006C00750062>
->  S  =>  /section
+>  S  =>  /section-heading
 >  NS  =>  latex
->  tag  =>  {section}{latex}
+>  tag  =>  {section-heading}{latex}
 >  rolemap  =>  {H1}{pdf2}
 >  parentrole  =>  {H1}{pdf2}
->  parentnum  =>  6 = /Sect
+>  parentnum  =>  6 = /section
 The structure has the following kids:
 >  Struct 8
 >  MC 2
@@ -109,7 +109,7 @@ The structure 8 contains:
 >  tag  =>  {heading-number}{latex}
 >  rolemap  =>  {Lbl}{pdf2}
 >  parentrole  =>  {Lbl}{pdf2}
->  parentnum  =>  7 = /section
+>  parentnum  =>  7 = /section-heading
 The structure has the following kids:
 >  MC 1
 =========================
@@ -121,7 +121,7 @@ The structure 9 contains:
 >  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
->  parentnum  =>  6 = /Sect
+>  parentnum  =>  6 = /section
 The structure has the following kids:
 >  Struct 10
 =========================
@@ -161,7 +161,7 @@ The structure 12 contains:
 >  tag  =>  {Span}{pdf2}
 >  rolemap  =>  {Span}{pdf2}
 >  parentrole  =>  {Span}{pdf2}
->  parentnum  =>  6 = Sect
+>  parentnum  =>  6 = section
 The structure has the following kids:
 > NONE
 =========================
@@ -173,7 +173,7 @@ The structure 13 contains:
 >  tag  =>  {semantic-para}{latex}
 >  rolemap  =>  {Part}{pdf2}
 >  parentrole  =>  {Sect}{pdf2}
->  parentnum  =>  6 = /Sect
+>  parentnum  =>  6 = /section
 The structure has the following kids:
 >  Struct 14
 =========================

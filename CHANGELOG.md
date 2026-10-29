@@ -5,7 +5,18 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
+## [2026-10-29]
+### Fixed
+  - used different identifier in pre_shipout_filter callback to avoid warning in LaTeX 2026-11-01 (tagpdf-mc-luacode.dtx)
+
+## [2026-10-08]
+Version 1.0h
+
+### Added 
+ - keywords `alt` and `title` to `\tag_struct_gput:nnn`
+
 ## [2026-08-21]
+Version 1.0f
 
 ### Added 
   - structure key `attribute*`, `attribute-unnamed`, `attribute-unnamed*`
@@ -20,6 +31,7 @@ this project uses date-based 'snapshot' version identifiers.
   - `\pdffakespace` in lualatex does nothing when used in vertical mode, issue #137
         
 ## [2026-08-21]
+Version 1.0e
 
 ### Added
 
@@ -36,6 +48,7 @@ this project uses date-based 'snapshot' version identifiers.
  - adapted para-count message to new names in latex-dev  
   
 ## [2026-07-25]
+Version 1.0d
 
 ### Fixed
   - (tagpdf-backend) softhyphen=artifact has no effect for T1 fonts (https://github.com/latex3/tagpdf/issues/138)
@@ -43,10 +56,13 @@ this project uses date-based 'snapshot' version identifiers.
    - some expl3 syntax (as found with explcheck)
    
 ## [2026-05-17]
+Version 1.0c
+
 ### Fixed
 	- really undefine internal LastPage label before reading the aux-file, latex3/tagging-project#959
 
 ## [2026-04-24]
+Version 1.0b
 
 ### Fixed
 	- use symbolic name for link
@@ -57,6 +73,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 
 ## [2026-04-11]
+Version 1.0a
 
 ### Changed
    - deprecated the command `\tagtool`/`\tag_tool:n`

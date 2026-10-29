@@ -1,12 +1,5 @@
-## [2026-09-21]
-Version 1.0f
-### Added 
-  - structure key `attribute*`, `attribute-unnamed`, `attribute-unnamed*`
-  - \tag_if_tag_known:nn
-  - added role/new-NS
-  - \tag_set_split:NNn, \tag_gset_split:NNn to split up tag/NS pairs faster.
-  - \tag_if_NS_known:n
-  
-### Changed
-  - `attribute` key now can be used more than once and then appends attributes.  
-  - `\pdffakespace` in lualatex does nothing when used in vertical mode, issue #137
+## [2026-10-29]
+Version 1.0i
+
+### Fixed
+  - used different identifier in pre_shipout_filter callback to avoid warning in LaTeX 2026-11-01 (tagpdf-mc-luacode.dtx)
