@@ -263,7 +263,10 @@ The linked property list \g__tag_role_tags_NS_prop contains the pairs (without o
 >  {subsubsection-heading}  =>  {latex}
 >  {paragraph-heading}  =>  {latex}
 >  {subparagraph-heading}  =>  {latex}
->  {title}  =>  {latex}
+>  {title-block}  =>  {latex}
+>  {title-text}  =>  {latex}
+>  {title-author}  =>  {latex}
+>  {title-date}  =>  {latex}
 >  {part}  =>  {latex}
 >  {part-heading}  =>  {latex}
 >  {section}  =>  {latex}
@@ -562,7 +565,10 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {subsubsection-heading}  =>  {--UNUSED--}
 >  {paragraph-heading}  =>  {--UNUSED--}
 >  {subparagraph-heading}  =>  {--UNUSED--}
->  {title}  =>  {--UNUSED--}
+>  {title-block}  =>  {--UNUSED--}
+>  {title-text}  =>  {--UNUSED--}
+>  {title-author}  =>  {--UNUSED--}
+>  {title-date}  =>  {--UNUSED--}
 >  {part}  =>  {--UNUSED--}
 >  {part-heading}  =>  {--UNUSED--}
 >  {section}  =>  {--UNUSED--}
@@ -936,7 +942,10 @@ The property list \g__tag_role_NS_mathml_prop contains the pairs (without outer 
 TEST 8: show tags of namespace latex
 ============================================================
 The property list \g__tag_role_NS_latex_prop contains the pairs (without outer braces):
->  {title}  =>  {{Title}{pdf2}}
+>  {title-block}  =>  {{Div}{pdf2}}
+>  {title-text}  =>  {{Title}{pdf2}}
+>  {title-author}  =>  {{P}{pdf2}}
+>  {title-date}  =>  {{P}{pdf2}}
 >  {part}  =>  {{Part}{pdf2}}
 >  {part-heading}  =>  {{Title}{pdf2}}
 >  {section}  =>  {{Sect}{pdf2}}
@@ -1316,7 +1325,10 @@ The property list \g__tag_role_NS_mathml_class_prop contains the pairs (without 
 TEST 14: show class of tags in namespace latex
 ============================================================
 The property list \g__tag_role_NS_latex_class_prop contains the pairs (without outer braces):
->  {title}  =>  {GB}
+>  {title-block}  =>  {G}
+>  {title-text}  =>  {GB}
+>  {title-author}  =>  {B}
+>  {title-date}  =>  {B}
 >  {part}  =>  {G}
 >  {part-heading}  =>  {GB}
 >  {section}  =>  {G}
@@ -1425,7 +1437,10 @@ The property list \g__pdfdict_/g__tag_role/Namespace_latex_dict_prop contains th
 TEST 24: show RoleMap dict latex
 ============================================================
 The property list \g__pdfdict_/g__tag_role/RoleMapNS_latex_dict_prop contains the pairs (without outer braces):
->  {title}  =>  {[/Title 11 0 R]}
+>  {title-block}  =>  {[/Div 11 0 R]}
+>  {title-text}  =>  {[/Title 11 0 R]}
+>  {title-author}  =>  {[/P 11 0 R]}
+>  {title-date}  =>  {[/P 11 0 R]}
 >  {part}  =>  {[/Part 11 0 R]}
 >  {part-heading}  =>  {[/Title 11 0 R]}
 >  {section}  =>  {[/Sect 11 0 R]}

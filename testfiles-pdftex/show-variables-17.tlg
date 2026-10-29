@@ -256,7 +256,10 @@ The linked property list \g__tag_role_tags_NS_prop contains the pairs (without o
 >  {vector}  =>  {mathml}
 >  {vectorproduct}  =>  {mathml}
 >  {xor}  =>  {mathml}
->  {title}  =>  {user}
+>  {title-block}  =>  {user}
+>  {title-text}  =>  {user}
+>  {title-author}  =>  {user}
+>  {title-date}  =>  {user}
 >  {part}  =>  {user}
 >  {part-heading}  =>  {user}
 >  {section}  =>  {user}
@@ -555,7 +558,10 @@ The property list \g__tag_role_tags_class_prop contains the pairs (without outer
 >  {vector}  =>  {--UNKNOWN--}
 >  {vectorproduct}  =>  {--UNKNOWN--}
 >  {xor}  =>  {--UNKNOWN--}
->  {title}  =>  {GB}
+>  {title-block}  =>  {G}
+>  {title-text}  =>  {GB}
+>  {title-author}  =>  {B}
+>  {title-date}  =>  {B}
 >  {part}  =>  {G}
 >  {part-heading}  =>  {GB}
 >  {section}  =>  {G}
@@ -631,7 +637,10 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {Sub}  =>  {Span}
 >  {Em}  =>  {Span}
 >  {Strong}  =>  {Span}
->  {title}  =>  {P}
+>  {title-block}  =>  {Div}
+>  {title-text}  =>  {P}
+>  {title-author}  =>  {P}
+>  {title-date}  =>  {P}
 >  {part}  =>  {Part}
 >  {part-heading}  =>  {P}
 >  {section}  =>  {Sect}
@@ -995,7 +1004,10 @@ The property list \g__tag_role_NS_mathml_prop contains the pairs (without outer 
 TEST 9: show tags of namespace latex
 ============================================================
 The property list \g__tag_role_NS_latex_prop contains the pairs (without outer braces):
->  {title}  =>  {{Title}{}}
+>  {title-block}  =>  {{Div}{}}
+>  {title-text}  =>  {{Title}{}}
+>  {title-author}  =>  {{P}{}}
+>  {title-date}  =>  {{P}{}}
 >  {part}  =>  {{Part}{}}
 >  {part-heading}  =>  {{Title}{}}
 >  {section}  =>  {{Sect}{}}
@@ -1064,7 +1076,10 @@ The property list \g__tag_role_NS_user_prop contains the pairs (without outer br
 >  {Sub}  =>  {{}{}}
 >  {Em}  =>  {{}{}}
 >  {Strong}  =>  {{}{}}
->  {title}  =>  {{}{}}
+>  {title-block}  =>  {{}{}}
+>  {title-text}  =>  {{}{}}
+>  {title-author}  =>  {{}{}}
+>  {title-date}  =>  {{}{}}
 >  {part}  =>  {{}{}}
 >  {part-heading}  =>  {{}{}}
 >  {section}  =>  {{}{}}
@@ -1428,7 +1443,10 @@ The property list \g__tag_role_NS_mathml_class_prop contains the pairs (without 
 TEST 15: show class of tags in namespace latex
 ============================================================
 The property list \g__tag_role_NS_latex_class_prop contains the pairs (without outer braces):
->  {title}  =>  {--UNUSED--}
+>  {title-block}  =>  {--UNUSED--}
+>  {title-text}  =>  {--UNUSED--}
+>  {title-author}  =>  {--UNUSED--}
+>  {title-date}  =>  {--UNUSED--}
 >  {part}  =>  {--UNUSED--}
 >  {part-heading}  =>  {--UNUSED--}
 >  {section}  =>  {--UNUSED--}
@@ -1497,7 +1515,10 @@ The property list \g__tag_role_NS_user_class_prop contains the pairs (without ou
 >  {Sub}  =>  {--UNUSED--}
 >  {Em}  =>  {--UNUSED--}
 >  {Strong}  =>  {--UNUSED--}
->  {title}  =>  {--UNUSED--}
+>  {title-block}  =>  {--UNUSED--}
+>  {title-text}  =>  {--UNUSED--}
+>  {title-author}  =>  {--UNUSED--}
+>  {title-date}  =>  {--UNUSED--}
 >  {part}  =>  {--UNUSED--}
 >  {part-heading}  =>  {--UNUSED--}
 >  {section}  =>  {--UNUSED--}

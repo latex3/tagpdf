@@ -19,7 +19,10 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {Sub}  =>  {Span}
 >  {Em}  =>  {Span}
 >  {Strong}  =>  {Span}
->  {title}  =>  {P}
+>  {title-block}  =>  {Div}
+>  {title-text}  =>  {P}
+>  {title-author}  =>  {P}
+>  {title-date}  =>  {P}
 >  {part}  =>  {Part}
 >  {part-heading}  =>  {P}
 >  {section}  =>  {H1}

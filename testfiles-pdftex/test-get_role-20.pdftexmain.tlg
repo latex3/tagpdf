@@ -1,0 +1,45 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: pdf1.7
+============================================================
+============================================================
+============================================================
+TEST 2: get known role: title-text
+============================================================
+Package tagpdf Warning: tag title-text is not known
+> \l_tmpa_tl=title-text.
+> \l_tmpb_tl=latex.
+============================================================
+============================================================
+TEST 3: get known role title-text, unknown name space
+============================================================
+Package tagpdf Warning: NS blub is not known
+> \l_tmpa_tl=title-text.
+> \l_tmpb_tl=blub.
+============================================================
+============================================================
+TEST 4: get unknown role: blub
+============================================================
+Package tagpdf Warning: tag blub is not known
+> \l_tmpa_tl=blub.
+> \l_tmpb_tl=pdf.
+============================================================
+============================================================
+TEST 5: get standard role: Sect, unknown NS
+============================================================
+Package tagpdf Warning: NS xxx is not known
+> \l_tmpa_tl=Sect.
+> \l_tmpb_tl=xxx.
+============================================================
+============================================================
+TEST 6: get standard role: Aside, empty NS
+============================================================
+Package tagpdf Warning: Empty NS
+> \l_tmpa_tl=Aside.
+> \l_tmpb_tl=.
+============================================================
+***************
+Compilation 1 of test file completed with exit status 0
+Compilation 2 of test file completed with exit status 0
+Compilation 3 of test file completed with exit status 0
