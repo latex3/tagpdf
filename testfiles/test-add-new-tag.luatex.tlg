@@ -4,10 +4,10 @@ luatex
 Package tagpdf Info: mapping tag section to role H1
 Package tagpdf Warning: tag mnx has no role assigned
 Package tagpdf Info: adding new tag mnx
-tagpdf: Add mnx 295
+tagpdf: Add mnx 298
 Package tagpdf Warning: role HX is not known
 Package tagpdf Info: adding new tag wrongtag
-tagpdf: Add wrongtag 296
+tagpdf: Add wrongtag 299
 The property list \g__tag_role_rolemap_prop contains the pairs (without outer braces):
 >  {Artifact}  =>  {Private}
 >  {DocumentFragment}  =>  {Art}
@@ -21,7 +21,10 @@ The property list \g__tag_role_rolemap_prop contains the pairs (without outer br
 >  {Sub}  =>  {Span}
 >  {Em}  =>  {Span}
 >  {Strong}  =>  {Span}
->  {title}  =>  {P}
+>  {title-block}  =>  {Div}
+>  {title-text}  =>  {P}
+>  {title-author}  =>  {P}
+>  {title-date}  =>  {P}
 >  {part}  =>  {Part}
 >  {part-heading}  =>  {P}
 >  {section}  =>  {H1}
