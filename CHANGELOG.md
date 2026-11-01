@@ -8,6 +8,7 @@ this project uses date-based 'snapshot' version identifiers.
 ## [Unrelease]
 ### Changed
  - use a fix uri for the user name space instead of random numbers.
+ - do not embed the css-files if the A-standard does not allow that tagging/1676
  
 ## [2026-10-29]
 ### Fixed

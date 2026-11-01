@@ -1570,9 +1570,15 @@
  {
   \bool_lazy_and:nnT  { \g_@@_css_bool }{ \tag_if_active_p: }
    {
-    \prop_map_inline:Nn \g_@@_css_prop
+%    \end{macrocode}
+% We do not embed the css if embedding is not allowed:
+%    \begin{macrocode}
+    \pdfmeta_standard_verify:nT{only_pdfa_embed_content}
      {
-       \keys_set:nn { @@ / setup }{ catalog-supplemental-file= {#1} }
+      \prop_map_inline:Nn \g_@@_css_prop
+       {
+         \keys_set:nn { @@ / setup }{ catalog-supplemental-file= {#1} }
+       }
      }
    }
  }
