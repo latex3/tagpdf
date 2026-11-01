@@ -356,33 +356,12 @@
  }
 %    \end{macrocode}
 % \end{macro}
-% We need an id for the user space. For the tests it should be possible
-% to set it to a fix value. So we use random numbers which can
-% be fixed by setting a seed. We fake a sort of
-% GUID but do not try to be really exact as it doesn't matter ...
-%
-% \begin{variable}{\c_@@_role_userNS_id_str}
-%    \begin{macrocode}
-\str_const:Ne \c_@@_role_userNS_id_str
-  { data:,
-    \int_to_Hex:n{\int_rand:n {65535}}
-    \int_to_Hex:n{\int_rand:n {65535}}
-    -
-    \int_to_Hex:n{\int_rand:n {65535}}
-    -
-    \int_to_Hex:n{\int_rand:n {65535}}
-    -
-    \int_to_Hex:n{\int_rand:n {65535}}
-    -
-    \int_to_Hex:n{\int_rand:n {16777215}}
-    \int_to_Hex:n{\int_rand:n {16777215}}
-  }
-%    \end{macrocode}
-% \end{variable}
 % Now we setup the standard names spaces.
 % The mathml space is loaded also for pdf < 2.0
 % but not added to RoleMap unless a boolean is set to true with
 % |tagpdf-setup{mathml-tags}|.
+% For the user name space we use \texttt{local-default}, but this can be changed
+% by a key.
 %    \begin{macrocode}
 \bool_new:N \g_@@_role_add_mathml_bool
 \@@_role_NS_new:nnn {pdf}   {http://iso.org/pdf/ssn}{}
@@ -390,8 +369,7 @@
 \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
 \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt}{}
 \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book}{}
-\exp_args:Nne
-  \@@_role_NS_new:nnn {user}{\c_@@_role_userNS_id_str}{}
+\@@_role_NS_new:nnn {user}{https://www.latex-project.org/ns/local-default}{}
 %    \end{macrocode}
 %
 % \subsection{Adding a new tag}
