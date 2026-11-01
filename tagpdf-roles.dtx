@@ -360,7 +360,7 @@
 % The mathml space is loaded also for pdf < 2.0
 % but not added to RoleMap unless a boolean is set to true with
 % |tagpdf-setup{mathml-tags}|.
-% For the user name space we use \texttt{local-default}, but this can be changed
+% For the user name space we use \texttt{local}, but this can be changed
 % by a key.
 %    \begin{macrocode}
 \bool_new:N \g_@@_role_add_mathml_bool
@@ -369,7 +369,7 @@
 \@@_role_NS_new:nnn {mathml}{http://www.w3.org/1998/Math/MathML}{}
 \@@_role_NS_new:nnn {latex} {https://www.latex-project.org/ns/dflt}{}
 \@@_role_NS_new:nnn {latex-book} {https://www.latex-project.org/ns/book}{}
-\@@_role_NS_new:nnn {user}{https://www.latex-project.org/ns/local-default}{}
+\@@_role_NS_new:nnn {user}{https://www.latex-project.org/ns/local}{}
 %    \end{macrocode}
 %
 % \subsection{Adding a new tag}
