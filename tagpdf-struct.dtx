@@ -740,34 +740,40 @@
    \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
      %#1 structure number, #2 tag, #3 NS
      {
-       \@@_struct_prop_gput:nne
-         { #1 }
-         { S }
-         { \pdf_name_from_unicode_e:n {#2}  } %
-       \@@_struct_prop_gput:nnn
-         { #1 }
-         { tag }
-         { {#2} {} }
+       \tl_if_empty:eF {#2}
+        {
+         \@@_struct_prop_gput:nne
+           { #1 }
+           { S }
+           { \pdf_name_from_unicode_e:n {#2}  } %
+         \@@_struct_prop_gput:nnn
+           { #1 }
+           { tag }
+           { {#2} {} }
+        } 
      }
  }
  {
    \cs_new_protected:Npn \@@_struct_set_tag_info:nnn #1 #2 #3
      {
-       \@@_struct_prop_gput:nne
-         { #1 }
-         { S }
-         { \pdf_name_from_unicode_e:n {#2} } %
-       \prop_get:NnNT \g_@@_role_NS_prop {#3} \l_@@_get_tmpc_tl
-         {
-           \@@_struct_prop_gput:nne
-             { #1 }
-             { NS }
-             { \l_@@_get_tmpc_tl } %
-         }
-       \@@_struct_prop_gput:nnn
-         { #1 }
-         { tag }
-         { {#2} {#3} }
+      \tl_if_empty:eF {#2}
+        {
+          \@@_struct_prop_gput:nne
+            { #1 }
+            { S }
+            { \pdf_name_from_unicode_e:n {#2} } %
+          \prop_get:NnNT \g_@@_role_NS_prop {#3} \l_@@_get_tmpc_tl
+            {
+              \@@_struct_prop_gput:nne
+                { #1 }
+                { NS }
+                { \l_@@_get_tmpc_tl } %
+            }
+          \@@_struct_prop_gput:nnn
+            { #1 }
+            { tag }
+            { {#2} {#3} }
+        } 
      }
  }
 \cs_generate_variant:Nn \@@_struct_set_tag_info:nnn {eoo}
@@ -2128,6 +2134,8 @@
             { /StructElem }
 
         \tl_set:Nn \l_@@_struct_stack_parent_tmpa_tl {-1}
+        \tl_gclear:N\g_@@_struct_tag_tl
+        \tl_gclear:N\g_@@_struct_tag_NS_tl
         \keys_set:nn { @@ / struct} { #1 }
 %    \end{macrocode}
 %    \begin{macrocode}

@@ -9,7 +9,10 @@ this project uses date-based 'snapshot' version identifiers.
 ### Changed
  - use a fix uri for the user name space instead of random numbers.
  - do not embed the css-files if the A-standard does not allow that tagging/1676
- 
+
+### Fixed
+ - check for a missing tag didn't work properly
+   
 ## [2026-10-29]
 ### Fixed
   - used different identifier in pre_shipout_filter callback to avoid warning in LaTeX 2026-11-01 (tagpdf-mc-luacode.dtx)

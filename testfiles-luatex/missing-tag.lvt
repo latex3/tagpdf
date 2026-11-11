@@ -1,0 +1,10 @@
+\DocumentMetadata{uncompress,tagging=on}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START
+\ExplSyntaxOn
+\msg_redirect_name:nnn{tag}{struct-missing-tag}{warning}
+\ExplSyntaxOff
+\tagstructbegin{}THE TRAGEDY OF MACBETH\tagstructend
+\end{document}
