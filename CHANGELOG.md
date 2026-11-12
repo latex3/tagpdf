@@ -12,6 +12,7 @@ this project uses date-based 'snapshot' version identifiers.
 
 ### Fixed
  - check for a missing tag didn't work properly
+ - wrong variable name with `\tag_mc_new_stream:n`, issue #152
    
 ## [2026-10-29]
 ### Fixed
