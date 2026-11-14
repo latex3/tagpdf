@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
 ## [2026-11-15]
+Version 1.0j
 ### Changed
  - use a fix uri for the user name space instead of random numbers.
  - do not embed the css-files if the A-standard does not allow that tagging/1676
@@ -15,6 +16,7 @@ this project uses date-based 'snapshot' version identifiers.
  - wrong variable name with `\tag_mc_new_stream:n`, issue #152
    
 ## [2026-10-29]
+Version 1.0i
 ### Fixed
   - used different identifier in pre_shipout_filter callback to avoid warning in LaTeX 2026-11-01 (tagpdf-mc-luacode.dtx)
 
