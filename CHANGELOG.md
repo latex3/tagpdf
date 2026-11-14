@@ -5,7 +5,7 @@ All notable changes to the `tagpdf` package since the
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 this project uses date-based 'snapshot' version identifiers.
 
-## [Unrelease]
+## [2026-11-15]
 ### Changed
  - use a fix uri for the user name space instead of random numbers.
  - do not embed the css-files if the A-standard does not allow that tagging/1676
