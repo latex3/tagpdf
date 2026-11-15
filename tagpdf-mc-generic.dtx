@@ -45,7 +45,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0i, released 2026-10-29}
+% \date{Version 1.0j, released 2026-11-15}
 % \maketitle
 % \begin{documentation}
 % \end{documentation}
@@ -54,11 +54,11 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*generic>
-\ProvidesExplPackage {tagpdf-mc-code-generic} {2026-10-29} {1.0i}
+\ProvidesExplPackage {tagpdf-mc-code-generic} {2026-11-15} {1.0j}
  {part of tagpdf - code related to marking chunks - generic mode}
 %</generic>
 %<*debug>
-\ProvidesExplPackage {tagpdf-debug-generic} {2026-10-29} {1.0i}
+\ProvidesExplPackage {tagpdf-debug-generic} {2026-11-15} {1.0j}
  {part of tagpdf - debugging code related to marking chunks - generic mode}
 %</debug>
 %    \end{macrocode}
@@ -103,7 +103,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Npn  \tag_mc_new_stream:n #1
   {
-    \seq_new:c { g_@@_mc_multicol_#1_seq }
+    \seq_new:c { g_@@_mc_#1_marks_seq }
   }
 %    \end{macrocode}
 % \end{macro}

@@ -46,7 +46,7 @@
 %    }^^A
 % }
 %
-% \date{Version 1.0i, released 2026-10-29}
+% \date{Version 1.0j, released 2026-11-15}
 % \maketitle
 % \begin{documentation}
 % \section{Setup commands}
@@ -309,7 +309,7 @@
 %    \begin{macrocode}
 %<@@=tag>
 %<*header>
-\ProvidesExplPackage {tagpdf-user} {2026-10-29} {1.0i}
+\ProvidesExplPackage {tagpdf-user} {2026-11-15} {1.0j}
   {tagpdf - user commands}
 %</header>
 %    \end{macrocode}
@@ -1570,9 +1570,15 @@
  {
   \bool_lazy_and:nnT  { \g_@@_css_bool }{ \tag_if_active_p: }
    {
-    \prop_map_inline:Nn \g_@@_css_prop
+%    \end{macrocode}
+% We do not embed the css if embedding is not allowed:
+%    \begin{macrocode}
+    \pdfmeta_standard_verify:nT{only_pdfa_embed_content}
      {
-       \keys_set:nn { @@ / setup }{ catalog-supplemental-file= {#1} }
+      \prop_map_inline:Nn \g_@@_css_prop
+       {
+         \keys_set:nn { @@ / setup }{ catalog-supplemental-file= {#1} }
+       }
      }
    }
  }
