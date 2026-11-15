@@ -10,7 +10,8 @@ this project uses date-based 'snapshot' version identifiers.
  - handling of css-list key
  - error message if para counts are wrong
  - attribute class of header/footer
-
+ - escaping of raw key in luatex, issue #154
+ 
 ## [2026-11-15]
 Version 1.0j
 ### Changed

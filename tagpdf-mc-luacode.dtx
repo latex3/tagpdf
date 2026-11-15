@@ -434,7 +434,7 @@
         \tl_put_right:Ne \l_@@_mc_key_properties_tl { #1 }
         \lua_now:e
           {
-            ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","#1")
+            ltx.@@.func.store_mc_data(\@@_get_mc_abs_cnt:,"raw","\lua_escape:e{#1}")
           }
       },
     alt .code:n      = % Alt property

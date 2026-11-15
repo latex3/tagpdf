@@ -1,0 +1,19 @@
+\DocumentMetadata{tagging=on,uncompress}
+\input{regression-test}
+\documentclass{article}
+\begin{document}
+\START
+\tagpdfparaOff
+\tagstructbegin{tag=P}
+  \tagmcbegin{tag=P,raw=/Alt ("Hello")}
+    Hello
+  \tagmcend
+\tagstructend
+
+\tagstructbegin{tag=P}
+  \tagmcbegin{tag=P,raw=/Alt (Hello \string\(world\string\))}
+    Hello (world)
+  \tagmcend
+\tagstructend
+\SHOWPDFTAGS
+\end{document}
