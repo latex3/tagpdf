@@ -1,0 +1,29 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+\START
+\ExplSyntaxOn
+\tagpdfsetup{role/map-tags=pdf}
+
+\TEST{pdf-tags-false-branch}
+ {
+   \socket_use:nn { tag/struct/tag } { section-heading/latex }
+   \ASSERTSTR{\g__tag_struct_tag_tl}{H1}
+   \ASSERTSTR{\g__tag_struct_tag_NS_tl}{pdf2}
+   \group_begin:
+     \msg_redirect_name:nnn { tag } { role-unknown-NS } { none }
+     \msg_redirect_name:nnn { tag } { role-unknown-tag } { none }
+     \socket_use:nn { tag/struct/tag } { UnknownTag }
+     \ASSERTSTR{\g__tag_struct_tag_tl}{UnknownTag}
+     \ASSERTSTR{\g__tag_struct_tag_NS_tl}{}
+   \group_end:
+ }
+\ExplSyntaxOff
+
+\END
