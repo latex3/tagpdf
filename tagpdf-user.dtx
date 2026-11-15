@@ -1008,7 +1008,7 @@
              {para-hook-count-wrong}
              {\int_use:N\g_@@_para_main_begin_int}
              {\int_use:N\g_@@_para_main_end_int}
-             {\c_tag_para_textblock_tl}
+             {\c_tag_para_semantic_tl}
          }
     \int_compare:nNnF {\g_@@_para_begin_int}={\g_@@_para_end_int}
          {
@@ -1017,7 +1017,7 @@
              {para-hook-count-wrong}
              {\int_use:N\g_@@_para_begin_int}
              {\int_use:N\g_@@_para_end_int}
-             {\c_tag_para_semantic_tl}
+             {\c_tag_para_textblock_tl}
          }
   }
 %    \end{macrocode}
@@ -1234,7 +1234,7 @@
        \bool_gset_eq:NN   \g_@@_saved_in_mc_bool \g_@@_in_mc_bool
        \bool_gset_false:N \g_@@_in_mc_bool
      }
-    \tag_struct_begin:n{tag=Artifact,attribute-class=_@@/attr/#1,parent=\tag_get:n{current_Sect}}
+    \tag_struct_begin:n{tag=Artifact,attribute-class=@@/attr/#1,parent=\tag_get:n{current_Sect}}
  }
 
 \cs_new_protected:Npn \@@_headfoot_tagged_end:
@@ -1352,7 +1352,7 @@
      {pdfannot/link/GoToR/before}
      {tagpdf}
      {
-       \UseTaggingSocket{link/before}
+       \UseTaggingSocket{link/before}{}
      }
 
    \hook_gput_code:nnn
@@ -1588,9 +1588,11 @@
     attach-css .bool_gset:N = \g_@@_css_bool,
     css-list .code:n =
       {
-        \tl_if_empty:nTF{#1}
-          {\prop_gclear:N \g_@@_css_prop }
-          {\prop_gput:Nnn \g_@@_css_prop { #1 }{true}}
+        \prop_gclear:N \g_@@_css_prop
+        \clist_map_inline:nn { #1 }
+          {
+            \prop_gput:Nnn \g_@@_css_prop { ##1 } { true }
+          }
       },
     css-list-add .code:n    = { \prop_gput:Nnn \g_@@_css_prop { #1 }{true} },
     css-list-remove .code:n = { \prop_gremove:Nn \g_@@_css_prop { #1 } },

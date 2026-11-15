@@ -1,0 +1,46 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+\START
+\ExplSyntaxOn
+
+\TEST{css-list-overwrite-and-clear}
+ {
+   \tagpdfsetup{css-list={a.css, b.css}}
+   \ASSERTSTR{\prop_if_in:NnTF \g__tag_css_prop {latex-list-css.html}{yes}{no}}{no}
+   \ASSERTSTR{\prop_if_in:NnTF \g__tag_css_prop {a.css}{yes}{no}}{yes}
+   \ASSERTSTR{\prop_if_in:NnTF \g__tag_css_prop {b.css}{yes}{no}}{yes}
+   \tagpdfsetup{css-list=}
+   \ASSERTSTR{\prop_if_empty:NTF \g__tag_css_prop {empty}{nonempty}}{empty}
+ }
+
+\TEST{headfoot-tagged-pagination-attr}
+ {
+   \group_begin:
+     \cs_if_exist:NTF \__tag_get_data_current_Sect:
+       { \cs_set:Npe \__tag_get_data_current_Sect: { \tag_get:n { struct_num } } }
+       { \cs_new:Npe \__tag_get_data_current_Sect: { \tag_get:n { struct_num } } }
+     \__tag_headfoot_tagged_begin:n { pagination }
+     \ASSERTSTR{\tag_get:n{struct_tag}}{Artifact}
+     \__tag_headfoot_tagged_end:
+   \group_end:
+ }
+
+\TEST{gotor-link-before-socket-arg}
+ {
+   \tag_suspend:n { test }
+   \tl_clear:N \l_tmpa_tl
+   \hook_use:n { pdfannot/link/GoToR/before } \tl_set:Nn \l_tmpa_tl { ok }
+   \tag_resume:n { test }
+   \ASSERTSTR{\l_tmpa_tl}{ok}
+ }
+
+\ExplSyntaxOff
+
+\END
