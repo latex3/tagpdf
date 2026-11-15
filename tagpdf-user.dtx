@@ -1587,10 +1587,11 @@
   {
     attach-css .bool_gset:N = \g_@@_css_bool,
     css-list .code:n =
-      {
-        \tl_if_empty:nTF{#1}
-          {\prop_gclear:N \g_@@_css_prop }
-          {\prop_gput:Nnn \g_@@_css_prop { #1 }{true}}
+      { 
+        \prop_gclear:N \g_@@_css_prop
+        \clist_map_inline:nn 
+          { #1 }
+          { \prop_gput:Nnn \g_@@_css_prop { ##1 }{true} }
       },
     css-list-add .code:n    = { \prop_gput:Nnn \g_@@_css_prop { #1 }{true} },
     css-list-remove .code:n = { \prop_gremove:Nn \g_@@_css_prop { #1 } },
