@@ -11,6 +11,7 @@ this project uses date-based 'snapshot' version identifiers.
  - error message if para counts are wrong
  - attribute class of header/footer
  - escaping of raw key in luatex, issue #154
+ - use of unset variable, issue #153
  
 ## [2026-11-15]
 Version 1.0j
