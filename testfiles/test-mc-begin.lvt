@@ -1,0 +1,30 @@
+\ExplSyntaxOn
+\debug_on:n { check-declarations , deprecation }
+\msg_redirect_module:nnn { pdf } { none } { warning }
+\ExplSyntaxOff
+\DocumentMetadata{tagging=on}
+\input{regression-test}
+\documentclass{article}
+
+\begin{document}
+\START
+\ExplSyntaxOn
+\tagpdfparaOff
+
+\TEST{tag-mc-begin-noarg}
+ {
+   \hbox_set:Nn \l_tmpa_box
+     {
+       \tag_struct_begin:n { tag=Span }
+       \tag_mc_begin:
+       \ASSERTSTR{\tag_get:n{mc_tag}}{Span}
+       \ASSERTSTR{\tag_get:n{mc_counter}}{1}
+       \tag_mc_end:
+       \ASSERTSTR{\tag_mc_if_in:TF{in}{out}}{out}
+       \tag_struct_end:
+     }
+   \box_clear:N \l_tmpa_box
+ }
+\ExplSyntaxOff
+
+\END

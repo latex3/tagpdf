@@ -49,8 +49,9 @@
 % \maketitle
 % \begin{documentation}
 % \section{Public Commands}
-%  \begin{function}{\tag_mc_begin:n,\tag_mc_end:}
+%  \begin{function}{\tag_mc_begin:,\tag_mc_begin:n,\tag_mc_end:}
 %   \begin{syntax}
+%     \cs{tag_mc_begin:}\\
 %     \cs{tag_mc_begin:n} \Arg{key-values}\\
 %     \cs{tag_mc_end:}
 %   \end{syntax}
@@ -417,6 +418,15 @@
 % nothing.
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_mc_reset_box:N #1 {}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\tag_mc_begin:}
+%    \begin{macrocode}
+%<base>\cs_if_exist:NF \tag_mc_begin:
+%<base>  { \cs_new_protected:Npn \tag_mc_begin: { \@@_whatsits: \int_gincr:N \c@g_@@_MCID_abs_int } }
+%<*shared>
+\cs_set_protected:Npn \tag_mc_begin: { \tag_mc_begin:n {} }
+%</shared>
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\tag_mc_end_push:, \tag_mc_begin_pop:n}
