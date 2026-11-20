@@ -1344,6 +1344,19 @@
   {
     \@@_struct_get_id:n {\g_@@_struct_stack_current_tl}
   }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_get_data_struct_id:nN}
+% This command allows \cs{tag_get:nnN} to get the id of a structure
+% with the keyword |struct_id|. The id is stored as a PDF string, e.g.
+% |(ID.07)|, so that it can be used directly in an array like the
+% \texttt{Headers} attribute of a table cell.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_get_data_struct_id:nN #1 #2
+  {
+    \tl_set:Ne #2 { \@@_struct_get_id:n {#1} }
+  }
 %</package>
 %    \end{macrocode}
 % \end{macro}

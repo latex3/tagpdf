@@ -106,8 +106,13 @@
 %  \begin{syntax}
 %  \cs{tag_get:nnN} \Arg{number} \Arg{keyword}\Arg{tl var}
 %  \end{syntax}
-% This is a generic command to retrieve data for the structure \Arg{number}. See
-% \cs{tag_get:nN} for a description of the keywords. 
+% This is a generic command to retrieve data for the structure \Arg{number}.
+% Currently the supported values for the argument \meta{keyword}
+% are |struct_C| and |struct_id|.
+% \begin{itemize}
+% \item |struct_C| is a comma list of the attribute classes values of the structure.
+% \item |struct_id| is the id of the structure as a PDF string, e.g. |(ID.07)|.
+% \end{itemize}
 % \end{function}
 % 
 % \begin{function}[pTF,EXP]{\tag_if_box_tagged:N}
@@ -877,7 +882,7 @@
 % This retrieves some data.
 % This is a generic command to retrieve data from a specific structure 
 % which are then stored in the given tl_var. 
-% Currently the supported values for the argument are |struct_C|.
+% Currently the supported values for the argument are |struct_C| and |struct_id|.
 %    \begin{macrocode}
 %<base>\cs_new_protected:Npn \tag_get:nnN #1#2#3 
 %<base>  { \cs_if_exist_use:cT {@@_get_data_#2:nN }{{#1} #3}}
